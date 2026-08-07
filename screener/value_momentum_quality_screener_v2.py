@@ -118,6 +118,11 @@ def compute_valuation(df: pd.DataFrame) -> pd.DataFrame:
     df = df[(df["pe"] > 0) & (df["pe"] < 80) & (df["eps"] > 0) & (df["pb"] > 0)]
     df = df.dropna(subset=["sector", "mom_12_2", "roe"])
 
+    # dual/multi share classes (GOOG/GOOGL, BRK.A/BRK.B, FOXA/FOX...) are the same
+    # company, not two independent opportunities -- keep only the larger-cap class per
+    # name so they don't inflate the candidate count or double up in the simulation.
+    df = df.sort_values("market_cap", ascending=False).drop_duplicates(subset="name", keep="first")
+
     sector_pe = df.groupby("sector")["pe"].median().rename("sector_median_pe")
     df = df.join(sector_pe, on="sector")
 
