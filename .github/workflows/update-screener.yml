@@ -2,7 +2,7 @@ name: Mise a jour du screener (cache + analyse + simulation)
 
 on:
   schedule:
-    - cron: "35 */4 * * *"  # toutes les 4h, comme la routine cloud qu'on remplace
+    - cron: "35 * * * *"  # toutes les heures -- plus de plancher d'1h impose par une plateforme cloud ici
   workflow_dispatch: {}      # bouton "Run workflow" manuel dans l'onglet Actions
 
 permissions:
