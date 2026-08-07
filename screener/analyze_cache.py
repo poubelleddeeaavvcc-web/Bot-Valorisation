@@ -43,14 +43,14 @@ def main():
     valued = compute_valuation(cache)
     valued.to_csv(OUT_DIR / "full_valuation_latest.csv", index=False)
 
-    candidates = valued[valued["passes_filter"] & (valued["valuation_gap"] > 0.15)]
+    candidates = valued[valued["passes_filter"]]
     candidates.to_csv(OUT_DIR / "long_candidates_latest.csv", index=False)
 
     cols = ["ticker", "name", "sector", "price", "pe", "fair_pe", "fair_value", "valuation_gap",
-            "roe", "debt_eq", "mom_12_2", "sector_momentum"]
-    pd.set_option("display.width", 180)
+            "roe", "debt_eq", "mom_12_2", "sector_momentum", "explication"]
+    pd.set_option("display.width", 220)
     print(f"Analyse sur {n_usable} tickers en cache (sur un univers cible de tendance connu).")
-    print(f"\n=== {len(candidates)} candidats LONG (sous-evalues de +15% ou plus, filtres dette+secteur OK) ===")
+    print(f"\n=== {len(candidates)} candidats LONG (tous les filtres OK : valeur, qualite, momentum relatif, PEG) ===")
     print(candidates.head(40)[cols].to_string(index=False, formatters={
         "price": "{:.2f}".format, "pe": "{:.1f}".format, "fair_pe": "{:.1f}".format,
         "fair_value": "{:.2f}".format, "valuation_gap": "{:+.1%}".format,

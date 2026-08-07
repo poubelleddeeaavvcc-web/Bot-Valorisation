@@ -43,6 +43,9 @@ MAX_PLAUSIBLE_VALUATION_GAP = 1.0  # +100%: past this, treat it as a model break
 # (wrong peer group, distressed name, depositary/preferred slipping through) rather than
 # a real opportunity -- a stock trading at a fraction of "fair value" by 3-8x is a red
 # flag, not alpha.
+MIN_VALUATION_GAP = 0.25  # margin of safety, raised from 0.15 -- fewer, more convicted picks
+MIN_ROE = 0.15  # absolute quality floor regardless of sector (Buffett-style baseline),
+# on top of the existing relative-to-sector quality_multiplier
 
 
 def fetch_one(ticker: str) -> dict:
@@ -88,6 +91,28 @@ def pct_rank_within_sector(df: pd.DataFrame, col: str) -> pd.Series:
     return df.groupby("sector")[col].rank(pct=True)
 
 
+def _explain_row(r) -> str:
+    """Plain-language reasons the model flags this valuation_gap -- mechanical (derived
+    from the inputs already computed), not a claim about market psychology or news we
+    don't have data for."""
+    parts = []
+    if pd.notna(r["pe"]) and pd.notna(r["sector_median_pe"]) and r["sector_median_pe"] > 0 and r["pe"] / r["sector_median_pe"] < 0.85:
+        parts.append(f"P/E de {r['pe']:.1f} nettement sous la mediane du secteur ({r['sector_median_pe']:.1f})")
+    if r["roe_pct"] >= 0.75:
+        parts.append(f"ROE ({r['roe']*100:.0f}%) dans le haut du secteur")
+    if r["margin_pct"] >= 0.75:
+        parts.append("marge superieure a la mediane du secteur")
+    if r["debt_pct"] <= 0.35:
+        parts.append("dette plus faible que la mediane du secteur")
+    if pd.notna(r["mom_12_2"]) and pd.notna(r["sector_momentum"]) and r["mom_12_2"] > r["sector_momentum"]:
+        parts.append(f"momentum ({r['mom_12_2']*100:+.0f}%) superieur au secteur ({r['sector_momentum']*100:+.0f}%)")
+    if pd.notna(r.get("peg")) and r["peg"] < 1:
+        parts.append(f"PEG bas ({r['peg']:.2f}) : croissance qui justifie plus que le P/E actuel")
+    if not parts:
+        parts.append("ecart porte principalement par le multiple median du secteur")
+    return " ; ".join(parts[:3])
+
+
 def compute_valuation(df: pd.DataFrame) -> pd.DataFrame:
     df = df[df["error"].isna()].copy()
     df = df[(df["pe"] > 0) & (df["pe"] < 80) & (df["eps"] > 0) & (df["pb"] > 0)]
@@ -111,6 +136,7 @@ def compute_valuation(df: pd.DataFrame) -> pd.DataFrame:
 
     sector_momentum = df.groupby("sector")["mom_12_2"].median().rename("sector_momentum")
     df = df.join(sector_momentum, on="sector")
+    df["explication"] = df.apply(_explain_row, axis=1)
 
     normal_debt_ok = df["debt_eq"] < DEBT_TO_EQUITY_CAP
     high_debt_sector_ok = df["sector"].isin(HIGH_DEBT_SECTORS) & (df["debt_eq"] < EXTREME_DEBT_TO_EQUITY_CAP)
@@ -121,12 +147,18 @@ def compute_valuation(df: pd.DataFrame) -> pd.DataFrame:
     # itself is falling -- this is exactly the combination validated against 100 years
     # of Fama-French value/momentum factor data before building this screener.
     stock_momentum_ok = df["mom_12_2"] > 0
+    # Relative strength, not just "not falling": the stock must be beating its own
+    # sector, i.e. actually a leader rather than passively drifting up with the tide.
+    relative_momentum_ok = df["mom_12_2"] > df["sector_momentum"]
     # PEG: is the P/E justified by actual earnings growth, or just "statistically cheap"
     # on a metric that ignores growth entirely? Missing PEG (delisted-adjacent, unusual
     # capital structure, data gap) is treated as a fail, not a pass -- tightens the
     # candidate list today and self-heals as the cache fills in with the new field.
     peg_ok = df["peg"].notna() & (df["peg"] > 0) & (df["peg"] < PEG_CAP)
-    df["passes_filter"] = debt_ok & sector_up & plausible & stock_momentum_ok & peg_ok
+    margin_of_safety_ok = df["valuation_gap"] >= MIN_VALUATION_GAP
+    quality_floor_ok = df["roe"] >= MIN_ROE
+    df["passes_filter"] = (debt_ok & sector_up & plausible & stock_momentum_ok
+                            & relative_momentum_ok & peg_ok & margin_of_safety_ok & quality_floor_ok)
     return df.sort_values("valuation_gap", ascending=False)
 
 
