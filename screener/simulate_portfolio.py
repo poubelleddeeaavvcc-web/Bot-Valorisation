@@ -33,6 +33,12 @@ LEDGER_PATH = HERE / "results/simulation/portfolio_ledger.csv"
 CANDIDATES_PATH = HERE / "results/screener/long_candidates_latest.csv"
 VALUATION_PATH = HERE / "results/screener/full_valuation_latest.csv"
 SUMMARY_PATH = HERE / "results/simulation/summary.json"
+EQUITY_CURVE_PATH = HERE / "results/simulation/equity_curve.csv"
+
+# ^GSPC (S&P 500) and ^N100 (Euronext 100) price indices -- not ETFs, so no dividend/
+# tracking-error noise, fine for a relative-performance comparison since our own
+# position tracking doesn't account for dividends either.
+BENCHMARKS = {"spy_price": "^GSPC", "n100_price": "^N100"}
 
 LEDGER_COLUMNS = [
     "ticker", "name", "sector", "status",
@@ -161,6 +167,38 @@ def write_summary(ledger: pd.DataFrame):
         print(f"Retour latent moyen (ouvertes) : {summary['avg_unrealized_open']:+.1%}")
 
 
+def append_equity_curve_point(ledger: pd.DataFrame):
+    """One row per run: the strategy's average return across every position ever opened
+    (closed positions use their locked-in return_pct, open ones their current
+    unrealized_return_pct), alongside S&P 500 and Euronext 100 index levels so the
+    dashboard can plot all three indexed to the simulation's start date. Not a true
+    NAV/compounding curve (positions rotate in and out at different times) -- an
+    honest, simple "average return of every bet placed so far," which is what a blind
+    test like this is trying to measure.
+    """
+    closed = ledger[ledger["status"] == "closed"]["return_pct"]
+    open_ = ledger[ledger["status"] == "open"]["unrealized_return_pct"]
+    all_returns = pd.concat([closed, open_]).dropna()
+    if len(all_returns) == 0:
+        return
+    strategy_avg_return = all_returns.mean()
+
+    row = {"timestamp": pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%dT%H:%M:%SZ"),
+           "strategy_avg_return": strategy_avg_return,
+           "n_open": int((ledger["status"] == "open").sum()),
+           "n_closed": int((ledger["status"] == "closed").sum())}
+    for col, bench_ticker in BENCHMARKS.items():
+        try:
+            price = yf.Ticker(bench_ticker).history(period="5d")["Close"].dropna().iloc[-1]
+        except Exception as e:
+            print(f"  echec fetch benchmark {bench_ticker}: {e}", file=sys.stderr)
+            price = None
+        row[col] = price
+
+    header = not EQUITY_CURVE_PATH.exists()
+    pd.DataFrame([row]).to_csv(EQUITY_CURVE_PATH, mode="a", header=header, index=False)
+
+
 def main():
     if not CANDIDATES_PATH.exists() or not VALUATION_PATH.exists():
         print("Pas encore de resultats de screener -- rien a simuler.")
@@ -176,6 +214,7 @@ def main():
     LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
     ledger.to_csv(LEDGER_PATH, index=False)
     write_summary(ledger)
+    append_equity_curve_point(ledger)
 
 
 if __name__ == "__main__":
