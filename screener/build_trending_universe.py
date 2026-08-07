@@ -31,7 +31,7 @@ JUNK_INDUSTRIES = {"Blank Checks"}
 # structures (or aren't common equity at all) that break the simple P/E-based valuation
 # model -- excluded here rather than left to quietly produce nonsense valuation_gap outliers.
 JUNK_NAME_PATTERN = re.compile(
-    r"depositary|\bpreferred\b|\bnotes?\b|warrant|\bunit(?:s)?\b|\bright(?:s)?\b|"
+    r"depositary|\bdepo\b|\bpreferred\b|\bpfd\b|\bnotes?\b|warrant|\bunit(?:s)?\b|\bright(?:s)?\b|"
     r"acquisition corp|acquisition company|\bspac\b",
     re.IGNORECASE,
 )

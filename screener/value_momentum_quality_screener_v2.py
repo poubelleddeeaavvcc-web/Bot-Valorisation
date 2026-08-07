@@ -37,6 +37,8 @@ DEBT_TO_EQUITY_CAP = 150.0  # percent
 EXTREME_DEBT_TO_EQUITY_CAP = 400.0  # percent -- even the high-debt-sector exception has a limit;
 # beyond this it's a mortgage REIT / leverage-as-the-business-model vehicle, not
 # "normal" sector leverage, and the P/E-based fair value model doesn't apply to it.
+PEG_CAP = 2.0  # Peter Lynch's classic threshold: PEG<1 excellent, <2 still reasonable,
+# beyond that the P/E isn't justified by earnings growth even if it looks cheap on paper.
 MAX_PLAUSIBLE_VALUATION_GAP = 1.0  # +100%: past this, treat it as a model breakdown
 # (wrong peer group, distressed name, depositary/preferred slipping through) rather than
 # a real opportunity -- a stock trading at a fraction of "fair value" by 3-8x is a red
@@ -115,7 +117,16 @@ def compute_valuation(df: pd.DataFrame) -> pd.DataFrame:
     debt_ok = df["debt_eq"].isna() | normal_debt_ok | high_debt_sector_ok
     sector_up = df["sector_momentum"] > 0
     plausible = df["valuation_gap"] <= MAX_PLAUSIBLE_VALUATION_GAP
-    df["passes_filter"] = debt_ok & sector_up & plausible
+    # value+momentum, not value alone: a sector trending up isn't enough if the stock
+    # itself is falling -- this is exactly the combination validated against 100 years
+    # of Fama-French value/momentum factor data before building this screener.
+    stock_momentum_ok = df["mom_12_2"] > 0
+    # PEG: is the P/E justified by actual earnings growth, or just "statistically cheap"
+    # on a metric that ignores growth entirely? Missing PEG (delisted-adjacent, unusual
+    # capital structure, data gap) is treated as a fail, not a pass -- tightens the
+    # candidate list today and self-heals as the cache fills in with the new field.
+    peg_ok = df["peg"].notna() & (df["peg"] > 0) & (df["peg"] < PEG_CAP)
+    df["passes_filter"] = debt_ok & sector_up & plausible & stock_momentum_ok & peg_ok
     return df.sort_values("valuation_gap", ascending=False)
 
 

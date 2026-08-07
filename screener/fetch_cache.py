@@ -41,7 +41,7 @@ def fetch_one(ticker: str) -> dict:
                 "pe": info.get("trailingPE"), "pb": info.get("priceToBook"),
                 "eps": info.get("trailingEps"), "roe": info.get("returnOnEquity"),
                 "margin": info.get("profitMargins"), "debt_eq": info.get("debtToEquity"),
-                "market_cap": info.get("marketCap"),
+                "market_cap": info.get("marketCap"), "peg": info.get("pegRatio"),
                 "mom_12_2": mom_12_2, "error": None,
             }
         except Exception as e:
