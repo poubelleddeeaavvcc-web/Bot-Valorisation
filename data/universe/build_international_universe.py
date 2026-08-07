@@ -54,6 +54,14 @@ def smi():
     return df
 
 
+def cac40():
+    df = pd.read_html(HERE / "cac40_wiki.html")[4][["Ticker", "Company"]]
+    df = df.rename(columns={"Ticker": "ticker", "Company": "name"})
+    df["ticker"] = df["ticker"].astype(str).str.strip()  # already Yahoo-ready (.PA)
+    df["market"] = "CAC 40"
+    return df
+
+
 def hangseng():
     df = pd.read_html(HERE / "hangseng_wiki.html")[6][["Ticker", "Name"]]
     df = df.rename(columns={"Ticker": "ticker", "Name": "name"})
@@ -72,6 +80,7 @@ def main():
         dax(),
         mdax(),
         smi(),
+        cac40(),
         hangseng(),
     ]
     combined = pd.concat(parts, ignore_index=True).drop_duplicates(subset="ticker")
