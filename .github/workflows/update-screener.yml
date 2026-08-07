@@ -45,7 +45,16 @@ jobs:
           git add data/universe/ results/screener/ results/simulation/
           if git diff --cached --quiet; then
             echo "Rien de nouveau ce cycle."
-          else
-            git commit -m "Mise a jour automatique du screener ($(date -u +'%Y-%m-%d %H:%M UTC'))"
-            git push
+            exit 0
           fi
+          git commit -m "Mise a jour automatique du screener ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          # the remote can have moved (manual pushes, another run) between checkout and
+          # here -- rebase onto it and retry a few times rather than fail the whole run
+          # over an ordinary push race.
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
+            sleep 10
+          done
+          echo "Echec du push apres 5 tentatives."
+          exit 1
