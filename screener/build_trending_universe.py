@@ -61,6 +61,31 @@ def sector_momentum():
     return df
 
 
+def load_non_us_tickers() -> pd.DataFrame:
+    """Euronext 100 + UK/Germany/Switzerland/Hong Kong (built by
+    build_international_universe.py). No cheap bulk sector+cap source exists for these
+    exchanges, so -- unlike the US NASDAQ-bulk path -- they carry no sector pre-filter;
+    fetch_cache.py's own market-cap check and analyze_cache.py's sector-momentum filter
+    apply once fetched instead. Was silently missing entirely before this fix -- the
+    pipeline had been US-only despite everything saying "US + Euronext 100"."""
+    frames = []
+    euronext_path = UNIVERSE_DIR / "euronext100_wiki.html"
+    if euronext_path.exists():
+        tables = pd.read_html(euronext_path)
+        eu = tables[3][["Ticker", "Name"]].rename(columns={"Ticker": "ticker", "Name": "name"})
+        eu["market"] = "Euronext 100"
+        frames.append(eu)
+    intl_path = UNIVERSE_DIR / "international_universe.csv"
+    if intl_path.exists():
+        frames.append(pd.read_csv(intl_path))
+    if not frames:
+        return pd.DataFrame(columns=["ticker", "name", "sector", "industry", "marketCap"])
+    combined = pd.concat(frames, ignore_index=True).drop_duplicates(subset="ticker")
+    for col in ["sector", "industry", "marketCap"]:
+        combined[col] = None
+    return combined[["ticker", "name", "sector", "industry", "marketCap"]]
+
+
 def main():
     bulk = fetch_nasdaq_bulk()
     df = pd.DataFrame(bulk["data"]["rows"])
@@ -77,11 +102,15 @@ def main():
     trending = df[df["sector"].isin(trending_sectors)][["symbol", "name", "sector", "industry", "marketCap"]]
     trending = trending.rename(columns={"symbol": "ticker"})
     trending["ticker"] = trending["ticker"].str.replace(".", "-", regex=False).str.strip()
-    trending.to_csv(UNIVERSE_DIR / "trending_universe.csv", index=False)
 
-    print(f"\nUnivers avant filtre secteur : {len(df)} tickers (cap >= {MARKET_CAP_FLOOR/1e9:.0f}Md$)")
-    print(f"Univers apres filtre secteur en hausse : {len(trending)} tickers "
-          f"-> c'est ce sous-ensemble qui ira dans le fetch detaille (fetch_cache.py)")
+    non_us = load_non_us_tickers()
+    combined = pd.concat([trending, non_us], ignore_index=True).drop_duplicates(subset="ticker")
+    combined.to_csv(UNIVERSE_DIR / "trending_universe.csv", index=False)
+
+    print(f"\nUnivers US avant filtre secteur : {len(df)} tickers (cap >= {MARKET_CAP_FLOOR/1e9:.0f}Md$)")
+    print(f"Univers US apres filtre secteur en hausse : {len(trending)} tickers")
+    print(f"+ {len(non_us)} tickers non-US (Euronext 100, UK, Allemagne, Suisse, Hong Kong) sans pre-filtre secteur")
+    print(f"Total : {len(combined)} tickers -> c'est ce sous-ensemble qui ira dans le fetch detaille (fetch_cache.py)")
 
 
 if __name__ == "__main__":

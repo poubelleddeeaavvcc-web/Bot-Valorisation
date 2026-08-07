@@ -1,0 +1,544 @@
+ticker,name,market
+III.L,3i,FTSE 100
+ABDN.L,Aberdeen Group,FTSE 100
+ADM.L,Admiral Group,FTSE 100
+AAF.L,Airtel Africa,FTSE 100
+ALW.L,Alliance Witan,FTSE 100
+AAL.L,Anglo American plc,FTSE 100
+ANTO.L,Antofagasta plc,FTSE 100
+ABF.L,Associated British Foods,FTSE 100
+AZN.L,AstraZeneca,FTSE 100
+AUTO.L,Autotrader Group,FTSE 100
+AV.L,Aviva,FTSE 100
+BAB.L,Babcock International,FTSE 100
+BA.L,BAE Systems,FTSE 100
+BARC.L,Barclays,FTSE 100
+BTRW.L,Barratt Redrow,FTSE 100
+BEZ.L,Beazley,FTSE 100
+BP.L,BP,FTSE 100
+BATS.L,British American Tobacco,FTSE 100
+BLND.L,British Land,FTSE 100
+BT.A.L,BT Group,FTSE 100
+BNZL.L,Bunzl,FTSE 100
+BRBY.L,Burberry Group,FTSE 100
+CNA.L,Centrica,FTSE 100
+CCEP.L,Coca-Cola Europacific Partners,FTSE 100
+CCH.L,Coca-Cola HBC,FTSE 100
+CPG.L,Compass Group,FTSE 100
+CCC.L,Computacenter,FTSE 100
+CTEC.L,Convatec,FTSE 100
+CRDA.L,Croda International,FTSE 100
+DCC.L,DCC Energy,FTSE 100
+DGE.L,Diageo,FTSE 100
+DPLM.L,Diploma,FTSE 100
+EDV.L,Endeavour Mining,FTSE 100
+ENT.L,Entain,FTSE 100
+EXPN.L,Experian,FTSE 100
+FCIT.L,F & C Investment Trust,FTSE 100
+FRES.L,Fresnillo plc,FTSE 100
+GAW.L,Games Workshop,FTSE 100
+GLEN.L,Glencore,FTSE 100
+GSK.L,GSK plc,FTSE 100
+HLN.L,Haleon,FTSE 100
+HLMA.L,Halma plc,FTSE 100
+HSX.L,Hiscox,FTSE 100
+HWDN.L,Howdens Joinery,FTSE 100
+HSBA.L,HSBC,FTSE 100
+ICG.L,ICG,FTSE 100
+IGG.L,IG Group,FTSE 100
+IHG.L,IHG Hotels & Resorts,FTSE 100
+IMI.L,IMI,FTSE 100
+IMB.L,Imperial Brands,FTSE 100
+INF.L,Informa,FTSE 100
+IAG.L,International Airlines Group,FTSE 100
+ITRK.L,Intertek,FTSE 100
+INVP.L,Investec,FTSE 100
+JD.L,JD Sports,FTSE 100
+BGEO.L,Lion Finance Group,FTSE 100
+KGF.L,Kingfisher plc,FTSE 100
+LAND.L,Land Securities,FTSE 100
+LGEN.L,Legal & General,FTSE 100
+LLOY.L,Lloyds Banking Group,FTSE 100
+LMP.L,LondonMetric Property,FTSE 100
+LSEG.L,London Stock Exchange Group,FTSE 100
+MNG.L,M&G,FTSE 100
+MKS.L,Marks & Spencer,FTSE 100
+MRO.L,Melrose Industries,FTSE 100
+MTLN.L,Metlen Energy & Metals,FTSE 100
+NG.L,National Grid plc,FTSE 100
+NWG.L,NatWest Group,FTSE 100
+NXT.L,Next plc,FTSE 100
+PSON.L,Pearson plc,FTSE 100
+PSH.L,Pershing Square Holdings,FTSE 100
+PSN.L,Persimmon,FTSE 100
+PCT.L,Polar Capital Technology Trust,FTSE 100
+PRU.L,Prudential plc,FTSE 100
+RKT.L,Reckitt,FTSE 100
+REL.L,RELX,FTSE 100
+RTO.L,Rentokil Initial,FTSE 100
+RIO.L,Rio Tinto,FTSE 100
+RR.L,Rolls-Royce Holdings,FTSE 100
+SGE.L,Sage Group,FTSE 100
+SBRY.L,Sainsbury's,FTSE 100
+SDR.L,Schroders,FTSE 100
+SMT.L,Scottish Mortgage Investment Trust,FTSE 100
+SGRO.L,Segro,FTSE 100
+SVT.L,Severn Trent,FTSE 100
+SHEL.L,Shell plc,FTSE 100
+SMIN.L,Smiths Group,FTSE 100
+SN.L,Smith & Nephew,FTSE 100
+SPX.L,Spirax Group,FTSE 100
+SSE.L,SSE plc,FTSE 100
+STAN.L,Standard Chartered,FTSE 100
+SDLF.L,Standard Life,FTSE 100
+STJ.L,St. James's Place,FTSE 100
+TSCO.L,Tesco,FTSE 100
+BBOX.L,Tritax Big Box REIT,FTSE 100
+ULVR.L,Unilever,FTSE 100
+UU.L,United Utilities,FTSE 100
+VOD.L,Vodafone Group,FTSE 100
+WEIR.L,Weir Group,FTSE 100
+WTB.L,Whitbread,FTSE 100
+3IN.L,3i Infrastructure,FTSE 250
+FOUR.L,4imprint,FTSE 250
+AAS.L,Aberdeen Asia Focus,FTSE 250
+ASL.L,Aberforth Smaller Companies Trust,FTSE 250
+AEP.L,AEP Plantations,FTSE 250
+ALFA.L,Alfa Financial Software,FTSE 250
+ATT.L,Allianz Technology Trust,FTSE 250
+AO.L,AO World,FTSE 250
+APN.L,Applied Nutrition,FTSE 250
+ASHM.L,Ashmore Group,FTSE 250
+AIE.L,Ashoka India Equity Investment Trust,FTSE 250
+AML.L,Aston Martin Lagonda,FTSE 250
+ATYM.L,Atalaya Mining,FTSE 250
+ATG.L,Auction Technology Group,FTSE 250
+AGT.L,AVI Global Trust,FTSE 250
+AVON.L,Avon Technologies,FTSE 250
+BME.L,B&M,FTSE 250
+BGFD.L,Baillie Gifford Japan Trust,FTSE 250
+USA.L,Baillie Gifford US Growth Trust,FTSE 250
+BBY.L,Balfour Beatty,FTSE 250
+BCG.L,Baltic Classifieds,FTSE 250
+BNKR.L,Bankers Investment Trust,FTSE 250
+BAG.L,A.G. Barr,FTSE 250
+AJB.L,AJ Bell,FTSE 250
+BWY.L,Bellway,FTSE 250
+BKG.L,Berkeley Group Holdings,FTSE 250
+BHMG.L,BH Macro,FTSE 250
+BYG.L,Big Yellow Group,FTSE 250
+BPCR.L,Biopharma Credit,FTSE 250
+BRGE.L,BlackRock Greater Europe Investment Trust,FTSE 250
+BRSC.L,BlackRock Smaller Companies Trust,FTSE 250
+BRWM.L,BlackRock World Mining Trust,FTSE 250
+BMY.L,Bloomsbury Publishing,FTSE 250
+BOY.L,Bodycote,FTSE 250
+BREE.L,Breedon Group,FTSE 250
+BPT.L,Bridgepoint Group,FTSE 250
+BUT.L,Brunner Investment Trust,FTSE 250
+BYIT.L,Bytes Technology Group,FTSE 250
+CLDN.L,Caledonia Investments,FTSE 250
+CGT.L,Capital Gearing Trust,FTSE 250
+CWR.L,Ceres Power,FTSE 250
+CHG.L,Chemring Group,FTSE 250
+CSN.L,Chesnara,FTSE 250
+CTY.L,City of London Investment Trust,FTSE 250
+CKN.L,Clarkson,FTSE 250
+CBG.L,Close Brothers Group,FTSE 250
+CMCX.L,CMC Markets,FTSE 250
+COA.L,Coats Group,FTSE 250
+CORD.L,Cordiant Digital Infrastructure,FTSE 250
+COST.L,Costain Group,FTSE 250
+CWK.L,Cranswick,FTSE 250
+CURY.L,Currys,FTSE 250
+CVSG.L,CVS Group,FTSE 250
+DLN.L,Derwent London,FTSE 250
+DSCV.L,discoverIE,FTSE 250
+DOM.L,Domino's Pizza,FTSE 250
+DRX.L,Drax Group,FTSE 250
+DOCS.L,Dr. Martens,FTSE 250
+DNLM.L,Dunelm Group,FTSE 250
+EZJ.L,EasyJet,FTSE 250
+EDIN.L,Edinburgh Investment Trust,FTSE 250
+EWI.L,Edinburgh Worldwide Investment Trust,FTSE 250
+ELM.L,Elementis,FTSE 250
+ENOG.L,Energean,FTSE 250
+ESCT.L,European Smaller Companies Trust,FTSE 250
+EWG.L,Eurowag,FTSE 250
+FCSS.L,Fidelity China Special Situations,FTSE 250
+FEML.L,Fidelity Emerging Markets,FTSE 250
+FEV.L,Fidelity European Trust,FTSE 250
+FSV.L,Fidelity Special Values,FTSE 250
+FGT.L,Finsbury Growth & Income Trust,FTSE 250
+FGP.L,FirstGroup,FTSE 250
+FGEN.L,Foresight Environmental Infrastructure,FTSE 250
+FSG.L,Foresight Group,FTSE 250
+FRAS.L,Frasers Group,FTSE 250
+FCH.L,Funding Circle,FTSE 250
+GFRD.L,Galliford Try,FTSE 250
+GAMA.L,Gamma Communications,FTSE 250
+GBG.L,GB Group,FTSE 250
+GCP.L,GCP Infrastructure Investments,FTSE 250
+GEN.L,Genuit Group,FTSE 250
+GNS.L,Genus,FTSE 250
+DATA.L,GlobalData,FTSE 250
+GSCT.L,Global Smaller Companies Trust,FTSE 250
+GDWN.L,Goodwin,FTSE 250
+GFTU.L,Grafton Group,FTSE 250
+GRI.L,Grainger,FTSE 250
+GPE.L,Great Portland Estates,FTSE 250
+UKW.L,Greencoat UK Wind,FTSE 250
+GNC.L,Greencore,FTSE 250
+GRG.L,Greggs,FTSE 250
+HFD.L,Halfords,FTSE 250
+HMSO.L,Hammerson,FTSE 250
+HANA.L,Hansa Investment Company,FTSE 250
+HBR.L,Harbour Energy,FTSE 250
+HVPE.L,HarbourVest Global Private Equity,FTSE 250
+HWG.L,Harworth Group,FTSE 250
+HAS.L,Hays,FTSE 250
+HTWS.L,Helios Towers,FTSE 250
+HFEL.L,Henderson Far East Income,FTSE 250
+HSL.L,Henderson Smaller Companies Investment Trust,FTSE 250
+HRI.L,Herald Investment Trust,FTSE 250
+HGT.L,Hg Capital Trust,FTSE 250
+HICL.L,HICL Infrastructure Company,FTSE 250
+HIK.L,Hikma Pharmaceuticals,FTSE 250
+HILS.L,Hill & Smith,FTSE 250
+HFG.L,Hilton Food Group,FTSE 250
+HOC.L,Hochschild Mining,FTSE 250
+BOWL.L,Hollywood Bowl Group,FTSE 250
+HTG.L,Hunting,FTSE 250
+ICGT.L,ICG Enterprise Trust,FTSE 250
+INCH.L,Inchcape,FTSE 250
+IHP.L,IntegraFin Holdings,FTSE 250
+INPP.L,International Public Partnerships,FTSE 250
+IWG.L,International Workplace Group,FTSE 250
+IAD.L,Invesco Asia Dragon Trust,FTSE 250
+IPO.L,IP Group,FTSE 250
+ITH.L,Ithaca Energy,FTSE 250
+ITV.L,ITV,FTSE 250
+JMAT.L,Johnson Matthey,FTSE 250
+JSG.L,Johnson Service Group,FTSE 250
+JAM.L,JPMorgan American Investment Trust,FTSE 250
+JCH.L,JPMorgan Claverhouse Investment Trust,FTSE 250
+JEMI.L,JPMorgan Emerging Markets Dividend Income,FTSE 250
+JMGI.L,JPMorgan Emerging Markets Growth & Income,FTSE 250
+JEDT.L,JPMorgan European Discovery,FTSE 250
+JEGI.L,JPMorgan European Growth & Income,FTSE 250
+JGGI.L,JPMorgan Global Growth & Income,FTSE 250
+JFJ.L,JPMorgan Japanese Investment Trust,FTSE 250
+JTC.L,JTC,FTSE 250
+JUP.L,Jupiter Fund Management,FTSE 250
+KNOS.L,Kainos,FTSE 250
+KLR.L,Keller Group,FTSE 250
+KIE.L,Kier Group,FTSE 250
+LRE.L,Lancashire Holdings,FTSE 250
+LWDB.L,Law Debenture,FTSE 250
+EMG.L,Man Group,FTSE 250
+MEGP.L,ME Group International,FTSE 250
+MRC.L,Mercantile Investment Trust,FTSE 250
+MRCH.L,Merchants Trust,FTSE 250
+MTRO.L,Metro Bank,FTSE 250
+MAB.L,Mitchells & Butlers,FTSE 250
+MTO.L,Mitie,FTSE 250
+GROW.L,Molten Ventures,FTSE 250
+MNDI.L,Mondi,FTSE 250
+MNKS.L,Monks Investment Trust,FTSE 250
+MONY.L,MONY Group,FTSE 250
+MOON.L,Moonpig,FTSE 250
+MGAM.L,Morgan Advanced Materials,FTSE 250
+MGNS.L,Morgan Sindall Group,FTSE 250
+MUT.L,Murray Income Trust,FTSE 250
+MYI.L,Murray International Trust,FTSE 250
+NBPE.L,NB Private Equity Partners,FTSE 250
+NCC.L,NCC Group,FTSE 250
+N91.L,Ninety One,FTSE 250
+NAS.L,North Atlantic Smaller Companies Investment Trust,FTSE 250
+OCI.L,Oakley Capital Investments,FTSE 250
+OCDO.L,Ocado Group,FTSE 250
+OSB.L,OSB Group,FTSE 250
+OXB.L,Oxford Biomedica,FTSE 250
+OXIG.L,Oxford Instruments,FTSE 250
+ONT.L,Oxford Nanopore Technologies,FTSE 250
+PHI.L,Pacific Horizon Investment Trust,FTSE 250
+PAGE.L,PageGroup,FTSE 250
+PAF.L,Pan African Resources,FTSE 250
+PINT.L,Pantheon Infrastructure,FTSE 250
+PIN.L,Pantheon International,FTSE 250
+PAG.L,Paragon Banking Group,FTSE 250
+PEY.L,Partners Group Private Equity,FTSE 250
+PPET.L,Patria Private Equity Trust,FTSE 250
+PNN.L,Pennon Group,FTSE 250
+PNL.L,Personal Assets Trust,FTSE 250
+PETS.L,Pets at Home,FTSE 250
+PTEC.L,Playtech,FTSE 250
+PLUS.L,Plus500,FTSE 250
+PCGH.L,Polar Capital Global Healthcare Trust,FTSE 250
+POLN.L,Pollen Street Group,FTSE 250
+PPH.L,PPHE Hotel Group,FTSE 250
+PFD.L,Premier Foods,FTSE 250
+PHP.L,Primary Health Properties,FTSE 250
+PRN.L,Princes Group,FTSE 250
+QQ.L,Qinetiq,FTSE 250
+QLT.L,Quilter,FTSE 250
+RNK.L,Rank Group,FTSE 250
+RPI.L,Raspberry Pi Holdings,FTSE 250
+RAT.L,Rathbones,FTSE 250
+RSW.L,Renishaw,FTSE 250
+RHIM.L,RHI Magnesita,FTSE 250
+RMV.L,Rightmove,FTSE 250
+RCP.L,RIT Capital Partners,FTSE 250
+ROSE.L,Rosebank Industries,FTSE 250
+ROR.L,Rotork,FTSE 250
+RS1.L,RS Group,FTSE 250
+RTW.L,RTW Biotech Opportunities,FTSE 250
+RICA.L,Ruffer Investment Company,FTSE 250
+SAFE.L,Safestore,FTSE 250
+SAGA.L,Saga,FTSE 250
+SVS.L,Savills,FTSE 250
+MNTN.L,Schiehallion Fund,FTSE 250
+ATR.L,Schroder Asian Total Return Investment Company,FTSE 250
+SDP.L,Schroder AsiaPacific Fund,FTSE 250
+SOI.L,Schroder Oriental Income Fund,FTSE 250
+SAIN.L,Scottish American Investment Company,FTSE 250
+SEIT.L,SDCL Efficiency Income Trust,FTSE 250
+SNR.L,Senior,FTSE 250
+SEQI.L,Sequoia Economic Infrastructure Income Fund,FTSE 250
+SSIT.L,Seraphim Space Investment Trust,FTSE 250
+SRP.L,Serco,FTSE 250
+SHC.L,Shaftesbury Capital,FTSE 250
+SHAW.L,Shawbrook Bank,FTSE 250
+SRE.L,Sirius Real Estate,FTSE 250
+SCT.L,Softcat,FTSE 250
+SPI.L,Spire Healthcare,FTSE 250
+SSPG.L,SSP Group,FTSE 250
+SUPR.L,Supermarket Income REIT,FTSE 250
+SYNC.L,Syncona,FTSE 250
+THRL.L,Target Healthcare REIT,FTSE 250
+TATE.L,Tate & Lyle,FTSE 250
+TW.L,Taylor Wimpey,FTSE 250
+TBCG.L,TBC Bank,FTSE 250
+TEP.L,Telecom Plus,FTSE 250
+TMPL.L,Temple Bar Investment Trust,FTSE 250
+TEM.L,Templeton Emerging Markets Investment Trust,FTSE 250
+TRIG.L,The Renewables Infrastructure Group,FTSE 250
+THG.L,THG,FTSE 250
+TCAP.L,TP ICAP,FTSE 250
+TRN.L,Trainline,FTSE 250
+TPK.L,Travis Perkins,FTSE 250
+TRY.L,TR Property Investment Trust,FTSE 250
+TRST.L,Trustpilot,FTSE 250
+TFIF.L,Twentyfour Income Fund,FTSE 250
+UTG.L,Unite Group,FTSE 250
+UEM.L,Utilico Emerging Markets,FTSE 250
+VSVS.L,Vesuvius,FTSE 250
+VCT.L,Victrex,FTSE 250
+VEIL.L,Vietnam Enterprise Investments,FTSE 250
+VOF.L,VinaCapital Vietnam Opportunity Fund,FTSE 250
+VTY.L,Vistry Group,FTSE 250
+FAN.L,Volution Group,FTSE 250
+WOSG.L,Watches of Switzerland,FTSE 250
+JDW.L,Wetherspoons,FTSE 250
+SMWH.L,WHSmith,FTSE 250
+WIX.L,Wickes,FTSE 250
+WIZZ.L,Wizz Air,FTSE 250
+WKP.L,Workspace Group,FTSE 250
+WWH.L,Worldwide Healthcare Trust,FTSE 250
+WPP.L,WPP,FTSE 250
+XPP.L,XP Power,FTSE 250
+XPS.L,XPS Pensions,FTSE 250
+ZIG.L,Zigup,FTSE 250
+,,FTSE 250
+ADS.DE,Adidas,DAX
+AIR.PA,Airbus,DAX
+ALV.DE,Allianz,DAX
+BAS.DE,BASF,DAX
+BAYN.DE,Bayer,DAX
+BEI.DE,Beiersdorf,DAX
+BMW.DE,BMW,DAX
+BNR.DE,Brenntag,DAX
+CBK.DE,Commerzbank,DAX
+CON.DE,Continental,DAX
+DTG.DE,Daimler Truck,DAX
+DBK.DE,Deutsche Bank,DAX
+DB1.DE,Deutsche Börse,DAX
+DHL.DE,Deutsche Post,DAX
+DTE.DE,Deutsche Telekom,DAX
+EOAN.DE,E.ON,DAX
+FRE.DE,Fresenius,DAX
+FME.DE,Fresenius Medical Care,DAX
+G1A.DE,GEA Group,DAX
+HNR1.DE,Hannover Re,DAX
+HEI.DE,Heidelberg Materials,DAX
+HEN3.DE,Henkel,DAX
+IFX.DE,Infineon Technologies,DAX
+MBG.DE,Mercedes-Benz Group,DAX
+MRK.DE,Merck,DAX
+MTX.DE,MTU Aero Engines,DAX
+MUV2.DE,Munich Re,DAX
+PAH3.DE,Porsche SE,DAX
+QIA.DE,Qiagen,DAX
+RHM.DE,Rheinmetall,DAX
+RWE.DE,RWE,DAX
+SAP.DE,SAP,DAX
+G24.DE,Scout24,DAX
+SIE.DE,Siemens,DAX
+ENR.DE,Siemens Energy,DAX
+SHL.DE,Siemens Healthineers,DAX
+SY1.DE,Symrise,DAX
+VOW3.DE,Volkswagen Group,DAX
+VNA.DE,Vonovia,DAX
+ZAL.DE,Zalando,DAX
+AIXA.DE,Aixtron,MDAX
+AT1.DE,Aroundtown,MDAX
+NDA.DE,Aurubis,MDAX
+BC8.DE,Bechtle,MDAX
+BFSA.DE,Befesa,MDAX
+GBF.DE,Bilfinger,MDAX
+AFX.DE,Carl Zeiss Meditec,MDAX
+EVD.DE,CTS Eventim,MDAX
+DHER.DE,Delivery Hero,MDAX
+LHA.DE,Lufthansa,MDAX
+ECV.DE,Encavis,MDAX
+EVK.DE,Evonik,MDAX
+EVT.DE,Evotec,MDAX
+FRA.DE,Fraport,MDAX
+FNTN.DE,Freenet,MDAX
+FPE3.DE,Fuchs Petrolub,MDAX
+GXI.DE,Gerresheimer,MDAX
+HLE.DE,Hella,MDAX
+HFG.DE,HelloFresh,MDAX
+HAG.DE,Hensoldt,MDAX
+HOT.DE,Hochtief,MDAX
+BOSS.DE,Hugo Boss,MDAX
+JEN.DE,Jenoptik,MDAX
+JUN3.DE,Jungheinrich,MDAX
+SDF.DE,K+S,MDAX
+KGX.DE,KION Group,MDAX
+KBX.DE,Knorr-Bremse,MDAX
+KRN.DE,Krones,MDAX
+LXS.DE,Lanxess,MDAX
+LEG.DE,LEG Immobilien,MDAX
+NEM.DE,Nemetschek,MDAX
+NDX1.DE,Nordex,MDAX
+PUM.DE,Puma,MDAX
+RAA.DE,Rational,MDAX
+RDC.DE,Redcare Pharmacy,MDAX
+RRTL.DE,RTL Group,MDAX
+WAF.DE,Siltronic,MDAX
+STM.DE,Stabilus,MDAX
+SAX.DE,Ströer,MDAX
+TEG.DE,TAG Tegernsee Immobilien und Beteiligung,MDAX
+TLX.DE,Talanx,MDAX
+TMV.DE,TeamViewer,MDAX
+TKA.DE,ThyssenKrupp,MDAX
+8TRA.DE,Traton,MDAX
+TUI1.DE,TUI,MDAX
+UTDI.DE,United Internet,MDAX
+WCH.DE,Wacker Chemie,MDAX
+NOVN.SW,Novartis International AG,SMI
+ROP.SW,Roche Holding AG,SMI
+NESN.SW,Nestlé SA,SMI
+ABBN.SW,ABB Ltd,SMI
+UBSG.SW,UBS Group AG,SMI
+CFR.SW,Compagnie Financière Richemont SA,SMI
+ZURN.SW,Zurich Insurance Group AG,SMI
+HOLN.SW,Holcim Limited,SMI
+SREN.SW,Swiss Reinsurance Company Ltd,SMI
+LONN.SW,Lonza Group AG,SMI
+SCMN.SW,Swisscom AG,SMI
+GIVN.SW,Givaudan SA,SMI
+ALC.SW,Alcon Inc,SMI
+SIKA.SW,Sika AG,SMI
+AMRZ.SW,Amrize AG,SMI
+SLHN.SW,Swiss Life Holding AG,SMI
+KNIN.SW,Kuehne + Nagel,SMI
+GEBN.SW,Geberit AG,SMI
+PGHN.SW,Partners Group Holding AG,SMI
+LOGN.SW,Logitech International SA,SMI
+0005.HK,HSBC Holdings plc,Hang Seng
+0388.HK,HKEx Limited,Hang Seng
+0939.HK,China Construction Bank,Hang Seng
+1299.HK,AIA Group Limited,Hang Seng
+1398.HK,Industrial and Commercial Bank of China,Hang Seng
+2318.HK,Ping An Insurance,Hang Seng
+2388.HK,BOC Hong Kong (Holdings) Ltd,Hang Seng
+2628.HK,China Life,Hang Seng
+3968.HK,China Merchants Bank,Hang Seng
+3988.HK,Bank of China Ltd,Hang Seng
+0002.HK,CLP Holdings Limited,Hang Seng
+0003.HK,Hong Kong and China Gas Company Limited,Hang Seng
+0006.HK,Power Assets Holdings Limited,Hang Seng
+0836.HK,China Resources Power,Hang Seng
+1038.HK,Cheung Kong Infrastructure Holdings Limited,Hang Seng
+2688.HK,ENN Energy,Hang Seng
+0012.HK,Henderson Land Development Company Limited,Hang Seng
+0016.HK,Sun Hung Kai Properties Limited,Hang Seng
+0101.HK,Hang Lung Properties Limited,Hang Seng
+0688.HK,China Overseas Land & Investment Limited,Hang Seng
+0823.HK,Link REIT,Hang Seng
+0960.HK,Longfor Properties,Hang Seng
+1109.HK,China Resources Land Limited,Hang Seng
+1113.HK,CK Asset Holdings,Hang Seng
+1209.HK,China Resources Mixc Lifestyle,Hang Seng
+1997.HK,Wharf Real Estate Investment Company Limited,Hang Seng
+0001.HK,CK Hutchison Holdings Limited,Hang Seng
+0027.HK,Galaxy Entertainment Group Ltd.,Hang Seng
+0066.HK,MTR Corporation Ltd,Hang Seng
+0175.HK,Geely Auto,Hang Seng
+0241.HK,Alibaba Health,Hang Seng
+0267.HK,CITIC Limited,Hang Seng
+0285.HK,BYD Electronics,Hang Seng
+0288.HK,WH Group,Hang Seng
+0291.HK,China Resources Beer,Hang Seng
+0300.HK,Midea Group,Hang Seng
+0316.HK,Orient Overseas (International) Limited,Hang Seng
+0322.HK,Tingyi,Hang Seng
+0386.HK,Sinopec Corp,Hang Seng
+0669.HK,Techtronic Industries,Hang Seng
+0700.HK,Tencent Holdings Limited,Hang Seng
+0762.HK,China Unicom,Hang Seng
+0857.HK,PetroChina Company Limited,Hang Seng
+0868.HK,Xinyi Glass,Hang Seng
+0881.HK,Zhongsheng Group,Hang Seng
+0883.HK,CNOOC Limited,Hang Seng
+0941.HK,China Mobile Ltd,Hang Seng
+0968.HK,Xinyi Solar,Hang Seng
+0981.HK,Semiconductor Manufacturing International Corporation,Hang Seng
+0992.HK,Lenovo,Hang Seng
+1024.HK,Kuaishou,Hang Seng
+1044.HK,Hengan International Group Co. Ltd,Hang Seng
+1088.HK,China Shenhua Energy,Hang Seng
+1093.HK,CSPC Pharmaceutical Group,Hang Seng
+1099.HK,Sinopharm Group,Hang Seng
+1177.HK,Sino Biopharm,Hang Seng
+1211.HK,BYD Company,Hang Seng
+1378.HK,China Hongqiao Group,Hang Seng
+1810.HK,Xiaomi,Hang Seng
+1876.HK,Budweiser Brewing Company APAC,Hang Seng
+1928.HK,Sands China,Hang Seng
+1929.HK,Chow Tai Fook,Hang Seng
+2015.HK,Li Auto,Hang Seng
+2020.HK,Anta Sports,Hang Seng
+2057.HK,ZTO Express,Hang Seng
+2269.HK,WuXi Biologics,Hang Seng
+2313.HK,Shenzhou International,Hang Seng
+2319.HK,Mengniu Dairy,Hang Seng
+2331.HK,Li-Ning,Hang Seng
+2359.HK,WuXi AppTec,Hang Seng
+2382.HK,Sunny Optical,Hang Seng
+2618.HK,JD Logistics,Hang Seng
+2899.HK,Zijin Mining,Hang Seng
+3690.HK,Meituan,Hang Seng
+3692.HK,Hansoh Pharmaceutical Group,Hang Seng
+6618.HK,JD Health,Hang Seng
+6690.HK,Haier,Hang Seng
+6862.HK,Haidilao,Hang Seng
+9618.HK,JD.com,Hang Seng
+9633.HK,Nongfu Spring,Hang Seng
+9888.HK,Baidu,Hang Seng
+9961.HK,Trip.com Group,Hang Seng
+9988.HK,Alibaba Group,Hang Seng
+9992.HK,Pop Mart,Hang Seng
+9999.HK,NetEase,Hang Seng
