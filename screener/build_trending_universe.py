@@ -10,6 +10,7 @@ yfinance budget (fetch_cache.py) on names that already cleared the sector-moment
 """
 import json
 import pathlib
+import re
 
 import pandas as pd
 import requests
@@ -26,6 +27,14 @@ SECTOR_ETF = {
     "Real Estate": "XLRE", "Telecommunications": "XLC",
 }
 JUNK_INDUSTRIES = {"Blank Checks"}
+# Depositary shares, preferred stock, and mortgage-REIT-style vehicles carry capital
+# structures (or aren't common equity at all) that break the simple P/E-based valuation
+# model -- excluded here rather than left to quietly produce nonsense valuation_gap outliers.
+JUNK_NAME_PATTERN = re.compile(
+    r"depositary|\bpreferred\b|\bnotes?\b|warrant|\bunit(?:s)?\b|\bright(?:s)?\b|"
+    r"acquisition corp|acquisition company|\bspac\b",
+    re.IGNORECASE,
+)
 
 
 def fetch_nasdaq_bulk(force=False):
@@ -57,6 +66,7 @@ def main():
     df = pd.DataFrame(bulk["data"]["rows"])
     df["marketCap"] = pd.to_numeric(df["marketCap"], errors="coerce")
     df = df[(df["marketCap"] >= MARKET_CAP_FLOOR) & (~df["industry"].isin(JUNK_INDUSTRIES))]
+    df = df[~df["name"].str.contains(JUNK_NAME_PATTERN, na=False)]
 
     mom = sector_momentum()
     trending_sectors = mom[mom["sector_mom_12_2"] > 0]["sector"].tolist()

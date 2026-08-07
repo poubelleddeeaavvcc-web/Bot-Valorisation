@@ -34,6 +34,13 @@ MARKET_CAP_FLOOR = 1_000_000_000  # $1B -- liquidity floor, an automated bot has
 MAX_WORKERS = 16
 HIGH_DEBT_SECTORS = {"Utilities", "Real Estate", "Communication Services"}
 DEBT_TO_EQUITY_CAP = 150.0  # percent
+EXTREME_DEBT_TO_EQUITY_CAP = 400.0  # percent -- even the high-debt-sector exception has a limit;
+# beyond this it's a mortgage REIT / leverage-as-the-business-model vehicle, not
+# "normal" sector leverage, and the P/E-based fair value model doesn't apply to it.
+MAX_PLAUSIBLE_VALUATION_GAP = 1.0  # +100%: past this, treat it as a model breakdown
+# (wrong peer group, distressed name, depositary/preferred slipping through) rather than
+# a real opportunity -- a stock trading at a fraction of "fair value" by 3-8x is a red
+# flag, not alpha.
 
 
 def fetch_one(ticker: str) -> dict:
@@ -103,9 +110,12 @@ def compute_valuation(df: pd.DataFrame) -> pd.DataFrame:
     sector_momentum = df.groupby("sector")["mom_12_2"].median().rename("sector_momentum")
     df = df.join(sector_momentum, on="sector")
 
-    debt_ok = (df["debt_eq"].isna()) | (df["debt_eq"] < DEBT_TO_EQUITY_CAP) | (df["sector"].isin(HIGH_DEBT_SECTORS))
+    normal_debt_ok = df["debt_eq"] < DEBT_TO_EQUITY_CAP
+    high_debt_sector_ok = df["sector"].isin(HIGH_DEBT_SECTORS) & (df["debt_eq"] < EXTREME_DEBT_TO_EQUITY_CAP)
+    debt_ok = df["debt_eq"].isna() | normal_debt_ok | high_debt_sector_ok
     sector_up = df["sector_momentum"] > 0
-    df["passes_filter"] = debt_ok & sector_up
+    plausible = df["valuation_gap"] <= MAX_PLAUSIBLE_VALUATION_GAP
+    df["passes_filter"] = debt_ok & sector_up & plausible
     return df.sort_values("valuation_gap", ascending=False)
 
 
