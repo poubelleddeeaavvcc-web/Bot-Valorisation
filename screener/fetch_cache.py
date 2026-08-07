@@ -17,7 +17,8 @@ HERE = pathlib.Path(__file__).parent.parent
 TRENDING_UNIVERSE = HERE / "data/universe/trending_universe.csv"
 CACHE_PATH = HERE / "results/screener/fundamentals_cache.csv"
 
-BATCH_SIZE = 150          # tickers per run -- comfortably under what worked before (604 in one go)
+BATCH_SIZE = 423          # 70% of the 604 that worked in the original one-shot test -- still a
+# guess (Yahoo publishes no real limit), just a less conservative one than the initial 25%
 DELAY_BETWEEN_CALLS = 0.4  # seconds, single-threaded on purpose
 COOLDOWN_EVERY = 100      # community-reported pattern (yfinance GH discussion #2431):
 COOLDOWN_SECONDS = 20     # ~100 requests before Yahoo wants a breather -- so take one voluntarily
