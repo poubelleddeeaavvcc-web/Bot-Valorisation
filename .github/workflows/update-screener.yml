@@ -1,0 +1,51 @@
+name: Mise a jour du screener (cache + analyse + simulation)
+
+on:
+  schedule:
+    - cron: "35 */4 * * *"  # toutes les 4h, comme la routine cloud qu'on remplace
+  workflow_dispatch: {}      # bouton "Run workflow" manuel dans l'onglet Actions
+
+permissions:
+  contents: write  # necessaire pour que le job puisse commit+push ses resultats
+
+concurrency:
+  group: screener-update
+  cancel-in-progress: false  # ne jamais interrompre un run en cours (perdrait le progres du cache)
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances
+        run: pip install -r requirements.txt
+
+      - name: Rafraichir le momentum sectoriel et l'univers de tendance
+        run: python screener/build_trending_universe.py
+
+      - name: Avancer le cache de fondamentaux (respecte le rate-limit Yahoo)
+        run: python screener/fetch_cache.py
+
+      - name: Analyser le cache (aucun appel reseau)
+        run: python screener/analyze_cache.py
+
+      - name: Simulation de portefeuille en aveugle
+        run: python screener/simulate_portfolio.py
+
+      - name: Commit + push si des resultats ont change
+        run: |
+          git config user.name "screener-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/universe/ results/screener/ results/simulation/
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau ce cycle."
+          else
+            git commit -m "Mise a jour automatique du screener ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+            git push
+          fi
