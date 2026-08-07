@@ -13,10 +13,14 @@ Mechanics:
     (independent of fetch_cache.py's 90-day staleness -- that cadence is fine for
     discovering new candidates but far too slow for tracking positions you're
     supposedly holding). This is cheap: a handful of tickers, not the whole universe.
-  - Exit ("sell") when EITHER:
+  - Exit ("sell") when ANY of:
       - valuation_gap has closed to <=0 (the thesis played out: no longer undervalued)
       - momentum is lost: mom_12_2 <= 0, or mom_12_2 <= its sector's momentum (the
         same relative-strength bar required to enter in the first place)
+      - hard stop-loss at STOP_LOSS_PCT, independent of the model above. mom_12_2
+        deliberately excludes the most recent month (avoids short-term reversal noise),
+        which means a sudden crash can stay invisible to the momentum exit for weeks --
+        this is the backstop for that blind spot.
   - No short-side simulation yet (long-only exit to cash) -- deliberately kept simple
     until the long side has a track record worth trusting.
 """
@@ -39,6 +43,9 @@ EQUITY_CURVE_PATH = HERE / "results/simulation/equity_curve.csv"
 # tracking-error noise, fine for a relative-performance comparison since our own
 # position tracking doesn't account for dividends either.
 BENCHMARKS = {"spy_price": "^GSPC", "n100_price": "^N100"}
+
+# hard stop-loss, independent of the valuation/momentum model -- see recheck_open_positions
+STOP_LOSS_PCT = -0.25
 
 LEDGER_COLUMNS = [
     "ticker", "name", "sector", "status",
@@ -131,9 +138,14 @@ def recheck_open_positions(ledger: pd.DataFrame, valuation: pd.DataFrame, today:
 
         momentum_lost = fresh["mom_12_2"] <= 0 or fresh["mom_12_2"] <= today_sector_mom
         valuation_reached = pd.notna(valuation_gap_now) and valuation_gap_now <= 0
+        # hard floor independent of the model: mom_12_2 deliberately excludes the most
+        # recent month, so a sudden crash can stay invisible to the momentum exit for
+        # weeks. This is the backstop for that blind spot, not a refinement of the thesis.
+        stop_loss_hit = unrealized <= STOP_LOSS_PCT
 
-        if momentum_lost or valuation_reached:
-            reason = "valorisation_atteinte" if valuation_reached else "momentum_perdu"
+        if momentum_lost or valuation_reached or stop_loss_hit:
+            reason = ("stop_loss" if stop_loss_hit else
+                      "valorisation_atteinte" if valuation_reached else "momentum_perdu")
             entry_date = pd.Timestamp(ledger.at[idx, "entry_date"])
             ledger.at[idx, "status"] = "closed"
             ledger.at[idx, "exit_date"] = today
