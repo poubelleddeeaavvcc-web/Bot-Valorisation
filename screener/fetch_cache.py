@@ -19,6 +19,8 @@ CACHE_PATH = HERE / "results/screener/fundamentals_cache.csv"
 
 BATCH_SIZE = 150          # tickers per run -- comfortably under what worked before (604 in one go)
 DELAY_BETWEEN_CALLS = 0.4  # seconds, single-threaded on purpose
+COOLDOWN_EVERY = 100      # community-reported pattern (yfinance GH discussion #2431):
+COOLDOWN_SECONDS = 20     # ~100 requests before Yahoo wants a breather -- so take one voluntarily
 MAX_RETRIES = 2
 STALENESS_DAYS = 90       # fundamentals don't need refreshing more often than quarterly rebalance
 
@@ -98,7 +100,11 @@ def main():
             break
         if (i + 1) % 20 == 0:
             print(f"  {i + 1}/{len(todo)} traites...", file=sys.stderr, flush=True)
-        time.sleep(DELAY_BETWEEN_CALLS)
+        if (i + 1) % COOLDOWN_EVERY == 0:
+            print(f"  pause preventive de {COOLDOWN_SECONDS}s apres {i + 1} tickers...", file=sys.stderr)
+            time.sleep(COOLDOWN_SECONDS)
+        else:
+            time.sleep(DELAY_BETWEEN_CALLS)
 
     new_df = pd.DataFrame(new_rows)
     combined = pd.concat([cache[~cache["ticker"].isin(new_df["ticker"])], new_df], ignore_index=True)
