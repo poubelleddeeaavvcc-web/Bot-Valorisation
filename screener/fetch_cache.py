@@ -24,6 +24,7 @@ STALENESS_DAYS = 90       # fundamentals don't need refreshing more often than q
 
 
 def fetch_one(ticker: str) -> dict:
+    today = pd.Timestamp.today().strftime("%Y-%m-%d")
     for attempt in range(MAX_RETRIES + 1):
         try:
             t = yf.Ticker(ticker)
@@ -31,7 +32,7 @@ def fetch_one(ticker: str) -> dict:
             hist = t.history(period="14mo", interval="1mo", auto_adjust=True)["Close"].dropna()
             mom_12_2 = hist.iloc[-2] / hist.iloc[-13] - 1 if len(hist) >= 13 else None
             return {
-                "ticker": ticker, "fetched_at": pd.Timestamp.today().strftime("%Y-%m-%d"),
+                "ticker": ticker, "fetched_at": today,
                 "price": hist.iloc[-1] if len(hist) else None,
                 "sector": info.get("sector"), "industry": info.get("industry"),
                 "name": info.get("shortName"),
@@ -49,14 +50,24 @@ def fetch_one(ticker: str) -> dict:
                     print(f"  rate-limit sur {ticker}, pause {backoff}s...", file=sys.stderr)
                     time.sleep(backoff)
                     continue
-                return {"ticker": ticker, "error": "RATE_LIMITED"}
-            return {"ticker": ticker, "error": msg[:100]}
+                # NOT marked fresh today on purpose: a persistent rate limit isn't the
+                # ticker's fault, so it should be retried on the very next run instead
+                # of waiting out the 90-day staleness window.
+                return {"ticker": ticker, "fetched_at": None, "error": "RATE_LIMITED"}
+            # a real per-ticker failure (e.g. delisted, bad symbol) IS marked fresh today,
+            # so a permanently-broken ticker doesn't get retried every single run.
+            return {"ticker": ticker, "fetched_at": today, "error": msg[:100]}
 
 
 def load_cache() -> pd.DataFrame:
-    if CACHE_PATH.exists():
-        return pd.read_csv(CACHE_PATH, parse_dates=["fetched_at"])
-    return pd.DataFrame(columns=["ticker", "fetched_at"])
+    if not CACHE_PATH.exists():
+        return pd.DataFrame(columns=["ticker", "fetched_at"])
+    df = pd.read_csv(CACHE_PATH)
+    # format="mixed": pandas otherwise infers a single format from the first value and
+    # silently NaTs every row that doesn't match it -- real bug hit in practice here
+    # when the column had a mix of "YYYY-MM-DD" and "YYYY-MM-DD HH:MM:SS" strings.
+    df["fetched_at"] = pd.to_datetime(df["fetched_at"], format="mixed", errors="coerce")
+    return df
 
 
 def main():
@@ -91,6 +102,9 @@ def main():
 
     new_df = pd.DataFrame(new_rows)
     combined = pd.concat([cache[~cache["ticker"].isin(new_df["ticker"])], new_df], ignore_index=True)
+    # normalize to one consistent string format on write, so old (datetime64) and new
+    # (plain string) values can never again mix into the format-inference bug above.
+    combined["fetched_at"] = pd.to_datetime(combined["fetched_at"], format="mixed", errors="coerce").dt.strftime("%Y-%m-%d")
     combined.to_csv(CACHE_PATH, index=False)
 
     ok = new_df["error"].isna().sum() if "error" in new_df.columns else len(new_df)
