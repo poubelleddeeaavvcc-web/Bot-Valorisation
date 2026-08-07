@@ -104,7 +104,10 @@ def main():
     trending["ticker"] = trending["ticker"].str.replace(".", "-", regex=False).str.strip()
 
     non_us = load_non_us_tickers()
-    combined = pd.concat([trending, non_us], ignore_index=True).drop_duplicates(subset="ticker")
+    # non-US first: fetch_cache.py processes trending_universe.csv in file order, and the
+    # US list (2413) dwarfs the non-US one (~650) -- put US last so international markets
+    # don't sit at the back of the queue for a dozen hourly runs before getting touched.
+    combined = pd.concat([non_us, trending], ignore_index=True).drop_duplicates(subset="ticker")
     combined.to_csv(UNIVERSE_DIR / "trending_universe.csv", index=False)
 
     print(f"\nUnivers US avant filtre secteur : {len(df)} tickers (cap >= {MARKET_CAP_FLOOR/1e9:.0f}Md$)")
