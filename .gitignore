@@ -1,0 +1,10 @@
+# Personal financial data - never commit
+data/portfolio_backup*.json
+portfolio/*.json
+results/portfolio_vs_screener.csv
+__pycache__/
+*.pyc
+
+# intermediate download artifacts (extracted CSVs are what's used)
+data/factors/*.zip
+

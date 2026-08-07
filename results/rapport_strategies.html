@@ -1,0 +1,531 @@
+<title>Stratégies TradingView — étude comparative</title>
+<style>
+  :root {
+    --page-bg: #efede7;
+    --card-bg: #fcfcfb;
+    --ink: #17140f;
+    --ink-2: #52514e;
+    --ink-muted: #898781;
+    --hairline: #dedbd2;
+    --accent: #97701f;
+    --accent-soft: #f1e4cb;
+    --good: #0ca30c;
+    --critical: #d03b3b;
+    --s-bh: #2a78d6;
+    --s-golden: #eb6834;
+    --s-donchian: #1baf7a;
+    --s-rsi2: #eda100;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      --page-bg: #0d0d0d;
+      --card-bg: #1a1a19;
+      --ink: #ffffff;
+      --ink-2: #c3c2b7;
+      --ink-muted: #898781;
+      --hairline: #2c2c2a;
+      --accent: #d9a34a;
+      --accent-soft: #2a2113;
+      --good: #0ca30c;
+      --critical: #e66767;
+      --s-bh: #3987e5;
+      --s-golden: #d95926;
+      --s-donchian: #199e70;
+      --s-rsi2: #c98500;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --page-bg: #0d0d0d;
+    --card-bg: #1a1a19;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --ink-muted: #898781;
+    --hairline: #2c2c2a;
+    --accent: #d9a34a;
+    --accent-soft: #2a2113;
+    --good: #0ca30c;
+    --critical: #e66767;
+    --s-bh: #3987e5;
+    --s-golden: #d95926;
+    --s-donchian: #199e70;
+    --s-rsi2: #c98500;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--page-bg);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+  }
+  .sheet {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 56px 28px 96px;
+  }
+  h1, h2, h3 {
+    font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    font-weight: 600;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  .kicker {
+    font-size: 12.5px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  h1 { font-size: 34px; margin: 0 0 6px; line-height: 1.15; }
+  .subtitle { color: var(--ink-2); font-size: 16.5px; margin: 0 0 4px; max-width: 62ch; }
+  .meta { color: var(--ink-muted); font-size: 13px; margin: 18px 0 0; }
+  h2 {
+    font-size: 21px;
+    margin: 0 0 14px;
+    padding-top: 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  h2 .num {
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  h3 { font-size: 16px; margin: 0 0 6px; }
+  p { color: var(--ink-2); margin: 0 0 12px; max-width: 68ch; }
+  section { margin-top: 52px; }
+  hr.divider { border: none; border-top: 1px solid var(--hairline); margin: 52px 0 0; }
+
+  .callout {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 16px 18px;
+    margin: 18px 0;
+  }
+  .callout p { color: var(--ink); margin: 0; font-size: 14.5px; }
+  .callout p + p { margin-top: 8px; }
+  .callout code { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 0.92em; }
+
+  ol.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+  ol.steps li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 4px 14px;
+    padding: 10px 0;
+    border-top: 1px solid var(--hairline);
+  }
+  ol.steps li:first-child { border-top: none; }
+  ol.steps li::before {
+    content: counter(step);
+    grid-column: 1;
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 14px;
+  }
+  ol.steps li .steptext { grid-column: 2; display: flex; flex-direction: column; gap: 4px; }
+  ol.steps b { color: var(--ink); }
+  ol.steps span.detail { color: var(--ink-2); font-size: 14.5px; }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 620px) { .cards { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+  .card .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  .tag.trend { background: color-mix(in srgb, var(--s-donchian) 18%, transparent); color: var(--s-donchian); }
+  .tag.revert { background: color-mix(in srgb, var(--s-rsi2) 22%, transparent); color: var(--s-rsi2); }
+  .tag.skip { background: color-mix(in srgb, var(--ink-muted) 22%, transparent); color: var(--ink-2); }
+  .card p { font-size: 13.8px; margin: 0 0 8px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card .why { color: var(--ink); }
+  .card .weak { color: var(--ink-muted); font-size: 13px; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 4px 0 22px; }
+  .legend .item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--ink-2); }
+  .legend .swatch { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+
+  .barchart { display: flex; flex-direction: column; gap: 22px; margin-bottom: 8px; }
+  .assetgroup .label {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--ink-muted); font-weight: 700; margin-bottom: 8px;
+  }
+  .row { display: grid; grid-template-columns: 130px 1fr 62px; align-items: center; gap: 10px; margin: 5px 0; }
+  .row .rlabel { font-size: 13px; color: var(--ink-2); }
+  .row .rvalue { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-variant-numeric: tabular-nums; font-size: 13px; text-align: right; color: var(--ink); }
+  .track { position: relative; height: 14px; background: var(--hairline); border-radius: 3px; opacity: 0.35; }
+  .track.diverging::after {
+    content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px;
+    background: var(--ink-muted); opacity: 0.6;
+  }
+  .bar { position: absolute; top: 1px; bottom: 1px; border-radius: 3px; }
+  .bar.single { left: 0; }
+
+  table.detail {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 13px;
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    min-width: 720px;
+  }
+  table.detail th {
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    text-align: right;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    font-weight: 600;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--hairline);
+    position: sticky; top: 0; background: var(--card-bg);
+  }
+  table.detail th:first-child, table.detail td:first-child { text-align: left; }
+  table.detail th:nth-child(2), table.detail td:nth-child(2) {
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; text-align: left;
+  }
+  table.detail td { padding: 7px 10px; text-align: right; border-bottom: 1px solid var(--hairline); color: var(--ink-2); }
+  table.detail td.strat { color: var(--ink); }
+  table.detail tr.bh td { color: var(--ink-muted); font-style: italic; }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--hairline); border-radius: 8px; background: var(--card-bg); }
+  .tablewrap table.detail { min-width: 760px; }
+  .tablewrap { max-height: 420px; overflow-y: auto; }
+
+  .verdict {
+    background: var(--card-bg);
+    border: 1px solid var(--hairline);
+    border-left: 4px solid var(--s-donchian);
+    border-radius: 8px;
+    padding: 22px 24px;
+  }
+  .verdict h3 { margin-bottom: 10px; }
+  .verdict p { font-size: 14.5px; }
+  .tension {
+    background: var(--card-bg);
+    border: 1px solid var(--hairline);
+    border-left: 4px solid var(--critical);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-top: 18px;
+  }
+  .tension p { font-size: 14px; margin: 0; }
+
+  .options { display: grid; gap: 12px; margin-top: 18px; }
+  .option {
+    display: grid; grid-template-columns: 22px 1fr; gap: 12px;
+    padding: 14px 0; border-top: 1px solid var(--hairline);
+  }
+  .option:first-child { border-top: none; }
+  .option .letter {
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    color: var(--accent); font-weight: 700; font-size: 14px;
+  }
+  .option b { color: var(--ink); }
+  .option p { margin: 4px 0 0; font-size: 14px; }
+
+  footer {
+    margin-top: 64px;
+    padding-top: 20px;
+    border-top: 1px solid var(--hairline);
+    color: var(--ink-muted);
+    font-size: 12.5px;
+  }
+  footer code { font-family: ui-monospace, "SF Mono", Consolas, monospace; background: var(--accent-soft); padding: 1px 5px; border-radius: 3px; }
+</style>
+
+<div class="sheet">
+
+  <p class="kicker">Étude — trading systématique</p>
+  <h1>Quelle stratégie TradingView suivre&nbsp;?</h1>
+  <p class="subtitle">Revue documentaire de 5 mécanismes de marché, puis backtest indépendant (Python, données réelles) de 3 d'entre eux sur crypto, actions/ETF US et forex — sans se fier aux performances auto-déclarées des scripts publiés.</p>
+  <p class="meta">7 août 2026 · Fenêtre de test 2017–2026 · Projet local <code style="font-family:ui-monospace,Consolas,monospace">TV-strategies</code></p>
+
+  <section>
+    <h2><span class="num">§1</span>Le problème des scripts publiés</h2>
+    <p>Le flux « Populaire / Récent » de la page <a href="https://www.tradingview.com/scripts/?script_type=strategies" style="color:var(--accent)">scripts de stratégies TradingView</a> est dominé par des comptes récents affichant des performances extraordinaires calculées sur un seul actif et une seule période — le signal classique d'un paramétrage ajusté a posteriori sur les données du test (curve-fitting), pas d'un edge réel.</p>
+    <div class="callout">
+      <p><b>Exemple rencontré pendant la revue :</b> « Sovereign Horizon Matrix v8.0 » annonce un CAGR de 124&nbsp;%, un profit factor de 7,6 et un drawdown de 19&nbsp;% sur Bitcoin — calculé sur 56&nbsp;trades, un seul actif. Statistiquement, cet échantillon ne permet aucune conclusion fiable.</p>
+      <p>Un autre auteur présente ses scripts comme « la stratégie de day trading la plus validée académiquement » — la référence académique citée existe réellement, mais le compte a été créé il y a moins d'un mois et rien ne garantit que le code respecte fidèlement la méthode.</p>
+    </div>
+    <p><b>Décision :</b> on retient uniquement des mécanismes de marché documentés indépendamment de TradingView, on les réimplémente nous-mêmes, et on les teste sur des données réelles — jamais sur les chiffres affichés par un auteur anonyme.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">§2</span>Méthode</h2>
+    <ol class="steps">
+      <li><div class="steptext"><b>Revue documentaire</b><span class="detail">— 5 mécanismes retenus pour leur assise théorique/académique, indépendamment de tout script TradingView précis.</span></div></li>
+      <li><div class="steptext"><b>Implémentation indépendante en Python</b><span class="detail">— code écrit à partir des règles documentées (littérature académique / manuels de référence), pas copié depuis un script tiers.</span></div></li>
+      <li><div class="steptext"><b>Données réelles</b><span class="detail">— 2 cryptomonnaies, 4 actions/ETF US, 3 paires de devises majeures, historique quotidien 2012–2026 via Yahoo Finance.</span></div></li>
+      <li><div class="steptext"><b>Backtest sur fenêtre commune</b><span class="detail">— 2017–2026, coûts de transaction réalistes (crypto 0,10&nbsp;%/trade, actions 0,05&nbsp;%, forex 0,02&nbsp;%), comparé à l'achat-conservation (buy &amp; hold) de chaque actif.</span></div></li>
+      <li><div class="steptext"><b>Test de robustesse</b><span class="detail">— la fenêtre est coupée en deux (2017–2022 / 2022–2026) pour vérifier que le résultat ne tient pas à une seule phase de marché.</span></div></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2><span class="num">§3</span>Les 5 candidats retenus</h2>
+    <p>Trois ont pu être testés quantitativement sur données quotidiennes. Les deux stratégies intraday (ORB, VWAP) demandent un historique intraday sur plusieurs années dont les sources gratuites ne disposent pas de façon fiable — elles restent validées sur le plan documentaire mais hors du backtest chiffré de cette étude.</p>
+    <div class="cards">
+      <div class="card">
+        <span class="tag trend">Trend · testé</span>
+        <h3>Golden/Death Cross</h3>
+        <p class="why">Long si SMA50 &gt; SMA200, short sinon. Filtre de tendance utilisé depuis des décennies par la quasi-totalité des systèmes trend-following institutionnels. Sert de référence de base.</p>
+        <p class="weak">Faiblesse connue : beaucoup de faux signaux en marché sans tendance, toujours en retard sur les retournements.</p>
+      </div>
+      <div class="card">
+        <span class="tag trend">Trend · testé</span>
+        <h3>Donchian Breakout ("Turtle")</h3>
+        <p class="why">Achat sur plus haut à 20&nbsp;jours, sortie sur plus bas à 10&nbsp;jours ou stop à 2×ATR. Le système systématique le plus documenté de l'histoire du trading (Richard Dennis &amp; William Eckhardt, 1983).</p>
+        <p class="weak">Faiblesse connue : taux de réussite souvent &lt; 45&nbsp;%, gain concentré sur peu de trades — difficile à tenir en discrétionnaire.</p>
+      </div>
+      <div class="card">
+        <span class="tag revert">Mean reversion · testé</span>
+        <h3>RSI(2) — Connors</h3>
+        <p class="why">Sur un actif en tendance haussière (prix &gt; SMA200), achat des replis extrêmes de très court terme (RSI(2)&lt;10), revente sur retour à la normale. Documenté par Larry Connors (<i>Short Term Trading Strategies That Work</i>, 2008).</p>
+        <p class="weak">Faiblesse connue : stratégie très connue depuis 15+&nbsp;ans, edge probablement érodé sur les actifs les plus liquides.</p>
+      </div>
+      <div class="card">
+        <span class="tag skip">Breakout · revue seule</span>
+        <h3>Opening Range Breakout</h3>
+        <p class="why">Cassure du range des N premières minutes de séance, flat en fin de journée. Référence académique réelle (Zarattini &amp; Aziz, SSRN 2023) montrant un edge sur les grandes capitalisations US 1995–2020.</p>
+        <p class="weak">Non testé ici : nécessite un historique intraday multi-année, indisponible gratuitement.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section>
+    <h2><span class="num">§4</span>Résultats du backtest</h2>
+    <p>Moyennes par classe d'actif sur la fenêtre 2017–2026 (2 cryptos, 4 actions/ETF, 3 paires forex), après coûts de transaction.</p>
+    <div class="legend">
+      <div class="item"><span class="swatch" style="background:var(--s-bh)"></span>Buy &amp; Hold</div>
+      <div class="item"><span class="swatch" style="background:var(--s-golden)"></span>Golden Cross</div>
+      <div class="item"><span class="swatch" style="background:var(--s-donchian)"></span>Donchian Breakout</div>
+      <div class="item"><span class="swatch" style="background:var(--s-rsi2)"></span>RSI(2) Connors</div>
+    </div>
+
+    <h3 style="margin-top:20px">Rendement annualisé (CAGR)</h3>
+    <div class="barchart">
+      <div class="assetgroup">
+        <div class="label">Crypto (BTC, ETH)</div>
+        <div class="row"><span class="rlabel">Buy &amp; Hold</span><div class="track diverging"><div class="bar" style="background:var(--s-bh); left:50%; width:18.4%"></div></div><span class="rvalue">+32,3%</span></div>
+        <div class="row"><span class="rlabel">Golden Cross</span><div class="track diverging"><div class="bar" style="background:var(--s-golden); left:50%; width:5.3%"></div></div><span class="rvalue">+9,3%</span></div>
+        <div class="row"><span class="rlabel">Donchian</span><div class="track diverging"><div class="bar" style="background:var(--s-donchian); left:50%; width:46%"></div></div><span class="rvalue">+80,9%</span></div>
+        <div class="row"><span class="rlabel">RSI(2)</span><div class="track diverging"><div class="bar" style="background:var(--s-rsi2); left:50%; width:0.1%"></div></div><span class="rvalue">−0,0%</span></div>
+      </div>
+      <div class="assetgroup">
+        <div class="label">Actions / ETF US (SPY, QQQ, AAPL, MSFT)</div>
+        <div class="row"><span class="rlabel">Buy &amp; Hold</span><div class="track diverging"><div class="bar" style="background:var(--s-bh); left:50%; width:12.6%"></div></div><span class="rvalue">+22,1%</span></div>
+        <div class="row"><span class="rlabel">Golden Cross</span><div class="track diverging"><div class="bar" style="background:var(--s-golden); left:50%; width:3.6%"></div></div><span class="rvalue">+6,4%</span></div>
+        <div class="row"><span class="rlabel">Donchian</span><div class="track diverging"><div class="bar" style="background:var(--s-donchian); left:50%; width:2.8%"></div></div><span class="rvalue">+5,0%</span></div>
+        <div class="row"><span class="rlabel">RSI(2)</span><div class="track diverging"><div class="bar" style="background:var(--s-rsi2); left:50%; width:1.8%"></div></div><span class="rvalue">+3,2%</span></div>
+      </div>
+      <div class="assetgroup">
+        <div class="label">Forex (EUR/USD, GBP/USD, USD/JPY)</div>
+        <div class="row"><span class="rlabel">Buy &amp; Hold</span><div class="track diverging"><div class="bar" style="background:var(--s-bh); left:50%; width:0.7%"></div></div><span class="rvalue">+1,3%</span></div>
+        <div class="row"><span class="rlabel">Golden Cross</span><div class="track diverging"><div class="bar" style="background:var(--s-golden); left:calc(50% - 1.0%); width:1.0%"></div></div><span class="rvalue">−1,7%</span></div>
+        <div class="row"><span class="rlabel">Donchian</span><div class="track diverging"><div class="bar" style="background:var(--s-donchian); left:calc(50% - 0.8%); width:0.8%"></div></div><span class="rvalue">−1,4%</span></div>
+        <div class="row"><span class="rlabel">RSI(2)</span><div class="track diverging"><div class="bar" style="background:var(--s-rsi2); left:calc(50% - 0.3%); width:0.3%"></div></div><span class="rvalue">−0,6%</span></div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:32px">Ratio de Sharpe (rendement ajusté du risque)</h3>
+    <div class="barchart">
+      <div class="assetgroup">
+        <div class="label">Crypto</div>
+        <div class="row"><span class="rlabel">Buy &amp; Hold</span><div class="track diverging"><div class="bar" style="background:var(--s-bh); left:50%; width:28.3%"></div></div><span class="rvalue">0,64</span></div>
+        <div class="row"><span class="rlabel">Golden Cross</span><div class="track diverging"><div class="bar" style="background:var(--s-golden); left:50%; width:16.8%"></div></div><span class="rvalue">0,38</span></div>
+        <div class="row"><span class="rlabel">Donchian</span><div class="track diverging"><div class="bar" style="background:var(--s-donchian); left:50%; width:46%"></div></div><span class="rvalue">1,04</span></div>
+        <div class="row"><span class="rlabel">RSI(2)</span><div class="track diverging"><div class="bar" style="background:var(--s-rsi2); left:50%; width:3.1%"></div></div><span class="rvalue">0,07</span></div>
+      </div>
+      <div class="assetgroup">
+        <div class="label">Actions / ETF US</div>
+        <div class="row"><span class="rlabel">Buy &amp; Hold</span><div class="track diverging"><div class="bar" style="background:var(--s-bh); left:50%; width:40.3%"></div></div><span class="rvalue">0,91</span></div>
+        <div class="row"><span class="rlabel">Golden Cross</span><div class="track diverging"><div class="bar" style="background:var(--s-golden); left:50%; width:17.3%"></div></div><span class="rvalue">0,39</span></div>
+        <div class="row"><span class="rlabel">Donchian</span><div class="track diverging"><div class="bar" style="background:var(--s-donchian); left:50%; width:14.6%"></div></div><span class="rvalue">0,33</span></div>
+        <div class="row"><span class="rlabel">RSI(2)</span><div class="track diverging"><div class="bar" style="background:var(--s-rsi2); left:50%; width:19.5%"></div></div><span class="rvalue">0,44</span></div>
+      </div>
+      <div class="assetgroup">
+        <div class="label">Forex</div>
+        <div class="row"><span class="rlabel">Buy &amp; Hold</span><div class="track diverging"><div class="bar" style="background:var(--s-bh); left:50%; width:8.4%"></div></div><span class="rvalue">0,19</span></div>
+        <div class="row"><span class="rlabel">Golden Cross</span><div class="track diverging"><div class="bar" style="background:var(--s-golden); left:calc(50% - 7.5%); width:7.5%"></div></div><span class="rvalue">−0,17</span></div>
+        <div class="row"><span class="rlabel">Donchian</span><div class="track diverging"><div class="bar" style="background:var(--s-donchian); left:calc(50% - 7.5%); width:7.5%"></div></div><span class="rvalue">−0,17</span></div>
+        <div class="row"><span class="rlabel">RSI(2)</span><div class="track diverging"><div class="bar" style="background:var(--s-rsi2); left:calc(50% - 8.8%); width:8.8%"></div></div><span class="rvalue">−0,20</span></div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:32px">Drawdown maximal (plus c'est court, mieux c'est)</h3>
+    <div class="barchart">
+      <div class="assetgroup">
+        <div class="label">Crypto</div>
+        <div class="row"><span class="rlabel">Buy &amp; Hold</span><div class="track"><div class="bar single" style="background:var(--s-bh); width:94.0%"></div></div><span class="rvalue">−88,7%</span></div>
+        <div class="row"><span class="rlabel">Golden Cross</span><div class="track"><div class="bar single" style="background:var(--s-golden); width:88.0%"></div></div><span class="rvalue">−83,0%</span></div>
+        <div class="row"><span class="rlabel">Donchian</span><div class="track"><div class="bar single" style="background:var(--s-donchian); width:60.2%"></div></div><span class="rvalue">−56,8%</span></div>
+        <div class="row"><span class="rlabel">RSI(2)</span><div class="track"><div class="bar single" style="background:var(--s-rsi2); width:49.0%"></div></div><span class="rvalue">−46,2%</span></div>
+      </div>
+      <div class="assetgroup">
+        <div class="label">Actions / ETF US</div>
+        <div class="row"><span class="rlabel">Buy &amp; Hold</span><div class="track"><div class="bar single" style="background:var(--s-bh); width:38.3%"></div></div><span class="rvalue">−36,1%</span></div>
+        <div class="row"><span class="rlabel">Golden Cross</span><div class="track"><div class="bar single" style="background:var(--s-golden); width:50.3%"></div></div><span class="rvalue">−47,5%</span></div>
+        <div class="row"><span class="rlabel">Donchian</span><div class="track"><div class="bar single" style="background:var(--s-donchian); width:37.3%"></div></div><span class="rvalue">−35,2%</span></div>
+        <div class="row"><span class="rlabel">RSI(2)</span><div class="track"><div class="bar single" style="background:var(--s-rsi2); width:17.3%"></div></div><span class="rvalue">−16,3%</span></div>
+      </div>
+      <div class="assetgroup">
+        <div class="label">Forex</div>
+        <div class="row"><span class="rlabel">Buy &amp; Hold</span><div class="track"><div class="bar single" style="background:var(--s-bh); width:22.4%"></div></div><span class="rvalue">−21,1%</span></div>
+        <div class="row"><span class="rlabel">Golden Cross</span><div class="track"><div class="bar single" style="background:var(--s-golden); width:31.4%"></div></div><span class="rvalue">−29,6%</span></div>
+        <div class="row"><span class="rlabel">Donchian</span><div class="track"><div class="bar single" style="background:var(--s-donchian); width:26.0%"></div></div><span class="rvalue">−24,5%</span></div>
+        <div class="row"><span class="rlabel">RSI(2)</span><div class="track"><div class="bar single" style="background:var(--s-rsi2); width:9.5%"></div></div><span class="rvalue">−9,0%</span></div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:32px">Détail par actif</h3>
+    <div class="tablewrap">
+      <table class="detail">
+        <thead><tr><th>Actif</th><th>Stratégie</th><th>CAGR</th><th>Sharpe</th><th>Max DD</th><th>Profit factor</th><th>% gagnants</th><th>Trades</th></tr></thead>
+        <tbody>
+          <tr class="bh"><td>BTC-USD</td><td class="strat">Buy &amp; Hold</td><td>+42,0%</td><td>0,72</td><td>−83,4%</td><td>—</td><td>—</td><td>0</td></tr>
+          <tr><td></td><td class="strat">Golden Cross</td><td>+5,0%</td><td>0,32</td><td>−76,1%</td><td>2,18</td><td>44%</td><td>18</td></tr>
+          <tr><td></td><td class="strat">Donchian</td><td>+56,5%</td><td>0,92</td><td>−59,5%</td><td>2,21</td><td>41%</td><td>130</td></tr>
+          <tr><td></td><td class="strat">RSI(2)</td><td>−4,4%</td><td>−0,11</td><td>−58,6%</td><td>0,85</td><td>63%</td><td>67</td></tr>
+          <tr class="bh"><td>ETH-USD</td><td class="strat">Buy &amp; Hold</td><td>+22,6%</td><td>0,56</td><td>−94,0%</td><td>—</td><td>—</td><td>0</td></tr>
+          <tr><td></td><td class="strat">Golden Cross</td><td>+13,6%</td><td>0,45</td><td>−90,0%</td><td>5,51</td><td>47%</td><td>17</td></tr>
+          <tr><td></td><td class="strat">Donchian</td><td>+105,3%</td><td>1,16</td><td>−54,1%</td><td>2,93</td><td>45%</td><td>114</td></tr>
+          <tr><td></td><td class="strat">RSI(2)</td><td>+4,3%</td><td>0,25</td><td>−33,9%</td><td>1,40</td><td>69%</td><td>62</td></tr>
+          <tr class="bh"><td>SPY</td><td class="strat">Buy &amp; Hold</td><td>+15,2%</td><td>0,85</td><td>−33,7%</td><td>—</td><td>—</td><td>0</td></tr>
+          <tr><td></td><td class="strat">Golden Cross</td><td>+3,3%</td><td>0,27</td><td>−42,9%</td><td>1,88</td><td>44%</td><td>9</td></tr>
+          <tr><td></td><td class="strat">Donchian</td><td>+5,0%</td><td>0,39</td><td>−21,1%</td><td>1,47</td><td>42%</td><td>99</td></tr>
+          <tr><td></td><td class="strat">RSI(2)</td><td>+3,9%</td><td>0,69</td><td>−11,5%</td><td>1,96</td><td>80%</td><td>70</td></tr>
+          <tr class="bh"><td>QQQ</td><td class="strat">Buy &amp; Hold</td><td>+20,3%</td><td>0,91</td><td>−35,1%</td><td>—</td><td>—</td><td>0</td></tr>
+          <tr><td></td><td class="strat">Golden Cross</td><td>+13,5%</td><td>0,69</td><td>−29,4%</td><td>5,21</td><td>56%</td><td>9</td></tr>
+          <tr><td></td><td class="strat">Donchian</td><td>+1,2%</td><td>0,16</td><td>−30,7%</td><td>1,12</td><td>38%</td><td>105</td></tr>
+          <tr><td></td><td class="strat">RSI(2)</td><td>+4,0%</td><td>0,57</td><td>−10,9%</td><td>1,73</td><td>78%</td><td>67</td></tr>
+          <tr class="bh"><td>AAPL</td><td class="strat">Buy &amp; Hold</td><td>+27,6%</td><td>0,96</td><td>−38,5%</td><td>—</td><td>—</td><td>0</td></tr>
+          <tr><td></td><td class="strat">Golden Cross</td><td>−3,7%</td><td>0,03</td><td>−70,3%</td><td>1,50</td><td>27%</td><td>11</td></tr>
+          <tr><td></td><td class="strat">Donchian</td><td>+15,4%</td><td>0,72</td><td>−32,9%</td><td>1,85</td><td>43%</td><td>91</td></tr>
+          <tr><td></td><td class="strat">RSI(2)</td><td>+2,7%</td><td>0,27</td><td>−19,0%</td><td>1,33</td><td>70%</td><td>74</td></tr>
+          <tr class="bh"><td>MSFT</td><td class="strat">Buy &amp; Hold</td><td>+25,2%</td><td>0,93</td><td>−37,1%</td><td>—</td><td>—</td><td>0</td></tr>
+          <tr><td></td><td class="strat">Golden Cross</td><td>+12,3%</td><td>0,57</td><td>−47,5%</td><td>4,53</td><td>40%</td><td>10</td></tr>
+          <tr><td></td><td class="strat">Donchian</td><td>−1,8%</td><td>0,04</td><td>−56,3%</td><td>1,02</td><td>36%</td><td>101</td></tr>
+          <tr><td></td><td class="strat">RSI(2)</td><td>+2,0%</td><td>0,22</td><td>−23,8%</td><td>1,37</td><td>66%</td><td>56</td></tr>
+          <tr class="bh"><td>EUR/USD</td><td class="strat">Buy &amp; Hold</td><td>−0,3%</td><td>0,00</td><td>−23,3%</td><td>—</td><td>—</td><td>0</td></tr>
+          <tr><td></td><td class="strat">Golden Cross</td><td>−0,7%</td><td>−0,07</td><td>−29,2%</td><td>0,85</td><td>36%</td><td>14</td></tr>
+          <tr><td></td><td class="strat">Donchian</td><td>−3,7%</td><td>−0,54</td><td>−33,9%</td><td>0,59</td><td>30%</td><td>114</td></tr>
+          <tr><td></td><td class="strat">RSI(2)</td><td>−0,9%</td><td>−0,44</td><td>−8,2%</td><td>0,52</td><td>55%</td><td>38</td></tr>
+          <tr class="bh"><td>GBP/USD</td><td class="strat">Buy &amp; Hold</td><td>+0,2%</td><td>0,07</td><td>−25,2%</td><td>—</td><td>—</td><td>0</td></tr>
+          <tr><td></td><td class="strat">Golden Cross</td><td>−3,0%</td><td>−0,34</td><td>−27,0%</td><td>0,38</td><td>17%</td><td>18</td></tr>
+          <tr><td></td><td class="strat">Donchian</td><td>−1,3%</td><td>−0,13</td><td>−20,9%</td><td>0,84</td><td>35%</td><td>104</td></tr>
+          <tr><td></td><td class="strat">RSI(2)</td><td>+0,5%</td><td>0,23</td><td>−4,7%</td><td>1,31</td><td>65%</td><td>48</td></tr>
+          <tr class="bh"><td>USD/JPY</td><td class="strat">Buy &amp; Hold</td><td>+4,0%</td><td>0,49</td><td>−14,7%</td><td>—</td><td>—</td><td>0</td></tr>
+          <tr><td></td><td class="strat">Golden Cross</td><td>−1,3%</td><td>−0,11</td><td>−32,7%</td><td>0,70</td><td>33%</td><td>12</td></tr>
+          <tr><td></td><td class="strat">Donchian</td><td>+0,9%</td><td>0,15</td><td>−18,5%</td><td>1,15</td><td>36%</td><td>97</td></tr>
+          <tr><td></td><td class="strat">RSI(2)</td><td>−1,4%</td><td>−0,38</td><td>−14,1%</td><td>0,60</td><td>62%</td><td>47</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section>
+    <h2><span class="num">§5</span>Robustesse : ça tient sur deux sous-périodes ?</h2>
+    <p>Le Donchian breakout est le seul résultat qui bat nettement le buy &amp; hold sur les deux classes d'actifs testées les plus prometteuses. Avant de le retenir, on vérifie qu'il ne doit pas tout à une seule bulle : la fenêtre est coupée en 2017–2022 et 2022–2026.</p>
+    <div class="legend">
+      <div class="item"><span class="swatch" style="background:var(--s-bh)"></span>Buy &amp; Hold</div>
+      <div class="item"><span class="swatch" style="background:var(--s-donchian)"></span>Donchian</div>
+      <div class="item"><span class="swatch" style="background:var(--s-rsi2)"></span>RSI(2)</div>
+    </div>
+    <div class="barchart">
+      <div class="assetgroup">
+        <div class="label">BTC-USD — Sharpe par sous-période</div>
+        <div class="row"><span class="rlabel">2017→2022 · B&amp;H</span><div class="track diverging"><div class="bar" style="background:var(--s-bh); left:50%; width:31.4%"></div></div><span class="rvalue">0,95</span></div>
+        <div class="row"><span class="rlabel">2017→2022 · Donchian</span><div class="track diverging"><div class="bar" style="background:var(--s-donchian); left:50%; width:46%"></div></div><span class="rvalue">1,39</span></div>
+        <div class="row"><span class="rlabel">2017→2022 · RSI(2)</span><div class="track diverging"><div class="bar" style="background:var(--s-rsi2); left:calc(50% - 6.0%); width:6.0%"></div></div><span class="rvalue">−0,18</span></div>
+        <div class="row"><span class="rlabel">2022→2026 · B&amp;H</span><div class="track diverging"><div class="bar" style="background:var(--s-bh); left:50%; width:12.9%"></div></div><span class="rvalue">0,39</span></div>
+        <div class="row"><span class="rlabel">2022→2026 · Donchian</span><div class="track diverging"><div class="bar" style="background:var(--s-donchian); left:50%; width:9.9%"></div></div><span class="rvalue">0,30</span></div>
+        <div class="row"><span class="rlabel">2022→2026 · RSI(2)</span><div class="track diverging"><div class="bar" style="background:var(--s-rsi2); left:calc(50% - 0.7%); width:0.7%"></div></div><span class="rvalue">−0,02</span></div>
+      </div>
+      <div class="assetgroup">
+        <div class="label">SPY — Sharpe par sous-période</div>
+        <div class="row"><span class="rlabel">2017→2022 · B&amp;H</span><div class="track diverging"><div class="bar" style="background:var(--s-bh); left:50%; width:28.8%"></div></div><span class="rvalue">0,87</span></div>
+        <div class="row"><span class="rlabel">2017→2022 · Donchian</span><div class="track diverging"><div class="bar" style="background:var(--s-donchian); left:50%; width:15.6%"></div></div><span class="rvalue">0,47</span></div>
+        <div class="row"><span class="rlabel">2017→2022 · RSI(2)</span><div class="track diverging"><div class="bar" style="background:var(--s-rsi2); left:50%; width:9.3%"></div></div><span class="rvalue">0,28</span></div>
+        <div class="row"><span class="rlabel">2022→2026 · B&amp;H</span><div class="track diverging"><div class="bar" style="background:var(--s-bh); left:50%; width:27.8%"></div></div><span class="rvalue">0,84</span></div>
+        <div class="row"><span class="rlabel">2022→2026 · Donchian</span><div class="track diverging"><div class="bar" style="background:var(--s-donchian); left:50%; width:9.3%"></div></div><span class="rvalue">0,28</span></div>
+        <div class="row"><span class="rlabel">2022→2026 · RSI(2)</span><div class="track diverging"><div class="bar" style="background:var(--s-rsi2); left:50%; width:37.7%"></div></div><span class="rvalue">1,14</span></div>
+      </div>
+    </div>
+    <p style="margin-top:14px"><b>Lecture :</b> sur crypto, le Donchian bat le buy &amp; hold sur les deux sous-périodes (edge réel, même s'il s'affaiblit après 2022). Sur SPY, il ne bat le buy &amp; hold sur <i>aucune</i> des deux moitiés — la simple détention de l'ETF reste la meilleure option risque/rendement sur les actions US de cette décennie.</p>
+  </section>
+
+  <hr class="divider" />
+
+  <section>
+    <h2><span class="num">§6</span>Recommandation</h2>
+    <div class="verdict">
+      <h3>Le seul edge net et robuste : Donchian Breakout sur crypto (BTC/ETH)</h3>
+      <p>Sur les deux sous-périodes, il égale ou dépasse le rendement du simple buy &amp; hold tout en réduisant le drawdown maximal de 20 à 40&nbsp;points — c'est le seul résultat de cette étude qui n'est pas simplement « moins bien que ne rien faire ».</p>
+    </div>
+    <div class="tension">
+      <p><b>Mais :</b> tu envisages d'automatiser via un broker actions/CFD (IBKR), qui ne se prête pas bien au trading crypto actif (offre crypto d'IBKR limitée). Le résultat le plus solide de l'étude et ta plateforme cible ne sont pas alignés — mieux vaut le dire maintenant plutôt qu'après avoir construit l'automatisation.</p>
+    </div>
+    <div class="options">
+      <div class="option">
+        <span class="letter">A</span>
+        <div>
+          <p><b>Suivre l'edge → ouvrir un compte sur un exchange crypto</b> pour trader le Donchian breakout sur BTC/ETH en swing (signal quotidien, facile à automatiser). C'est le chemin qui correspond le mieux à « la stratégie avec le meilleur rendement ».</p>
+        </div>
+      </div>
+      <div class="option">
+        <span class="letter">B</span>
+        <div>
+          <p><b>Rester sur IBKR / actions</b> → aucune des 3 stratégies testées ne bat le simple achat-conservation d'un ETF indiciel (SPY/QQQ) sur cette décennie, en rendement comme en risque ajusté. Le plus défendable dans ce cas : soit un buy &amp; hold discipliné, soit le Donchian breakout appliqué à un panier d'actions individuelles (il y réduit le drawdown de 30&nbsp;% environ sur AAPL/SPY, au prix d'un rendement plus faible) si l'objectif est de dormir tranquille plutôt que maximiser le rendement.</p>
+        </div>
+      </div>
+      <div class="option">
+        <span class="letter">C</span>
+        <div>
+          <p><b>Prochaine étape concrète, quel que soit le choix :</b> paper trading du système retenu pendant plusieurs semaines avant tout argent réel, puis seulement à ce moment-là concevoir le pont d'automatisation (webhook TradingView → API du broker/exchange).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section>
+    <h2><span class="num">§7</span>Limites de l'étude</h2>
+    <p>• Backtest sur une seule fenêtre historique (2017–2026, prolongée par un découpage en 2) — pas une validation walk-forward complète avec optimisation hors-échantillon.<br />
+    • Univers volontairement restreint (9 actifs) pour rester une « petite étude » — un edge confirmé sur 2 cryptos n'est pas prouvé sur l'ensemble du marché crypto.<br />
+    • Coûts de transaction estimés (pas les frais exacts d'un broker/exchange précis) ; le slippage réel en automatisation peut être plus élevé, surtout pour le Donchian (>100 trades/actif).<br />
+    • ORB et VWAP mean-reversion restent non testés quantitativement faute de données intraday longues et gratuites.</p>
+    <p style="margin-top:16px; font-size:13px; color:var(--ink-muted)">Cette étude est un travail de recherche à but éducatif. Les performances passées, réelles ou simulées, ne préjugent pas des performances futures. Ceci ne constitue pas un conseil en investissement personnalisé.</p>
+  </section>
+
+  <footer>
+    Code et données complètes dans le projet local : <code>docs/01_documentary_review.md</code> · <code>run_backtests.py</code> · <code>run_robustness_check.py</code> · <code>results/comparison.csv</code>
+  </footer>
+
+</div>
