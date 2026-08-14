@@ -23,7 +23,12 @@ DELAY_BETWEEN_CALLS = 0.4  # seconds, single-threaded on purpose
 COOLDOWN_EVERY = 100      # community-reported pattern (yfinance GH discussion #2431):
 COOLDOWN_SECONDS = 20     # ~100 requests before Yahoo wants a breather -- so take one voluntarily
 MAX_RETRIES = 2
-STALENESS_DAYS = 90       # fundamentals don't need refreshing more often than quarterly rebalance
+STALENESS_DAYS = 7        # short enough to keep momentum/price (the whole point of the screener)
+# from going stale for months once the cache reaches full coverage of the target universe --
+# slower-moving fundamentals (P/E, ROE, debt) get refreshed more often than strictly needed as a
+# side effect, but that's a cheap trade given the batch (423/run, hourly) clears the full ~3000-
+# ticker universe in well under a day once it goes stale. Was 90 days; that let the cache freeze
+# solid the moment it reached 100% coverage (see incident 2026-08-07 -> 2026-08-14, zero refresh).
 
 
 def fetch_one(ticker: str) -> dict:
