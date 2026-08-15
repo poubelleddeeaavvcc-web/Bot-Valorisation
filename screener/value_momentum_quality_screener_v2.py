@@ -47,6 +47,30 @@ MIN_VALUATION_GAP = 0.25  # margin of safety, raised from 0.15 -- fewer, more co
 MIN_ROE = 0.15  # absolute quality floor regardless of sector (Buffett-style baseline),
 # on top of the existing relative-to-sector quality_multiplier
 
+# Same company, cross-listed on two exchanges under two different tickers (and, critically,
+# two different name strings -- "Equinor ASA" vs "EQUINOR" -- so the name-based dedup below
+# doesn't catch them). Found by hand after the ledger opened both EQNR and EQNR.OL, and both
+# LOGI and LOGN.SW, as if they were independent bets on two unrelated companies. Deliberately
+# a manual, curated list rather than fuzzy name-matching -- this universe has plenty of
+# distinct companies that share a name prefix (three separate "Grupo Aeroportuario..." airport
+# operators, several unrelated "First Merchants"/"First Bancorp"-style banks), where an
+# automated match would silently merge companies that have nothing to do with each other.
+CROSS_LISTING_GROUPS = [
+    {"ALC", "ALC.SW"},        # Alcon
+    {"AMRZ", "AMRZ.SW"},      # Amrize
+    {"BTI", "BATS.L"},        # British American Tobacco
+    {"CCEP", "CCEP.L"},       # Coca-Cola Europacific Partners
+    {"DB", "DBK.DE"},         # Deutsche Bank
+    {"EQNR", "EQNR.OL"},      # Equinor
+    {"HSBC", "0005.HK"},      # HSBC
+    {"LOGI", "LOGN.SW"},      # Logitech
+    {"NVS", "NOVN.SW"},       # Novartis
+    {"SNY", "SAN.PA"},        # Sanofi
+    {"SNN", "SN.L"},          # Smith & Nephew
+    {"TTE", "TTE.PA"},        # TotalEnergies
+]
+CROSS_LISTING_KEY = {tk: f"xlisting:{i}" for i, group in enumerate(CROSS_LISTING_GROUPS) for tk in group}
+
 
 def fetch_one(ticker: str) -> dict:
     try:
@@ -64,7 +88,10 @@ def fetch_one(ticker: str) -> dict:
         return {
             "ticker": ticker, "price": hist.iloc[-1], "market_cap": cap,
             "sector": info.get("sector"), "industry": info.get("industry"),
-            "name": info.get("shortName"),
+            # longName over shortName: shortName gets hard-truncated by Yahoo (e.g. "First
+            # Merchants Corporation - D...") which can cut off the very word (Depositary,
+            # Preferred...) that JUNK_NAME_PATTERN needs to see to filter the security out.
+            "name": info.get("longName") or info.get("shortName"),
             "pe": info.get("trailingPE"), "pb": info.get("priceToBook"),
             "eps": info.get("trailingEps"), "roe": info.get("returnOnEquity"),
             "margin": info.get("profitMargins"), "debt_eq": info.get("debtToEquity"),
@@ -121,7 +148,11 @@ def compute_valuation(df: pd.DataFrame) -> pd.DataFrame:
     # dual/multi share classes (GOOG/GOOGL, BRK.A/BRK.B, FOXA/FOX...) are the same
     # company, not two independent opportunities -- keep only the larger-cap class per
     # name so they don't inflate the candidate count or double up in the simulation.
-    df = df.sort_values("market_cap", ascending=False).drop_duplicates(subset="name", keep="first")
+    # Cross-listed tickers (same company, different exchange AND different name string,
+    # e.g. Equinor/EQNR.OL) dedupe on CROSS_LISTING_KEY instead since "name" alone misses them.
+    df = df.sort_values("market_cap", ascending=False)
+    dedupe_key = df["ticker"].map(CROSS_LISTING_KEY).fillna(df["name"])
+    df = df[~dedupe_key.duplicated(keep="first")]
 
     sector_pe = df.groupby("sector")["pe"].median().rename("sector_median_pe")
     df = df.join(sector_pe, on="sector")

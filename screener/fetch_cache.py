@@ -43,7 +43,9 @@ def fetch_one(ticker: str) -> dict:
                 "ticker": ticker, "fetched_at": today,
                 "price": hist.iloc[-1] if len(hist) else None,
                 "sector": info.get("sector"), "industry": info.get("industry"),
-                "name": info.get("shortName"),
+                # longName over shortName: shortName gets hard-truncated by Yahoo, which can
+                # cut off the very word (Depositary, Preferred...) JUNK_NAME_PATTERN needs.
+                "name": info.get("longName") or info.get("shortName"),
                 "pe": info.get("trailingPE"), "pb": info.get("priceToBook"),
                 "eps": info.get("trailingEps"), "roe": info.get("returnOnEquity"),
                 "margin": info.get("profitMargins"), "debt_eq": info.get("debtToEquity"),
