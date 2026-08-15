@@ -1,10 +1,14 @@
 """Broaden the raw universe beyond US + Euronext 100: UK (FTSE 100/250), Germany
-(DAX/MDAX), Switzerland (SMI), Hong Kong (Hang Seng) -- same method as Euronext 100
-(scrape the Wikipedia constituent table), normalized to Yahoo Finance ticker suffixes.
+(DAX/MDAX), Switzerland (SMI), Hong Kong (Hang Seng), Canada (S&P/TSX Composite), Spain
+(IBEX 35), Sweden (OMX Stockholm 30), South Korea (KOSPI 200), Australia (S&P/ASX 200)
+-- same method throughout (scrape the Wikipedia constituent table), normalized to Yahoo
+Finance ticker suffixes.
 
 Dropped from this pass: SDAX (Wikipedia's table has no ticker/symbol column at all) and
-Nikkei 225 (no reliable constituent table with tickers found on Wikipedia). Both would
-need a different source; not worth blocking the rest of the expansion on them.
+Japan/Nikkei 225 or TOPIX (no reliable constituent table with tickers found on Wikipedia
+for either -- checked again while adding this batch, still just historical index-level
+data, no per-company ticker table). Both would need a different source (e.g. JPX's own
+listed-issues file for Japan); not worth blocking the rest of the expansion on them.
 
 These tickers carry no sector/market-cap pre-filter (unlike the US NASDAQ-bulk path) --
 there's no equivalent free bulk API for these exchanges. That's fine: index membership
@@ -73,6 +77,52 @@ def hangseng():
     return df
 
 
+def tsx():
+    df = pd.read_html(HERE / "tsx_wiki.html")[3]
+    df.columns = [c[0] if isinstance(c, tuple) else c for c in df.columns]
+    df = df[["Ticker", "Company"]].rename(columns={"Ticker": "ticker", "Company": "name"})
+    df["ticker"] = df["ticker"].astype(str).str.strip() + ".TO"  # bare TSX symbols on Wikipedia
+    df["market"] = "S&P/TSX Composite"
+    return df
+
+
+def ibex35():
+    df = pd.read_html(HERE / "ibex35_wiki.html")[2]
+    df.columns = [c[0] if isinstance(c, tuple) else c for c in df.columns]
+    df = df[["Ticker", "Company"]].rename(columns={"Ticker": "ticker", "Company": "name"})
+    df["ticker"] = df["ticker"].astype(str).str.strip()  # already Yahoo-ready (.MC)
+    df["market"] = "IBEX 35"
+    return df
+
+
+def omxs30():
+    df = pd.read_html(HERE / "omxs30_wiki.html")[1]
+    df.columns = [c[0] if isinstance(c, tuple) else c for c in df.columns]
+    df = df[["Ticker", "Company"]].rename(columns={"Ticker": "ticker", "Company": "name"})
+    df["ticker"] = df["ticker"].astype(str).str.strip()  # already Yahoo-ready (.ST, incl. -A/-B classes)
+    df["market"] = "OMX Stockholm 30"
+    return df
+
+
+def kospi200():
+    df = pd.read_html(HERE / "kospi200_wiki.html")[2]
+    df.columns = [c[0] if isinstance(c, tuple) else c for c in df.columns]
+    df = df[["Symbol", "Company"]].rename(columns={"Symbol": "ticker", "Company": "name"})
+    # 6-digit KRX codes -- zero-pad (pandas/Wikipedia can drop a leading zero) then suffix
+    df["ticker"] = df["ticker"].astype(str).str.strip().str.zfill(6) + ".KS"
+    df["market"] = "KOSPI 200"
+    return df
+
+
+def asx200():
+    df = pd.read_html(HERE / "asx200_wiki.html")[2]
+    df.columns = [c[0] if isinstance(c, tuple) else c for c in df.columns]
+    df = df[["Code", "Company"]].rename(columns={"Code": "ticker", "Company": "name"})
+    df["ticker"] = df["ticker"].astype(str).str.strip() + ".AX"
+    df["market"] = "S&P/ASX 200"
+    return df
+
+
 def main():
     parts = [
         ftse("ftse100_wiki.html", 6, "FTSE 100"),
@@ -82,6 +132,11 @@ def main():
         smi(),
         cac40(),
         hangseng(),
+        tsx(),
+        ibex35(),
+        omxs30(),
+        kospi200(),
+        asx200(),
     ]
     combined = pd.concat(parts, ignore_index=True).drop_duplicates(subset="ticker")
     combined.to_csv(HERE / "international_universe.csv", index=False)
