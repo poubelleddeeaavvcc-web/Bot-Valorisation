@@ -38,6 +38,9 @@ jobs:
       - name: Simulation de portefeuille en aveugle
         run: python screener/simulate_portfolio.py
 
+      - name: Simulation de portefeuille a capital contraint (diversifie, reinvesti)
+        run: python screener/simulate_constrained_portfolio.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
