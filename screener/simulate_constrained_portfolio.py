@@ -20,18 +20,36 @@ Mechanics:
     in the same cycle. Growth scales the *number* of positions, not just their size --
     per the user's instruction, a windfall should diversify into a 5th/6th/7th name
     rather than doubling down on fewer, bigger bets.
+
+Currency: candidate prices come straight from yfinance in the listing's native currency
+(USD, JPY, GBp/pence, ...), not EUR -- naive division against a EUR cash balance was
+silently wrong before this was caught (2026-08-17). All cash/cost arithmetic below goes
+through to_eur() using live FX rates fetched once per run.
+
+Fractional shares: IBKR only supports fractional trading on a specific allowlist -- US
+and Canadian stocks broadly, European stocks only above a size+liquidity bar (~$5B market
+cap, ~$5M average daily $ volume; see https://www.interactivebrokers.com/en/trading/
+fractional-trading.php, checked 2026-08-17), and NOT AT ALL on Japan/Taiwan/South
+Korea/Hong Kong/India/Australia listings, which is a meaningful chunk of this bot's
+universe. fractional_eligible() approximates that allowlist; ineligible or liquidity-
+unknown candidates buy whole shares instead (at least 1, if affordable) rather than being
+skipped -- per the user's direction, don't leave cash idle by avoiding a good candidate
+just because it isn't fractional-eligible.
 """
 import json
 import pathlib
 import sys
+import time
 
 import pandas as pd
+import yfinance as yf
 
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
 from screener.select_top_picks import composite_score  # noqa: E402
 from screener.simulate_portfolio import fetch_fresh_single, STOP_LOSS_PCT  # noqa: E402
+from screener.fetch_cache import fetch_one as fetch_cache_one  # noqa: E402
 
 LEDGER_PATH = HERE / "results/simulation/constrained_portfolio_ledger.csv"
 STATE_PATH = HERE / "results/simulation/constrained_state.json"
@@ -46,13 +64,69 @@ TARGET_POSITION_SIZE = STARTING_CAPITAL / STARTING_SLOTS
 MAX_PER_SECTOR = 1
 
 LEDGER_COLUMNS = [
-    "ticker", "name", "sector", "status",
+    "ticker", "name", "sector", "status", "currency", "fractional",
     "entry_date", "entry_price", "shares", "entry_value_eur",
     "entry_valuation_gap", "entry_quality_multiplier", "entry_mom_12_2", "entry_sector_momentum",
     "last_check_date", "last_price", "last_valuation_gap", "last_mom_12_2",
     "current_value_eur", "unrealized_return_pct",
     "exit_date", "exit_price", "exit_reason", "exit_value_eur", "return_pct", "holding_days",
 ]
+
+# Yahoo FX ticker for EUR/<currency> -- rate = units of <currency> per 1 EUR, so
+# price_in_that_currency / rate = price_in_EUR. GBp (pence) shares the GBP rate but needs
+# an extra /100 -- handled in to_eur(), not here.
+FX_PAIR = {
+    "USD": "EURUSD=X", "GBP": "EURGBP=X", "GBp": "EURGBP=X", "JPY": "EURJPY=X",
+    "CHF": "EURCHF=X", "SEK": "EURSEK=X", "CAD": "EURCAD=X", "HKD": "EURHKD=X",
+    "AUD": "EURAUD=X", "KRW": "EURKRW=X", "TWD": "EURTWD=X", "INR": "EURINR=X",
+}
+
+# Suffix -> IBKR fractional-trading region bucket. US (no suffix) and Canada (.TO) are
+# broadly eligible; European exchanges are gated by size+liquidity (checked per-candidate
+# in fractional_eligible()); everything else on this list is never fractional-eligible.
+CANADA_SUFFIX = ".TO"
+EUROPE_SUFFIXES = (".PA", ".DE", ".L", ".SW", ".MI", ".AS", ".ST", ".IR", ".LS", ".BR", ".OL")
+NEVER_FRACTIONAL_SUFFIXES = (".T", ".TW", ".KS", ".HK", ".NS", ".BO", ".AX")
+EUROPE_MARKET_CAP_FLOOR_EUR = 4_600_000_000   # ~$5B at a rough EURUSD~1.08
+EUROPE_ADV_FLOOR_EUR = 4_600_000              # ~$5M
+
+
+def fetch_fx_rates(currencies: set) -> dict:
+    rates = {"EUR": 1.0}
+    for ccy in currencies:
+        key = "GBP" if ccy == "GBp" else ccy
+        if key in rates or key not in FX_PAIR:
+            continue
+        try:
+            hist = yf.Ticker(FX_PAIR[key]).history(period="5d")["Close"].dropna()
+            rates[key] = float(hist.iloc[-1]) if len(hist) else None
+        except Exception as e:
+            print(f"  echec fetch FX pour {key}: {e}", file=sys.stderr)
+            rates[key] = None
+    return rates
+
+
+def to_eur(amount, currency, fx_rates):
+    if amount is None or pd.isna(amount):
+        return None
+    if currency is None or pd.isna(currency) or currency == "EUR":
+        return amount  # unknown currency assumed EUR/USD-ish -- see module docstring on self-healing
+    rate = fx_rates.get("GBP" if currency == "GBp" else currency)
+    if rate is None or rate == 0:
+        return None
+    converted = amount / rate
+    return converted / 100 if currency == "GBp" else converted
+
+
+def fractional_eligible(ticker: str, market_cap_eur, avg_dollar_vol_eur) -> bool:
+    if "." not in ticker or ticker.endswith(CANADA_SUFFIX):
+        return True  # US (no suffix) or Canada
+    if ticker.endswith(EUROPE_SUFFIXES):
+        return (pd.notna(market_cap_eur) and market_cap_eur >= EUROPE_MARKET_CAP_FLOOR_EUR and
+                pd.notna(avg_dollar_vol_eur) and avg_dollar_vol_eur >= EUROPE_ADV_FLOOR_EUR)
+    if ticker.endswith(NEVER_FRACTIONAL_SUFFIXES):
+        return False
+    return False  # unrecognized suffix -- conservative default, whole shares only
 
 
 def load_ledger() -> pd.DataFrame:
@@ -75,7 +149,8 @@ def save_cash(cash: float):
     STATE_PATH.write_text(json.dumps({"cash_eur": cash}), encoding="utf-8")
 
 
-def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, cash: float) -> tuple:
+def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, cash: float,
+                      fx_rates: dict) -> tuple:
     sector_pe = valuation.groupby("sector")["sector_median_pe"].first()
     sector_mom = valuation.groupby("sector")["sector_momentum"].first()
 
@@ -99,7 +174,11 @@ def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, 
         entry_price = ledger.at[idx, "entry_price"]
         shares = ledger.at[idx, "shares"]
         unrealized = fresh["price"] / entry_price - 1
-        current_value = shares * fresh["price"]
+        # currency is fixed at entry (a listing doesn't change currency), so reuse it rather
+        # than needing fetch_fresh_single to report it -- only the FX *rate* needs refreshing.
+        current_value = to_eur(shares * fresh["price"], ledger.at[idx, "currency"], fx_rates)
+        if current_value is None:
+            continue  # FX rate unavailable this run -- skip valuing/exiting, retry next run
 
         ledger.at[idx, "last_check_date"] = today
         ledger.at[idx, "last_price"] = fresh["price"]
@@ -130,7 +209,8 @@ def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, 
     return ledger, cash
 
 
-def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, today: str) -> tuple:
+def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, today: str,
+               fx_rates: dict) -> tuple:
     held_tickers = set(ledger.loc[ledger["status"] == "open", "ticker"])
     sector_counts = ledger.loc[ledger["status"] == "open", "sector"].value_counts().to_dict()
 
@@ -139,37 +219,75 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
         return ledger, cash
     pool["score"] = composite_score(pool)
     pool = pool.sort_values("score", ascending=False)
+    # tickers tried and rejected this run (fetch failed, unaffordable, ...) -- don't retry
+    # them within the same run, but they're free to come up again next run.
+    rejected = set()
 
     new_rows = []
-    while cash >= TARGET_POSITION_SIZE:
-        pick = None
+    while True:
+        pick_row = None
         for cap in range(MAX_PER_SECTOR, 10):  # relax the sector cap only if truly starved of options
-            eligible = pool[~pool["ticker"].isin(held_tickers)]
+            eligible = pool[(~pool["ticker"].isin(held_tickers)) & (~pool["ticker"].isin(rejected))]
             eligible = eligible[eligible["sector"].map(lambda s: sector_counts.get(s, 0)) < cap]
             if len(eligible):
-                pick = eligible.iloc[0]
+                pick_row = eligible.iloc[0]
                 break
-        if pick is None:
-            break  # no eligible candidate at all, however relaxed -- stop, keep the cash
+        if pick_row is None:
+            break  # nothing left to try, however relaxed -- stop, keep the cash
 
-        shares = TARGET_POSITION_SIZE / pick["price"]
+        ticker = pick_row["ticker"]
+        # fresh single-ticker fetch at the moment of purchase: currency/avg_volume are new
+        # fields (added 2026-08-17) that the 7-day progressive cache hasn't necessarily
+        # backfilled for this ticker yet, and affordability/fractional-eligibility depend on
+        # both -- guessing wrong here means real money math, not just a stale display.
+        fresh = fetch_cache_one(ticker)
+        time.sleep(0.4)  # same pacing as fetch_cache.py -- this can run right after it in CI
+        if fresh.get("price") is None or fresh.get("error"):
+            rejected.add(ticker)
+            continue
+
+        price_eur = to_eur(fresh["price"], fresh.get("currency"), fx_rates)
+        if price_eur is None or price_eur <= 0 or price_eur > cash:
+            rejected.add(ticker)
+            continue
+
+        avg_vol = fresh.get("avg_volume")
+        market_cap_eur = to_eur(fresh.get("market_cap"), fresh.get("currency"), fx_rates)
+        adv_eur = (to_eur(avg_vol * fresh["price"], fresh.get("currency"), fx_rates)
+                   if avg_vol is not None and pd.notna(avg_vol) else None)
+        fractional = fractional_eligible(ticker, market_cap_eur, adv_eur)
+
+        if fractional:
+            cost = min(TARGET_POSITION_SIZE, cash)
+            shares = cost / price_eur
+        else:
+            # whole shares only (not IBKR fractional-eligible): buy as many as get closest to
+            # the target size without exceeding available cash -- at least 1, guaranteed
+            # affordable by the price_eur<=cash check above.
+            target_shares = max(1, int(TARGET_POSITION_SIZE // price_eur))
+            max_affordable = int(cash // price_eur)
+            shares = min(target_shares, max_affordable)
+            cost = shares * price_eur
+
         new_rows.append({
-            "ticker": pick["ticker"], "name": pick["name"], "sector": pick["sector"], "status": "open",
-            "entry_date": today, "entry_price": pick["price"], "shares": shares,
-            "entry_value_eur": TARGET_POSITION_SIZE,
-            "entry_valuation_gap": pick["valuation_gap"], "entry_quality_multiplier": pick["quality_multiplier"],
-            "entry_mom_12_2": pick["mom_12_2"], "entry_sector_momentum": pick["sector_momentum"],
-            "last_check_date": today, "last_price": pick["price"], "last_valuation_gap": pick["valuation_gap"],
-            "last_mom_12_2": pick["mom_12_2"], "current_value_eur": TARGET_POSITION_SIZE,
+            "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"], "status": "open",
+            "currency": fresh.get("currency"), "fractional": bool(fractional),
+            "entry_date": today, "entry_price": fresh["price"], "shares": shares,
+            "entry_value_eur": cost,
+            "entry_valuation_gap": pick_row["valuation_gap"], "entry_quality_multiplier": pick_row["quality_multiplier"],
+            "entry_mom_12_2": pick_row["mom_12_2"], "entry_sector_momentum": pick_row["sector_momentum"],
+            "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": pick_row["valuation_gap"],
+            "last_mom_12_2": pick_row["mom_12_2"], "current_value_eur": cost,
             "unrealized_return_pct": 0.0,
             "exit_date": None, "exit_price": None, "exit_reason": None,
             "exit_value_eur": None, "return_pct": None, "holding_days": None,
         })
-        cash -= TARGET_POSITION_SIZE
-        held_tickers.add(pick["ticker"])
-        sector_counts[pick["sector"]] = sector_counts.get(pick["sector"], 0) + 1
-        print(f"  ACHAT {pick['ticker']} ({pick['sector']}) : {TARGET_POSITION_SIZE:.2f} EUR "
-              f"@ {pick['price']:.2f}, score {pick['score']:.2f}")
+        cash -= cost
+        held_tickers.add(ticker)
+        sector_counts[pick_row["sector"]] = sector_counts.get(pick_row["sector"], 0) + 1
+        kind = "fractionne" if fractional else "entier"
+        print(f"  ACHAT {ticker} ({pick_row['sector']}) : {cost:.2f} EUR ({shares:.4f} actions, {kind}) "
+              f"@ {fresh['price']:.2f} {fresh.get('currency') or '?'}, score {pick_row['score']:.2f}")
 
     if new_rows:
         ledger = pd.concat([ledger, pd.DataFrame(new_rows)], ignore_index=True)
@@ -214,8 +332,13 @@ def main():
     ledger = load_ledger()
     cash = load_cash()
 
-    ledger, cash = recheck_and_exit(ledger, valuation, today, cash)
-    ledger, cash = fill_slots(ledger, candidates, cash, today)
+    # fetched unconditionally (not just currencies already in play) -- fill_slots discovers
+    # a candidate's currency one at a time via a fresh per-ticker fetch, so which currencies
+    # will be needed isn't known upfront; there are only 11 pairs total, cheap either way.
+    fx_rates = fetch_fx_rates(set(FX_PAIR.keys()))
+
+    ledger, cash = recheck_and_exit(ledger, valuation, today, cash, fx_rates)
+    ledger, cash = fill_slots(ledger, candidates, cash, today, fx_rates)
 
     LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
     ledger.to_csv(LEDGER_PATH, index=False)

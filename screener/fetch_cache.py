@@ -46,6 +46,11 @@ def fetch_one(ticker: str) -> dict:
                 # longName over shortName: shortName gets hard-truncated by Yahoo, which can
                 # cut off the very word (Depositary, Preferred...) JUNK_NAME_PATTERN needs.
                 "name": info.get("longName") or info.get("shortName"),
+                # needed by simulate_constrained_portfolio.py: "price" above is in the
+                # listing's native currency (JPY, GBp/pence, ...), not EUR or USD, and
+                # fractional-share eligibility (IBKR) depends on both liquidity and listing
+                # currency/market.
+                "currency": info.get("currency"), "avg_volume": info.get("averageVolume"),
                 "pe": info.get("trailingPE"), "pb": info.get("priceToBook"),
                 "eps": info.get("trailingEps"), "roe": info.get("returnOnEquity"),
                 "margin": info.get("profitMargins"), "debt_eq": info.get("debtToEquity"),
