@@ -68,7 +68,7 @@ tr:hover td{background:var(--bg3)}
     <div class="card">
       <div class="ctit">Dernière mise à jour</div>
       <div class="kbig" id="bv-kpi-updated">-</div>
-      <div class="ksub">GitHub Actions, cadence horaire — page auto-actualisée toutes les heures</div>
+      <div class="ksub">dernier cycle réel (pas la fraîcheur du cache) — GitHub Actions, cadence horaire</div>
     </div>
   </div>
 
@@ -168,11 +168,16 @@ async function renderBotValueTab(){
   statusEl.textContent='Chargement des données depuis GitHub…';
   try{
     const bust=Date.now();
-    const [candidatesTxt,sectorMomTxt,cacheTxt,trendingTxt]=await Promise.all([
+    const [candidatesTxt,sectorMomTxt,cacheTxt,trendingTxt,equityTxt]=await Promise.all([
       fetch(`${BV_REPO_RAW}/results/screener/long_candidates_latest.csv?_=${bust}`).then(r=>{if(!r.ok)throw new Error('long_candidates_latest.csv introuvable ('+r.status+')');return r.text();}),
       fetch(`${BV_REPO_RAW}/data/universe/sector_momentum.csv?_=${bust}`).then(r=>{if(!r.ok)throw new Error('sector_momentum.csv introuvable ('+r.status+')');return r.text();}),
       fetch(`${BV_REPO_RAW}/results/screener/fundamentals_cache.csv?_=${bust}`).then(r=>{if(!r.ok)throw new Error('fundamentals_cache.csv introuvable ('+r.status+')');return r.text();}),
       fetch(`${BV_REPO_RAW}/data/universe/trending_universe.csv?_=${bust}`).then(r=>r.ok?r.text():''),
+      // dernier run reel, pas la fraicheur du cache de fondamentaux (celui-ci ne bouge que
+      // quand un ticker depasse 7 jours -- il peut rester fige plusieurs jours meme quand le
+      // bot tourne parfaitement bien chaque heure, ce qui donnait l'impression a tort que la
+      // page etait figee)
+      fetch(`${BV_REPO_RAW}/results/simulation/equity_curve.csv?_=${bust}`).then(r=>r.ok?r.text():''),
     ]);
 
     bvCandidatesData=bvParseCSV(candidatesTxt).map(r=>({
@@ -202,8 +207,9 @@ async function renderBotValueTab(){
     const cacheRows=bvParseCSV(cacheTxt);
     const cacheFresh=cacheRows.filter(r=>!r.error).length;
     const trendingCount=trendingTxt?Math.max(trendingTxt.trim().split('\n').length-1,0):cacheRows.length;
-    const lastUpdate=cacheRows.reduce((max,r)=>(r.fetched_at&&r.fetched_at>max)?r.fetched_at:max,'');
-    window.bvStats={cacheFresh,trendingCount,lastUpdate};
+    const equityRows=bvParseCSV(equityTxt);
+    const lastRun=equityRows.length?equityRows[equityRows.length-1].timestamp:'';
+    window.bvStats={cacheFresh,trendingCount,lastRun};
 
     bvLoaded=true;
     statusEl.style.display='none';
@@ -216,8 +222,16 @@ async function renderBotValueTab(){
   }
 }
 
+function bvFormatRunTimestamp(iso){
+  if(!iso)return 'n/a';
+  const d=new Date(iso);
+  if(isNaN(d))return iso;
+  const pad=n=>String(n).padStart(2,'0');
+  return `${pad(d.getUTCDate())}/${pad(d.getUTCMonth()+1)} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())} UTC`;
+}
+
 function bvRenderAll(){
-  const {cacheFresh,trendingCount,lastUpdate}=window.bvStats;
+  const {cacheFresh,trendingCount,lastRun}=window.bvStats;
   document.getElementById('bv-kpi-cache').textContent=`${cacheFresh}/${trendingCount}`;
   document.getElementById('bv-kpi-cache-sub').textContent=trendingCount?`${Math.round(100*cacheFresh/trendingCount)}% de l'univers en tendance`:'-';
   document.getElementById('bv-kpi-candidates').textContent=bvCandidatesData.length;
@@ -226,7 +240,7 @@ function bvRenderAll(){
     document.getElementById('bv-kpi-best').textContent='+'+(best.valuation_gap*100).toFixed(0)+'%';
     document.getElementById('bv-kpi-best-sub').textContent=best.ticker+' — '+(best.name||'');
   }
-  document.getElementById('bv-kpi-updated').textContent=lastUpdate||'n/a';
+  document.getElementById('bv-kpi-updated').textContent=bvFormatRunTimestamp(lastRun);
 
   bvDrawSectorChart();
   bvDrawCandidatesChart();
