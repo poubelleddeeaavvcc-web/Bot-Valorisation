@@ -48,7 +48,7 @@ HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
 from screener.select_top_picks import composite_score  # noqa: E402
-from screener.simulate_portfolio import fetch_fresh_single, STOP_LOSS_PCT  # noqa: E402
+from screener.simulate_portfolio import fetch_fresh_single, resolve_peer_pe, STOP_LOSS_PCT  # noqa: E402
 from screener.fetch_cache import fetch_one as fetch_cache_one  # noqa: E402
 
 LEDGER_PATH = HERE / "results/simulation/constrained_portfolio_ledger.csv"
@@ -153,6 +153,8 @@ def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, 
                       fx_rates: dict) -> tuple:
     sector_pe = valuation.groupby("sector")["sector_median_pe"].first()
     sector_mom = valuation.groupby("sector")["sector_momentum"].first()
+    industry_pe = valuation.groupby("industry")["industry_median_pe"].first()
+    industry_count = valuation.groupby("industry")["industry_count"].first()
 
     for idx in ledger.index[ledger["status"] == "open"]:
         ticker = ledger.at[idx, "ticker"]
@@ -161,12 +163,12 @@ def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, 
             continue
 
         sector = fresh["sector"] or ledger.at[idx, "sector"]
-        today_sector_pe = sector_pe.get(sector)
+        today_peer_pe = resolve_peer_pe(sector, fresh.get("industry"), sector_pe, industry_pe, industry_count)
         today_sector_mom = sector_mom.get(sector, 0.0)
         qmult = ledger.at[idx, "entry_quality_multiplier"]
 
-        if today_sector_pe is not None and pd.notna(qmult):
-            fair_value_now = fresh["eps"] * today_sector_pe * qmult
+        if today_peer_pe is not None and pd.notna(qmult):
+            fair_value_now = fresh["eps"] * today_peer_pe * qmult
             valuation_gap_now = fair_value_now / fresh["price"] - 1
         else:
             valuation_gap_now = ledger.at[idx, "last_valuation_gap"]

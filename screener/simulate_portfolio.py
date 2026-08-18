@@ -47,11 +47,28 @@ BENCHMARKS = {"spy_price": "^GSPC", "n100_price": "^N100"}
 # hard stop-loss, independent of the valuation/momentum model -- see recheck_open_positions
 STOP_LOSS_PCT = -0.25
 
+MIN_INDUSTRY_PEERS = 5  # must match value_momentum_quality_screener_v2.MIN_INDUSTRY_PEERS --
+# duplicated rather than imported, same reasoning as simulate_constrained_portfolio.py gives
+# for duplicating the exit rules: this module tracks live positions and shouldn't depend on
+# the screener's heavier (network-fetching) import surface.
+
+
+def resolve_peer_pe(sector, industry, sector_pe_map, industry_pe_map, industry_count_map):
+    """Same industry-with-sector-fallback peer group used at entry (see
+    value_momentum_quality_screener_v2.compute_valuation) -- must stay consistent with entry,
+    or the exit-side valuation_gap silently drifts from what actually got this position bought."""
+    if industry and industry_count_map.get(industry, 0) >= MIN_INDUSTRY_PEERS:
+        peer_pe = industry_pe_map.get(industry)
+        if pd.notna(peer_pe):
+            return peer_pe
+    return sector_pe_map.get(sector)
+
 LEDGER_COLUMNS = [
     "ticker", "name", "sector", "status",
     "entry_date", "entry_price", "entry_valuation_gap", "entry_quality_multiplier",
     "entry_mom_12_2", "entry_sector_momentum",
-    "last_check_date", "last_price", "last_valuation_gap", "last_mom_12_2", "unrealized_return_pct",
+    "last_check_date", "last_price", "last_valuation_gap", "last_mom_12_2", "last_sector_momentum",
+    "unrealized_return_pct", "peak_unrealized_return_pct", "peak_date",
     "exit_date", "exit_price", "exit_reason", "return_pct", "holding_days",
 ]
 
@@ -62,7 +79,16 @@ def load_ledger() -> pd.DataFrame:
         for c in LEDGER_COLUMNS:
             if c not in df.columns:
                 df[c] = None
-        return df[LEDGER_COLUMNS]
+        df = df[LEDGER_COLUMNS]
+        # backfill for rows created before peak tracking existed: best-effort floor,
+        # not real history -- we don't know the actual peak reached before this field existed.
+        missing_peak = df["peak_unrealized_return_pct"].isna()
+        if missing_peak.any():
+            fallback_return = df["unrealized_return_pct"].where(df["status"] == "open", df["return_pct"])
+            df.loc[missing_peak, "peak_unrealized_return_pct"] = fallback_return[missing_peak].fillna(0.0).clip(lower=0.0)
+            fallback_date = df["last_check_date"].where(df["status"] == "open", df["exit_date"])
+            df.loc[missing_peak, "peak_date"] = fallback_date[missing_peak]
+        return df
     return pd.DataFrame(columns=LEDGER_COLUMNS)
 
 
@@ -77,7 +103,7 @@ def fetch_fresh_single(ticker: str) -> dict | None:
         mom_12_2 = hist.iloc[-2] / hist.iloc[-13] - 1
         return {
             "price": hist.iloc[-1], "eps": info.get("trailingEps"),
-            "sector": info.get("sector"), "mom_12_2": mom_12_2,
+            "sector": info.get("sector"), "industry": info.get("industry"), "mom_12_2": mom_12_2,
         }
     except Exception as e:
         print(f"  echec fetch frais pour {ticker}: {e}", file=sys.stderr)
@@ -96,7 +122,8 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, today: st
             "entry_quality_multiplier": c["quality_multiplier"], "entry_mom_12_2": c["mom_12_2"],
             "entry_sector_momentum": c["sector_momentum"],
             "last_check_date": today, "last_price": c["price"], "last_valuation_gap": c["valuation_gap"],
-            "last_mom_12_2": c["mom_12_2"], "unrealized_return_pct": 0.0,
+            "last_mom_12_2": c["mom_12_2"], "last_sector_momentum": c["sector_momentum"],
+            "unrealized_return_pct": 0.0, "peak_unrealized_return_pct": 0.0, "peak_date": today,
             "exit_date": None, "exit_price": None, "exit_reason": None,
             "return_pct": None, "holding_days": None,
         })
@@ -109,6 +136,8 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, today: st
 def recheck_open_positions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str) -> pd.DataFrame:
     sector_pe = valuation.groupby("sector")["sector_median_pe"].first()
     sector_mom = valuation.groupby("sector")["sector_momentum"].first()
+    industry_pe = valuation.groupby("industry")["industry_median_pe"].first()
+    industry_count = valuation.groupby("industry")["industry_count"].first()
 
     for idx in ledger.index[ledger["status"] == "open"]:
         ticker = ledger.at[idx, "ticker"]
@@ -117,12 +146,12 @@ def recheck_open_positions(ledger: pd.DataFrame, valuation: pd.DataFrame, today:
             continue
 
         sector = fresh["sector"] or ledger.at[idx, "sector"]
-        today_sector_pe = sector_pe.get(sector)
+        today_peer_pe = resolve_peer_pe(sector, fresh.get("industry"), sector_pe, industry_pe, industry_count)
         today_sector_mom = sector_mom.get(sector, 0.0)
         qmult = ledger.at[idx, "entry_quality_multiplier"]
 
-        if today_sector_pe is not None and pd.notna(qmult):
-            fair_value_now = fresh["eps"] * today_sector_pe * qmult
+        if today_peer_pe is not None and pd.notna(qmult):
+            fair_value_now = fresh["eps"] * today_peer_pe * qmult
             valuation_gap_now = fair_value_now / fresh["price"] - 1
         else:
             valuation_gap_now = ledger.at[idx, "last_valuation_gap"]
@@ -134,7 +163,13 @@ def recheck_open_positions(ledger: pd.DataFrame, valuation: pd.DataFrame, today:
         ledger.at[idx, "last_price"] = fresh["price"]
         ledger.at[idx, "last_valuation_gap"] = valuation_gap_now
         ledger.at[idx, "last_mom_12_2"] = fresh["mom_12_2"]
+        ledger.at[idx, "last_sector_momentum"] = today_sector_mom
         ledger.at[idx, "unrealized_return_pct"] = unrealized
+
+        current_peak = ledger.at[idx, "peak_unrealized_return_pct"]
+        if pd.isna(current_peak) or unrealized > current_peak:
+            ledger.at[idx, "peak_unrealized_return_pct"] = unrealized
+            ledger.at[idx, "peak_date"] = today
 
         momentum_lost = fresh["mom_12_2"] <= 0 or fresh["mom_12_2"] <= today_sector_mom
         valuation_reached = pd.notna(valuation_gap_now) and valuation_gap_now <= 0
