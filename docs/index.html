@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bot Valorisation</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+<style>
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--bd:#30363d;
+  --tx:#e6edf3;--mu:#8b949e;--gr:#3fb950;--rd:#f85149;--or:#d29922;--bl:#388bfd;--g:#caa84e;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;margin:0}
+.hdr{background:var(--bg2);border-bottom:1px solid var(--bd);padding:16px 20px;position:sticky;top:0;z-index:100}
+.hdr h1{font-size:18px;margin:0 0 4px}
+.hdr-sub{font-size:11px;color:var(--mu)}
+.hdr-sub a{color:var(--bl)}
+.cx{max-width:1300px;margin:0 auto;padding:16px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:14px;flex:1;min-width:170px}
+.ctit{font-size:10px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.kbig{font-size:24px;font-weight:700}
+.ksub{font-size:11px;color:var(--mu);margin-top:4px}
+.pos{color:var(--gr)}.neg{color:var(--rd)}.neu{color:var(--mu)}
+table{width:100%;border-collapse:collapse}
+th{font-size:10px;color:var(--mu);text-align:left;padding:6px 8px;border-bottom:1px solid var(--bd);white-space:nowrap;cursor:pointer;user-select:none}
+th:hover{color:var(--tx)}
+td{padding:5px 8px;border-bottom:1px solid var(--bd);font-size:12px;vertical-align:middle}
+tr:hover td{background:var(--bg3)}
+.badge{font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;display:inline-block}
+.bok{background:#1f3d1f;color:var(--gr);border:1px solid var(--gr)}
+.tbl-wrap{overflow-x:auto}
+.section-title{font-size:14px;font-weight:700;color:var(--g);margin:18px 0 10px}
+.xirr-explain{background:var(--bg3);border:1px solid var(--bd);border-left:3px solid var(--g);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--mu);line-height:1.5;margin-bottom:10px}
+.xirr-explain b{color:var(--tx)}
+.muted-note{font-size:11px;color:var(--mu);margin-top:6px;line-height:1.5}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <h1>🤖 Bot Valorisation</h1>
+  <div class="hdr-sub">Screener value+momentum+qualité — données publiques, actualisées automatiquement toutes les heures par
+    <a href="https://github.com/poubelleddeeaavvcc-web/Bot-Valorisation" target="_blank">GitHub Actions</a>.
+    Cette page ne contient aucune donnée personnelle — uniquement les candidats du screener et l'état des deux bots de simulation.</div>
+</div>
+
+<div class="cx">
+  <div id="botvalue-status" class="muted-note" style="margin-bottom:14px">Chargement des données depuis GitHub…</div>
+
+  <div class="row" id="botvalue-kpis" style="display:none">
+    <div class="card">
+      <div class="ctit">Cache de fondamentaux</div>
+      <div class="kbig" id="bv-kpi-cache">-</div>
+      <div class="ksub" id="bv-kpi-cache-sub">-</div>
+    </div>
+    <div class="card">
+      <div class="ctit">Candidats LONG actuels</div>
+      <div class="kbig" id="bv-kpi-candidates">-</div>
+      <div class="ksub">décote ≥15%, filtres dette+secteur OK</div>
+    </div>
+    <div class="card">
+      <div class="ctit">Meilleur écart de valorisation</div>
+      <div class="kbig pos" id="bv-kpi-best">-</div>
+      <div class="ksub" id="bv-kpi-best-sub">-</div>
+    </div>
+    <div class="card">
+      <div class="ctit">Dernière mise à jour</div>
+      <div class="kbig" id="bv-kpi-updated">-</div>
+      <div class="ksub">GitHub Actions, cadence horaire — page auto-actualisée toutes les heures</div>
+    </div>
+  </div>
+
+  <div id="botvalue-content" style="display:none">
+    <div class="section-title">Momentum sectoriel (12-2 mois)</div>
+    <div class="card" style="margin-bottom:14px">
+      <div style="position:relative;height:260px"><canvas id="bvSectorChart"></canvas></div>
+    </div>
+
+    <div class="row">
+      <div class="card" style="flex:2;min-width:320px">
+        <div class="ctit">Top 15 candidats LONG par écart de valorisation</div>
+        <div style="position:relative;height:340px"><canvas id="bvCandidatesChart"></canvas></div>
+      </div>
+      <div class="card" style="flex:1;min-width:220px">
+        <div class="ctit">Répartition sectorielle des candidats</div>
+        <div style="position:relative;height:340px"><canvas id="bvSectorDonut"></canvas></div>
+      </div>
+    </div>
+
+    <div class="section-title">Tous les candidats LONG (clic sur une colonne pour trier)</div>
+    <div class="card tbl-wrap">
+      <table id="bvCandidatesTable">
+        <thead>
+          <tr>
+            <th data-col="ticker">Ticker</th>
+            <th data-col="name">Nom</th>
+            <th data-col="sector">Secteur</th>
+            <th data-col="price">Prix</th>
+            <th data-col="pe">P/E</th>
+            <th data-col="fair_pe">P/E juste</th>
+            <th data-col="fair_value">Valeur juste</th>
+            <th data-col="valuation_gap">Écart</th>
+            <th data-col="roe">ROE</th>
+            <th data-col="debt_eq">Dette/CP</th>
+            <th data-col="mom_12_2">Momentum</th>
+          </tr>
+        </thead>
+        <tbody id="bvCandidatesTbody"></tbody>
+      </table>
+    </div>
+
+    <div class="xirr-explain" style="margin-top:14px">
+      <b>Méthode :</b> pour chaque action, la "valeur juste" = BPA × P/E médian de ses pairs (industrie si ≥5 pairs,
+      sinon secteur), ajusté à la hausse si le ROE/la marge sont meilleurs que la médiane du secteur, à la baisse
+      si la dette est plus lourde (multiplicateur borné entre 0,6x et 1,6x). Un candidat LONG doit cumuler : décote
+      d'au moins 25% vs valeur juste (mais ≤75%, au-delà traité comme anomalie de modèle), P/E ne dépassant pas la
+      médiane des pairs (la qualité amplifie une vraie décote, n'en fabrique pas une), ROE ≥15% (plancher absolu),
+      momentum du titre positif et supérieur à celui de son secteur, PEG entre 0 et 2, secteurs cycliques (matières
+      premières, énergie) confirmés par le P/B, dette non excessive, secteur actuellement haussier. Univers :
+      actions US (NYSE/NASDAQ, cap ≥1Md$) + marchés internationaux, filtré aux secteurs en tendance. Survole un
+      ticker (ⓘ) pour voir pourquoi le modèle le signale. Détail complet et code sur
+      <a href="https://github.com/poubelleddeeaavvcc-web/Bot-Valorisation" target="_blank" style="color:var(--bl)">GitHub</a>.
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+const BV_REPO_RAW='https://raw.githubusercontent.com/poubelleddeeaavvcc-web/Bot-Valorisation/master';
+let bvLoaded=false,bvSectorChartRef=null,bvCandidatesChartRef=null,bvSectorDonutRef=null;
+let bvCandidatesData=[],bvSortState={col:'valuation_gap',dir:'desc'};
+
+function bvSplitCSVLine(line){
+  const result=[];let cur='',inQuotes=false;
+  for(let i=0;i<line.length;i++){
+    const c=line[i];
+    if(inQuotes){
+      if(c==='"'){ if(line[i+1]==='"'){cur+='"';i++;} else inQuotes=false; }
+      else cur+=c;
+    }else{
+      if(c==='"')inQuotes=true;
+      else if(c===','){result.push(cur);cur='';}
+      else cur+=c;
+    }
+  }
+  result.push(cur);
+  return result;
+}
+function bvParseCSV(text){
+  const lines=text.trim().split('\n');
+  if(lines.length<2)return[];
+  const headers=bvSplitCSVLine(lines[0]);
+  return lines.slice(1).map(line=>{
+    const vals=bvSplitCSVLine(line);
+    const obj={};
+    headers.forEach((h,i)=>obj[h]=vals[i]);
+    return obj;
+  });
+}
+
+async function renderBotValueTab(){
+  const statusEl=document.getElementById('botvalue-status');
+  statusEl.style.display='';
+  statusEl.style.color='';
+  statusEl.textContent='Chargement des données depuis GitHub…';
+  try{
+    const bust=Date.now();
+    const [candidatesTxt,sectorMomTxt,cacheTxt,trendingTxt]=await Promise.all([
+      fetch(`${BV_REPO_RAW}/results/screener/long_candidates_latest.csv?_=${bust}`).then(r=>{if(!r.ok)throw new Error('long_candidates_latest.csv introuvable ('+r.status+')');return r.text();}),
+      fetch(`${BV_REPO_RAW}/data/universe/sector_momentum.csv?_=${bust}`).then(r=>{if(!r.ok)throw new Error('sector_momentum.csv introuvable ('+r.status+')');return r.text();}),
+      fetch(`${BV_REPO_RAW}/results/screener/fundamentals_cache.csv?_=${bust}`).then(r=>{if(!r.ok)throw new Error('fundamentals_cache.csv introuvable ('+r.status+')');return r.text();}),
+      fetch(`${BV_REPO_RAW}/data/universe/trending_universe.csv?_=${bust}`).then(r=>r.ok?r.text():''),
+    ]);
+
+    bvCandidatesData=bvParseCSV(candidatesTxt).map(r=>({
+      ticker:r.ticker,name:r.name,sector:r.sector,
+      price:parseFloat(r.price),pe:parseFloat(r.pe),fair_pe:parseFloat(r.fair_pe),
+      fair_value:parseFloat(r.fair_value),valuation_gap:parseFloat(r.valuation_gap),
+      roe:parseFloat(r.roe),debt_eq:r.debt_eq?parseFloat(r.debt_eq):null,
+      mom_12_2:parseFloat(r.mom_12_2),explication:r.explication||'',
+    })).filter(r=>!isNaN(r.valuation_gap));
+
+    window.bvSectorMomentum=bvParseCSV(sectorMomTxt).map(r=>({sector:r.sector,mom:parseFloat(r.sector_mom_12_2)}));
+
+    // Best-effort : quels candidats sont actuellement detenus par l'un ou l'autre bot --
+    // purement decoratif (badges dans le tableau), donc un echec ici ne doit jamais casser
+    // le reste de la page. Ce sont des positions simulees publiques, pas des donnees perso.
+    try{
+      const [ledger1Txt,ledger2Txt]=await Promise.all([
+        fetch(`${BV_REPO_RAW}/results/simulation/portfolio_ledger.csv?_=${bust}`).then(r=>r.ok?r.text():'').catch(()=>''),
+        fetch(`${BV_REPO_RAW}/results/simulation/constrained_portfolio_ledger.csv?_=${bust}`).then(r=>r.ok?r.text():'').catch(()=>''),
+      ]);
+      window.bvHeldByBot1=new Set(bvParseCSV(ledger1Txt).filter(r=>r.status==='open').map(r=>r.ticker));
+      window.bvHeldByBot2=new Set(bvParseCSV(ledger2Txt).filter(r=>r.status==='open').map(r=>r.ticker));
+    }catch(e){
+      window.bvHeldByBot1=new Set();window.bvHeldByBot2=new Set();
+    }
+
+    const cacheRows=bvParseCSV(cacheTxt);
+    const cacheFresh=cacheRows.filter(r=>!r.error).length;
+    const trendingCount=trendingTxt?Math.max(trendingTxt.trim().split('\n').length-1,0):cacheRows.length;
+    const lastUpdate=cacheRows.reduce((max,r)=>(r.fetched_at&&r.fetched_at>max)?r.fetched_at:max,'');
+    window.bvStats={cacheFresh,trendingCount,lastUpdate};
+
+    bvLoaded=true;
+    statusEl.style.display='none';
+    document.getElementById('botvalue-kpis').style.display='';
+    document.getElementById('botvalue-content').style.display='';
+    bvRenderAll();
+  }catch(e){
+    statusEl.textContent='Impossible de charger les données du screener ('+e.message+'). Vérifie que le dépôt GitHub est accessible et que la routine a déjà tourné au moins une fois.';
+    statusEl.style.color='var(--rd)';
+  }
+}
+
+function bvRenderAll(){
+  const {cacheFresh,trendingCount,lastUpdate}=window.bvStats;
+  document.getElementById('bv-kpi-cache').textContent=`${cacheFresh}/${trendingCount}`;
+  document.getElementById('bv-kpi-cache-sub').textContent=trendingCount?`${Math.round(100*cacheFresh/trendingCount)}% de l'univers en tendance`:'-';
+  document.getElementById('bv-kpi-candidates').textContent=bvCandidatesData.length;
+  const best=bvCandidatesData.reduce((b,r)=>(!b||r.valuation_gap>b.valuation_gap)?r:b,null);
+  if(best){
+    document.getElementById('bv-kpi-best').textContent='+'+(best.valuation_gap*100).toFixed(0)+'%';
+    document.getElementById('bv-kpi-best-sub').textContent=best.ticker+' — '+(best.name||'');
+  }
+  document.getElementById('bv-kpi-updated').textContent=lastUpdate||'n/a';
+
+  bvDrawSectorChart();
+  bvDrawCandidatesChart();
+  bvDrawSectorDonut();
+  bvSortAndRenderTable();
+  bvWireSortHeaders();
+}
+
+function bvDrawSectorChart(){
+  const canvas=document.getElementById('bvSectorChart');
+  if(!canvas)return;
+  if(bvSectorChartRef)bvSectorChartRef.destroy();
+  const data=[...(window.bvSectorMomentum||[])].sort((a,b)=>b.mom-a.mom);
+  bvSectorChartRef=new Chart(canvas.getContext('2d'),{
+    type:'bar',
+    data:{labels:data.map(d=>d.sector),datasets:[{
+      data:data.map(d=>d.mom*100),
+      backgroundColor:data.map(d=>d.mom>=0?'#3fb950':'#f85149'),
+      borderRadius:4,
+    }]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>c.raw.toFixed(1)+'%'}}},
+      scales:{
+        x:{ticks:{color:'#8b949e',maxRotation:45,minRotation:45,font:{size:10}},grid:{display:false}},
+        y:{ticks:{color:'#8b949e',callback:(v)=>v+'%'},grid:{color:'#30363d'}},
+      }
+    }
+  });
+}
+
+function bvDrawCandidatesChart(){
+  const canvas=document.getElementById('bvCandidatesChart');
+  if(!canvas)return;
+  if(bvCandidatesChartRef)bvCandidatesChartRef.destroy();
+  const top=[...bvCandidatesData].sort((a,b)=>b.valuation_gap-a.valuation_gap).slice(0,15);
+  bvCandidatesChartRef=new Chart(canvas.getContext('2d'),{
+    type:'bar',
+    data:{labels:top.map(d=>d.ticker),datasets:[{
+      data:top.map(d=>d.valuation_gap*100),
+      backgroundColor:'#caa84e',
+      borderRadius:4,
+    }]},
+    options:{
+      indexAxis:'y',
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{
+        label:(c)=>(top[c.dataIndex].name||'')+' — +'+c.raw.toFixed(0)+'%'
+      }}},
+      scales:{
+        x:{ticks:{color:'#8b949e',callback:(v)=>'+'+v+'%'},grid:{color:'#30363d'}},
+        y:{ticks:{color:'#8b949e'},grid:{display:false}},
+      }
+    }
+  });
+}
+
+function bvDrawSectorDonut(){
+  const canvas=document.getElementById('bvSectorDonut');
+  if(!canvas)return;
+  if(bvSectorDonutRef)bvSectorDonutRef.destroy();
+  const counts={};
+  bvCandidatesData.forEach(d=>{counts[d.sector]=(counts[d.sector]||0)+1;});
+  const entries=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const palette=['#caa84e','#388bfd','#3fb950','#f85149','#d29922','#a371f7','#39c5cf','#f778ba','#8b949e','#56d364','#79c0ff'];
+  bvSectorDonutRef=new Chart(canvas.getContext('2d'),{
+    type:'doughnut',
+    data:{labels:entries.map(e=>e[0]),datasets:[{data:entries.map(e=>e[1]),backgroundColor:palette,borderColor:'#0d1117',borderWidth:2}]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{color:'#8b949e',font:{size:10},boxWidth:10}}}
+    }
+  });
+}
+
+function bvSortAndRenderTable(){
+  const {col,dir}=bvSortState;
+  const sorted=[...bvCandidatesData].sort((a,b)=>{
+    let va=a[col],vb=b[col];
+    if(typeof va==='string'||typeof vb==='string')return dir==='asc'?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va));
+    va=(va==null||isNaN(va))?-Infinity:va;
+    vb=(vb==null||isNaN(vb))?-Infinity:vb;
+    return dir==='asc'?va-vb:vb-va;
+  });
+  const tbody=document.getElementById('bvCandidatesTbody');
+  const heldBy1=window.bvHeldByBot1||new Set(),heldBy2=window.bvHeldByBot2||new Set();
+  tbody.innerHTML=sorted.map(r=>{
+    let heldBadges='';
+    if(heldBy1.has(r.ticker))heldBadges+=' <span class="badge bok" title="Position ouverte, Bot #1 (aveugle)">🤖1</span>';
+    if(heldBy2.has(r.ticker))heldBadges+=' <span class="badge bok" title="Position ouverte, Bot #2 (capital contraint)">🤖2</span>';
+    return `
+    <tr title="${(r.explication||'').replace(/"/g,'&quot;')}">
+      <td><strong>${r.ticker}</strong>${r.explication?' <span style="color:var(--mu);cursor:help" title="'+r.explication.replace(/"/g,'&quot;')+'">ⓘ</span>':''}${heldBadges}</td>
+      <td>${r.name||''}</td>
+      <td>${r.sector||''}</td>
+      <td>${isNaN(r.price)?'n/a':r.price.toFixed(2)}</td>
+      <td>${isNaN(r.pe)?'n/a':r.pe.toFixed(1)}</td>
+      <td>${isNaN(r.fair_pe)?'n/a':r.fair_pe.toFixed(1)}</td>
+      <td>${isNaN(r.fair_value)?'n/a':r.fair_value.toFixed(2)}</td>
+      <td class="pos">+${(r.valuation_gap*100).toFixed(0)}%</td>
+      <td>${(r.roe!=null&&!isNaN(r.roe))?(r.roe*100).toFixed(1)+'%':'n/a'}</td>
+      <td>${(r.debt_eq!=null&&!isNaN(r.debt_eq))?r.debt_eq.toFixed(0)+'%':'n/a'}</td>
+      <td class="${r.mom_12_2>=0?'pos':'neg'}">${r.mom_12_2>=0?'+':''}${(r.mom_12_2*100).toFixed(1)}%</td>
+    </tr>
+  `;}).join('');
+}
+
+function bvWireSortHeaders(){
+  document.querySelectorAll('#bvCandidatesTable th[data-col]').forEach(th=>{
+    th.onclick=()=>{
+      const col=th.dataset.col;
+      if(bvSortState.col===col)bvSortState.dir=bvSortState.dir==='asc'?'desc':'asc';
+      else{bvSortState.col=col;bvSortState.dir='desc';}
+      bvSortAndRenderTable();
+    };
+  });
+}
+
+renderBotValueTab();
+setInterval(renderBotValueTab,3600*1000);
+</script>
+</body>
+</html>
