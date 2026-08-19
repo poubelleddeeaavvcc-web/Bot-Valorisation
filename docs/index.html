@@ -190,9 +190,13 @@ async function renderBotValueTab(){
 
     window.bvSectorMomentum=bvParseCSV(sectorMomTxt).map(r=>({sector:r.sector,mom:parseFloat(r.sector_mom_12_2)}));
 
-    // Best-effort : quels candidats sont actuellement detenus par l'un ou l'autre bot --
-    // purement decoratif (badges dans le tableau), donc un echec ici ne doit jamais casser
-    // le reste de la page. Ce sont des positions simulees publiques, pas des donnees perso.
+    // Best-effort : quels candidats sont actuellement detenus par l'un ou l'autre bot.
+    // Bot #1 est aveugle et achete systematiquement tous les candidats LONG -- l'afficher
+    // dans la liste des candidats n'apporte donc aucune info (badge vrai sur ~100% des
+    // lignes) : on retire de la liste tout candidat deja detenu par Bot #1. Bot #2 est
+    // contraint en capital et selectif, donc son badge reste utile et est conserve.
+    // Un echec ici ne doit jamais casser le reste de la page : ce sont des positions
+    // simulees publiques, pas des donnees perso.
     try{
       const [ledger1Txt,ledger2Txt]=await Promise.all([
         fetch(`${BV_REPO_RAW}/results/simulation/portfolio_ledger.csv?_=${bust}`).then(r=>r.ok?r.text():'').catch(()=>''),
@@ -203,6 +207,7 @@ async function renderBotValueTab(){
     }catch(e){
       window.bvHeldByBot1=new Set();window.bvHeldByBot2=new Set();
     }
+    bvCandidatesData=bvCandidatesData.filter(r=>!window.bvHeldByBot1.has(r.ticker));
 
     const cacheRows=bvParseCSV(cacheTxt);
     const cacheFresh=cacheRows.filter(r=>!r.error).length;
@@ -326,10 +331,9 @@ function bvSortAndRenderTable(){
     return dir==='asc'?va-vb:vb-va;
   });
   const tbody=document.getElementById('bvCandidatesTbody');
-  const heldBy1=window.bvHeldByBot1||new Set(),heldBy2=window.bvHeldByBot2||new Set();
+  const heldBy2=window.bvHeldByBot2||new Set();
   tbody.innerHTML=sorted.map(r=>{
     let heldBadges='';
-    if(heldBy1.has(r.ticker))heldBadges+=' <span class="badge bok" title="Position ouverte, Bot #1 (aveugle)">🤖1</span>';
     if(heldBy2.has(r.ticker))heldBadges+=' <span class="badge bok" title="Position ouverte, Bot #2 (capital contraint)">🤖2</span>';
     return `
     <tr title="${(r.explication||'').replace(/"/g,'&quot;')}">
