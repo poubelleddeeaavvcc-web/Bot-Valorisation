@@ -12,9 +12,10 @@ Mechanics:
   - Every sale's proceeds return to cash and get reinvested: whenever cash >=
     TARGET_POSITION_SIZE, the next slot is filled with the best available LONG candidate
     NOT already held, ranked by select_top_picks.composite_score and capped at
-    MAX_PER_SECTOR per sector (relaxed one step at a time only if too few sectors are
-    available to fill every slot otherwise) -- same diversification logic used for the
-    "top picks today" report.
+    MAX_PER_SECTOR per sector, and at select_top_picks.NORTH_AMERICA_MAX_SHARE (75%) of
+    open positions for US+Canada combined -- both relaxed one step at a time (sector cap
+    first) only if too few candidates are available to fill every slot otherwise -- same
+    diversification logic used for the "top picks today" report.
   - No hard position-count ceiling: as gains compound, cash naturally clears the
     TARGET_POSITION_SIZE bar more than once per run, so a big win can open 2+ new slots
     in the same cycle. Growth scales the *number* of positions, not just their size --
@@ -37,6 +38,7 @@ skipped -- per the user's direction, don't leave cash idle by avoiding a good ca
 just because it isn't fractional-eligible.
 """
 import json
+import math
 import pathlib
 import sys
 import time
@@ -47,7 +49,7 @@ import yfinance as yf
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
-from screener.select_top_picks import composite_score  # noqa: E402
+from screener.select_top_picks import composite_score, ticker_region, NORTH_AMERICA_MAX_SHARE  # noqa: E402
 from screener.simulate_portfolio import fetch_fresh_single, resolve_peer_pe, STOP_LOSS_PCT  # noqa: E402
 from screener.fetch_cache import fetch_one as fetch_cache_one  # noqa: E402
 
@@ -79,6 +81,7 @@ FX_PAIR = {
     "USD": "EURUSD=X", "GBP": "EURGBP=X", "GBp": "EURGBP=X", "JPY": "EURJPY=X",
     "CHF": "EURCHF=X", "SEK": "EURSEK=X", "CAD": "EURCAD=X", "HKD": "EURHKD=X",
     "AUD": "EURAUD=X", "KRW": "EURKRW=X", "TWD": "EURTWD=X", "INR": "EURINR=X",
+    "BRL": "EURBRL=X", "MXN": "EURMXN=X",
 }
 
 # Suffix -> IBKR fractional-trading region bucket. US (no suffix) and Canada (.TO) are
@@ -86,7 +89,9 @@ FX_PAIR = {
 # in fractional_eligible()); everything else on this list is never fractional-eligible.
 CANADA_SUFFIX = ".TO"
 EUROPE_SUFFIXES = (".PA", ".DE", ".L", ".SW", ".MI", ".AS", ".ST", ".IR", ".LS", ".BR", ".OL")
-NEVER_FRACTIONAL_SUFFIXES = (".T", ".TW", ".KS", ".HK", ".NS", ".BO", ".AX")
+# Brazil (.SA) and Mexico (.MX) added 2026-08-20 alongside the new B3/IPC universe sources
+# -- not on IBKR's fractional-trading allowlist, whole shares only.
+NEVER_FRACTIONAL_SUFFIXES = (".T", ".TW", ".KS", ".HK", ".NS", ".BO", ".AX", ".SA", ".MX")
 EUROPE_MARKET_CAP_FLOOR_EUR = 4_600_000_000   # ~$5B at a rough EURUSD~1.08
 EUROPE_ADV_FLOOR_EUR = 4_600_000              # ~$5M
 
@@ -215,6 +220,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
                fx_rates: dict) -> tuple:
     held_tickers = set(ledger.loc[ledger["status"] == "open", "ticker"])
     sector_counts = ledger.loc[ledger["status"] == "open", "sector"].value_counts().to_dict()
+    total_held = len(held_tickers)
+    na_count = sum(1 for t in held_tickers if ticker_region(t) == "North America")
 
     pool = candidates[~candidates["ticker"].isin(held_tickers)].copy()
     if not len(pool):
@@ -228,11 +235,22 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
     new_rows = []
     while True:
         pick_row = None
-        for cap in range(MAX_PER_SECTOR, 10):  # relax the sector cap only if truly starved of options
-            eligible = pool[(~pool["ticker"].isin(held_tickers)) & (~pool["ticker"].isin(rejected))]
-            eligible = eligible[eligible["sector"].map(lambda s: sector_counts.get(s, 0)) < cap]
-            if len(eligible):
-                pick_row = eligible.iloc[0]
+        # try honoring the North America cap first (see select_top_picks.NORTH_AMERICA_MAX_SHARE
+        # for the reasoning), across every sector-cap relaxation level; only if that combination
+        # is truly starved of options does the second pass drop the NA cap -- same "don't leave
+        # cash idle over a diversification target" logic as the sector cap relaxation below.
+        for enforce_na_cap in (True, False):
+            for cap in range(MAX_PER_SECTOR, 10):  # relax the sector cap only if truly starved of options
+                eligible = pool[(~pool["ticker"].isin(held_tickers)) & (~pool["ticker"].isin(rejected))]
+                eligible = eligible[eligible["sector"].map(lambda s: sector_counts.get(s, 0)) < cap]
+                if enforce_na_cap:
+                    max_na = math.floor((total_held + 1) * NORTH_AMERICA_MAX_SHARE)
+                    eligible = eligible[eligible["ticker"].map(
+                        lambda t: ticker_region(t) != "North America" or na_count < max_na)]
+                if len(eligible):
+                    pick_row = eligible.iloc[0]
+                    break
+            if pick_row is not None:
                 break
         if pick_row is None:
             break  # nothing left to try, however relaxed -- stop, keep the cash
@@ -287,6 +305,9 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
         cash -= cost
         held_tickers.add(ticker)
         sector_counts[pick_row["sector"]] = sector_counts.get(pick_row["sector"], 0) + 1
+        total_held += 1
+        if ticker_region(ticker) == "North America":
+            na_count += 1
         kind = "fractionne" if fractional else "entier"
         print(f"  ACHAT {ticker} ({pick_row['sector']}) : {cost:.2f} EUR ({shares:.4f} actions, {kind}) "
               f"@ {fresh['price']:.2f} {fresh.get('currency') or '?'}, score {pick_row['score']:.2f}")

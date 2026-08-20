@@ -457,6 +457,34 @@ KNIN.SW,Kuehne + Nagel,SMI
 GEBN.SW,Geberit AG,SMI
 PGHN.SW,Partners Group Holding AG,SMI
 LOGN.SW,Logitech International SA,SMI
+ACLN.SW,Accelleron,SMIM
+ADEN.SW,Adecco,SMIM
+AVOL.SW,Avolta,SMIM
+BARN.SW,Barry Callebaut,SMIM
+BEAN.SW,Belimo,SMIM
+CLN.SW,Clariant,SMIM
+EMSN.SW,Ems-Chemie,SMIM
+FHZN.SW,Flughafen Zürich,SMIM
+GALD.SW,Galderma,SMIM
+GALE.SW,Galenica,SMIM
+GF.SW,Georg Fischer,SMIM
+HBAN.SW,Helvetia Bâloise,SMIM
+BAER.SW,Julius Bär,SMIM
+LISN.SW,Lindt & Sprüngli,SMIM
+PSPN.SW,PSP Swiss Property,SMIM
+RO.SW,Roche (bearer share),SMIM
+SDZ.SW,Sandoz,SMIM
+SCHN.SW,Schindler,SMIM
+SGSN.SW,SGS,SMIM
+SIGN.SW,SIG,SMIM
+SOON.SW,Sonova,SMIM
+STMN.SW,Straumann,SMIM
+SUNN.SW,Sunrise,SMIM
+SQN.SW,Swissquote,SMIM
+UHR.SW,Swatch,SMIM
+SPSN.SW,Swiss Prime Site,SMIM
+TEMN.SW,Temenos,SMIM
+VACN.SW,VAT,SMIM
 AC.PA,Accor,CAC 40
 AI.PA,Air Liquide,CAC 40
 MT.AS,ArcelorMittal,CAC 40
@@ -496,6 +524,146 @@ TTE.PA,TotalEnergies,CAC 40
 URW.PA,Unibail-Rodamco-Westfield,CAC 40
 VIE.PA,Veolia,CAC 40
 DG.PA,Vinci,CAC 40
+AF.PA,Air France–KLM,CAC Next 20
+AKE.PA,Arkema,CAC Next 20
+BIM.PA,BioMérieux,CAC Next 20
+FGR.PA,Eiffage,CAC Next 20
+ENX.PA,Euronext,CAC Next 20
+EO.PA,Faurecia,CAC Next 20
+GFC.PA,Gecina,CAC Next 20
+GET.PA,Getlink,CAC Next 20
+LI.PA,Klépierre,CAC Next 20
+RCO.PA,Rémy Cointreau,CAC Next 20
+RXL.PA,Rexel,CAC Next 20
+DIM.PA,Sartorius Stedim Biooutsource,CAC Next 20
+SW.PA,Sodexo,CAC Next 20
+SOI.PA,Soitec,CAC Next 20
+SOLB.BR,Solvay,CAC Next 20
+UBI.PA,Ubisoft,CAC Next 20
+FR.PA,Valeo,CAC Next 20
+VIV.PA,Vivendi,CAC Next 20
+ALPA4.SA,Alpargatas,B3 (Ibovespa)
+ABEV3.SA,Ambev,B3 (Ibovespa)
+AMER3.SA,Americanas,B3 (Ibovespa)
+AZUL4.SA,Azul,B3 (Ibovespa)
+B3SA3.SA,B3,B3 (Ibovespa)
+BBAS3.SA,Banco do Brasil,B3 (Ibovespa)
+BBSE3.SA,BB Seguridade [pt],B3 (Ibovespa)
+BBDC3.SA,Bradesco,B3 (Ibovespa)
+BBDC4.SA,Bradesco,B3 (Ibovespa)
+BIDI11.SA,Banco Inter [pt],B3 (Ibovespa)
+BPAN4.SA,Banco Pan,B3 (Ibovespa)
+BRAP4.SA,Bradespar,B3 (Ibovespa)
+BRML3.SA,BRMalls,B3 (Ibovespa)
+BRKM5.SA,Braskem,B3 (Ibovespa)
+BRFS3.SA,BRF,B3 (Ibovespa)
+BPAC11.SA,BTG Pactual,B3 (Ibovespa)
+CRFB3.SA,Carrefour Brasil,B3 (Ibovespa)
+CCRO3.SA,CCR,B3 (Ibovespa)
+CVCB3.SA,CVC Brasil,B3 (Ibovespa)
+CMIG4.SA,CEMIG,B3 (Ibovespa)
+CIEL3.SA,Cielo,B3 (Ibovespa)
+COGN3.SA,Cogna,B3 (Ibovespa)
+CPLE6.SA,Copel,B3 (Ibovespa)
+CSAN3.SA,Cosan,B3 (Ibovespa)
+CPFE3.SA,CPFL Energia,B3 (Ibovespa)
+CSNA3.SA,CSN,B3 (Ibovespa)
+CYRE3.SA,Cyrela Brazil Realty,B3 (Ibovespa)
+DXCO3.SA,Dexco,B3 (Ibovespa)
+ECOR3.SA,EcoRodovias,B3 (Ibovespa)
+ENBR3.SA,EDP - Energias do Brasil,B3 (Ibovespa)
+ELET3.SA,Eletrobras,B3 (Ibovespa)
+ELET6.SA,Eletrobras,B3 (Ibovespa)
+EMBR3.SA,Embraer,B3 (Ibovespa)
+ENGI11.SA,Energisa [pt],B3 (Ibovespa)
+ENEV3.SA,Eneva,B3 (Ibovespa)
+EGIE3.SA,ENGIE Brasil,B3 (Ibovespa)
+EQTL3.SA,Equatorial Energia [pt],B3 (Ibovespa)
+EZTC3.SA,Eztec [pt],B3 (Ibovespa)
+GGBR4.SA,Gerdau,B3 (Ibovespa)
+GOLL4.SA,Gol,B3 (Ibovespa)
+PCAR3.SA,GPA,B3 (Ibovespa)
+SOMA3.SA,Grupo Soma,B3 (Ibovespa)
+FLRY3.SA,Grupo Fleury [pt],B3 (Ibovespa)
+HAPV3.SA,Grupo Hapvida [pt],B3 (Ibovespa)
+HYPE3.SA,Hypera Pharma,B3 (Ibovespa)
+IGTI11.SA,Iguatemi,B3 (Ibovespa)
+IRBR3.SA,IRB Brasil RE,B3 (Ibovespa)
+ITUB4.SA,Itaú Unibanco,B3 (Ibovespa)
+ITSA4.SA,Itaúsa,B3 (Ibovespa)
+JBSS3.SA,JBS,B3 (Ibovespa)
+JHSF3.SA,JHSF Participações,B3 (Ibovespa)
+KLBN11.SA,Klabin,B3 (Ibovespa)
+RENT3.SA,Localiza,B3 (Ibovespa)
+LWSA3.SA,LocaWeb [pt],B3 (Ibovespa)
+LREN3.SA,Lojas Renner,B3 (Ibovespa)
+MGLU3.SA,Magazine Luiza,B3 (Ibovespa)
+MRFG3.SA,Marfrig,B3 (Ibovespa)
+CASH3.SA,Méliuz [pt],B3 (Ibovespa)
+GOAU4.SA,Metalúrgica Gerdau,B3 (Ibovespa)
+BEEF3.SA,Minerva Foods,B3 (Ibovespa)
+MRVE3.SA,MRV,B3 (Ibovespa)
+MULT3.SA,Multiplan,B3 (Ibovespa)
+NTCO3.SA,Natura & Co,B3 (Ibovespa)
+PETR3.SA,Petrobras,B3 (Ibovespa)
+PETR4.SA,Petrobras,B3 (Ibovespa)
+VBBR3.SA,Petrobras Distribuidora,B3 (Ibovespa)
+PRIO3.SA,PetroRio [pt],B3 (Ibovespa)
+PETZ3.SA,Petz [pt],B3 (Ibovespa)
+QUAL3.SA,Qualicorp,B3 (Ibovespa)
+RADL3.SA,RaiaDrogasil,B3 (Ibovespa)
+RDOR3.SA,Rede D'Or São Luiz [pt],B3 (Ibovespa)
+RAIL3.SA,Rumo,B3 (Ibovespa)
+SBSP3.SA,Sabesp,B3 (Ibovespa)
+SANB11.SA,Santander Brasil,B3 (Ibovespa)
+ASAI3.SA,Sendas Distribuidora,B3 (Ibovespa)
+SULA11.SA,SulAmérica Seguros,B3 (Ibovespa)
+SUZB3.SA,Suzano Papel e Celulose,B3 (Ibovespa)
+TAEE11.SA,Taesa S.A.,B3 (Ibovespa)
+VIVT3.SA,Telefônica Brasil,B3 (Ibovespa)
+TIMS3.SA,TIM Brasil,B3 (Ibovespa)
+TOTS3.SA,TOTVS,B3 (Ibovespa)
+UGPA3.SA,Ultrapar,B3 (Ibovespa)
+LCAM3.SA,Unidas [pt],B3 (Ibovespa)
+USIM5.SA,Usiminas,B3 (Ibovespa)
+VALE3.SA,Vale,B3 (Ibovespa)
+VIIA3.SA,Via,B3 (Ibovespa)
+YDUQ3.SA,YDUQS,B3 (Ibovespa)
+WEGE3.SA,WEG,B3 (Ibovespa)
+AC.MX,Arca Continental,IPC Mexico
+ALFAA.MX,ALFA,IPC Mexico
+ALSEA.MX,Alsea,IPC Mexico
+AMXB.MX,América Móvil,IPC Mexico
+ASURB.MX,Grupo Aeroportuario del Sureste,IPC Mexico
+BBAJIOO.MX,Banco del Bajío,IPC Mexico
+BIMBOA.MX,Grupo Bimbo,IPC Mexico
+BOLSAA.MX,Bolsa Mexicana de Valores,IPC Mexico
+CEMEXCPO.MX,Cemex,IPC Mexico
+CUERVO.MX,Becle,IPC Mexico
+ELEKTRA.MX,Grupo Elektra,IPC Mexico
+FEMSAUBD.MX,FEMSA,IPC Mexico
+GAPB.MX,Grupo Aeroportuario del Pacífico,IPC Mexico
+GCARSOA1.MX,Grupo Carso,IPC Mexico
+GCC.MX,Grupo Cementos de Chihuahua,IPC Mexico
+GFINBURO.MX,Inbursa,IPC Mexico
+GFNORTEO.MX,Banorte,IPC Mexico
+GMEXICOB.MX,Grupo México,IPC Mexico
+GRUMAB.MX,Gruma,IPC Mexico
+KIMBERA.MX,Kimberly-Clark de México,IPC Mexico
+KOFUBL.MX,Coca-Cola FEMSA,IPC Mexico
+LABB.MX,Genomma Lab Internacional,IPC Mexico
+LIVEPOLC1.MX,El Puerto de Liverpool,IPC Mexico
+MEGACPO.MX,Megacable,IPC Mexico
+OMAB.MX,Grupo Aeroportuario Centro Norte,IPC Mexico
+ORBIA.MX,Orbia,IPC Mexico
+PEOLES.MX,Peñoles,IPC Mexico
+PINFRA.MX,Pinfra,IPC Mexico
+Q.MX,Quálitas,IPC Mexico
+RA.MX,Regional,IPC Mexico
+TLEVISACPO.MX,Televisa,IPC Mexico
+VESTA.MX,Corporación Inmobiliaria Vesta,IPC Mexico
+VOLARA.MX,Volaris,IPC Mexico
+WALMEX.MX,Walmart de México y Centroamérica,IPC Mexico
 0005.HK,HSBC Holdings plc,Hang Seng
 0388.HK,HKEx Limited,Hang Seng
 0939.HK,China Construction Bank,Hang Seng

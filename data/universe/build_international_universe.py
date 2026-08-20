@@ -1,8 +1,28 @@
 """Broaden the raw universe beyond US + Euronext 100: UK (FTSE 100/250), Germany
-(DAX/MDAX), Switzerland (SMI), Hong Kong (Hang Seng), Canada (S&P/TSX Composite), Spain
-(IBEX 35), Sweden (OMX Stockholm 30), South Korea (KOSPI 200), Australia (S&P/ASX 200),
-India (NIFTY 50 + BSE SENSEX) -- scrape the Wikipedia constituent table, normalized to
-Yahoo Finance ticker suffixes.
+(DAX/MDAX), Switzerland (SMI + SMIM), Hong Kong (Hang Seng), Canada (S&P/TSX Composite),
+Spain (IBEX 35), Sweden (OMX Stockholm 30), South Korea (KOSPI 200), Australia (S&P/ASX
+200), India (NIFTY 50 + BSE SENSEX), France (CAC 40 + CAC Next 20), Brazil (B3/Ibovespa),
+Mexico (BMV IPC) -- scrape the Wikipedia constituent table, normalized to Yahoo Finance
+ticker suffixes.
+
+Mid/small-cap gap (2026-08-20): FTSE 250, MDAX and SMIM give UK/Germany/Switzerland a
+second, smaller-cap tier below their large-cap index; CAC Next 20 does the same for France
+(20 names, not full SBF 120 / CAC Mid 60 depth, but a verified, cleanly-scraped tier).
+Spain (IBEX Medium Cap) and Sweden (OMX Stockholm Mid Cap) still don't have one: checked
+both sites directly -- BME's and Nasdaq Nordic's constituent pages load the list via
+JS/API, no static HTML table to scrape the way pd.read_html needs. Same for South Africa
+(FTSE/JSE Top 40's Wikipedia table has no ticker column, just name/sector/logo) -- would
+need real per-ticker mapping, not a clean scrape. Getting any of these three would mean a
+bespoke per-exchange integration (BME's API, Nasdaq Nordic's GIW web service, a manual
+JSE ticker map), each unverified in shape/auth -- not done here; flagged for whoever wants
+to pick one up.
+
+Emerging markets (2026-08-20): added Brazil (B3, ~90 tickers) and Mexico (BMV IPC, ~35
+tickers) -- both had a clean Wikipedia table. South Korea, Taiwan and India were already
+covered before this pass. Mexico's Wikipedia "Symbol" column doesn't match Yahoo's ticker
+format 1:1 (e.g. "ALFA A" -> Yahoo ALFAA.MX) -- normalized by stripping whitespace/
+punctuation, unverified per-ticker; any that don't resolve simply fail fetch_cache.py's
+fetch and get silently dropped there, same as any other bad ticker already.
 
 Japan and Taiwan use a different source: neither Nikkei 225/TOPIX nor the Taiwan 50 Index
 has a Wikipedia table with tickers (checked directly -- Taiwan 50's page has no <table> at
@@ -71,11 +91,53 @@ def smi():
     return df
 
 
+def smim():
+    """Swiss mid-cap tier, one rung below the SMI -- see module docstring."""
+    df = pd.read_html(HERE / "smim_wiki.html")[1][["Ticker symbol", "Company"]]
+    df = df.rename(columns={"Ticker symbol": "ticker", "Company": "name"})
+    # a couple of dual-class listings show both tickers separated by " / " -- keep the
+    # first (primary registered share), same simplification already implicit elsewhere
+    # in this module (single ticker per company).
+    df["ticker"] = df["ticker"].astype(str).str.split(" / ").str[0].str.strip() + ".SW"
+    df["market"] = "SMIM"
+    return df
+
+
 def cac40():
     df = pd.read_html(HERE / "cac40_wiki.html")[4][["Ticker", "Company"]]
     df = df.rename(columns={"Ticker": "ticker", "Company": "name"})
     df["ticker"] = df["ticker"].astype(str).str.strip()  # already Yahoo-ready (.PA)
     df["market"] = "CAC 40"
+    return df
+
+
+def cac_next20():
+    """France's second tier below the CAC 40 -- see module docstring."""
+    df = pd.read_html(HERE / "cac_next20_wiki.html")[0][["Ticker symbol", "Company"]]
+    df = df.rename(columns={"Ticker symbol": "ticker", "Company": "name"})
+    # raw values look like "Euronext Paris: AC" or "Euronext Brussels: SOLB"
+    exchange_suffix = {"Euronext Paris": ".PA", "Euronext Brussels": ".BR"}
+    parts = df["ticker"].astype(str).str.split(":", n=1, expand=True)
+    df["ticker"] = parts[1].str.strip() + parts[0].str.strip().map(exchange_suffix)
+    df["market"] = "CAC Next 20"
+    return df
+
+
+def b3():
+    df = pd.read_html(HERE / "b3_wiki.html")[0][["Ticker", "Company"]]
+    df = df.rename(columns={"Ticker": "ticker", "Company": "name"})
+    df["ticker"] = df["ticker"].astype(str).str.strip() + ".SA"
+    df["market"] = "B3 (Ibovespa)"
+    return df
+
+
+def ipc_mexico():
+    df = pd.read_html(HERE / "ipc_mexico_wiki.html")[0][["Symbol", "Name"]].dropna()
+    df = df.rename(columns={"Symbol": "ticker", "Name": "name"})
+    # Yahoo's actual ticker drops the space/punctuation in the raw Wikipedia symbol
+    # (e.g. "ALFA A" -> ALFAA.MX, "CEMEX CPO" -> CEMEXCPO.MX) -- see module docstring.
+    df["ticker"] = df["ticker"].astype(str).str.replace(r"[^A-Za-z0-9]", "", regex=True) + ".MX"
+    df["market"] = "IPC Mexico"
     return df
 
 
@@ -190,7 +252,11 @@ def main():
         dax(),
         mdax(),
         smi(),
+        smim(),
         cac40(),
+        cac_next20(),
+        b3(),
+        ipc_mexico(),
         hangseng(),
         tsx(),
         ibex35(),

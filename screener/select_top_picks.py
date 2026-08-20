@@ -23,7 +23,18 @@ IMPORTANT CAVEAT: as of 2026-08-17 the blind ledger has only 8 closed trades tot
 constrained subset will have even fewer. Any comparison below is a mechanism check (does
 the selection/diversification logic behave sensibly), not a performance conclusion --
 see the ~30-closed-trade checkpoint already agreed on before treating this as evidence.
+
+Also caps North America (US + Canada) at NORTH_AMERICA_MAX_SHARE of the n slots: the raw
+screener universe skews heavily US even after the international sourcing pass (see
+build_trending_universe.py / build_international_universe.py), so an unconstrained
+top-n-by-score pick tends to come back all-US -- 3 US + 1 CAN was the actual result that
+prompted this (2026-08-20), and CAN is close enough to the US market (NAFTA trade ties,
+BoC tracks the Fed) that it's not meaningfully different exposure. Relaxed the same way
+the sector cap is: only if too few non-NA candidates clear the screener's filters to fill
+the remaining slots otherwise -- per the user's standing direction, don't leave cash idle
+or force a materially worse pick just to hit a diversification target.
 """
+import math
 import pathlib
 import sys
 
@@ -41,6 +52,22 @@ LEDGER_PATH = HERE / "results/simulation/portfolio_ledger.csv"
 # being dominated by the most extreme (and least trustworthy) end of that range.
 VALUATION_GAP_WINSOR_CAP = 0.75
 
+# Upper bound on the North America (US + Canada) share of a selected portfolio -- see
+# module docstring. Applied to whatever n is passed to select_diversified(), so it scales
+# automatically as the constrained bot's slot count grows (e.g. n=4 -> max 3 NA, n=8 ->
+# max 6 NA).
+NORTH_AMERICA_MAX_SHARE = 0.75
+CANADA_SUFFIX = ".TO"  # kept in sync with screener.simulate_constrained_portfolio.CANADA_SUFFIX
+
+
+def ticker_region(ticker: str) -> str:
+    """North America (no exchange suffix = US, or .TO = Canada) vs everything else --
+    same suffix convention used for IBKR fractional-eligibility in
+    simulate_constrained_portfolio.fractional_eligible()."""
+    if "." not in ticker or ticker.endswith(CANADA_SUFFIX):
+        return "North America"
+    return "International"
+
 
 def composite_score(df: pd.DataFrame) -> pd.Series:
     value_pct = df["valuation_gap"].clip(upper=VALUATION_GAP_WINSOR_CAP).rank(pct=True)
@@ -55,23 +82,39 @@ def composite_score(df: pd.DataFrame) -> pd.Series:
 
 def select_diversified(df: pd.DataFrame, n: int, max_per_sector: int) -> pd.DataFrame:
     """Greedy pick by score, capping how many can come from one sector -- relaxed one
-    step at a time only if too few sectors are represented to fill n slots otherwise."""
+    step at a time only if too few sectors are represented to fill n slots otherwise.
+    Also caps North America at NORTH_AMERICA_MAX_SHARE of n (see module docstring),
+    tried first with the sector cap fully respected-and-relaxed; only if that combination
+    still can't fill n slots is the NA cap itself dropped, on the same "don't leave a
+    slot empty over a diversification target" logic as the sector cap relaxation."""
     ranked = df.sort_values("score", ascending=False)
-    picked_ids, sector_counts = [], {}
-    for cap in range(max_per_sector, n + 1):
-        for _, row in ranked.iterrows():
+    max_na = math.floor(n * NORTH_AMERICA_MAX_SHARE)
+    id_col = "row_id" if "row_id" in df.columns else "ticker"
+
+    picked_ids = []
+    for enforce_na_cap in (True, False):
+        for cap in range(max_per_sector, n + 1):
+            picked_ids, sector_counts, na_count = [], {}, 0
+            for _, row in ranked.iterrows():
+                if len(picked_ids) >= n:
+                    break
+                rid = row.get("row_id", row["ticker"])
+                if rid in picked_ids:
+                    continue
+                if sector_counts.get(row["sector"], 0) >= cap:
+                    continue
+                is_na = ticker_region(row["ticker"]) == "North America"
+                if enforce_na_cap and is_na and na_count >= max_na:
+                    continue
+                picked_ids.append(rid)
+                sector_counts[row["sector"]] = sector_counts.get(row["sector"], 0) + 1
+                if is_na:
+                    na_count += 1
             if len(picked_ids) >= n:
                 break
-            rid = row.get("row_id", row["ticker"])
-            if rid in picked_ids:
-                continue
-            if sector_counts.get(row["sector"], 0) >= cap:
-                continue
-            picked_ids.append(rid)
-            sector_counts[row["sector"]] = sector_counts.get(row["sector"], 0) + 1
         if len(picked_ids) >= n:
             break
-    id_col = "row_id" if "row_id" in df.columns else "ticker"
+
     return df[df[id_col].isin(picked_ids)].sort_values("score", ascending=False)
 
 
