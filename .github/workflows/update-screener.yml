@@ -38,8 +38,11 @@ jobs:
       - name: Simulation de portefeuille en aveugle
         run: python screener/simulate_portfolio.py
 
-      - name: Simulation de portefeuille a capital contraint (diversifie, reinvesti)
+      - name: Simulation de portefeuille a capital contraint (restreint, diversifie, reinvesti)
         run: python screener/simulate_constrained_portfolio.py
+
+      - name: Simulation de portefeuille large (equilibre par secteur, sans plafond)
+        run: python screener/simulate_large_portfolio.py
 
       - name: Commit + push si des resultats ont change
         run: |

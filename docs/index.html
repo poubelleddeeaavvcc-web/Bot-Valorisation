@@ -111,6 +111,44 @@ tr:hover td{background:var(--bg3)}
       </table>
     </div>
 
+    <div class="section-title">Positions en cours (Bot #1, #2 & #3) — clic sur une colonne pour trier</div>
+    <div class="card tbl-wrap">
+      <table id="bvPositionsOpenTable">
+        <thead>
+          <tr>
+            <th data-col="bot">Bot</th>
+            <th data-col="ticker">Ticker</th>
+            <th data-col="name">Nom</th>
+            <th data-col="entry_date">Date d'entrée</th>
+            <th data-col="entry_price">Prix d'entrée</th>
+            <th data-col="last_price">Dernier prix</th>
+            <th data-col="effective_return_pct">Rendement latent</th>
+          </tr>
+        </thead>
+        <tbody id="bvPositionsOpenTbody"></tbody>
+      </table>
+    </div>
+
+    <details class="card tbl-wrap" style="margin-top:14px">
+      <summary class="section-title" style="display:inline-block;cursor:pointer;margin:0">Positions clôturées (Bot #1, #2 & #3) — clic pour dérouler</summary>
+      <table id="bvPositionsClosedTable" style="margin-top:10px">
+        <thead>
+          <tr>
+            <th data-col="bot">Bot</th>
+            <th data-col="ticker">Ticker</th>
+            <th data-col="name">Nom</th>
+            <th data-col="entry_date">Date d'entrée</th>
+            <th data-col="entry_price">Prix d'entrée</th>
+            <th data-col="exit_date">Date de sortie</th>
+            <th data-col="exit_price">Prix de sortie</th>
+            <th data-col="effective_return_pct">Rendement réalisé</th>
+            <th data-col="exit_reason">Raison de sortie</th>
+          </tr>
+        </thead>
+        <tbody id="bvPositionsClosedTbody"></tbody>
+      </table>
+    </details>
+
     <div class="xirr-explain" style="margin-top:14px">
       <b>Méthode :</b> pour chaque action, la "valeur juste" = BPA × P/E médian de ses pairs (industrie si ≥5 pairs,
       sinon secteur), ajusté à la hausse si le ROE/la marge sont meilleurs que la médiane du secteur, à la baisse
@@ -132,6 +170,9 @@ tr:hover td{background:var(--bg3)}
 const BV_REPO_RAW='https://raw.githubusercontent.com/poubelleddeeaavvcc-web/Bot-Valorisation/master';
 let bvLoaded=false,bvSectorChartRef=null,bvCandidatesChartRef=null,bvSectorDonutRef=null;
 let bvCandidatesData=[],bvSortState={col:'valuation_gap',dir:'desc'};
+let bvPositionsData=[];
+let bvPosOpenSortState={col:'entry_date',dir:'desc'};
+let bvPosClosedSortState={col:'exit_date',dir:'desc'};
 
 function bvSplitCSVLine(line){
   const result=[];let cur='',inQuotes=false;
@@ -198,14 +239,40 @@ async function renderBotValueTab(){
     // Un echec ici ne doit jamais casser le reste de la page : ce sont des positions
     // simulees publiques, pas des donnees perso.
     try{
-      const [ledger1Txt,ledger2Txt]=await Promise.all([
+      const [ledger1Txt,ledger2Txt,ledger3Txt]=await Promise.all([
         fetch(`${BV_REPO_RAW}/results/simulation/portfolio_ledger.csv?_=${bust}`).then(r=>r.ok?r.text():'').catch(()=>''),
         fetch(`${BV_REPO_RAW}/results/simulation/constrained_portfolio_ledger.csv?_=${bust}`).then(r=>r.ok?r.text():'').catch(()=>''),
+        fetch(`${BV_REPO_RAW}/results/simulation/large_portfolio_ledger.csv?_=${bust}`).then(r=>r.ok?r.text():'').catch(()=>''),
       ]);
-      window.bvHeldByBot1=new Set(bvParseCSV(ledger1Txt).filter(r=>r.status==='open').map(r=>r.ticker));
-      window.bvHeldByBot2=new Set(bvParseCSV(ledger2Txt).filter(r=>r.status==='open').map(r=>r.ticker));
+      const ledger1Rows=bvParseCSV(ledger1Txt);
+      const ledger2Rows=bvParseCSV(ledger2Txt);
+      const ledger3Rows=bvParseCSV(ledger3Txt);
+      window.bvHeldByBot1=new Set(ledger1Rows.filter(r=>r.status==='open').map(r=>r.ticker));
+      window.bvHeldByBot2=new Set(ledger2Rows.filter(r=>r.status==='open').map(r=>r.ticker));
+      window.bvHeldByBot3=new Set(ledger3Rows.filter(r=>r.status==='open').map(r=>r.ticker));
+      const bvNormalizePosition=(bot,r)=>{
+        const entry_price=parseFloat(r.entry_price),last_price=parseFloat(r.last_price);
+        const return_pct=r.return_pct!==''&&r.return_pct!=null?parseFloat(r.return_pct):null;
+        const unrealized_return_pct=r.unrealized_return_pct!==''&&r.unrealized_return_pct!=null?parseFloat(r.unrealized_return_pct):null;
+        return{
+          bot,ticker:r.ticker,name:r.name,sector:r.sector,status:r.status,
+          entry_date:r.entry_date,entry_price:isNaN(entry_price)?null:entry_price,
+          last_price:isNaN(last_price)?null:last_price,
+          return_pct:return_pct!=null&&!isNaN(return_pct)?return_pct:null,
+          unrealized_return_pct:unrealized_return_pct!=null&&!isNaN(unrealized_return_pct)?unrealized_return_pct:null,
+          exit_date:r.exit_date||'',exit_price:r.exit_price?parseFloat(r.exit_price):null,
+          exit_reason:r.exit_reason||'',
+          effective_return_pct:(return_pct!=null&&!isNaN(return_pct))?return_pct:((unrealized_return_pct!=null&&!isNaN(unrealized_return_pct))?unrealized_return_pct:null),
+        };
+      };
+      bvPositionsData=[
+        ...ledger1Rows.map(r=>bvNormalizePosition('Bot #1',r)),
+        ...ledger2Rows.map(r=>bvNormalizePosition('Bot #2',r)),
+        ...ledger3Rows.map(r=>bvNormalizePosition('Bot #3',r)),
+      ].filter(r=>r.ticker);
     }catch(e){
-      window.bvHeldByBot1=new Set();window.bvHeldByBot2=new Set();
+      window.bvHeldByBot1=new Set();window.bvHeldByBot2=new Set();window.bvHeldByBot3=new Set();
+      bvPositionsData=[];
     }
     bvCandidatesData=bvCandidatesData.filter(r=>!window.bvHeldByBot1.has(r.ticker));
 
@@ -251,6 +318,7 @@ function bvRenderAll(){
   bvDrawCandidatesChart();
   bvDrawSectorDonut();
   bvSortAndRenderTable();
+  bvSortAndRenderPositions();
   bvWireSortHeaders();
 }
 
@@ -332,9 +400,11 @@ function bvSortAndRenderTable(){
   });
   const tbody=document.getElementById('bvCandidatesTbody');
   const heldBy2=window.bvHeldByBot2||new Set();
+  const heldBy3=window.bvHeldByBot3||new Set();
   tbody.innerHTML=sorted.map(r=>{
     let heldBadges='';
-    if(heldBy2.has(r.ticker))heldBadges+=' <span class="badge bok" title="Position ouverte, Bot #2 (capital contraint)">🤖2</span>';
+    if(heldBy2.has(r.ticker))heldBadges+=' <span class="badge bok" title="Position ouverte, Bot #2 (restreint, capital contraint)">🤖2</span>';
+    if(heldBy3.has(r.ticker))heldBadges+=' <span class="badge bok" title="Position ouverte, Bot #3 (large, équilibré par secteur)">🤖3</span>';
     return `
     <tr title="${(r.explication||'').replace(/"/g,'&quot;')}">
       <td><strong>${r.ticker}</strong>${r.explication?' <span style="color:var(--mu);cursor:help" title="'+r.explication.replace(/"/g,'&quot;')+'">ⓘ</span>':''}${heldBadges}</td>
@@ -361,6 +431,72 @@ function bvWireSortHeaders(){
       bvSortAndRenderTable();
     };
   });
+  document.querySelectorAll('#bvPositionsOpenTable th[data-col]').forEach(th=>{
+    th.onclick=()=>{
+      const col=th.dataset.col;
+      if(bvPosOpenSortState.col===col)bvPosOpenSortState.dir=bvPosOpenSortState.dir==='asc'?'desc':'asc';
+      else{bvPosOpenSortState.col=col;bvPosOpenSortState.dir='desc';}
+      bvSortAndRenderPositions();
+    };
+  });
+  document.querySelectorAll('#bvPositionsClosedTable th[data-col]').forEach(th=>{
+    th.onclick=()=>{
+      const col=th.dataset.col;
+      if(bvPosClosedSortState.col===col)bvPosClosedSortState.dir=bvPosClosedSortState.dir==='asc'?'desc':'asc';
+      else{bvPosClosedSortState.col=col;bvPosClosedSortState.dir='desc';}
+      bvSortAndRenderPositions();
+    };
+  });
+}
+
+function bvSortRows(rows,sortState){
+  const {col,dir}=sortState;
+  return [...rows].sort((a,b)=>{
+    let va=a[col],vb=b[col];
+    if(typeof va==='string'||typeof vb==='string')return dir==='asc'?String(va||'').localeCompare(String(vb||'')):String(vb||'').localeCompare(String(va||''));
+    va=(va==null||isNaN(va))?-Infinity:va;
+    vb=(vb==null||isNaN(vb))?-Infinity:vb;
+    return dir==='asc'?va-vb:vb-va;
+  });
+}
+
+function bvSortAndRenderPositions(){
+  const open=bvPositionsData.filter(r=>r.status==='open');
+  const closed=bvPositionsData.filter(r=>r.status!=='open');
+
+  const openTbody=document.getElementById('bvPositionsOpenTbody');
+  openTbody.innerHTML=bvSortRows(open,bvPosOpenSortState).map(r=>{
+    const retVal=r.effective_return_pct;
+    const retTxt=retVal!=null?(retVal>=0?'+':'')+(retVal*100).toFixed(1)+'%':'n/a';
+    return `
+    <tr>
+      <td>${r.bot}</td>
+      <td><strong>${r.ticker}</strong></td>
+      <td>${r.name||''}</td>
+      <td>${r.entry_date||''}</td>
+      <td>${r.entry_price!=null?r.entry_price.toFixed(2):'n/a'}</td>
+      <td>${r.last_price!=null?r.last_price.toFixed(2):'n/a'}</td>
+      <td class="${retVal>=0?'pos':(retVal!=null?'neg':'neu')}">${retTxt}</td>
+    </tr>
+  `;}).join('');
+
+  const closedTbody=document.getElementById('bvPositionsClosedTbody');
+  closedTbody.innerHTML=bvSortRows(closed,bvPosClosedSortState).map(r=>{
+    const retVal=r.effective_return_pct;
+    const retTxt=retVal!=null?(retVal>=0?'+':'')+(retVal*100).toFixed(1)+'%':'n/a';
+    return `
+    <tr>
+      <td>${r.bot}</td>
+      <td><strong>${r.ticker}</strong></td>
+      <td>${r.name||''}</td>
+      <td>${r.entry_date||''}</td>
+      <td>${r.entry_price!=null?r.entry_price.toFixed(2):'n/a'}</td>
+      <td>${r.exit_date||''}</td>
+      <td>${r.exit_price!=null?r.exit_price.toFixed(2):'n/a'}</td>
+      <td class="${retVal>=0?'pos':(retVal!=null?'neg':'neu')}">${retTxt}</td>
+      <td>${r.exit_reason||''}</td>
+    </tr>
+  `;}).join('');
 }
 
 renderBotValueTab();

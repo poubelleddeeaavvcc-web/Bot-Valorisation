@@ -20,7 +20,10 @@ Mechanics:
     TARGET_POSITION_SIZE bar more than once per run, so a big win can open 2+ new slots
     in the same cycle. Growth scales the *number* of positions, not just their size --
     per the user's instruction, a windfall should diversify into a 5th/6th/7th name
-    rather than doubling down on fewer, bigger bets.
+    rather than doubling down on fewer, bigger bets. Starts at STARTING_SLOTS=15 (~33 EUR
+    each) rather than a handful of strong convictions -- the user wants many small,
+    incrementally-reinvested gains over a few large bets; existing open positions keep
+    their original entry size when this target changes, only new buys use the new one.
 
 Currency: candidate prices come straight from yfinance in the listing's native currency
 (USD, JPY, GBp/pence, ...), not EUR -- naive division against a EUR cash balance was
@@ -61,9 +64,19 @@ SUMMARY_PATH = HERE / "results/simulation/constrained_summary.json"
 EQUITY_CURVE_PATH = HERE / "results/simulation/constrained_equity_curve.csv"
 
 STARTING_CAPITAL = 500.0      # illustrative -- the user's own example; change freely
-STARTING_SLOTS = 4            # -> TARGET_POSITION_SIZE = 500/4 = 125 EUR per slot
+STARTING_SLOTS = 15           # -> TARGET_POSITION_SIZE = 500/15 ~= 33 EUR per slot
 TARGET_POSITION_SIZE = STARTING_CAPITAL / STARTING_SLOTS
-MAX_PER_SECTOR = 1
+# raised from 1 alongside STARTING_SLOTS 4->15 (2026-08-26, per the user's direction to grow
+# toward many small positions instead of a handful of strong convictions): with only ~8
+# sectors typically represented in long_candidates_latest.csv, a strict 1/sector cap would
+# make 15 concurrent slots unreachable even before the NA-share and relaxation logic kicks in.
+MAX_PER_SECTOR = 3
+# a whole-share buy (see fractional_eligible()) costing more than this multiple of the slot
+# target is rejected rather than forced -- at a 33 EUR slot, a single ~70+ EUR non-fractional
+# name (e.g. TSMC) would otherwise eat 2-3 slots' worth of budget in one line, defeating the
+# "many small positions" goal. Fractional-eligible names are unaffected: they always buy
+# exactly TARGET_POSITION_SIZE regardless of share price.
+MAX_WHOLE_SHARE_OVERSHOOT = 2.5
 
 LEDGER_COLUMNS = [
     "ticker", "name", "sector", "status", "currency", "fractional",
@@ -276,6 +289,10 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
         adv_eur = (to_eur(avg_vol * fresh["price"], fresh.get("currency"), fx_rates)
                    if avg_vol is not None and pd.notna(avg_vol) else None)
         fractional = fractional_eligible(ticker, market_cap_eur, adv_eur)
+
+        if not fractional and price_eur > MAX_WHOLE_SHARE_OVERSHOOT * TARGET_POSITION_SIZE:
+            rejected.add(ticker)
+            continue
 
         if fractional:
             cost = min(TARGET_POSITION_SIZE, cash)
