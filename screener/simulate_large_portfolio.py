@@ -195,10 +195,20 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
             idx = ledger.index[(ledger["status"] == "open") & (ledger["ticker"] == ticker)][0]
             old_shares = ledger.at[idx, "shares"]
             new_shares = old_shares + add_shares
-            ledger.at[idx, "entry_price"] = (ledger.at[idx, "entry_price"] * old_shares +
-                                              fresh["price"] * add_shares) / new_shares
+            new_entry_price = (ledger.at[idx, "entry_price"] * old_shares +
+                                fresh["price"] * add_shares) / new_shares
+            ledger.at[idx, "entry_price"] = new_entry_price
             ledger.at[idx, "shares"] = new_shares
             ledger.at[idx, "entry_value_eur"] = ledger.at[idx, "entry_value_eur"] + cost
+            # current_value_eur/unrealized_return_pct must move with the added shares too --
+            # otherwise a reinforced position understates the portfolio's true equity until
+            # the *next* run's recheck_and_exit happens to refresh it (caught 2026-08-26: a
+            # bot that had just spent its cash showed a bogus -27% "return" on its very first
+            # run because these two were left stale after RENFORCE).
+            ledger.at[idx, "last_check_date"] = today
+            ledger.at[idx, "last_price"] = fresh["price"]
+            ledger.at[idx, "current_value_eur"] = ledger.at[idx, "current_value_eur"] + cost
+            ledger.at[idx, "unrealized_return_pct"] = fresh["price"] / new_entry_price - 1
             print(f"  RENFORCE {ticker} ({target_sector}) : +{cost:.2f} EUR ({add_shares:.4f} actions) "
                   f"@ {fresh['price']:.2f} {fresh.get('currency') or '?'} -- plus de candidat frais dans ce secteur")
 
