@@ -1,0 +1,4 @@
+bot,checkin_date,days_running,n_closed_raw,n_closed_clean,win_rate_clean,avg_return_clean,avg_win_clean,avg_loss_clean,total_equity_eur,total_return_pct,n_artifacts_excluded,threshold_reached
+bot1_blind,2026-08-28,21,16,9,0.4444444444444444,0.03209155774396208,0.10760787202411191,-0.0283214936801578,,,7,False
+bot2_constrained,2026-08-28,10,0,0,,,,,497.2928663266,-0.0054142673,0,False
+bot3_large,2026-08-28,2,0,0,,,,,500.0,4.440892099e-16,0,False
