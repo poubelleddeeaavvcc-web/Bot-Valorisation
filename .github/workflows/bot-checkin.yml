@@ -1,0 +1,54 @@
+name: Check-in bots (comparaison Bot #1/#2/#3)
+
+on:
+  schedule:
+    - cron: "0 8 * * *"  # tous les jours a 8h UTC -- le script se gate lui-meme tous les 14 jours,
+                          # donc la plupart des runs ne font rien (pas de commit)
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Lancer meme si le dernier check-in a moins de 14 jours"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write  # necessaire pour que le job puisse commit+push le rapport
+
+concurrency:
+  group: bot-checkin
+  cancel-in-progress: false
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances
+        run: pip install -r requirements.txt
+
+      - name: Lancer le check-in
+        run: python -m portfolio.bot_checkin ${{ github.event.inputs.force == 'true' && '--force' || '' }}
+
+      - name: Commit + push si un nouveau check-in a ete ajoute
+        run: |
+          git config user.name "screener-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add results/bot_checkin_history.csv
+          if git diff --cached --quiet; then
+            echo "Pas encore du (moins de 14 jours depuis le dernier check-in)."
+            exit 0
+          fi
+          git commit -m "Check-in automatique bots ($(date -u +'%Y-%m-%d'))"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
+            sleep 10
+          done
+          echo "Echec du push apres 5 tentatives."
+          exit 1

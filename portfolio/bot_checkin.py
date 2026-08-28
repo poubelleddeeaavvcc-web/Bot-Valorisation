@@ -11,8 +11,12 @@ When a new batch of closes looks suspicious in a future check-in, investigate it
 way the 08-07 and 08-18 ones were: check `git log` for a same-day commit touching the
 valuation/momentum model) and add confirmed entries to the list below -- don't infer.
 
-Run every ~2 weeks: `python -m portfolio.bot_checkin`.
+Runs automatically every 2 weeks via .github/workflows/bot-checkin.yml (daily cron that
+self-gates on CHECKIN_INTERVAL_DAYS, so most days it's a no-op). To force an off-cycle
+run, either `python -m portfolio.bot_checkin --force` locally, or the "Run workflow"
+button on that workflow in the GitHub Actions tab (linked from the site).
 """
+import argparse
 import pathlib
 import sys
 from datetime import date
@@ -23,6 +27,7 @@ HERE = pathlib.Path(__file__).parent.parent
 SIM_DIR = HERE / "results/simulation"
 
 CLEAN_TRADE_THRESHOLD = 30  # don't judge a bot's win rate/avg return before this many clean closes
+CHECKIN_INTERVAL_DAYS = 14
 
 # Individually confirmed artifacts -- a closed trade caused by a same-day code/strategy
 # change rather than the bot's own signal, so it shouldn't count toward performance.
@@ -189,7 +194,27 @@ def print_report(results: list[dict]):
             print("Aucun bot n'a encore de clotures propres -- rien n'est estimable pour l'instant.")
 
 
+def due_for_checkin(history_path: pathlib.Path) -> bool:
+    if not history_path.exists():
+        return True
+    last = pd.read_csv(history_path)["checkin_date"].max()
+    days_since = (date.today() - pd.Timestamp(last).date()).days
+    return days_since >= CHECKIN_INTERVAL_DAYS
+
+
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--force", action="store_true",
+                         help=f"run even if the last check-in was less than {CHECKIN_INTERVAL_DAYS} days ago")
+    args = parser.parse_args()
+
+    history_path = HERE / "results/bot_checkin_history.csv"
+    if not args.force and not due_for_checkin(history_path):
+        last = pd.read_csv(history_path)["checkin_date"].max()
+        print(f"Dernier check-in le {last} -- prochain du dans {CHECKIN_INTERVAL_DAYS} jours "
+              f"(utilise --force pour lancer quand meme).")
+        return
+
     results = [check_bot(bot) for bot in BOTS]
     print_report(results)
 
@@ -211,10 +236,9 @@ def main():
             "threshold_reached": r["clean"]["n"] >= CLEAN_TRADE_THRESHOLD,
         })
     out = pd.DataFrame(rows)
-    out_path = HERE / "results/bot_checkin_history.csv"
-    header = not out_path.exists()
-    out.to_csv(out_path, mode="a", index=False, header=header)
-    print(f"\nRapport ajoute a {out_path.relative_to(HERE)}")
+    header = not history_path.exists()
+    out.to_csv(history_path, mode="a", index=False, header=header)
+    print(f"\nRapport ajoute a {history_path.relative_to(HERE)}")
 
 
 if __name__ == "__main__":
