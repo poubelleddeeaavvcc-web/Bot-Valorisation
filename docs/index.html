@@ -235,10 +235,10 @@ async function renderBotValueTab(){
     window.bvSectorMomentum=bvParseCSV(sectorMomTxt).map(r=>({sector:r.sector,mom:parseFloat(r.sector_mom_12_2)}));
 
     // Best-effort : quels candidats sont actuellement detenus par l'un ou l'autre bot.
-    // Bot #1 est aveugle et achete systematiquement tous les candidats LONG -- l'afficher
-    // dans la liste des candidats n'apporte donc aucune info (badge vrai sur ~100% des
-    // lignes) : on retire de la liste tout candidat deja detenu par Bot #1. Bot #2 est
-    // contraint en capital et selectif, donc son badge reste utile et est conserve.
+    // Bot #1 est aveugle et achete systematiquement tous les candidats LONG, donc il finit
+    // presque toujours par les detenir tous -- badge informatif plutot que filtre : les
+    // retirer de la liste faisait tomber "candidats actuels", le graphique et le tableau a
+    // zero des que Bot #1 avait rattrape l'univers courant (cf. bug du 30/08).
     // Un echec ici ne doit jamais casser le reste de la page : ce sont des positions
     // simulees publiques, pas des donnees perso.
     try{
@@ -277,7 +277,6 @@ async function renderBotValueTab(){
       window.bvHeldByBot1=new Set();window.bvHeldByBot2=new Set();window.bvHeldByBot3=new Set();
       bvPositionsData=[];
     }
-    bvCandidatesData=bvCandidatesData.filter(r=>!window.bvHeldByBot1.has(r.ticker));
 
     const cacheRows=bvParseCSV(cacheTxt);
     const cacheFresh=cacheRows.filter(r=>!r.error).length;
@@ -402,10 +401,12 @@ function bvSortAndRenderTable(){
     return dir==='asc'?va-vb:vb-va;
   });
   const tbody=document.getElementById('bvCandidatesTbody');
+  const heldBy1=window.bvHeldByBot1||new Set();
   const heldBy2=window.bvHeldByBot2||new Set();
   const heldBy3=window.bvHeldByBot3||new Set();
   tbody.innerHTML=sorted.map(r=>{
     let heldBadges='';
+    if(heldBy1.has(r.ticker))heldBadges+=' <span class="badge bok" title="Position ouverte, Bot #1 (aveugle, sans contrainte de capital)">🤖1</span>';
     if(heldBy2.has(r.ticker))heldBadges+=' <span class="badge bok" title="Position ouverte, Bot #2 (restreint, capital contraint)">🤖2</span>';
     if(heldBy3.has(r.ticker))heldBadges+=' <span class="badge bok" title="Position ouverte, Bot #3 (large, équilibré par secteur)">🤖3</span>';
     return `
