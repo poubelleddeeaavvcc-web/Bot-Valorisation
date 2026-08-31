@@ -170,13 +170,13 @@ def print_report(results: list[dict]):
                       f"({row['_exclude_reason']})")
 
         if clean["n"] >= CLEAN_TRADE_THRESHOLD:
-            print(f"  >> SEUIL ATTEINT ({clean['n']}/{CLEAN_TRADE_THRESHOLD}) -- ce bot est jugeable.")
+            print(f"  >> SEUIL ATTEINT ({clean['n']} clotures propres) -- ce bot est jugeable.")
         elif r["eta_days_to_threshold"] is not None:
             eta = pd.Timestamp.today() + pd.Timedelta(days=r["eta_days_to_threshold"])
-            print(f"  Progression : {clean['n']}/{CLEAN_TRADE_THRESHOLD} clotures propres -- "
+            print(f"  Progression : {clean['n']} clotures propres -- "
                   f"estimation seuil atteint vers {eta.date().isoformat()} au rythme actuel.")
         else:
-            print(f"  Progression : {clean['n']}/{CLEAN_TRADE_THRESHOLD} clotures propres -- "
+            print(f"  Progression : {clean['n']} clotures propres -- "
                   f"pas encore de clotures, rythme non estimable.")
         print()
 
