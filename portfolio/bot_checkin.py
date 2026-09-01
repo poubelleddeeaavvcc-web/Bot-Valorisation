@@ -1,4 +1,4 @@
-"""Bi-weekly check-in report comparing the 3 paper-trading bots (results/simulation/),
+"""Bi-weekly check-in report comparing the paper-trading bots (results/simulation/),
 so that a "which bot do I actually base my real strategy on" decision can be made once
 each bot has enough clean closed trades to be judged -- the decision must wait for
 CLEAN_TRADE_THRESHOLD closed trades per bot, and must exclude closes that are artifacts
@@ -63,6 +63,27 @@ BOTS = [
         "label": "Bot #3 (large, ~30 lignes, equilibrage secteur sans plafond)",
         "ledger": SIM_DIR / "large_portfolio_ledger.csv",
         "summary": SIM_DIR / "large_summary.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot4_blind_newsgated",
+        "label": "Bot #4 (blind + filtre actu Ollama)",
+        "ledger": SIM_DIR / "portfolio_ledger_newsgated.csv",
+        "summary": SIM_DIR / "summary_newsgated.json",
+        "has_eur_equity": False,
+    },
+    {
+        "key": "bot5_constrained_newsgated",
+        "label": "Bot #5 (constrained + filtre actu Ollama)",
+        "ledger": SIM_DIR / "constrained_portfolio_ledger_newsgated.csv",
+        "summary": SIM_DIR / "constrained_summary_newsgated.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot6_large_newsgated",
+        "label": "Bot #6 (large + filtre actu Ollama)",
+        "ledger": SIM_DIR / "large_portfolio_ledger_newsgated.csv",
+        "summary": SIM_DIR / "large_summary_newsgated.json",
         "has_eur_equity": True,
     },
 ]
@@ -215,11 +236,19 @@ def main():
               f"(utilise --force pour lancer quand meme).")
         return
 
-    results = [check_bot(bot) for bot in BOTS]
+    active_bots = [b for b in BOTS if b["ledger"].exists()]
+    for b in BOTS:
+        if b not in active_bots:
+            print(f"{b['label']} : pas encore de ledger -- probablement pas encore lance, ignore.")
+    if not active_bots:
+        print("Aucun bot n'a encore de ledger -- rien a comparer.")
+        return
+
+    results = [check_bot(bot) for bot in active_bots]
     print_report(results)
 
     rows = []
-    for bot, r in zip(BOTS, results):
+    for bot, r in zip(active_bots, results):
         rows.append({
             "bot": bot["key"],
             "checkin_date": date.today().isoformat(),

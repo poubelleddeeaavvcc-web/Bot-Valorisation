@@ -15,7 +15,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -43,6 +43,35 @@ jobs:
 
       - name: Simulation de portefeuille large (equilibre par secteur, sans plafond)
         run: python screener/simulate_large_portfolio.py
+
+      # Bots #4/5/6 : memes mecaniques que #1/2/3, avec un filtre actu (Ollama local, voir
+      # screener/news_filter.py) juste avant chaque achat. Ollama tourne uniquement dans ce
+      # job -- installe et le modele telecharge a chaque run (~2GB, mis en cache entre runs
+      # par actions/cache pour eviter de le retelecharger a chaque heure).
+      - name: Cache du modele Ollama
+        uses: actions/cache@v4
+        with:
+          path: ~/.ollama/models
+          key: ollama-models-llama3.2-3b
+
+      - name: Installer et demarrer Ollama
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          nohup ollama serve > /tmp/ollama.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -s http://localhost:11434/api/version > /dev/null && break
+            sleep 2
+          done
+          ollama pull llama3.2:3b
+
+      - name: Simulation en aveugle + filtre actu Ollama (Bot #4)
+        run: python screener/simulate_portfolio_newsgated.py
+
+      - name: Simulation a capital contraint + filtre actu Ollama (Bot #5)
+        run: python screener/simulate_constrained_portfolio_newsgated.py
+
+      - name: Simulation large + filtre actu Ollama (Bot #6)
+        run: python screener/simulate_large_portfolio_newsgated.py
 
       - name: Commit + push si des resultats ont change
         run: |
