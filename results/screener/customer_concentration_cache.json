@@ -438,5 +438,13 @@
       "reason": "L'entreprise semble être dépendante de clients spécifiques, tels que des clients industriels ou gouvernementaux, ainsi qu'un contrat gouvernemental unique, ce qui suggère une concentration du clientèle.",
       "source": "ollama"
     }
+  },
+  "GOOGL": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2026-02-05) : customer or groups of affiliated customers represented more than 10% of our revenue [https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm]",
+      "source": "sec_10k"
+    }
   }
 }
