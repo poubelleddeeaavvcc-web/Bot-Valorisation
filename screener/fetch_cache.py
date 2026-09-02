@@ -30,6 +30,18 @@ STALENESS_DAYS = 7        # short enough to keep momentum/price (the whole point
 # ticker universe in well under a day once it goes stale. Was 90 days; that let the cache freeze
 # solid the moment it reached 100% coverage (see incident 2026-08-07 -> 2026-08-14, zero refresh).
 
+LAST_SCHEMA_MIGRATION = "2026-09-02"  # date fetch_one() last gained new fields ("country";
+# the analyst-consensus fields landed 2026-09-01, one day earlier -- this single cutoff
+# covers both). A cache row fetched before this date is still "fresh" by STALENESS_DAYS but
+# was written by an older fetch_one() and simply never got these columns -- left alone, the
+# whole universe (0 stale rows the day this was added -- see 2026-09-02 conversation) would
+# sit on stale schema for up to STALENESS_DAYS before naturally refreshing. Treating a
+# pre-migration row as not-fresh forces exactly one extra pass to backfill it, once.
+# Self-limiting: once a row is refetched, its fetched_at moves past this cutoff and it goes
+# back to being judged purely on STALENESS_DAYS -- this can never turn into an endless retry
+# loop for a ticker where Yahoo genuinely has no value for one of these fields, unlike an
+# "is this field null" check would.
+
 
 def fetch_one(ticker: str) -> dict:
     today = pd.Timestamp.today().strftime("%Y-%m-%d")
@@ -102,14 +114,21 @@ def main():
     cache = load_cache()
 
     fresh_cutoff = pd.Timestamp.today() - pd.Timedelta(days=STALENESS_DAYS)
+    migration_cutoff = pd.Timestamp(LAST_SCHEMA_MIGRATION)
     if len(cache):
-        already_fresh = set(cache.loc[cache["fetched_at"] >= fresh_cutoff, "ticker"])
+        is_date_fresh = cache["fetched_at"] >= fresh_cutoff
+        predates_migration = cache["fetched_at"] < migration_cutoff  # see LAST_SCHEMA_MIGRATION
+        already_fresh = set(cache.loc[is_date_fresh & ~predates_migration, "ticker"])
+        catchup_count = int((is_date_fresh & predates_migration).sum())
     else:
         already_fresh = set()
+        catchup_count = 0
 
     todo = [t for t in universe["ticker"] if t not in already_fresh][:BATCH_SIZE]
     print(f"Univers cible : {len(universe)} tickers | deja en cache (frais) : {len(already_fresh)} | "
-          f"a traiter ce run : {len(todo)}")
+          f"a traiter ce run : {len(todo)}"
+          + (f" (dont {min(catchup_count, len(todo))} rattrapage schema pre-{LAST_SCHEMA_MIGRATION})"
+             if catchup_count else ""))
 
     if not todo:
         print("Rien a faire -- cache deja a jour pour tout l'univers cible.")
