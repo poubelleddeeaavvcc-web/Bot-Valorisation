@@ -406,5 +406,13 @@
       "reason": "L'entreprise a plusieurs license agreements avec plusieurs entreprises, notamment LFB Biotechnologies S.A.S, GTC Biotherapeutics, LFB/GTC LLC, Ildong Pharmaceutical Co. Ltd. et Jiangsu Hengrui Medicine Co., ce qui suggère une base de clients large et diversifiée.",
       "source": "ollama"
     }
+  },
+  "B3SA3.SA": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "l'entreprise semble dépendre d'un très petit nombre de clients, notamment le client principal et les contrats gouvernementaux.",
+      "source": "ollama"
+    }
   }
 }
