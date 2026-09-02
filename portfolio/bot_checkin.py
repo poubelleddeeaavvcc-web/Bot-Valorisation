@@ -267,8 +267,17 @@ def main():
             "threshold_reached": r["clean"]["n"] >= CLEAN_TRADE_THRESHOLD,
         })
     out = pd.DataFrame(rows)
-    header = not history_path.exists()
-    out.to_csv(history_path, mode="a", index=False, header=header)
+    if history_path.exists():
+        existing = pd.read_csv(history_path)
+        # replace, don't append, any row for a (bot, date) this run is about to rewrite --
+        # a same-day re-run (--force twice, or the dashboard's "Lancer le check-in" clicked
+        # more than once) used to pile up duplicate rows for the same bot+date, which the
+        # dashboard's check-in table then rendered as literal duplicates (found 2026-09-02:
+        # every bot had 3 rows for the same day). Only ever one row per (bot, date) now.
+        new_keys = set(zip(out["bot"], out["checkin_date"]))
+        existing = existing[~existing.apply(lambda r: (r["bot"], r["checkin_date"]) in new_keys, axis=1)]
+        out = pd.concat([existing, out], ignore_index=True)
+    out.to_csv(history_path, index=False)
     print(f"\nRapport ajoute a {history_path.relative_to(HERE)}")
 
 
