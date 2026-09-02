@@ -30,5 +30,317 @@
       "reason": "Le texte ne mentionne qu'un seul groupe, sans préciser s'il s'agit d'un client principal ou si cela fait référence à une relation de fourniture unique, ce qui suggère une concentration sur un client ou un fournisseur.",
       "source": "ollama"
     }
+  },
+  "4503.T": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "La description de l'activité d'Astellas Pharma Inc. ne mentionne aucun client principal ou contrat gouvernemental unique, ce qui suggère une concentration sur une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "4507.T": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise fournit des produits et des services à un large public (pharmaceuticals, diagnostic reagents, medical devices), ainsi que des services B2B à de nombreux clients, tels que les contrats gouvernementaux, les services d'analyse et les solutions éducatives, ce qui suggère une base de clients",
+      "source": "ollama"
+    }
+  },
+  "MU": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise vend ses produits à de nombreux clients différents, notamment dans des marchés tels que le data center, les PC, les graphiques, la networking, l'automobile, l'industrie et le consommateur embedded, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "ITUB4.SA": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "l'entreprise sert un large public, des clients B2B, des microentreprises, des petites et moyennes entreprises, ainsi que des clients institutionnels de haut niveau",
+      "source": "ollama"
+    }
+  },
+  "PINFRA.MX": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte indique que l'entreprise fournit une gamme de services et de produits, ce qui suggère qu'elle a un bassin de clients large et diversifié, mais il n'y a pas d'informations suffisantes pour déterminer avec certitude la concentration de ses clients.",
+      "source": "ollama"
+    }
+  },
+  "2303.TW": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "L'entreprise semble dépendre d'un petit nombre de clients, notamment pour la fabrication de circuits intégrés, ce qui suggère une concentration de la base de clients.",
+      "source": "ollama"
+    }
+  },
+  "YUMC": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "La description mentionne une forte présence de marques sous franchise, notamment KFC et Pizza Hut, ce qui suggère une dépendance importante à un petit nombre de clients principaux.",
+      "source": "ollama"
+    }
+  },
+  "9942.TW": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "l'entreprise sert des marchés diversifiés tels que le sector automobile, industriel, agricole, hydraulique, pneumatique, de construction et de minier, avec des clients B2B et un public général",
+      "source": "ollama"
+    }
+  },
+  "1802.T": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise engage en construction, développe et gère des propriétés, produit de l'énergie renouvelable, fournit des services techniques et participate à des PPP, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "MD": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "Le texte ne fournit aucune information sur la base de clients de Pediatrix Medical Group, Inc., mais indique qu'elle fournit des services à des clients spécifiques, tels que des hôpitaux et des femmes enceintes, ce qui suggère une concentration dans un marché très spécifique.",
+      "source": "ollama"
+    }
+  },
+  "BVS": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte mentionne une gamme de produits pour différents types de clients, notamment des patients, des médecins, des établissements de santé, des distributeurs et des détaillants, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "PRI": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise distribue et vend ses produits à un large public de clients, sans indication de dépendance à un petit nombre de clients principaux ou à un contrat unique avec le gouvernement.",
+      "source": "ollama"
+    }
+  },
+  "3044.TW": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte mentionne plusieurs applications (memoires, TFT LCD, hard disk drives, serveurs, etc.) et plusieurs pays de production, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "GEO": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "Dependence d'un grand nombre de clients gouvernementaux et d'opérations de services pour des infrastructures sécurisées, ce qui suggère une concentration des activités sur un petit nombre de clients principaux.",
+      "source": "ollama"
+    }
+  },
+  "2503.T": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise propose une gamme de produits et de services diversifiés, notamment en matière de boissons, de médicaments, de cosmétiques et de services logistiques, ce qui suggère qu'elle n'est pas dépendante d'un petit nombre de clients.",
+      "source": "ollama"
+    }
+  },
+  "CPA": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "L'entreprise semble dépendre d'un très petit nombre de clients, comme le suggère le fait qu'elle opère avec une flotte de 125 avions et qu'elle n'est fondée que en 1947, ce qui indique une certaine concentration des activités sur un marché ou un client spécifique.",
+      "source": "ollama"
+    }
+  },
+  "DINO": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "Le texte suggère que HF Sinclair Corporation dépend principalement d'un petit nombre de clients, tels que les 1 700 stations qu'elle approvisionne et les clients gouvernementaux, ce qui indique une concentration du marché.",
+      "source": "ollama"
+    }
+  },
+  "1893.T": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise fournit ses services à de nombreux secteurs et types d'entreprises, indiquant une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "ASM.AS": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "le texte ne précise pas les clients, mais il mentionne que la société vend ses produits à des fabricants de semi-conducteurs, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "GRBK": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise a des subsidiaries et des intérêts dans plusieurs entreprises de construction et de services financiers, ce qui suggère une diversification de ses clients et de ses activités.",
+      "source": "ollama"
+    }
+  },
+  "GL": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise vend ses produits à travers plusieurs canaux (direct-to-consumer, agences indépendantes, etc.) et offre une gamme variée de produits, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "URBN": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "La description de l'entreprise mentionne plusieurs marques et segments d'activité, tels que Urban Outfitters, Anthropologie, Terrain et Free People, qui visent différents publics et offrent une gamme de produits, ce qui suggère une diversification des clients et des marchés.",
+      "source": "ollama"
+    }
+  },
+  "OFG": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise offre une gamme de services financiers diversifiés à un large public, notamment des individus, des entreprises et des institutions, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "1590.TW": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Airtac International Group offre une large gamme de produits pour différents secteurs, tels que l'automobile, la mécanique, l'électronique, etc., ce qui suggère qu'elle a une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "AMN": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise propose une gamme de services diversifiés à une variété de clients, notamment des hôpitaux, des cliniques, des écoles et des groupes de santé, ce qui suggère une concentration sur une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "DCI": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise a plusieurs segments d'activité, plusieurs clients (constructeurs, distributeurs, end-users), et une présence dans différents marchés, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "NDX1.DE": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "L'entreprise seeme se concentrer sur un client principal et une région spécifique (Europe, North America, Latin America) avec une présence importante en Turquie, ce qui suggere une base de clients concentrée.",
+      "source": "ollama"
+    }
+  },
+  "BBY": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte décrit une gamme large de produits et de services, y compris des produits pour consommation, des équipements de bureau, des appareils ménagers, des éléments de smart home et de smartwatch, des équipements de divertissement, des produits de santé et de soins, ainsi que des services de livrai",
+      "source": "ollama"
+    }
+  },
+  "LAUR": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise offre une gamme de programmes de haute formation à travers plusieurs pays et secteurs (médicine, ingénierie, gestion), indiquant une diversification de ses clients et de ses services.",
+      "source": "ollama"
+    }
+  },
+  "JAZZ": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise est mentionnée comme fournisseur pour plusieurs groupes et sociétés, et a des collaborations avec plusieurs entreprises, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "YETI": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "L'entreprise semble se concentrer sur une base de clients directe (site web, magasin, vente directe) et sur un petit nombre de partenaires B2B, avec une forte présence de marques et de produits dans des segments spécifiques du marché.",
+      "source": "ollama"
+    }
+  },
+  "AFL": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte décrit une gamme de produits d'assurance pour différents types de clients, notamment individuels, familles, business owners, banques, agences indépendantes et brokers, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "DAKT": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise sert un grand nombre de clients différents, notamment des out-of-home companies, des retailers, des casinos, des gouvernements et des entreprises du secteur de l'industrie aéronautique, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "TILE": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise vend ses produits à travers plusieurs canaux (directement aux utilisateurs, via des distributeurs indépendants, des installateurs) et dans plusieurs régions du monde, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "THG": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise offre une large gamme de produits d'assurance pour différents secteurs, tels que les entreprises, les collecteurs de voitures, les particuliers, etc., ce qui suggère qu'elle n'est pas concentrée sur un petit nombre de clients principaux.",
+      "source": "ollama"
+    }
+  },
+  "2432.T": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise développe et opère une grande variété d'activités, allant de services de jeu mobile à des solutions pour les soins de santé et les entreprises, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "7269.T": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise propose une large gamme de produits et de services, y compris automobiles, motorcycles, outboard motors, vélos électriques, produits pour la construction, services de location, vente de biens immobiliers, etc., ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "UCG.MI": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "L'entreprise semble se concentrer sur les clients d'affaires et institutions, avec une mention des clients SME, corporate, etc., ce qui suggère une base de clients relativement restreinte.",
+      "source": "ollama"
+    }
+  },
+  "UFCS": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise propose des produits diversifiés pour différents types de clients (petites et grandes entreprises, secteurs tels que la construction, les services, etc.) et vend ses produits via un réseau d'agences indépendantes.",
+      "source": "ollama"
+    }
   }
 }
