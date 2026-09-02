@@ -5,3 +5,6 @@ yfinance
 requests
 lxml
 xlrd
+tzdata  # zoneinfo (screener/market_hours.py) needs this on Windows -- no OS-level IANA
+# database to fall back on there; harmless/redundant on the Linux CI runner, which already
+# ships system tzdata, but keeps local dev/testing consistent

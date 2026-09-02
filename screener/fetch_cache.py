@@ -4,20 +4,24 @@ undocumented rate limit -- small batch, low concurrency, a delay between request
 exponential backoff that ABORTS the run early on repeated rate-limit errors rather than
 digging the hole deeper. Results accumulate in a persistent CSV cache across runs.
 
-REFRESH SCHEDULE (rewritten 2026-09-02): each hourly run refreshes a fixed ROTATING SLICE of
-the universe -- every ticker is deterministically assigned to one of RUNS_PER_CYCLE slices
-(a stable hash of the ticker, not its position in the list, so slice membership doesn't shift
-just because build_trending_universe.py's output reorders or resizes day to day), and the
-active slice each run is whatever wall-clock hour it is, mod RUNS_PER_CYCLE. Over one week
-every ticker gets refreshed exactly once, evenly spread across all 168 hourly runs.
+REFRESH SCHEDULE (rewritten 2026-09-02, then again same day per the user's follow-up): each
+hourly run refreshes a slice of the universe determined by market_hours.py -- a ticker is only
+ever eligible during its OWN exchange's trading hours (see market_hours.MARKET_HOURS), and
+within that window it's deterministically assigned to one of that market's slots (a stable
+hash of the ticker, not its position in the list, so slot assignment doesn't shift just
+because build_trending_universe.py's output reorders or resizes day to day). Over one BUSINESS
+week (5 trading days) every ticker gets refreshed exactly once, spread evenly across whichever
+of its market's hourly session-hours the cron happens to land on -- never while that market is
+closed, since re-fetching a closed market just re-reads the same last close.
 
-This replaced a pure staleness check (refresh only if last fetched >STALENESS_DAYS ago): that
-scheme completes a full pass in ~13h (5571 tickers / 423 per run) and then goes completely
-IDLE for the remaining ~6.5 days once nothing is stale -- so the whole universe's momentum
-data updates in one clustered burst once a week rather than drifting continuously, which is
-exactly what caused several stocks to flip momentum status simultaneously right after a
-burst (flagged by the user 2026-09-02) instead of one at a time as their own data aged. Pure
-rotation fixes that directly: ~33 tickers/run, every run, no idle stretch.
+This is the second iteration of the schedule: the first (same day, commit 068d52d) replaced a
+pure staleness check (refresh only if last fetched >7 days ago -- completes in ~13h then goes
+fully IDLE for ~6.5 days, so the whole universe's momentum updated in one clustered weekly
+burst, flipping several stocks' momentum status at once) with a flat 168-slot calendar-week
+rotation, evenly spread but blind to whether any given market was actually open. This version
+additionally ties each ticker's slot to its own market's real trading calendar, per the user's
+direction that calendar-week/anytime-of-day refreshing isn't "clean" -- fetching AAPL at 3am
+New York time doesn't produce fresher data, it just spends rate-limit budget for nothing.
 
 New tickers (never in the cache at all -- just entered the trending universe) are fetched
 immediately rather than waiting for their slot, since they might not get one for days.
@@ -31,21 +35,25 @@ import pandas as pd
 import yfinance as yf
 
 HERE = pathlib.Path(__file__).parent.parent
+sys.path.insert(0, str(HERE))  # this script is invoked directly (python screener/fetch_cache.py,
+# see update-screener.yml), so "screener" isn't importable as a package without this -- same
+# pattern used by every other intra-package import in this project (e.g.
+# simulate_constrained_portfolio.py)
+
+from screener import market_hours  # noqa: E402
+
 TRENDING_UNIVERSE = HERE / "data/universe/trending_universe.csv"
 CACHE_PATH = HERE / "results/screener/fundamentals_cache.csv"
 
 BATCH_SIZE = 423          # hard ceiling on requests/run regardless of schedule -- 70% of the
 # 604 that worked in the original one-shot test, still a guess (Yahoo publishes no real
-# limit). With rotation this is rarely reached (a slice is ~33 tickers) except while the
+# limit). With market-hours rotation this is rarely reached (each run's regular slice is a
+# small fraction of whichever markets happen to be open) except while the
 # LAST_SCHEMA_MIGRATION backlog below is draining.
 DELAY_BETWEEN_CALLS = 0.4  # seconds, single-threaded on purpose
 COOLDOWN_EVERY = 100      # community-reported pattern (yfinance GH discussion #2431):
 COOLDOWN_SECONDS = 20     # ~100 requests before Yahoo wants a breather -- so take one voluntarily
 MAX_RETRIES = 2
-
-RUNS_PER_CYCLE = 24 * 7  # one slice per hourly cron tick ("35 * * * *" in
-# update-screener.yml) -- 168 slices/week is what makes "every ticker refreshed once a week,
-# spread evenly" concrete: universe_size / 168 tickers per run (~33 today).
 
 LAST_SCHEMA_MIGRATION = "2026-09-02"  # date fetch_one() last gained new fields (country;
 # the analyst-consensus fields landed one day earlier, 2026-09-01 -- this single cutoff
@@ -122,16 +130,33 @@ def load_cache() -> pd.DataFrame:
     return df
 
 
-def _slice_of(ticker: str) -> int:
+def _slot_of(ticker: str, total_slots: int) -> int:
     """Deterministic, stable across processes/runs (unlike Python's built-in hash(), which is
-    randomized per-process by default) -- a ticker's slice never moves just because
-    build_trending_universe.py reordered or resized its output."""
-    return int(hashlib.md5(ticker.encode("utf-8")).hexdigest(), 16) % RUNS_PER_CYCLE
+    randomized per-process by default) -- a ticker's slot within its market's weekly rotation
+    never moves just because build_trending_universe.py reordered or resized its output."""
+    return int(hashlib.md5(ticker.encode("utf-8")).hexdigest(), 16) % total_slots
 
 
-def _current_slice() -> int:
-    hours_since_epoch = int(pd.Timestamp.now(tz="UTC").timestamp() // 3600)
-    return hours_since_epoch % RUNS_PER_CYCLE
+class _MarketSlots:
+    """Memoized (tz_name, open_hour, close_hour) -> current (slot, total_slots) | None --
+    computed once per distinct market (there are ~25 in this project's universe) rather than
+    once per ticker (thousands), since each lookup does a zoneinfo-aware "what time is it
+    there right now" conversion."""
+
+    def __init__(self):
+        self._cache = {}
+
+    def get(self, ticker: str):
+        market = market_hours.market_of(ticker)[:3]  # (tz_name, open_hour, close_hour)
+        if market not in self._cache:
+            self._cache[market] = market_hours.current_slot_for_market(*market)
+        return self._cache[market]
+
+    def is_open(self, ticker: str) -> bool:
+        return self.get(ticker) is not None
+
+    def n_open_markets(self) -> int:
+        return sum(1 for v in self._cache.values() if v is not None)
 
 
 def main():
@@ -144,14 +169,26 @@ def main():
     # ends up here too once fetch_one(nan) is called for one from the universe)
 
     cached_tickers = set(cache["ticker"]) if len(cache) else set()
-    never_fetched = [t for t in universe["ticker"] if t not in cached_tickers]
+    never_fetched_all = [t for t in universe["ticker"] if t not in cached_tickers]
 
     migration_cutoff = pd.Timestamp(LAST_SCHEMA_MIGRATION)
-    premigration = (sorted(set(cache.loc[cache["fetched_at"] < migration_cutoff, "ticker"]))
-                     if len(cache) else [])
+    premigration_all = (sorted(set(cache.loc[cache["fetched_at"] < migration_cutoff, "ticker"]))
+                         if len(cache) else [])
 
-    current_slice = _current_slice()
-    scheduled = [t for t in universe["ticker"] if _slice_of(t) == current_slice]
+    # market-hours gate (see market_hours.py): never fetch a ticker while its own exchange is
+    # closed -- re-reading a closed market just returns the same last close, not fresher data.
+    # Applies to new tickers and the schema catch-up backlog too (any time their market is
+    # open, not slot-restricted -- both want to drain as fast as possible, not spread over
+    # another full week), as well as the regular rotation slice below (market open AND this
+    # hour is specifically this ticker's slot).
+    slots = _MarketSlots()
+    never_fetched = [t for t in never_fetched_all if slots.is_open(t)]
+    premigration = [t for t in premigration_all if slots.is_open(t)]
+    scheduled = []
+    for t in universe["ticker"]:
+        slot_info = slots.get(t)
+        if slot_info is not None and _slot_of(t, slot_info[1]) == slot_info[0]:
+            scheduled.append(t)
 
     # priority order when BATCH_SIZE caps the total: brand-new tickers first (they might not
     # get a slot for days otherwise), then the one-time schema catch-up backlog, then this
@@ -159,9 +196,11 @@ def main():
     # (a ticker can legitimately appear in more than one of the three lists).
     todo = list(dict.fromkeys(never_fetched + premigration + scheduled))[:BATCH_SIZE]
 
-    print(f"Univers cible : {len(universe)} tickers | tranche horaire #{current_slice}/{RUNS_PER_CYCLE} "
-          f"({len(scheduled)} tickers) | jamais fetches : {len(never_fetched)} | "
-          f"rattrapage schema restant : {len(premigration)} | a traiter ce run : {len(todo)}")
+    print(f"Univers cible : {len(universe)} tickers | marches actuellement ouverts : "
+          f"{slots.n_open_markets()} | tranche de rotation (marche ouvert) : {len(scheduled)} | "
+          f"jamais fetches, marche ouvert : {len(never_fetched)}/{len(never_fetched_all)} | "
+          f"rattrapage schema, marche ouvert : {len(premigration)}/{len(premigration_all)} | "
+          f"a traiter ce run : {len(todo)}")
 
     if not todo:
         print("Rien a faire -- cache deja a jour pour tout l'univers cible.")
@@ -192,7 +231,8 @@ def main():
 
     ok = new_df["error"].isna().sum() if "error" in new_df.columns else len(new_df)
     coverage = len(cached_tickers | set(new_df["ticker"]))
-    remaining_premigration = max(0, len(premigration) - len(new_df))
+    remaining_premigration = max(0, len(premigration_all) - len(new_df))  # total backlog, not
+    # just the market-open subset attempted this run -- the closed-market rest still counts
     print(f"\n{ok}/{len(new_df)} succes ce run. Couverture cache : {coverage}/{len(universe)} "
           f"({coverage / len(universe):.0%})."
           + (f" Rattrapage schema restant : ~{remaining_premigration}." if remaining_premigration else ""))
