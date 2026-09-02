@@ -340,5 +340,17 @@
     "sentiment": "neutral",
     "reason": "Les actualites presentes sont mixtes, avec des informations sur des produits futurs d'Apple, des partenariats d'Nvidia, des evolutions de la strategie de Google, ainsi que des informations sur les performances de l'action de Palantir et de Tesla, ce qui indique un ton neutre.",
     "source": "ollama"
+  },
+  "WDC_2026-09-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de gains, de croissance et de bonnes performances financieres, ce qui suggere un ton general positif pour l'action de Western Digital Corporation.",
+    "source": "ollama"
+  },
+  "SNA_2026-09-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Bien que certaines actualités mentionnent des risques et des préoccupations, le ton général est dominé par des éléments positifs, tels que la performance de l'action, les analystes bullistes et les investissements de nouveaux investisseurs.",
+    "source": "ollama"
   }
 }

@@ -446,5 +446,21 @@
       "reason": "10-K SEC (2026-02-05) : customer or groups of affiliated customers represented more than 10% of our revenue [https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm]",
       "source": "sec_10k"
     }
+  },
+  "WDC": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2026-08-14) : three customers accounted for 16%, 15%, and 13%, respectively, of our net revenue [https://www.sec.gov/Archives/edgar/data/106040/000162828026057139/wdc-20260703.htm]",
+      "source": "sec_10k"
+    }
+  },
+  "SNA": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "L'entreprise semble servir principalement les secteurs de la maintenance et de la réparation automobile, ainsi que l'industrie, ce qui suggère une concentration sur un petit nombre de clients.",
+      "source": "ollama"
+    }
   }
 }
