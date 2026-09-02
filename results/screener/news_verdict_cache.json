@@ -280,5 +280,35 @@
     "sentiment": "positive",
     "reason": "Les actualites recentes sur Popular, Inc. (BPOP) mettent en avant des elements positifs tels que des decisions de dividendes, des performances financieres solides et des perspectives de croissance, ce qui suggere un ton general positif pour l'action.",
     "source": "ollama"
+  },
+  "7735.T_2026-09-02": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes sont mixtes, avec des informations sur les performances financieres et des commentaires de analystes, mais sans une tonalite clairement positive ou negative",
+    "source": "ollama"
+  },
+  "AMAT_2026-09-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Bien que certaines actualités mentionnent des baisse du prix de l'action, les autres soulignent les performances de l'action par rapport au Dow, les achats de parts par l'entreprise et les perspectives positives sur le secteur de l'industrie des semiconducteurs.",
+    "source": "ollama"
+  },
+  "LCII_2026-09-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente des points positifs tels que l'expansion des marges, une augmentation des bénéfices ajustés et une expansion stratégique, malgré une baisse de ventes, ce qui suggère que l'action est en phase de croissance et de développement.",
+    "source": "ollama"
+  },
+  "ALV_2026-09-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de performances financieres solides, de dividendes et de positions de investissement, ce qui suggere un ton general positif pour l'action d'Autoliv, Inc.",
+    "source": "ollama"
+  },
+  "TGTX_2026-09-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites recentes sur TG Therapeutics, Inc. (TGTX) suggererent des developpements positifs, tels que des rumors de takeover, des performances surperformantes et des investissements de capital, ce qui indique un ton general positif pour l'action.",
+    "source": "ollama"
   }
 }

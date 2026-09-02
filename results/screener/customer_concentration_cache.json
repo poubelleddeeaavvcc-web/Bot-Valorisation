@@ -366,5 +366,45 @@
       "reason": "L'entreprise propose une large gamme de services financiers pour divers clients individuels et businessman, ainsi que des services pour les particuliers, les entreprises et les particuliers ayant besoin de services financiers spécialisés",
       "source": "ollama"
     }
+  },
+  "7735.T": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte décrit une gamme de produits et de services pour différents domaines, notamment la production de semi-conducteurs, l'impression et l'imagerie, ainsi que des solutions pour les industries manufacturières et médicales, indiquant une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "AMAT": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2025-12-12) : two customers accounted for approximately 19% and 15%, respectively, of our net revenue [https://www.sec.gov/Archives/edgar/data/6951/000162828025056742/amat-20251026.htm]",
+      "source": "sec_10k"
+    }
+  },
+  "LCII": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte mentionne l'existence de deux segments (OEM et Aftermarket) et de plusieurs types de clients (OEMs de RVs, Aftermarket, direct-to-consumer, retail dealers, wholesale distributors, service centers, etc.), ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "ALV": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "le texte indique que l'entreprise sert principalement des fabricants d'automobiles, mais ne fournit pas d'information sur le nombre de clients ou leur importance.",
+      "source": "ollama"
+    }
+  },
+  "TGTX": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise a plusieurs license agreements avec plusieurs entreprises, notamment LFB Biotechnologies S.A.S, GTC Biotherapeutics, LFB/GTC LLC, Ildong Pharmaceutical Co. Ltd. et Jiangsu Hengrui Medicine Co., ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
   }
 }
