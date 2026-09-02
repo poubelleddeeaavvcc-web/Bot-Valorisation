@@ -414,5 +414,29 @@
       "reason": "l'entreprise semble dépendre d'un très petit nombre de clients, notamment le client principal et les contrats gouvernementaux.",
       "source": "ollama"
     }
+  },
+  "FHI": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "FHI fournit ses services à une large gamme de clients, y compris individuels, institutions financières, organisations caritatives, gouvernements et professionnels du conseil investment, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "FRSH": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte décrit une gamme de produits pour des utilisateurs diversifiés, notamment pour les entreprises, les entreprises de services, les entreprises de marketing et les équipes de maintenance.",
+      "source": "ollama"
+    }
+  },
+  "GEV": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "L'entreprise semble être dépendante de clients spécifiques, tels que des clients industriels ou gouvernementaux, ainsi qu'un contrat gouvernemental unique, ce qui suggère une concentration du clientèle.",
+      "source": "ollama"
+    }
   }
 }

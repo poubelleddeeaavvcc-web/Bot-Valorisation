@@ -316,5 +316,23 @@
     "sentiment": "positive",
     "reason": "L'action B3 S.A. - Brasil Bolsa Balcao (BOLSY) a connu des performances solides avec une croissance de 11% des revenus au quatrième trimestre 2025 et une résilience face aux défis du marché, ainsi qu'une nouvelle stratégie de produits et une amélioration de l'efficacité opérationnelle.",
     "source": "ollama"
+  },
+  "FHI_2026-09-02": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes sont mixtes, avec des articles qui mentionnent les avantages de l'action (dividendes, valeur sur le marché) et d'autres qui soulignent les défis et les incertitudes (challenges, capital return strategy). Il n'y a pas de ton clairement positif ou négatif qui ressort des actua",
+    "source": "ollama"
+  },
+  "FRSH_2026-09-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance, de profit, de crescence et de potentiels de surcroit, ce qui suggere un ton general positif pour l'action de Freshworks Inc.",
+    "source": "ollama"
+  },
+  "GEV_2026-09-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance, de backlog, de deals avec des grandes entreprises et de tendances positives sur le marché, ce qui suggere un ton general positif pour l'action GE Vernova Inc.",
+    "source": "ollama"
   }
 }
