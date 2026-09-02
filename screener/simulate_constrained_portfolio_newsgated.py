@@ -38,7 +38,7 @@ VALUATION_PATH = HERE / "results/screener/full_valuation_latest.csv"
 SUMMARY_PATH = HERE / "results/simulation/constrained_summary_newsgated.json"
 EQUITY_CURVE_PATH = HERE / "results/simulation/constrained_equity_curve_newsgated.csv"
 
-NEWSGATED_LEDGER_COLUMNS = LEDGER_COLUMNS + ["news_source", "news_reason"]
+NEWSGATED_LEDGER_COLUMNS = LEDGER_COLUMNS + ["news_source", "news_sentiment", "news_reason"]
 
 
 def load_ledger() -> pd.DataFrame:
@@ -146,7 +146,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
             "unrealized_return_pct": 0.0,
             "exit_date": None, "exit_price": None, "exit_reason": None,
             "exit_value_eur": None, "return_pct": None, "holding_days": None,
-            "news_source": verdict["source"], "news_reason": verdict["reason"],
+            "news_source": verdict["source"], "news_sentiment": verdict.get("sentiment"),
+            "news_reason": verdict["reason"],
         })
         cash -= cost
         held_tickers.add(ticker)

@@ -40,7 +40,7 @@ LEDGER_COLUMNS = [
     "last_check_date", "last_price", "last_valuation_gap", "last_mom_12_2", "last_sector_momentum",
     "unrealized_return_pct", "peak_unrealized_return_pct", "peak_date",
     "exit_date", "exit_price", "exit_reason", "return_pct", "holding_days",
-    "news_source", "news_reason",
+    "news_source", "news_sentiment", "news_reason",
 ]
 
 
@@ -75,7 +75,8 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, today: st
             "unrealized_return_pct": 0.0, "peak_unrealized_return_pct": 0.0, "peak_date": today,
             "exit_date": None, "exit_price": None, "exit_reason": None,
             "return_pct": None, "holding_days": None,
-            "news_source": verdict["source"], "news_reason": verdict["reason"],
+            "news_source": verdict["source"], "news_sentiment": verdict.get("sentiment"),
+            "news_reason": verdict["reason"],
         })
     if new_rows:
         ledger = pd.concat([ledger, pd.DataFrame(new_rows)], ignore_index=True)

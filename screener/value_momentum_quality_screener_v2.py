@@ -51,6 +51,15 @@ MIN_ROE = 0.15  # absolute quality floor regardless of sector (Buffett-style bas
 
 MIN_INDUSTRY_PEERS = 5  # below this, an industry (e.g. "Gold") median P/E is too noisy to
 # trust over the broader sector ("Basic Materials") median -- falls back to sector in that case
+
+MIN_ANALYST_COVERAGE = 3  # below this, "recommendationKey" is one or two opinions dressed up
+# as a consensus -- too noisy to act on, so the analyst-recommendation check below is skipped
+# entirely rather than excluding a candidate on thin data
+BEARISH_RECOMMENDATIONS = {"sell", "strong_sell", "underperform"}  # third-party analyst
+# consensus explicitly bearish despite our own model calling it undervalued -- treated as a
+# corroboration failure (see compute_valuation): analysts may be pricing in something (pending
+# litigation, accounting concerns, sector headwind) our purely quantitative screen can't see.
+# Missing/thin coverage is NOT penalized (fail open, same posture as the rest of this module).
 CYCLICAL_SECTORS = {"Basic Materials", "Energy"}  # trailing EPS is unreliable here: earnings
 # swing hard with the commodity cycle, so trough-of-cycle EPS can make the P/E look
 # artificially cheap and inflate valuation_gap without the company actually being
@@ -107,6 +116,9 @@ def fetch_one(ticker: str) -> dict:
             "pe": info.get("trailingPE"), "pb": info.get("priceToBook"),
             "eps": info.get("trailingEps"), "roe": info.get("returnOnEquity"),
             "margin": info.get("profitMargins"), "debt_eq": info.get("debtToEquity"),
+            "target_low_price": info.get("targetLowPrice"), "target_mean_price": info.get("targetMeanPrice"),
+            "target_high_price": info.get("targetHighPrice"), "recommendation_key": info.get("recommendationKey"),
+            "num_analyst_opinions": info.get("numberOfAnalystOpinions"),
             "mom_12_2": mom_12_2,
         }
     except Exception as e:
@@ -148,12 +160,24 @@ def _explain_row(r) -> str:
         parts.append(f"momentum ({r['mom_12_2']*100:+.0f}%) superieur au secteur ({r['sector_momentum']*100:+.0f}%)")
     if pd.notna(r.get("peg")) and r["peg"] < 1:
         parts.append(f"PEG bas ({r['peg']:.2f}) : croissance qui justifie plus que le P/E actuel")
+    if (pd.notna(r.get("num_analyst_opinions")) and r["num_analyst_opinions"] >= MIN_ANALYST_COVERAGE
+            and pd.notna(r.get("analyst_gap")) and r["analyst_gap"] > 0):
+        parts.append(f"cible analystes ({r['num_analyst_opinions']:.0f} analystes, "
+                      f"moyenne {r['target_mean_price']:.2f}) {r['analyst_gap']*100:+.0f}% au-dessus du prix actuel")
     if not parts:
         parts.append("ecart porte principalement par le multiple median du secteur")
     return " ; ".join(parts[:3])
 
 
 def compute_valuation(df: pd.DataFrame) -> pd.DataFrame:
+    # defensive: analyst fields are only populated by fetch_cache.py / this module's own
+    # fetch_one (added 2026-09-01) -- older cached rows or an unrelated caller's raw df may
+    # not have them yet, so backfill as missing rather than KeyError downstream.
+    for col in ("target_low_price", "target_mean_price", "target_high_price",
+                "recommendation_key", "num_analyst_opinions"):
+        if col not in df.columns:
+            df[col] = np.nan
+
     df = df[df["error"].isna()].copy()
     df = df[(df["pe"] > 0) & (df["pe"] < 80) & (df["eps"] > 0) & (df["pb"] > 0)]
     df = df.dropna(subset=["sector", "mom_12_2", "roe"])
@@ -197,6 +221,9 @@ def compute_valuation(df: pd.DataFrame) -> pd.DataFrame:
     df = df.join(sector_momentum, on="sector")
     sector_pb = df.groupby("sector")["pb"].median().rename("sector_median_pb")
     df = df.join(sector_pb, on="sector")
+    # Analyst-implied upside, same shape as our own valuation_gap -- a second, independent
+    # (third-party) opinion on the same question, not a replacement for it.
+    df["analyst_gap"] = df["target_mean_price"] / df["price"] - 1
     df["explication"] = df.apply(_explain_row, axis=1)
 
     normal_debt_ok = df["debt_eq"] < DEBT_TO_EQUITY_CAP
@@ -227,9 +254,18 @@ def compute_valuation(df: pd.DataFrame) -> pd.DataFrame:
     # "valuation_gap" from quality_multiplier=1.44 alone). Checked before adding: only 4/47
     # current candidates trade above their peer median P/E, so this isn't overly restrictive.
     pe_below_peer_ok = df["pe"] <= df["peer_median_pe"]
+    # Corroboration, not a second independent hurdle: only excludes when analysts explicitly
+    # disagree (bearish consensus) with decent coverage to trust it -- see BEARISH_RECOMMENDATIONS.
+    # Missing/thin coverage passes (fail open), same posture as peg_ok's missing-PEG handling
+    # is the opposite (fail closed) -- deliberate: PEG is OUR data pipeline, always computable
+    # from fields we already require; a missing analyst consensus just means thin coverage,
+    # which says nothing about the stock either way.
+    analyst_recommendation_ok = (df["recommendation_key"].isna()
+                                  | (df["num_analyst_opinions"].fillna(0) < MIN_ANALYST_COVERAGE)
+                                  | ~df["recommendation_key"].isin(BEARISH_RECOMMENDATIONS))
     df["passes_filter"] = (debt_ok & sector_up & plausible
                             & relative_momentum_ok & peg_ok & margin_of_safety_ok & quality_floor_ok
-                            & cyclical_pb_confirms & pe_below_peer_ok)
+                            & cyclical_pb_confirms & pe_below_peer_ok & analyst_recommendation_ok)
     return df.sort_values("valuation_gap", ascending=False)
 
 

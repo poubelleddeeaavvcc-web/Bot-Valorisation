@@ -55,6 +55,12 @@ def fetch_one(ticker: str) -> dict:
                 "eps": info.get("trailingEps"), "roe": info.get("returnOnEquity"),
                 "margin": info.get("profitMargins"), "debt_eq": info.get("debtToEquity"),
                 "market_cap": info.get("marketCap"), "peg": info.get("pegRatio"),
+                # Analyst consensus (2026-09-01) -- third-party data Yahoo aggregates, not its
+                # own number: an independent corroboration signal alongside our own valuation_gap.
+                # See compute_valuation() in value_momentum_quality_screener_v2.py for how it's used.
+                "target_low_price": info.get("targetLowPrice"), "target_mean_price": info.get("targetMeanPrice"),
+                "target_high_price": info.get("targetHighPrice"), "recommendation_key": info.get("recommendationKey"),
+                "num_analyst_opinions": info.get("numberOfAnalystOpinions"),
                 "mom_12_2": mom_12_2, "error": None,
             }
         except Exception as e:

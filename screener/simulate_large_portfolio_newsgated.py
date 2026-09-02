@@ -42,7 +42,7 @@ STARTING_CAPITAL = 500.0       # illustrative, same as Bot#3 -- change freely
 STARTING_SLOTS = 30            # same as Bot#3 -- "large" vs Bot#2's 15
 TARGET_POSITION_SIZE = STARTING_CAPITAL / STARTING_SLOTS
 
-NEWSGATED_LEDGER_COLUMNS = LEDGER_COLUMNS + ["news_source", "news_reason"]
+NEWSGATED_LEDGER_COLUMNS = LEDGER_COLUMNS + ["news_source", "news_sentiment", "news_reason"]
 
 
 def load_ledger() -> pd.DataFrame:
@@ -164,7 +164,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
                 "unrealized_return_pct": 0.0,
                 "exit_date": None, "exit_price": None, "exit_reason": None,
                 "exit_value_eur": None, "return_pct": None, "holding_days": None,
-                "news_source": verdict["source"], "news_reason": verdict["reason"],
+                "news_source": verdict["source"], "news_sentiment": verdict.get("sentiment"),
+                "news_reason": verdict["reason"],
             }
             ledger = pd.concat([ledger, pd.DataFrame([new_row])], ignore_index=True)
             held_tickers.add(ticker)
