@@ -2,10 +2,27 @@
 trending-sector universe (from build_trending_universe.py), respecting Yahoo Finance's
 undocumented rate limit -- small batch, low concurrency, a delay between requests, and
 exponential backoff that ABORTS the run early on repeated rate-limit errors rather than
-digging the hole deeper. Results accumulate in a persistent CSV cache across runs, so
-re-running this daily (e.g. via a scheduled task) gradually completes the full universe
-without ever tripping the block that happened when we tried to do it all in one go.
+digging the hole deeper. Results accumulate in a persistent CSV cache across runs.
+
+REFRESH SCHEDULE (rewritten 2026-09-02): each hourly run refreshes a fixed ROTATING SLICE of
+the universe -- every ticker is deterministically assigned to one of RUNS_PER_CYCLE slices
+(a stable hash of the ticker, not its position in the list, so slice membership doesn't shift
+just because build_trending_universe.py's output reorders or resizes day to day), and the
+active slice each run is whatever wall-clock hour it is, mod RUNS_PER_CYCLE. Over one week
+every ticker gets refreshed exactly once, evenly spread across all 168 hourly runs.
+
+This replaced a pure staleness check (refresh only if last fetched >STALENESS_DAYS ago): that
+scheme completes a full pass in ~13h (5571 tickers / 423 per run) and then goes completely
+IDLE for the remaining ~6.5 days once nothing is stale -- so the whole universe's momentum
+data updates in one clustered burst once a week rather than drifting continuously, which is
+exactly what caused several stocks to flip momentum status simultaneously right after a
+burst (flagged by the user 2026-09-02) instead of one at a time as their own data aged. Pure
+rotation fixes that directly: ~33 tickers/run, every run, no idle stretch.
+
+New tickers (never in the cache at all -- just entered the trending universe) are fetched
+immediately rather than waiting for their slot, since they might not get one for days.
 """
+import hashlib
 import pathlib
 import sys
 import time
@@ -17,30 +34,26 @@ HERE = pathlib.Path(__file__).parent.parent
 TRENDING_UNIVERSE = HERE / "data/universe/trending_universe.csv"
 CACHE_PATH = HERE / "results/screener/fundamentals_cache.csv"
 
-BATCH_SIZE = 423          # 70% of the 604 that worked in the original one-shot test -- still a
-# guess (Yahoo publishes no real limit), just a less conservative one than the initial 25%
+BATCH_SIZE = 423          # hard ceiling on requests/run regardless of schedule -- 70% of the
+# 604 that worked in the original one-shot test, still a guess (Yahoo publishes no real
+# limit). With rotation this is rarely reached (a slice is ~33 tickers) except while the
+# LAST_SCHEMA_MIGRATION backlog below is draining.
 DELAY_BETWEEN_CALLS = 0.4  # seconds, single-threaded on purpose
 COOLDOWN_EVERY = 100      # community-reported pattern (yfinance GH discussion #2431):
 COOLDOWN_SECONDS = 20     # ~100 requests before Yahoo wants a breather -- so take one voluntarily
 MAX_RETRIES = 2
-STALENESS_DAYS = 7        # short enough to keep momentum/price (the whole point of the screener)
-# from going stale for months once the cache reaches full coverage of the target universe --
-# slower-moving fundamentals (P/E, ROE, debt) get refreshed more often than strictly needed as a
-# side effect, but that's a cheap trade given the batch (423/run, hourly) clears the full ~3000-
-# ticker universe in well under a day once it goes stale. Was 90 days; that let the cache freeze
-# solid the moment it reached 100% coverage (see incident 2026-08-07 -> 2026-08-14, zero refresh).
 
-LAST_SCHEMA_MIGRATION = "2026-09-02"  # date fetch_one() last gained new fields ("country";
-# the analyst-consensus fields landed 2026-09-01, one day earlier -- this single cutoff
-# covers both). A cache row fetched before this date is still "fresh" by STALENESS_DAYS but
-# was written by an older fetch_one() and simply never got these columns -- left alone, the
-# whole universe (0 stale rows the day this was added -- see 2026-09-02 conversation) would
-# sit on stale schema for up to STALENESS_DAYS before naturally refreshing. Treating a
-# pre-migration row as not-fresh forces exactly one extra pass to backfill it, once.
-# Self-limiting: once a row is refetched, its fetched_at moves past this cutoff and it goes
-# back to being judged purely on STALENESS_DAYS -- this can never turn into an endless retry
-# loop for a ticker where Yahoo genuinely has no value for one of these fields, unlike an
-# "is this field null" check would.
+RUNS_PER_CYCLE = 24 * 7  # one slice per hourly cron tick ("35 * * * *" in
+# update-screener.yml) -- 168 slices/week is what makes "every ticker refreshed once a week,
+# spread evenly" concrete: universe_size / 168 tickers per run (~33 today).
+
+LAST_SCHEMA_MIGRATION = "2026-09-02"  # date fetch_one() last gained new fields (country;
+# the analyst-consensus fields landed one day earlier, 2026-09-01 -- this single cutoff
+# covers both). A row fetched before this date predates those columns entirely and would
+# otherwise wait for its normal weekly slot to backfill them -- rows below this cutoff are
+# pulled into every run (on top of that run's regular slice) until they've all been
+# refetched once, then this has no further effect (a refetched row's date moves past the
+# cutoff, so it can never re-trigger).
 
 
 def fetch_one(ticker: str) -> dict:
@@ -109,26 +122,46 @@ def load_cache() -> pd.DataFrame:
     return df
 
 
+def _slice_of(ticker: str) -> int:
+    """Deterministic, stable across processes/runs (unlike Python's built-in hash(), which is
+    randomized per-process by default) -- a ticker's slice never moves just because
+    build_trending_universe.py reordered or resized its output."""
+    return int(hashlib.md5(ticker.encode("utf-8")).hexdigest(), 16) % RUNS_PER_CYCLE
+
+
+def _current_slice() -> int:
+    hours_since_epoch = int(pd.Timestamp.now(tz="UTC").timestamp() // 3600)
+    return hours_since_epoch % RUNS_PER_CYCLE
+
+
 def main():
     universe = pd.read_csv(TRENDING_UNIVERSE)
+    universe = universe[universe["ticker"].notna()]  # build_trending_universe.py has been
+    # seen to emit one stray all-blank row -- drop it here rather than let it flow into
+    # fetch_one(nan) or a hash that can't .encode() a float.
     cache = load_cache()
+    cache = cache[cache["ticker"].notna()]  # same defensive drop, cache side (a NaN ticker
+    # ends up here too once fetch_one(nan) is called for one from the universe)
 
-    fresh_cutoff = pd.Timestamp.today() - pd.Timedelta(days=STALENESS_DAYS)
+    cached_tickers = set(cache["ticker"]) if len(cache) else set()
+    never_fetched = [t for t in universe["ticker"] if t not in cached_tickers]
+
     migration_cutoff = pd.Timestamp(LAST_SCHEMA_MIGRATION)
-    if len(cache):
-        is_date_fresh = cache["fetched_at"] >= fresh_cutoff
-        predates_migration = cache["fetched_at"] < migration_cutoff  # see LAST_SCHEMA_MIGRATION
-        already_fresh = set(cache.loc[is_date_fresh & ~predates_migration, "ticker"])
-        catchup_count = int((is_date_fresh & predates_migration).sum())
-    else:
-        already_fresh = set()
-        catchup_count = 0
+    premigration = (sorted(set(cache.loc[cache["fetched_at"] < migration_cutoff, "ticker"]))
+                     if len(cache) else [])
 
-    todo = [t for t in universe["ticker"] if t not in already_fresh][:BATCH_SIZE]
-    print(f"Univers cible : {len(universe)} tickers | deja en cache (frais) : {len(already_fresh)} | "
-          f"a traiter ce run : {len(todo)}"
-          + (f" (dont {min(catchup_count, len(todo))} rattrapage schema pre-{LAST_SCHEMA_MIGRATION})"
-             if catchup_count else ""))
+    current_slice = _current_slice()
+    scheduled = [t for t in universe["ticker"] if _slice_of(t) == current_slice]
+
+    # priority order when BATCH_SIZE caps the total: brand-new tickers first (they might not
+    # get a slot for days otherwise), then the one-time schema catch-up backlog, then this
+    # run's regular weekly-rotation slice. dict.fromkeys dedupes while keeping first-seen order
+    # (a ticker can legitimately appear in more than one of the three lists).
+    todo = list(dict.fromkeys(never_fetched + premigration + scheduled))[:BATCH_SIZE]
+
+    print(f"Univers cible : {len(universe)} tickers | tranche horaire #{current_slice}/{RUNS_PER_CYCLE} "
+          f"({len(scheduled)} tickers) | jamais fetches : {len(never_fetched)} | "
+          f"rattrapage schema restant : {len(premigration)} | a traiter ce run : {len(todo)}")
 
     if not todo:
         print("Rien a faire -- cache deja a jour pour tout l'univers cible.")
@@ -158,9 +191,11 @@ def main():
     combined.to_csv(CACHE_PATH, index=False)
 
     ok = new_df["error"].isna().sum() if "error" in new_df.columns else len(new_df)
-    total_fresh = len(already_fresh) + ok
-    print(f"\n{ok}/{len(new_df)} succes ce run. Cache total frais : {total_fresh}/{len(universe)} "
-          f"({total_fresh / len(universe):.0%}). Relancer ce script pour continuer.")
+    coverage = len(cached_tickers | set(new_df["ticker"]))
+    remaining_premigration = max(0, len(premigration) - len(new_df))
+    print(f"\n{ok}/{len(new_df)} succes ce run. Couverture cache : {coverage}/{len(universe)} "
+          f"({coverage / len(universe):.0%})."
+          + (f" Rattrapage schema restant : ~{remaining_premigration}." if remaining_premigration else ""))
 
 
 if __name__ == "__main__":
