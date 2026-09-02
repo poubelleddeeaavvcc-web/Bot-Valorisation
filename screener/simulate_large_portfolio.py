@@ -40,7 +40,9 @@ import pandas as pd
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
-from screener.select_top_picks import composite_score, ticker_region, NORTH_AMERICA_MAX_SHARE  # noqa: E402
+from screener.select_top_picks import (  # noqa: E402
+    composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
+)
 from screener.fetch_cache import fetch_one as fetch_cache_one  # noqa: E402
 from screener.simulate_constrained_portfolio import (  # noqa: E402
     LEDGER_COLUMNS, recheck_and_exit, to_eur, fetch_fx_rates, fractional_eligible,
@@ -89,6 +91,10 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
     sector_counts = ledger.loc[ledger["status"] == "open", "sector"].value_counts().to_dict()
     total_held = len(held_tickers)
     na_count = sum(1 for t in held_tickers if ticker_region(t) == "North America")
+    # see simulate_constrained_portfolio.fill_slots for why this reads the ledger's stored
+    # "country" rather than recomputing it (state-linkage isn't derivable from the ticker
+    # string the way NA is).
+    state_count = int(ledger.loc[ledger["status"] == "open", "country"].map(is_state_linked).sum())
 
     pool = candidates[~candidates["ticker"].isin(held_tickers)].copy()
     pool["score"] = composite_score(pool)
@@ -111,11 +117,14 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
         # then blows up the sort_values("score") call. Guard on len(sector_pool) instead.
         if len(sector_pool):
             max_na = math.floor((total_held + 1) * NORTH_AMERICA_MAX_SHARE)
-            na_ok = sector_pool["ticker"].map(
+            max_state = math.floor((total_held + 1) * STATE_LINKED_MAX_SHARE)
+            geo_ok = sector_pool["ticker"].map(
                 lambda t: ticker_region(t) != "North America" or na_count < max_na)
-            eligible = sector_pool[na_ok]
+            geo_ok &= sector_pool.get("country", pd.Series(index=sector_pool.index, dtype=object)).map(
+                lambda c: not is_state_linked(c) or state_count < max_state)
+            eligible = sector_pool[geo_ok]
             if not len(eligible):
-                eligible = sector_pool  # NA cap starving this sector -- relax it as a last resort
+                eligible = sector_pool  # NA/state-linked cap starving this sector -- relax as a last resort
             eligible = eligible.sort_values("score", ascending=False)
         else:
             eligible = sector_pool  # already empty -- no fresh candidate left in this sector
@@ -167,7 +176,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
 
         if is_new:
             new_row = {
-                "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"], "status": "open",
+                "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"],
+                "country": pick_row.get("country"), "status": "open",
                 "currency": fresh.get("currency"), "fractional": bool(fractional),
                 "entry_date": today, "entry_price": fresh["price"], "shares": add_shares,
                 "entry_value_eur": cost,
@@ -187,6 +197,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
             total_held += 1
             if ticker_region(ticker) == "North America":
                 na_count += 1
+            if is_state_linked(pick_row.get("country")):
+                state_count += 1
             sector_counts[target_sector] = sector_counts.get(target_sector, 0) + 1
             kind = "fractionne" if fractional else "entier"
             print(f"  ACHAT {ticker} ({target_sector}) : {cost:.2f} EUR ({add_shares:.4f} actions, {kind}) "

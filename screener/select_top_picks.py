@@ -33,6 +33,11 @@ BoC tracks the Fed) that it's not meaningfully different exposure. Relaxed the s
 the sector cap is: only if too few non-NA candidates clear the screener's filters to fill
 the remaining slots otherwise -- per the user's standing direction, don't leave cash idle
 or force a materially worse pick just to hit a diversification target.
+
+Same treatment for STATE_LINKED_COUNTRIES (2026-09-02) -- a name whose HQ country is a
+state known for large-scale industrial subsidy can pass every quantitative filter while
+carrying a policy risk none of those ratios would catch; see STATE_LINKED_MAX_SHARE for
+the reasoning.
 """
 import math
 import pathlib
@@ -59,6 +64,21 @@ VALUATION_GAP_WINSOR_CAP = 0.75
 NORTH_AMERICA_MAX_SHARE = 0.75
 CANADA_SUFFIX = ".TO"  # kept in sync with screener.simulate_constrained_portfolio.CANADA_SUFFIX
 
+# Geopolitical/state-subsidy concentration cap (2026-09-02, per the user + a friend's
+# feedback: BYD can look undervalued on ordinary ratios while that "value" is really the
+# Chinese state flooding the market to win a monopoly -- if that policy reverses, the ratios
+# never warned you). Unlike NORTH_AMERICA_MAX_SHARE (home-market bias, not a red flag), this
+# isn't trying to score any single stock's subsidy exposure -- that's judged qualitatively
+# per-candidate instead, by the Ollama news gate's state-dependency check in news_filter.py
+# (Bot#4/5/6 only). This cap is the portfolio-level backstop: even a name that clears that
+# check individually shouldn't let the WHOLE portfolio lean on one government's industrial
+# policy. Applies across all bots that call select_diversified()/fill_slots() with sector/NA
+# caps -- i.e. not Bot#1 (kept deliberately blind, see simulate_portfolio.py).
+STATE_LINKED_COUNTRIES = {"China"}  # start narrow (the actual case raised); add countries
+# here deliberately if another one becomes a live concern, not preemptively.
+STATE_LINKED_MAX_SHARE = 0.30  # tighter than the 75% NA cap -- this is a single-policy-actor
+# risk, not ordinary home-market concentration, so it should bind well before NA's does.
+
 
 def ticker_region(ticker: str) -> str:
     """North America (no exchange suffix = US, or .TO = Canada) vs everything else --
@@ -67,6 +87,13 @@ def ticker_region(ticker: str) -> str:
     if "." not in ticker or ticker.endswith(CANADA_SUFFIX):
         return "North America"
     return "International"
+
+
+def is_state_linked(country) -> bool:
+    """See STATE_LINKED_COUNTRIES. Missing/unknown country fails open (not flagged) --
+    same posture as the rest of this project's diversification/quality checks: absence of
+    data isn't evidence of the risk."""
+    return isinstance(country, str) and country in STATE_LINKED_COUNTRIES
 
 
 def composite_score(df: pd.DataFrame) -> pd.Series:
@@ -83,18 +110,21 @@ def composite_score(df: pd.DataFrame) -> pd.Series:
 def select_diversified(df: pd.DataFrame, n: int, max_per_sector: int) -> pd.DataFrame:
     """Greedy pick by score, capping how many can come from one sector -- relaxed one
     step at a time only if too few sectors are represented to fill n slots otherwise.
-    Also caps North America at NORTH_AMERICA_MAX_SHARE of n (see module docstring),
-    tried first with the sector cap fully respected-and-relaxed; only if that combination
-    still can't fill n slots is the NA cap itself dropped, on the same "don't leave a
-    slot empty over a diversification target" logic as the sector cap relaxation."""
+    Also caps North America at NORTH_AMERICA_MAX_SHARE and state-linked countries (see
+    STATE_LINKED_COUNTRIES) at STATE_LINKED_MAX_SHARE of n, both tried first with the
+    sector cap fully respected-and-relaxed; only if that combination still can't fill n
+    slots are the NA/state-linked caps themselves dropped together, on the same "don't
+    leave a slot empty over a diversification target" logic as the sector cap relaxation."""
     ranked = df.sort_values("score", ascending=False)
     max_na = math.floor(n * NORTH_AMERICA_MAX_SHARE)
+    max_state = math.floor(n * STATE_LINKED_MAX_SHARE)
     id_col = "row_id" if "row_id" in df.columns else "ticker"
+    has_country = "country" in df.columns
 
     picked_ids = []
-    for enforce_na_cap in (True, False):
+    for enforce_geo_caps in (True, False):
         for cap in range(max_per_sector, n + 1):
-            picked_ids, sector_counts, na_count = [], {}, 0
+            picked_ids, sector_counts, na_count, state_count = [], {}, 0, 0
             for _, row in ranked.iterrows():
                 if len(picked_ids) >= n:
                     break
@@ -104,12 +134,17 @@ def select_diversified(df: pd.DataFrame, n: int, max_per_sector: int) -> pd.Data
                 if sector_counts.get(row["sector"], 0) >= cap:
                     continue
                 is_na = ticker_region(row["ticker"]) == "North America"
-                if enforce_na_cap and is_na and na_count >= max_na:
+                is_state = has_country and is_state_linked(row.get("country"))
+                if enforce_geo_caps and is_na and na_count >= max_na:
+                    continue
+                if enforce_geo_caps and is_state and state_count >= max_state:
                     continue
                 picked_ids.append(rid)
                 sector_counts[row["sector"]] = sector_counts.get(row["sector"], 0) + 1
                 if is_na:
                     na_count += 1
+                if is_state:
+                    state_count += 1
             if len(picked_ids) >= n:
                 break
         if len(picked_ids) >= n:

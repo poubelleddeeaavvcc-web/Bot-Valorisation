@@ -41,6 +41,7 @@ LEDGER_COLUMNS = [
     "unrealized_return_pct", "peak_unrealized_return_pct", "peak_date",
     "exit_date", "exit_price", "exit_reason", "return_pct", "holding_days",
     "news_source", "news_sentiment", "news_reason",
+    "customer_concentration", "customer_concentration_reason",
 ]
 
 
@@ -65,6 +66,12 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, today: st
         if not verdict["relevant"]:
             skipped.append((c["ticker"], verdict["reason"]))
             continue
+        # Bot#4 buys every passing candidate at a fixed notional (no position-sizing concept
+        # at all -- see module docstring), so customer concentration is recorded here purely
+        # for visibility/future analysis, never used to shrink or skip a buy (that only
+        # happens for Bot#5/#6, which do size positions -- see
+        # simulate_constrained_portfolio_newsgated.fill_slots).
+        concentration = news_filter.customer_concentration_verdict(c["ticker"], c["name"])
         new_rows.append({
             "ticker": c["ticker"], "name": c["name"], "sector": c["sector"], "status": "open",
             "entry_date": today, "entry_price": c["price"], "entry_valuation_gap": c["valuation_gap"],
@@ -77,6 +84,8 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, today: st
             "return_pct": None, "holding_days": None,
             "news_source": verdict["source"], "news_sentiment": verdict.get("sentiment"),
             "news_reason": verdict["reason"],
+            "customer_concentration": concentration["concentration"],
+            "customer_concentration_reason": concentration["reason"],
         })
     if new_rows:
         ledger = pd.concat([ledger, pd.DataFrame(new_rows)], ignore_index=True)

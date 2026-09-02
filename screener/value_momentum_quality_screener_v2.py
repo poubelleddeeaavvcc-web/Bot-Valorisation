@@ -109,6 +109,7 @@ def fetch_one(ticker: str) -> dict:
         return {
             "ticker": ticker, "price": hist.iloc[-1], "market_cap": cap,
             "sector": info.get("sector"), "industry": info.get("industry"),
+            "country": info.get("country"),  # see fetch_cache.fetch_one for why
             # longName over shortName: shortName gets hard-truncated by Yahoo (e.g. "First
             # Merchants Corporation - D...") which can cut off the very word (Depositary,
             # Preferred...) that JUNK_NAME_PATTERN needs to see to filter the security out.
@@ -177,6 +178,8 @@ def compute_valuation(df: pd.DataFrame) -> pd.DataFrame:
                 "recommendation_key", "num_analyst_opinions"):
         if col not in df.columns:
             df[col] = np.nan
+    if "country" not in df.columns:  # added 2026-09-02, same backfill reasoning
+        df["country"] = np.nan
 
     df = df[df["error"].isna()].copy()
     df = df[(df["pe"] > 0) & (df["pe"] < 80) & (df["eps"] > 0) & (df["pb"] > 0)]

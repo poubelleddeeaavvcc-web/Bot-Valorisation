@@ -43,6 +43,12 @@ def fetch_one(ticker: str) -> dict:
                 "ticker": ticker, "fetched_at": today,
                 "price": hist.iloc[-1] if len(hist) else None,
                 "sector": info.get("sector"), "industry": info.get("industry"),
+                # HQ/incorporation country -- used by select_top_picks.is_state_linked() for the
+                # geopolitical concentration cap (2026-09-02): a purely quantitative ratio can't
+                # tell genuine value from a market position propped up by state subsidy/dumping
+                # (the BYD case that prompted this), so exposure to specific countries is capped
+                # at the portfolio level instead of trying to score it per-stock.
+                "country": info.get("country"),
                 # longName over shortName: shortName gets hard-truncated by Yahoo, which can
                 # cut off the very word (Depositary, Preferred...) JUNK_NAME_PATTERN needs.
                 "name": info.get("longName") or info.get("shortName"),

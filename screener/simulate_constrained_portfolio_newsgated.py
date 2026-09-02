@@ -23,7 +23,9 @@ import pandas as pd
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
-from screener.select_top_picks import composite_score, ticker_region, NORTH_AMERICA_MAX_SHARE  # noqa: E402
+from screener.select_top_picks import (  # noqa: E402
+    composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
+)
 from screener.simulate_constrained_portfolio import (  # noqa: E402
     LEDGER_COLUMNS, MAX_PER_SECTOR, MAX_WHOLE_SHARE_OVERSHOOT, STARTING_CAPITAL, STARTING_SLOTS,
     TARGET_POSITION_SIZE, FX_PAIR, fetch_fx_rates, fractional_eligible, recheck_and_exit, to_eur,
@@ -38,7 +40,10 @@ VALUATION_PATH = HERE / "results/screener/full_valuation_latest.csv"
 SUMMARY_PATH = HERE / "results/simulation/constrained_summary_newsgated.json"
 EQUITY_CURVE_PATH = HERE / "results/simulation/constrained_equity_curve_newsgated.csv"
 
-NEWSGATED_LEDGER_COLUMNS = LEDGER_COLUMNS + ["news_source", "news_sentiment", "news_reason"]
+NEWSGATED_LEDGER_COLUMNS = LEDGER_COLUMNS + [
+    "news_source", "news_sentiment", "news_reason",
+    "customer_concentration", "customer_concentration_reason",
+]
 
 
 def load_ledger() -> pd.DataFrame:
@@ -67,6 +72,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
     sector_counts = ledger.loc[ledger["status"] == "open", "sector"].value_counts().to_dict()
     total_held = len(held_tickers)
     na_count = sum(1 for t in held_tickers if ticker_region(t) == "North America")
+    state_count = int(ledger.loc[ledger["status"] == "open", "country"].map(is_state_linked).sum())
 
     pool = candidates[~candidates["ticker"].isin(held_tickers)].copy()
     if not len(pool):
@@ -78,14 +84,17 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
     new_rows = []
     while True:
         pick_row = None
-        for enforce_na_cap in (True, False):
+        for enforce_geo_caps in (True, False):
             for cap in range(MAX_PER_SECTOR, 10):
                 eligible = pool[(~pool["ticker"].isin(held_tickers)) & (~pool["ticker"].isin(rejected))]
                 eligible = eligible[eligible["sector"].map(lambda s: sector_counts.get(s, 0)) < cap]
-                if enforce_na_cap:
+                if enforce_geo_caps:
                     max_na = math.floor((total_held + 1) * NORTH_AMERICA_MAX_SHARE)
                     eligible = eligible[eligible["ticker"].map(
                         lambda t: ticker_region(t) != "North America" or na_count < max_na)]
+                    max_state = math.floor((total_held + 1) * STATE_LINKED_MAX_SHARE)
+                    eligible = eligible[eligible.get("country", pd.Series(index=eligible.index, dtype=object)).map(
+                        lambda c: not is_state_linked(c) or state_count < max_state)]
                 if len(eligible):
                     pick_row = eligible.iloc[0]
                     break
@@ -125,17 +134,26 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
             print(f"  SKIP {ticker} (actu Ollama) : {verdict['reason']}")
             continue
 
+        # customer-concentration: measured, not a veto (2026-09-02, per the user's direction)
+        # -- shrinks the position size for a name whose business profile reads as dependent on
+        # one or a handful of customers, rather than skipping it outright the way the news
+        # gate above does. See news_filter.CONCENTRATION_SIZE_FACTOR.
+        concentration = news_filter.customer_concentration_verdict(ticker, pick_row["name"])
+        size_factor = news_filter.CONCENTRATION_SIZE_FACTOR.get(concentration["concentration"], 1.0)
+        target_size = TARGET_POSITION_SIZE * size_factor
+
         if fractional:
-            cost = min(TARGET_POSITION_SIZE, cash)
+            cost = min(target_size, cash)
             shares = cost / price_eur
         else:
-            target_shares = max(1, int(TARGET_POSITION_SIZE // price_eur))
+            target_shares = max(1, int(target_size // price_eur))
             max_affordable = int(cash // price_eur)
             shares = min(target_shares, max_affordable)
             cost = shares * price_eur
 
         new_rows.append({
-            "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"], "status": "open",
+            "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"],
+            "country": pick_row.get("country"), "status": "open",
             "currency": fresh.get("currency"), "fractional": bool(fractional),
             "entry_date": today, "entry_price": fresh["price"], "shares": shares,
             "entry_value_eur": cost,
@@ -148,6 +166,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
             "exit_value_eur": None, "return_pct": None, "holding_days": None,
             "news_source": verdict["source"], "news_sentiment": verdict.get("sentiment"),
             "news_reason": verdict["reason"],
+            "customer_concentration": concentration["concentration"],
+            "customer_concentration_reason": concentration["reason"],
         })
         cash -= cost
         held_tickers.add(ticker)
@@ -155,9 +175,12 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
         total_held += 1
         if ticker_region(ticker) == "North America":
             na_count += 1
+        if is_state_linked(pick_row.get("country")):
+            state_count += 1
         kind = "fractionne" if fractional else "entier"
+        size_note = ", position reduite (clients concentres)" if size_factor < 1.0 else ""
         print(f"  ACHAT {ticker} ({pick_row['sector']}) : {cost:.2f} EUR ({shares:.4f} actions, {kind}) "
-              f"@ {fresh['price']:.2f} {fresh.get('currency') or '?'}, score {pick_row['score']:.2f}")
+              f"@ {fresh['price']:.2f} {fresh.get('currency') or '?'}, score {pick_row['score']:.2f}{size_note}")
 
     if new_rows:
         ledger = pd.concat([ledger, pd.DataFrame(new_rows)], ignore_index=True)

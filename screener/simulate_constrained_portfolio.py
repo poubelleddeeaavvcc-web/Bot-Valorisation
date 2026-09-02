@@ -52,7 +52,9 @@ import yfinance as yf
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
-from screener.select_top_picks import composite_score, ticker_region, NORTH_AMERICA_MAX_SHARE  # noqa: E402
+from screener.select_top_picks import (  # noqa: E402
+    composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
+)
 from screener.simulate_portfolio import fetch_fresh_single, resolve_peer_pe, STOP_LOSS_PCT  # noqa: E402
 from screener.fetch_cache import fetch_one as fetch_cache_one  # noqa: E402
 
@@ -79,7 +81,7 @@ MAX_PER_SECTOR = 3
 MAX_WHOLE_SHARE_OVERSHOOT = 2.5
 
 LEDGER_COLUMNS = [
-    "ticker", "name", "sector", "status", "currency", "fractional",
+    "ticker", "name", "sector", "country", "status", "currency", "fractional",
     "entry_date", "entry_price", "shares", "entry_value_eur",
     "entry_valuation_gap", "entry_quality_multiplier", "entry_mom_12_2", "entry_sector_momentum",
     "last_check_date", "last_price", "last_valuation_gap", "last_mom_12_2",
@@ -235,6 +237,10 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
     sector_counts = ledger.loc[ledger["status"] == "open", "sector"].value_counts().to_dict()
     total_held = len(held_tickers)
     na_count = sum(1 for t in held_tickers if ticker_region(t) == "North America")
+    # unlike NA (derivable from the ticker string alone via ticker_region), state-linkage
+    # depends on Yahoo's HQ-country data, so it has to be persisted on the ledger row at
+    # entry time (see "country" in LEDGER_COLUMNS) rather than recomputed from the ticker.
+    state_count = int(ledger.loc[ledger["status"] == "open", "country"].map(is_state_linked).sum())
 
     pool = candidates[~candidates["ticker"].isin(held_tickers)].copy()
     if not len(pool):
@@ -248,18 +254,22 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
     new_rows = []
     while True:
         pick_row = None
-        # try honoring the North America cap first (see select_top_picks.NORTH_AMERICA_MAX_SHARE
-        # for the reasoning), across every sector-cap relaxation level; only if that combination
-        # is truly starved of options does the second pass drop the NA cap -- same "don't leave
-        # cash idle over a diversification target" logic as the sector cap relaxation below.
-        for enforce_na_cap in (True, False):
+        # try honoring the North America and state-linked caps first (see
+        # select_top_picks.NORTH_AMERICA_MAX_SHARE / STATE_LINKED_MAX_SHARE), across every
+        # sector-cap relaxation level; only if that combination is truly starved of options
+        # does the second pass drop both caps together -- same "don't leave cash idle over a
+        # diversification target" logic as the sector cap relaxation below.
+        for enforce_geo_caps in (True, False):
             for cap in range(MAX_PER_SECTOR, 10):  # relax the sector cap only if truly starved of options
                 eligible = pool[(~pool["ticker"].isin(held_tickers)) & (~pool["ticker"].isin(rejected))]
                 eligible = eligible[eligible["sector"].map(lambda s: sector_counts.get(s, 0)) < cap]
-                if enforce_na_cap:
+                if enforce_geo_caps:
                     max_na = math.floor((total_held + 1) * NORTH_AMERICA_MAX_SHARE)
                     eligible = eligible[eligible["ticker"].map(
                         lambda t: ticker_region(t) != "North America" or na_count < max_na)]
+                    max_state = math.floor((total_held + 1) * STATE_LINKED_MAX_SHARE)
+                    eligible = eligible[eligible.get("country", pd.Series(index=eligible.index, dtype=object)).map(
+                        lambda c: not is_state_linked(c) or state_count < max_state)]
                 if len(eligible):
                     pick_row = eligible.iloc[0]
                     break
@@ -307,7 +317,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
             cost = shares * price_eur
 
         new_rows.append({
-            "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"], "status": "open",
+            "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"],
+            "country": pick_row.get("country"), "status": "open",
             "currency": fresh.get("currency"), "fractional": bool(fractional),
             "entry_date": today, "entry_price": fresh["price"], "shares": shares,
             "entry_value_eur": cost,
@@ -325,6 +336,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
         total_held += 1
         if ticker_region(ticker) == "North America":
             na_count += 1
+        if is_state_linked(pick_row.get("country")):
+            state_count += 1
         kind = "fractionne" if fractional else "entier"
         print(f"  ACHAT {ticker} ({pick_row['sector']}) : {cost:.2f} EUR ({shares:.4f} actions, {kind}) "
               f"@ {fresh['price']:.2f} {fresh.get('currency') or '?'}, score {pick_row['score']:.2f}")

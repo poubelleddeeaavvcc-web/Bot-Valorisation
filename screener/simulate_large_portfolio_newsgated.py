@@ -23,7 +23,9 @@ import pandas as pd
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
-from screener.select_top_picks import composite_score, ticker_region, NORTH_AMERICA_MAX_SHARE  # noqa: E402
+from screener.select_top_picks import (  # noqa: E402
+    composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
+)
 from screener.fetch_cache import fetch_one as fetch_cache_one  # noqa: E402
 from screener.simulate_constrained_portfolio import (  # noqa: E402
     LEDGER_COLUMNS, FX_PAIR, recheck_and_exit, to_eur, fetch_fx_rates, fractional_eligible,
@@ -42,7 +44,10 @@ STARTING_CAPITAL = 500.0       # illustrative, same as Bot#3 -- change freely
 STARTING_SLOTS = 30            # same as Bot#3 -- "large" vs Bot#2's 15
 TARGET_POSITION_SIZE = STARTING_CAPITAL / STARTING_SLOTS
 
-NEWSGATED_LEDGER_COLUMNS = LEDGER_COLUMNS + ["news_source", "news_sentiment", "news_reason"]
+NEWSGATED_LEDGER_COLUMNS = LEDGER_COLUMNS + [
+    "news_source", "news_sentiment", "news_reason",
+    "customer_concentration", "customer_concentration_reason",
+]
 
 
 def load_ledger() -> pd.DataFrame:
@@ -71,6 +76,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
     sector_counts = ledger.loc[ledger["status"] == "open", "sector"].value_counts().to_dict()
     total_held = len(held_tickers)
     na_count = sum(1 for t in held_tickers if ticker_region(t) == "North America")
+    state_count = int(ledger.loc[ledger["status"] == "open", "country"].map(is_state_linked).sum())
 
     pool = candidates[~candidates["ticker"].isin(held_tickers)].copy()
     pool["score"] = composite_score(pool)
@@ -89,9 +95,12 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
                             (~pool["ticker"].isin(rejected))]
         if len(sector_pool):
             max_na = math.floor((total_held + 1) * NORTH_AMERICA_MAX_SHARE)
-            na_ok = sector_pool["ticker"].map(
+            max_state = math.floor((total_held + 1) * STATE_LINKED_MAX_SHARE)
+            geo_ok = sector_pool["ticker"].map(
                 lambda t: ticker_region(t) != "North America" or na_count < max_na)
-            eligible = sector_pool[na_ok]
+            geo_ok &= sector_pool.get("country", pd.Series(index=sector_pool.index, dtype=object)).map(
+                lambda c: not is_state_linked(c) or state_count < max_state)
+            eligible = sector_pool[geo_ok]
             if not len(eligible):
                 eligible = sector_pool
             eligible = eligible.sort_values("score", ascending=False)
@@ -142,18 +151,25 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
             print(f"  SKIP {ticker} (actu Ollama) : {verdict['reason']}")
             continue
 
+        # customer-concentration: measured, not a veto -- see the same check in
+        # simulate_constrained_portfolio_newsgated.fill_slots for the reasoning.
+        concentration = news_filter.customer_concentration_verdict(ticker, news_name)
+        size_factor = news_filter.CONCENTRATION_SIZE_FACTOR.get(concentration["concentration"], 1.0)
+        target_size = TARGET_POSITION_SIZE * size_factor
+
         if fractional:
-            cost = min(TARGET_POSITION_SIZE, cash)
+            cost = min(target_size, cash)
             add_shares = cost / price_eur
         else:
-            target_shares = max(1, int(TARGET_POSITION_SIZE // price_eur))
+            target_shares = max(1, int(target_size // price_eur))
             max_affordable = int(cash // price_eur)
             add_shares = min(target_shares, max_affordable)
             cost = add_shares * price_eur
 
         if is_new:
             new_row = {
-                "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"], "status": "open",
+                "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"],
+                "country": pick_row.get("country"), "status": "open",
                 "currency": fresh.get("currency"), "fractional": bool(fractional),
                 "entry_date": today, "entry_price": fresh["price"], "shares": add_shares,
                 "entry_value_eur": cost,
@@ -166,16 +182,21 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
                 "exit_value_eur": None, "return_pct": None, "holding_days": None,
                 "news_source": verdict["source"], "news_sentiment": verdict.get("sentiment"),
                 "news_reason": verdict["reason"],
+                "customer_concentration": concentration["concentration"],
+                "customer_concentration_reason": concentration["reason"],
             }
             ledger = pd.concat([ledger, pd.DataFrame([new_row])], ignore_index=True)
             held_tickers.add(ticker)
             total_held += 1
             if ticker_region(ticker) == "North America":
                 na_count += 1
+            if is_state_linked(pick_row.get("country")):
+                state_count += 1
             sector_counts[target_sector] = sector_counts.get(target_sector, 0) + 1
             kind = "fractionne" if fractional else "entier"
+            size_note = ", position reduite (clients concentres)" if size_factor < 1.0 else ""
             print(f"  ACHAT {ticker} ({target_sector}) : {cost:.2f} EUR ({add_shares:.4f} actions, {kind}) "
-                  f"@ {fresh['price']:.2f} {fresh.get('currency') or '?'}, score {pick_row['score']:.2f}")
+                  f"@ {fresh['price']:.2f} {fresh.get('currency') or '?'}, score {pick_row['score']:.2f}{size_note}")
         else:
             idx = ledger.index[(ledger["status"] == "open") & (ledger["ticker"] == ticker)][0]
             old_shares = ledger.at[idx, "shares"]
