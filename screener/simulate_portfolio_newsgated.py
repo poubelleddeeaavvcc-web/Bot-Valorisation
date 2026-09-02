@@ -71,7 +71,7 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, today: st
         # for visibility/future analysis, never used to shrink or skip a buy (that only
         # happens for Bot#5/#6, which do size positions -- see
         # simulate_constrained_portfolio_newsgated.fill_slots).
-        concentration = news_filter.customer_concentration_verdict(c["ticker"], c["name"])
+        concentration = news_filter.customer_concentration_verdict(c["ticker"], c["name"], c.get("country"))
         new_rows.append({
             "ticker": c["ticker"], "name": c["name"], "sector": c["sector"], "status": "open",
             "entry_date": today, "entry_price": c["price"], "entry_valuation_gap": c["valuation_gap"],

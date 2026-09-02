@@ -143,8 +143,11 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
 
         # news gate: last check, whether this is a brand-new buy or a reinforcement of an
         # existing position -- only reached once every other filter has already passed.
-        news_name = pick_row["name"] if is_new else ledger.loc[
-            (ledger["status"] == "open") & (ledger["ticker"] == ticker), "name"].iloc[0]
+        if is_new:
+            news_name, news_country = pick_row["name"], pick_row.get("country")
+        else:
+            open_row = ledger.loc[(ledger["status"] == "open") & (ledger["ticker"] == ticker)].iloc[0]
+            news_name, news_country = open_row["name"], open_row.get("country")
         verdict = news_filter.news_verdict(ticker, news_name, target_sector, today)
         if not verdict["relevant"]:
             rejected.add(ticker)
@@ -153,7 +156,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
 
         # customer-concentration: measured, not a veto -- see the same check in
         # simulate_constrained_portfolio_newsgated.fill_slots for the reasoning.
-        concentration = news_filter.customer_concentration_verdict(ticker, news_name)
+        concentration = news_filter.customer_concentration_verdict(ticker, news_name, news_country)
         size_factor = news_filter.CONCENTRATION_SIZE_FACTOR.get(concentration["concentration"], 1.0)
         target_size = TARGET_POSITION_SIZE * size_factor
 

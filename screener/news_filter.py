@@ -73,13 +73,19 @@ shaped check -- not a veto. Per the user's explicit direction, a company dependi
 handful of customers shouldn't be excluded outright (that's too blunt an instrument for a
 risk that's a matter of degree, not a binary red flag), but it should shrink how much gets
 bet on it: more customer diversification, less exposure to any single customer collapsing.
-customer_concentration_verdict() reads yfinance's longBusinessSummary (a static company
-description, not news -- cached per-ticker for months, not per-day like the verdict cache
-above) and asks Ollama to rate concentration risk from that text alone. Bot#5/#6 (which size
-positions) use the result to scale TARGET_POSITION_SIZE down; Bot#4 (fixed notional per buy,
-no sizing concept at all) just records it for visibility. Fails open to "unknown" on any
-error or missing text, same posture as the rest of this module -- a 3B model reading one
-paragraph is inherently approximate, so absence of a clear signal is never treated as risk.
+customer_concentration_verdict() tries a real, cited source FIRST (added 2026-09-02, per the
+user's explicit direction that Ollama must never invent this -- it has no internet access, so
+it must only ever read text actually fetched from somewhere): for US-listed tickers,
+sec_edgar.customer_concentration_from_10k() greps the company's own latest 10-K for an ASC
+280 customer-concentration disclosure (a real SEC filing requirement at the 10% threshold),
+returning a sourced percentage + filing URL when it finds a clean match, None otherwise. Only
+when that returns nothing (foreign filer, no match, fetch failed) does this fall back to
+asking Ollama to rate concentration risk from yfinance's longBusinessSummary (a static company
+description, not news) -- a genuinely approximate, LLM-interpreted read, clearly labeled via
+"source" so the two are never confused. Bot#5/#6 (which size positions) use the result to
+scale TARGET_POSITION_SIZE down; Bot#4 (fixed notional per buy, no sizing concept at all) just
+records it for visibility. Fails open to "unknown" on any error or missing text/filing, same
+posture as the rest of this module.
 """
 import json
 import pathlib
@@ -90,6 +96,8 @@ from urllib.parse import quote
 import pandas as pd
 import requests
 import yfinance as yf
+
+from screener import sec_edgar
 
 HERE = pathlib.Path(__file__).parent.parent
 CACHE_PATH = HERE / "results/screener/news_verdict_cache.json"
@@ -469,37 +477,56 @@ def _save_concentration_cache(cache: dict):
     CUSTOMER_CONCENTRATION_CACHE_PATH.write_text(json.dumps(pruned, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def customer_concentration_verdict(ticker: str, name: str) -> dict:
+def customer_concentration_verdict(ticker: str, name: str, country: str | None = None) -> dict:
     """Returns {"concentration": "concentrated"|"diversified"|"unknown", "reason": str,
     "source": str}, cached per ticker (not per-day -- see CUSTOMER_CONCENTRATION_STALENESS_DAYS)
     for CUSTOMER_CONCENTRATION_STALENESS_DAYS. See module docstring (CUSTOMER-CONCENTRATION
-    SIZING) -- this never vetoes a buy, only informs a position-size multiplier."""
+    SIZING) -- this never vetoes a buy, only informs a position-size multiplier. Tries the
+    real, cited SEC 10-K source first for US-listed names (source="sec_10k"); only falls back
+    to the Ollama/longBusinessSummary read (source="ollama"/"no_summary"/"ollama_error") when
+    that returns nothing -- see sec_edgar.py for why."""
     cache = _load_concentration_cache()
     entry = cache.get(ticker)
     today = pd.Timestamp.today()
     if entry and (today - pd.Timestamp(entry["checked_at"])).days < CUSTOMER_CONCENTRATION_STALENESS_DAYS:
         return entry["verdict"]
 
-    try:
-        summary = yf.Ticker(ticker).info.get("longBusinessSummary")
-    except Exception as e:
-        print(f"  echec fetch profil pour {ticker}: {e}", file=sys.stderr)
-        summary = None
-
-    if not summary:
-        verdict = {"concentration": "unknown", "reason": "pas de descriptif d'activite disponible",
-                   "source": "no_summary"}
-    else:
+    verdict = None
+    if country == "United States":
         try:
-            raw = _call_ollama_json(CONCENTRATION_PROMPT.format(name=name, ticker=ticker, summary=summary[:2000]))
-            level = raw.get("concentration")
-            verdict = {
-                "concentration": level if level in ("concentrated", "diversified") else "unknown",
-                "reason": str(raw.get("reason", ""))[:300], "source": "ollama",
-            }
+            sec_result = sec_edgar.customer_concentration_from_10k(ticker)
         except Exception as e:
-            print(f"  echec appel Ollama (concentration clients) pour {ticker}: {e}", file=sys.stderr)
-            verdict = {"concentration": "unknown", "reason": f"ollama indisponible ({e})", "source": "ollama_error"}
+            print(f"  echec lookup SEC EDGAR pour {ticker}: {e}", file=sys.stderr)
+            sec_result = None
+        if sec_result:
+            verdict = {
+                "concentration": sec_result["concentration"],
+                "reason": f"10-K SEC ({sec_result['filed']}) : {sec_result['detail']} "
+                          f"[{sec_result['filing_url']}]"[:500],
+                "source": "sec_10k",
+            }
+
+    if verdict is None:  # no real, cited SEC answer above -- fall back to the Ollama read
+        try:
+            summary = yf.Ticker(ticker).info.get("longBusinessSummary")
+        except Exception as e:
+            print(f"  echec fetch profil pour {ticker}: {e}", file=sys.stderr)
+            summary = None
+
+        if not summary:
+            verdict = {"concentration": "unknown", "reason": "pas de descriptif d'activite disponible",
+                       "source": "no_summary"}
+        else:
+            try:
+                raw = _call_ollama_json(CONCENTRATION_PROMPT.format(name=name, ticker=ticker, summary=summary[:2000]))
+                level = raw.get("concentration")
+                verdict = {
+                    "concentration": level if level in ("concentrated", "diversified") else "unknown",
+                    "reason": str(raw.get("reason", ""))[:300], "source": "ollama",
+                }
+            except Exception as e:
+                print(f"  echec appel Ollama (concentration clients) pour {ticker}: {e}", file=sys.stderr)
+                verdict = {"concentration": "unknown", "reason": f"ollama indisponible ({e})", "source": "ollama_error"}
 
     cache[ticker] = {"checked_at": today.strftime("%Y-%m-%d"), "verdict": verdict}
     _save_concentration_cache(cache)

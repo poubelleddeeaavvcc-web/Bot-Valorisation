@@ -138,7 +138,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
         # -- shrinks the position size for a name whose business profile reads as dependent on
         # one or a handful of customers, rather than skipping it outright the way the news
         # gate above does. See news_filter.CONCENTRATION_SIZE_FACTOR.
-        concentration = news_filter.customer_concentration_verdict(ticker, pick_row["name"])
+        concentration = news_filter.customer_concentration_verdict(ticker, pick_row["name"], pick_row.get("country"))
         size_factor = news_filter.CONCENTRATION_SIZE_FACTOR.get(concentration["concentration"], 1.0)
         target_size = TARGET_POSITION_SIZE * size_factor
 
