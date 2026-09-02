@@ -1,0 +1,34 @@
+{
+  "1878.T": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "L'entreprise semble se concentrer sur une petite base de clients, avec des activités spécialisées et un engagement dans des secteurs tels que les logements et les services de gestion.",
+      "source": "ollama"
+    }
+  },
+  "AIR.PA": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "La description officielle mentionne trois segments d'activité distincts (Airbus, Airbus Helicopters et Airbus Defence and Space), ce qui suggère une offre de produits et de services variés destinés à différents clients, tels que le grand public, les entreprises et les organismes gouvernementaux.",
+      "source": "ollama"
+    }
+  },
+  "2006.TW": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "le texte ne mentionne qu'un seul grand groupe comme client principal et ne précise pas si le secteur public est un seul client ou plusieurs, mais il ne mentionne pas non plus de diversification de clients",
+      "source": "ollama"
+    }
+  },
+  "2548.TW": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "Le texte ne mentionne qu'un seul groupe, sans préciser s'il s'agit d'un client principal ou si cela fait référence à une relation de fourniture unique, ce qui suggère une concentration sur un client ou un fournisseur.",
+      "source": "ollama"
+    }
+  }
+}
