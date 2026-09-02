@@ -342,5 +342,29 @@
       "reason": "L'entreprise propose des produits diversifiés pour différents types de clients (petites et grandes entreprises, secteurs tels que la construction, les services, etc.) et vend ses produits via un réseau d'agences indépendantes.",
       "source": "ollama"
     }
+  },
+  "AMG": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "Le texte décrit principalement des services et des clients institutionnels et de haut niveau de richesse, ce qui suggère une concentration vers ces secteurs.",
+      "source": "ollama"
+    }
+  },
+  "SAF.PA": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "L'entreprise semble dépendre d'un petit nombre de clients, notamment des gouvernements et des grands groupes, comme en témoigne son présence sur différents marchés géographiques et son offre de produits spécialisés.",
+      "source": "ollama"
+    }
+  },
+  "BPOP": {
+    "checked_at": "2026-09-02",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise propose une large gamme de services financiers pour divers clients individuels et businessman, ainsi que des services pour les particuliers, les entreprises et les particuliers ayant besoin de services financiers spécialisés",
+      "source": "ollama"
+    }
   }
 }

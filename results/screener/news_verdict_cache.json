@@ -262,5 +262,23 @@
     "sentiment": "positive",
     "reason": "Les actualites presentes montrent une augmentation des actions, des results financiers positifs, des nouveaux investissements et des declarations de dividendes, ce qui suggere un ton general positif pour l'action de United Fire Group, Inc.",
     "source": "ollama"
+  },
+  "AMG_2026-09-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites recentes sur Affiliated Managers Group (AMG) suggèrent une tendance positive, avec des gains de 23,6% sur 6 mois, des results de Q2 record, et des investissements de nouveaux investisseurs, ce qui indique une confiance croissante dans l'action.",
+    "source": "ollama"
+  },
+  "SAF.PA_2026-09-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance de revenue, de hausse des prix de cible, de soutien de l'action par des analystes et de bonnes perspectives pour l'industrie aeroportuaire.",
+    "source": "ollama"
+  },
+  "BPOP_2026-09-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites recentes sur Popular, Inc. (BPOP) mettent en avant des elements positifs tels que des decisions de dividendes, des performances financieres solides et des perspectives de croissance, ce qui suggere un ton general positif pour l'action.",
+    "source": "ollama"
   }
 }
