@@ -41,6 +41,8 @@ KNOWN_ARTIFACT_TRADES = {
     ("bot1_blind", "KALU", "2026-08-18"): "commit 47c9e91 (durcissement du modele de valorisation) a declenche 5 sorties le meme jour",
     ("bot1_blind", "NBIX", "2026-08-18"): "commit 47c9e91 (durcissement du modele de valorisation) a declenche 5 sorties le meme jour",
     ("bot1_blind", "VMI", "2026-08-18"): "commit 47c9e91 (durcissement du modele de valorisation) a declenche 5 sorties le meme jour",
+    ("bot4_blind_newsgated", "1878.T", "2026-09-02"): "jour-0 : reset du bot le 2026-09-02, meme mecanisme que ALV/HMY pour bot1_blind (pas un vrai trade)",
+    ("bot4_blind_newsgated", "AIR.PA", "2026-09-02"): "jour-0 : reset du bot le 2026-09-02, meme mecanisme que ALV/HMY pour bot1_blind (pas un vrai trade)",
 }
 
 BOTS = [
