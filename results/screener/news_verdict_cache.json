@@ -400,5 +400,11 @@
     "sentiment": "neutral",
     "reason": "L'actualité présente uniquement des informations générales sur les performances des marchés taiwanais et des événements liés à des fonds d'investissement, sans fournir de commentaires spécifiques sur l'action de United Integrated Services Co., Ltd.",
     "source": "ollama"
+  },
+  "9939.TW_2026-09-03": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "Aucune information positive ou neutre sur l'action de Taiwan Hon Chuan Enterprise Co., Ltd. (9939.TW) est disponible dans les actualités fournies.",
+    "source": "ollama"
   }
 }
