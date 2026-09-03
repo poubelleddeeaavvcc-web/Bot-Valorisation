@@ -412,5 +412,11 @@
     "sentiment": "positive",
     "reason": "Les actualites presentes montrent une croissance revenue et des marges expansionnees, ainsi que des investissements dans des activations de marque, ce qui suggere un ton general positif pour l'action d'Ambev S.A.",
     "source": "ollama"
+  },
+  "SENEB_2026-09-03": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites recentes sur Seneca Foods Corporation (SENEA) suggere un ton general positif, avec des gains de prix, des ventes accrues et des acquisitions stratégiques, ce qui indique que l'action est consideree comme une opportunité d'investissement.",
+    "source": "ollama"
   }
 }

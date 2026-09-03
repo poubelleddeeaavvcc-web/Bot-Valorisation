@@ -502,5 +502,13 @@
       "reason": "L'entreprise propose une large gamme de boissons à travers divers marchés, ce qui suggère une base de clients large et diversifiée.",
       "source": "ollama"
     }
+  },
+  "SENEB": {
+    "checked_at": "2026-09-03",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2026-06-11) : ten customers represented approximately 56% and 53% of net sales [https://www.sec.gov/Archives/edgar/data/88948/000143774926020290/senea20260331_10k.htm]",
+      "source": "sec_10k"
+    }
   }
 }
