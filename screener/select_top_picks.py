@@ -211,15 +211,40 @@ def backtest_capital_constrained(n=4, max_per_sector=1):
     return pd.DataFrame(constrained_closed), pd.DataFrame(held.values()), ledger
 
 
+def _with_quality_perspective_notes(picks: pd.DataFrame) -> pd.DataFrame:
+    """Left-joins the 2 read-only notes (see quality_perspective_notes.py) onto the picks
+    table purely for display -- doesn't touch score/ranking/selection above. Missing file or
+    ticker just means no notes columns get added, never an error: this module must never be
+    a hard dependency for the actual buy pipeline."""
+    notes_path = HERE / "results/screener/quality_perspective_notes.csv"
+    if not notes_path.exists():
+        return picks
+    notes = pd.read_csv(notes_path)[["ticker", "note_qualite_20", "note_qualite_low_confidence",
+                                      "note_perspective_20", "note_perspective_low_confidence"]]
+    return picks.merge(notes, on="ticker", how="left")
+
+
 def main():
     print(f"=== Top picks aujourd'hui (n=4, max 1/secteur) ===")
     picks = today_top_picks(n=4, max_per_sector=1)
+    picks = _with_quality_perspective_notes(picks)
     cols = ["ticker", "name", "sector", "pe", "peg", "mom_12_2", "valuation_gap", "quality_multiplier", "score"]
-    print(picks[cols].to_string(index=False, formatters={
+    formatters = {
         "pe": "{:.1f}".format, "peg": lambda x: f"{x:.2f}" if pd.notna(x) else "n/a",
         "mom_12_2": "{:+.1%}".format, "valuation_gap": "{:+.1%}".format,
         "quality_multiplier": "{:.2f}".format, "score": "{:.2f}".format,
-    }))
+    }
+    if "note_qualite_20" in picks.columns:
+        cols += ["note_qualite_20", "note_perspective_20"]
+        # "*" marks a note built on too few pillars to trust at face value (see
+        # note_qualite_low_confidence/note_perspective_low_confidence in quality_perspective_notes.py)
+        picks["note_qualite_20"] = picks.apply(
+            lambda r: (f"{r['note_qualite_20']:.1f}*" if r.get("note_qualite_low_confidence")
+                       else f"{r['note_qualite_20']:.1f}") if pd.notna(r["note_qualite_20"]) else "n/a", axis=1)
+        picks["note_perspective_20"] = picks.apply(
+            lambda r: (f"{r['note_perspective_20']:.1f}*" if r.get("note_perspective_low_confidence")
+                       else f"{r['note_perspective_20']:.1f}") if pd.notna(r["note_perspective_20"]) else "n/a", axis=1)
+    print(picks[cols].to_string(index=False, formatters=formatters))
 
     print(f"\n=== Backtest retroactif : portefeuille a 4 positions max vs achat en aveugle ===")
     print("ATTENTION : echantillon minuscule (8 clotures dans le ledger complet a ce jour) -- "

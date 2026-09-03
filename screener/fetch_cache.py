@@ -55,13 +55,31 @@ COOLDOWN_EVERY = 100      # community-reported pattern (yfinance GH discussion #
 COOLDOWN_SECONDS = 20     # ~100 requests before Yahoo wants a breather -- so take one voluntarily
 MAX_RETRIES = 2
 
-LAST_SCHEMA_MIGRATION = "2026-09-02"  # date fetch_one() last gained new fields (country;
-# the analyst-consensus fields landed one day earlier, 2026-09-01 -- this single cutoff
-# covers both). A row fetched before this date predates those columns entirely and would
-# otherwise wait for its normal weekly slot to backfill them -- rows below this cutoff are
-# pulled into every run (on top of that run's regular slice) until they've all been
-# refetched once, then this has no further effect (a refetched row's date moves past the
-# cutoff, so it can never re-trigger).
+LAST_SCHEMA_MIGRATION = "2026-09-03"  # date fetch_one() last gained new fields (cash/quality
+# fields for the 2-note display system -- see quality_perspective_notes.py -- plus the prior
+# country/analyst-consensus migration from 2026-09-01/02, unified under this one cutoff). A
+# row fetched before this date predates those columns entirely and would otherwise wait for
+# its normal weekly slot to backfill them -- rows below this cutoff are pulled into every run
+# (on top of that run's regular slice) until they've all been refetched once, then this has
+# no further effect (a refetched row's date moves past the cutoff, so it can never re-trigger).
+
+
+def _avg_nonnull(cf: pd.DataFrame, row_names: list, lookback: int = 3) -> float | None:
+    """3-year rolling average of a cashflow-statement line, for quality_perspective_notes.py's
+    Discipline pillar (buybacks/dividends) -- smooths a single lumpy fiscal year rather than
+    reading only the latest one. None only if the cashflow statement itself failed to fetch
+    (cf.empty); 0.0 if the line genuinely doesn't exist for this filer or its recent values
+    are all NaN -- a real zero (never buys back / never pays a dividend), not missing data.
+    Confirmed in testing (2026-09-03, TSLA/RIVN): treating an absent row as None instead of 0
+    let a company that returns nothing to shareholders rank as "best in sector" once its two
+    zero-return peers got excluded from the percentile -- the opposite of reality."""
+    if cf.empty:
+        return None
+    for row_name in row_names:
+        if row_name in cf.index:
+            series = cf.loc[row_name].iloc[:lookback].dropna()
+            return float(series.mean()) if len(series) else 0.0
+    return 0.0
 
 
 def fetch_one(ticker: str) -> dict:
@@ -72,6 +90,12 @@ def fetch_one(ticker: str) -> dict:
             info = t.info
             hist = t.history(period="14mo", interval="1mo", auto_adjust=True)["Close"].dropna()
             mom_12_2 = hist.iloc[-2] / hist.iloc[-13] - 1 if len(hist) >= 13 else None
+            # cashflow statement -- one extra request, needed only for the Discipline pillar
+            # (buybacks/dividends aren't in `info`). Any failure here falls through to the
+            # same except/retry path as info/history above, same as every other field.
+            cf = t.cashflow
+            buyback_avg_3y = _avg_nonnull(cf, ["Repurchase Of Capital Stock"])
+            div_avg_3y = _avg_nonnull(cf, ["Cash Dividends Paid", "Common Stock Dividend Paid"])
             return {
                 "ticker": ticker, "fetched_at": today,
                 "price": hist.iloc[-1] if len(hist) else None,
@@ -100,6 +124,18 @@ def fetch_one(ticker: str) -> dict:
                 "target_low_price": info.get("targetLowPrice"), "target_mean_price": info.get("targetMeanPrice"),
                 "target_high_price": info.get("targetHighPrice"), "recommendation_key": info.get("recommendationKey"),
                 "num_analyst_opinions": info.get("numberOfAnalystOpinions"),
+                # Cash/Bilan/Marges/Discipline pillars for quality_perspective_notes.py
+                # (2026-09-03) -- free_cashflow/total_cash/total_debt/quick_ratio/
+                # operating_margin all come from `info`, no extra request beyond the one
+                # already made above. financial_currency flags foreign filers (e.g. TSM
+                # reports in TWD while its ADR trades and is capped in USD) whose cashflow
+                # figures aren't directly comparable to market_cap -- quality_perspective_notes
+                # must treat these as N/A rather than computing a ratio across currencies.
+                "free_cashflow": info.get("freeCashflow"), "total_cash": info.get("totalCash"),
+                "total_debt": info.get("totalDebt"), "quick_ratio": info.get("quickRatio"),
+                "operating_margin": info.get("operatingMargins"),
+                "financial_currency": info.get("financialCurrency"),
+                "buyback_avg_3y": buyback_avg_3y, "div_avg_3y": div_avg_3y,
                 "mom_12_2": mom_12_2, "error": None,
             }
         except Exception as e:
