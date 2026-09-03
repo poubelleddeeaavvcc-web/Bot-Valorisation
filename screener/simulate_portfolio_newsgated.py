@@ -8,10 +8,16 @@ the two ledgers' performance isolates the effect of the news gate itself.
 
 Exit rules, fresh single-ticker fetch, and equity-curve/benchmark logic are reused directly
 from simulate_portfolio.py (recheck_open_positions, fetch_fresh_single, resolve_peer_pe,
-BENCHMARKS, STOP_LOSS_PCT) -- none of those touch the ledger/candidate file paths, so
-they're safe to import as-is. Only open_new_positions() (which decides what to buy) and the
-path-coupled load/save/summary functions are duplicated here with this bot's own files, the
-same pattern simulate_large_portfolio.py already uses to reuse simulate_constrained_portfolio.py.
+fails_fresh_check, BENCHMARKS, STOP_LOSS_PCT) -- none of those touch the ledger/candidate
+file paths, so they're safe to import as-is. Only open_new_positions() (which decides what
+to buy) and the path-coupled load/save/summary functions are duplicated here with this
+bot's own files, the same pattern simulate_large_portfolio.py already uses to reuse
+simulate_constrained_portfolio.py.
+
+open_new_positions() re-verifies each candidate with a fresh fetch (fails_fresh_check)
+before spending an Ollama call on it -- same reasoning and same fix (2026-09-02) as
+simulate_portfolio.py's module docstring: a candidate that already fails the fresh
+momentum/valuation bar shouldn't be bought at all, let alone news-checked first.
 """
 import pathlib
 import sys
@@ -23,7 +29,7 @@ HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
 from screener.simulate_portfolio import (  # noqa: E402
-    BENCHMARKS, STOP_LOSS_PCT, fetch_fresh_single, recheck_open_positions, resolve_peer_pe,
+    BENCHMARKS, STOP_LOSS_PCT, fails_fresh_check, fetch_fresh_single, recheck_open_positions, resolve_peer_pe,
 )
 from screener import news_filter  # noqa: E402
 
@@ -55,12 +61,28 @@ def load_ledger() -> pd.DataFrame:
     return pd.DataFrame(columns=LEDGER_COLUMNS)
 
 
-def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, today: str) -> pd.DataFrame:
+def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, today: str) -> tuple:
     open_tickers = set(ledger.loc[ledger["status"] == "open", "ticker"])
+    sector_pe = valuation.groupby("sector")["sector_median_pe"].first()
+    sector_mom = valuation.groupby("sector")["sector_momentum"].first()
+    industry_pe = valuation.groupby("industry")["industry_median_pe"].first()
+    industry_count = valuation.groupby("industry")["industry_count"].first()
+
     new_rows = []
     skipped = []
     for _, c in candidates.iterrows():
         if c["ticker"] in open_tickers:
+            continue
+        # fresh momentum/valuation gate first, before spending an Ollama call: no point
+        # news-checking a candidate that's already failing the entry bar on fresh data.
+        fresh = fetch_fresh_single(c["ticker"])
+        if fresh is None or fresh["price"] is None or fresh["eps"] is None:
+            skipped.append((c["ticker"], "echec verification fraiche"))
+            continue
+        fails, state = fails_fresh_check(fresh, c["quality_multiplier"], sector_pe, sector_mom,
+                                          industry_pe, industry_count, fallback_valuation_gap=c["valuation_gap"])
+        if fails:
+            skipped.append((c["ticker"], "ne passe plus le filtre momentum/valorisation en verification fraiche"))
             continue
         verdict = news_filter.news_verdict(c["ticker"], c["name"], c["sector"], today)
         if not verdict["relevant"]:
@@ -73,12 +95,12 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, today: st
         # simulate_constrained_portfolio_newsgated.fill_slots).
         concentration = news_filter.customer_concentration_verdict(c["ticker"], c["name"], c.get("country"))
         new_rows.append({
-            "ticker": c["ticker"], "name": c["name"], "sector": c["sector"], "status": "open",
-            "entry_date": today, "entry_price": c["price"], "entry_valuation_gap": c["valuation_gap"],
-            "entry_quality_multiplier": c["quality_multiplier"], "entry_mom_12_2": c["mom_12_2"],
-            "entry_sector_momentum": c["sector_momentum"],
-            "last_check_date": today, "last_price": c["price"], "last_valuation_gap": c["valuation_gap"],
-            "last_mom_12_2": c["mom_12_2"], "last_sector_momentum": c["sector_momentum"],
+            "ticker": c["ticker"], "name": c["name"], "sector": state["sector"] or c["sector"], "status": "open",
+            "entry_date": today, "entry_price": fresh["price"], "entry_valuation_gap": state["valuation_gap"],
+            "entry_quality_multiplier": c["quality_multiplier"], "entry_mom_12_2": fresh["mom_12_2"],
+            "entry_sector_momentum": state["sector_momentum"],
+            "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": state["valuation_gap"],
+            "last_mom_12_2": fresh["mom_12_2"], "last_sector_momentum": state["sector_momentum"],
             "unrealized_return_pct": 0.0, "peak_unrealized_return_pct": 0.0, "peak_date": today,
             "exit_date": None, "exit_price": None, "exit_reason": None,
             "return_pct": None, "holding_days": None,
@@ -87,12 +109,13 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, today: st
             "customer_concentration": concentration["concentration"],
             "customer_concentration_reason": concentration["reason"],
         })
+    new_tickers = {r["ticker"] for r in new_rows}
     if new_rows:
         ledger = pd.concat([ledger, pd.DataFrame(new_rows)], ignore_index=True)
-        print(f"{len(new_rows)} nouvelle(s) position(s) ouverte(s) : {[r['ticker'] for r in new_rows]}")
+        print(f"{len(new_rows)} nouvelle(s) position(s) ouverte(s) : {sorted(new_tickers)}")
     for ticker, reason in skipped:
-        print(f"  SKIP {ticker} (actu Ollama) : {reason}")
-    return ledger
+        print(f"  SKIP {ticker} : {reason}")
+    return ledger, new_tickers
 
 
 def write_summary(ledger: pd.DataFrame):
@@ -149,8 +172,8 @@ def main():
     valuation = pd.read_csv(VALUATION_PATH)
 
     ledger = load_ledger()
-    ledger = open_new_positions(ledger, candidates, today)
-    ledger = recheck_open_positions(ledger, valuation, today)
+    ledger, newly_opened = open_new_positions(ledger, candidates, valuation, today)
+    ledger = recheck_open_positions(ledger, valuation, today, skip_tickers=newly_opened)
 
     LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
     ledger.to_csv(LEDGER_PATH, index=False)

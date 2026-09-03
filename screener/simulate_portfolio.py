@@ -7,12 +7,21 @@ This is the honest test of whether the screener works -- accumulated evidence, n
 historical fit.
 
 Mechanics:
-  - Every run, any current LONG candidate not already an open position gets "bought"
-    at today's price.
+  - Every run, any current LONG candidate not already an open position is checked with a
+    FRESH single-ticker fetch BEFORE being bought (see fails_fresh_check below) -- the
+    screener's candidate list comes from fetch_cache.py's rotation cadence (up to ~1 week
+    stale), so a candidate that qualified on that data may have already lost its edge by
+    today. Buying first and finding out immediately afterward is worse than not buying at
+    all (it used to produce same-day buy+sell round trips, holding_days=0, pure noise --
+    fixed 2026-09-02), so the same momentum/valuation bar used to exit is applied as a gate
+    before the position ever enters the ledger. A candidate that fails the fresh check is
+    just skipped this run -- free to qualify again (or not) next time.
   - Every run, every OPEN position gets a FRESH single-ticker price/fundamentals check
     (independent of fetch_cache.py's 90-day staleness -- that cadence is fine for
     discovering new candidates but far too slow for tracking positions you're
     supposedly holding). This is cheap: a handful of tickers, not the whole universe.
+    Positions opened earlier in this same run are skipped here (they were already
+    fresh-checked moments ago as part of the buy gate).
   - Exit ("sell") when ANY of:
       - valuation_gap has closed to <=0 (the thesis played out: no longer undervalued)
       - momentum is lost: mom_12_2 <= 0, or mom_12_2 <= its sector's momentum (the
@@ -63,6 +72,29 @@ def resolve_peer_pe(sector, industry, sector_pe_map, industry_pe_map, industry_c
             return peer_pe
     return sector_pe_map.get(sector)
 
+
+def fails_fresh_check(fresh: dict, qmult, sector_pe_map, sector_mom_map, industry_pe_map, industry_count_map,
+                       fallback_valuation_gap=None) -> tuple:
+    """True if a FRESH fetch already meets one of recheck_open_positions' exit conditions
+    (momentum lost / valuation gap closed) -- used as a gate before a candidate is bought,
+    not just to decide an exit on an existing position. Buying on stale screener data and
+    then instantly re-failing this same bar on a fresh check is exactly the same-day
+    round-trip bug this gate exists to prevent. Returns (fails, state); state carries the
+    fresh valuation_gap/sector_momentum so the caller can record the position's true entry
+    basis rather than the (possibly stale) candidate-list values."""
+    sector = fresh.get("sector")
+    peer_pe = resolve_peer_pe(sector, fresh.get("industry"), sector_pe_map, industry_pe_map, industry_count_map)
+    sector_momentum = sector_mom_map.get(sector, 0.0)
+    if peer_pe is not None and pd.notna(qmult) and fresh.get("eps") is not None:
+        valuation_gap = fresh["eps"] * peer_pe * qmult / fresh["price"] - 1
+    else:
+        valuation_gap = fallback_valuation_gap
+    momentum_lost = fresh["mom_12_2"] <= 0 or fresh["mom_12_2"] <= sector_momentum
+    valuation_reached = pd.notna(valuation_gap) and valuation_gap <= 0
+    state = {"sector": sector, "valuation_gap": valuation_gap, "sector_momentum": sector_momentum}
+    return (momentum_lost or valuation_reached), state
+
+
 LEDGER_COLUMNS = [
     "ticker", "name", "sector", "status",
     "entry_date", "entry_price", "entry_valuation_gap", "entry_quality_multiplier",
@@ -110,36 +142,55 @@ def fetch_fresh_single(ticker: str) -> dict | None:
         return None
 
 
-def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, today: str) -> pd.DataFrame:
+def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, today: str) -> tuple:
     open_tickers = set(ledger.loc[ledger["status"] == "open", "ticker"])
-    new_rows = []
-    for _, c in candidates.iterrows():
-        if c["ticker"] in open_tickers:
-            continue
-        new_rows.append({
-            "ticker": c["ticker"], "name": c["name"], "sector": c["sector"], "status": "open",
-            "entry_date": today, "entry_price": c["price"], "entry_valuation_gap": c["valuation_gap"],
-            "entry_quality_multiplier": c["quality_multiplier"], "entry_mom_12_2": c["mom_12_2"],
-            "entry_sector_momentum": c["sector_momentum"],
-            "last_check_date": today, "last_price": c["price"], "last_valuation_gap": c["valuation_gap"],
-            "last_mom_12_2": c["mom_12_2"], "last_sector_momentum": c["sector_momentum"],
-            "unrealized_return_pct": 0.0, "peak_unrealized_return_pct": 0.0, "peak_date": today,
-            "exit_date": None, "exit_price": None, "exit_reason": None,
-            "return_pct": None, "holding_days": None,
-        })
-    if new_rows:
-        ledger = pd.concat([ledger, pd.DataFrame(new_rows)], ignore_index=True)
-        print(f"{len(new_rows)} nouvelle(s) position(s) ouverte(s) : {[r['ticker'] for r in new_rows]}")
-    return ledger
-
-
-def recheck_open_positions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str) -> pd.DataFrame:
     sector_pe = valuation.groupby("sector")["sector_median_pe"].first()
     sector_mom = valuation.groupby("sector")["sector_momentum"].first()
     industry_pe = valuation.groupby("industry")["industry_median_pe"].first()
     industry_count = valuation.groupby("industry")["industry_count"].first()
 
-    for idx in ledger.index[ledger["status"] == "open"]:
+    new_rows = []
+    for _, c in candidates.iterrows():
+        if c["ticker"] in open_tickers:
+            continue
+        fresh = fetch_fresh_single(c["ticker"])
+        if fresh is None or fresh["price"] is None or fresh["eps"] is None:
+            print(f"  achat ignore {c['ticker']} : echec verification fraiche", file=sys.stderr)
+            continue
+        fails, state = fails_fresh_check(fresh, c["quality_multiplier"], sector_pe, sector_mom,
+                                          industry_pe, industry_count, fallback_valuation_gap=c["valuation_gap"])
+        if fails:
+            print(f"  achat ecarte {c['ticker']} : ne passe plus le filtre momentum/valorisation en verification fraiche")
+            continue
+        new_rows.append({
+            "ticker": c["ticker"], "name": c["name"], "sector": state["sector"] or c["sector"], "status": "open",
+            "entry_date": today, "entry_price": fresh["price"], "entry_valuation_gap": state["valuation_gap"],
+            "entry_quality_multiplier": c["quality_multiplier"], "entry_mom_12_2": fresh["mom_12_2"],
+            "entry_sector_momentum": state["sector_momentum"],
+            "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": state["valuation_gap"],
+            "last_mom_12_2": fresh["mom_12_2"], "last_sector_momentum": state["sector_momentum"],
+            "unrealized_return_pct": 0.0, "peak_unrealized_return_pct": 0.0, "peak_date": today,
+            "exit_date": None, "exit_price": None, "exit_reason": None,
+            "return_pct": None, "holding_days": None,
+        })
+    new_tickers = {r["ticker"] for r in new_rows}
+    if new_rows:
+        ledger = pd.concat([ledger, pd.DataFrame(new_rows)], ignore_index=True)
+        print(f"{len(new_rows)} nouvelle(s) position(s) ouverte(s) : {sorted(new_tickers)}")
+    return ledger, new_tickers
+
+
+def recheck_open_positions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str,
+                            skip_tickers: set = frozenset()) -> pd.DataFrame:
+    sector_pe = valuation.groupby("sector")["sector_median_pe"].first()
+    sector_mom = valuation.groupby("sector")["sector_momentum"].first()
+    industry_pe = valuation.groupby("industry")["industry_median_pe"].first()
+    industry_count = valuation.groupby("industry")["industry_count"].first()
+
+    # positions opened earlier in this same run (skip_tickers) were already fresh-checked
+    # as part of the buy gate in open_new_positions -- rechecking them again seconds later
+    # would just burn a redundant fetch, not catch anything new.
+    for idx in ledger.index[(ledger["status"] == "open") & (~ledger["ticker"].isin(skip_tickers))]:
         ticker = ledger.at[idx, "ticker"]
         fresh = fetch_fresh_single(ticker)
         if fresh is None or fresh["price"] is None or fresh["eps"] is None:
@@ -255,8 +306,8 @@ def main():
     valuation = pd.read_csv(VALUATION_PATH)
 
     ledger = load_ledger()
-    ledger = open_new_positions(ledger, candidates, today)
-    ledger = recheck_open_positions(ledger, valuation, today)
+    ledger, newly_opened = open_new_positions(ledger, candidates, valuation, today)
+    ledger = recheck_open_positions(ledger, valuation, today, skip_tickers=newly_opened)
 
     LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
     ledger.to_csv(LEDGER_PATH, index=False)

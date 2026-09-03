@@ -55,7 +55,7 @@ sys.path.insert(0, str(HERE))
 from screener.select_top_picks import (  # noqa: E402
     composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
 )
-from screener.simulate_portfolio import fetch_fresh_single, resolve_peer_pe, STOP_LOSS_PCT  # noqa: E402
+from screener.simulate_portfolio import fails_fresh_check, fetch_fresh_single, resolve_peer_pe, STOP_LOSS_PCT  # noqa: E402
 from screener.fetch_cache import fetch_one as fetch_cache_one  # noqa: E402
 
 LEDGER_PATH = HERE / "results/simulation/constrained_portfolio_ledger.csv"
@@ -231,11 +231,15 @@ def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, 
     return ledger, cash
 
 
-def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, today: str,
+def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, cash: float, today: str,
                fx_rates: dict) -> tuple:
     held_tickers = set(ledger.loc[ledger["status"] == "open", "ticker"])
     sector_counts = ledger.loc[ledger["status"] == "open", "sector"].value_counts().to_dict()
     total_held = len(held_tickers)
+    sector_pe = valuation.groupby("sector")["sector_median_pe"].first()
+    sector_mom = valuation.groupby("sector")["sector_momentum"].first()
+    industry_pe = valuation.groupby("industry")["industry_median_pe"].first()
+    industry_count = valuation.groupby("industry")["industry_count"].first()
     na_count = sum(1 for t in held_tickers if ticker_region(t) == "North America")
     # unlike NA (derivable from the ticker string alone via ticker_region), state-linkage
     # depends on Yahoo's HQ-country data, so it has to be persisted on the ledger row at
@@ -304,6 +308,17 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
             rejected.add(ticker)
             continue
 
+        # fresh momentum/valuation gate: fetch_cache_one's data can be hours to a week stale
+        # (the same rotation cadence as the screener's candidate list), so re-verify the
+        # entry bar with the fetch we just did before actually spending the cash -- a
+        # candidate that's already failing it shouldn't be bought at all (2026-09-02, see
+        # simulate_portfolio.py's module docstring for the same-day round-trip bug this fixes).
+        fails, state = fails_fresh_check(fresh, pick_row["quality_multiplier"], sector_pe, sector_mom,
+                                          industry_pe, industry_count, fallback_valuation_gap=pick_row["valuation_gap"])
+        if fails:
+            rejected.add(ticker)
+            continue
+
         if fractional:
             cost = min(TARGET_POSITION_SIZE, cash)
             shares = cost / price_eur
@@ -322,10 +337,10 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
             "currency": fresh.get("currency"), "fractional": bool(fractional),
             "entry_date": today, "entry_price": fresh["price"], "shares": shares,
             "entry_value_eur": cost,
-            "entry_valuation_gap": pick_row["valuation_gap"], "entry_quality_multiplier": pick_row["quality_multiplier"],
-            "entry_mom_12_2": pick_row["mom_12_2"], "entry_sector_momentum": pick_row["sector_momentum"],
-            "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": pick_row["valuation_gap"],
-            "last_mom_12_2": pick_row["mom_12_2"], "current_value_eur": cost,
+            "entry_valuation_gap": state["valuation_gap"], "entry_quality_multiplier": pick_row["quality_multiplier"],
+            "entry_mom_12_2": fresh["mom_12_2"], "entry_sector_momentum": state["sector_momentum"],
+            "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": state["valuation_gap"],
+            "last_mom_12_2": fresh["mom_12_2"], "current_value_eur": cost,
             "unrealized_return_pct": 0.0,
             "exit_date": None, "exit_price": None, "exit_reason": None,
             "exit_value_eur": None, "return_pct": None, "holding_days": None,
@@ -391,7 +406,7 @@ def main():
     fx_rates = fetch_fx_rates(set(FX_PAIR.keys()))
 
     ledger, cash = recheck_and_exit(ledger, valuation, today, cash, fx_rates)
-    ledger, cash = fill_slots(ledger, candidates, cash, today, fx_rates)
+    ledger, cash = fill_slots(ledger, candidates, valuation, cash, today, fx_rates)
 
     LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
     ledger.to_csv(LEDGER_PATH, index=False)

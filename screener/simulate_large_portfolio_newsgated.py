@@ -31,6 +31,7 @@ from screener.simulate_constrained_portfolio import (  # noqa: E402
     LEDGER_COLUMNS, FX_PAIR, recheck_and_exit, to_eur, fetch_fx_rates, fractional_eligible,
 )
 from screener.simulate_large_portfolio import MAX_WHOLE_SHARE_OVERSHOOT  # noqa: E402
+from screener.simulate_portfolio import fails_fresh_check  # noqa: E402
 from screener import news_filter  # noqa: E402
 
 LEDGER_PATH = HERE / "results/simulation/large_portfolio_ledger_newsgated.csv"
@@ -70,11 +71,15 @@ def save_cash(cash: float):
     STATE_PATH.write_text(json.dumps({"cash_eur": cash}), encoding="utf-8")
 
 
-def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, today: str,
+def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, cash: float, today: str,
                fx_rates: dict) -> tuple:
     held_tickers = set(ledger.loc[ledger["status"] == "open", "ticker"])
     sector_counts = ledger.loc[ledger["status"] == "open", "sector"].value_counts().to_dict()
     total_held = len(held_tickers)
+    sector_pe = valuation.groupby("sector")["sector_median_pe"].first()
+    sector_mom = valuation.groupby("sector")["sector_momentum"].first()
+    industry_pe = valuation.groupby("industry")["industry_median_pe"].first()
+    industry_count = valuation.groupby("industry")["industry_count"].first()
     na_count = sum(1 for t in held_tickers if ticker_region(t) == "North America")
     state_count = int(ledger.loc[ledger["status"] == "open", "country"].map(is_state_linked).sum())
 
@@ -119,6 +124,9 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
                 exhausted.add(target_sector)
                 continue
             ticker = open_in_sector.sort_values("last_valuation_gap", ascending=False)["ticker"].iloc[0]
+            # looked up now (not just before the ledger.at writes below) so the fresh
+            # momentum/valuation gate can read this position's own entry basis
+            reinforce_idx = ledger.index[(ledger["status"] == "open") & (ledger["ticker"] == ticker)][0]
 
         fresh = fetch_cache_one(ticker)
         time.sleep(0.4)
@@ -138,6 +146,23 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
         fractional = fractional_eligible(ticker, market_cap_eur, adv_eur)
 
         if not fractional and price_eur > MAX_WHOLE_SHARE_OVERSHOOT * TARGET_POSITION_SIZE:
+            rejected.add(ticker)
+            continue
+
+        # fresh momentum/valuation gate, before the (expensive) Ollama news call below --
+        # for a new buy, against the candidate's own (possibly stale) screener data as
+        # fallback; for a reinforcement, against the already-open position's own entry
+        # basis. A position already failing this bar on fresh data shouldn't be bought OR
+        # added to (2026-09-02, see simulate_portfolio.py's module docstring for the
+        # same-day round-trip bug this fixes).
+        if is_new:
+            qmult, fallback_gap = pick_row["quality_multiplier"], pick_row["valuation_gap"]
+        else:
+            qmult = ledger.at[reinforce_idx, "entry_quality_multiplier"]
+            fallback_gap = ledger.at[reinforce_idx, "last_valuation_gap"]
+        fails, state = fails_fresh_check(fresh, qmult, sector_pe, sector_mom, industry_pe, industry_count,
+                                          fallback_valuation_gap=fallback_gap)
+        if fails:
             rejected.add(ticker)
             continue
 
@@ -176,10 +201,10 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
                 "currency": fresh.get("currency"), "fractional": bool(fractional),
                 "entry_date": today, "entry_price": fresh["price"], "shares": add_shares,
                 "entry_value_eur": cost,
-                "entry_valuation_gap": pick_row["valuation_gap"], "entry_quality_multiplier": pick_row["quality_multiplier"],
-                "entry_mom_12_2": pick_row["mom_12_2"], "entry_sector_momentum": pick_row["sector_momentum"],
-                "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": pick_row["valuation_gap"],
-                "last_mom_12_2": pick_row["mom_12_2"], "current_value_eur": cost,
+                "entry_valuation_gap": state["valuation_gap"], "entry_quality_multiplier": pick_row["quality_multiplier"],
+                "entry_mom_12_2": fresh["mom_12_2"], "entry_sector_momentum": state["sector_momentum"],
+                "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": state["valuation_gap"],
+                "last_mom_12_2": fresh["mom_12_2"], "current_value_eur": cost,
                 "unrealized_return_pct": 0.0,
                 "exit_date": None, "exit_price": None, "exit_reason": None,
                 "exit_value_eur": None, "return_pct": None, "holding_days": None,
@@ -201,7 +226,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
             print(f"  ACHAT {ticker} ({target_sector}) : {cost:.2f} EUR ({add_shares:.4f} actions, {kind}) "
                   f"@ {fresh['price']:.2f} {fresh.get('currency') or '?'}, score {pick_row['score']:.2f}{size_note}")
         else:
-            idx = ledger.index[(ledger["status"] == "open") & (ledger["ticker"] == ticker)][0]
+            idx = reinforce_idx
             old_shares = ledger.at[idx, "shares"]
             new_shares = old_shares + add_shares
             new_entry_price = (ledger.at[idx, "entry_price"] * old_shares +
@@ -263,7 +288,7 @@ def main():
     fx_rates = fetch_fx_rates(set(FX_PAIR.keys()))
 
     ledger, cash = recheck_and_exit(ledger, valuation, today, cash, fx_rates)
-    ledger, cash = fill_slots(ledger, candidates, cash, today, fx_rates)
+    ledger, cash = fill_slots(ledger, candidates, valuation, cash, today, fx_rates)
 
     LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
     ledger.to_csv(LEDGER_PATH, index=False)

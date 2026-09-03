@@ -30,6 +30,7 @@ from screener.simulate_constrained_portfolio import (  # noqa: E402
     LEDGER_COLUMNS, MAX_PER_SECTOR, MAX_WHOLE_SHARE_OVERSHOOT, STARTING_CAPITAL, STARTING_SLOTS,
     TARGET_POSITION_SIZE, FX_PAIR, fetch_fx_rates, fractional_eligible, recheck_and_exit, to_eur,
 )
+from screener.simulate_portfolio import fails_fresh_check  # noqa: E402
 from screener.fetch_cache import fetch_one as fetch_cache_one  # noqa: E402
 from screener import news_filter  # noqa: E402
 
@@ -66,11 +67,15 @@ def save_cash(cash: float):
     STATE_PATH.write_text(json.dumps({"cash_eur": cash}), encoding="utf-8")
 
 
-def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, today: str,
+def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, cash: float, today: str,
                fx_rates: dict) -> tuple:
     held_tickers = set(ledger.loc[ledger["status"] == "open", "ticker"])
     sector_counts = ledger.loc[ledger["status"] == "open", "sector"].value_counts().to_dict()
     total_held = len(held_tickers)
+    sector_pe = valuation.groupby("sector")["sector_median_pe"].first()
+    sector_mom = valuation.groupby("sector")["sector_momentum"].first()
+    industry_pe = valuation.groupby("industry")["industry_median_pe"].first()
+    industry_count = valuation.groupby("industry")["industry_count"].first()
     na_count = sum(1 for t in held_tickers if ticker_region(t) == "North America")
     state_count = int(ledger.loc[ledger["status"] == "open", "country"].map(is_state_linked).sum())
 
@@ -125,6 +130,16 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
             rejected.add(ticker)
             continue
 
+        # fresh momentum/valuation gate, before the (expensive) Ollama news call: a
+        # candidate already failing the entry bar on fresh data shouldn't be bought at all,
+        # let alone news-checked first (2026-09-02, see simulate_portfolio.py's module
+        # docstring for the same-day round-trip bug this fixes).
+        fails, state = fails_fresh_check(fresh, pick_row["quality_multiplier"], sector_pe, sector_mom,
+                                          industry_pe, industry_count, fallback_valuation_gap=pick_row["valuation_gap"])
+        if fails:
+            rejected.add(ticker)
+            continue
+
         # news gate: last check, only reached once a candidate has already cleared every
         # affordability/diversification filter above -- keeps Ollama calls limited to
         # names that would actually be bought were it not for a news red flag.
@@ -157,10 +172,10 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, cash: float, toda
             "currency": fresh.get("currency"), "fractional": bool(fractional),
             "entry_date": today, "entry_price": fresh["price"], "shares": shares,
             "entry_value_eur": cost,
-            "entry_valuation_gap": pick_row["valuation_gap"], "entry_quality_multiplier": pick_row["quality_multiplier"],
-            "entry_mom_12_2": pick_row["mom_12_2"], "entry_sector_momentum": pick_row["sector_momentum"],
-            "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": pick_row["valuation_gap"],
-            "last_mom_12_2": pick_row["mom_12_2"], "current_value_eur": cost,
+            "entry_valuation_gap": state["valuation_gap"], "entry_quality_multiplier": pick_row["quality_multiplier"],
+            "entry_mom_12_2": fresh["mom_12_2"], "entry_sector_momentum": state["sector_momentum"],
+            "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": state["valuation_gap"],
+            "last_mom_12_2": fresh["mom_12_2"], "current_value_eur": cost,
             "unrealized_return_pct": 0.0,
             "exit_date": None, "exit_price": None, "exit_reason": None,
             "exit_value_eur": None, "return_pct": None, "holding_days": None,
@@ -228,7 +243,7 @@ def main():
     fx_rates = fetch_fx_rates(set(FX_PAIR.keys()))
 
     ledger, cash = recheck_and_exit(ledger, valuation, today, cash, fx_rates)
-    ledger, cash = fill_slots(ledger, candidates, cash, today, fx_rates)
+    ledger, cash = fill_slots(ledger, candidates, valuation, cash, today, fx_rates)
 
     LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
     ledger.to_csv(LEDGER_PATH, index=False)

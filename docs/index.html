@@ -279,8 +279,18 @@ async function renderBotValueTab(){
     }
 
     const cacheRows=bvParseCSV(cacheTxt);
-    const cacheFresh=cacheRows.filter(r=>!r.error).length;
-    const trendingCount=trendingTxt?Math.max(trendingTxt.trim().split('\n').length-1,0):cacheRows.length;
+    const trendingRows=trendingTxt?bvParseCSV(trendingTxt):null;
+    // Coverage doit se lire "quelle part de l'univers ACTUEL a des donnees fraiches en
+    // cache", pas juste "combien de lignes le cache contient" -- le cache n'est jamais
+    // purge des tickers qui sortent de l'univers tendance (celui-ci se recompose chaque
+    // jour), donc il grossit sans fin et cacheFresh/trendingCount depassait 100% (ex: 112%)
+    // des que le cache accumulait plus de tickers, toutes epoques confondues, que l'univers
+    // actuel n'en contient.
+    const trendingTickers=trendingRows?new Set(trendingRows.map(r=>r.ticker)):null;
+    const cacheFresh=trendingTickers
+      ?cacheRows.filter(r=>!r.error&&trendingTickers.has(r.ticker)).length
+      :cacheRows.filter(r=>!r.error).length;
+    const trendingCount=trendingRows?trendingRows.length:cacheRows.length;
     const equityRows=bvParseCSV(equityTxt);
     const lastRun=equityRows.length?equityRows[equityRows.length-1].timestamp:'';
     window.bvStats={cacheFresh,trendingCount,lastRun};
