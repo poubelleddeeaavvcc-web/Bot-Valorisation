@@ -88,6 +88,17 @@ BOTS = [
         "summary": SIM_DIR / "large_summary_newsgated.json",
         "has_eur_equity": True,
     },
+    {
+        # Meme pool de candidats et memes mecaniques que Bot #2, seule la selection differe
+        # (notes Qualite/Perspective au lieu de composite_score) -- ajoute 2026-09-03 pour
+        # repondre a la question du user : quelle methode de selection est la plus
+        # performante, avec le moins de risque, une fois assez de clotures propres.
+        "key": "bot7_constrained_notes",
+        "label": "Bot #7 (constrained, selection par notes Qualite/Perspective)",
+        "ledger": SIM_DIR / "constrained_portfolio_ledger_notes.csv",
+        "summary": SIM_DIR / "constrained_summary_notes.json",
+        "has_eur_equity": True,
+    },
 ]
 
 

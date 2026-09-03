@@ -35,6 +35,9 @@ jobs:
       - name: Analyser le cache (aucun appel reseau)
         run: python screener/analyze_cache.py
 
+      - name: Calculer les notes Qualite/Perspective (affichage + Bot #7, aucun appel reseau)
+        run: python screener/quality_perspective_notes.py
+
       - name: Simulation de portefeuille en aveugle
         run: python screener/simulate_portfolio.py
 
@@ -43,6 +46,13 @@ jobs:
 
       - name: Simulation de portefeuille large (equilibre par secteur, sans plafond)
         run: python screener/simulate_large_portfolio.py
+
+      # Bot #7 : memes mecaniques que #2 (capital contraint), mais classement des candidats
+      # par les notes Qualite/Perspective (moyenne des 2 notes /20) au lieu du
+      # composite_score value+momentum+quality -- comparaison controlee des deux methodes de
+      # selection sur le meme pool de candidats, voir simulate_constrained_portfolio_notes.py.
+      - name: Simulation a capital contraint + selection par notes (Bot #7)
+        run: python screener/simulate_constrained_portfolio_notes.py
 
       # Bots #4/5/6 : memes mecaniques que #1/2/3, avec un filtre actu (Ollama local, voir
       # screener/news_filter.py) juste avant chaque achat. Ollama tourne uniquement dans ce
