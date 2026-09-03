@@ -352,5 +352,17 @@
     "sentiment": "positive",
     "reason": "Bien que certaines actualités mentionnent des risques et des préoccupations, le ton général est dominé par des éléments positifs, tels que la performance de l'action, les analystes bullistes et les investissements de nouveaux investisseurs.",
     "source": "ollama"
+  },
+  "ITUB4.SA_2026-09-03": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente plusieurs éléments positifs, tels que l'approbation conditionnelle de la charte bancaire américaine, l'expansion de la franchise de banque de richesse et l'augmentation de la valeur de l'action.",
+    "source": "ollama"
+  },
+  "PINFRA.MX_2026-09-03": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "Aucune actualité positive ou neutre sur Promotora y Operadora de Infraestructura, S. A. B. de C. V. (PINFRA.MX) est disponible, les actualités disponibles sont toutes négatives ou sans rapport avec l'action.",
+    "source": "ollama"
   }
 }
