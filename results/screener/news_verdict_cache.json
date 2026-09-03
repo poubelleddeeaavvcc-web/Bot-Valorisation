@@ -394,5 +394,11 @@
     "sentiment": "positive",
     "reason": "L'actualité présente plusieurs articles positifs sur Lasertec Corporation, notamment une mention de son leadership dans le secteur des technologies, une hausse de ses actions et des articles de recommandation d'achat.",
     "source": "ollama"
+  },
+  "2404.TW_2026-09-03": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "L'actualité présente uniquement des informations générales sur les performances des marchés taiwanais et des événements liés à des fonds d'investissement, sans fournir de commentaires spécifiques sur l'action de United Integrated Services Co., Ltd.",
+    "source": "ollama"
   }
 }
