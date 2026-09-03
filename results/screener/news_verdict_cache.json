@@ -364,5 +364,35 @@
     "sentiment": "negative",
     "reason": "Aucune actualité positive ou neutre sur Promotora y Operadora de Infraestructura, S. A. B. de C. V. (PINFRA.MX) est disponible, les actualités disponibles sont toutes négatives ou sans rapport avec l'action.",
     "source": "ollama"
+  },
+  "CPA_2026-09-03": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des analyses de dividendes, des recommandations de investissement et des resultats financiers positifs, ce qui suggere un ton general positif pour l'action.",
+    "source": "ollama"
+  },
+  "GIC_2026-09-03": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Bien que certains articles mentionnent des questions sur les fondamentaux de GIC, la majorité des actualités présentent des informations positives sur la performance récente de l'entreprise et son croissance.",
+    "source": "ollama"
+  },
+  "AMZN_2026-09-03": {
+    "relevant": false,
+    "sentiment": "negative",
+    "reason": "'ftc lawsuit' actif (3/3 votes) : Proces ou enquete en cours, accusation recente, risque d'impact sur les finances de l'entreprise; Problème potentiel de sanctions ou de sanctions après un procès, ce qui pourrait affecter le statut et la réputation de l'entreprise.; Amazon est confro (titre: Amazon Stock Continues to Slide After FTC Lawsuit - TradingView)",
+    "source": "keyword_veto"
+  },
+  "1878.T_2026-09-03": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente plusieurs développements positifs pour l'action, tels que la conclusion d'un accord sur la cession de parts dans une société américaine, le développement d'un programme pour aider les ingénieurs étrangers à obtenir des qualifications nationales, ainsi que des messages de leaders",
+    "source": "ollama"
+  },
+  "6920.T_2026-09-03": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente plusieurs articles positifs sur Lasertec Corporation, notamment une mention de son leadership dans le secteur des technologies, une hausse de ses actions et des articles de recommandation d'achat.",
+    "source": "ollama"
   }
 }

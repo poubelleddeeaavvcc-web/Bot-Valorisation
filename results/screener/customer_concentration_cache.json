@@ -462,5 +462,21 @@
       "reason": "L'entreprise semble servir principalement les secteurs de la maintenance et de la réparation automobile, ainsi que l'industrie, ce qui suggère une concentration sur un petit nombre de clients.",
       "source": "ollama"
     }
+  },
+  "GIC": {
+    "checked_at": "2026-09-03",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "La description mentionne que l'entreprise serve pour-profit et not-for-profit, ainsi que des organisations éducatives et gouvernementales, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "6920.T": {
+    "checked_at": "2026-09-03",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise propose une grande gamme de produits pour différents secteurs, tels que l'industrie électronique, les semiconducteurs, les micro-ondes et l'industrie de la vision, ce qui suggère qu'elle a une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
   }
 }
