@@ -54,9 +54,9 @@ tr:hover td{background:var(--bg3)}
 
   <div class="row" id="botvalue-kpis" style="display:none">
     <div class="card">
-      <div class="ctit">Cache de fondamentaux</div>
-      <div class="kbig" id="bv-kpi-cache">-</div>
-      <div class="ksub" id="bv-kpi-cache-sub">-</div>
+      <div class="ctit">Univers en tendance</div>
+      <div class="kbig" id="bv-kpi-universe">-</div>
+      <div class="ksub" id="bv-kpi-universe-sub">-</div>
     </div>
     <div class="card">
       <div class="ctit">Candidats LONG actuels</div>
@@ -212,10 +212,9 @@ async function renderBotValueTab(){
   statusEl.textContent='Chargement des données depuis GitHub…';
   try{
     const bust=Date.now();
-    const [candidatesTxt,sectorMomTxt,cacheTxt,trendingTxt,equityTxt]=await Promise.all([
+    const [candidatesTxt,sectorMomTxt,trendingTxt,equityTxt]=await Promise.all([
       fetch(`${BV_REPO_RAW}/results/screener/long_candidates_latest.csv?_=${bust}`).then(r=>{if(!r.ok)throw new Error('long_candidates_latest.csv introuvable ('+r.status+')');return r.text();}),
       fetch(`${BV_REPO_RAW}/data/universe/sector_momentum.csv?_=${bust}`).then(r=>{if(!r.ok)throw new Error('sector_momentum.csv introuvable ('+r.status+')');return r.text();}),
-      fetch(`${BV_REPO_RAW}/results/screener/fundamentals_cache.csv?_=${bust}`).then(r=>{if(!r.ok)throw new Error('fundamentals_cache.csv introuvable ('+r.status+')');return r.text();}),
       fetch(`${BV_REPO_RAW}/data/universe/trending_universe.csv?_=${bust}`).then(r=>r.ok?r.text():''),
       // dernier run reel, pas la fraicheur du cache de fondamentaux (celui-ci ne bouge que
       // quand un ticker depasse 7 jours -- il peut rester fige plusieurs jours meme quand le
@@ -278,22 +277,11 @@ async function renderBotValueTab(){
       bvPositionsData=[];
     }
 
-    const cacheRows=bvParseCSV(cacheTxt);
     const trendingRows=trendingTxt?bvParseCSV(trendingTxt):null;
-    // Coverage doit se lire "quelle part de l'univers ACTUEL a des donnees fraiches en
-    // cache", pas juste "combien de lignes le cache contient" -- le cache n'est jamais
-    // purge des tickers qui sortent de l'univers tendance (celui-ci se recompose chaque
-    // jour), donc il grossit sans fin et cacheFresh/trendingCount depassait 100% (ex: 112%)
-    // des que le cache accumulait plus de tickers, toutes epoques confondues, que l'univers
-    // actuel n'en contient.
-    const trendingTickers=trendingRows?new Set(trendingRows.map(r=>r.ticker)):null;
-    const cacheFresh=trendingTickers
-      ?cacheRows.filter(r=>!r.error&&trendingTickers.has(r.ticker)).length
-      :cacheRows.filter(r=>!r.error).length;
-    const trendingCount=trendingRows?trendingRows.length:cacheRows.length;
+    const trendingCount=trendingRows?trendingRows.length:bvCandidatesData.length;
     const equityRows=bvParseCSV(equityTxt);
     const lastRun=equityRows.length?equityRows[equityRows.length-1].timestamp:'';
-    window.bvStats={cacheFresh,trendingCount,lastRun};
+    window.bvStats={trendingCount,lastRun};
 
     bvLoaded=true;
     statusEl.style.display='none';
@@ -315,9 +303,19 @@ function bvFormatRunTimestamp(iso){
 }
 
 function bvRenderAll(){
-  const {cacheFresh,trendingCount,lastRun}=window.bvStats;
-  document.getElementById('bv-kpi-cache').textContent=`${cacheFresh}/${trendingCount}`;
-  document.getElementById('bv-kpi-cache-sub').textContent=trendingCount?`${Math.round(100*cacheFresh/trendingCount)}% de l'univers en tendance`:'-';
+  const {trendingCount,lastRun}=window.bvStats;
+  const sectorMom=window.bvSectorMomentum||[];
+  const bullishSectors=sectorMom.filter(s=>s.mom>0).length;
+  document.getElementById('bv-kpi-universe').textContent=trendingCount||'-';
+  // L'univers n'est PAS une liste stable : build_trending_universe.py ne retient que les
+  // secteurs dont le momentum 12-2 mois est positif (voir screener/build_trending_universe.py),
+  // un couperet binaire -- un secteur qui oscille pres de zero peut faire entrer/sortir des
+  // centaines de tickers d'un coup d'un run a l'autre (489 tickers Consumer Discretionary
+  // sortis en une heure le 2026-09-02 quand son momentum est passe de +1% a -2%). Ce chiffre
+  // remplace l'ancien "cache de fondamentaux" (retire le 2026-09-03, ratio cassable >100%
+  // et peu utile) par quelque chose qui explique directement les grosses variations de taille.
+  document.getElementById('bv-kpi-universe-sub').textContent=sectorMom.length
+    ?`${bullishSectors}/${sectorMom.length} secteurs haussiers (momentum 12-2 > 0)`:'-';
   document.getElementById('bv-kpi-candidates').textContent=bvCandidatesData.length;
   const best=bvCandidatesData.reduce((b,r)=>(!b||r.valuation_gap>b.valuation_gap)?r:b,null);
   if(best){
