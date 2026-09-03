@@ -494,5 +494,13 @@
       "reason": "L'entreprise offre une gamme de produits à des clients dans différents pays et industries, ce qui suggère une base de clients large et diversifiée.",
       "source": "ollama"
     }
+  },
+  "ABEV3.SA": {
+    "checked_at": "2026-09-03",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise propose une large gamme de boissons à travers divers marchés, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
   }
 }
