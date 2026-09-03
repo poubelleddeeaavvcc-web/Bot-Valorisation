@@ -1,0 +1,24 @@
+Univers : 3674 tickers (secteur/industrie/quality figes a aujourd'hui, prix+FX historiques reels)
+Panel de prix quotidien trouve en cache (price_panel_daily_cache.csv), pas de re-telechargement.
+Panel quotidien obtenu : 3676 tickers, 568 jours de bourse
+Panel FX trouve en cache (fx_daily_cache.csv), pas de re-telechargement.
+FX obtenu pour : ['TWD', 'HKD', 'MXN', 'AUD', 'BRL', 'CAD', 'USD', 'GBP', 'INR', 'JPY', 'CHF', 'SEK']
+Fenetre de backtest : 2025-10-31 -> 2026-09-30 (12 points de rebalancement mensuels, stop-loss verifie quotidiennement entre chaque point)
+
+--- Bot #1 (blind, proxy momentum) ---
+  Clotures (proxy momentum+stop-loss quotidien) : n=2432  win_rate=+42.0%  retour_moyen=-2.5%
+  Positions ouvertes en fin de periode : n=1786  retour_latent_moyen=+27.2%  retour_latent_median=+13.6%
+
+--- Bot #2 (constrained, proxy momentum+quality) ---
+  Clotures (proxy momentum+stop-loss quotidien) : n=15  win_rate=+26.7%  retour_moyen=-12.7%
+  Positions ouvertes en fin de periode : n=13  retour_latent_moyen=+67.0%  retour_latent_median=+39.2%
+  Equity EUR (depart 500) : 727.58 EUR (+45.5%)  cash_final=0.81 EUR
+
+--- Bot #3 (large, proxy momentum+quality) ---
+  Clotures (proxy momentum+stop-loss quotidien) : n=27  win_rate=+22.2%  retour_moyen=-12.2%
+  Positions ouvertes en fin de periode : n=26  retour_latent_moyen=+46.1%  retour_latent_median=+36.1%
+  Equity EUR (depart 500) : 647.81 EUR (+29.6%)  cash_final=11.63 EUR
+
+Benchmarks sur la meme fenetre : sp500=+12.4%, euronext100=+11.7%
+
+Resultats ecrits dans results\backtest/

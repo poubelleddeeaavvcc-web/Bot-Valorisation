@@ -8,3 +8,9 @@ __pycache__/
 # intermediate download artifacts (extracted CSVs are what's used)
 data/factors/*.zip
 
+# backtest_momentum_proxy.py's raw price/FX download caches -- regenerated on demand
+# (script re-downloads if missing), 30MB+ and not needed to interpret the results it
+# produces (summary_proxy.csv, equity_curve_proxy.csv, per-bot trades/open CSVs)
+results/backtest/price_panel_daily_cache.csv
+results/backtest/fx_daily_cache.csv
+
