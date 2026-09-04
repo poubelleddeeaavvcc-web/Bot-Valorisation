@@ -23,7 +23,8 @@ GROUNDING RULE (same as screener/news_filter.py -- see that module's docstring a
 own standing rule): Ollama must never invent a sector's outlook. synthesize_sector_outlook() only
 ever asks about text actually fetched this run; a sector nobody's newsletter mentioned today comes
 back "no_data" and keeps its last known value in sector_outlook.csv rather than being overwritten
-by a guess.
+by a guess -- up to STALE_DAYS, past which merge_into_output() expires it to no_data anyway (a
+months-old read is no better than a guess for a veto bot acting on it today).
 
 PRIVACY / REPO-PUBLIC CONSTRAINT: this repo pushes to a public GitHub remote with a Pages-served
 dashboard. Raw email BODY TEXT and sender addresses are therefore NEVER written to disk beyond
@@ -46,7 +47,7 @@ import os
 import pathlib
 import re
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import pandas as pd
 import requests
@@ -68,6 +69,11 @@ GMAIL_QUERY = "newer_than:2d"  # 2 days, not 1: buffer against a run being skipp
 MAX_MESSAGES = 300
 BODY_TRUNCATE = 1500  # per-message character cap fed to the classifier prompt
 SYNTHESIS_EXTRACT_TRUNCATE = 500  # per-message cap when building the sector-synthesis prompt
+
+STALE_DAYS = 21  # a sector's last real reading survives silent days (kept across "no_data" runs
+# so a single quiet day doesn't erase yesterday's signal), but not forever: past 3 weeks with
+# nothing new confirming or contradicting it, it's stale enough that a veto bot shouldn't still
+# be acting on it -- falls back to no_data rather than staying pinned to a months-old read.
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 OLLAMA_MODEL = "llama3.2:3b"
@@ -224,19 +230,31 @@ def synthesize_sector_outlook(newsletters: list[dict]) -> dict:
 def merge_into_output(new_results: dict, today: str):
     """A sector with no fresh signal today (no_data) keeps whatever it last had -- overwriting
     a real prior read with an absence-of-mail would throw away information the bots downstream
-    still rely on."""
+    still rely on. But that survival isn't unlimited: past STALE_DAYS with nothing confirming or
+    contradicting it, the old read is expired back to no_data (see STALE_DAYS) rather than left
+    to silently age forever."""
     if OUT_PATH.exists():
         existing = pd.read_csv(OUT_PATH).set_index("sector").to_dict("index")
     else:
         existing = {}
+    today_date = datetime.strptime(today, "%Y-%m-%d").date()
     for sector in SECTOR_ETF:
         res = new_results.get(sector)
         if res and res["outlook"] != "no_data":
             existing[sector] = {"outlook": res["outlook"], "reason": res["reason"], "last_updated": today}
-        elif sector not in existing:
+            continue
+        prev = existing.get(sector)
+        if prev is None:
             existing[sector] = {"outlook": "no_data",
                                  "reason": "aucune newsletter n'a mentionne ce secteur",
                                  "last_updated": today}
+        elif prev["outlook"] != "no_data":
+            age = (today_date - datetime.strptime(prev["last_updated"], "%Y-%m-%d").date()).days
+            if age > STALE_DAYS:
+                existing[sector] = {"outlook": "no_data",
+                                     "reason": f"dernier signal perime (>{STALE_DAYS}j sans confirmation, "
+                                               f"etait \"{prev['outlook']}\" le {prev['last_updated']})",
+                                     "last_updated": today}
     rows = [{"sector": s, **v} for s, v in existing.items()]
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(rows).to_csv(OUT_PATH, index=False)
