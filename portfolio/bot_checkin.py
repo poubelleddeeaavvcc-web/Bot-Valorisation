@@ -93,10 +93,66 @@ BOTS = [
         # (notes Qualite/Perspective au lieu de composite_score) -- ajoute 2026-09-03 pour
         # repondre a la question du user : quelle methode de selection est la plus
         # performante, avec le moins de risque, une fois assez de clotures propres.
-        "key": "bot7_constrained_notes",
-        "label": "Bot #7 (constrained, selection par notes Qualite/Perspective)",
+        # Renumerote #7 -> #8 le 2026-09-04 (voir plan "Bots #7-#12") : le groupe "notes" et le
+        # groupe "veto sectoriel" suivent chacun l'ordre aveugle/contraint/large deja utilise
+        # par #1/#2/#3 et #4/#5/#6 -- ce bot (mecanique contrainte) devient #8, aucun fichier de
+        # donnees ne change.
+        "key": "bot8_constrained_notes",
+        "label": "Bot #8 (constrained, selection par notes Qualite/Perspective)",
         "ledger": SIM_DIR / "constrained_portfolio_ledger_notes.csv",
         "summary": SIM_DIR / "constrained_summary_notes.json",
+        "has_eur_equity": True,
+    },
+    {
+        # Bot #7 (aveugle + notes) -- meme mecanique que Bot#1 (achete tout candidat LONG,
+        # aucun classement/capital), seul ajout : un candidat sans note calculable ou sous les
+        # seuils QUALITE_THRESHOLD/PERSPECTIVE_THRESHOLD est ignore. Voir
+        # simulate_portfolio_notes.py.
+        "key": "bot7_blind_notes",
+        "label": "Bot #7 (blind, seuil notes Qualite/Perspective)",
+        "ledger": SIM_DIR / "portfolio_ledger_notes.csv",
+        "summary": SIM_DIR / "summary_notes.json",
+        "has_eur_equity": False,
+    },
+    {
+        # Bot #9 (large + notes) -- meme mecanique que Bot#3 (secteur le moins detenu
+        # d'abord), classement par notes Qualite/Perspective au lieu de composite_score. Voir
+        # simulate_large_portfolio_notes.py.
+        "key": "bot9_large_notes",
+        "label": "Bot #9 (large, selection par notes Qualite/Perspective)",
+        "ledger": SIM_DIR / "large_portfolio_ledger_notes.csv",
+        "summary": SIM_DIR / "large_summary_notes.json",
+        "has_eur_equity": True,
+    },
+    {
+        # Bot #10 (aveugle + veto sectoriel newsletters) -- meme mecanique que Bot#1, un
+        # candidat est ignore si son secteur est "sous_pression" dans sector_outlook.csv du
+        # jour (synthese Ollama des newsletters Gmail de l'utilisateur, voir
+        # newsletter_digest.py). Voir simulate_portfolio_sector_outlook.py.
+        "key": "bot10_blind_sector_outlook",
+        "label": "Bot #10 (blind, veto sectoriel newsletters)",
+        "ledger": SIM_DIR / "portfolio_ledger_sector_outlook.csv",
+        "summary": SIM_DIR / "summary_sector_outlook.json",
+        "has_eur_equity": False,
+    },
+    {
+        # Bot #11 (contraint + veto sectoriel newsletters) -- meme mecanique que Bot#2, meme
+        # classement composite_score, avec le meme veto sectoriel que Bot#10. Voir
+        # simulate_constrained_portfolio_sector_outlook.py.
+        "key": "bot11_constrained_sector_outlook",
+        "label": "Bot #11 (constrained, veto sectoriel newsletters)",
+        "ledger": SIM_DIR / "constrained_portfolio_ledger_sector_outlook.csv",
+        "summary": SIM_DIR / "constrained_summary_sector_outlook.json",
+        "has_eur_equity": True,
+    },
+    {
+        # Bot #12 (large + veto sectoriel newsletters) -- meme mecanique que Bot#3, meme
+        # classement composite_score, avec le meme veto sectoriel que Bot#10/#11. Voir
+        # simulate_large_portfolio_sector_outlook.py.
+        "key": "bot12_large_sector_outlook",
+        "label": "Bot #12 (large, veto sectoriel newsletters)",
+        "ledger": SIM_DIR / "large_portfolio_ledger_sector_outlook.csv",
+        "summary": SIM_DIR / "large_summary_sector_outlook.json",
         "has_eur_equity": True,
     },
 ]

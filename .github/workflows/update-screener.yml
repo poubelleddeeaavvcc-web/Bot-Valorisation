@@ -35,29 +35,22 @@ jobs:
       - name: Analyser le cache (aucun appel reseau)
         run: python screener/analyze_cache.py
 
-      - name: Calculer les notes Qualite/Perspective (affichage + Bot #7, aucun appel reseau)
+      - name: Calculer les notes Qualite/Perspective (affichage + Bot #7/#8/#9, aucun appel reseau)
         run: python screener/quality_perspective_notes.py
 
-      - name: Simulation de portefeuille en aveugle
+      - name: Simulation de portefeuille en aveugle (Bot #1)
         run: python screener/simulate_portfolio.py
 
-      - name: Simulation de portefeuille a capital contraint (restreint, diversifie, reinvesti)
-        run: python screener/simulate_constrained_portfolio.py
+      # Bot #7 : meme mecanique que #1 (aveugle, sans capital ni classement), sauf qu'un
+      # candidat sans note calculable ou sous les seuils qualite/perspective est ignore --
+      # voir simulate_portfolio_notes.py.
+      - name: Simulation en aveugle + seuil notes Qualite/Perspective (Bot #7)
+        run: python screener/simulate_portfolio_notes.py
 
-      - name: Simulation de portefeuille large (equilibre par secteur, sans plafond)
-        run: python screener/simulate_large_portfolio.py
-
-      # Bot #7 : memes mecaniques que #2 (capital contraint), mais classement des candidats
-      # par les notes Qualite/Perspective (moyenne des 2 notes /20) au lieu du
-      # composite_score value+momentum+quality -- comparaison controlee des deux methodes de
-      # selection sur le meme pool de candidats, voir simulate_constrained_portfolio_notes.py.
-      - name: Simulation a capital contraint + selection par notes (Bot #7)
-        run: python screener/simulate_constrained_portfolio_notes.py
-
-      # Bots #4/5/6 : memes mecaniques que #1/2/3, avec un filtre actu (Ollama local, voir
-      # screener/news_filter.py) juste avant chaque achat. Ollama tourne uniquement dans ce
-      # job -- installe et le modele telecharge a chaque run (~2GB, mis en cache entre runs
-      # par actions/cache pour eviter de le retelecharger a chaque heure).
+      # Ollama tourne pour le digest newsletters (ci-dessous) ET les bots #4/5/6 -- installe
+      # et le modele telecharge une fois par run (~2GB, mis en cache entre runs par
+      # actions/cache pour eviter de le retelecharger a chaque heure). Deplace plus tot dans
+      # le pipeline (2026-09-04) pour etre disponible avant newsletter_digest.py.
       - name: Cache du modele Ollama
         uses: actions/cache@v4
         with:
@@ -73,6 +66,51 @@ jobs:
             sleep 2
           done
           ollama pull llama3.2:3b
+
+      # Synthese quotidienne (auto-gate interne) de l'actualite sectorielle a partir des
+      # newsletters Gmail personnelles de l'utilisateur -- voir screener/newsletter_digest.py.
+      # Alimente les bots #10/#11/#12 (veto sectoriel) via data/universe/sector_outlook.csv.
+      - name: Synthese newsletters -> sector_outlook.csv
+        env:
+          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+          GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
+          GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+        run: python screener/newsletter_digest.py
+
+      # Bot #10 : meme mecanique que #1 (aveugle), sauf qu'un candidat dont le secteur est
+      # "sous_pression" dans sector_outlook.csv du jour est ignore -- voir
+      # simulate_portfolio_sector_outlook.py.
+      - name: Simulation en aveugle + veto sectoriel newsletters (Bot #10)
+        run: python screener/simulate_portfolio_sector_outlook.py
+
+      - name: Simulation de portefeuille a capital contraint (restreint, diversifie, reinvesti) (Bot #2)
+        run: python screener/simulate_constrained_portfolio.py
+
+      - name: Simulation de portefeuille large (equilibre par secteur, sans plafond) (Bot #3)
+        run: python screener/simulate_large_portfolio.py
+
+      # Bot #8 (renumerote #7 -> #8 le 2026-09-04) : memes mecaniques que #2 (capital
+      # contraint), mais classement des candidats par les notes Qualite/Perspective (moyenne
+      # des 2 notes /20) au lieu du composite_score value+momentum+quality -- comparaison
+      # controlee des deux methodes de selection sur le meme pool de candidats, voir
+      # simulate_constrained_portfolio_notes.py.
+      - name: Simulation a capital contraint + selection par notes (Bot #8)
+        run: python screener/simulate_constrained_portfolio_notes.py
+
+      # Bot #11 : meme mecanique que #2, meme classement composite_score, avec le meme veto
+      # sectoriel que Bot #10 -- voir simulate_constrained_portfolio_sector_outlook.py.
+      - name: Simulation a capital contraint + veto sectoriel newsletters (Bot #11)
+        run: python screener/simulate_constrained_portfolio_sector_outlook.py
+
+      # Bot #9 : meme mecanique que #3 (large), classement par notes Qualite/Perspective au
+      # lieu de composite_score -- voir simulate_large_portfolio_notes.py.
+      - name: Simulation large + selection par notes (Bot #9)
+        run: python screener/simulate_large_portfolio_notes.py
+
+      # Bot #12 : meme mecanique que #3, meme classement composite_score, avec le meme veto
+      # sectoriel que Bot #10/#11 -- voir simulate_large_portfolio_sector_outlook.py.
+      - name: Simulation large + veto sectoriel newsletters (Bot #12)
+        run: python screener/simulate_large_portfolio_sector_outlook.py
 
       - name: Simulation en aveugle + filtre actu Ollama (Bot #4)
         run: python screener/simulate_portfolio_newsgated.py

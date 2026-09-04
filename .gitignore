@@ -5,6 +5,10 @@ results/portfolio_vs_screener.csv
 __pycache__/
 *.pyc
 
+# Gmail OAuth credentials for newsletter_digest.py (local testing only -- CI uses repo
+# secrets GMAIL_REFRESH_TOKEN/GMAIL_CLIENT_ID/GMAIL_CLIENT_SECRET instead)
+.env
+
 # intermediate download artifacts (extracted CSVs are what's used)
 data/factors/*.zip
 

@@ -1,40 +1,14 @@
-"""Bot#8 (renumbered from Bot#7 on 2026-09-04, see plan "Bots #7-#12": the notes/veto bots are
-now numbered by mechanic within each improvement group -- aveugle/contraint/large -- to match
-the #1/#2/#3 and #4/#5/#6 convention; this bot's behavior and ledger files are unchanged, only
-its number/label moved): same capital-constrained paper-trading mechanics as
-simulate_constrained_portfolio.py (Bot#2 -- capital, slots, sector cap, NA cap, FX and
-fractional-share handling all identical), except candidates are ranked by the 2-note
-quality/perspective system (screener/quality_perspective_notes.py) instead of
-select_top_picks.composite_score.
+"""Bot#11: same capital-constrained paper-trading mechanics as simulate_constrained_portfolio.py
+(Bot#2 -- capital, slots, sector cap, NA cap, FX and fractional-share handling all identical),
+same ranking (select_top_picks.composite_score, unchanged), except a candidate whose sector is
+currently rated "sous_pression" in data/universe/sector_outlook.csv -- Ollama's daily synthesis
+of the user's own Gmail newsletters, see screener/newsletter_digest.py -- is excluded from the
+pool entirely. "neutre"/"florissant"/no signal at all (missing file) don't exclude anything, same
+fail-open posture as every other best-effort join in this repo.
 
-Why this bot exists (2026-09-03, per the user): the notes were originally built as a
-read-only annotation, deliberately NOT feeding into any bot's selection (see
-quality_perspective_notes.py's module docstring). The user then asked for a way to
-actually compare the two ranking methods head-to-head on performance and risk -- which
-needs its own live paper-trading track record, not a retroactive backtest (Cash/Discipline
-history didn't exist before 2026-09-03, so there's no historical note data to replay).
-
-Deliberately draws from the SAME candidate pool as every other bot
-(long_candidates_latest.csv, i.e. already passed value_momentum_quality_screener_v2.py's
-valuation_gap/debt/momentum filter) rather than defining its own universe from the notes
-alone -- an independent universe would confound "does note-based ranking pick better
-winners" with "does note-based filtering select a different, unrelated set of candidates
-to begin with", making a performance gap uninterpretable. Everything except fill_slots()
-(which decides what to buy, and here also what "best" means) is reused directly from
-simulate_constrained_portfolio.py, so any difference between Bot#2's and Bot#7's ledgers
-isolates the effect of ranking-by-notes vs ranking-by-composite_score on an otherwise
-identical entry/exit/diversification mechanism -- exactly the controlled comparison asked
-for. Feeds into the same portfolio/bot_checkin.py report (win rate, avg return/win/loss,
-30-clean-trade threshold) as every other bot once added to its BOTS list.
-
-Ranking: notes_score = mean(note_qualite_20, note_perspective_20) -- both already
-percentile-based /20 scores (see quality_perspective_notes.py), so a plain average treats
-"how good is this business" and "is this a good moment to buy it" as equally important,
-mirroring composite_score's equal-weighting philosophy without re-deriving it. Candidates
-with no computable note yet (still NaN pre-backfill, or permanently N/A for structural
-reasons -- see SECTOR_NA in quality_perspective_notes.py) are dropped from the pool
-entirely rather than ranked last: buying a candidate this bot couldn't actually score would
-not test the notes' predictive value, it would just be noise in the comparison.
+Isolates a single variable against Bot#2, same controlled-comparison principle as Bot#8 (notes
+ranking) vs Bot#2: everything except the extra sector exclusion in fill_slots() is reused
+directly from simulate_constrained_portfolio.py.
 """
 import json
 import math
@@ -47,36 +21,33 @@ import pandas as pd
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
-from screener.select_top_picks import ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE  # noqa: E402
+from screener.select_top_picks import (  # noqa: E402
+    composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
+)
 from screener.simulate_constrained_portfolio import (  # noqa: E402
     LEDGER_COLUMNS, MAX_PER_SECTOR, MAX_WHOLE_SHARE_OVERSHOOT, STARTING_CAPITAL, STARTING_SLOTS,
     TARGET_POSITION_SIZE, FX_PAIR, fetch_fx_rates, fractional_eligible, recheck_and_exit, to_eur,
 )
 from screener.simulate_portfolio import fails_fresh_check  # noqa: E402
 from screener.fetch_cache import fetch_one as fetch_cache_one  # noqa: E402
+from screener.newsletter_digest import load_pressured_sectors  # noqa: E402
 
-LEDGER_PATH = HERE / "results/simulation/constrained_portfolio_ledger_notes.csv"
-STATE_PATH = HERE / "results/simulation/constrained_state_notes.json"
+LEDGER_PATH = HERE / "results/simulation/constrained_portfolio_ledger_sector_outlook.csv"
+STATE_PATH = HERE / "results/simulation/constrained_state_sector_outlook.json"
 CANDIDATES_PATH = HERE / "results/screener/long_candidates_latest.csv"
 VALUATION_PATH = HERE / "results/screener/full_valuation_latest.csv"
-NOTES_PATH = HERE / "results/screener/quality_perspective_notes.csv"
-SUMMARY_PATH = HERE / "results/simulation/constrained_summary_notes.json"
-EQUITY_CURVE_PATH = HERE / "results/simulation/constrained_equity_curve_notes.csv"
-
-NOTES_LEDGER_COLUMNS = LEDGER_COLUMNS + [
-    "entry_note_qualite", "entry_note_qualite_low_confidence",
-    "entry_note_perspective", "entry_note_perspective_low_confidence",
-]
+SUMMARY_PATH = HERE / "results/simulation/constrained_summary_sector_outlook.json"
+EQUITY_CURVE_PATH = HERE / "results/simulation/constrained_equity_curve_sector_outlook.csv"
 
 
 def load_ledger() -> pd.DataFrame:
     if LEDGER_PATH.exists():
         df = pd.read_csv(LEDGER_PATH)
-        for c in NOTES_LEDGER_COLUMNS:
+        for c in LEDGER_COLUMNS:
             if c not in df.columns:
                 df[c] = None
-        return df[NOTES_LEDGER_COLUMNS]
-    return pd.DataFrame(columns=NOTES_LEDGER_COLUMNS)
+        return df[LEDGER_COLUMNS]
+    return pd.DataFrame(columns=LEDGER_COLUMNS)
 
 
 def load_cash() -> float:
@@ -87,27 +58,6 @@ def load_cash() -> float:
 
 def save_cash(cash: float):
     STATE_PATH.write_text(json.dumps({"cash_eur": cash}), encoding="utf-8")
-
-
-def _load_notes_score(candidates: pd.DataFrame) -> pd.DataFrame:
-    """Left-joins quality_perspective_notes.csv onto candidates and computes notes_score.
-    Missing file (module never run yet) or missing ticker both degrade to NaN score, same
-    end result (dropped from the pool below) -- never a hard error, this bot just can't
-    trade anything until notes exist, same posture as every other best-effort join in this
-    codebase."""
-    candidates = candidates.copy()
-    if not NOTES_PATH.exists():
-        candidates["notes_score"] = float("nan")
-        candidates["note_qualite_20"] = float("nan")
-        candidates["note_qualite_low_confidence"] = None
-        candidates["note_perspective_20"] = float("nan")
-        candidates["note_perspective_low_confidence"] = None
-        return candidates
-    notes = pd.read_csv(NOTES_PATH)[["ticker", "note_qualite_20", "note_qualite_low_confidence",
-                                      "note_perspective_20", "note_perspective_low_confidence"]]
-    candidates = candidates.merge(notes, on="ticker", how="left")
-    candidates["notes_score"] = candidates[["note_qualite_20", "note_perspective_20"]].mean(axis=1)
-    return candidates
 
 
 def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, cash: float, today: str,
@@ -121,14 +71,13 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
     industry_count = valuation.groupby("industry")["industry_count"].first()
     na_count = sum(1 for t in held_tickers if ticker_region(t) == "North America")
     state_count = int(ledger.loc[ledger["status"] == "open", "country"].map(is_state_linked).sum())
+    pressured = load_pressured_sectors()
 
     pool = candidates[~candidates["ticker"].isin(held_tickers)].copy()
-    pool = _load_notes_score(pool)
-    pool = pool.dropna(subset=["notes_score"])  # see module docstring: unscored candidates
-    # are excluded from this bot's universe entirely, not ranked last
+    pool = pool[~pool["sector"].isin(pressured)]
     if not len(pool):
         return ledger, cash
-    pool["score"] = pool["notes_score"]
+    pool["score"] = composite_score(pool)
     pool = pool.sort_values("score", ascending=False)
     rejected = set()
 
@@ -176,11 +125,6 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             rejected.add(ticker)
             continue
 
-        # fresh momentum/valuation gate, same entry bar as every other bot: this ranks by
-        # notes, but the candidate still has to clear the base screener's own filter on
-        # today's data before being bought, not just at whatever moment it entered
-        # long_candidates_latest.csv (2026-09-02 same-day round-trip fix, see
-        # simulate_portfolio.py's module docstring).
         fails, state = fails_fresh_check(fresh, pick_row["quality_multiplier"], sector_pe, sector_mom,
                                           industry_pe, industry_count, fallback_valuation_gap=pick_row["valuation_gap"])
         if fails:
@@ -209,10 +153,6 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             "unrealized_return_pct": 0.0,
             "exit_date": None, "exit_price": None, "exit_reason": None,
             "exit_value_eur": None, "return_pct": None, "holding_days": None,
-            "entry_note_qualite": pick_row.get("note_qualite_20"),
-            "entry_note_qualite_low_confidence": pick_row.get("note_qualite_low_confidence"),
-            "entry_note_perspective": pick_row.get("note_perspective_20"),
-            "entry_note_perspective_low_confidence": pick_row.get("note_perspective_low_confidence"),
         })
         cash -= cost
         held_tickers.add(ticker)
@@ -224,7 +164,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             state_count += 1
         kind = "fractionne" if fractional else "entier"
         print(f"  ACHAT {ticker} ({pick_row['sector']}) : {cost:.2f} EUR ({shares:.4f} actions, {kind}) "
-              f"@ {fresh['price']:.2f} {fresh.get('currency') or '?'}, notes_score {pick_row['score']:.1f}")
+              f"@ {fresh['price']:.2f} {fresh.get('currency') or '?'}, score {pick_row['score']:.2f}")
 
     if new_rows:
         ledger = pd.concat([ledger, pd.DataFrame(new_rows)], ignore_index=True)
@@ -245,7 +185,7 @@ def write_summary(ledger: pd.DataFrame, cash: float):
         "avg_return_closed": float(closed["return_pct"].mean()) if len(closed) else None,
     }
     SUMMARY_PATH.write_text(pd.Series(summary).to_json(), encoding="utf-8")
-    print(f"\n=== Portefeuille contraint (selection par notes) : {summary['nb_open']} positions, "
+    print(f"\n=== Portefeuille contraint (veto sectoriel) : {summary['nb_open']} positions, "
           f"{cash:.2f} EUR cash, valeur totale {total_equity:.2f} EUR "
           f"({summary['total_return_pct']:+.1%} depuis le depart) ===")
 
@@ -261,10 +201,6 @@ def append_equity_curve_point(cash: float, total_equity: float, nb_open: int, nb
 def main():
     if not CANDIDATES_PATH.exists() or not VALUATION_PATH.exists():
         print("Pas encore de resultats de screener -- rien a simuler.")
-        return
-    if not NOTES_PATH.exists():
-        print("quality_perspective_notes.csv n'existe pas encore -- lancer "
-              "screener/quality_perspective_notes.py d'abord. Rien a simuler ce run.")
         return
     today = pd.Timestamp.today().strftime("%Y-%m-%d")
     candidates = pd.read_csv(CANDIDATES_PATH)
