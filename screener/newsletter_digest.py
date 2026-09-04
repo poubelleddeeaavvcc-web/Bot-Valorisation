@@ -26,10 +26,15 @@ back "no_data" and keeps its last known value in sector_outlook.csv rather than 
 by a guess.
 
 PRIVACY / REPO-PUBLIC CONSTRAINT: this repo pushes to a public GitHub remote with a Pages-served
-dashboard. Raw email text, subjects, and sender addresses are therefore NEVER written to disk
-beyond the run's own memory and the minimal state file (a timestamp/id list, no content) -- only
-Ollama's own short synthesized outlook + one-line reason per sector ever reaches
-data/universe/sector_outlook.csv.
+dashboard. Raw email BODY TEXT and sender addresses are therefore NEVER written to disk beyond
+the run's own memory and the minimal state file (a timestamp/id list, no content) -- only Ollama's
+own short synthesized outlook + one-line reason per sector reaches data/universe/sector_outlook.csv.
+The one exception (added 2026-09-04, per the user's request for traceability): the SUBJECT line of
+each email actually classified as a financial newsletter is appended to
+results/screener/newsletter_database.csv -- a subject line is already headline-length public-ish
+text, the same sensitivity level as the headline titles news_filter.py already persists to
+news_database.csv, so it's an acceptable exception to the no-content rule; the body and sender
+stay excluded.
 
 Auto-gated to once per UTC day (same shape as portfolio/bot_checkin.due_for_checkin): the workflow
 that calls this runs hourly, but reclassifying the same ~2-day mail window every hour would burn
@@ -53,6 +58,8 @@ from screener.build_trending_universe import SECTOR_ETF  # noqa: E402
 
 STATE_PATH = HERE / "results/screener/newsletter_digest_state.json"
 OUT_PATH = HERE / "data/universe/sector_outlook.csv"
+NEWSLETTER_DB_PATH = HERE / "results/screener/newsletter_database.csv"
+NEWSLETTER_DB_COLUMNS = ["date", "subject"]
 
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 GMAIL_API = "https://gmail.googleapis.com/gmail/v1/users/me"
@@ -235,6 +242,17 @@ def merge_into_output(new_results: dict, today: str):
     pd.DataFrame(rows).to_csv(OUT_PATH, index=False)
 
 
+def _append_to_newsletter_database(today: str, subject: str):
+    """One row per email actually classified as a financial newsletter -- an ever-growing,
+    never-pruned audit trail of what fed each day's synthesis (see module docstring), same
+    shape as news_filter.py's NEWS_DB_PATH. Subject only: never the body or sender."""
+    row = {"date": today, "subject": subject}
+    NEWSLETTER_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    header = not NEWSLETTER_DB_PATH.exists()
+    pd.DataFrame([row], columns=NEWSLETTER_DB_COLUMNS).to_csv(
+        NEWSLETTER_DB_PATH, mode="a", header=header, index=False)
+
+
 def load_pressured_sectors() -> set:
     """Sectors currently rated "sous_pression" in sector_outlook.csv -- used by the veto bots
     (#10/#11/#12) to skip a candidate. Missing file (digest never run yet) or the column simply
@@ -279,6 +297,7 @@ def main():
         msg = fetch_message(token, mid)
         if msg is not None and classify_newsletter(msg):
             newsletters.append(msg)
+            _append_to_newsletter_database(today, msg["subject"])
 
     print(f"{len(new_ids)} nouveau(x) mail(s) examine(s), {len(newsletters)} newsletter(s) "
           f"financiere(s) retenue(s).")
