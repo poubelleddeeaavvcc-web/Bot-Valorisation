@@ -510,5 +510,13 @@
       "reason": "10-K SEC (2026-06-11) : ten customers represented approximately 56% and 53% of net sales [https://www.sec.gov/Archives/edgar/data/88948/000143774926020290/senea20260331_10k.htm]",
       "source": "sec_10k"
     }
+  },
+  "AMZN": {
+    "checked_at": "2026-09-04",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte décrit l'entreprise comme servie à la fois au grand public, à des développeurs, des entreprises, des créateurs de contenu, des annonceurs et des employés, indiquant une large base de clients diversifiée.",
+      "source": "ollama"
+    }
   }
 }

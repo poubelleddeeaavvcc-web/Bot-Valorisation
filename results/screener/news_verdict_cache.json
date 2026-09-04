@@ -418,5 +418,11 @@
     "sentiment": "positive",
     "reason": "Les actualites recentes sur Seneca Foods Corporation (SENEA) suggere un ton general positif, avec des gains de prix, des ventes accrues et des acquisitions stratégiques, ce qui indique que l'action est consideree comme une opportunité d'investissement.",
     "source": "ollama"
+  },
+  "AMZN_2026-09-04": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Bien que certaines actualités mentionnent des problèmes tels que des grèves et des ventes en baisse, d'autres soulignent la croissance de l'entreprise et son leadership dans le secteur de la logistique et de la cloud computing.",
+    "source": "ollama"
   }
 }
