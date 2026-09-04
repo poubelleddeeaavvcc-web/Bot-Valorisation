@@ -80,6 +80,16 @@ MAX_PER_SECTOR = 3
 # exactly TARGET_POSITION_SIZE regardless of share price.
 MAX_WHOLE_SHARE_OVERSHOOT = 2.5
 
+# Flat commission deducted once, at the sale, from every closed position's proceeds -- per the
+# user's explicit direction (2026-09-04): not charged on entry, and not doubled into a
+# round-trip cost. Applies here (and to every bot that imports recheck_and_exit rather than
+# duplicating it -- Bot#2/3/5/6/8/9/11/12, see each module's own docstring) but deliberately
+# NOT to the "blind" bots (#1/4/7/10, simulate_portfolio.py's own exit logic): those track no
+# capital/cost basis at all, only a raw price-return percentage, so there's no EUR amount to
+# deduct a flat fee from without inventing a notional position size that would change their
+# "no capital assumption" design.
+TRADE_FEE_EUR = 1.0
+
 LEDGER_COLUMNS = [
     "ticker", "name", "sector", "country", "status", "currency", "fractional",
     "entry_date", "entry_price", "shares", "entry_value_eur",
@@ -217,16 +227,23 @@ def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, 
             reason = ("stop_loss" if stop_loss_hit else
                       "valorisation_atteinte" if valuation_reached else "momentum_perdu")
             entry_date = pd.Timestamp(ledger.at[idx, "entry_date"])
+            # Fee deducted from the sale proceeds, not from the price-return calc above (which
+            # only decides whether to exit): the position still exits on the same momentum/
+            # valuation/stop-loss triggers regardless of a flat 1 EUR commission, but what
+            # actually lands in cash -- and the recorded return_pct used for win-rate/avg-return
+            # reporting -- reflects the real cost of the trade.
+            net_exit_value = current_value - TRADE_FEE_EUR
+            net_return = unrealized - TRADE_FEE_EUR / ledger.at[idx, "entry_value_eur"]
             ledger.at[idx, "status"] = "closed"
             ledger.at[idx, "exit_date"] = today
             ledger.at[idx, "exit_price"] = fresh["price"]
             ledger.at[idx, "exit_reason"] = reason
-            ledger.at[idx, "exit_value_eur"] = current_value
-            ledger.at[idx, "return_pct"] = unrealized
+            ledger.at[idx, "exit_value_eur"] = net_exit_value
+            ledger.at[idx, "return_pct"] = net_return
             ledger.at[idx, "holding_days"] = (pd.Timestamp(today) - entry_date).days
-            cash += current_value
-            print(f"  VENTE {ticker} : {reason}, retour {unrealized:+.1%}, "
-                  f"{current_value:.2f} EUR reinjectes en cash")
+            cash += net_exit_value
+            print(f"  VENTE {ticker} : {reason}, retour net {net_return:+.1%} "
+                  f"(frais {TRADE_FEE_EUR:.2f} EUR deduits), {net_exit_value:.2f} EUR reinjectes en cash")
 
     return ledger, cash
 
