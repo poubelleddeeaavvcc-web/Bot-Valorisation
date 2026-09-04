@@ -518,5 +518,13 @@
       "reason": "Le texte décrit l'entreprise comme servie à la fois au grand public, à des développeurs, des entreprises, des créateurs de contenu, des annonceurs et des employés, indiquant une large base de clients diversifiée.",
       "source": "ollama"
     }
+  },
+  "PATH": {
+    "checked_at": "2026-09-04",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2026-03-25) : customers with ARR of $1 million or more, which accounted for approximately 89% and 52% of our revenue [https://www.sec.gov/Archives/edgar/data/1734722/000173472226000012/path-20260131.htm]",
+      "source": "sec_10k"
+    }
   }
 }
