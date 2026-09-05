@@ -17,7 +17,7 @@ No sender/label pre-filter, per the user's explicit direction (2026-09-04): ever
 last 2 days is read and Ollama itself judges whether it's a financial/economic newsletter or
 something else (personal, professional, transactional, unrelated advertising) -- see
 classify_newsletter(). Only messages classified as newsletters ever get their content folded into
-the per-sector synthesis prompt.
+the sector-classification prompt (see _classify_extract_sector()).
 
 GROUNDING RULE (same as screener/news_filter.py -- see that module's docstring and the project's
 own standing rule): Ollama must never invent a sector's outlook. synthesize_sector_outlook() only
@@ -77,15 +77,13 @@ STALE_DAYS = 21  # a sector's last real reading survives silent days (kept acros
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 # 8b, not the 3b shared with news_filter.py's bots #4/5/6: this module asks the model to judge
-# whether an extract actually concerns a given sector out of 11 candidates -- a subtler relevance
+# which single sector (out of 11 candidates) an extract is actually about -- a subtler relevance
 # call than news_filter.py's per-ticker buy/veto question, and 3b was demonstrably getting it
 # wrong (2026-09-04: confidently linked an unrelated Nvidia/pharma extract to Finance, Industrials,
 # Telecommunications...). Slower per call on the CPU-only Actions runner, but this step already
 # waits on Ollama serially either way.
 OLLAMA_MODEL = "llama3.1:8b"
 OLLAMA_TIMEOUT = 180  # 8b cold-loads and infers slower than the 3b other modules use
-
-VALID_OUTLOOKS = {"sous_pression", "neutre", "florissant", "no_data"}
 
 # outlook is derived from SCORE, never asked for directly -- asking a 3B model for a category
 # ("sous_pression"/"neutre"/"florissant") AND a free-text reason in the same call let the two
@@ -106,15 +104,30 @@ Ceci est-il une newsletter financiere/economique (actualite des marches, d'un se
 Reponds UNIQUEMENT en JSON : {{"is_finance_newsletter": true|false, "reason": "<une phrase courte>"}}
 """
 
-SECTOR_PROMPT = """Voici des extraits de newsletters financieres recues aujourd'hui, chacun precede de son sujet entre crochets :
+# One call per EXTRACT (asking it to pick its one main sector out of 11), not one call per
+# SECTOR (asking of every sector in turn "does this extract concern you?") -- the per-sector
+# version, even on the 8b model, kept forcing a link between an extract and every sector loosely
+# adjacent to its topic (observed 2026-09-05: an AI-chips earnings extract got cited as the source
+# for Finance, Industrials, Basic Materials, Energy AND Telecommunications, because each of those
+# 11 questions individually gave the model room to rationalize a connection). Asking once per
+# extract for its SINGLE main sector removes that structural incentive: there's no separate
+# question to talk itself into answering yes to for each unrelated sector.
+SECTOR_LIST = "\n".join(f"- {s}" for s in SECTOR_ETF)
 
-{extracts}
+EXTRACT_SECTOR_PROMPT = """Voici un extrait de newsletter financiere recue aujourd'hui :
 
-Ignore tout extrait qui ne parle pas explicitement du secteur "{sector}". Sur la seule base de ceux qui en parlent, note de 0 a 10 la tendance actuelle de ce secteur : 0 = clairement sous pression, 5 = neutre ou avis partages, 10 = clairement florissant.
+Sujet : {subject}
+Extrait : {body}
 
-Il est normal et attendu que la plupart des secteurs n'aient AUCUN extrait pertinent -- dans le doute, ou si le lien avec "{sector}" n'est qu'indirect ou suppose, reponds "score": null plutot que de forcer un rapprochement avec un extrait qui parle en realite d'autre chose (ex: un extrait sur les semi-conducteurs IA ne concerne PAS "Telecommunications" ou "Real Estate" juste parce qu'il mentionne la technologie).
+Parmi les secteurs suivants, lequel est le sujet PRINCIPAL et EXPLICITE de cet extrait -- pas un secteur seulement mentionne en passant ou relie de facon indirecte ou supposee (ex: un extrait sur les semi-conducteurs IA concerne "Technology", pas "Finance", "Industrials" ou "Telecommunications" juste parce que ces secteurs achetent, vendent ou utilisent aussi de la technologie) :
 
-Reponds UNIQUEMENT en JSON : {{"score": <entier 0-10, ou null>, "sujet_source": "<le sujet exact, entre crochets ci-dessus, de l'extrait qui justifie le plus ta note -- null si score est null>", "reason": "<une phrase courte citant ce que dit cet extrait>"}}
+{sector_list}
+
+Il est normal et attendu qu'un extrait ne corresponde a AUCUN de ces secteurs -- dans le doute, reponds "sector": null plutot que de forcer un rapprochement.
+
+Si un secteur est identifie, note de 0 a 10 la tendance qu'exprime cet extrait pour ce secteur : 0 = clairement sous pression, 5 = neutre ou avis partages, 10 = clairement florissant.
+
+Reponds UNIQUEMENT en JSON : {{"sector": "<un secteur EXACT de la liste ci-dessus, ou null>", "score": <entier 0-10, ou null si sector est null>, "reason": "<une phrase courte citant ce que dit cet extrait>"}}
 """
 
 
@@ -235,25 +248,6 @@ def _score_to_outlook(score: float | None) -> str:
     return "neutre"
 
 
-def _normalize_subject(s: str) -> str:
-    return re.sub(r"[\[\]\"']", "", s or "").strip().lower()
-
-
-def _citation_matches(cited: str | None, known_subjects: set) -> bool:
-    """Loose match (brackets/case/quotes stripped, substring either way) -- the model rarely
-    echoes a subject verbatim, so exact equality rejected almost every real citation."""
-    if not cited:
-        return False
-    norm_cited = _normalize_subject(cited)
-    if not norm_cited:
-        return False
-    for subject in known_subjects:
-        norm_subject = _normalize_subject(subject)
-        if norm_cited == norm_subject or norm_cited in norm_subject or norm_subject in norm_cited:
-            return True
-    return False
-
-
 def _parse_score(raw_score) -> float | None:
     if raw_score is None:
         return None
@@ -264,30 +258,50 @@ def _parse_score(raw_score) -> float | None:
     return max(0.0, min(10.0, score))
 
 
+def _classify_extract_sector(newsletter: dict) -> dict | None:
+    """One Ollama call for this single extract: which sector (if any) is it actually about,
+    and what score does it express for that sector. Returns None if the model failed, named no
+    sector, or named something outside SECTOR_ETF (never trusted as a free-text match -- the
+    prompt requires an exact name from the list, so anything else is treated as a non-answer)."""
+    prompt = EXTRACT_SECTOR_PROMPT.format(subject=newsletter["subject"],
+                                           body=newsletter["body"][:SYNTHESIS_EXTRACT_TRUNCATE],
+                                           sector_list=SECTOR_LIST)
+    try:
+        raw = _call_ollama_json(prompt)
+    except Exception as e:
+        print(f"  echec classification sectorielle pour \"{newsletter['subject']}\": {e}",
+              file=sys.stderr)
+        return None
+    sector = raw.get("sector")
+    if sector not in SECTOR_ETF:
+        return None
+    score = _parse_score(raw.get("score"))
+    if score is None:
+        return None
+    return {"sector": sector, "score": score, "reason": str(raw.get("reason", ""))[:300],
+            "subject": newsletter["subject"]}
+
+
 def synthesize_sector_outlook(newsletters: list[dict]) -> dict:
-    extracts = "\n\n".join(f"[{n['subject']}] {n['body'][:SYNTHESIS_EXTRACT_TRUNCATE]}"
-                            for n in newsletters)
-    known_subjects = {n["subject"] for n in newsletters}
+    """Classifies each extract independently (see _classify_extract_sector), then averages the
+    scores that landed on each sector -- a sector several newsletters actually discussed today
+    gets a blended reading rather than only the last one processed."""
+    by_sector: dict[str, list[dict]] = {}
+    for n in newsletters:
+        classified = _classify_extract_sector(n)
+        if classified is not None:
+            by_sector.setdefault(classified["sector"], []).append(classified)
+
     results = {}
     for sector in SECTOR_ETF:
-        prompt = SECTOR_PROMPT.format(extracts=extracts, sector=sector)
-        try:
-            raw = _call_ollama_json(prompt)
-            score = _parse_score(raw.get("score"))
-            reason = str(raw.get("reason", ""))[:300]
-            cited = raw.get("sujet_source")
-            # grounding check: if Ollama names a source that isn't among today's actual
-            # subjects, it's inventing a citation -- distrust the score rather than keep it,
-            # same posture as the rest of this module (see GROUNDING RULE in the docstring).
-            if score is not None and not _citation_matches(cited, known_subjects):
-                print(f"  citation introuvable pour {sector} (\"{cited}\") -- score ignore",
-                      file=sys.stderr)
-                score = None
-                reason = f"citation non verifiable, score ecarte ({reason})"[:300]
-            results[sector] = {"outlook": _score_to_outlook(score), "score": score, "reason": reason}
-        except Exception as e:
-            print(f"  echec synthese Ollama pour {sector}: {e}", file=sys.stderr)
-            results[sector] = {"outlook": "no_data", "score": None, "reason": f"ollama indisponible ({e})"}
+        entries = by_sector.get(sector)
+        if not entries:
+            results[sector] = {"outlook": "no_data", "score": None,
+                                "reason": "aucune newsletter n'a mentionne ce secteur"}
+            continue
+        avg_score = sum(e["score"] for e in entries) / len(entries)
+        reason = "; ".join(f"[{e['subject']}] {e['reason']}" for e in entries)[:300]
+        results[sector] = {"outlook": _score_to_outlook(avg_score), "score": avg_score, "reason": reason}
     return results
 
 
