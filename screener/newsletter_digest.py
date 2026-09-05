@@ -29,7 +29,7 @@ months-old read is no better than a guess for a veto bot acting on it today).
 PRIVACY / REPO-PUBLIC CONSTRAINT: this repo pushes to a public GitHub remote with a Pages-served
 dashboard. Raw email BODY TEXT and sender addresses are therefore NEVER written to disk beyond
 the run's own memory and the minimal state file (a timestamp/id list, no content) -- only Ollama's
-own short synthesized outlook + one-line reason per sector reaches data/universe/sector_outlook.csv.
+own synthesized outlook + 0-10 score + one-line reason per sector reaches data/universe/sector_outlook.csv.
 The one exception (added 2026-09-04, per the user's request for traceability): the SUBJECT line of
 each email actually classified as a financial newsletter is appended to
 results/screener/newsletter_database.csv -- a subject line is already headline-length public-ish
@@ -76,10 +76,24 @@ STALE_DAYS = 21  # a sector's last real reading survives silent days (kept acros
 # be acting on it -- falls back to no_data rather than staying pinned to a months-old read.
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "llama3.2:3b"
-OLLAMA_TIMEOUT = 90
+# 8b, not the 3b shared with news_filter.py's bots #4/5/6: this module asks the model to judge
+# whether an extract actually concerns a given sector out of 11 candidates -- a subtler relevance
+# call than news_filter.py's per-ticker buy/veto question, and 3b was demonstrably getting it
+# wrong (2026-09-04: confidently linked an unrelated Nvidia/pharma extract to Finance, Industrials,
+# Telecommunications...). Slower per call on the CPU-only Actions runner, but this step already
+# waits on Ollama serially either way.
+OLLAMA_MODEL = "llama3.1:8b"
+OLLAMA_TIMEOUT = 180  # 8b cold-loads and infers slower than the 3b other modules use
 
 VALID_OUTLOOKS = {"sous_pression", "neutre", "florissant", "no_data"}
+
+# outlook is derived from SCORE, never asked for directly -- asking a 3B model for a category
+# ("sous_pression"/"neutre"/"florissant") AND a free-text reason in the same call let the two
+# drift apart (observed 2026-09-04: reason argued "sous pression" while outlook said "florissant").
+# A single 0-10 axis removes that failure mode by construction: there's only one number to get
+# consistent with itself, and outlook becomes pure arithmetic on it (see _score_to_outlook).
+SCORE_SOUS_PRESSION_MAX = 3  # score <= this -> sous_pression
+SCORE_FLORISSANT_MIN = 7     # score >= this -> florissant, else neutre
 
 CLASSIFY_PROMPT = """Voici un email recu aujourd'hui :
 
@@ -92,13 +106,15 @@ Ceci est-il une newsletter financiere/economique (actualite des marches, d'un se
 Reponds UNIQUEMENT en JSON : {{"is_finance_newsletter": true|false, "reason": "<une phrase courte>"}}
 """
 
-SECTOR_PROMPT = """Voici des extraits de newsletters financieres recues aujourd'hui :
+SECTOR_PROMPT = """Voici des extraits de newsletters financieres recues aujourd'hui, chacun precede de son sujet entre crochets :
 
 {extracts}
 
-D'apres CES SEULS extraits, le secteur "{sector}" est-il actuellement plutot sous pression, neutre, ou florissant ? Si aucun extrait ne parle de ce secteur, reponds "no_data" -- ne devine jamais a partir d'autre chose que ce texte.
+Ignore tout extrait qui ne parle pas explicitement du secteur "{sector}". Sur la seule base de ceux qui en parlent, note de 0 a 10 la tendance actuelle de ce secteur : 0 = clairement sous pression, 5 = neutre ou avis partages, 10 = clairement florissant.
 
-Reponds UNIQUEMENT en JSON : {{"outlook": "sous_pression"|"neutre"|"florissant"|"no_data", "reason": "<une phrase courte>"}}
+Il est normal et attendu que la plupart des secteurs n'aient AUCUN extrait pertinent -- dans le doute, ou si le lien avec "{sector}" n'est qu'indirect ou suppose, reponds "score": null plutot que de forcer un rapprochement avec un extrait qui parle en realite d'autre chose (ex: un extrait sur les semi-conducteurs IA ne concerne PAS "Telecommunications" ou "Real Estate" juste parce qu'il mentionne la technologie).
+
+Reponds UNIQUEMENT en JSON : {{"score": <entier 0-10, ou null>, "sujet_source": "<le sujet exact, entre crochets ci-dessus, de l'extrait qui justifie le plus ta note -- null si score est null>", "reason": "<une phrase courte citant ce que dit cet extrait>"}}
 """
 
 
@@ -209,21 +225,69 @@ def classify_newsletter(msg: dict) -> bool:
         return False
 
 
+def _score_to_outlook(score: float | None) -> str:
+    if score is None:
+        return "no_data"
+    if score <= SCORE_SOUS_PRESSION_MAX:
+        return "sous_pression"
+    if score >= SCORE_FLORISSANT_MIN:
+        return "florissant"
+    return "neutre"
+
+
+def _normalize_subject(s: str) -> str:
+    return re.sub(r"[\[\]\"']", "", s or "").strip().lower()
+
+
+def _citation_matches(cited: str | None, known_subjects: set) -> bool:
+    """Loose match (brackets/case/quotes stripped, substring either way) -- the model rarely
+    echoes a subject verbatim, so exact equality rejected almost every real citation."""
+    if not cited:
+        return False
+    norm_cited = _normalize_subject(cited)
+    if not norm_cited:
+        return False
+    for subject in known_subjects:
+        norm_subject = _normalize_subject(subject)
+        if norm_cited == norm_subject or norm_cited in norm_subject or norm_subject in norm_cited:
+            return True
+    return False
+
+
+def _parse_score(raw_score) -> float | None:
+    if raw_score is None:
+        return None
+    try:
+        score = float(raw_score)
+    except (TypeError, ValueError):
+        return None
+    return max(0.0, min(10.0, score))
+
+
 def synthesize_sector_outlook(newsletters: list[dict]) -> dict:
     extracts = "\n\n".join(f"[{n['subject']}] {n['body'][:SYNTHESIS_EXTRACT_TRUNCATE]}"
                             for n in newsletters)
+    known_subjects = {n["subject"] for n in newsletters}
     results = {}
     for sector in SECTOR_ETF:
         prompt = SECTOR_PROMPT.format(extracts=extracts, sector=sector)
         try:
             raw = _call_ollama_json(prompt)
-            outlook = raw.get("outlook")
-            if outlook not in VALID_OUTLOOKS:
-                outlook = "no_data"
-            results[sector] = {"outlook": outlook, "reason": str(raw.get("reason", ""))[:300]}
+            score = _parse_score(raw.get("score"))
+            reason = str(raw.get("reason", ""))[:300]
+            cited = raw.get("sujet_source")
+            # grounding check: if Ollama names a source that isn't among today's actual
+            # subjects, it's inventing a citation -- distrust the score rather than keep it,
+            # same posture as the rest of this module (see GROUNDING RULE in the docstring).
+            if score is not None and not _citation_matches(cited, known_subjects):
+                print(f"  citation introuvable pour {sector} (\"{cited}\") -- score ignore",
+                      file=sys.stderr)
+                score = None
+                reason = f"citation non verifiable, score ecarte ({reason})"[:300]
+            results[sector] = {"outlook": _score_to_outlook(score), "score": score, "reason": reason}
         except Exception as e:
             print(f"  echec synthese Ollama pour {sector}: {e}", file=sys.stderr)
-            results[sector] = {"outlook": "no_data", "reason": f"ollama indisponible ({e})"}
+            results[sector] = {"outlook": "no_data", "score": None, "reason": f"ollama indisponible ({e})"}
     return results
 
 
@@ -235,23 +299,26 @@ def merge_into_output(new_results: dict, today: str):
     to silently age forever."""
     if OUT_PATH.exists():
         existing = pd.read_csv(OUT_PATH).set_index("sector").to_dict("index")
+        for v in existing.values():  # rows written before the score column existed
+            v.setdefault("score", None)
     else:
         existing = {}
     today_date = datetime.strptime(today, "%Y-%m-%d").date()
     for sector in SECTOR_ETF:
         res = new_results.get(sector)
         if res and res["outlook"] != "no_data":
-            existing[sector] = {"outlook": res["outlook"], "reason": res["reason"], "last_updated": today}
+            existing[sector] = {"outlook": res["outlook"], "score": res["score"],
+                                 "reason": res["reason"], "last_updated": today}
             continue
         prev = existing.get(sector)
         if prev is None:
-            existing[sector] = {"outlook": "no_data",
+            existing[sector] = {"outlook": "no_data", "score": None,
                                  "reason": "aucune newsletter n'a mentionne ce secteur",
                                  "last_updated": today}
         elif prev["outlook"] != "no_data":
             age = (today_date - datetime.strptime(prev["last_updated"], "%Y-%m-%d").date()).days
             if age > STALE_DAYS:
-                existing[sector] = {"outlook": "no_data",
+                existing[sector] = {"outlook": "no_data", "score": None,
                                      "reason": f"dernier signal perime (>{STALE_DAYS}j sans confirmation, "
                                                f"etait \"{prev['outlook']}\" le {prev['last_updated']})",
                                      "last_updated": today}

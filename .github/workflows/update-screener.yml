@@ -47,15 +47,17 @@ jobs:
       - name: Simulation en aveugle + seuil notes Qualite/Perspective (Bot #7)
         run: python screener/simulate_portfolio_notes.py
 
-      # Ollama tourne pour le digest newsletters (ci-dessous) ET les bots #4/5/6 -- installe
-      # et le modele telecharge une fois par run (~2GB, mis en cache entre runs par
-      # actions/cache pour eviter de le retelecharger a chaque heure). Deplace plus tot dans
-      # le pipeline (2026-09-04) pour etre disponible avant newsletter_digest.py.
-      - name: Cache du modele Ollama
+      # Ollama tourne pour le digest newsletters (ci-dessous, llama3.1:8b -- voir
+      # newsletter_digest.py pour pourquoi ce module a besoin d'un modele plus capable que les
+      # autres) ET les bots #4/5/6 (llama3.2:3b) -- installe et les deux modeles telecharges une
+      # fois par run (~6.7GB cumules), mis en cache entre runs par actions/cache pour eviter de
+      # retelecharger a chaque heure. Deplace plus tot dans le pipeline (2026-09-04) pour etre
+      # disponible avant newsletter_digest.py.
+      - name: Cache des modeles Ollama
         uses: actions/cache@v4
         with:
           path: ~/.ollama/models
-          key: ollama-models-llama3.2-3b
+          key: ollama-models-llama3.2-3b-llama3.1-8b
 
       - name: Installer et demarrer Ollama
         run: |
@@ -66,6 +68,7 @@ jobs:
             sleep 2
           done
           ollama pull llama3.2:3b
+          ollama pull llama3.1:8b
 
       # Synthese quotidienne (auto-gate interne) de l'actualite sectorielle a partir des
       # newsletters Gmail personnelles de l'utilisateur -- voir screener/newsletter_digest.py.
