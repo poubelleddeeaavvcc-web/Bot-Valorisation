@@ -1,12 +1,12 @@
-sector,outlook,reason,last_updated
-Technology,sous_pression,Le secteur Technology est actuellement sous pression en raison des problèmes de concurrence accrue et de la pression pour maintenir une croissance économique.,2026-09-05
-Health Care,sous_pression,"Le secteur Health Care est actuellement sous pression, selon CES",2026-09-05
-Finance,sous_pression,"Le point hebdo de l'investisseur mentionne que les 'bonnes nouvelles deviennent des mauvaises nouvelles', ce qui suggère une situation tendue dans le secteur financier.",2026-09-05
-Consumer Discretionary,sous_pression,"Le secteur Consumer Discretionary est actuellement plus sous pression que le secteur Consumer Staples, selon les données de CES",2026-09-05
-Consumer Staples,sous_pression,"Le point hebdo de l'investisseur indique que les bonnes nouvelles sont devenues des mauvaises nouvelles, ce qui suggère un contexte économique tendu",2026-09-05
-Industrials,neutre,Aucun extrait mentionne spécifiquement le secteur Industrials.,2026-09-05
-Basic Materials,sous_pression,"Le point hebdo de l'investisseur indique que les bonnes nouvelles deviennent des mauvaises nouvelles, ce qui suggère une tendance négative dans le secteur.",2026-09-05
-Energy,sous_pression,"Le secteur 'Energy' est actuellement sous pression, selon CES.",2026-09-05
-Utilities,sous_pression,"Le point hebdo de l'investisseur indique que les bonnes nouvelles deviennent des mauvaises nouvelles, ce qui suggère une tendance générale à la baisse dans le marché.",2026-09-05
-Real Estate,sous_pression,"Le point hebdo de l'investisseur mentionne des 'bonnes nouvelles redeviennent des mauvaises nouvelles', ce qui suggère une tendance négative dans le marché financier.",2026-09-05
-Telecommunications,sous_pression,"Le secteur 'Telecommunications' est actuellement sous pression, car il est confronté à une concurrence accrue et à une demande en matière de services numériques qui peut varier en fonction des tendances de l'économie.",2026-09-05
+sector,outlook,score,reason,last_updated
+Technology,florissant,10.0,"[Micron: Nothing Is Over Yet] L'extrait fait référence à Micron, une entreprise de technologie spécialisée dans les semi-conducteurs, et utilise un langage positif comme 'Nothing Is Over Yet', suggérant que la situation est prometteuse pour ce secteur.; [3 Top Small-Cap Tech Stocks Averaging 50% For",2026-09-06
+Health Care,sous_pression,,"Le secteur Health Care est actuellement sous pression, selon CES",2026-09-05
+Finance,florissant,8.785714285714286,"[Why I Would Invest In QVOL Instead Of JEPQ] L'extrait suggère que l'auteur recommanderait d'investir dans QVOL au lieu de JEPQ, ce qui implique une prise de position financière.; [Wall Street Week Ahead] L'extrait fait référence à Wall Street, ce qui suggère une relation avec le secteur financier, ",2026-09-06
+Consumer Discretionary,sous_pression,,"Le secteur Consumer Discretionary est actuellement plus sous pression que le secteur Consumer Staples, selon les données de CES",2026-09-05
+Consumer Staples,sous_pression,,"Le point hebdo de l'investisseur indique que les bonnes nouvelles sont devenues des mauvaises nouvelles, ce qui suggère un contexte économique tendu",2026-09-05
+Industrials,florissant,10.0,"[CRH: Strong Execution, But Arcosa Raises The Risk For A Hold] L'extrait mentionne CRH, une entreprise du secteur des matériaux de construction, et note sa performance positive.",2026-09-06
+Basic Materials,sous_pression,,"Le point hebdo de l'investisseur indique que les bonnes nouvelles deviennent des mauvaises nouvelles, ce qui suggère une tendance négative dans le secteur.",2026-09-05
+Energy,florissant,10.0,"[Comstock Resources: A Potential Unexpected Step Forward Surprises The Market] L'extrait fait référence à Comstock Resources, une entreprise qui semble être dans le domaine de l'énergie.; [Higher Oil, Firmer Jobs, And Rising Yields Are Raising The Stakes For The Fed] L'extrait parle de 'Higher Oil',",2026-09-06
+Utilities,sous_pression,,"Le point hebdo de l'investisseur indique que les bonnes nouvelles deviennent des mauvaises nouvelles, ce qui suggère une tendance générale à la baisse dans le marché.",2026-09-05
+Real Estate,sous_pression,,"Le point hebdo de l'investisseur mentionne des 'bonnes nouvelles redeviennent des mauvaises nouvelles', ce qui suggère une tendance négative dans le marché financier.",2026-09-05
+Telecommunications,sous_pression,,"Le secteur 'Telecommunications' est actuellement sous pression, car il est confronté à une concurrence accrue et à une demande en matière de services numériques qui peut varier en fonction des tendances de l'économie.",2026-09-05
