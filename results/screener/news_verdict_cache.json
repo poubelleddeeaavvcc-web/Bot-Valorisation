@@ -430,5 +430,11 @@
     "sentiment": "positive",
     "reason": "Bien que UiPath ait connu une chute après avoir battu les attentes, les actualités soulignent également son résultat positif, son nouveau plan de direction et son élan en faveur de l'intelligence artificielle, ce qui suggère un ton positif.",
     "source": "ollama"
+  },
+  "SBIN.NS_2026-09-07": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'action de State Bank of India est soutenue par des actualites positives sur ses resultats financiers, son retour sur le marche des obligations en dollars et son expansion, ainsi que par des annonces de recrutement et d'investissement.",
+    "source": "ollama"
   }
 }
