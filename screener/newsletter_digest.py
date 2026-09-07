@@ -20,11 +20,16 @@ classify_newsletter(). Only messages classified as newsletters ever get their co
 the sector-classification prompt (see _classify_extract_sector()).
 
 GROUNDING RULE (same as screener/news_filter.py -- see that module's docstring and the project's
-own standing rule): Ollama must never invent a sector's outlook. synthesize_sector_outlook() only
-ever asks about text actually fetched this run; a sector nobody's newsletter mentioned today comes
-back "no_data" and keeps its last known value in sector_outlook.csv rather than being overwritten
-by a guess -- up to STALE_DAYS, past which merge_into_output() expires it to no_data anyway (a
-months-old read is no better than a guess for a veto bot acting on it today).
+own standing rule): Ollama must never invent a sector's outlook. Each extract is classified against
+only the text actually fetched this run (see _classify_extract_sector()). A single extract never
+drives a sector's outlook on its own either: readings feed a sliding per-sector window (see
+WINDOW_SIZE / _update_window()) and a sector only gets a directional outlook once WINDOW_SIZE
+independent readings have accumulated for it -- short of that (or if nobody's newsletter mentioned
+it at all) it stays "no_data". The window has no calendar expiry: a sector that stops appearing in
+newsletters simply keeps whatever readings it last had, however old, until fresh ones eventually
+earn their way back in (2026-09-07, per the user's explicit direction -- replaces an earlier
+calendar-based staleness check that erased a reading after N silent days regardless of whether
+anything had actually contradicted it).
 
 PRIVACY / REPO-PUBLIC CONSTRAINT: this repo pushes to a public GitHub remote with a Pages-served
 dashboard. Raw email BODY TEXT and sender addresses are therefore NEVER written to disk beyond
@@ -58,6 +63,7 @@ sys.path.insert(0, str(HERE))
 from screener.build_trending_universe import SECTOR_ETF  # noqa: E402
 
 STATE_PATH = HERE / "results/screener/newsletter_digest_state.json"
+WINDOW_PATH = HERE / "results/screener/sector_outlook_window.json"
 OUT_PATH = HERE / "data/universe/sector_outlook.csv"
 NEWSLETTER_DB_PATH = HERE / "results/screener/newsletter_database.csv"
 NEWSLETTER_DB_COLUMNS = ["date", "subject"]
@@ -70,10 +76,12 @@ MAX_MESSAGES = 300
 BODY_TRUNCATE = 1500  # per-message character cap fed to the classifier prompt
 SYNTHESIS_EXTRACT_TRUNCATE = 500  # per-message cap when building the sector-synthesis prompt
 
-STALE_DAYS = 21  # a sector's last real reading survives silent days (kept across "no_data" runs
-# so a single quiet day doesn't erase yesterday's signal), but not forever: past 3 weeks with
-# nothing new confirming or contradicting it, it's stale enough that a veto bot shouldn't still
-# be acting on it -- falls back to no_data rather than staying pinned to a months-old read.
+WINDOW_SIZE = 3  # readings needed in a sector's sliding window before it gets a directional
+# outlook (see GROUNDING RULE above) -- below this, a single email (or even two) could still
+# swing an entire sector's veto signal on its own say-so (observed 2026-09-06: Industrials'
+# "florissant" traced back to one extract about CRH, a single construction-materials company).
+# The oldest reading is evicted only once a WINDOW_SIZE+1'th one arrives for that sector (see
+# _update_window()) -- there is deliberately no separate calendar-based expiry.
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 # 8b, not the 3b shared with news_filter.py's bots #4/5/6: this module asks the model to judge
@@ -282,63 +290,67 @@ def _classify_extract_sector(newsletter: dict) -> dict | None:
             "subject": newsletter["subject"]}
 
 
-def synthesize_sector_outlook(newsletters: list[dict]) -> dict:
-    """Classifies each extract independently (see _classify_extract_sector), then averages the
-    scores that landed on each sector -- a sector several newsletters actually discussed today
-    gets a blended reading rather than only the last one processed."""
+def classify_newsletters_by_sector(newsletters: list[dict], today: str) -> dict[str, list[dict]]:
+    """Classifies each extract independently (see _classify_extract_sector) and groups today's
+    readings by sector. Callers feed this straight into the sliding window (_update_window()) --
+    it does NOT decide an outlook itself, since a single day's (or even a single extract's)
+    reading is never enough on its own (see WINDOW_SIZE)."""
     by_sector: dict[str, list[dict]] = {}
     for n in newsletters:
         classified = _classify_extract_sector(n)
         if classified is not None:
-            by_sector.setdefault(classified["sector"], []).append(classified)
+            by_sector.setdefault(classified["sector"], []).append({
+                "date": today, "score": classified["score"], "reason": classified["reason"],
+                "subject": classified["subject"],
+            })
+    return by_sector
 
+
+def _load_window() -> dict:
+    if WINDOW_PATH.exists():
+        try:
+            return json.loads(WINDOW_PATH.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return {}
+    return {}
+
+
+def _save_window(window: dict):
+    WINDOW_PATH.parent.mkdir(parents=True, exist_ok=True)
+    WINDOW_PATH.write_text(json.dumps(window, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _update_window(window: dict, by_sector_today: dict[str, list[dict]]) -> dict:
+    """Pushes today's per-extract readings onto each sector's sliding window. Only the
+    WINDOW_SIZE most recent readings are kept per sector -- the oldest is evicted exactly when a
+    new one for that sector pushes the window past WINDOW_SIZE, never by a calendar timer (see
+    GROUNDING RULE in the module docstring)."""
+    for sector, entries in by_sector_today.items():
+        bucket = window.setdefault(sector, [])
+        bucket.extend(entries)
+        del bucket[:-WINDOW_SIZE]  # no-op while len(bucket) <= WINDOW_SIZE
+    return window
+
+
+def _compute_output_rows(window: dict) -> dict:
+    """Turns the sliding window into the public sector_outlook.csv rows. A sector needs
+    WINDOW_SIZE independent readings in its window before it gets a directional outlook; short of
+    that it's "no_data" -- there is no separate staleness check, a sector's window (and hence its
+    outlook) simply doesn't change until a fresh reading actually arrives for it."""
     results = {}
     for sector in SECTOR_ETF:
-        entries = by_sector.get(sector)
-        if not entries:
-            results[sector] = {"outlook": "no_data", "score": None,
-                                "reason": "aucune newsletter n'a mentionne ce secteur"}
+        entries = window.get(sector, [])
+        if len(entries) < WINDOW_SIZE:
+            reason = (f"en attente de davantage de lectures ({len(entries)}/{WINDOW_SIZE})" if entries
+                      else "aucune newsletter n'a mentionne ce secteur")
+            results[sector] = {"outlook": "no_data", "score": None, "reason": reason,
+                                "last_updated": entries[-1]["date"] if entries else None}
             continue
         avg_score = sum(e["score"] for e in entries) / len(entries)
         reason = "; ".join(f"[{e['subject']}] {e['reason']}" for e in entries)[:300]
-        results[sector] = {"outlook": _score_to_outlook(avg_score), "score": avg_score, "reason": reason}
+        results[sector] = {"outlook": _score_to_outlook(avg_score), "score": avg_score,
+                            "reason": reason, "last_updated": entries[-1]["date"]}
     return results
-
-
-def merge_into_output(new_results: dict, today: str):
-    """A sector with no fresh signal today (no_data) keeps whatever it last had -- overwriting
-    a real prior read with an absence-of-mail would throw away information the bots downstream
-    still rely on. But that survival isn't unlimited: past STALE_DAYS with nothing confirming or
-    contradicting it, the old read is expired back to no_data (see STALE_DAYS) rather than left
-    to silently age forever."""
-    if OUT_PATH.exists():
-        existing = pd.read_csv(OUT_PATH).set_index("sector").to_dict("index")
-        for v in existing.values():  # rows written before the score column existed
-            v.setdefault("score", None)
-    else:
-        existing = {}
-    today_date = datetime.strptime(today, "%Y-%m-%d").date()
-    for sector in SECTOR_ETF:
-        res = new_results.get(sector)
-        if res and res["outlook"] != "no_data":
-            existing[sector] = {"outlook": res["outlook"], "score": res["score"],
-                                 "reason": res["reason"], "last_updated": today}
-            continue
-        prev = existing.get(sector)
-        if prev is None:
-            existing[sector] = {"outlook": "no_data", "score": None,
-                                 "reason": "aucune newsletter n'a mentionne ce secteur",
-                                 "last_updated": today}
-        elif prev["outlook"] != "no_data":
-            age = (today_date - datetime.strptime(prev["last_updated"], "%Y-%m-%d").date()).days
-            if age > STALE_DAYS:
-                existing[sector] = {"outlook": "no_data", "score": None,
-                                     "reason": f"dernier signal perime (>{STALE_DAYS}j sans confirmation, "
-                                               f"etait \"{prev['outlook']}\" le {prev['last_updated']})",
-                                     "last_updated": today}
-    rows = [{"sector": s, **v} for s, v in existing.items()]
-    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame(rows).to_csv(OUT_PATH, index=False)
 
 
 def _append_to_newsletter_database(today: str, subject: str):
@@ -402,8 +414,12 @@ def main():
           f"financiere(s) retenue(s).")
 
     if newsletters:
-        results = synthesize_sector_outlook(newsletters)
-        merge_into_output(results, today)
+        by_sector_today = classify_newsletters_by_sector(newsletters, today)
+        window = _update_window(_load_window(), by_sector_today)
+        _save_window(window)
+        rows = [{"sector": s, **v} for s, v in _compute_output_rows(window).items()]
+        OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+        pd.DataFrame(rows).to_csv(OUT_PATH, index=False, encoding="utf-8")
     else:
         print("Aucune newsletter financiere aujourd'hui -- sector_outlook.csv inchange.")
 
