@@ -742,5 +742,11 @@
     "sentiment": "positive",
     "reason": "Les actualites recentes sur Popular, Inc. (BPOP) mettent en avant des decisions positives telles que la declaration d'un dividende, des performances solides et des annonces de presentation de l'CEO, ce qui suggere un ton general positif.",
     "source": "ollama"
+  },
+  "MU_2026-09-07": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Bien que certaines actualites mentionnent des préoccupations sur la tendance de l'action, le ton général est dominé par des articles positifs qui soulignent les opportunités de croissance et les gains de l'action, notamment en lien avec l'industrie de la mémoire et de l'intelligence artificielle.",
+    "source": "ollama"
   }
 }
