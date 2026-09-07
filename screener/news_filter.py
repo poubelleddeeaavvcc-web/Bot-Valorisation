@@ -319,7 +319,12 @@ def _call_ollama_json(prompt: str, temperature: float | None = None) -> dict:
     """Shared request/parse plumbing for every Ollama call in this module. temperature=None
     (the default) leaves sampling unpinned -- deliberate for the follow-up votes, which want
     run-to-run variability; only the base sentiment call pins it to 0 (see its caller)."""
-    payload = {"model": OLLAMA_MODEL, "prompt": prompt, "stream": False, "format": "json"}
+    # keep_alive: without it Ollama unloads the model after 5 min idle (its default) -- this
+    # module's calls are spread across many bot steps in the CI pipeline with non-Ollama steps
+    # in between, so the model was reloading from scratch repeatedly. 20m covers the gaps
+    # observed between consecutive Ollama-using steps without keeping it resident needlessly
+    # long after the job's done (2026-09-07, see newsletter_digest.py for the same fix).
+    payload = {"model": OLLAMA_MODEL, "prompt": prompt, "stream": False, "format": "json", "keep_alive": "20m"}
     if temperature is not None:
         payload["options"] = {"temperature": temperature}
     resp = requests.post(OLLAMA_URL, json=payload, timeout=OLLAMA_TIMEOUT)

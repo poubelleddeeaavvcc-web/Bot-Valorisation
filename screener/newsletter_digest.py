@@ -73,8 +73,14 @@ GMAIL_API = "https://gmail.googleapis.com/gmail/v1/users/me"
 GMAIL_QUERY = "newer_than:2d"  # 2 days, not 1: buffer against a run being skipped/late without
 # losing a day's newsletters entirely
 MAX_MESSAGES = 300
-BODY_TRUNCATE = 1500  # per-message character cap fed to the classifier prompt
-SYNTHESIS_EXTRACT_TRUNCATE = 500  # per-message cap when building the sector-synthesis prompt
+# Reduced 2026-09-07 (1500->900, 500->350): CPU inference time on the Actions runner scales
+# with prompt length: with the Gmail token freshly fixed after a ~21h outage, a single run's
+# backlog (up to MAX_MESSAGES emails, each individually classified) pushed the whole job past
+# its 45min timeout, cancelling everything (see .github/workflows/update-screener.yml). Still
+# plenty of text for "is this a financial newsletter" / "what does this extract say about
+# sector X" -- both are judged from the opening of the email, not from reading it in full.
+BODY_TRUNCATE = 900  # per-message character cap fed to the classifier prompt
+SYNTHESIS_EXTRACT_TRUNCATE = 350  # per-message cap when building the sector-synthesis prompt
 
 WINDOW_SIZE = 3  # readings needed in a sector's sliding window before it gets a directional
 # outlook (see GROUNDING RULE above) -- below this, a single email (or even two) could still
@@ -144,7 +150,12 @@ def _call_ollama_json(prompt: str) -> dict:
     rather than imported (that module is a private, per-bot helper, not a shared library; see
     simulate_constrained_portfolio.py's docstring for why this repo duplicates small helpers
     instead of introducing cross-module coupling for a few lines)."""
-    payload = {"model": OLLAMA_MODEL, "prompt": prompt, "stream": False, "format": "json"}
+    # keep_alive: without it Ollama unloads the model after 5 min idle (its default). This
+    # module makes many calls in a row within each of its two phases (classify_newsletter over
+    # every new email, then _classify_extract_sector over every sector x newsletter) -- 20m
+    # keeps it resident through a phase's calls without lingering needlessly once the job's
+    # done (2026-09-07, same fix applied to news_filter.py's _call_ollama_json).
+    payload = {"model": OLLAMA_MODEL, "prompt": prompt, "stream": False, "format": "json", "keep_alive": "20m"}
     resp = requests.post(OLLAMA_URL, json=payload, timeout=OLLAMA_TIMEOUT)
     resp.raise_for_status()
     outer = json.loads(resp.content)
