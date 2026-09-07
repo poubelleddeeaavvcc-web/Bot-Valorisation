@@ -155,6 +155,94 @@ BOTS = [
         "summary": SIM_DIR / "large_summary_sector_outlook.json",
         "has_eur_equity": True,
     },
+    # Bots #13-24 (ajoutes 2026-09-07) : les 4 combinaisons de mecaniques manquantes sur
+    # chaque strategie de capital -- #1-12 ne couvraient que "aucune amelioration" et chaque
+    # mecanique seule, jamais deux ou trois combinees. Meme ordre "combinaison d'abord,
+    # strategie ensuite" que #4-12. Voir chaque script simulate_*.py pour le detail.
+    {
+        "key": "bot13_blind_newsgated_notes",
+        "label": "Bot #13 (blind, actu Ollama + notes)",
+        "ledger": SIM_DIR / "portfolio_ledger_newsgated_notes.csv",
+        "summary": SIM_DIR / "summary_newsgated_notes.json",
+        "has_eur_equity": False,
+    },
+    {
+        "key": "bot14_constrained_newsgated_notes",
+        "label": "Bot #14 (constrained, actu Ollama + notes)",
+        "ledger": SIM_DIR / "constrained_portfolio_ledger_newsgated_notes.csv",
+        "summary": SIM_DIR / "constrained_summary_newsgated_notes.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot15_large_newsgated_notes",
+        "label": "Bot #15 (large, actu Ollama + notes)",
+        "ledger": SIM_DIR / "large_portfolio_ledger_newsgated_notes.csv",
+        "summary": SIM_DIR / "large_summary_newsgated_notes.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot16_blind_newsgated_sector_outlook",
+        "label": "Bot #16 (blind, actu Ollama + veto sectoriel)",
+        "ledger": SIM_DIR / "portfolio_ledger_newsgated_sector_outlook.csv",
+        "summary": SIM_DIR / "summary_newsgated_sector_outlook.json",
+        "has_eur_equity": False,
+    },
+    {
+        "key": "bot17_constrained_newsgated_sector_outlook",
+        "label": "Bot #17 (constrained, actu Ollama + veto sectoriel)",
+        "ledger": SIM_DIR / "constrained_portfolio_ledger_newsgated_sector_outlook.csv",
+        "summary": SIM_DIR / "constrained_summary_newsgated_sector_outlook.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot18_large_newsgated_sector_outlook",
+        "label": "Bot #18 (large, actu Ollama + veto sectoriel)",
+        "ledger": SIM_DIR / "large_portfolio_ledger_newsgated_sector_outlook.csv",
+        "summary": SIM_DIR / "large_summary_newsgated_sector_outlook.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot19_blind_notes_sector_outlook",
+        "label": "Bot #19 (blind, notes + veto sectoriel)",
+        "ledger": SIM_DIR / "portfolio_ledger_notes_sector_outlook.csv",
+        "summary": SIM_DIR / "summary_notes_sector_outlook.json",
+        "has_eur_equity": False,
+    },
+    {
+        "key": "bot20_constrained_notes_sector_outlook",
+        "label": "Bot #20 (constrained, notes + veto sectoriel)",
+        "ledger": SIM_DIR / "constrained_portfolio_ledger_notes_sector_outlook.csv",
+        "summary": SIM_DIR / "constrained_summary_notes_sector_outlook.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot21_large_notes_sector_outlook",
+        "label": "Bot #21 (large, notes + veto sectoriel)",
+        "ledger": SIM_DIR / "large_portfolio_ledger_notes_sector_outlook.csv",
+        "summary": SIM_DIR / "large_summary_notes_sector_outlook.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot22_blind_newsgated_notes_sector_outlook",
+        "label": "Bot #22 (blind, actu Ollama + notes + veto sectoriel)",
+        "ledger": SIM_DIR / "portfolio_ledger_newsgated_notes_sector_outlook.csv",
+        "summary": SIM_DIR / "summary_newsgated_notes_sector_outlook.json",
+        "has_eur_equity": False,
+    },
+    {
+        "key": "bot23_constrained_newsgated_notes_sector_outlook",
+        "label": "Bot #23 (constrained, actu Ollama + notes + veto sectoriel)",
+        "ledger": SIM_DIR / "constrained_portfolio_ledger_newsgated_notes_sector_outlook.csv",
+        "summary": SIM_DIR / "constrained_summary_newsgated_notes_sector_outlook.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot24_large_newsgated_notes_sector_outlook",
+        "label": "Bot #24 (large, actu Ollama + notes + veto sectoriel)",
+        "ledger": SIM_DIR / "large_portfolio_ledger_newsgated_notes_sector_outlook.csv",
+        "summary": SIM_DIR / "large_summary_newsgated_notes_sector_outlook.json",
+        "has_eur_equity": True,
+    },
 ]
 
 

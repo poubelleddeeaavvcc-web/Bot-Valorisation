@@ -124,6 +124,48 @@ jobs:
       - name: Simulation large + filtre actu Ollama (Bot #6)
         run: python screener/simulate_large_portfolio_newsgated.py
 
+      # Bots #13-24 : les 4 combinaisons de mecaniques manquantes (chacune des 3 strategies de
+      # capital n'avait que 4 des 8 combinaisons possibles de {filtre actu Ollama, notes
+      # Qualite/Perspective, veto sectoriel newsletters} -- voir chaque script pour le detail de
+      # la composition). Necessitent notes Qualite/Perspective (etape plus haut),
+      # sector_outlook.csv (etape "Synthese newsletters" plus haut) et Ollama (deja demarre
+      # plus haut) -- placees en toute fin de job pour ca.
+      - name: Simulation en aveugle + actu Ollama + notes (Bot #13)
+        run: python screener/simulate_portfolio_newsgated_notes.py
+
+      - name: Simulation a capital contraint + actu Ollama + notes (Bot #14)
+        run: python screener/simulate_constrained_portfolio_newsgated_notes.py
+
+      - name: Simulation large + actu Ollama + notes (Bot #15)
+        run: python screener/simulate_large_portfolio_newsgated_notes.py
+
+      - name: Simulation en aveugle + actu Ollama + veto sectoriel (Bot #16)
+        run: python screener/simulate_portfolio_newsgated_sector_outlook.py
+
+      - name: Simulation a capital contraint + actu Ollama + veto sectoriel (Bot #17)
+        run: python screener/simulate_constrained_portfolio_newsgated_sector_outlook.py
+
+      - name: Simulation large + actu Ollama + veto sectoriel (Bot #18)
+        run: python screener/simulate_large_portfolio_newsgated_sector_outlook.py
+
+      - name: Simulation en aveugle + notes + veto sectoriel (Bot #19)
+        run: python screener/simulate_portfolio_notes_sector_outlook.py
+
+      - name: Simulation a capital contraint + notes + veto sectoriel (Bot #20)
+        run: python screener/simulate_constrained_portfolio_notes_sector_outlook.py
+
+      - name: Simulation large + notes + veto sectoriel (Bot #21)
+        run: python screener/simulate_large_portfolio_notes_sector_outlook.py
+
+      - name: Simulation en aveugle + actu Ollama + notes + veto sectoriel (Bot #22)
+        run: python screener/simulate_portfolio_newsgated_notes_sector_outlook.py
+
+      - name: Simulation a capital contraint + actu Ollama + notes + veto sectoriel (Bot #23)
+        run: python screener/simulate_constrained_portfolio_newsgated_notes_sector_outlook.py
+
+      - name: Simulation large + actu Ollama + notes + veto sectoriel (Bot #24)
+        run: python screener/simulate_large_portfolio_newsgated_notes_sector_outlook.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
