@@ -534,5 +534,85 @@
       "reason": "Le texte décrit une gamme large de produits et services bancaires, y compris des produits pour les particuliers, les entreprises, les associations et les institutions financières, ainsi que des services internationaux.",
       "source": "ollama"
     }
+  },
+  "AAPL": {
+    "checked_at": "2026-09-07",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise Apple Inc. offre une large gamme de produits et de services pour différents segments du marché, notamment le grand public, les entreprises et les gouvernements, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "MSFT": {
+    "checked_at": "2026-09-07",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2026-07-29) : customer or country other than the United States accounted for more than 10% of revenue [https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm]",
+      "source": "sec_10k"
+    }
+  },
+  "NVDA": {
+    "checked_at": "2026-09-07",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2026-02-25) : customer represented 22% of total revenue [https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm]",
+      "source": "sec_10k"
+    }
+  },
+  "META": {
+    "checked_at": "2026-09-07",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "10-K SEC (2026-01-29) : No customer represented 10% or more of total revenue [https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm]",
+      "source": "sec_10k"
+    }
+  },
+  "TSLA": {
+    "checked_at": "2026-09-07",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise propose une gamme de produits et de services pour différents segments du marché, notamment les véhicules électriques, les systèmes d'énergie, les batteries, les solutions de financement, etc. Il n'y a aucune indication claire dans le texte que l'entreprise dépende d'un petit nombre de c",
+      "source": "ollama"
+    }
+  },
+  "JPM": {
+    "checked_at": "2026-09-07",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise offre une large gamme de produits et services à des clients variés, notamment des particuliers, des petites et grandes entreprises, des institutions financières et des gouvernements, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "V": {
+    "checked_at": "2026-09-07",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte indique que Visa Inc. sert plusieurs types de clients, notamment consommateurs, vendeurs, institutions financières et entités gouvernementales, indiquant une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
+  },
+  "UNH": {
+    "checked_at": "2026-09-07",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "L'entreprise semble dépendre d'un petit nombre de clients, notamment un client principal, des contrats gouvernementaux uniques et d'un groupe industriel géant, ainsi que de contrats avec divers groupes B2B et de marchés fragmentés pour son marché.",
+      "source": "ollama"
+    }
+  },
+  "HD": {
+    "checked_at": "2026-09-07",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2026-03-18) : customer accounted for more than 10% of revenue [https://www.sec.gov/Archives/edgar/data/354950/000162828026019436/hd-20260201.htm]",
+      "source": "sec_10k"
+    }
+  },
+  "PG": {
+    "checked_at": "2026-09-07",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2026-08-04) : ten customers accounted for approximately 43% of our total net sales [https://www.sec.gov/Archives/edgar/data/80424/000008042426000103/pg-20260630.htm]",
+      "source": "sec_10k"
+    }
   }
 }

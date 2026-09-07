@@ -90,7 +90,9 @@ posture as the rest of this module.
 import json
 import pathlib
 import sys
+import threading
 import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.parse import quote
 
 import pandas as pd
@@ -114,6 +116,20 @@ OLLAMA_URL = "http://localhost:11434/api/generate"
 OLLAMA_MODEL = "llama3.2:3b"
 OLLAMA_TIMEOUT = 90  # generous: covers a cold model load (first call after `ollama serve`
 # starts, e.g. in CI) as well as a warm local server
+
+# news_verdict()/customer_concentration_verdict() are each mostly I/O wait (Ollama call(s),
+# RSS/yfinance/SEC fetches) for one ticker at a time -- prefetch_news_verdicts() below fires
+# several tickers off concurrently rather than one after another. Matches OLLAMA_NUM_PARALLEL
+# set for the Ollama server in the workflow -- 2, not higher: tested locally (2026-09-07),
+# forcing 3 concurrent requests to the 8b model (used by newsletter_digest.py, same Ollama
+# server) crashed it with a 500 error, plausibly a memory ceiling -- 2 ran stably for both the
+# 3b and 8b models. Raise both together if this is revisited, not just one.
+OLLAMA_MAX_WORKERS = 2
+# Guards every on-disk write this module makes (cache files + NEWS_DB_PATH) so concurrent
+# threads from prefetch_news_verdicts() never interleave writes to the same file. The slow
+# part (network/Ollama calls) happens OUTSIDE this lock in every caller -- only the quick
+# read-modify-write of a cache/CSV is serialized, so this doesn't defeat the parallelism.
+_IO_LOCK = threading.Lock()
 
 MAX_HEADLINES_PER_SOURCE = 5
 
@@ -459,10 +475,13 @@ def news_verdict(ticker: str, name: str, sector: str, today: str) -> dict:
                     verdict["reason"] = (verdict.get("reason") or "") + \
                         f" [verification '{state_flag['keyword']}' : dependance jugee incidente " \
                         f"({len(votes) - len(dependent_votes)}/{len(votes)} votes)]"
-        _append_to_database(ticker, today, name, sector, headlines, verdict)
+        with _IO_LOCK:
+            _append_to_database(ticker, today, name, sector, headlines, verdict)
 
-    cache[key] = verdict
-    _save_cache(cache)
+    with _IO_LOCK:
+        cache = _load_cache()  # reload under the lock -- picks up any entries another thread
+        cache[key] = verdict   # in prefetch_news_verdicts() just wrote, instead of clobbering them
+        _save_cache(cache)
     return verdict
 
 
@@ -533,6 +552,48 @@ def customer_concentration_verdict(ticker: str, name: str, country: str | None =
                 print(f"  echec appel Ollama (concentration clients) pour {ticker}: {e}", file=sys.stderr)
                 verdict = {"concentration": "unknown", "reason": f"ollama indisponible ({e})", "source": "ollama_error"}
 
-    cache[ticker] = {"checked_at": today.strftime("%Y-%m-%d"), "verdict": verdict}
-    _save_concentration_cache(cache)
+    with _IO_LOCK:
+        cache = _load_concentration_cache()  # reload under the lock, same reasoning as news_verdict()
+        cache[ticker] = {"checked_at": today.strftime("%Y-%m-%d"), "verdict": verdict}
+        _save_concentration_cache(cache)
     return verdict
+
+
+def prefetch_news_verdicts(candidates: pd.DataFrame, today: str, max_workers: int = OLLAMA_MAX_WORKERS):
+    """Warms news_verdict()'s and customer_concentration_verdict()'s on-disk caches for every
+    ticker in `candidates`, concurrently, BEFORE a newsgated bot's buy loop needs them one at a
+    time. Added 2026-09-07 in response to the pipeline blowing past the CI job's time budget --
+    see .github/workflows/update-screener.yml.
+
+    Deliberately does NOT touch fill_slots()/open_new_positions()'s own sequential logic (which
+    candidate to buy, cash remaining, sector caps) -- that has to stay serial, it depends on
+    each prior pick. Only the slow I/O ahead of it (Ollama calls, RSS/yfinance/SEC-EDGAR
+    fetches) is parallelized here; once this returns, the caller's own news_verdict()/
+    customer_concentration_verdict() calls are cache hits and effectively free. Safe to call
+    from every newsgated bot every run: both caches are already shared across all of them (see
+    each cache's own docstring), this only changes WHEN they get populated, not what."""
+    seen = set()
+    tasks = []
+    for _, c in candidates.iterrows():
+        ticker = c["ticker"]
+        if ticker in seen:
+            continue
+        seen.add(ticker)
+        tasks.append((ticker, c.get("name"), c.get("sector"), c.get("country")))
+
+    if not tasks:
+        return
+
+    with ThreadPoolExecutor(max_workers=max_workers) as ex:
+        futures = []
+        for ticker, name, sector, country in tasks:
+            futures.append(ex.submit(news_verdict, ticker, name, sector, today))
+            futures.append(ex.submit(customer_concentration_verdict, ticker, name, country))
+        for fut in as_completed(futures):
+            try:
+                fut.result()
+            except Exception as e:
+                # both functions already fail open/return a fallback verdict internally on
+                # error -- reaching an exception here would be an actual bug, not a normal
+                # fetch failure, hence the loud print rather than silent swallow.
+                print(f"  echec prefetch (parallele, inattendu) : {e}", file=sys.stderr)

@@ -82,6 +82,13 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
     pool = candidates[~candidates["ticker"].isin(held_tickers)].copy()
     if not len(pool):
         return ledger, cash
+    # Fires the whole pool's news/concentration Ollama calls off concurrently before the
+    # (necessarily sequential, cash/cap-dependent) picking loop below needs them one at a
+    # time -- see news_filter.prefetch_news_verdicts' own docstring. Prefetches the full pool
+    # rather than trying to predict which subset the loop will actually reach (not knowable in
+    # advance: depends on sector/geo caps that only resolve as earlier picks are made).
+    # Added 2026-09-07.
+    news_filter.prefetch_news_verdicts(pool, today)
     pool["score"] = composite_score(pool)
     pool = pool.sort_values("score", ascending=False)
     rejected = set()

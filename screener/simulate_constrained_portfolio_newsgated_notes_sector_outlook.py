@@ -86,6 +86,11 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
     pool = pool.dropna(subset=["notes_score"])
     if not len(pool):
         return ledger, cash
+    # Fires the whole pool's news/concentration Ollama calls off concurrently before the
+    # (necessarily sequential, cash/cap-dependent) picking loop below needs them one at a
+    # time -- see news_filter.prefetch_news_verdicts' own docstring. Pool is already filtered
+    # for the sector veto + notes score at this point. Added 2026-09-07.
+    news_filter.prefetch_news_verdicts(pool, today)
     pool["score"] = pool["notes_score"]
     pool = pool.sort_values("score", ascending=False)
     rejected = set()

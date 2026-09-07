@@ -60,6 +60,17 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation
 
     scored = _load_notes_score(candidates)
 
+    # Fires the whole batch's news/concentration Ollama calls off concurrently before the
+    # (necessarily sequential) picking loop below needs them one at a time -- see
+    # news_filter.prefetch_news_verdicts' own docstring. Same notes-threshold pre-filter as the
+    # loop below (the cheap check that runs before news_verdict there) so this doesn't waste
+    # prefetch calls on candidates that would never reach news_verdict anyway. Added 2026-09-07.
+    notes_ok = scored[~scored["ticker"].isin(open_tickers) &
+                       scored["note_qualite_20"].notna() & scored["note_perspective_20"].notna() &
+                       (scored["note_qualite_20"] > QUALITE_THRESHOLD) &
+                       (scored["note_perspective_20"] > PERSPECTIVE_THRESHOLD)]
+    news_filter.prefetch_news_verdicts(notes_ok, today)
+
     new_rows = []
     skipped = []
     for _, c in scored.iterrows():

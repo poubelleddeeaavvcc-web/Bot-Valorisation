@@ -68,6 +68,14 @@ jobs:
           key: ollama-models-llama3.2-3b-llama3.1-8b
 
       - name: Installer et demarrer Ollama
+        env:
+          # Permet au serveur de traiter 2 requetes a la fois au lieu de toutes les mettre en
+          # file (defaut) -- sans ca, paralleliser les appels cote client (voir
+          # OLLAMA_MAX_WORKERS dans news_filter.py/newsletter_digest.py) n'accelere rien, le
+          # serveur les traite quand meme un par un. Teste localement (2026-09-07) : 2 est
+          # stable pour les 2 modeles (3b et 8b) ; 3 fait planter le serveur sur le 8b (erreur
+          # 500, vraisemblablement une limite memoire) -- ne pas monter sans retester.
+          OLLAMA_NUM_PARALLEL: "2"
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
           nohup ollama serve > /tmp/ollama.log 2>&1 &

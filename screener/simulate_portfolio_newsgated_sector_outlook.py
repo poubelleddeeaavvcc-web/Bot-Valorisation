@@ -55,6 +55,13 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation
     industry_count = valuation.groupby("industry")["industry_count"].first()
     pressured = load_pressured_sectors()
 
+    # Fires the whole batch's news/concentration Ollama calls off concurrently before the
+    # (necessarily sequential) picking loop below needs them one at a time -- same
+    # cheap-filters-first pre-filter as the loop (sector veto) so this doesn't waste prefetch
+    # calls on candidates that would never reach news_verdict anyway. Added 2026-09-07.
+    news_filter.prefetch_news_verdicts(
+        candidates[~candidates["ticker"].isin(open_tickers) & ~candidates["sector"].isin(pressured)], today)
+
     new_rows = []
     skipped = []
     for _, c in candidates.iterrows():

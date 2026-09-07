@@ -68,6 +68,11 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation
     industry_pe = valuation.groupby("industry")["industry_median_pe"].first()
     industry_count = valuation.groupby("industry")["industry_count"].first()
 
+    # Fires the whole batch's news/concentration Ollama calls off concurrently before the
+    # (necessarily sequential) picking loop below needs them one at a time -- see
+    # news_filter.prefetch_news_verdicts' own docstring. Added 2026-09-07.
+    news_filter.prefetch_news_verdicts(candidates[~candidates["ticker"].isin(open_tickers)], today)
+
     new_rows = []
     skipped = []
     for _, c in candidates.iterrows():

@@ -52,6 +52,7 @@ import os
 import pathlib
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 
 import pandas as pd
@@ -94,10 +95,19 @@ OLLAMA_URL = "http://localhost:11434/api/generate"
 # which single sector (out of 11 candidates) an extract is actually about -- a subtler relevance
 # call than news_filter.py's per-ticker buy/veto question, and 3b was demonstrably getting it
 # wrong (2026-09-04: confidently linked an unrelated Nvidia/pharma extract to Finance, Industrials,
-# Telecommunications...). Slower per call on the CPU-only Actions runner, but this step already
-# waits on Ollama serially either way.
+# Telecommunications...). Slower per call on the CPU-only Actions runner -- see OLLAMA_MAX_WORKERS
+# below for how classify_newsletter()/_classify_extract_sector() overlap these calls rather than
+# waiting on them one at a time.
 OLLAMA_MODEL = "llama3.1:8b"
 OLLAMA_TIMEOUT = 180  # 8b cold-loads and infers slower than the 3b other modules use
+
+# Bounded concurrency for the two email-classification phases below (classify_newsletter over
+# every new message, then classify_newsletters_by_sector over every classified one). Matches
+# news_filter.py's OLLAMA_MAX_WORKERS / the OLLAMA_NUM_PARALLEL set for the Ollama server in the
+# workflow -- 2, not higher: tested locally (2026-09-07), forcing 3 concurrent requests to this
+# module's own 8b model crashed the Ollama server with a 500 error, plausibly a memory ceiling;
+# 2 ran stably. Raise both together if this is revisited, not just one.
+OLLAMA_MAX_WORKERS = 2
 
 # outlook is derived from SCORE, never asked for directly -- asking a 3B model for a category
 # ("sous_pression"/"neutre"/"florissant") AND a free-text reason in the same call let the two
@@ -323,15 +333,28 @@ def classify_newsletters_by_sector(newsletters: list[dict], today: str) -> dict[
     """Classifies each extract independently (see _classify_extract_sector) and groups today's
     readings by sector. Callers feed this straight into the sliding window (_update_window()) --
     it does NOT decide an outlook itself, since a single day's (or even a single extract's)
-    reading is never enough on its own (see WINDOW_SIZE)."""
+    reading is never enough on its own (see WINDOW_SIZE).
+
+    Extracts are classified concurrently (bounded to OLLAMA_MAX_WORKERS) -- each call is fully
+    independent (one newsletter's own text in, its own sector+score out, no shared state between
+    calls), unlike the bot buy loops elsewhere in this repo where Ollama calls are interleaved
+    with sequential cash/state decisions and can't be parallelized the same way. Added
+    2026-09-07 after a real run's Gmail backlog (dozens of newsletters, each its own Ollama call)
+    pushed the whole CI job past its time budget -- see .github/workflows/update-screener.yml."""
     by_sector: dict[str, list[dict]] = {}
-    for n in newsletters:
-        classified = _classify_extract_sector(n)
-        if classified is not None:
-            by_sector.setdefault(classified["sector"], []).append({
-                "date": today, "score": classified["score"], "reason": classified["reason"],
-                "subject": classified["subject"],
-            })
+    with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
+        futures = [ex.submit(_classify_extract_sector, n) for n in newsletters]
+        for fut in as_completed(futures):
+            try:
+                classified = fut.result()
+            except Exception as e:
+                print(f"  echec classification sectorielle (parallele, inattendu) : {e}", file=sys.stderr)
+                classified = None
+            if classified is not None:
+                by_sector.setdefault(classified["sector"], []).append({
+                    "date": today, "score": classified["score"], "reason": classified["reason"],
+                    "subject": classified["subject"],
+                })
     return by_sector
 
 
@@ -432,10 +455,24 @@ def main():
     previously_processed = set(state.get("processed_message_ids", []))
     new_ids = [m for m in message_ids if m not in previously_processed]
 
+    # Fetch stays sequential (Gmail API, not Ollama -- a different bottleneck, out of scope for
+    # this pass) ; classification is the part that was pushing the CI job's runtime over budget
+    # (2026-09-07), so THAT'S parallelized -- see OLLAMA_MAX_WORKERS above. Each message's
+    # classify_newsletter() call is independent (no shared state), so this is safe unlike the
+    # bot buy loops elsewhere in this repo.
+    msgs = [m for m in (fetch_message(token, mid) for mid in new_ids) if m is not None]
+    with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
+        is_newsletter = dict(zip(
+            (m["id"] for m in msgs),
+            ex.map(classify_newsletter, msgs),
+        ))
+
+    # Kept sequential and in fetch order: _append_to_newsletter_database does its own disk
+    # write (CSV append) per call -- doing that from multiple threads risks interleaved writes,
+    # and there's no Ollama call left at this point to parallelize anyway.
     newsletters = []
-    for mid in new_ids:
-        msg = fetch_message(token, mid)
-        if msg is not None and classify_newsletter(msg):
+    for msg in msgs:
+        if is_newsletter.get(msg["id"]):
             newsletters.append(msg)
             _append_to_newsletter_database(today, msg["subject"])
 

@@ -86,6 +86,15 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
     pool = candidates[~candidates["ticker"].isin(held_tickers)].copy()
     pool["score"] = composite_score(pool)
 
+    # Fires the whole batch's news/concentration Ollama calls off concurrently before the
+    # (necessarily sequential, cash/rotation-dependent) picking loop below needs them one at a
+    # time -- see news_filter.prefetch_news_verdicts' own docstring. Covers both fresh
+    # candidates (pool) AND currently-open positions, since a sector with no fresh candidate
+    # left gets REINFORCED (an existing open position, not pool) instead -- see module
+    # docstring -- and that path calls news_verdict() too. Added 2026-09-07.
+    open_rows = ledger.loc[ledger["status"] == "open", ["ticker", "name", "sector", "country"]]
+    news_filter.prefetch_news_verdicts(pd.concat([pool, open_rows], ignore_index=True), today)
+
     all_sectors = sorted(set(candidates["sector"].dropna().unique()) | set(sector_counts.keys()))
     round_counts = dict(sector_counts)
     rejected = set()
