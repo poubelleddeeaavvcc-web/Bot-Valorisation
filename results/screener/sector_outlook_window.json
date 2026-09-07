@@ -1,0 +1,72 @@
+{
+  "Technology": [
+    {
+      "date": "2026-09-07",
+      "score": 5.0,
+      "reason": "L'extrait mentionne NVDA, qui est une entreprise de technologie.",
+      "subject": "NVDA: Trending stocks this week as markets weigh jobs data and rates"
+    },
+    {
+      "date": "2026-09-07",
+      "score": 10.0,
+      "reason": "L'extrait mentionne que Palantir mène la course à l'augmentation en août dans le secteur technologique, qui gagne plus de 6%.",
+      "subject": "NVDA: Palantir leads August tech rally as sector gains over 6%"
+    },
+    {
+      "date": "2026-09-07",
+      "score": 10.0,
+      "reason": "L'extrait s'intéresse au développement de l'intelligence artificielle (AI) chez AMD, une société du secteur de la technologie.",
+      "subject": "AMD: I'm Calling The First Peak Of The AI Mountain Range"
+    }
+  ],
+  "Finance": [
+    {
+      "date": "2026-09-07",
+      "score": 10.0,
+      "reason": "Le texte parle d'une \"belle chance\" du marché boursier et d'une période de quatre ans de bonnes performances, ce qui suggère que le secteur financier est en bonne santé.",
+      "subject": "Time to Sell?"
+    },
+    {
+      "date": "2026-09-07",
+      "score": 10.0,
+      "reason": "L'extrait mentionne un sujet lié à la newsletter financière, ce qui indique que le secteur finance est probablement pertinent.",
+      "subject": "Check out your watchlist today"
+    },
+    {
+      "date": "2026-09-07",
+      "score": 5.0,
+      "reason": "Cet extrait de newsletter financière discute sur les performances de l'action DIVI par rapport à la bourse et à ses concurrents, ce qui est un sujet pertinent pour le secteur financier.",
+      "subject": "DIVI: Ahead Of Benchmark, Behind Top Peers"
+    }
+  ],
+  "Energy": [
+    {
+      "date": "2026-09-07",
+      "score": 10.0,
+      "reason": "L'extrait mentionne un yield de 7%+ pour MPLX, qui est un pipeline, et qualifie ce yield de 'juste l'appétitier', indiquant que le véritable sujet est la croissance de l'entreprise.",
+      "subject": "MPLX: 7%+ Yield Is Just The Appetizer, The Growth Is The Main Course"
+    },
+    {
+      "date": "2026-09-07",
+      "score": 10.0,
+      "reason": "les tensions iraniennes augmentent les prix du pétrole",
+      "subject": "NVDA: Asian stocks poised to rise as Iran tensions lift oil prices"
+    }
+  ],
+  "Real Estate": [
+    {
+      "date": "2026-09-07",
+      "score": 10.0,
+      "reason": "l'extrait indique que Realty Income est prête à atteindre +$75, ce qui suggère une tendance positive pour le secteur de l'immobilier",
+      "subject": "Why Realty Income Is Poised To Hit +$75"
+    }
+  ],
+  "Consumer Discretionary": [
+    {
+      "date": "2026-09-07",
+      "score": 5.0,
+      "reason": "L'extrait décrit les signes potentiels d'un tournant à Petco, un magasin de produits pour animaux, mais n'est pas décisif sur son avenir.",
+      "subject": "Petco: Some Signs Of A Turnaround, But Far From Changing My Mind (Q2 Review)"
+    }
+  ]
+}
