@@ -736,5 +736,11 @@
     "sentiment": "neutral",
     "reason": "L'actualité fournie ne contient pas de commentaires ou d'analyses spécifiques sur l'action de Huaku Development Co., Ltd. (2548.TW), mais des informations générales sur les performances boursières et les tendances du marché.",
     "source": "ollama"
+  },
+  "BPOP_2026-09-07": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites recentes sur Popular, Inc. (BPOP) mettent en avant des decisions positives telles que la declaration d'un dividende, des performances solides et des annonces de presentation de l'CEO, ce qui suggere un ton general positif.",
+    "source": "ollama"
   }
 }
