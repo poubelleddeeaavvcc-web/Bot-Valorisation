@@ -15,7 +15,15 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # releve de 45 a 90 le 2026-09-07 : une fois le token Gmail corrige (echouait avant en
+    # quelques ms, voir newsletter_digest.py), le digest s'est mis a vraiment traiter son
+    # backlog (jusqu'a MAX_MESSAGES=300 emails classes un par un via Ollama), depassant les 45
+    # min et faisant annuler tout le job -- donc plus RIEN ne se commitait, ni le digest ni les
+    # 24 bots. Ponctuel : une fois le rattrapage fait, last_run_date se sauvegarde et les runs
+    # suivants ne traitent plus que les emails des dernieres ~48h (GMAIL_QUERY), donc redeviennent
+    # rapides. Repasser a une valeur plus basse si ca ne redescend pas de soi-meme apres quelques
+    # jours.
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
