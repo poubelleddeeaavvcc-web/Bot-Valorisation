@@ -191,9 +191,27 @@ def list_recent_message_ids(token: str) -> list[str]:
     return ids[:MAX_MESSAGES]
 
 
-def _decode_part(data_b64url: str) -> str:
-    padded = data_b64url + "=" * (-len(data_b64url) % 4)
-    return base64.urlsafe_b64decode(padded).decode("utf-8", errors="replace")
+def _part_charset(part: dict) -> str:
+    """Reads the charset declared in this MIME part's own Content-Type header (Gmail API exposes
+    each part's raw headers under "headers") -- falls back to utf-8 when absent/unrecognized
+    rather than assuming every email is UTF-8. Non-UTF-8 newsletters (ISO-8859-1/Windows-1252 is
+    common for French senders) were otherwise coming out with accented characters replaced by
+    literal U+FFFD, corrupting text that later reaches the public sector_outlook.csv (observed
+    2026-09-06/07, e.g. "r�f�rence" instead of "référence")."""
+    for h in part.get("headers", []) or []:
+        if h.get("name", "").lower() == "content-type":
+            m = re.search(r'charset="?([\w-]+)"?', h.get("value", ""), re.IGNORECASE)
+            if m:
+                return m.group(1)
+    return "utf-8"
+
+
+def _decode_part(data_b64url: str, charset: str = "utf-8") -> str:
+    raw = base64.urlsafe_b64decode(data_b64url + "=" * (-len(data_b64url) % 4))
+    try:
+        return raw.decode(charset, errors="replace")
+    except LookupError:  # charset name Python's codecs module doesn't recognize
+        return raw.decode("utf-8", errors="replace")
 
 
 def _extract_text(payload: dict) -> str:
@@ -207,9 +225,9 @@ def _extract_text(payload: dict) -> str:
         mime = part.get("mimeType", "")
         body_data = part.get("body", {}).get("data")
         if mime == "text/plain" and body_data:
-            return _decode_part(body_data)
+            return _decode_part(body_data, _part_charset(part))
         if mime == "text/html" and body_data and html_fallback is None:
-            html_fallback = _decode_part(body_data)
+            html_fallback = _decode_part(body_data, _part_charset(part))
         stack.extend(part.get("parts", []) or [])
     if html_fallback:
         return re.sub(r"<[^>]+>", " ", html_fallback)
