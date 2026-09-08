@@ -1036,5 +1036,35 @@
     "sentiment": "positive",
     "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance, de nouveaux produits, de poursuite de croissance et d'investissements, ce qui suggere un ton general positif pour l'action Interface, Inc.",
     "source": "ollama"
+  },
+  "2006.TW_2026-09-08": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'action de Tung Ho Steel Enterprise Corporation est soutenue par des actualites positives sur son secteur, notamment la recente acquisition de 25 millions de dollars et la planification de renovation de ses fours electriques.",
+    "source": "ollama"
+  },
+  "4503.T_2026-09-08": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des informations sur des accords de prix avec des entreprises de pharmacie, une expansion du deal de prix avec des entreprises de taille moyenne et une analyse positive de la valeur de l'action.",
+    "source": "ollama"
+  },
+  "1590.TW_2026-09-08": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des croissances de revenue et de profit, ainsi que des commentaires positifs sur la capacite de l'action a gagner en popularite.",
+    "source": "ollama"
+  },
+  "2303.TW_2026-09-08": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance, de gains et de nouveaux investissements, ce qui suggere un ton general positif pour l'action de United Microelectronics Corporation.",
+    "source": "ollama"
+  },
+  "2548.TW_2026-09-08": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes ne contiennent pas de informations de tonalite clairement positive ou negative, mais indiquent simplement des informations sur les actions de Huaku Development Co., Ltd. et les performances des actions taiwaneses.",
+    "source": "ollama"
   }
 }

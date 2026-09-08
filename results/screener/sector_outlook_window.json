@@ -23,12 +23,6 @@
     {
       "date": "2026-09-07",
       "score": 10.0,
-      "reason": "Le texte parle d'une \"belle chance\" du marché boursier et d'une période de quatre ans de bonnes performances, ce qui suggère que le secteur financier est en bonne santé.",
-      "subject": "Time to Sell?"
-    },
-    {
-      "date": "2026-09-07",
-      "score": 10.0,
       "reason": "L'extrait mentionne un sujet lié à la newsletter financière, ce qui indique que le secteur finance est probablement pertinent.",
       "subject": "Check out your watchlist today"
     },
@@ -37,6 +31,12 @@
       "score": 5.0,
       "reason": "Cet extrait de newsletter financière discute sur les performances de l'action DIVI par rapport à la bourse et à ses concurrents, ce qui est un sujet pertinent pour le secteur financier.",
       "subject": "DIVI: Ahead Of Benchmark, Behind Top Peers"
+    },
+    {
+      "date": "2026-09-08",
+      "score": 10.0,
+      "reason": "L'extrait fait référence à un journal de la bourse et invite à consulter la version en ligne, suggérant que le secteur financier est en bonne santé et attire l'attention.",
+      "subject": "Le Journal de la Bourse du 7 septembre"
     }
   ],
   "Energy": [
