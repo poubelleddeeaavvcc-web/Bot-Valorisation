@@ -1,42 +1,42 @@
 {
   "Technology": [
     {
-      "date": "2026-09-07",
-      "score": 5.0,
-      "reason": "L'extrait mentionne NVDA, qui est une entreprise de technologie.",
-      "subject": "NVDA: Trending stocks this week as markets weigh jobs data and rates"
+      "date": "2026-09-08",
+      "score": 10.0,
+      "reason": "Nvidia-backed Firmus lands OpenAI deal pour développer la capacité IA en Malaisie",
+      "subject": "NVDA: Nvidia-backed Firmus lands OpenAI deal for Malaysia AI capacity"
     },
     {
-      "date": "2026-09-07",
+      "date": "2026-09-08",
       "score": 10.0,
-      "reason": "L'extrait mentionne que Palantir mène la course à l'augmentation en août dans le secteur technologique, qui gagne plus de 6%.",
-      "subject": "NVDA: Palantir leads August tech rally as sector gains over 6%"
+      "reason": "L'extrait mentionne un modèle d'OpenAI, suggérant que l'IA continue à évoluer et à améliorer dans le domaine de la technologie.",
+      "subject": "🌐 L’IA semble avoir franchi un cap"
     },
     {
-      "date": "2026-09-07",
+      "date": "2026-09-08",
       "score": 10.0,
-      "reason": "L'extrait s'intéresse au développement de l'intelligence artificielle (AI) chez AMD, une société du secteur de la technologie.",
-      "subject": "AMD: I'm Calling The First Peak Of The AI Mountain Range"
+      "reason": "L'extrait fait référence à une société de technologie (NVDA) et à un accord dans le domaine de l'intelligence artificielle (AI).",
+      "subject": "NVDA: Anthropic walks away from Decart AI deal - report"
     }
   ],
   "Finance": [
-    {
-      "date": "2026-09-07",
-      "score": 10.0,
-      "reason": "L'extrait mentionne un sujet lié à la newsletter financière, ce qui indique que le secteur finance est probablement pertinent.",
-      "subject": "Check out your watchlist today"
-    },
-    {
-      "date": "2026-09-07",
-      "score": 5.0,
-      "reason": "Cet extrait de newsletter financière discute sur les performances de l'action DIVI par rapport à la bourse et à ses concurrents, ce qui est un sujet pertinent pour le secteur financier.",
-      "subject": "DIVI: Ahead Of Benchmark, Behind Top Peers"
-    },
     {
       "date": "2026-09-08",
       "score": 10.0,
       "reason": "L'extrait fait référence à un journal de la bourse et invite à consulter la version en ligne, suggérant que le secteur financier est en bonne santé et attire l'attention.",
       "subject": "Le Journal de la Bourse du 7 septembre"
+    },
+    {
+      "date": "2026-09-08",
+      "score": 10.0,
+      "reason": "L'extrait parle d'un événement qui anime le début de semaine, suggérant que le secteur finance est actif et en mouvement.",
+      "subject": "Morning Meeting - Le yen s'énerve et anime un début de semaine soporifique"
+    },
+    {
+      "date": "2026-09-08",
+      "score": 5.0,
+      "reason": "L'offre de 1,5 milliard de dollars d'actions de l'entreprise Wistron, un fournisseur de Nvidia, est mentionnée, mais le terme clé est le prix de cette offre, ce qui n'implique pas nécessairement une tendance forte pour le secteur des finances.",
+      "subject": "NVDA: Nvidia supplier Wistron slides 6% after pricing $1.5B stock offering"
     }
   ],
   "Energy": [
