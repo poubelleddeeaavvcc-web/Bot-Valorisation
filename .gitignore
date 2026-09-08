@@ -18,3 +18,7 @@ data/factors/*.zip
 results/backtest/price_panel_daily_cache.csv
 results/backtest/fx_daily_cache.csv
 
+# scoped to a single CI job's filesystem lifetime (see fetch_cache.fetch_one's docstring) --
+# deliberately never committed, would just be stale-on-arrival for the next job/run anyway
+results/screener/run_fetch_cache.json
+

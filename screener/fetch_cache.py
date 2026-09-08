@@ -27,6 +27,7 @@ New tickers (never in the cache at all -- just entered the trending universe) ar
 immediately rather than waiting for their slot, since they might not get one for days.
 """
 import hashlib
+import json
 import pathlib
 import sys
 import time
@@ -44,6 +45,7 @@ from screener import market_hours  # noqa: E402
 
 TRENDING_UNIVERSE = HERE / "data/universe/trending_universe.csv"
 CACHE_PATH = HERE / "results/screener/fundamentals_cache.csv"
+RUN_CACHE_PATH = HERE / "results/screener/run_fetch_cache.json"
 
 BATCH_SIZE = 423          # hard ceiling on requests/run regardless of schedule -- 70% of the
 # 604 that worked in the original one-shot test, still a guess (Yahoo publishes no real
@@ -82,14 +84,60 @@ def _avg_nonnull(cf: pd.DataFrame, row_names: list, lookback: int = 3) -> float 
     return 0.0
 
 
+# In-process memo of RUN_CACHE_PATH's contents -- re-read from disk at most once per Python
+# process (every caller in this module/these scripts runs single-threaded, sequentially, so
+# there's no concurrent access to guard against; see fetch_one() below for why the file itself
+# still needs to exist across processes).
+_run_cache: dict | None = None
+
+
+def _load_run_cache() -> dict:
+    global _run_cache
+    if _run_cache is None:
+        try:
+            _run_cache = json.loads(RUN_CACHE_PATH.read_text(encoding="utf-8")) if RUN_CACHE_PATH.exists() else {}
+        except (json.JSONDecodeError, OSError):
+            _run_cache = {}
+    return _run_cache
+
+
 def fetch_one(ticker: str) -> dict:
+    """Read-through wrapper around _fetch_one_live(): bots calling this one candidate at a time
+    at purchase-decision time (see simulate_constrained_portfolio.py and 15 other bot scripts,
+    all invoked as SEPARATE `python screener/simulate_X.py` processes within the same CI job --
+    see update-screener.yml) routinely converge on the same top-ranked candidates. Without this,
+    N bots considering the same ticker in the same job each pay their own live Yahoo fetch
+    (info+history+cashflow, 3 requests + a 0.4s sleep) for identical data.
+
+    RUN_CACHE_PATH is deliberately never committed (see .gitignore) and never carried over --
+    each GitHub Actions job starts from a fresh checkout, so it's automatically empty at the
+    start of every job with no separate TTL/expiry logic needed: "this run" and "this job's
+    filesystem lifetime" are the same thing here, unlike CACHE_PATH's 90-day persistent cache
+    above. A RATE_LIMITED result is deliberately NOT cached -- caching it would let one bot's
+    transient rate-limit turn into every later bot in the same job giving up on that ticker
+    too, when a retry minutes later (after more of that bot's own DELAY_BETWEEN_CALLS pacing)
+    might well succeed."""
+    cache = _load_run_cache()
+    if ticker in cache:
+        return cache[ticker]
+    result = _fetch_one_live(ticker)
+    if result.get("error") != "RATE_LIMITED":
+        cache[ticker] = result
+        RUN_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        RUN_CACHE_PATH.write_text(json.dumps(cache), encoding="utf-8")
+    return result
+
+
+def _fetch_one_live(ticker: str) -> dict:
     today = pd.Timestamp.today().strftime("%Y-%m-%d")
     for attempt in range(MAX_RETRIES + 1):
         try:
             t = yf.Ticker(ticker)
             info = t.info
             hist = t.history(period="14mo", interval="1mo", auto_adjust=True)["Close"].dropna()
-            mom_12_2 = hist.iloc[-2] / hist.iloc[-13] - 1 if len(hist) >= 13 else None
+            # cast off numpy.float64 (pandas' dtype for hist's values) -- RUN_CACHE_PATH above
+            # round-trips this dict through json.dumps(), which numpy scalar types don't support.
+            mom_12_2 = float(hist.iloc[-2] / hist.iloc[-13] - 1) if len(hist) >= 13 else None
             # cashflow statement -- one extra request, needed only for the Discipline pillar
             # (buybacks/dividends aren't in `info`). Any failure here falls through to the
             # same except/retry path as info/history above, same as every other field.
@@ -98,7 +146,7 @@ def fetch_one(ticker: str) -> dict:
             div_avg_3y = _avg_nonnull(cf, ["Cash Dividends Paid", "Common Stock Dividend Paid"])
             return {
                 "ticker": ticker, "fetched_at": today,
-                "price": hist.iloc[-1] if len(hist) else None,
+                "price": float(hist.iloc[-1]) if len(hist) else None,
                 "sector": info.get("sector"), "industry": info.get("industry"),
                 # HQ/incorporation country -- used by select_top_picks.is_state_linked() for the
                 # geopolitical concentration cap (2026-09-02): a purely quantitative ratio can't
