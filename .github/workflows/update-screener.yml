@@ -6,22 +6,31 @@ on:
   workflow_dispatch: {}      # bouton "Run workflow" manuel dans l'onglet Actions
 
 permissions:
-  contents: write  # necessaire pour que le job puisse commit+push ses resultats
+  contents: write  # necessaire pour que les jobs puissent commit+push leurs resultats
 
 concurrency:
   group: screener-update
   cancel-in-progress: false  # ne jamais interrompre un run en cours (perdrait le progres du cache)
 
+# Restructure en jobs paralleles le 2026-09-08 (etait un seul job sequentiel de 24 etapes,
+# ~13 min) : le cache fondamentaux + notes tourne une fois dans `setup`, puis 4 jobs de
+# simulation tournent en parallele une fois `setup` termine et pousse. Les bots Ollama
+# ("newsgated", #4/5/6/13-18/22-24) restent regroupes dans UN SEUL job (bots-ollama) plutot que
+# repartis sur plusieurs : ils partagent des caches JSON (news_verdict_cache.json,
+# customer_concentration_cache.json -- voir news_filter.py) que des jobs paralleles ecrivant
+# chacun leur propre copie rendrait incoherents au moment du commit (meme classe de probleme
+# que la collision vecue avec newsletter-digest-bot le meme jour). Les 12 autres bots (sans
+# Ollama) n'ont aucun fichier de sortie partage entre eux -- chacun ecrit ses propres
+# results/simulation/*.csv/json -- donc repartis sans risque sur 3 jobs par strategie de
+# capital (bots-aveugle/bots-contraint/bots-large).
 jobs:
-  update:
+  setup:
     runs-on: ubuntu-latest
-    # releve de 45 a 90 le 2026-09-07 (le digest newsletters, qui tournait alors dans ce job,
-    # avait pousse un run au-dela de 45 min). Le digest a ete sorti dans son propre repo
-    # (newsletter-digest-bot, 2026-09-08) avec son propre cron -- laisse a 90 malgre tout comme
-    # marge pour la suite (doublement prevu des bots, 24 -> 48).
-    timeout-minutes: 90
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: master
 
       - uses: actions/setup-python@v5
         with:
@@ -42,20 +51,47 @@ jobs:
       - name: Calculer les notes Qualite/Perspective (affichage + Bot #7/#8/#9, aucun appel reseau)
         run: python screener/quality_perspective_notes.py
 
-      - name: Simulation de portefeuille en aveugle (Bot #1)
-        run: python screener/simulate_portfolio.py
+      - name: Commit + push si des resultats ont change
+        run: |
+          git config user.name "screener-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/universe/ results/screener/fundamentals_cache.csv \
+                  results/screener/full_valuation_latest.csv results/screener/long_candidates_latest.csv \
+                  results/screener/quality_perspective_notes.csv
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau ce cycle."
+            exit 0
+          fi
+          git commit -m "Mise a jour automatique du screener -- setup ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          # les jobs de simulation attendent ce push (needs: setup + checkout ref: master) pour
+          # partir d'un cache/notes a jour -- pas de course a gerer ici, ce job est seul a ecrire
+          # ces fichiers a ce stade du run.
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
+            sleep 10
+          done
+          echo "Echec du push apres 5 tentatives."
+          exit 1
 
-      # Bot #7 : meme mecanique que #1 (aveugle, sans capital ni classement), sauf qu'un
-      # candidat sans note calculable ou sous les seuils qualite/perspective est ignore --
-      # voir simulate_portfolio_notes.py.
-      - name: Simulation en aveugle + seuil notes Qualite/Perspective (Bot #7)
-        run: python screener/simulate_portfolio_notes.py
+  bots-ollama:
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      # ref: master (pas le SHA qui a declenche le run) -- necessaire pour recuperer le commit
+      # que `setup` vient de pousser (cache fondamentaux, notes) plutot qu'une version perimee.
+      - uses: actions/checkout@v4
+        with:
+          ref: master
 
-      # Ollama tourne pour les bots #4/5/6 (llama3.2:3b) -- installe et le modele telecharge une
-      # fois par run, mis en cache entre runs par actions/cache pour eviter de retelecharger a
-      # chaque heure. Le digest newsletters (llama3.1:8b, plus lourd) a ete sorti dans son
-      # propre repo (newsletter-digest-bot, 2026-09-08) avec son propre cron -- ce job n'a plus
-      # besoin du 8b, seul sector_outlook.csv qu'il produit est encore lu ici (bots #10-24).
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances
+        run: pip install -r requirements.txt
+
       - name: Cache du modele Ollama
         uses: actions/cache@v4
         with:
@@ -78,41 +114,6 @@ jobs:
           done
           ollama pull llama3.2:3b
 
-      # Bot #10 : meme mecanique que #1 (aveugle), sauf qu'un candidat dont le secteur est
-      # "sous_pression" dans sector_outlook.csv du jour est ignore -- voir
-      # simulate_portfolio_sector_outlook.py.
-      - name: Simulation en aveugle + veto sectoriel newsletters (Bot #10)
-        run: python screener/simulate_portfolio_sector_outlook.py
-
-      - name: Simulation de portefeuille a capital contraint (restreint, diversifie, reinvesti) (Bot #2)
-        run: python screener/simulate_constrained_portfolio.py
-
-      - name: Simulation de portefeuille large (equilibre par secteur, sans plafond) (Bot #3)
-        run: python screener/simulate_large_portfolio.py
-
-      # Bot #8 (renumerote #7 -> #8 le 2026-09-04) : memes mecaniques que #2 (capital
-      # contraint), mais classement des candidats par les notes Qualite/Perspective (moyenne
-      # des 2 notes /20) au lieu du composite_score value+momentum+quality -- comparaison
-      # controlee des deux methodes de selection sur le meme pool de candidats, voir
-      # simulate_constrained_portfolio_notes.py.
-      - name: Simulation a capital contraint + selection par notes (Bot #8)
-        run: python screener/simulate_constrained_portfolio_notes.py
-
-      # Bot #11 : meme mecanique que #2, meme classement composite_score, avec le meme veto
-      # sectoriel que Bot #10 -- voir simulate_constrained_portfolio_sector_outlook.py.
-      - name: Simulation a capital contraint + veto sectoriel newsletters (Bot #11)
-        run: python screener/simulate_constrained_portfolio_sector_outlook.py
-
-      # Bot #9 : meme mecanique que #3 (large), classement par notes Qualite/Perspective au
-      # lieu de composite_score -- voir simulate_large_portfolio_notes.py.
-      - name: Simulation large + selection par notes (Bot #9)
-        run: python screener/simulate_large_portfolio_notes.py
-
-      # Bot #12 : meme mecanique que #3, meme classement composite_score, avec le meme veto
-      # sectoriel que Bot #10/#11 -- voir simulate_large_portfolio_sector_outlook.py.
-      - name: Simulation large + veto sectoriel newsletters (Bot #12)
-        run: python screener/simulate_large_portfolio_sector_outlook.py
-
       - name: Simulation en aveugle + filtre actu Ollama (Bot #4)
         run: python screener/simulate_portfolio_newsgated.py
 
@@ -122,12 +123,11 @@ jobs:
       - name: Simulation large + filtre actu Ollama (Bot #6)
         run: python screener/simulate_large_portfolio_newsgated.py
 
-      # Bots #13-24 : les 4 combinaisons de mecaniques manquantes (chacune des 3 strategies de
-      # capital n'avait que 4 des 8 combinaisons possibles de {filtre actu Ollama, notes
-      # Qualite/Perspective, veto sectoriel newsletters} -- voir chaque script pour le detail de
-      # la composition). Necessitent notes Qualite/Perspective (etape plus haut),
-      # sector_outlook.csv (mis a jour par le repo newsletter-digest-bot, separe de ce job) et
-      # Ollama (deja demarre plus haut) -- placees en toute fin de job pour ca.
+      # Bots #13-18/22-24 : combinaisons de mecaniques manquantes qui incluent le filtre actu
+      # Ollama (chaque strategie de capital n'avait que 4 des 8 combinaisons possibles de
+      # {filtre actu Ollama, notes Qualite/Perspective, veto sectoriel newsletters} -- voir
+      # chaque script pour le detail). Les 3 combinaisons SANS Ollama (#19/#20/#21) sont dans
+      # bots-aveugle/bots-contraint/bots-large a la place, pas ici.
       - name: Simulation en aveugle + actu Ollama + notes (Bot #13)
         run: python screener/simulate_portfolio_newsgated_notes.py
 
@@ -146,15 +146,6 @@ jobs:
       - name: Simulation large + actu Ollama + veto sectoriel (Bot #18)
         run: python screener/simulate_large_portfolio_newsgated_sector_outlook.py
 
-      - name: Simulation en aveugle + notes + veto sectoriel (Bot #19)
-        run: python screener/simulate_portfolio_notes_sector_outlook.py
-
-      - name: Simulation a capital contraint + notes + veto sectoriel (Bot #20)
-        run: python screener/simulate_constrained_portfolio_notes_sector_outlook.py
-
-      - name: Simulation large + notes + veto sectoriel (Bot #21)
-        run: python screener/simulate_large_portfolio_notes_sector_outlook.py
-
       - name: Simulation en aveugle + actu Ollama + notes + veto sectoriel (Bot #22)
         run: python screener/simulate_portfolio_newsgated_notes_sector_outlook.py
 
@@ -168,15 +159,177 @@ jobs:
         run: |
           git config user.name "screener-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/universe/ results/screener/ results/simulation/
+          git add results/simulation/ results/screener/news_verdict_cache.json \
+                  results/screener/news_database.csv results/screener/customer_concentration_cache.json
           if git diff --cached --quiet; then
             echo "Rien de nouveau ce cycle."
             exit 0
           fi
-          git commit -m "Mise a jour automatique du screener ($(date -u +'%Y-%m-%d %H:%M UTC'))"
-          # the remote can have moved (manual pushes, another run) between checkout and
-          # here -- rebase onto it and retry a few times rather than fail the whole run
-          # over an ordinary push race.
+          git commit -m "Mise a jour automatique du screener -- bots Ollama ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          # peut courir avec bots-aveugle/bots-contraint/bots-large qui poussent en parallele --
+          # fichiers disjoints (voir commentaire de tete de fichier), le rebase absorbe la course.
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
+            sleep 10
+          done
+          echo "Echec du push apres 5 tentatives."
+          exit 1
+
+  bots-aveugle:
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances
+        run: pip install -r requirements.txt
+
+      - name: Simulation de portefeuille en aveugle (Bot #1)
+        run: python screener/simulate_portfolio.py
+
+      # Bot #7 : meme mecanique que #1 (aveugle, sans capital ni classement), sauf qu'un
+      # candidat sans note calculable ou sous les seuils qualite/perspective est ignore --
+      # voir simulate_portfolio_notes.py.
+      - name: Simulation en aveugle + seuil notes Qualite/Perspective (Bot #7)
+        run: python screener/simulate_portfolio_notes.py
+
+      # Bot #10 : meme mecanique que #1 (aveugle), sauf qu'un candidat dont le secteur est
+      # "sous_pression" dans sector_outlook.csv du jour est ignore -- voir
+      # simulate_portfolio_sector_outlook.py.
+      - name: Simulation en aveugle + veto sectoriel newsletters (Bot #10)
+        run: python screener/simulate_portfolio_sector_outlook.py
+
+      # Bot #19 : combinaison notes Qualite/Perspective + veto sectoriel newsletters, sans
+      # filtre actu Ollama (d'ou sa presence ici plutot que dans bots-ollama) -- voir
+      # simulate_portfolio_notes_sector_outlook.py.
+      - name: Simulation en aveugle + notes + veto sectoriel (Bot #19)
+        run: python screener/simulate_portfolio_notes_sector_outlook.py
+
+      - name: Commit + push si des resultats ont change
+        run: |
+          git config user.name "screener-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add results/simulation/
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau ce cycle."
+            exit 0
+          fi
+          git commit -m "Mise a jour automatique du screener -- bots aveugle ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
+            sleep 10
+          done
+          echo "Echec du push apres 5 tentatives."
+          exit 1
+
+  bots-contraint:
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances
+        run: pip install -r requirements.txt
+
+      - name: Simulation de portefeuille a capital contraint (restreint, diversifie, reinvesti) (Bot #2)
+        run: python screener/simulate_constrained_portfolio.py
+
+      # Bot #8 (renumerote #7 -> #8 le 2026-09-04) : memes mecaniques que #2 (capital
+      # contraint), mais classement des candidats par les notes Qualite/Perspective (moyenne
+      # des 2 notes /20) au lieu du composite_score value+momentum+quality -- comparaison
+      # controlee des deux methodes de selection sur le meme pool de candidats, voir
+      # simulate_constrained_portfolio_notes.py.
+      - name: Simulation a capital contraint + selection par notes (Bot #8)
+        run: python screener/simulate_constrained_portfolio_notes.py
+
+      # Bot #11 : meme mecanique que #2, meme classement composite_score, avec le meme veto
+      # sectoriel que Bot #10 -- voir simulate_constrained_portfolio_sector_outlook.py.
+      - name: Simulation a capital contraint + veto sectoriel newsletters (Bot #11)
+        run: python screener/simulate_constrained_portfolio_sector_outlook.py
+
+      # Bot #20 : meme combinaison que #19 (notes + veto sectoriel, sans Ollama) sur la
+      # strategie a capital contraint -- voir simulate_constrained_portfolio_notes_sector_outlook.py.
+      - name: Simulation a capital contraint + notes + veto sectoriel (Bot #20)
+        run: python screener/simulate_constrained_portfolio_notes_sector_outlook.py
+
+      - name: Commit + push si des resultats ont change
+        run: |
+          git config user.name "screener-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add results/simulation/
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau ce cycle."
+            exit 0
+          fi
+          git commit -m "Mise a jour automatique du screener -- bots capital contraint ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
+            sleep 10
+          done
+          echo "Echec du push apres 5 tentatives."
+          exit 1
+
+  bots-large:
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances
+        run: pip install -r requirements.txt
+
+      - name: Simulation de portefeuille large (equilibre par secteur, sans plafond) (Bot #3)
+        run: python screener/simulate_large_portfolio.py
+
+      # Bot #9 : meme mecanique que #3 (large), classement par notes Qualite/Perspective au
+      # lieu de composite_score -- voir simulate_large_portfolio_notes.py.
+      - name: Simulation large + selection par notes (Bot #9)
+        run: python screener/simulate_large_portfolio_notes.py
+
+      # Bot #12 : meme mecanique que #3, meme classement composite_score, avec le meme veto
+      # sectoriel que Bot #10/#11 -- voir simulate_large_portfolio_sector_outlook.py.
+      - name: Simulation large + veto sectoriel newsletters (Bot #12)
+        run: python screener/simulate_large_portfolio_sector_outlook.py
+
+      # Bot #21 : meme combinaison que #19/#20 (notes + veto sectoriel, sans Ollama) sur la
+      # strategie large -- voir simulate_large_portfolio_notes_sector_outlook.py.
+      - name: Simulation large + notes + veto sectoriel (Bot #21)
+        run: python screener/simulate_large_portfolio_notes_sector_outlook.py
+
+      - name: Commit + push si des resultats ont change
+        run: |
+          git config user.name "screener-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add results/simulation/
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau ce cycle."
+            exit 0
+          fi
+          git commit -m "Mise a jour automatique du screener -- bots large ($(date -u +'%Y-%m-%d %H:%M UTC'))"
           for i in 1 2 3 4 5; do
             git pull --rebase origin master && git push && exit 0
             echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
