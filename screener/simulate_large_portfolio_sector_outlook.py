@@ -5,6 +5,7 @@ candidate whose sector is currently rated "sous_pression" in data/universe/secto
 Ollama's daily synthesis of the user's own Gmail newsletters, see screener/newsletter_digest.py
 -- is excluded from the pool entirely. Same veto as Bot#10/#11, applied here to Bot#3's mechanics.
 """
+# Alias lisibilite (mapping perso) : C3 -- famille Charlie (large), variante + veto sectoriel
 import json
 import math
 import pathlib

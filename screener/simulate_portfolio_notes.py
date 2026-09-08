@@ -18,6 +18,7 @@ not a percentile/relative cut, consistent with how the rest of the repo avoids i
 thresholds. A candidate with no computable note (NaN on either pillar) is excluded, same rule as
 Bot#8/#9.
 """
+# Alias lisibilite (mapping perso) : A2 -- famille Alpha (aveugle), variante + seuil notes
 import pathlib
 import sys
 

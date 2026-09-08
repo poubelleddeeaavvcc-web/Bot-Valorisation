@@ -9,6 +9,7 @@ the ranking reaches first in the picking loop.
 Everything else -- exits, FX, fractional-share eligibility, diversification caps -- is reused
 directly from simulate_constrained_portfolio.py.
 """
+# Alias lisibilite (mapping perso) : B8 -- famille Beta (capital contraint), variante + Ollama + notes + veto sectoriel
 import json
 import math
 import pathlib

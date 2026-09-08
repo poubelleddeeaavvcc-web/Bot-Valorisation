@@ -10,6 +10,7 @@ sizing decides whether/how big to actually buy or reinforce with it.
 Everything else -- FX conversion, fractional-share eligibility, reinforcement bookkeeping, exit
 rules -- is reused directly from simulate_constrained_portfolio.py / simulate_portfolio.py.
 """
+# Alias lisibilite (mapping perso) : C6 -- famille Charlie (large), variante + Ollama + notes
 import json
 import math
 import pathlib

@@ -13,6 +13,7 @@ rotation, is still built from the FULL candidates frame, not the veto-filtered p
 Everything else -- FX conversion, fractional-share eligibility, reinforcement bookkeeping, exit
 rules -- is reused directly from simulate_constrained_portfolio.py / simulate_portfolio.py.
 """
+# Alias lisibilite (mapping perso) : C8 -- famille Charlie (large), variante + Ollama + notes + veto sectoriel
 import json
 import math
 import pathlib

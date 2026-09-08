@@ -8,6 +8,7 @@ posture as every other best-effort join in this repo.
 Everything else (fresh-check gate, exit rules, benchmarks) is identical to Bot#1 and reused
 directly by import -- same "duplicate the one thing that changes" convention as Bot#7/#8/#9.
 """
+# Alias lisibilite (mapping perso) : A3 -- famille Alpha (aveugle), variante + veto sectoriel
 import pathlib
 import sys
 

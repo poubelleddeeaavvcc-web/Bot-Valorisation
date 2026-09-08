@@ -10,6 +10,7 @@ Isolates a single variable against Bot#2, same controlled-comparison principle a
 ranking) vs Bot#2: everything except the extra sector exclusion in fill_slots() is reused
 directly from simulate_constrained_portfolio.py.
 """
+# Alias lisibilite (mapping perso) : B3 -- famille Beta (capital contraint), variante + veto sectoriel
 import json
 import math
 import pathlib

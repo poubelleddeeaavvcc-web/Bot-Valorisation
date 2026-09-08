@@ -11,6 +11,7 @@ whichever candidate the notes ranking reaches first.
 Everything else -- exits, FX, fractional-share eligibility, diversification caps -- is reused
 directly from simulate_constrained_portfolio.py.
 """
+# Alias lisibilite (mapping perso) : B6 -- famille Beta (capital contraint), variante + Ollama + notes
 import json
 import math
 import pathlib

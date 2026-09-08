@@ -40,6 +40,7 @@ unknown candidates buy whole shares instead (at least 1, if affordable) rather t
 skipped -- per the user's direction, don't leave cash idle by avoiding a good candidate
 just because it isn't fractional-eligible.
 """
+# Alias lisibilite (mapping perso) : B1 -- famille Beta (capital contraint), variante base
 import json
 import math
 import pathlib

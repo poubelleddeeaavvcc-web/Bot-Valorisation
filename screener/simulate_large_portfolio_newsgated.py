@@ -12,6 +12,7 @@ the two bots' ledgers isolates the effect of the news gate.
 Only fill_slots() (which decides what to buy/reinforce) and the path-coupled
 load/save/summary functions are duplicated here with this bot's own files.
 """
+# Alias lisibilite (mapping perso) : C5 -- famille Charlie (large), variante + filtre actu Ollama
 import json
 import math
 import pathlib

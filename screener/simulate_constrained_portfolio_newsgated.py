@@ -12,6 +12,7 @@ Only fill_slots() (which decides what to buy) and the path-coupled load/save/sum
 functions are duplicated here with this bot's own files -- same pattern
 simulate_large_portfolio.py already uses to reuse simulate_constrained_portfolio.py.
 """
+# Alias lisibilite (mapping perso) : B5 -- famille Beta (capital contraint), variante + filtre actu Ollama
 import json
 import math
 import pathlib

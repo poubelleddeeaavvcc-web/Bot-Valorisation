@@ -29,6 +29,7 @@ and exit-rule reasoning -- reused directly here (recheck_and_exit, to_eur, fetch
 fractional_eligible all operate on the same ledger schema and aren't bot#3-specific, so
 they're imported rather than re-duplicated a third time).
 """
+# Alias lisibilite (mapping perso) : C1 -- famille Charlie (large), variante base
 import json
 import math
 import pathlib

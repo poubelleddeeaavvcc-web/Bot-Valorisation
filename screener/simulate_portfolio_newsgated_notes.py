@@ -11,6 +11,7 @@ Everything else (fresh-check gate, exit rules, benchmarks) is identical to Bot#1
 directly by import, same "duplicate the one thing that changes" convention as every other bot
 in this family.
 """
+# Alias lisibilite (mapping perso) : A6 -- famille Alpha (aveugle), variante + Ollama + notes
 import pathlib
 import sys
 

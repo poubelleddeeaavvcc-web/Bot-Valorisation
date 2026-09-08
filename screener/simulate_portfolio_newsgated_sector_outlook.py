@@ -9,6 +9,7 @@ cheapest-first ordering as every other combined bot in this family.
 Everything else (fresh-check gate, exit rules, benchmarks) is identical to Bot#1 and reused
 directly by import.
 """
+# Alias lisibilite (mapping perso) : A7 -- famille Alpha (aveugle), variante + Ollama + veto sectoriel
 import pathlib
 import sys
 

@@ -9,6 +9,7 @@ sector veto excludes rows first, then notes_score ranks whatever remains.
 Everything else -- exits, FX, fractional-share eligibility, diversification caps -- is reused
 directly from simulate_constrained_portfolio.py.
 """
+# Alias lisibilite (mapping perso) : B4 -- famille Beta (capital contraint), variante + notes + veto sectoriel
 import json
 import math
 import pathlib

@@ -19,6 +19,7 @@ before spending an Ollama call on it -- same reasoning and same fix (2026-09-02)
 simulate_portfolio.py's module docstring: a candidate that already fails the fresh
 momentum/valuation bar shouldn't be bought at all, let alone news-checked first.
 """
+# Alias lisibilite (mapping perso) : A5 -- famille Alpha (aveugle), variante + filtre actu Ollama
 import pathlib
 import sys
 

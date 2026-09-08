@@ -12,6 +12,7 @@ Everything else -- FX conversion, fractional-share eligibility, reinforcement bo
 exit rules -- is reused directly from simulate_constrained_portfolio.py / simulate_portfolio.py /
 simulate_large_portfolio.py, unchanged.
 """
+# Alias lisibilite (mapping perso) : C2 -- famille Charlie (large), variante + seuil notes
 import json
 import math
 import pathlib

@@ -33,6 +33,7 @@ Mechanics:
   - No short-side simulation yet (long-only exit to cash) -- deliberately kept simple
     until the long side has a track record worth trusting.
 """
+# Alias lisibilite (mapping perso) : A1 -- famille Alpha (aveugle), variante base
 import pathlib
 import sys
 

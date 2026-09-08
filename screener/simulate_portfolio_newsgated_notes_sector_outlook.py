@@ -9,6 +9,7 @@ verdict (slowest) last -- same ordering as every other combined bot in this fami
 Everything else (fresh-check gate, exit rules, benchmarks) is identical to Bot#1 and reused
 directly by import.
 """
+# Alias lisibilite (mapping perso) : A8 -- famille Alpha (aveugle), variante + Ollama + notes + veto sectoriel
 import pathlib
 import sys
 

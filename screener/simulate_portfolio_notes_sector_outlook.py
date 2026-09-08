@@ -8,6 +8,7 @@ fresh fetch, sector check first (cheapest, no join needed), notes threshold seco
 Everything else (fresh-check gate, exit rules, benchmarks) is identical to Bot#1 and reused
 directly by import.
 """
+# Alias lisibilite (mapping perso) : A4 -- famille Alpha (aveugle), variante + notes + veto sectoriel
 import pathlib
 import sys
 

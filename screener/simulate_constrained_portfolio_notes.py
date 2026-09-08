@@ -36,6 +36,7 @@ reasons -- see SECTOR_NA in quality_perspective_notes.py) are dropped from the p
 entirely rather than ranked last: buying a candidate this bot couldn't actually score would
 not test the notes' predictive value, it would just be noise in the comparison.
 """
+# Alias lisibilite (mapping perso) : B2 -- famille Beta (capital contraint), variante + seuil notes
 import json
 import math
 import pathlib
