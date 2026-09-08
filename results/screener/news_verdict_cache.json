@@ -1066,5 +1066,11 @@
     "sentiment": "neutral",
     "reason": "Les actualites presentes ne contiennent pas de informations de tonalite clairement positive ou negative, mais indiquent simplement des informations sur les actions de Huaku Development Co., Ltd. et les performances des actions taiwaneses.",
     "source": "ollama"
+  },
+  "2379.TW_2026-09-08": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes sont mixtes, avec des informations sur des projets de financement, des prévisions de demande, des changements de direction chez Realtek et des préoccupations sur la sécurité de la chaîne d'approvisionnement mondiale, ce qui suggère un ton neutre.",
+    "source": "ollama"
   }
 }

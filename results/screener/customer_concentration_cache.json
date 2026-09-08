@@ -614,5 +614,13 @@
       "reason": "10-K SEC (2026-08-04) : ten customers accounted for approximately 43% of our total net sales [https://www.sec.gov/Archives/edgar/data/80424/000008042426000103/pg-20260630.htm]",
       "source": "sec_10k"
     }
+  },
+  "2379.TW": {
+    "checked_at": "2026-09-08",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte décrit une gamme large de produits et de services, y compris des communications, des médias, des périphériques, et des solutions de infrastructure, qui suggère une base de clients diverse et large.",
+      "source": "ollama"
+    }
   }
 }
