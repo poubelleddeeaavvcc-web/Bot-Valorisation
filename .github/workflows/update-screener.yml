@@ -15,14 +15,10 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    # releve de 45 a 90 le 2026-09-07 : une fois le token Gmail corrige (echouait avant en
-    # quelques ms, voir newsletter_digest.py), le digest s'est mis a vraiment traiter son
-    # backlog (jusqu'a MAX_MESSAGES=300 emails classes un par un via Ollama), depassant les 45
-    # min et faisant annuler tout le job -- donc plus RIEN ne se commitait, ni le digest ni les
-    # 24 bots. Ponctuel : une fois le rattrapage fait, last_run_date se sauvegarde et les runs
-    # suivants ne traitent plus que les emails des dernieres ~48h (GMAIL_QUERY), donc redeviennent
-    # rapides. Repasser a une valeur plus basse si ca ne redescend pas de soi-meme apres quelques
-    # jours.
+    # releve de 45 a 90 le 2026-09-07 (le digest newsletters, qui tournait alors dans ce job,
+    # avait pousse un run au-dela de 45 min). Le digest a ete sorti dans son propre repo
+    # (newsletter-digest-bot, 2026-09-08) avec son propre cron -- laisse a 90 malgre tout comme
+    # marge pour la suite (doublement prevu des bots, 24 -> 48).
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
@@ -55,26 +51,23 @@ jobs:
       - name: Simulation en aveugle + seuil notes Qualite/Perspective (Bot #7)
         run: python screener/simulate_portfolio_notes.py
 
-      # Ollama tourne pour le digest newsletters (ci-dessous, llama3.1:8b -- voir
-      # newsletter_digest.py pour pourquoi ce module a besoin d'un modele plus capable que les
-      # autres) ET les bots #4/5/6 (llama3.2:3b) -- installe et les deux modeles telecharges une
-      # fois par run (~6.7GB cumules), mis en cache entre runs par actions/cache pour eviter de
-      # retelecharger a chaque heure. Deplace plus tot dans le pipeline (2026-09-04) pour etre
-      # disponible avant newsletter_digest.py.
-      - name: Cache des modeles Ollama
+      # Ollama tourne pour les bots #4/5/6 (llama3.2:3b) -- installe et le modele telecharge une
+      # fois par run, mis en cache entre runs par actions/cache pour eviter de retelecharger a
+      # chaque heure. Le digest newsletters (llama3.1:8b, plus lourd) a ete sorti dans son
+      # propre repo (newsletter-digest-bot, 2026-09-08) avec son propre cron -- ce job n'a plus
+      # besoin du 8b, seul sector_outlook.csv qu'il produit est encore lu ici (bots #10-24).
+      - name: Cache du modele Ollama
         uses: actions/cache@v4
         with:
           path: ~/.ollama/models
-          key: ollama-models-llama3.2-3b-llama3.1-8b
+          key: ollama-models-llama3.2-3b
 
       - name: Installer et demarrer Ollama
         env:
           # Permet au serveur de traiter 2 requetes a la fois au lieu de toutes les mettre en
           # file (defaut) -- sans ca, paralleliser les appels cote client (voir
-          # OLLAMA_MAX_WORKERS dans news_filter.py/newsletter_digest.py) n'accelere rien, le
-          # serveur les traite quand meme un par un. Teste localement (2026-09-07) : 2 est
-          # stable pour les 2 modeles (3b et 8b) ; 3 fait planter le serveur sur le 8b (erreur
-          # 500, vraisemblablement une limite memoire) -- ne pas monter sans retester.
+          # OLLAMA_MAX_WORKERS dans news_filter.py) n'accelere rien, le serveur les traite quand
+          # meme un par un.
           OLLAMA_NUM_PARALLEL: "2"
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
@@ -84,17 +77,6 @@ jobs:
             sleep 2
           done
           ollama pull llama3.2:3b
-          ollama pull llama3.1:8b
-
-      # Synthese quotidienne (auto-gate interne) de l'actualite sectorielle a partir des
-      # newsletters Gmail personnelles de l'utilisateur -- voir screener/newsletter_digest.py.
-      # Alimente les bots #10/#11/#12 (veto sectoriel) via data/universe/sector_outlook.csv.
-      - name: Synthese newsletters -> sector_outlook.csv
-        env:
-          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
-          GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
-          GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
-        run: python screener/newsletter_digest.py
 
       # Bot #10 : meme mecanique que #1 (aveugle), sauf qu'un candidat dont le secteur est
       # "sous_pression" dans sector_outlook.csv du jour est ignore -- voir
@@ -144,8 +126,8 @@ jobs:
       # capital n'avait que 4 des 8 combinaisons possibles de {filtre actu Ollama, notes
       # Qualite/Perspective, veto sectoriel newsletters} -- voir chaque script pour le detail de
       # la composition). Necessitent notes Qualite/Perspective (etape plus haut),
-      # sector_outlook.csv (etape "Synthese newsletters" plus haut) et Ollama (deja demarre
-      # plus haut) -- placees en toute fin de job pour ca.
+      # sector_outlook.csv (mis a jour par le repo newsletter-digest-bot, separe de ce job) et
+      # Ollama (deja demarre plus haut) -- placees en toute fin de job pour ca.
       - name: Simulation en aveugle + actu Ollama + notes (Bot #13)
         run: python screener/simulate_portfolio_newsgated_notes.py
 
