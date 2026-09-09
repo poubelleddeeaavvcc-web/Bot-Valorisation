@@ -1390,5 +1390,11 @@
     "sentiment": "positive",
     "reason": "L'actualité présente des informations positives sur DeNA Co., Ltd., telles que des gains de net income et des investissements de Nintendo, ce qui suggère un ton positif pour l'action.",
     "source": "ollama"
+  },
+  "GOOG_2026-09-09": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance de revenue, de renforcement de la position de Google dans le domaine de l'intelligence artificielle et de la croissance des activites de streaming.",
+    "source": "ollama"
   }
 }

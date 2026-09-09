@@ -622,5 +622,13 @@
       "reason": "Le texte décrit une gamme large de produits et de services, y compris des communications, des médias, des périphériques, et des solutions de infrastructure, qui suggère une base de clients diverse et large.",
       "source": "ollama"
     }
+  },
+  "GOOG": {
+    "checked_at": "2026-09-09",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2026-02-05) : customer or groups of affiliated customers represented more than 10% of our revenue [https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm]",
+      "source": "sec_10k"
+    }
   }
 }
