@@ -1384,5 +1384,11 @@
     "sentiment": "positive",
     "reason": "Les actualites presentes montrent un ton positif, avec des gains de 71,4% pour l'action, des results financiers forts et une augmentation de la valeur de l'action.",
     "source": "ollama"
+  },
+  "2432.T_2026-09-09": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente des informations positives sur DeNA Co., Ltd., telles que des gains de net income et des investissements de Nintendo, ce qui suggère un ton positif pour l'action.",
+    "source": "ollama"
   }
 }
