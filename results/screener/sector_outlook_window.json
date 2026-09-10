@@ -3,60 +3,60 @@
     {
       "date": "2026-09-10",
       "score": 10.0,
-      "reason": "L'extrait mentionne spécifiquement Nvidia et AMD, indiquant que le secteur des technologies est en augmentation.",
-      "subject": "NVDA: Nvidia, Broadcom have 'broadest' ownership among chips; Micron, AMD surge: BofA"
+      "reason": "TSMC revenue jumps 53% in August as AI demand keeps capacity booked",
+      "subject": "NVDA: TSMC revenue jumps 53% in August as AI demand keeps capacity booked"
+    },
+    {
+      "date": "2026-09-10",
+      "score": 5.0,
+      "reason": "Le titre ne donne aucune indication claire sur la tendance globale du secteur, il se concentre sur trois entreprises spécifiques.",
+      "subject": "[RSS] Zacks Industry Outlook Highlights Veracyte, Globus Medical and UFP Technologies - tradingview.com"
     },
     {
       "date": "2026-09-10",
       "score": 10.0,
-      "reason": "L'extrait mentionne Nvidia, une entreprise du secteur technologique, et mentionne la création d'une économie alternative en matière d'IA pour contrer les hyperscalers, ce qui suggère que le secteur technologique est en bonne santé et en pleine croissance.",
-      "subject": "Nvidia: Building An Alternative AI Economy To Fight The Hyperscalers"
-    },
-    {
-      "date": "2026-09-10",
-      "score": 10.0,
-      "reason": "L'extrait parle de deux entreprises spécialisées dans la production de mémoire vive, SK hynix et Micron, suggérant que le secteur de la technologie est positif.",
-      "subject": "SK hynix Vs. Micron: 'This Time Is Different'"
+      "reason": "L'expansion de l'entreprise Nvidia, un leader dans le secteur technologique, contribue à renforcer la tendance positive dans ce secteur.",
+      "subject": "[RSS] US Stock Futures Climb as Nvidia’s Outlook Lifts Tech Sector - Bloomberg.com"
     }
   ],
   "Finance": [
     {
       "date": "2026-09-10",
-      "score": 10.0,
-      "reason": "L'extrait mentionne un conflit entre deux entreprises, SK hynix et Micron, ce qui suggère un intérêt pour les marchés financiers et les actions, donc un score de 10 pour le secteur de la finance",
-      "subject": "SK hynix Vs. Micron: 'This Time Is Different'"
+      "score": 0.0,
+      "reason": "Michael Burry a revendu certaines options et a réduit les risques dans son portefeuille, ce qui pourrait indiquer une perception négative du marché financier.",
+      "subject": "NVDA: Michael Burry pulls back on risk, sheds December 2026 Nvidia and Palantir puts amid portfolio-wide cuts"
     },
     {
       "date": "2026-09-10",
-      "score": 5.0,
-      "reason": "L'extrait discute de l'IPO de DWS, une société de gestion d'actifs, et mentionne une restructuration avec sa majoritaire Deutsche Bank.",
-      "subject": "Ahead of Anthropic’s IPO, Lessons from SpaceX"
+      "score": 7.0,
+      "reason": "Le titre suggère que l'actualité est positive, mais ne fournit pas d'informations claires sur la tendance du secteur en général.",
+      "subject": "[RSS] What PNC Financial Services Group Stock's Raised Outlook Means For Shareholders - simplywall.st"
     },
     {
       "date": "2026-09-10",
-      "score": 10.0,
-      "reason": "L'extrait fait référence à une newsletter financière, indiquant que l'attention est portée sur le secteur financier, et l'expression 'Morning Zapping du 9 septembre' et l'existence d'un article intitulé 'Le Morning Zapping du 9 septembre' suggère que l'extrait est positif et attentif aux nouvelles d",
-      "subject": "Le Morning Zapping du 9 septembre"
+      "score": 8.0,
+      "reason": "Le titre fait référence à deux entreprises du secteur, ce qui suggère que celui-ci connaît une certaine activité ou est en train de se développer.",
+      "subject": "[RSS] Zacks Industry Outlook Highlights Ellington Financial and Adamas Trust - tradingview.com"
     }
   ],
   "Energy": [
     {
-      "date": "2026-09-09",
+      "date": "2026-09-10",
       "score": 10.0,
-      "reason": "L'extrait mentionne les tarifs canadiens et l'avenir du pétrole iranien, ce qui suggère une tendance positive pour le secteur de l'énergie.",
-      "subject": "NVDA: AM Markets Need to Know: Canada tariffs, Iran oil outlook, and more"
+      "reason": "South Korea nears over $100B U.S. energy investment to support AI buildout",
+      "subject": "NVDA: South Korea nears over $100B U.S. energy investment to support AI buildout: WSJ"
     },
     {
       "date": "2026-09-10",
       "score": 10.0,
-      "reason": "L'extrait concerne Chevron's Project Kilby, un projet en Venezuela, ce qui suggère une focalisation sur les activités énergétiques.",
-      "subject": "Chevron's Project Kilby, Venezuela, And Why The Stock Is So Appealing Here"
+      "reason": "Le titre indique que les ETF de l'industrie énergétique sont recommandés, ce qui suggère que le secteur est en bonne santé.",
+      "subject": "[RSS] 7 Best Energy ETFs to Buy Now | Investing - US News Money"
     },
     {
       "date": "2026-09-10",
-      "score": 5.0,
-      "reason": "Le baril joue à touche-touche avec les 100 dollars",
-      "subject": "Morning Meeting - Le baril joue à touche-touche avec les 100 dollars"
+      "score": 8.0,
+      "reason": "Le titre suggère que les entreprises du secteur 'Energy' ont une forte demande pour la puissance via l'intelligence artificielle, ce qui suggère une forte croissance et une investissement dans le secteur.",
+      "subject": "[RSS] US Utilities Outlook: AI Power Demand Meets Grid Investment - Morningstar"
     }
   ],
   "Real Estate": [
@@ -65,26 +65,38 @@
       "score": 10.0,
       "reason": "l'extrait indique que Realty Income est prête à atteindre +$75, ce qui suggère une tendance positive pour le secteur de l'immobilier",
       "subject": "Why Realty Income Is Poised To Hit +$75"
-    }
-  ],
-  "Consumer Discretionary": [
-    {
-      "date": "2026-09-07",
-      "score": 5.0,
-      "reason": "L'extrait décrit les signes potentiels d'un tournant à Petco, un magasin de produits pour animaux, mais n'est pas décisif sur son avenir.",
-      "subject": "Petco: Some Signs Of A Turnaround, But Far From Changing My Mind (Q2 Review)"
     },
     {
       "date": "2026-09-10",
-      "score": 10.0,
-      "reason": "L'iPhone Duo est vendu au prix d'un scooter d'occasion, indiquant une tendance florissante dans ce secteur",
-      "subject": "🌐 L'iPhone Duo est là"
+      "score": 8.0,
+      "reason": "Le titre suggère que l'intelligence artificielle est en train de remodeler le secteur, ce qui indique une transformation significative et éventuellement positive.",
+      "subject": "[RSS] Where AI is changing jobs and what it means for real estate - JLL"
     },
+    {
+      "date": "2026-09-10",
+      "score": 5.0,
+      "reason": "Le titre indique que l'action de la société Alexandria Real Estate reste stable, mais attire l'attention sur une vente d'actions interne et l'horizon 2026, ce qui ne transmet pas un message clair sur la tendance du secteur.",
+      "subject": "[RSS] Alexandria Real Estate stock steady as insider sale and 2026 FFO outlook draw attention - AD HOC NEWS"
+    }
+  ],
+  "Consumer Discretionary": [
     {
       "date": "2026-09-10",
       "score": 10.0,
       "reason": "L'article porte sur le secteur du cannabis et mentionne des entreprises comme Grown Rogue, suggérant que ce marché est florissant.",
       "subject": "'Let's Go All In On Cannabis' Grown Rogue's Obie Strickler & Josh Rosen"
+    },
+    {
+      "date": "2026-09-10",
+      "score": 8.0,
+      "reason": "Le titre suggère que l'action de Callaway Golf Company est en bonne position par rapport à ses concurrents, ce qui implique une tendance positive dans le secteur Consumer Discretionary.",
+      "subject": "[RSS] Is Callaway Golf Company (CALY) Stock Outpacing Its Consumer Discretionary Peers This Year? - Yahoo Finance Australia"
+    },
+    {
+      "date": "2026-09-10",
+      "score": 10.0,
+      "reason": "Le titre indique que le secteur 'Consumer Discretionary' surperforme par rapport à d'autres secteurs, ce qui suggère un rythme économique élevé et de bonnes performances de ses entreprises.",
+      "subject": "[RSS] This Corner of the Stock Market Is Outperforming by Its Most in Decades - inc.com"
     }
   ],
   "Industrials": [
@@ -93,6 +105,18 @@
       "score": 10.0,
       "reason": "Changzhou Xingyu Automotive Lighting Systems, une entreprise d'autoparties, est à l'origine d'une nouvelle.",
       "subject": "Wall Street’s Higher Ground"
+    },
+    {
+      "date": "2026-09-10",
+      "score": 10.0,
+      "reason": "Le titre suggère que le secteur Industrials connaît une période de forte croissance et de réussite, comparable à celle du secteur technologique.",
+      "subject": "[RSS] Inside the S&P 500 AI boom, industrials are getting as rich as tech stocks - CNBC"
+    },
+    {
+      "date": "2026-09-10",
+      "score": 8.0,
+      "reason": "Le titre mentionne explicitement les '8 meilleures actions de défense pour 2026', ce qui suggère que le secteur est en bonne santé et que les investisseurs sont optimistes quant à ses performances à venir.",
+      "subject": "[RSS] 8 Best Defense Stocks for 2026 and How to Invest - The Motley Fool"
     }
   ],
   "Health Care": [
@@ -101,6 +125,74 @@
       "score": 0.0,
       "reason": "Boston Scientific est en difficulté en raison d'une 'flasche' dans sa politique de sécurité.",
       "subject": "GE Disrupts SpaceX"
+    },
+    {
+      "date": "2026-09-10",
+      "score": 9.0,
+      "reason": "L'utilisation de « Innovation » et de « beyond tech » suggère que le secteur Healthcare est dynamique et en croissance, ce qui correspond à un score élevé de tendance positive.",
+      "subject": "[RSS] Innovation beyond tech: inside healthcare stocks - BlackRock"
+    },
+    {
+      "date": "2026-09-10",
+      "score": 7.0,
+      "reason": "Le titre mentionne trois sociétés du secteur, ce qui suggère une activité positive dans ce domaine.",
+      "subject": "[RSS] Zacks Industry Outlook Highlights Veracyte, Globus Medical and UFP Technologies - tradingview.com"
+    }
+  ],
+  "Consumer Staples": [
+    {
+      "date": "2026-09-10",
+      "score": 0.0,
+      "reason": "L'article suggère que le secteur consumer staples est confronté à un test en termes de valorisation, ce qui indique un climat défavorable.",
+      "subject": "[RSS] US consumer staples face valuation test as profit outlook dims - Reuters"
+    },
+    {
+      "date": "2026-09-10",
+      "score": 8.0,
+      "reason": "Le titre indique un intérêt pour l'investissement dans le secteur Consumer Staples, avec un accent mis sur sa robustesse défensive, ce qui suggère une tendance positive.",
+      "subject": "[RSS] The Rotation into Consumer Staples: Defensive Strength in an Uncertain 2026 - Yahoo Finance"
+    }
+  ],
+  "Basic Materials": [
+    {
+      "date": "2026-09-10",
+      "score": 10.0,
+      "reason": "Le titre suggère que le secteur est attractif pour l'investissement et que l'auteur va présenter des actions qui pourraient bien se porter en 2026.",
+      "subject": "[RSS] 7 Best Materials Stocks for 2026 and How to Invest - The Motley Fool"
+    },
+    {
+      "date": "2026-09-10",
+      "score": 5.0,
+      "reason": "Le titre indique que le secteur 'Basic Materials' est en hausse, mais également en sous-performance, ce qui laisse la porte ouverte à des opportunités, notamment dans les produits chimiques et l'agriculture, ce qui est une appréciation nuancée.",
+      "subject": "[RSS] Basic Materials: Sector Rises but Underperforms, Leaving Opportunities in Chemicals and Agriculture - Morningstar"
+    }
+  ],
+  "Utilities": [
+    {
+      "date": "2026-09-10",
+      "score": 6.0,
+      "reason": "Le titre suggère un mélange d'opportunités et de défis pour le secteur des services publics aux États-Unis, ce qui rend sa tendance comme neutre ou peu informative.",
+      "subject": "[RSS] US Utilities Outlook: AI Power Demand Meets Grid Investment - Morningstar"
+    },
+    {
+      "date": "2026-09-10",
+      "score": 7.0,
+      "reason": "Bien que les actions de ce secteur aient connu une chute, l'avenir reste prometteur en raison de la croissance du marché des centres de données.",
+      "subject": "[RSS] Utilities Stocks Plunge, Yet the Outlook Remains Positive with the Data Center Boom - Morningstar"
+    }
+  ],
+  "Telecommunications": [
+    {
+      "date": "2026-09-10",
+      "score": 10.0,
+      "reason": "L'ajout de 'Global' et 'Outlook' suggère que l'article présente une projection positive et globale sur l'avenir du secteur des télécommunications.",
+      "subject": "[RSS] 2026 Global Telecommunications Industry Outlook - Deloitte"
+    },
+    {
+      "date": "2026-09-10",
+      "score": 8.0,
+      "reason": "L'expression 'Key Trends and Investment Opportunities' suggère que le secteur est attractif et qu'il y a des perspectives positives.",
+      "subject": "[RSS] Telecommunications Industry in Europe: Key Trends and Investment Opportunities in Q2 2026 - Morningstar"
     }
   ]
 }
