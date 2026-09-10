@@ -1,7 +1,18 @@
-"""Daily sector-outlook signal derived from the user's own Gmail newsletters, feeding the
-"veto sectoriel" bots (#10/#11/#12): a qualitative, forward-looking read ("this sector is under
-pressure / thriving") to sit alongside sector_momentum.csv's purely backward-looking 12-2 month
-ETF price momentum.
+"""Daily sector-outlook signal derived from the user's own Gmail newsletters (plus a per-sector
+Google News RSS backstop, see fetch_rss_sector_readings()), feeding the "veto sectoriel" bots
+(#10/#11/#12): a qualitative, forward-looking read ("this sector is under pressure / thriving")
+to sit alongside sector_momentum.csv's purely backward-looking 12-2 month ETF price momentum.
+
+RSS BACKSTOP (added 2026-09-10): Gmail-only coverage is inherently biased toward whatever the
+user's own inbox happens to receive -- in practice almost always Technology/Finance/Energy/
+Consumer Discretionary, leaving sectors like Utilities, Basic Materials, Telecommunications and
+Consumer Staples stuck at "no_data" indefinitely, however long the pipeline runs, since nothing
+ever forced a look at them specifically. fetch_rss_sector_readings() queries Google News' public
+RSS search feed once per sector (same feed/library news_filter.py already uses for per-ticker
+headlines) so every sector in SECTOR_ETF gets at least a chance at fresh readings every run,
+independent of what newsletters happen to arrive. It runs unconditionally (even if the Gmail
+volet is skipped/broken that day) and feeds the exact same sliding window as Gmail-derived
+readings -- see main().
 
 Gmail access reuses the read-only OAuth grant already set up in the (unrelated) FreelanceCopilot
 project -- same Google account, same `gmail.readonly` scope, refreshed here non-interactively via
@@ -52,8 +63,10 @@ import os
 import pathlib
 import re
 import sys
+import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
+from urllib.parse import quote
 
 import pandas as pd
 import requests
@@ -136,6 +149,15 @@ Reponds UNIQUEMENT en JSON : {{"is_finance_newsletter": true|false, "reason": "<
 # 11 questions individually gave the model room to rationalize a connection). Asking once per
 # extract for its SINGLE main sector removes that structural incentive: there's no separate
 # question to talk itself into answering yes to for each unrelated sector.
+#
+# Loosened 2026-09-10 (was: sector must be the extract's "PRINCIPAL et EXPLICITE" subject) -- that
+# bar was so high that broader market/macro extracts (which often touch several sectors in real,
+# factual passages without any single one of them being THE main topic) never counted for any of
+# them, silently starving whichever sectors newsletters rarely lead a whole piece with (Utilities,
+# Basic Materials, Telecommunications, Consumer Staples sat at 0-1 readings after months of daily
+# runs -- see sector_outlook_window.json). The single-sector-per-extract structure above is what
+# actually prevents the 2026-09-05 rationalization bug, not the "principal" wording, so the bar can
+# be lowered to "concretely discussed" without reopening it.
 SECTOR_LIST = "\n".join(f"- {s}" for s in SECTOR_ETF)
 
 EXTRACT_SECTOR_PROMPT = """Voici un extrait de newsletter financiere recue aujourd'hui :
@@ -143,7 +165,7 @@ EXTRACT_SECTOR_PROMPT = """Voici un extrait de newsletter financiere recue aujou
 Sujet : {subject}
 Extrait : {body}
 
-Parmi les secteurs suivants, lequel est le sujet PRINCIPAL et EXPLICITE de cet extrait -- pas un secteur seulement mentionne en passant ou relie de facon indirecte ou supposee (ex: un extrait sur les semi-conducteurs IA concerne "Technology", pas "Finance", "Industrials" ou "Telecommunications" juste parce que ces secteurs achetent, vendent ou utilisent aussi de la technologie) :
+Parmi les secteurs suivants, lequel est reellement et concretement traite dans cet extrait -- pas un secteur seulement relie de facon indirecte ou supposee par une chaine de valeur ou un usage croise (ex: un extrait sur les semi-conducteurs IA concerne "Technology", pas "Finance", "Industrials" ou "Telecommunications" juste parce que ces secteurs achetent, vendent ou utilisent aussi de la technologie). Il n'est en revanche PAS necessaire que ce secteur soit l'unique sujet de l'extrait : un extrait plus large (marche, macro) qui consacre ne serait-ce qu'un passage clair et factuel a un secteur donne compte pour ce secteur.
 
 {sector_list}
 
@@ -152,6 +174,38 @@ Il est normal et attendu qu'un extrait ne corresponde a AUCUN de ces secteurs --
 Si un secteur est identifie, note de 0 a 10 la tendance qu'exprime cet extrait pour ce secteur : 0 = clairement sous pression, 5 = neutre ou avis partages, 10 = clairement florissant.
 
 Reponds UNIQUEMENT en JSON : {{"sector": "<un secteur EXACT de la liste ci-dessus, ou null>", "score": <entier 0-10, ou null si sector est null>, "reason": "<une phrase courte citant ce que dit cet extrait>"}}
+"""
+
+# RSS backstop (see module docstring) -- queried directly by sector name so every sector gets a
+# chance every run, independent of what Gmail happens to receive. Same public feed/pattern as
+# news_filter.py's fetch_headlines_google_news().
+GOOGLE_NEWS_RSS = "https://news.google.com/rss/search?q={query}&hl=en-US&gl=US&ceid=US:en"
+RSS_TIMEOUT = 15
+RSS_ITEMS_PER_SECTOR = 2  # small on purpose: this is a coverage backstop for sectors Gmail
+# rarely mentions, not a primary source -- keeps the added Ollama-call volume modest (at most
+# 11 sectors x 2 items = 22 extra calls/day, run once daily, not hourly -- see main()).
+
+SECTOR_RSS_QUERY = {
+    "Technology": "technology sector stocks outlook",
+    "Health Care": "healthcare sector stocks outlook",
+    "Finance": "financial sector stocks outlook",
+    "Consumer Discretionary": "consumer discretionary sector stocks outlook",
+    "Consumer Staples": "consumer staples sector stocks outlook",
+    "Industrials": "industrials sector stocks outlook",
+    "Basic Materials": "materials sector stocks outlook",
+    "Energy": "energy sector stocks outlook",
+    "Utilities": "utilities sector stocks outlook",
+    "Real Estate": "real estate sector stocks outlook",
+    "Telecommunications": "telecom sector stocks outlook",
+}
+
+RSS_SCORE_PROMPT = """Voici le titre d'un article d'actualite financiere concernant le secteur "{sector}" :
+
+Titre : {title}
+
+Note de 0 a 10 la tendance qu'exprime ce titre pour ce secteur : 0 = clairement sous pression, 5 = neutre ou peu informatif, 10 = clairement florissant.
+
+Reponds UNIQUEMENT en JSON : {{"score": <entier 0-10>, "reason": "<une phrase courte>"}}
 """
 
 
@@ -358,6 +412,64 @@ def classify_newsletters_by_sector(newsletters: list[dict], today: str) -> dict[
     return by_sector
 
 
+def fetch_sector_rss_headlines(sector: str, max_items: int = RSS_ITEMS_PER_SECTOR) -> list[str]:
+    """Google News' public RSS search feed, queried directly by sector name -- titles only, no
+    body fetch (same sensitivity level as news_filter.py's headline-only RSS use, see PRIVACY
+    note in the module docstring)."""
+    query = SECTOR_RSS_QUERY[sector]
+    try:
+        resp = requests.get(GOOGLE_NEWS_RSS.format(query=quote(query)), timeout=RSS_TIMEOUT,
+                             headers={"User-Agent": "Mozilla/5.0"})
+        resp.raise_for_status()
+        root = ET.fromstring(resp.content)
+    except Exception as e:
+        print(f"  echec fetch RSS pour le secteur {sector}: {e}", file=sys.stderr)
+        return []
+    return [t for t in (item.findtext("title") for item in root.findall(".//item")[:max_items]) if t]
+
+
+def _score_rss_headline(sector: str, title: str) -> dict | None:
+    """No sector-identification call needed here (unlike _classify_extract_sector) -- the sector
+    was already fixed by which query fetched this headline, so this only asks for the 0-10
+    sentiment score, same grounding rule as everywhere else (judged from the fetched title only)."""
+    prompt = RSS_SCORE_PROMPT.format(sector=sector, title=title)
+    try:
+        raw = _call_ollama_json(prompt)
+    except Exception as e:
+        print(f"  echec notation RSS pour \"{title}\": {e}", file=sys.stderr)
+        return None
+    score = _parse_score(raw.get("score"))
+    if score is None:
+        return None
+    return {"score": score, "reason": str(raw.get("reason", ""))[:300], "subject": f"[RSS] {title}"}
+
+
+def _rss_readings_for_sector(sector: str, today: str) -> list[dict]:
+    return [{"date": today, **scored} for scored in
+            (_score_rss_headline(sector, title) for title in fetch_sector_rss_headlines(sector))
+            if scored is not None]
+
+
+def fetch_rss_sector_readings(today: str) -> dict[str, list[dict]]:
+    """Runs the RSS fetch+score pipeline for every sector in SECTOR_ETF concurrently (bounded to
+    OLLAMA_MAX_WORKERS, same ceiling as the Gmail-based classification calls -- see that
+    constant's comment for why not higher). Returns the same {sector: [reading, ...]} shape
+    classify_newsletters_by_sector() produces, ready to merge into the same sliding window."""
+    by_sector: dict[str, list[dict]] = {}
+    with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
+        futures = {ex.submit(_rss_readings_for_sector, sector, today): sector for sector in SECTOR_ETF}
+        for fut in as_completed(futures):
+            sector = futures[fut]
+            try:
+                readings = fut.result()
+            except Exception as e:
+                print(f"  echec RSS pour {sector} (parallele, inattendu): {e}", file=sys.stderr)
+                readings = []
+            if readings:
+                by_sector[sector] = readings
+    return by_sector
+
+
 def _load_window() -> dict:
     if WINDOW_PATH.exists():
         try:
@@ -435,61 +547,78 @@ def main():
         print(f"newsletter_digest deja execute aujourd'hui ({today}) -- rien a faire.")
         return
 
+    # Gmail volet is now best-effort: a missing credential or a Gmail-side failure used to abort
+    # the whole run (return before reaching the RSS backstop below). That meant the RSS coverage
+    # sweep -- the whole point of which is to reach every sector regardless of what Gmail does --
+    # never even ran on those days. message_ids stays None on failure so state below knows not to
+    # overwrite processed_message_ids.
+    newsletters: list[dict] = []
+    message_ids = None
     missing = [v for v in ("GMAIL_REFRESH_TOKEN", "GMAIL_CLIENT_ID", "GMAIL_CLIENT_SECRET")
                if not os.environ.get(v)]
     if missing:
-        print(f"Variables manquantes ({', '.join(missing)}) -- digest Gmail ignore ce run.",
-              file=sys.stderr)
-        return
+        print(f"Variables manquantes ({', '.join(missing)}) -- volet Gmail ignore ce run "
+              f"(le volet RSS ci-dessous continue).", file=sys.stderr)
+    else:
+        try:
+            token = get_access_token()
+            message_ids = list_recent_message_ids(token)
 
-    try:
-        token = get_access_token()
-        message_ids = list_recent_message_ids(token)
-    except Exception as e:
-        print(f"echec acces Gmail: {e} -- digest ignore ce run.", file=sys.stderr)
-        return
+            # processed_message_ids holds exactly LAST run's fetched window (not an ever-growing
+            # union): since GMAIL_QUERY always looks back only 2 days, anything older simply
+            # stops being returned by Gmail on its own, so there's nothing to manually prune here.
+            previously_processed = set(state.get("processed_message_ids", []))
+            new_ids = [m for m in message_ids if m not in previously_processed]
 
-    # processed_message_ids holds exactly LAST run's fetched window (not an ever-growing
-    # union): since GMAIL_QUERY always looks back only 2 days, anything older simply stops
-    # being returned by Gmail on its own, so there's nothing to manually prune here.
-    previously_processed = set(state.get("processed_message_ids", []))
-    new_ids = [m for m in message_ids if m not in previously_processed]
+            # Fetch stays sequential (Gmail API, not Ollama -- a different bottleneck, out of
+            # scope for this pass) ; classification is the part that was pushing the CI job's
+            # runtime over budget (2026-09-07), so THAT'S parallelized -- see OLLAMA_MAX_WORKERS
+            # above. Each message's classify_newsletter() call is independent (no shared state),
+            # so this is safe unlike the bot buy loops elsewhere in this repo.
+            msgs = [m for m in (fetch_message(token, mid) for mid in new_ids) if m is not None]
+            with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
+                is_newsletter = dict(zip(
+                    (m["id"] for m in msgs),
+                    ex.map(classify_newsletter, msgs),
+                ))
 
-    # Fetch stays sequential (Gmail API, not Ollama -- a different bottleneck, out of scope for
-    # this pass) ; classification is the part that was pushing the CI job's runtime over budget
-    # (2026-09-07), so THAT'S parallelized -- see OLLAMA_MAX_WORKERS above. Each message's
-    # classify_newsletter() call is independent (no shared state), so this is safe unlike the
-    # bot buy loops elsewhere in this repo.
-    msgs = [m for m in (fetch_message(token, mid) for mid in new_ids) if m is not None]
-    with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
-        is_newsletter = dict(zip(
-            (m["id"] for m in msgs),
-            ex.map(classify_newsletter, msgs),
-        ))
+            # Kept sequential and in fetch order: _append_to_newsletter_database does its own
+            # disk write (CSV append) per call -- doing that from multiple threads risks
+            # interleaved writes, and there's no Ollama call left at this point to parallelize.
+            for msg in msgs:
+                if is_newsletter.get(msg["id"]):
+                    newsletters.append(msg)
+                    _append_to_newsletter_database(today, msg["subject"])
 
-    # Kept sequential and in fetch order: _append_to_newsletter_database does its own disk
-    # write (CSV append) per call -- doing that from multiple threads risks interleaved writes,
-    # and there's no Ollama call left at this point to parallelize anyway.
-    newsletters = []
-    for msg in msgs:
-        if is_newsletter.get(msg["id"]):
-            newsletters.append(msg)
-            _append_to_newsletter_database(today, msg["subject"])
+            print(f"{len(new_ids)} nouveau(x) mail(s) examine(s), {len(newsletters)} newsletter(s) "
+                  f"financiere(s) retenue(s).")
+        except Exception as e:
+            print(f"echec acces Gmail: {e} -- volet Gmail ignore ce run (le volet RSS "
+                  f"ci-dessous continue).", file=sys.stderr)
 
-    print(f"{len(new_ids)} nouveau(x) mail(s) examine(s), {len(newsletters)} newsletter(s) "
-          f"financiere(s) retenue(s).")
+    by_sector_today = classify_newsletters_by_sector(newsletters, today) if newsletters else {}
 
-    if newsletters:
-        by_sector_today = classify_newsletters_by_sector(newsletters, today)
+    # RSS backstop: runs every day regardless of what happened with Gmail above -- see module
+    # docstring's RSS BACKSTOP section for why this is the actual fix for sectors that can
+    # otherwise sit at "no_data" forever.
+    for sector, entries in fetch_rss_sector_readings(today).items():
+        by_sector_today.setdefault(sector, []).extend(entries)
+
+    if by_sector_today:
         window = _update_window(_load_window(), by_sector_today)
         _save_window(window)
         rows = [{"sector": s, **v} for s, v in _compute_output_rows(window).items()]
         OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
         pd.DataFrame(rows).to_csv(OUT_PATH, index=False, encoding="utf-8")
     else:
-        print("Aucune newsletter financiere aujourd'hui -- sector_outlook.csv inchange.")
+        print("Aucune lecture (newsletter ou RSS) aujourd'hui -- sector_outlook.csv inchange.")
 
-    state["processed_message_ids"] = message_ids
+    if message_ids is not None:
+        state["processed_message_ids"] = message_ids
+    # Gating stays once-per-UTC-day for the run as a whole (Gmail attempt + RSS sweep), not just
+    # for a successful Gmail fetch: a Gmail outage no longer blocks the RSS backstop from running
+    # today, at the cost of Gmail itself only getting retried tomorrow rather than next hour --
+    # an acceptable trade given the 2-day GMAIL_QUERY lookback already buffers short outages.
     state["last_run_date"] = today
     _save_state(state)
 
