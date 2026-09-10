@@ -1720,5 +1720,11 @@
     "sentiment": "positive",
     "reason": "L'action de Alphabet Inc. (GOOGL) a connu une croissance de 20% de ses revenus et une forte performance de ses investissements en matière de cloud et d'IA, ce qui suggère un ton positif pour l'action.",
     "source": "ollama"
+  },
+  "BPOP_2026-09-10": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sur CES SEULES sont presque toutes positives pour l'action de Popular, Inc. (BPOP), avec des annonces de dividendes, des performances de croissance et des analyses positives des actions de la compagnie.",
+    "source": "ollama"
   }
 }
