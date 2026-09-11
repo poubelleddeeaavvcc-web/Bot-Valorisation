@@ -2044,5 +2044,11 @@
     "sentiment": "positive",
     "reason": "Les actualites presentes montrent une rotation des investissements vers les actions de jeux vidéo japonaises, une premiere sortie de slot de Bomberman et des resultats de bilan superieurs, indiquant un ton general positif pour l'action de Konami Group Corporation.",
     "source": "ollama"
+  },
+  "SAF.PA_2026-09-11": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes sont mixtes, avec des informations positives sur des expansions de marche et des partenariats, mais aussi des informations négatives sur une chute de la valeur de l'action et des prévisions de croissance moins optimistes.",
+    "source": "ollama"
   }
 }
