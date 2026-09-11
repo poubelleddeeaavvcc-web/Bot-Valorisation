@@ -156,6 +156,23 @@ jobs:
       - name: Simulation large + actu Ollama + notes + veto sectoriel (Bot #24)
         run: python screener/simulate_large_portfolio_newsgated_notes_sector_outlook.py
 
+      # Bots #29-32 : famille Delta (renfort par conviction, voir simulate_delta_portfolio.py)
+      # avec le filtre actu Ollama -- regroupes ici comme tous les autres bots newsgated plutot
+      # que dans bots-delta, meme raison que le reste de ce job (caches JSON partages). Ajoutes
+      # le 2026-09-10 en meme temps que #25-28 mais oublies du CI jusqu'a cette verification
+      # (2026-09-11).
+      - name: Simulation Delta + actu Ollama (Bot #29)
+        run: python screener/simulate_delta_portfolio_newsgated.py
+
+      - name: Simulation Delta + actu Ollama + notes (Bot #30)
+        run: python screener/simulate_delta_portfolio_newsgated_notes.py
+
+      - name: Simulation Delta + actu Ollama + veto sectoriel (Bot #31)
+        run: python screener/simulate_delta_portfolio_newsgated_sector_outlook.py
+
+      - name: Simulation Delta + actu Ollama + notes + veto sectoriel (Bot #32)
+        run: python screener/simulate_delta_portfolio_newsgated_notes_sector_outlook.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
@@ -362,6 +379,19 @@ jobs:
       # encore aucun historique de trades).
       - name: Simulation a capital contraint + renfort par conviction (Bot #25)
         run: python screener/simulate_delta_portfolio.py
+
+      # Bots #26/#27/#28 : memes combinaisons notes/veto sectoriel/notes+veto que le reste de la
+      # grille (voir simulate_delta_portfolio_notes.py etc.) -- ajoutes le 2026-09-10 en meme
+      # temps que #25 mais oublies du CI jusqu'a cette verification (2026-09-11), voir #29-32
+      # dans bots-ollama pour les variantes avec le filtre actu Ollama.
+      - name: Simulation Delta + selection par notes (Bot #26)
+        run: python screener/simulate_delta_portfolio_notes.py
+
+      - name: Simulation Delta + veto sectoriel newsletters (Bot #27)
+        run: python screener/simulate_delta_portfolio_sector_outlook.py
+
+      - name: Simulation Delta + notes + veto sectoriel (Bot #28)
+        run: python screener/simulate_delta_portfolio_notes_sector_outlook.py
 
       - name: Commit + push si des resultats ont change
         run: |
