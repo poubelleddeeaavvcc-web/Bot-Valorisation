@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suivi des 32 bots</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<style>
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--bd:#30363d;
+  --tx:#e6edf3;--mu:#8b949e;--gr:#3fb950;--rd:#f85149;--or:#d29922;--bl:#388bfd;--g:#caa84e;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;margin:0}
+.hdr{background:var(--bg2);border-bottom:1px solid var(--bd);padding:16px 20px;position:sticky;top:0;z-index:100}
+.hdr h1{font-size:18px;margin:0 0 4px}
+.hdr-sub{font-size:11px;color:var(--mu)}
+.hdr-sub a{color:var(--bl)}
+.cx{max-width:1400px;margin:0 auto;padding:16px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:14px;flex:1;min-width:170px}
+.ctit{font-size:10px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.kbig{font-size:22px;font-weight:700}
+.ksub{font-size:11px;color:var(--mu);margin-top:4px}
+.pos{color:var(--gr)}.neg{color:var(--rd)}.neu{color:var(--mu)}
+table{width:100%;border-collapse:collapse}
+th{font-size:10px;color:var(--mu);text-align:left;padding:6px 8px;border-bottom:1px solid var(--bd);white-space:nowrap;cursor:pointer;user-select:none}
+th:hover{color:var(--tx)}
+td{padding:5px 8px;border-bottom:1px solid var(--bd);font-size:12px;vertical-align:middle}
+tr.bot-row{cursor:pointer}
+tr.bot-row:hover td{background:var(--bg3)}
+tr.bot-row.expanded td{background:var(--bg3)}
+.badge{font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;display:inline-block;margin-right:3px;border:1px solid;white-space:nowrap}
+.b-notes{background:#122b45;color:var(--bl);border-color:var(--bl)}
+.b-sector{background:#1f3d1f;color:var(--gr);border-color:var(--gr)}
+.b-ollama{background:#3a2e10;color:var(--or);border-color:var(--or)}
+.b-base{background:var(--bg3);color:var(--mu);border-color:var(--bd)}
+.tbl-wrap{overflow-x:auto}
+.section-title{font-size:14px;font-weight:700;color:var(--g);margin:18px 0 10px}
+.muted-note{font-size:11px;color:var(--mu);margin-top:6px;line-height:1.5}
+.btn-back{display:inline-block;margin-top:8px;padding:4px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);text-decoration:none;font-size:11px}
+.btn-back:hover{border-color:var(--g);color:var(--g)}
+.grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:14px}
+@media(max-width:820px){.grid4{grid-template-columns:1fr}}
+.detail-panel{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:12px;margin:6px 0}
+.detail-cols{display:flex;gap:16px;flex-wrap:wrap}
+.detail-col{flex:1;min-width:260px}
+.mini-tbl td,.mini-tbl th{padding:3px 6px;font-size:11px}
+.chip-num{color:var(--mu);font-size:10px}
+.loading-row td{color:var(--mu);text-align:center;padding:16px}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <h1>🤖 Suivi des 32 bots de simulation</h1>
+  <div class="hdr-sub">4 stratégies de capital (aveugle / capital contraint / large / delta) × 8 variantes de mécanique
+    (base, notes Qualité/Perspective, veto sectoriel, filtre actu Ollama, et leurs combinaisons) = 32 bots simulés en parallèle
+    sur le même screener. Données publiques, actualisées automatiquement par
+    <a href="https://github.com/poubelleddeeaavvcc-web/Bot-Valorisation" target="_blank">GitHub Actions</a> (~toutes les heures).
+    Aucune donnée personnelle — uniquement l'état des simulations.</div>
+  <a class="btn-back" href="index.html">← Vue synthétique screener (candidats, Bot #A1/#B1/#C1)</a>
+</div>
+
+<div class="cx">
+  <div id="bt-status" class="muted-note" style="margin-bottom:14px">Chargement des 32 bots depuis GitHub…</div>
+
+  <div class="row" id="bt-kpis" style="display:none">
+    <div class="card">
+      <div class="ctit">Bots suivis</div>
+      <div class="kbig">32</div>
+      <div class="ksub">4 familles de capital × 8 variantes</div>
+    </div>
+    <div class="card">
+      <div class="ctit">Meilleur rendement actuel</div>
+      <div class="kbig pos" id="bt-kpi-best">-</div>
+      <div class="ksub" id="bt-kpi-best-sub">-</div>
+    </div>
+    <div class="card">
+      <div class="ctit">Bot le plus avancé</div>
+      <div class="kbig" id="bt-kpi-advanced">-</div>
+      <div class="ksub" id="bt-kpi-advanced-sub">clôtures cumulées, le plus fiable statistiquement</div>
+    </div>
+    <div class="card">
+      <div class="ctit">Dernière mise à jour</div>
+      <div class="kbig" id="bt-kpi-updated">-</div>
+      <div class="ksub">cycle GitHub Actions le plus récent</div>
+    </div>
+  </div>
+
+  <div id="bt-content" style="display:none">
+    <div class="muted-note card" style="margin-bottom:14px">
+      ⚠️ Ce sont des simulations sur données publiques, pas de l'argent réel. Certains bots (Delta notamment) viennent
+      d'être lancés et n'ont encore que quelques positions — avec moins d'une trentaine de clôtures, ne tire pas de
+      conclusion statistique définitive sur un bot précis : regarde plutôt les tendances qui se dégagent sur plusieurs
+      semaines entre familles et variantes.
+    </div>
+
+    <div class="section-title">Évolution du rendement par famille (survole une courbe, clique la légende pour l'isoler)</div>
+    <div class="grid4" id="bt-family-charts"></div>
+
+    <div class="section-title">Comparatif des 32 bots (clique une ligne pour voir ses positions, clique une colonne pour trier)</div>
+    <div class="muted-note" style="margin-bottom:6px">
+      <span class="badge b-notes">Notes</span> = sélection par notes Qualité/Perspective au lieu du score composite &nbsp;
+      <span class="badge b-sector">Secteur</span> = veto sur les secteurs jugés "sous pression" par les newsletters &nbsp;
+      <span class="badge b-ollama">Ollama</span> = filtre actu par IA locale (veto si news récentes défavorables)
+    </div>
+    <div class="card tbl-wrap">
+      <table id="bt-table">
+        <thead>
+          <tr>
+            <th data-col="num">#</th>
+            <th data-col="family_label">Famille</th>
+            <th data-col="variant_label">Variante</th>
+            <th data-col="return_pct">Rendement</th>
+            <th data-col="equity_display">Capital simulé</th>
+            <th data-col="nb_open">Ouvertes</th>
+            <th data-col="nb_closed">Clôturées</th>
+            <th data-col="win_rate_closed">Win rate</th>
+            <th data-col="avg_return_closed">Rendement moy. clôturé</th>
+          </tr>
+        </thead>
+        <tbody id="bt-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+const BT_REPO_RAW='https://raw.githubusercontent.com/poubelleddeeaavvcc-web/Bot-Valorisation/master/results/simulation';
+
+const BT_FAMILIES=[
+  {key:'',           label:'Aveugle',           capital:null, numbers:{'':1,'_newsgated':4,'_notes':7,'_sector_outlook':10,'_newsgated_notes':13,'_newsgated_sector_outlook':16,'_notes_sector_outlook':19,'_newsgated_notes_sector_outlook':22}},
+  {key:'constrained_',label:'Capital contraint',capital:500,  numbers:{'':2,'_newsgated':5,'_notes':8,'_sector_outlook':11,'_newsgated_notes':14,'_newsgated_sector_outlook':17,'_notes_sector_outlook':20,'_newsgated_notes_sector_outlook':23}},
+  {key:'large_',      label:'Large',            capital:500,  numbers:{'':3,'_newsgated':6,'_notes':9,'_sector_outlook':12,'_newsgated_notes':15,'_newsgated_sector_outlook':18,'_notes_sector_outlook':21,'_newsgated_notes_sector_outlook':24}},
+  {key:'delta_',      label:'Delta',            capital:300,  numbers:{'':25,'_newsgated':29,'_notes':26,'_sector_outlook':27,'_newsgated_notes':30,'_newsgated_sector_outlook':31,'_notes_sector_outlook':28,'_newsgated_notes_sector_outlook':32}},
+];
+
+const BT_MODIFIERS=[
+  {suffix:'',                                  label:'Base',                  notes:false,sector:false,ollama:false,color:'#8b949e'},
+  {suffix:'_notes',                            label:'Notes',                 notes:true, sector:false,ollama:false,color:'#388bfd'},
+  {suffix:'_sector_outlook',                   label:'Secteur',               notes:false,sector:true, ollama:false,color:'#3fb950'},
+  {suffix:'_notes_sector_outlook',             label:'Notes+Secteur',         notes:true, sector:true, ollama:false,color:'#a371f7'},
+  {suffix:'_newsgated',                        label:'Ollama',                notes:false,sector:false,ollama:true, color:'#d29922'},
+  {suffix:'_newsgated_notes',                  label:'Ollama+Notes',          notes:true, sector:false,ollama:true, color:'#39c5cf'},
+  {suffix:'_newsgated_sector_outlook',         label:'Ollama+Secteur',        notes:false,sector:true, ollama:true, color:'#f778ba'},
+  {suffix:'_newsgated_notes_sector_outlook',   label:'Ollama+Notes+Secteur',  notes:true, sector:true, ollama:true, color:'#caa84e'},
+];
+
+let btBots=[];
+let btSortState={col:'return_pct',dir:'desc'};
+let btExpanded=null;
+let btFamilyChartRefs=[];
+
+function btSplitCSVLine(line){
+  const result=[];let cur='',inQuotes=false;
+  for(let i=0;i<line.length;i++){
+    const c=line[i];
+    if(inQuotes){
+      if(c==='"'){ if(line[i+1]==='"'){cur+='"';i++;} else inQuotes=false; }
+      else cur+=c;
+    }else{
+      if(c==='"')inQuotes=true;
+      else if(c===','){result.push(cur);cur='';}
+      else cur+=c;
+    }
+  }
+  result.push(cur);
+  return result;
+}
+function btParseCSV(text){
+  const lines=text.trim().split('\n');
+  if(lines.length<2)return[];
+  const headers=btSplitCSVLine(lines[0]);
+  return lines.slice(1).map(line=>{
+    const vals=btSplitCSVLine(line);
+    const obj={};
+    headers.forEach((h,i)=>obj[h]=vals[i]);
+    return obj;
+  });
+}
+async function btFetchText(path,bust){
+  const r=await fetch(`${BT_REPO_RAW}/${path}?_=${bust}`);
+  if(!r.ok)throw new Error(path+' introuvable ('+r.status+')');
+  return r.text();
+}
+
+function btCurvePointPct(family,row){
+  if(family.capital==null){
+    const v=parseFloat(row.strategy_avg_return);
+    return isNaN(v)?null:v*100;
+  }
+  const eq=parseFloat(row.total_equity_eur);
+  if(isNaN(eq))return null;
+  return (eq/family.capital-1)*100;
+}
+
+async function btLoadBot(family,modifier,bust){
+  const suffix=modifier.suffix;
+  const num=family.numbers[suffix];
+  const summaryPath=`${family.key}summary${suffix}.json`;
+  const curvePath=`${family.key}equity_curve${suffix}.csv`;
+  const bot={
+    num,family,modifier,
+    family_label:family.label,
+    variant_label:modifier.label,
+    return_pct:null,equity_display:'-',nb_open:null,nb_closed:null,
+    win_rate_closed:null,avg_return_closed:null,
+    curve:[],lastTimestamp:null,error:null,
+  };
+  try{
+    const [summaryTxt,curveTxt]=await Promise.all([
+      btFetchText(summaryPath,bust),
+      btFetchText(curvePath,bust),
+    ]);
+    const summary=JSON.parse(summaryTxt);
+    const curveRows=btParseCSV(curveTxt);
+    bot.nb_open=summary.nb_open!=null?summary.nb_open:null;
+    bot.nb_closed=summary.nb_closed!=null?summary.nb_closed:null;
+    bot.win_rate_closed=summary.win_rate_closed!=null?summary.win_rate_closed:null;
+    bot.avg_return_closed=summary.avg_return_closed!=null?summary.avg_return_closed:null;
+
+    bot.curve=curveRows.map(r=>({t:new Date(r.timestamp).getTime(),y:btCurvePointPct(family,r)}))
+                        .filter(p=>!isNaN(p.t)&&p.y!=null);
+    if(curveRows.length)bot.lastTimestamp=curveRows[curveRows.length-1].timestamp;
+
+    if(family.capital==null){
+      bot.return_pct=bot.curve.length?bot.curve[bot.curve.length-1].y/100:null;
+      bot.equity_display='sans capital';
+    }else{
+      bot.return_pct=summary.total_return_pct!=null?summary.total_return_pct:null;
+      bot.equity_display=summary.total_equity_eur!=null
+        ?summary.total_equity_eur.toFixed(0)+' € / '+family.capital+' €'
+        :'-';
+    }
+  }catch(e){
+    bot.error=e.message;
+  }
+  return bot;
+}
+
+async function btLoadLedger(bot){
+  if(bot.ledger)return bot.ledger;
+  const path=`${bot.family.key}portfolio_ledger${bot.modifier.suffix}.csv`;
+  try{
+    const txt=await btFetchText(path,Date.now());
+    bot.ledger=btParseCSV(txt).map(r=>({
+      ticker:r.ticker,name:r.name,status:r.status,
+      entry_date:r.entry_date,entry_price:parseFloat(r.entry_price),
+      last_price:r.last_price?parseFloat(r.last_price):null,
+      unrealized_return_pct:r.unrealized_return_pct?parseFloat(r.unrealized_return_pct):null,
+      return_pct:r.return_pct?parseFloat(r.return_pct):null,
+      exit_date:r.exit_date||'',exit_reason:r.exit_reason||'',
+    })).filter(r=>r.ticker);
+  }catch(e){
+    bot.ledger=[];
+    bot.ledgerError=e.message;
+  }
+  return bot.ledger;
+}
+
+async function renderBotsPage(){
+  const statusEl=document.getElementById('bt-status');
+  statusEl.style.display='';
+  statusEl.style.color='';
+  statusEl.textContent='Chargement des 32 bots depuis GitHub…';
+  try{
+    const bust=Date.now();
+    const tasks=[];
+    BT_FAMILIES.forEach(family=>{
+      BT_MODIFIERS.forEach(modifier=>{
+        tasks.push(btLoadBot(family,modifier,bust));
+      });
+    });
+    btBots=await Promise.all(tasks);
+
+    statusEl.style.display='none';
+    document.getElementById('bt-kpis').style.display='';
+    document.getElementById('bt-content').style.display='';
+    btRenderAll();
+  }catch(e){
+    statusEl.textContent='Impossible de charger les données des bots ('+e.message+').';
+    statusEl.style.color='var(--rd)';
+  }
+}
+
+function btFmtPct(v,digits){
+  if(v==null||isNaN(v))return 'n/a';
+  digits=digits==null?1:digits;
+  return (v>=0?'+':'')+(v*100).toFixed(digits)+'%';
+}
+function btCls(v){
+  return v==null||isNaN(v)?'neu':(v>=0?'pos':'neg');
+}
+
+function btRenderAll(){
+  const valid=btBots.filter(b=>!b.error&&b.return_pct!=null);
+  const best=valid.reduce((a,b)=>(!a||b.return_pct>a.return_pct)?b:a,null);
+  if(best){
+    document.getElementById('bt-kpi-best').textContent=btFmtPct(best.return_pct,1);
+    document.getElementById('bt-kpi-best-sub').textContent=
+      `Bot #${best.num} — ${best.family_label} / ${best.variant_label}`;
+  }
+  const mostClosed=btBots.reduce((a,b)=>((b.nb_closed||0)>(a?a.nb_closed||0:-1))?b:a,null);
+  if(mostClosed){
+    document.getElementById('bt-kpi-advanced').textContent=(mostClosed.nb_closed||0)+' clôtures';
+    document.getElementById('bt-kpi-advanced-sub').textContent=
+      `Bot #${mostClosed.num} — ${mostClosed.family_label} / ${mostClosed.variant_label}`;
+  }
+  const lastTs=btBots.map(b=>b.lastTimestamp).filter(Boolean).sort().pop();
+  document.getElementById('bt-kpi-updated').textContent=lastTs?btFormatRunTimestamp(lastTs):'-';
+
+  btDrawFamilyCharts();
+  btSortAndRenderTable();
+  btWireSortHeaders();
+}
+
+function btFormatRunTimestamp(iso){
+  if(!iso)return 'n/a';
+  const d=new Date(iso);
+  if(isNaN(d))return iso;
+  const pad=n=>String(n).padStart(2,'0');
+  return `${pad(d.getUTCDate())}/${pad(d.getUTCMonth()+1)} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())} UTC`;
+}
+
+function btDrawFamilyCharts(){
+  const container=document.getElementById('bt-family-charts');
+  container.innerHTML='';
+  btFamilyChartRefs.forEach(c=>c.destroy());
+  btFamilyChartRefs=[];
+
+  BT_FAMILIES.forEach(family=>{
+    const card=document.createElement('div');
+    card.className='card';
+    const capLabel=family.capital==null?'sans capital (achète tout candidat LONG)':`${family.capital} € simulés`;
+    card.innerHTML=`<div class="ctit">${family.label} — ${capLabel}</div>
+      <div style="position:relative;height:220px"><canvas></canvas></div>`;
+    container.appendChild(card);
+    const canvas=card.querySelector('canvas');
+
+    const botsForFamily=btBots.filter(b=>b.family===family&&!b.error);
+    const datasets=BT_MODIFIERS.map(modifier=>{
+      const bot=botsForFamily.find(b=>b.modifier===modifier);
+      return{
+        label:modifier.label,
+        data:bot?bot.curve.map(p=>({x:p.t,y:p.y})):[],
+        borderColor:modifier.color,
+        backgroundColor:modifier.color,
+        borderWidth:1.5,pointRadius:0,tension:0.15,
+      };
+    });
+
+    const chart=new Chart(canvas.getContext('2d'),{
+      type:'line',
+      data:{datasets},
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        interaction:{mode:'nearest',axis:'x',intersect:false},
+        plugins:{
+          legend:{position:'bottom',labels:{color:'#8b949e',font:{size:9},boxWidth:8}},
+          tooltip:{callbacks:{label:(c)=>c.dataset.label+' : '+(c.raw.y>=0?'+':'')+c.raw.y.toFixed(1)+'%'}},
+        },
+        scales:{
+          x:{type:'time',time:{unit:'day'},ticks:{color:'#8b949e',font:{size:9}},grid:{color:'#30363d'}},
+          y:{ticks:{color:'#8b949e',callback:(v)=>v+'%',font:{size:9}},grid:{color:'#30363d'}},
+        }
+      }
+    });
+    btFamilyChartRefs.push(chart);
+  });
+}
+
+function btSortRows(rows){
+  const {col,dir}=btSortState;
+  return [...rows].sort((a,b)=>{
+    let va=a[col],vb=b[col];
+    if(typeof va==='string'||typeof vb==='string')
+      return dir==='asc'?String(va||'').localeCompare(String(vb||'')):String(vb||'').localeCompare(String(va||''));
+    va=(va==null||isNaN(va))?-Infinity:va;
+    vb=(vb==null||isNaN(vb))?-Infinity:vb;
+    return dir==='asc'?va-vb:vb-va;
+  });
+}
+
+function btVariantBadges(modifier){
+  let b='';
+  if(modifier.notes)b+='<span class="badge b-notes">Notes</span>';
+  if(modifier.sector)b+='<span class="badge b-sector">Secteur</span>';
+  if(modifier.ollama)b+='<span class="badge b-ollama">Ollama</span>';
+  if(!modifier.notes&&!modifier.sector&&!modifier.ollama)b+='<span class="badge b-base">Base</span>';
+  return b;
+}
+
+function btSortAndRenderTable(){
+  const tbody=document.getElementById('bt-tbody');
+  const sorted=btSortRows(btBots);
+  tbody.innerHTML='';
+  sorted.forEach(bot=>{
+    const tr=document.createElement('tr');
+    tr.className='bot-row';
+    if(bot.error){
+      tr.innerHTML=`<td>#${bot.num}</td><td>${bot.family_label}</td><td>${bot.variant_label}</td>
+        <td colspan="6" class="neu">données indisponibles (${bot.error})</td>`;
+      tbody.appendChild(tr);
+      return;
+    }
+    tr.innerHTML=`
+      <td class="chip-num">#${bot.num}</td>
+      <td>${bot.family_label}</td>
+      <td>${btVariantBadges(bot.modifier)}</td>
+      <td class="${btCls(bot.return_pct)}">${btFmtPct(bot.return_pct,1)}</td>
+      <td>${bot.equity_display}</td>
+      <td>${bot.nb_open!=null?bot.nb_open:'n/a'}</td>
+      <td>${bot.nb_closed!=null?bot.nb_closed:'n/a'}</td>
+      <td>${bot.win_rate_closed!=null?(bot.win_rate_closed*100).toFixed(0)+'%':'n/a'}</td>
+      <td class="${btCls(bot.avg_return_closed)}">${btFmtPct(bot.avg_return_closed,1)}</td>
+    `;
+    tr.addEventListener('click',()=>btToggleExpand(bot,tr));
+    tbody.appendChild(tr);
+  });
+}
+
+function btWireSortHeaders(){
+  document.querySelectorAll('#bt-table th[data-col]').forEach(th=>{
+    th.onclick=()=>{
+      const col=th.dataset.col;
+      if(btSortState.col===col)btSortState.dir=btSortState.dir==='asc'?'desc':'asc';
+      else{btSortState.col=col;btSortState.dir='desc';}
+      btExpanded=null;
+      btSortAndRenderTable();
+    };
+  });
+}
+
+async function btToggleExpand(bot,tr){
+  const existing=tr.nextElementSibling;
+  if(existing&&existing.classList.contains('bot-detail-row')){
+    existing.remove();
+    tr.classList.remove('expanded');
+    btExpanded=null;
+    return;
+  }
+  document.querySelectorAll('.bot-detail-row').forEach(el=>el.remove());
+  document.querySelectorAll('#bt-tbody tr.bot-row').forEach(el=>el.classList.remove('expanded'));
+  tr.classList.add('expanded');
+  btExpanded=bot;
+
+  const detailRow=document.createElement('tr');
+  detailRow.className='bot-detail-row';
+  const td=document.createElement('td');
+  td.colSpan=9;
+  td.innerHTML=`<div class="detail-panel">Chargement des positions du Bot #${bot.num}…</div>`;
+  detailRow.appendChild(td);
+  tr.parentNode.insertBefore(detailRow,tr.nextSibling);
+
+  const ledger=await btLoadLedger(bot);
+  if(btExpanded!==bot)return; // l'utilisateur a change de ligne pendant le chargement
+
+  const open=ledger.filter(r=>r.status==='open').sort((a,b)=>(b.unrealized_return_pct||-Infinity)-(a.unrealized_return_pct||-Infinity));
+  const closed=ledger.filter(r=>r.status!=='open').sort((a,b)=>(b.exit_date||'').localeCompare(a.exit_date||''));
+
+  const openRows=open.slice(0,12).map(r=>`
+    <tr>
+      <td><strong>${r.ticker}</strong></td>
+      <td>${r.name||''}</td>
+      <td>${r.entry_date||''}</td>
+      <td class="${btCls(r.unrealized_return_pct)}">${btFmtPct(r.unrealized_return_pct,1)}</td>
+    </tr>`).join('')||'<tr><td colspan="4" class="neu">aucune position ouverte</td></tr>';
+
+  const closedRows=closed.slice(0,12).map(r=>`
+    <tr>
+      <td><strong>${r.ticker}</strong></td>
+      <td>${r.exit_date||''}</td>
+      <td class="${btCls(r.return_pct)}">${btFmtPct(r.return_pct,1)}</td>
+      <td>${r.exit_reason||''}</td>
+    </tr>`).join('')||'<tr><td colspan="4" class="neu">aucune clôture</td></tr>';
+
+  td.innerHTML=`
+    <div class="detail-panel">
+      <div class="detail-cols">
+        <div class="detail-col">
+          <div class="ctit">Positions ouvertes (top 12 par rendement latent, ${open.length} au total)</div>
+          <table class="mini-tbl"><thead><tr><th>Ticker</th><th>Nom</th><th>Entrée</th><th>Latent</th></tr></thead>
+          <tbody>${openRows}</tbody></table>
+        </div>
+        <div class="detail-col">
+          <div class="ctit">Dernières clôtures (${closed.length} au total)</div>
+          <table class="mini-tbl"><thead><tr><th>Ticker</th><th>Sortie</th><th>Rendement</th><th>Raison</th></tr></thead>
+          <tbody>${closedRows}</tbody></table>
+        </div>
+      </div>
+    </div>`;
+}
+
+renderBotsPage();
+setInterval(renderBotsPage,3600*1000);
+</script>
+</body>
+</html>
