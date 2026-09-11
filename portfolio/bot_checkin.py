@@ -243,6 +243,69 @@ BOTS = [
         "summary": SIM_DIR / "large_summary_newsgated_notes_sector_outlook.json",
         "has_eur_equity": True,
     },
+    # Bots #25-32 (famille "Delta", ajoutee 2026-09-10) : memes mecaniques de capital contraint
+    # que Bot#2, plus le renfort par conviction (reinforce_convictions -- une position qui a
+    # recule mais dont la these tient toujours peut recevoir un reinvestissement pour baisser
+    # son cout moyen, voir simulate_delta_portfolio.py). Propre pool de 300 EUR, propre ledger,
+    # separe de Bot#2/3. Meme grille de combinaisons {actu Ollama, notes, veto sectoriel} que
+    # Bot#13-24, appliquee ici par-dessus la mecanique Delta plutot que Beta/Gamma -- meme ordre
+    # "combinaison d'abord" que ce groupe.
+    {
+        "key": "bot25_delta",
+        "label": "Bot #25 (Delta, renfort par conviction)",
+        "ledger": SIM_DIR / "delta_portfolio_ledger.csv",
+        "summary": SIM_DIR / "delta_summary.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot26_delta_notes",
+        "label": "Bot #26 (Delta, selection par notes Qualite/Perspective)",
+        "ledger": SIM_DIR / "delta_portfolio_ledger_notes.csv",
+        "summary": SIM_DIR / "delta_summary_notes.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot27_delta_sector_outlook",
+        "label": "Bot #27 (Delta, veto sectoriel newsletters)",
+        "ledger": SIM_DIR / "delta_portfolio_ledger_sector_outlook.csv",
+        "summary": SIM_DIR / "delta_summary_sector_outlook.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot28_delta_notes_sector_outlook",
+        "label": "Bot #28 (Delta, notes + veto sectoriel)",
+        "ledger": SIM_DIR / "delta_portfolio_ledger_notes_sector_outlook.csv",
+        "summary": SIM_DIR / "delta_summary_notes_sector_outlook.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot29_delta_newsgated",
+        "label": "Bot #29 (Delta, actu Ollama)",
+        "ledger": SIM_DIR / "delta_portfolio_ledger_newsgated.csv",
+        "summary": SIM_DIR / "delta_summary_newsgated.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot30_delta_newsgated_notes",
+        "label": "Bot #30 (Delta, actu Ollama + notes)",
+        "ledger": SIM_DIR / "delta_portfolio_ledger_newsgated_notes.csv",
+        "summary": SIM_DIR / "delta_summary_newsgated_notes.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot31_delta_newsgated_sector_outlook",
+        "label": "Bot #31 (Delta, actu Ollama + veto sectoriel)",
+        "ledger": SIM_DIR / "delta_portfolio_ledger_newsgated_sector_outlook.csv",
+        "summary": SIM_DIR / "delta_summary_newsgated_sector_outlook.json",
+        "has_eur_equity": True,
+    },
+    {
+        "key": "bot32_delta_newsgated_notes_sector_outlook",
+        "label": "Bot #32 (Delta, actu Ollama + notes + veto sectoriel)",
+        "ledger": SIM_DIR / "delta_portfolio_ledger_newsgated_notes_sector_outlook.csv",
+        "summary": SIM_DIR / "delta_summary_newsgated_notes_sector_outlook.json",
+        "has_eur_equity": True,
+    },
 ]
 
 
