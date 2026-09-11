@@ -1,4 +1,4 @@
-"""Bot #33 ("Echo"): paper-trading LONG and SHORT positions on individual stock tips found
+"""Bot #33 ("Courrier"): paper-trading LONG and SHORT positions on individual stock tips found
 directly in the user's own Gmail newsletters -- the per-ticker counterpart to
 screener/newsletter_digest.py's per-sector qualitative signal (added 2026-09-11, per the
 user's explicit request: "des mails il y a souvent des suggestions d'actions a fort potentiel
@@ -527,7 +527,7 @@ def write_summary(ledger: pd.DataFrame, cash: float):
         "avg_return_closed": float(closed["return_pct"].mean()) if len(closed) else None,
     }
     SUMMARY_PATH.write_text(pd.Series(summary).to_json(), encoding="utf-8")
-    print(f"\n=== Bot #33 Echo : {summary['nb_open']} positions ouvertes "
+    print(f"\n=== Bot #33 Courrier : {summary['nb_open']} positions ouvertes "
           f"({summary['nb_long_open']} long / {summary['nb_short_open']} short), "
           f"{cash:.2f} EUR cash, valeur totale {total_equity:.2f} EUR "
           f"({summary['total_return_pct']:+.1%} depuis le depart) ===")

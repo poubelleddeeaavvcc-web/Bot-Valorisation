@@ -63,7 +63,7 @@ tr:hover td{background:var(--bg3)}
   <div class="tabbar">
     <button class="tabbtn active" data-tab="simulation">📊 Simulation</button>
     <button class="tabbtn" data-tab="screener">⚙️ Fonctionnement du screener</button>
-    <button class="tabbtn" data-tab="echo">📬 Bot Echo (mails)</button>
+    <button class="tabbtn" data-tab="echo">📬 Bot Courrier (mails)</button>
   </div>
 
   <div id="tab-simulation" class="tabpane active">
@@ -230,7 +230,7 @@ tr:hover td{background:var(--bg3)}
 
     <div id="echo-content" style="display:none">
       <div class="muted-note" style="margin-bottom:14px">
-        Bot #33 ("Echo") : positions long/short ouvertes directement à partir de tips individuels
+        Bot #33 ("Courrier") : positions long/short ouvertes directement à partir de tips individuels
         (une action présentée comme ayant un fort potentiel de hausse ou un risque de forte baisse)
         détectés par Ollama dans les newsletters Gmail de l'utilisateur. Pool dédié de 300 EUR, indépendant
         des autres bots. Aucune adresse email n'est jamais publiée — seul le domaine d'envoi de la newsletter
@@ -650,7 +650,7 @@ function bvWireTabs(){
   });
 }
 
-// ============ Bot Echo (mails) tab ============
+// ============ Bot Courrier (mails) tab ============
 const BV_REPO_RAW_ECHO=BV_REPO_RAW;
 let echoLedgerData=[],echoScorecardData=[];
 let echoOpenSortState={col:'entry_date',dir:'desc'};
@@ -707,7 +707,7 @@ async function renderEchoTab(){
     echoSortAndRenderAll();
     echoWireSortHeaders();
   }catch(e){
-    statusEl.textContent='Impossible de charger les donnees du Bot Echo ('+e.message+'). Le bot n\'a peut-etre pas encore tourne.';
+    statusEl.textContent='Impossible de charger les donnees du Bot Courrier ('+e.message+'). Le bot n\'a peut-etre pas encore tourne.';
     statusEl.style.color='var(--rd)';
   }
 }

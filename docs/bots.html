@@ -124,6 +124,71 @@ tr.bot-row.expanded td{background:var(--bg3)}
         <tbody id="bt-tbody"></tbody>
       </table>
     </div>
+
+    <div class="section-title">Bot #33 — Courrier (signaux individuels par mail)</div>
+    <div class="muted-note" style="margin-bottom:6px">
+      Mécanique différente des 32 bots ci-dessus : positions long/short ouvertes directement à partir de tips
+      individuels (une action présentée comme ayant un fort potentiel de hausse ou un risque de forte baisse)
+      détectés par IA locale dans les newsletters Gmail de l'utilisateur, plutôt que par le screener sur données
+      publiques. Pool dédié de 300 €, indépendant des autres bots. Aucune adresse email n'est jamais publiée — seul
+      le domaine d'envoi de la newsletter (ex. "fool.com") est conservé, pour le classement par source ci-dessous.
+      Détail complet sur <a href="index.html">la page principale</a>, onglet "📬 Bot Courrier (mails)".
+    </div>
+    <div id="crr-status" class="muted-note" style="margin-bottom:14px">Chargement des données du Bot Courrier depuis GitHub…</div>
+    <div class="row" id="crr-kpis" style="display:none">
+      <div class="card">
+        <div class="ctit">Capital simulé</div>
+        <div class="kbig" id="crr-kpi-equity">-</div>
+        <div class="ksub" id="crr-kpi-return">-</div>
+      </div>
+      <div class="card">
+        <div class="ctit">Positions ouvertes</div>
+        <div class="kbig" id="crr-kpi-open">-</div>
+        <div class="ksub" id="crr-kpi-open-sub">-</div>
+      </div>
+      <div class="card">
+        <div class="ctit">Meilleure source (newsletter)</div>
+        <div class="kbig pos" id="crr-kpi-best-source">-</div>
+        <div class="ksub" id="crr-kpi-best-source-sub">-</div>
+      </div>
+      <div class="card">
+        <div class="ctit">Pire source (newsletter)</div>
+        <div class="kbig neg" id="crr-kpi-worst-source">-</div>
+        <div class="ksub" id="crr-kpi-worst-source-sub">-</div>
+      </div>
+    </div>
+    <div id="crr-content" style="display:none">
+      <div class="card tbl-wrap" style="margin-bottom:14px">
+        <table id="crr-scorecard-table">
+          <thead>
+            <tr>
+              <th data-col="source">Source (newsletter)</th>
+              <th data-col="n_signals_total">Signaux</th>
+              <th data-col="n_open">Ouvertes</th>
+              <th data-col="n_closed">Clôturées</th>
+              <th data-col="win_rate_closed">Win rate</th>
+              <th data-col="avg_return_closed">Rendement moy.</th>
+            </tr>
+          </thead>
+          <tbody id="crr-scorecard-tbody"></tbody>
+        </table>
+      </div>
+      <div class="card tbl-wrap">
+        <table id="crr-open-table">
+          <thead>
+            <tr>
+              <th data-col="ticker">Ticker</th>
+              <th data-col="name">Nom</th>
+              <th data-col="side">Sens</th>
+              <th data-col="source">Source</th>
+              <th data-col="entry_date">Entrée</th>
+              <th data-col="unrealized_return_pct">Latent</th>
+            </tr>
+          </thead>
+          <tbody id="crr-open-tbody"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -495,8 +560,130 @@ async function btToggleExpand(bot,tr){
     </div>`;
 }
 
+// ============ Bot #33 — Courrier (mails) section ============
+const CRR_REPO_RAW_ROOT='https://raw.githubusercontent.com/poubelleddeeaavvcc-web/Bot-Valorisation/master/results';
+let crrLedgerData=[],crrScorecardData=[];
+let crrOpenSortState={col:'unrealized_return_pct',dir:'desc'};
+let crrScorecardSortState={col:'win_rate_closed',dir:'desc'};
+
+async function crrFetchText(path,bust){
+  const r=await fetch(`${CRR_REPO_RAW_ROOT}/${path}?_=${bust}`);
+  if(!r.ok)throw new Error(path+' introuvable ('+r.status+')');
+  return r.text();
+}
+
+function crrSortRows(rows,state){
+  const {col,dir}=state;
+  return [...rows].sort((a,b)=>{
+    let va=a[col],vb=b[col];
+    if(typeof va==='string'||typeof vb==='string')
+      return dir==='asc'?String(va||'').localeCompare(String(vb||'')):String(vb||'').localeCompare(String(va||''));
+    va=(va==null||isNaN(va))?-Infinity:va;
+    vb=(vb==null||isNaN(vb))?-Infinity:vb;
+    return dir==='asc'?va-vb:vb-va;
+  });
+}
+
+async function renderCourrierBot(){
+  const statusEl=document.getElementById('crr-status');
+  try{
+    const bust=Date.now();
+    const [ledgerTxt,summaryTxt,scorecardTxt]=await Promise.all([
+      crrFetchText('simulation/mail_signal_ledger.csv',bust),
+      crrFetchText('simulation/mail_signal_summary.json',bust),
+      crrFetchText('screener/mail_signal_source_scorecard.csv',bust),
+    ]);
+    const summary=JSON.parse(summaryTxt);
+    crrLedgerData=btParseCSV(ledgerTxt).map(r=>({
+      ticker:r.ticker,name:r.name,side:r.side,source:r.source,status:r.status,
+      entry_date:r.entry_date,
+      unrealized_return_pct:r.unrealized_return_pct?parseFloat(r.unrealized_return_pct):null,
+      return_pct:r.return_pct?parseFloat(r.return_pct):null,
+    })).filter(r=>r.ticker);
+    crrScorecardData=btParseCSV(scorecardTxt).map(r=>({
+      source:r.source,
+      n_signals_total:r.n_signals_total?parseInt(r.n_signals_total,10):0,
+      n_open:r.n_open?parseInt(r.n_open,10):0,
+      n_closed:r.n_closed?parseInt(r.n_closed,10):0,
+      win_rate_closed:r.win_rate_closed?parseFloat(r.win_rate_closed):null,
+      avg_return_closed:r.avg_return_closed?parseFloat(r.avg_return_closed):null,
+    }));
+
+    statusEl.style.display='none';
+    document.getElementById('crr-kpis').style.display='';
+    document.getElementById('crr-content').style.display='';
+
+    const equity=summary.total_equity_eur!=null?parseFloat(summary.total_equity_eur):null;
+    const ret=summary.total_return_pct!=null?parseFloat(summary.total_return_pct):null;
+    document.getElementById('crr-kpi-equity').textContent=equity!=null?equity.toFixed(2)+' €':'n/a';
+    document.getElementById('crr-kpi-return').textContent=ret!=null?btFmtPct(ret,1)+' depuis le depart':'-';
+    const nbOpen=summary.nb_open!=null?summary.nb_open:0;
+    document.getElementById('crr-kpi-open').textContent=nbOpen;
+    document.getElementById('crr-kpi-open-sub').textContent=`${summary.nb_long_open||0} long / ${summary.nb_short_open||0} short`;
+
+    const ranked=crrScorecardData.filter(s=>s.n_closed>0).sort((a,b)=>b.win_rate_closed-a.win_rate_closed);
+    const best=ranked[0],worst=ranked.length>1?ranked[ranked.length-1]:null;
+    document.getElementById('crr-kpi-best-source').textContent=best?(best.win_rate_closed*100).toFixed(0)+'%':'n/a';
+    document.getElementById('crr-kpi-best-source-sub').textContent=best?best.source+' ('+best.n_closed+' clôtures)':'aucune clôture pour l\'instant';
+    document.getElementById('crr-kpi-worst-source').textContent=worst&&worst!==best?(worst.win_rate_closed*100).toFixed(0)+'%':'n/a';
+    document.getElementById('crr-kpi-worst-source-sub').textContent=worst&&worst!==best?worst.source+' ('+worst.n_closed+' clôtures)':'-';
+
+    crrSortAndRenderAll();
+    crrWireSortHeaders();
+  }catch(e){
+    statusEl.textContent='Impossible de charger les donnees du Bot Courrier ('+e.message+'). Le bot n\'a peut-etre pas encore tourne.';
+  }
+}
+
+function crrSortAndRenderAll(){
+  const open=crrLedgerData.filter(r=>r.status==='open');
+
+  const openTbody=document.getElementById('crr-open-tbody');
+  openTbody.innerHTML=crrSortRows(open,crrOpenSortState).map(r=>`
+    <tr>
+      <td><strong>${r.ticker}</strong></td>
+      <td>${r.name||''}</td>
+      <td>${r.side==='short'?'Short':'Long'}</td>
+      <td>${r.source||''}</td>
+      <td>${r.entry_date||''}</td>
+      <td class="${btCls(r.unrealized_return_pct)}">${btFmtPct(r.unrealized_return_pct,1)}</td>
+    </tr>`).join('')||'<tr><td colspan="6" class="neu">aucune position ouverte</td></tr>';
+
+  const scTbody=document.getElementById('crr-scorecard-tbody');
+  scTbody.innerHTML=crrSortRows(crrScorecardData,crrScorecardSortState).map(r=>`
+    <tr>
+      <td>${r.source||''}</td>
+      <td>${r.n_signals_total}</td>
+      <td>${r.n_open}</td>
+      <td>${r.n_closed}</td>
+      <td>${r.win_rate_closed!=null?(r.win_rate_closed*100).toFixed(0)+'%':'n/a'}</td>
+      <td class="${btCls(r.avg_return_closed)}">${btFmtPct(r.avg_return_closed,1)}</td>
+    </tr>`).join('')||'<tr><td colspan="6" class="neu">aucune source pour l\'instant</td></tr>';
+}
+
+function crrWireSortHeaders(){
+  document.querySelectorAll('#crr-open-table th[data-col]').forEach(th=>{
+    th.onclick=()=>{
+      const col=th.dataset.col;
+      if(crrOpenSortState.col===col)crrOpenSortState.dir=crrOpenSortState.dir==='asc'?'desc':'asc';
+      else{crrOpenSortState.col=col;crrOpenSortState.dir='desc';}
+      crrSortAndRenderAll();
+    };
+  });
+  document.querySelectorAll('#crr-scorecard-table th[data-col]').forEach(th=>{
+    th.onclick=()=>{
+      const col=th.dataset.col;
+      if(crrScorecardSortState.col===col)crrScorecardSortState.dir=crrScorecardSortState.dir==='asc'?'desc':'asc';
+      else{crrScorecardSortState.col=col;crrScorecardSortState.dir='desc';}
+      crrSortAndRenderAll();
+    };
+  });
+}
+
 renderBotsPage();
+renderCourrierBot();
 setInterval(renderBotsPage,3600*1000);
+setInterval(renderCourrierBot,3600*1000);
 </script>
 </body>
 </html>
