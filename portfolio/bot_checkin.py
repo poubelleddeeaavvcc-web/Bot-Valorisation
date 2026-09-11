@@ -306,6 +306,21 @@ BOTS = [
         "summary": SIM_DIR / "delta_summary_newsgated_notes_sector_outlook.json",
         "has_eur_equity": True,
     },
+    # Bot #33 ("Echo", ajoute 2026-09-11) : mecanique entierement differente des autres --
+    # pas de candidats du screener valeur+momentum, les positions viennent de tips individuels
+    # (ticker + sens haussier/baissier) extraits directement des newsletters Gmail par
+    # screener/mail_signal_bot.py, long OU short selon le tip. Propre pool de 300 EUR. Peut
+    # rester a ledger vide (aucune position jamais ouverte) plus longtemps que les autres bots
+    # -- contrairement a eux, qui achetent immediatement au premier run, celui-ci ne fait rien
+    # tant qu'aucun mail ne contient un tip explicite -- voir check_bot() pour la gestion de ce
+    # cas (ledger vide -> launch_date/days_running indisponibles plutot qu'un crash).
+    {
+        "key": "bot33_echo_mail_signals",
+        "label": "Bot #33 (Echo, long/short sur tips newsletters)",
+        "ledger": SIM_DIR / "mail_signal_ledger.csv",
+        "summary": SIM_DIR / "mail_signal_summary.json",
+        "has_eur_equity": True,
+    },
 ]
 
 
@@ -338,8 +353,16 @@ def trade_stats(df: pd.DataFrame) -> dict:
 
 def check_bot(bot: dict) -> dict:
     ledger = pd.read_csv(bot["ledger"])
-    launch_date = pd.to_datetime(ledger["entry_date"]).min().date()
-    days_running = (date.today() - launch_date).days
+    # A ledger can be genuinely empty (0 rows, not just 0 CLOSED trades) for a bot whose
+    # positions depend on an external trigger rather than buying immediately every run --
+    # Bot#33 "Echo" can sit with no signal at all for days (see BOTS' comment on that entry).
+    # entry_date.min() on an empty column is NaT, and NaT - date crashes rather than
+    # comparing as "unknown" -- launch_date/days_running stay None here instead.
+    if len(ledger):
+        launch_date = pd.to_datetime(ledger["entry_date"]).min().date()
+        days_running = (date.today() - launch_date).days
+    else:
+        launch_date, days_running = None, None
 
     closed = ledger[ledger["exit_date"].notna()].copy()
     closed["holding_days"] = closed["holding_days"].astype(float)
@@ -388,7 +411,10 @@ def print_report(results: list[dict]):
 
     for r in results:
         print(f"--- {r['bot']} ---")
-        print(f"  Lance le {r['launch_date']} ({r['days_running']} jours de fonctionnement)")
+        if r["launch_date"] is None:
+            print("  Aucune position ouverte pour l'instant -- date de lancement indisponible.")
+        else:
+            print(f"  Lance le {r['launch_date']} ({r['days_running']} jours de fonctionnement)")
         if r.get("nb_open") is not None:
             print(f"  Positions ouvertes : {r['nb_open']}")
         if "total_equity_eur" in r:

@@ -37,6 +37,15 @@ tr:hover td{background:var(--bg3)}
 .muted-note{font-size:11px;color:var(--mu);margin-top:6px;line-height:1.5}
 .btn-checkin{display:inline-block;margin-top:8px;padding:4px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);text-decoration:none;font-size:11px}
 .btn-checkin:hover{border-color:var(--g);color:var(--g)}
+.tabbar{display:flex;gap:6px;border-bottom:1px solid var(--bd);margin-bottom:16px;flex-wrap:wrap}
+.tabbtn{background:none;border:none;color:var(--mu);font-size:13px;font-weight:600;padding:9px 4px;margin-right:14px;cursor:pointer;border-bottom:2px solid transparent;font-family:inherit}
+.tabbtn:hover{color:var(--tx)}
+.tabbtn.active{color:var(--g);border-bottom-color:var(--g)}
+.tabpane{display:none}
+.tabpane.active{display:block}
+.long-badge{color:var(--gr);font-weight:700}
+.short-badge{color:var(--rd);font-weight:700}
+.source-rank{display:inline-block;min-width:18px;color:var(--mu);font-size:10px}
 </style>
 </head>
 <body>
@@ -51,6 +60,13 @@ tr:hover td{background:var(--bg3)}
 </div>
 
 <div class="cx">
+  <div class="tabbar">
+    <button class="tabbtn active" data-tab="simulation">📊 Simulation</button>
+    <button class="tabbtn" data-tab="screener">⚙️ Fonctionnement du screener</button>
+    <button class="tabbtn" data-tab="echo">📬 Bot Echo (mails)</button>
+  </div>
+
+  <div id="tab-simulation" class="tabpane active">
   <div id="botvalue-status" class="muted-note" style="margin-bottom:14px">Chargement des données depuis GitHub…</div>
 
   <div class="row" id="botvalue-kpis" style="display:none">
@@ -154,7 +170,13 @@ tr:hover td{background:var(--bg3)}
       </table>
     </details>
 
-    <div class="xirr-explain" style="margin-top:14px">
+  </div>
+  </div>
+  <!-- /tab-simulation -->
+
+  <div id="tab-screener" class="tabpane">
+    <div class="section-title">Comment fonctionne le screener</div>
+    <div class="xirr-explain">
       <b>Méthode :</b> pour chaque action, la "valeur juste" = BPA × P/E médian de ses pairs (industrie si ≥5 pairs,
       sinon secteur), ajusté à la hausse si le ROE/la marge sont meilleurs que la médiane du secteur, à la baisse
       si la dette est plus lourde (multiplicateur borné entre 0,6x et 1,6x). Un candidat LONG doit cumuler : décote
@@ -163,10 +185,114 @@ tr:hover td{background:var(--bg3)}
       momentum du titre positif et supérieur à celui de son secteur, PEG entre 0 et 2, secteurs cycliques (matières
       premières, énergie) confirmés par le P/B, dette non excessive, secteur actuellement haussier. Univers :
       actions US (NYSE/NASDAQ, cap ≥1Md$) + marchés internationaux, filtré aux secteurs en tendance. Survole un
-      ticker (ⓘ) pour voir pourquoi le modèle le signale. Détail complet et code sur
+      ticker (ⓘ) pour voir pourquoi le modèle le signale sur l'onglet Simulation.
+    </div>
+    <div class="xirr-explain">
+      <b>Pipeline :</b> 1) <code>build_trending_universe.py</code> ne retient que les secteurs dont le momentum
+      12-2 mois (via les ETF SPDR) est positif ; 2) <code>fetch_cache.py</code> rafraîchit les fondamentaux de
+      l'univers restant par rotation (respecte le rate-limit Yahoo) ; 3) <code>analyze_cache.py</code> calcule
+      l'écart de valorisation de chaque ticker ; 4) les bots de simulation (voir l'onglet Simulation) achètent/
+      vendent selon leurs propres règles à partir des mêmes candidats LONG. Chaque bot est une variante
+      indépendante testée en parallèle (capital contraint ou non, filtre actualité Ollama, notes qualité/
+      perspective, veto sectoriel newsletters, renfort par conviction…) — voir
+      <code>portfolio/bot_checkin.py</code> pour la liste complète et son rapport de comparaison bi-hebdomadaire.
+      Tout tourne automatiquement via GitHub Actions, cadence horaire. Détail complet et code sur
       <a href="https://github.com/poubelleddeeaavvcc-web/Bot-Valorisation" target="_blank" style="color:var(--bl)">GitHub</a>.
     </div>
   </div>
+  <!-- /tab-screener -->
+
+  <div id="tab-echo" class="tabpane">
+    <div id="echo-status" class="muted-note" style="margin-bottom:14px">Chargement des données depuis GitHub…</div>
+
+    <div class="row" id="echo-kpis" style="display:none">
+      <div class="card">
+        <div class="ctit">Équité totale</div>
+        <div class="kbig" id="echo-kpi-equity">-</div>
+        <div class="ksub" id="echo-kpi-return">-</div>
+      </div>
+      <div class="card">
+        <div class="ctit">Positions ouvertes</div>
+        <div class="kbig" id="echo-kpi-open">-</div>
+        <div class="ksub" id="echo-kpi-open-sub">-</div>
+      </div>
+      <div class="card">
+        <div class="ctit">Meilleure source</div>
+        <div class="kbig pos" id="echo-kpi-best-source">-</div>
+        <div class="ksub" id="echo-kpi-best-source-sub">-</div>
+      </div>
+      <div class="card">
+        <div class="ctit">Pire source</div>
+        <div class="kbig neg" id="echo-kpi-worst-source">-</div>
+        <div class="ksub" id="echo-kpi-worst-source-sub">-</div>
+      </div>
+    </div>
+
+    <div id="echo-content" style="display:none">
+      <div class="muted-note" style="margin-bottom:14px">
+        Bot #33 ("Echo") : positions long/short ouvertes directement à partir de tips individuels
+        (une action présentée comme ayant un fort potentiel de hausse ou un risque de forte baisse)
+        détectés par Ollama dans les newsletters Gmail de l'utilisateur. Pool dédié de 300 EUR, indépendant
+        des autres bots. Aucune adresse email n'est jamais publiée — seul le domaine d'envoi de la newsletter
+        (ex. "fool.com") est conservé, pour construire le classement ci-dessous.
+      </div>
+
+      <div class="section-title">Classement des sources — qui appelle juste, qui appelle mal</div>
+      <div class="card tbl-wrap" style="margin-bottom:14px">
+        <table id="echoScorecardTable">
+          <thead>
+            <tr>
+              <th data-col="rank">#</th>
+              <th data-col="source">Source</th>
+              <th data-col="n_signals_total">Tips au total</th>
+              <th data-col="n_open">Ouverts</th>
+              <th data-col="n_closed">Clôturés</th>
+              <th data-col="win_rate_closed">Taux de réussite</th>
+              <th data-col="avg_return_closed">Retour moyen</th>
+            </tr>
+          </thead>
+          <tbody id="echoScorecardTbody"></tbody>
+        </table>
+      </div>
+
+      <div class="section-title">Positions ouvertes — clic sur une colonne pour trier</div>
+      <div class="card tbl-wrap" style="margin-bottom:14px">
+        <table id="echoOpenTable">
+          <thead>
+            <tr>
+              <th data-col="side">Sens</th>
+              <th data-col="ticker">Ticker</th>
+              <th data-col="source">Source</th>
+              <th data-col="entry_date">Date d'entrée</th>
+              <th data-col="entry_price">Prix d'entrée</th>
+              <th data-col="last_price">Dernier prix</th>
+              <th data-col="unrealized_return_pct">Rendement latent</th>
+            </tr>
+          </thead>
+          <tbody id="echoOpenTbody"></tbody>
+        </table>
+      </div>
+
+      <details class="card tbl-wrap">
+        <summary class="section-title" style="display:inline-block;cursor:pointer;margin:0">Positions clôturées — clic pour dérouler</summary>
+        <table id="echoClosedTable" style="margin-top:10px">
+          <thead>
+            <tr>
+              <th data-col="side">Sens</th>
+              <th data-col="ticker">Ticker</th>
+              <th data-col="source">Source</th>
+              <th data-col="entry_date">Date d'entrée</th>
+              <th data-col="exit_date">Date de sortie</th>
+              <th data-col="return_pct">Rendement réalisé</th>
+              <th data-col="exit_reason">Raison de sortie</th>
+            </tr>
+          </thead>
+          <tbody id="echoClosedTbody"></tbody>
+        </table>
+      </details>
+    </div>
+  </div>
+  <!-- /tab-echo -->
 </div>
 
 <script>
@@ -513,8 +639,170 @@ function bvSortAndRenderPositions(){
   `;}).join('');
 }
 
+function bvWireTabs(){
+  document.querySelectorAll('.tabbtn').forEach(btn=>{
+    btn.onclick=()=>{
+      document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tabpane').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+    };
+  });
+}
+
+// ============ Bot Echo (mails) tab ============
+const BV_REPO_RAW_ECHO=BV_REPO_RAW;
+let echoLedgerData=[],echoScorecardData=[];
+let echoOpenSortState={col:'entry_date',dir:'desc'};
+let echoClosedSortState={col:'exit_date',dir:'desc'};
+let echoScorecardSortState={col:'win_rate_closed',dir:'desc'};
+
+async function renderEchoTab(){
+  const statusEl=document.getElementById('echo-status');
+  try{
+    const bust=Date.now();
+    const [ledgerTxt,summaryTxt,scorecardTxt]=await Promise.all([
+      fetch(`${BV_REPO_RAW_ECHO}/results/simulation/mail_signal_ledger.csv?_=${bust}`).then(r=>r.ok?r.text():'').catch(()=>''),
+      fetch(`${BV_REPO_RAW_ECHO}/results/simulation/mail_signal_summary.json?_=${bust}`).then(r=>r.ok?r.text():'{}').catch(()=>'{}'),
+      fetch(`${BV_REPO_RAW_ECHO}/results/screener/mail_signal_source_scorecard.csv?_=${bust}`).then(r=>r.ok?r.text():'').catch(()=>''),
+    ]);
+
+    echoLedgerData=bvParseCSV(ledgerTxt).map(r=>({
+      ticker:r.ticker,side:r.side,source:r.source,status:r.status,
+      entry_date:r.entry_date,entry_price:r.entry_price?parseFloat(r.entry_price):null,
+      last_price:r.last_price?parseFloat(r.last_price):null,
+      unrealized_return_pct:r.unrealized_return_pct!==''&&r.unrealized_return_pct!=null?parseFloat(r.unrealized_return_pct):null,
+      exit_date:r.exit_date||'',return_pct:r.return_pct!==''&&r.return_pct!=null?parseFloat(r.return_pct):null,
+      exit_reason:r.exit_reason||'',
+    })).filter(r=>r.ticker);
+
+    echoScorecardData=bvParseCSV(scorecardTxt).map(r=>({
+      source:r.source,n_signals_total:parseInt(r.n_signals_total)||0,
+      n_open:parseInt(r.n_open)||0,n_closed:parseInt(r.n_closed)||0,
+      win_rate_closed:r.win_rate_closed!==''&&r.win_rate_closed!=null?parseFloat(r.win_rate_closed):null,
+      avg_return_closed:r.avg_return_closed!==''&&r.avg_return_closed!=null?parseFloat(r.avg_return_closed):null,
+    }));
+
+    let summary={};
+    try{summary=JSON.parse(summaryTxt);}catch(e){summary={};}
+
+    statusEl.style.display='none';
+    document.getElementById('echo-kpis').style.display='';
+    document.getElementById('echo-content').style.display='';
+
+    const equity=summary.total_equity_eur,ret=summary.total_return_pct;
+    document.getElementById('echo-kpi-equity').textContent=equity!=null?equity.toFixed(2)+' EUR':'n/a';
+    document.getElementById('echo-kpi-return').textContent=ret!=null?(ret>=0?'+':'')+(ret*100).toFixed(1)+'% depuis le depart':'-';
+    const nbOpen=(summary.nb_long_open||0)+(summary.nb_short_open||0);
+    document.getElementById('echo-kpi-open').textContent=nbOpen;
+    document.getElementById('echo-kpi-open-sub').textContent=`${summary.nb_long_open||0} long / ${summary.nb_short_open||0} short`;
+
+    const ranked=echoScorecardData.filter(s=>s.n_closed>0).sort((a,b)=>b.win_rate_closed-a.win_rate_closed);
+    const best=ranked[0],worst=ranked[ranked.length-1];
+    document.getElementById('echo-kpi-best-source').textContent=best?(best.win_rate_closed*100).toFixed(0)+'%':'n/a';
+    document.getElementById('echo-kpi-best-source-sub').textContent=best?best.source+' ('+best.n_closed+' clotures)':'aucune cloture pour l\'instant';
+    document.getElementById('echo-kpi-worst-source').textContent=worst&&worst!==best?(worst.win_rate_closed*100).toFixed(0)+'%':'n/a';
+    document.getElementById('echo-kpi-worst-source-sub').textContent=worst&&worst!==best?worst.source+' ('+worst.n_closed+' clotures)':'-';
+
+    echoSortAndRenderAll();
+    echoWireSortHeaders();
+  }catch(e){
+    statusEl.textContent='Impossible de charger les donnees du Bot Echo ('+e.message+'). Le bot n\'a peut-etre pas encore tourne.';
+    statusEl.style.color='var(--rd)';
+  }
+}
+
+function echoSortAndRenderAll(){
+  const open=echoLedgerData.filter(r=>r.status==='open');
+  const closed=echoLedgerData.filter(r=>r.status!=='open');
+
+  const openTbody=document.getElementById('echoOpenTbody');
+  openTbody.innerHTML=bvSortRows(open,echoOpenSortState).map(r=>{
+    const retVal=r.unrealized_return_pct;
+    const retTxt=retVal!=null?(retVal>=0?'+':'')+(retVal*100).toFixed(1)+'%':'n/a';
+    return `
+    <tr>
+      <td class="${r.side==='long'?'long-badge':'short-badge'}">${r.side==='long'?'LONG':'SHORT'}</td>
+      <td><strong>${r.ticker}</strong></td>
+      <td>${r.source||''}</td>
+      <td>${r.entry_date||''}</td>
+      <td>${r.entry_price!=null?r.entry_price.toFixed(2):'n/a'}</td>
+      <td>${r.last_price!=null?r.last_price.toFixed(2):'n/a'}</td>
+      <td class="${retVal>=0?'pos':(retVal!=null?'neg':'neu')}">${retTxt}</td>
+    </tr>
+  `;}).join('');
+
+  const closedTbody=document.getElementById('echoClosedTbody');
+  closedTbody.innerHTML=bvSortRows(closed,echoClosedSortState).map(r=>{
+    const retVal=r.return_pct;
+    const retTxt=retVal!=null?(retVal>=0?'+':'')+(retVal*100).toFixed(1)+'%':'n/a';
+    return `
+    <tr>
+      <td class="${r.side==='long'?'long-badge':'short-badge'}">${r.side==='long'?'LONG':'SHORT'}</td>
+      <td><strong>${r.ticker}</strong></td>
+      <td>${r.source||''}</td>
+      <td>${r.entry_date||''}</td>
+      <td>${r.exit_date||''}</td>
+      <td class="${retVal>=0?'pos':(retVal!=null?'neg':'neu')}">${retTxt}</td>
+      <td>${r.exit_reason||''}</td>
+    </tr>
+  `;}).join('');
+
+  const scTbody=document.getElementById('echoScorecardTbody');
+  const {col,dir}=echoScorecardSortState;
+  const sortedSc=[...echoScorecardData].sort((a,b)=>{
+    let va=a[col],vb=b[col];
+    if(col==='source')return dir==='asc'?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va));
+    va=(va==null)?-Infinity:va;vb=(vb==null)?-Infinity:vb;
+    return dir==='asc'?va-vb:vb-va;
+  });
+  scTbody.innerHTML=sortedSc.map((r,i)=>{
+    const wr=r.win_rate_closed,ar=r.avg_return_closed;
+    return `
+    <tr>
+      <td class="source-rank">${i+1}</td>
+      <td><strong>${r.source}</strong></td>
+      <td>${r.n_signals_total}</td>
+      <td>${r.n_open}</td>
+      <td>${r.n_closed}</td>
+      <td class="${wr!=null?(wr>=0.5?'pos':'neg'):'neu'}">${wr!=null?(wr*100).toFixed(0)+'%':'n/a'}</td>
+      <td class="${ar!=null?(ar>=0?'pos':'neg'):'neu'}">${ar!=null?(ar>=0?'+':'')+(ar*100).toFixed(1)+'%':'n/a'}</td>
+    </tr>
+  `;}).join('');
+}
+
+function echoWireSortHeaders(){
+  document.querySelectorAll('#echoOpenTable th[data-col]').forEach(th=>{
+    th.onclick=()=>{
+      const col=th.dataset.col;
+      if(echoOpenSortState.col===col)echoOpenSortState.dir=echoOpenSortState.dir==='asc'?'desc':'asc';
+      else{echoOpenSortState.col=col;echoOpenSortState.dir='desc';}
+      echoSortAndRenderAll();
+    };
+  });
+  document.querySelectorAll('#echoClosedTable th[data-col]').forEach(th=>{
+    th.onclick=()=>{
+      const col=th.dataset.col;
+      if(echoClosedSortState.col===col)echoClosedSortState.dir=echoClosedSortState.dir==='asc'?'desc':'asc';
+      else{echoClosedSortState.col=col;echoClosedSortState.dir='desc';}
+      echoSortAndRenderAll();
+    };
+  });
+  document.querySelectorAll('#echoScorecardTable th[data-col]').forEach(th=>{
+    th.onclick=()=>{
+      const col=th.dataset.col;
+      if(echoScorecardSortState.col===col)echoScorecardSortState.dir=echoScorecardSortState.dir==='asc'?'desc':'asc';
+      else{echoScorecardSortState.col=col;echoScorecardSortState.dir='desc';}
+      echoSortAndRenderAll();
+    };
+  });
+}
+
+bvWireTabs();
 renderBotValueTab();
+renderEchoTab();
 setInterval(renderBotValueTab,3600*1000);
+setInterval(renderEchoTab,3600*1000);
 </script>
 </body>
 </html>
