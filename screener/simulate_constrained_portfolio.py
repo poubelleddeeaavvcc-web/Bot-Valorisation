@@ -7,8 +7,9 @@ Mechanics:
   - Starts at STARTING_CAPITAL, all in cash.
   - Every run, existing open positions get a fresh price/fundamentals check and exit on
     the exact same rules as the blind simulation (momentum lost / valuation reached /
-    stop loss -- see simulate_portfolio.py for the reasoning behind each; duplicated here
-    rather than imported because this ledger tracks euro amounts, not just percentages).
+    stop loss / ratcheting stop -- see simulate_portfolio.py for the reasoning behind each;
+    duplicated here rather than imported because this ledger tracks euro amounts, not just
+    percentages).
   - Every sale's proceeds return to cash and get reinvested: whenever cash >=
     TARGET_POSITION_SIZE, the next slot is filled with the best available LONG candidate
     NOT already held, ranked by select_top_picks.composite_score and capped at
@@ -56,7 +57,10 @@ sys.path.insert(0, str(HERE))
 from screener.select_top_picks import (  # noqa: E402
     composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
 )
-from screener.simulate_portfolio import fails_fresh_check, fetch_fresh_single, resolve_peer_pe, STOP_LOSS_PCT  # noqa: E402
+from screener.simulate_portfolio import (  # noqa: E402
+    fails_fresh_check, fetch_fresh_single, resolve_peer_pe, STOP_LOSS_PCT,
+    RATCHET_STEP_PCT, RATCHET_GIVEBACK_PCT,
+)
 from screener.fetch_cache import fetch_one as fetch_cache_one  # noqa: E402
 
 LEDGER_PATH = HERE / "results/simulation/constrained_portfolio_ledger.csv"
@@ -96,7 +100,7 @@ LEDGER_COLUMNS = [
     "entry_date", "entry_price", "shares", "entry_value_eur",
     "entry_valuation_gap", "entry_quality_multiplier", "entry_mom_12_2", "entry_sector_momentum",
     "last_check_date", "last_price", "last_valuation_gap", "last_mom_12_2",
-    "current_value_eur", "unrealized_return_pct",
+    "current_value_eur", "unrealized_return_pct", "peak_unrealized_return_pct", "peak_date",
     "exit_date", "exit_price", "exit_reason", "exit_value_eur", "return_pct", "holding_days",
 ]
 
@@ -220,12 +224,22 @@ def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, 
         ledger.at[idx, "current_value_eur"] = current_value
         ledger.at[idx, "unrealized_return_pct"] = unrealized
 
+        current_peak = ledger.at[idx, "peak_unrealized_return_pct"]
+        if pd.isna(current_peak) or unrealized > current_peak:
+            ledger.at[idx, "peak_unrealized_return_pct"] = unrealized
+            ledger.at[idx, "peak_date"] = today
+        peak = ledger.at[idx, "peak_unrealized_return_pct"]
+
         momentum_lost = fresh["mom_12_2"] <= 0 or fresh["mom_12_2"] <= today_sector_mom
         valuation_reached = pd.notna(valuation_gap_now) and valuation_gap_now <= 0
         stop_loss_hit = unrealized <= STOP_LOSS_PCT  # see simulate_portfolio.py
+        # ratcheting stop, see RATCHET_STEP_PCT/RATCHET_GIVEBACK_PCT in simulate_portfolio.py
+        milestone = int(peak // RATCHET_STEP_PCT) if pd.notna(peak) else 0
+        trailing_stop_hit = milestone >= 1 and unrealized <= milestone * RATCHET_STEP_PCT - RATCHET_GIVEBACK_PCT
 
-        if momentum_lost or valuation_reached or stop_loss_hit:
-            reason = ("stop_loss" if stop_loss_hit else
+        if momentum_lost or valuation_reached or stop_loss_hit or trailing_stop_hit:
+            reason = ("trailing_stop" if trailing_stop_hit else
+                      "stop_loss" if stop_loss_hit else
                       "valorisation_atteinte" if valuation_reached else "momentum_perdu")
             entry_date = pd.Timestamp(ledger.at[idx, "entry_date"])
             # Fee deducted from the sale proceeds, not from the price-return calc above (which
@@ -359,7 +373,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             "entry_mom_12_2": fresh["mom_12_2"], "entry_sector_momentum": state["sector_momentum"],
             "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": state["valuation_gap"],
             "last_mom_12_2": fresh["mom_12_2"], "current_value_eur": cost,
-            "unrealized_return_pct": 0.0,
+            "unrealized_return_pct": 0.0, "peak_unrealized_return_pct": 0.0, "peak_date": today,
             "exit_date": None, "exit_price": None, "exit_reason": None,
             "exit_value_eur": None, "return_pct": None, "holding_days": None,
         })

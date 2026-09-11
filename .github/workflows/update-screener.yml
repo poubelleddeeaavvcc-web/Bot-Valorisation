@@ -13,16 +13,17 @@ concurrency:
   cancel-in-progress: false  # ne jamais interrompre un run en cours (perdrait le progres du cache)
 
 # Restructure en jobs paralleles le 2026-09-08 (etait un seul job sequentiel de 24 etapes,
-# ~13 min) : le cache fondamentaux + notes tourne une fois dans `setup`, puis 4 jobs de
+# ~13 min) : le cache fondamentaux + notes tourne une fois dans `setup`, puis les jobs de
 # simulation tournent en parallele une fois `setup` termine et pousse. Les bots Ollama
 # ("newsgated", #4/5/6/13-18/22-24) restent regroupes dans UN SEUL job (bots-ollama) plutot que
 # repartis sur plusieurs : ils partagent des caches JSON (news_verdict_cache.json,
 # customer_concentration_cache.json -- voir news_filter.py) que des jobs paralleles ecrivant
 # chacun leur propre copie rendrait incoherents au moment du commit (meme classe de probleme
-# que la collision vecue avec newsletter-digest-bot le meme jour). Les 12 autres bots (sans
+# que la collision vecue avec newsletter-digest-bot le meme jour). Les autres bots (sans
 # Ollama) n'ont aucun fichier de sortie partage entre eux -- chacun ecrit ses propres
-# results/simulation/*.csv/json -- donc repartis sans risque sur 3 jobs par strategie de
-# capital (bots-aveugle/bots-contraint/bots-large).
+# results/simulation/*.csv/json -- donc repartis sans risque sur un job par strategie de
+# capital (bots-aveugle/bots-contraint/bots-large/bots-delta, ce dernier ajoute 2026-09-10
+# pour le Bot #25).
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -330,6 +331,48 @@ jobs:
             exit 0
           fi
           git commit -m "Mise a jour automatique du screener -- bots large ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
+            sleep 10
+          done
+          echo "Echec du push apres 5 tentatives."
+          exit 1
+
+  bots-delta:
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances
+        run: pip install -r requirements.txt
+
+      # Bot #25 ("Delta") : memes mecaniques que #2 (capital contraint), plus le renfort par
+      # conviction sur les positions en moins-value dont la these tient toujours -- voir
+      # simulate_delta_portfolio.py. Propre pool de 300 EUR, propre ledger, job dedie plutot que
+      # regroupe dans bots-contraint pour garder sa propre visibilite (nouvelle mecanique,
+      # encore aucun historique de trades).
+      - name: Simulation a capital contraint + renfort par conviction (Bot #25)
+        run: python screener/simulate_delta_portfolio.py
+
+      - name: Commit + push si des resultats ont change
+        run: |
+          git config user.name "screener-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add results/simulation/
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau ce cycle."
+            exit 0
+          fi
+          git commit -m "Mise a jour automatique du screener -- bot delta ($(date -u +'%Y-%m-%d %H:%M UTC'))"
           for i in 1 2 3 4 5; do
             git pull --rebase origin master && git push && exit 0
             echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."

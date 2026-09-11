@@ -1,16 +1,13 @@
-"""Bot#11: same capital-constrained paper-trading mechanics as simulate_constrained_portfolio.py
-(Bot#2 -- capital, slots, sector cap, NA cap, FX and fractional-share handling all identical),
-same ranking (select_top_picks.composite_score, unchanged), except a candidate whose sector is
-currently rated "sous_pression" in data/universe/sector_outlook.csv -- Ollama's daily synthesis
-of the user's own Gmail newsletters, see screener/newsletter_digest.py -- is excluded from the
-pool entirely. "neutre"/"florissant"/no signal at all (missing file) don't exclude anything, same
-fail-open posture as every other best-effort join in this repo.
+"""Bot#27: same conviction-averaging mechanics as simulate_delta_portfolio.py (Bot#25, "Delta"
+base), same ranking (select_top_picks.composite_score, unchanged), except a candidate whose
+sector is currently rated "sous_pression" in data/universe/sector_outlook.csv is excluded from
+the pool entirely -- the same veto Bot#11 applies on top of Bot#2's mechanics (see
+simulate_constrained_portfolio_sector_outlook.py).
 
-Isolates a single variable against Bot#2, same controlled-comparison principle as Bot#8 (notes
-ranking) vs Bot#2: everything except the extra sector exclusion in fill_slots() is reused
-directly from simulate_constrained_portfolio.py.
+Isolates a single variable against Bot#25: everything except the extra sector exclusion in
+fill_slots() is reused directly from simulate_delta_portfolio.py.
 """
-# Alias lisibilite (mapping perso) : B3 -- famille Beta (capital contraint), variante + veto sectoriel
+# Alias lisibilite (mapping perso) : D3 -- famille Delta (conviction), variante + veto sectoriel
 import json
 import math
 import pathlib
@@ -25,20 +22,21 @@ sys.path.insert(0, str(HERE))
 from screener.select_top_picks import (  # noqa: E402
     composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
 )
-from screener.simulate_constrained_portfolio import (  # noqa: E402
+from screener.simulate_delta_portfolio import (  # noqa: E402
     LEDGER_COLUMNS, MAX_PER_SECTOR, MAX_WHOLE_SHARE_OVERSHOOT, STARTING_CAPITAL, STARTING_SLOTS,
     TARGET_POSITION_SIZE, FX_PAIR, fetch_fx_rates, fractional_eligible, recheck_and_exit, to_eur,
+    reinforce_convictions,
 )
 from screener.simulate_portfolio import fails_fresh_check  # noqa: E402
 from screener.fetch_cache import fetch_one as fetch_cache_one  # noqa: E402
 from screener.newsletter_digest import load_pressured_sectors  # noqa: E402
 
-LEDGER_PATH = HERE / "results/simulation/constrained_portfolio_ledger_sector_outlook.csv"
-STATE_PATH = HERE / "results/simulation/constrained_state_sector_outlook.json"
+LEDGER_PATH = HERE / "results/simulation/delta_portfolio_ledger_sector_outlook.csv"
+STATE_PATH = HERE / "results/simulation/delta_state_sector_outlook.json"
 CANDIDATES_PATH = HERE / "results/screener/long_candidates_latest.csv"
 VALUATION_PATH = HERE / "results/screener/full_valuation_latest.csv"
-SUMMARY_PATH = HERE / "results/simulation/constrained_summary_sector_outlook.json"
-EQUITY_CURVE_PATH = HERE / "results/simulation/constrained_equity_curve_sector_outlook.csv"
+SUMMARY_PATH = HERE / "results/simulation/delta_summary_sector_outlook.json"
+EQUITY_CURVE_PATH = HERE / "results/simulation/delta_equity_curve_sector_outlook.csv"
 
 
 def load_ledger() -> pd.DataFrame:
@@ -152,6 +150,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": state["valuation_gap"],
             "last_mom_12_2": fresh["mom_12_2"], "current_value_eur": cost,
             "unrealized_return_pct": 0.0, "peak_unrealized_return_pct": 0.0, "peak_date": today,
+            "reinforcement_count": 0,
             "exit_date": None, "exit_price": None, "exit_reason": None,
             "exit_value_eur": None, "return_pct": None, "holding_days": None,
         })
@@ -182,12 +181,13 @@ def write_summary(ledger: pd.DataFrame, cash: float):
         "total_return_pct": total_equity / STARTING_CAPITAL - 1,
         "nb_open": len(open_pos),
         "nb_closed": len(closed),
+        "nb_reinforced": int((open_pos["reinforcement_count"].fillna(0) > 0).sum()) if len(open_pos) else 0,
         "win_rate_closed": float((closed["return_pct"] > 0).mean()) if len(closed) else None,
         "avg_return_closed": float(closed["return_pct"].mean()) if len(closed) else None,
     }
     SUMMARY_PATH.write_text(pd.Series(summary).to_json(), encoding="utf-8")
-    print(f"\n=== Portefeuille contraint (veto sectoriel) : {summary['nb_open']} positions, "
-          f"{cash:.2f} EUR cash, valeur totale {total_equity:.2f} EUR "
+    print(f"\n=== Portefeuille Delta (veto sectoriel) : {summary['nb_open']} positions "
+          f"({summary['nb_reinforced']} renforcees), {cash:.2f} EUR cash, valeur totale {total_equity:.2f} EUR "
           f"({summary['total_return_pct']:+.1%} depuis le depart) ===")
 
 
@@ -213,6 +213,7 @@ def main():
     fx_rates = fetch_fx_rates(set(FX_PAIR.keys()))
 
     ledger, cash = recheck_and_exit(ledger, valuation, today, cash, fx_rates)
+    ledger, cash = reinforce_convictions(ledger, valuation, today, cash, fx_rates)
     ledger, cash = fill_slots(ledger, candidates, valuation, cash, today, fx_rates)
 
     LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)

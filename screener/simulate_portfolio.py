@@ -29,7 +29,14 @@ Mechanics:
       - hard stop-loss at STOP_LOSS_PCT, independent of the model above. mom_12_2
         deliberately excludes the most recent month (avoids short-term reversal noise),
         which means a sudden crash can stay invisible to the momentum exit for weeks --
-        this is the backstop for that blind spot.
+        this is the backstop for that blind spot. Only active before the ratcheting stop
+        below has ever armed.
+      - ratcheting stop: every time the position's peak unrealized gain crosses a new
+        multiple of RATCHET_STEP_PCT (+15%, +30%, +45%, ...), the exit floor jumps to
+        RATCHET_GIVEBACK_PCT points below that milestone (10%, 25%, 40%, ...) and holds
+        there -- fixed -- until the next milestone is crossed, replacing STOP_LOSS_PCT as
+        the active floor from that point on. Locks in most of a big run in discrete steps
+        instead of riding the momentum/valuation exit all the way back to breakeven.
   - No short-side simulation yet (long-only exit to cash) -- deliberately kept simple
     until the long side has a track record worth trusting.
 """
@@ -54,8 +61,21 @@ EQUITY_CURVE_PATH = HERE / "results/simulation/equity_curve.csv"
 # position tracking doesn't account for dividends either.
 BENCHMARKS = {"spy_price": "^GSPC", "n100_price": "^N100"}
 
-# hard stop-loss, independent of the valuation/momentum model -- see recheck_open_positions
-STOP_LOSS_PCT = -0.25
+# hard stop-loss, independent of the valuation/momentum model -- see recheck_open_positions.
+# Only applies before the position's peak has ever reached the first RATCHET_STEP_PCT milestone
+# (see below) -- once it has, the ratcheted floor is always well above this and takes over.
+STOP_LOSS_PCT = -0.15
+
+# ratcheting stop-loss, independent of the valuation/momentum model -- see recheck_open_positions.
+# Every time the position's peak unrealized gain crosses a new multiple of RATCHET_STEP_PCT
+# (+15%, +30%, +45%, ...), the stop floor jumps to RATCHET_GIVEBACK_PCT points below that
+# milestone (10%, 25%, 40%, ...) and stays there -- fixed -- until the next milestone is
+# crossed, regardless of how far price pulls back in between. Replaces the single-level
+# continuous trailing stop from 2026-09-10 with a repeating staircase, and replaces
+# STOP_LOSS_PCT as the active floor from the first milestone onward (2026-09-10, user
+# instruction).
+RATCHET_STEP_PCT = 0.15
+RATCHET_GIVEBACK_PCT = 0.05
 
 MIN_INDUSTRY_PEERS = 5  # must match value_momentum_quality_screener_v2.MIN_INDUSTRY_PEERS --
 # duplicated rather than imported, same reasoning as simulate_constrained_portfolio.py gives
@@ -134,9 +154,15 @@ def fetch_fresh_single(ticker: str) -> dict | None:
         if len(hist) < 13:
             return None
         mom_12_2 = hist.iloc[-2] / hist.iloc[-13] - 1
+        # the single most recent month's return -- deliberately excluded from mom_12_2 above
+        # (that's the whole point of the "12-2" window), but useful on its own as a short-term
+        # signal: simulate_delta_portfolio.py's conviction-averaging gate wants to know whether
+        # the bleeding has stopped recently, not just the medium-term trend.
+        mom_1m = hist.iloc[-1] / hist.iloc[-2] - 1
         return {
             "price": hist.iloc[-1], "eps": info.get("trailingEps"),
             "sector": info.get("sector"), "industry": info.get("industry"), "mom_12_2": mom_12_2,
+            "mom_1m": mom_1m,
         }
     except Exception as e:
         print(f"  echec fetch frais pour {ticker}: {e}", file=sys.stderr)
@@ -227,11 +253,19 @@ def recheck_open_positions(ledger: pd.DataFrame, valuation: pd.DataFrame, today:
         valuation_reached = pd.notna(valuation_gap_now) and valuation_gap_now <= 0
         # hard floor independent of the model: mom_12_2 deliberately excludes the most
         # recent month, so a sudden crash can stay invisible to the momentum exit for
-        # weeks. This is the backstop for that blind spot, not a refinement of the thesis.
+        # weeks. This is the backstop for that blind spot, not a refinement of the thesis, and
+        # only relevant before the ratchet below has ever armed (see RATCHET_STEP_PCT).
         stop_loss_hit = unrealized <= STOP_LOSS_PCT
+        peak = ledger.at[idx, "peak_unrealized_return_pct"]
+        # ratcheting stop: milestone is how many RATCHET_STEP_PCT-sized rungs the peak has ever
+        # climbed (0 until the peak first reaches +15%); the floor jumps to that rung minus the
+        # giveback and stays fixed there until the next rung is climbed.
+        milestone = int(peak // RATCHET_STEP_PCT) if pd.notna(peak) else 0
+        trailing_stop_hit = milestone >= 1 and unrealized <= milestone * RATCHET_STEP_PCT - RATCHET_GIVEBACK_PCT
 
-        if momentum_lost or valuation_reached or stop_loss_hit:
-            reason = ("stop_loss" if stop_loss_hit else
+        if momentum_lost or valuation_reached or stop_loss_hit or trailing_stop_hit:
+            reason = ("trailing_stop" if trailing_stop_hit else
+                      "stop_loss" if stop_loss_hit else
                       "valorisation_atteinte" if valuation_reached else "momentum_perdu")
             entry_date = pd.Timestamp(ledger.at[idx, "entry_date"])
             ledger.at[idx, "status"] = "closed"

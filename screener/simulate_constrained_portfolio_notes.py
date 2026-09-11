@@ -207,7 +207,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             "entry_mom_12_2": fresh["mom_12_2"], "entry_sector_momentum": state["sector_momentum"],
             "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": state["valuation_gap"],
             "last_mom_12_2": fresh["mom_12_2"], "current_value_eur": cost,
-            "unrealized_return_pct": 0.0,
+            "unrealized_return_pct": 0.0, "peak_unrealized_return_pct": 0.0, "peak_date": today,
             "exit_date": None, "exit_price": None, "exit_reason": None,
             "exit_value_eur": None, "return_pct": None, "holding_days": None,
             "entry_note_qualite": pick_row.get("note_qualite_20"),
