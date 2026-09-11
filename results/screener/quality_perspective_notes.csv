@@ -58,7 +58,7 @@ ALK,"Alaska Air Group, Inc.",Industrials,Airlines,1.5,1.6,3.6,1.8,18.1,5.3,5,Fal
 ALLE,Allegion plc,Industrials,Security & Protection Services,8.4,18.3,11.0,16.8,8.9,12.7,5,False,10.2,4.0,7.1,2,False
 ALNY,"Alnylam Pharmaceuticals, Inc.",Healthcare,Biotechnology,6.8,19.6,9.2,15.6,,12.8,4,False,0.0,0.8,0.4,2,False
 ALSN,"Allison Transmission Holdings, Inc.",Consumer Cyclical,Auto Parts,7.4,16.8,7.3,16.4,7.8,11.1,5,False,5.9,18.4,12.1,2,False
-ALV,"Autoliv, Inc.",Consumer Cyclical,Auto Parts,8.0,16.3,12.8,10.9,15.5,12.7,5,False,12.6,10.2,11.4,2,False
+ALV,"Autoliv, Inc.",Consumer Cyclical,Auto Parts,8.0,16.3,12.8,10.9,15.4,12.7,5,False,12.6,10.2,11.4,2,False
 AM,Antero Midstream Corporation,Energy,Oil & Gas Midstream,5.0,14.6,10.7,17.6,11.1,11.8,5,False,0.0,5.0,2.5,2,False
 AMC,"AMC Entertainment Holdings, Inc.",Communication Services,Entertainment,3.2,,5.3,6.3,,4.9,3,False,,7.1,7.1,1,True
 AMCR,Amcor plc,Consumer Cyclical,Packaging & Containers,6.2,9.3,9.4,10.0,11.6,9.3,5,False,8.5,14.5,11.5,2,False
@@ -229,7 +229,7 @@ DECK,Deckers Outdoor Corporation,Consumer Cyclical,Footwear & Accessories,16.6,1
 DFH,"Dream Finders Homes, Inc.",Consumer Cyclical,Residential Construction,5.9,9.4,1.7,5.6,7.2,6.0,5,False,14.7,0.6,7.6,2,False
 DFIN,"Donnelley Financial Solutions, Inc.",Technology,Software - Application,7.0,8.7,11.5,12.6,18.9,11.7,5,False,9.7,6.0,7.8,2,False
 DG,Dollar General Corporation,Consumer Defensive,Discount Stores,1.9,16.1,9.0,8.2,4.4,7.9,5,False,11.6,15.6,13.6,2,False
-DHI,"D.R. Horton, Inc.",Consumer Cyclical,Residential Construction,9.2,11.2,12.4,13.9,15.6,12.5,5,False,8.3,5.9,7.1,2,False
+DHI,"D.R. Horton, Inc.",Consumer Cyclical,Residential Construction,9.2,11.2,12.4,13.9,15.5,12.4,5,False,8.3,5.9,7.1,2,False
 DHT,"DHT Holdings, Inc.",Energy,Oil & Gas Midstream,16.0,19.2,9.2,19.5,13.4,15.5,5,False,20.0,16.9,18.4,2,False
 DIOD,Diodes Incorporated,Technology,Semiconductors,14.6,6.3,14.4,8.7,2.1,9.2,5,False,2.3,15.1,8.7,2,False
 DIS,The Walt Disney Company,Communication Services,Entertainment,8.2,8.8,6.3,11.8,4.5,7.9,5,False,13.0,7.9,10.4,2,False
@@ -756,21 +756,6 @@ SREN.SW,Swiss Re AG,Financial Services,Insurance - Reinsurance,12.2,15.8,,5.2,,1
 SRP.L,Serco Group plc,Industrials,Specialty Business Services,6.4,14.0,,5.1,,8.5,3,False,15.5,9.5,12.5,2,False
 STMN.SW,Straumann Holding AG,Healthcare,Medical Instruments & Supplies,10.6,15.8,10.3,16.2,6.8,11.9,5,False,5.5,9.3,7.4,2,False
 TRN.MI,Terna S.p.A.,Utilities,Utilities - Regulated Electric,10.5,15.7,10.6,18.4,11.8,13.4,5,False,11.0,14.9,13.0,2,False
-KBC.BR,KBC Group NV,Financial Services,Banks - Regional,,11.3,,12.0,12.5,11.9,3,False,8.1,14.5,11.3,2,False
-LR.PA,Legrand SA,Industrials,Electrical Equipment & Parts,8.0,14.5,9.6,15.6,8.4,11.2,5,False,10.3,6.5,8.4,2,False
-INF.L,Informa plc,Communication Services,Publishing,7.0,6.4,,10.1,,7.8,3,False,0.0,8.9,4.4,2,False
-FEML.L,Fidelity Emerging Markets Limited,Financial Services,Asset Management,12.4,19.4,,19.6,,17.1,3,False,20.0,18.0,19.0,2,False
-OCDO.L,Ocado Group plc,Consumer Defensive,Grocery Stores,10.4,0.6,,6.4,,5.8,3,False,,11.7,11.7,1,True
-PIN.L,Pantheon International Ord,,,,,,,,,0,True,,,,0,True
-PETS.L,Pets at Home Group Plc,Consumer Cyclical,Specialty Retail,7.1,6.7,,9.6,,7.8,3,False,11.8,12.2,12.0,2,False
-PFD.L,Premier Foods plc,Consumer Defensive,Packaged Foods,9.8,8.6,,16.3,,11.6,3,False,15.9,10.4,13.2,2,False
-QLT.L,Quilter plc,Financial Services,Asset Management,7.7,5.1,,1.6,,4.8,3,False,0.0,9.5,4.8,2,False
-TCAP.L,TP ICAP Group PLC,Financial Services,Capital Markets,5.2,6.7,,3.2,,5.0,3,False,14.6,11.9,13.2,2,False
-VTY.L,Vistry Group PLC,Consumer Cyclical,Residential Construction,11.4,5.3,,9.0,,8.6,3,False,19.3,0.3,9.8,2,False
-LHA.DE,Deutsche Lufthansa AG,Industrials,Airlines,3.8,5.1,1.4,2.8,10.7,4.8,5,False,2.8,10.5,6.6,2,False
-TUI1.DE,TUI AG,Consumer Cyclical,Travel Services,3.1,17.8,2.6,4.8,15.4,8.7,5,False,20.0,7.8,13.9,2,False
-PSPN.SW,PSP Swiss Property AG,Real Estate,Real Estate Services,8.0,11.5,10.2,16.8,4.3,10.2,5,False,13.6,12.7,13.2,2,False
-ALFA.ST,Alfa Laval AB (publ),Industrials,Specialty Industrial Machinery,7.8,14.9,10.1,14.4,5.6,10.6,5,False,10.2,14.8,12.5,2,False
 TEL.OL,Telenor ASA,Communication Services,Telecom Services,7.6,16.4,7.6,15.3,16.9,12.8,5,False,17.0,6.4,11.7,2,False
 BEZ.L,Beazley plc,Financial Services,Insurance - Specialty,17.5,11.9,,4.4,,11.3,3,False,0.0,16.2,8.1,2,False
 HWDN.L,Howden Joinery Group Plc,Consumer Cyclical,"Furnishings, Fixtures & Appliances",12.2,15.9,,14.0,,14.0,3,False,10.1,8.6,9.4,2,False
@@ -1106,7 +1091,7 @@ CLVT,Clarivate Plc,Technology,Information Technology Services,3.2,2.6,10.0,4.9,1
 COHR,Coherent Corp.,Technology,Scientific & Technical Instruments,8.9,8.3,6.4,12.3,0.4,7.3,5,False,0.0,17.9,9.0,2,False
 DXC,DXC Technology Company,Technology,Information Technology Services,5.8,5.8,10.2,5.1,19.9,9.4,5,False,12.5,4.0,8.2,2,False
 E,Eni S.p.A.,Energy,Oil & Gas Integrated,8.0,9.1,,6.4,,7.8,3,False,10.5,13.2,11.8,2,False
-EME,"EMCOR Group, Inc.",Industrials,Engineering & Construction,14.5,18.8,12.8,10.5,5.7,12.5,5,False,3.4,10.4,6.9,2,False
+EME,"EMCOR Group, Inc.",Industrials,Engineering & Construction,14.5,18.8,12.8,10.5,5.6,12.4,5,False,3.4,10.4,6.9,2,False
 ESLT,Elbit Systems Ltd.,Industrials,Aerospace & Defense,11.6,12.6,10.0,9.9,1.6,9.1,5,False,2.4,15.1,8.8,2,False
 FLY,Firefly Aerospace Inc.,Industrials,Aerospace & Defense,18.2,0.2,10.6,0.2,0.3,5.9,5,False,,1.4,1.4,1,True
 FUL,H.B. Fuller Company,Basic Materials,Specialty Chemicals,5.2,10.3,10.0,9.7,10.4,9.1,5,False,17.0,3.3,10.2,2,False
@@ -2479,7 +2464,7 @@ AXISBANK.NS,Axis Bank Limited,Financial Services,Banks - Regional,,11.2,,14.4,0.
 3861.T,Oji Holdings Corporation,Basic Materials,Paper & Paper Products,2.7,7.9,1.1,5.0,17.5,6.8,5,False,14.0,7.0,10.5,2,False
 4902.T,"Konica Minolta, Inc.",Industrials,Business Equipment & Supplies,9.7,5.5,10.5,4.4,2.7,6.6,5,False,17.7,13.5,15.6,2,False
 5401.T,Nippon Steel Corporation,Basic Materials,Steel,3.7,7.5,1.0,5.2,13.8,6.2,5,False,0.0,7.3,3.6,2,False
-5929.T,Sanwa Holdings Corporation,Industrials,Building Products & Equipment,16.2,14.4,16.8,8.0,10.8,13.2,5,False,20.0,3.8,11.9,2,False
+5929.T,Sanwa Holdings Corporation,Industrials,Building Products & Equipment,16.2,14.4,16.8,8.0,10.7,13.2,5,False,20.0,3.8,11.9,2,False
 5991.T,"NHK Spring Co., Ltd.",Consumer Cyclical,Auto Parts,16.0,8.3,17.1,8.0,8.8,11.6,5,False,1.3,18.9,10.1,2,False
 6146.T,Disco Corporation,Technology,Semiconductor Equipment & Materials,14.9,16.7,11.7,19.0,4.1,13.3,5,False,12.9,11.1,12.0,2,False
 6923.T,"Stanley Electric Co., Ltd.",Consumer Cyclical,Auto Parts,13.9,7.8,16.7,9.0,18.8,13.2,5,False,12.6,16.2,14.4,2,False
@@ -4647,7 +4632,7 @@ EVT.DE,Evotec SE,Healthcare,Drug Manufacturers - Specialty & Generic,8.0,5.2,4.6
 HFG.DE,HelloFresh SE,Consumer Defensive,Grocery Stores,3.4,1.0,10.1,2.2,19.9,7.3,5,False,,0.2,0.2,1,True
 RRTL.DE,RTL Group S.A.,Communication Services,Broadcasting,9.2,5.5,10.4,10.2,18.9,10.8,5,False,0.0,12.3,6.2,2,False
 SCHN.SW,Schindler Holding AG,Industrials,Specialty Industrial Machinery,14.3,16.2,15.4,12.6,9.4,13.6,5,False,11.9,4.9,8.4,2,False
-GET.PA,Getlink SE,Industrials,Railroads,9.9,11.3,7.6,18.5,11.5,11.8,5,False,0.0,13.1,6.6,2,False
+GET.PA,Getlink SE,Industrials,Railroads,9.9,11.3,7.5,18.5,11.5,11.7,5,False,0.0,13.1,6.6,2,False
 B3SA3.SA,"B3 S.A. - Brasil, Bolsa, Balcão",Financial Services,Financial Data & Stock Exchanges,9.3,18.2,,17.6,10.0,13.8,4,False,15.6,12.3,14.0,2,False
 BIDI11.SA,,,,,,,,,,0,True,,,,0,True
 BPAC11.SA,Banco BTG Pactual S.A.,Financial Services,Capital Markets,,17.2,,15.6,4.1,12.3,3,False,0.0,9.4,4.7,2,False
@@ -5399,7 +5384,7 @@ XYX.AX,,,,,,,,,,0,True,,,,0,True
 9508.T,"Kyushu Electric Power Company, Incorporated",Utilities,Utilities - Independent Power Producers,3.8,16.3,1.4,7.6,20.0,9.8,5,False,20.0,18.6,19.3,2,False
 9531.T,"Tokyo Gas Co.,Ltd.",Utilities,Utilities - Regulated Gas,16.0,10.0,14.5,4.8,18.9,12.8,5,False,18.7,15.2,17.0,2,False
 1325.TW,Universal Incorporation,Consumer Cyclical,Textile Manufacturing,20.0,2.6,11.7,0.6,3.9,7.8,5,False,,4.9,4.9,1,True
-1447.TW,"Li Peng Enterprise Co., Ltd.",Consumer Cyclical,Textile Manufacturing,8.0,2.3,5.2,2.4,,4.5,4,False,,15.2,15.2,1,True
+1447.TW,"Li Peng Enterprise Co., Ltd.",Consumer Cyclical,Textile Manufacturing,8.0,2.3,5.3,2.4,,4.5,4,False,,15.2,15.2,1,True
 1459.TW,"Lan Fa Textile Co., Ltd.",Consumer Cyclical,Textile Manufacturing,14.4,14.6,19.3,15.1,,15.8,4,False,20.0,14.9,17.4,2,False
 1460.TW,"Everest Textile Co., Ltd.",Consumer Cyclical,Textile Manufacturing,5.6,2.4,3.6,1.7,,3.3,4,False,,13.8,13.8,1,True
 1464.TW,"De Licacy Industrial Co., Ltd.",Consumer Cyclical,Textile Manufacturing,4.6,5.1,3.9,4.6,13.5,6.3,5,False,8.0,8.6,8.3,2,False
@@ -5568,3 +5553,18 @@ WCH.DE,Wacker Chemie AG,Basic Materials,Specialty Chemicals,10.7,2.1,,3.6,,5.5,3
 ADEN.SW,Adecco Group AG,Industrials,Staffing & Employment Services,7.4,7.1,,3.2,,5.9,3,False,13.6,10.6,12.1,2,False
 GFC.PA,Gecina,Real Estate,REIT - Office,8.2,4.3,9.8,13.9,17.3,10.7,5,False,6.1,3.9,5.0,2,False
 SCA-B.ST,Svenska Cellulosa Aktiebolaget SCA (publ),Basic Materials,Paper & Paper Products,8.3,5.1,9.0,8.0,9.0,7.9,5,False,0.0,3.3,1.6,2,False
+KBC.BR,KBC Group NV,Financial Services,Banks - Regional,,11.3,,12.0,12.5,11.9,3,False,8.3,14.5,11.4,2,False
+LR.PA,Legrand SA,Industrials,Electrical Equipment & Parts,8.0,14.5,9.7,15.6,8.4,11.2,5,False,10.4,6.5,8.4,2,False
+INF.L,Informa plc,Communication Services,Publishing,7.0,6.4,,10.1,,7.8,3,False,0.0,8.9,4.4,2,False
+FEML.L,Fidelity Emerging Markets Limited,Financial Services,Asset Management,12.4,19.4,,19.6,,17.1,3,False,20.0,18.0,19.0,2,False
+OCDO.L,Ocado Group plc,Consumer Defensive,Grocery Stores,10.4,0.6,,6.4,,5.8,3,False,,11.7,11.7,1,True
+PIN.L,Pantheon International Ord,,,,,,,,,0,True,,,,0,True
+PETS.L,Pets at Home Group Plc,Consumer Cyclical,Specialty Retail,7.1,6.7,,9.6,,7.8,3,False,12.4,12.2,12.3,2,False
+PFD.L,Premier Foods plc,Consumer Defensive,Packaged Foods,9.8,8.6,,16.3,,11.6,3,False,16.2,10.4,13.3,2,False
+QLT.L,Quilter plc,Financial Services,Asset Management,7.7,5.1,,1.6,,4.8,3,False,1.7,9.5,5.6,2,False
+TCAP.L,TP ICAP Group PLC,Financial Services,Capital Markets,5.2,6.7,,3.2,,5.0,3,False,14.8,11.9,13.4,2,False
+VTY.L,Vistry Group PLC,Consumer Cyclical,Residential Construction,11.4,5.3,,9.0,,8.6,3,False,20.0,0.3,10.2,2,False
+LHA.DE,Deutsche Lufthansa AG,Industrials,Airlines,3.8,5.1,1.4,2.8,10.8,4.8,5,False,2.9,10.5,6.7,2,False
+TUI1.DE,TUI AG,Consumer Cyclical,Travel Services,3.1,17.8,2.6,4.8,15.6,8.8,5,False,20.0,7.8,13.9,2,False
+PSPN.SW,PSP Swiss Property AG,Real Estate,Real Estate Services,8.0,11.5,10.2,16.8,4.3,10.2,5,False,13.5,12.7,13.1,2,False
+ALFA.ST,Alfa Laval AB (publ),Industrials,Specialty Industrial Machinery,7.8,14.9,10.1,14.4,5.7,10.6,5,False,10.6,14.8,12.7,2,False
