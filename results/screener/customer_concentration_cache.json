@@ -638,5 +638,21 @@
       "reason": "Le texte mentionne une longue liste de produits et de services pour différents clients, tels que le grand public, les étudiants, les professionnels, les entreprises, les gouvernements, les médicaux, les consommateurs finis et les professionnels de l'informatique, ce qui suggère une base de clients l",
       "source": "ollama"
     }
+  },
+  "5706.T": {
+    "checked_at": "2026-09-11",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise semble fournir un large éventail de produits et services à une base de clients diverse, y compris des clients B2B et du grand public, ce qui suggère une concentration de base.",
+      "source": "ollama"
+    }
+  },
+  "9766.T": {
+    "checked_at": "2026-09-11",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise a une présence dans plusieurs domaines différents (démarrages de jeux vidéo, arcade, systèmes de jeux, sports), ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
   }
 }

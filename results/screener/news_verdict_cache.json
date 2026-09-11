@@ -2032,5 +2032,17 @@
     "sentiment": "positive",
     "reason": "Les actualites recentes sur Seneca Foods Corporation (SENEA) suggere un ton general positif, avec des reports de gains de ventes et d'earnings, ainsi que des analyses positives sur la company, ce qui indique que l'action est consideree comme une opportunité de investissement.",
     "source": "ollama"
+  },
+  "5706.T_2026-09-11": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'action de Mitsui Kinzoku Company, Limited est soutenue par des actualites positives sur son partenariat avec Gelion PLC pour le developpement et la mise en echelle de la technologie de batterie à soufre.",
+    "source": "ollama"
+  },
+  "9766.T_2026-09-11": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes montrent une rotation des investissements vers les actions de jeux vidéo japonaises, une premiere sortie de slot de Bomberman et des resultats de bilan superieurs, indiquant un ton general positif pour l'action de Konami Group Corporation.",
+    "source": "ollama"
   }
 }
