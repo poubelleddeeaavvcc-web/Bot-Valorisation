@@ -49,6 +49,30 @@ rounding, the North-America-share cap's exact relaxation order in edge cases, an
 here as: skip that sector for the rest of the round instead of averaging into the existing
 position). None of these materially change the shape of the result; all are cheaper
 simplifications than the valuation-data gap that remains the real limitation.
+
+UPDATED 2026-09-14 (re-run requested after the user noticed the live exit mechanism had
+changed -- rightly so, it had, and this script was stale against it):
+  - The 2026-09-11 commit (bba72937) replaced the live bots' flat -25% stop-loss with a
+    -15% floor (STOP_LOSS_PCT, only active before the first +15% peak milestone) plus a
+    staircase ratcheting stop (RATCHET_STEP_PCT/RATCHET_GIVEBACK_PCT: every +15% peak
+    milestone crossed locks the exit floor at that milestone minus 5 points, replacing the
+    old continuous trailing stop). This script previously hardcoded a local, now-stale
+    -25% and modeled no ratchet at all -- silently backtesting an exit rule that hadn't
+    been live for 3 days. Fixed by importing STOP_LOSS_PCT/RATCHET_STEP_PCT/
+    RATCHET_GIVEBACK_PCT directly from simulate_portfolio.py instead of duplicating them,
+    so this can't drift silently again, and by tracking each held position's peak
+    unrealized return day-by-day (scan_daily_exit()) to evaluate the ratchet floor exactly
+    like recheck_and_exit() does.
+  - Extended to Bot #25 ("Delta"): same mechanics as Bot #2 (constrained) plus
+    conviction-averaging (see run_delta_bot()/DELTA_* below) -- with one gap that could NOT
+    be closed: the real reinforcement gate requires valuation_gap_now >= a margin, which
+    needs the same point-in-time fundamentals this whole script can't get. The proxy drops
+    that requirement entirely and keeps only the momentum-based half of the gate (pullback
+    depth, mom_1m > 0, and for deep pullbacks a momentum-vs-sector spread). This means the
+    Delta proxy almost certainly reinforces MORE often than the real bot would -- the
+    dropped filter was the strictest one. Treat delta_proxy's reinforcement_count and any
+    edge over bot2_constrained_proxy as an upper bound on what conviction-averaging can add,
+    not a faithful replay.
 """
 import pathlib
 import sys
@@ -62,19 +86,34 @@ HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
 from screener.select_top_picks import ticker_region, NORTH_AMERICA_MAX_SHARE  # noqa: E402
+from screener.simulate_portfolio import STOP_LOSS_PCT, RATCHET_STEP_PCT, RATCHET_GIVEBACK_PCT  # noqa: E402
 
 VALUATION_PATH = HERE / "results/screener/full_valuation_latest.csv"
 FUNDAMENTALS_CACHE_PATH = HERE / "results/screener/fundamentals_cache.csv"
 OUT_DIR = HERE / "results/backtest"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-STOP_LOSS_PCT = -0.25          # same as simulate_portfolio.STOP_LOSS_PCT
 LOOKBACK_MONTHS_TOTAL = 26     # 12 rebalance months + 13 months of momentum lookback each needs
 REBALANCE_MONTHS = 12          # walk-forward window we report on
 CHUNK_SIZE = 300               # yfinance batch download chunk (fetch_cache.py precedent)
-CHUNK_DELAY = 2.0              # seconds between chunks
+CHUNK_DELAY = 5.0              # seconds between chunks -- raised 2026-09-14 (was 2.0) after two
+# consecutive re-runs came back progressively MORE degraded (2168 then 1328 of ~3636 tickers,
+# FX empty both times) -- classic sustained-load throttling, not a one-off blip: small isolated
+# requests kept succeeding fine in between, only the long chunked sequence degraded.
+CHUNK_RETRY_MIN_FRACTION = 0.7  # a chunk returning fewer than this fraction of requested
+# tickers is treated as throttled, not "that many really are delisted" -- retried once after a
+# longer cooldown rather than silently accepted (see 2026-09-14 note above).
+CHUNK_RETRY_DELAY = 20.0
 
 STARTING_CAPITAL = 500.0       # same illustrative amount as the live bots
+DELTA_STARTING_CAPITAL = 300.0  # Bot #25's own, smaller pool -- see simulate_delta_portfolio.py
+
+# Delta's conviction-averaging gate -- momentum-only half, see module docstring's 2026-09-14
+# note for why the valuation_gap_now requirement (the strictest part) had to be dropped.
+DELTA_MIN_DROP_PCT = -0.07
+DELTA_DEEP_DROP_PCT = -0.10
+DELTA_MOM_SPREAD_MIN = 0.05
+DELTA_MAX_POSITION_SHARE = 0.25
 
 # Same FX ticker map as simulate_constrained_portfolio.FX_PAIR -- duplicated because that
 # module's fetch_fx_rates() only fetches a live snapshot, not a historical series.
@@ -89,6 +128,9 @@ BOTS = {
     "bot1_blind": {"label": "Bot #1 (blind, proxy momentum)"},
     "bot2_constrained": {"label": "Bot #2 (constrained, proxy momentum+quality)",
                           "starting_slots": 15, "max_per_sector": 3, "mode": "capped"},
+    "bot25_delta": {"label": "Bot #25 Delta (constrained+conviction, proxy momentum+quality, "
+                              "valuation gate NOT modeled -- see docstring)",
+                     "starting_slots": 9, "max_per_sector": 3, "mode": "capped"},
     "bot3_large": {"label": "Bot #3 (large, proxy momentum+quality)",
                    "starting_slots": 30, "max_per_sector": None, "mode": "even_sector"},
 }
@@ -107,26 +149,44 @@ def load_universe() -> pd.DataFrame:
     return df.reset_index(drop=True)
 
 
+def _download_one_chunk(chunk: list, period: str, interval: str) -> dict:
+    try:
+        data = yf.download(chunk, period=period, interval=interval,
+                            auto_adjust=True, group_by="ticker", threads=True, progress=False)
+    except Exception as e:
+        print(f"    echec telechargement: {e}", file=sys.stderr)
+        return {}
+    out = {}
+    for tk in chunk:
+        try:
+            s = data[tk]["Close"].dropna() if len(chunk) > 1 else data["Close"].dropna()
+        except (KeyError, TypeError):
+            continue
+        if len(s):
+            out[tk] = s
+    return out
+
+
 def _chunked_download(tickers: list, period: str, interval: str) -> dict:
+    """One retry per chunk (after CHUNK_RETRY_DELAY) if fewer than CHUNK_RETRY_MIN_FRACTION of
+    the requested tickers came back -- see CHUNK_RETRY_MIN_FRACTION's comment for why a bad
+    chunk is treated as throttled rather than trusted at face value."""
     closes = {}
     n_chunks = (len(tickers) + CHUNK_SIZE - 1) // CHUNK_SIZE
     for i in range(0, len(tickers), CHUNK_SIZE):
         chunk = tickers[i:i + CHUNK_SIZE]
         chunk_no = i // CHUNK_SIZE + 1
         print(f"  telechargement chunk {chunk_no}/{n_chunks} ({len(chunk)} tickers, {interval})...", file=sys.stderr)
-        try:
-            data = yf.download(chunk, period=period, interval=interval,
-                                auto_adjust=True, group_by="ticker", threads=True, progress=False)
-        except Exception as e:
-            print(f"    echec chunk {chunk_no}: {e}", file=sys.stderr)
-            continue
-        for tk in chunk:
-            try:
-                s = data[tk]["Close"].dropna() if len(chunk) > 1 else data["Close"].dropna()
-            except (KeyError, TypeError):
-                continue
-            if len(s):
-                closes[tk] = s
+        out = _download_one_chunk(chunk, period, interval)
+        if len(out) < CHUNK_RETRY_MIN_FRACTION * len(chunk):
+            print(f"    chunk {chunk_no} : seulement {len(out)}/{len(chunk)} tickers, "
+                  f"probable throttling -- pause {CHUNK_RETRY_DELAY:.0f}s puis nouvel essai...", file=sys.stderr)
+            time.sleep(CHUNK_RETRY_DELAY)
+            retry_out = _download_one_chunk(chunk, period, interval)
+            if len(retry_out) > len(out):
+                out = retry_out
+                print(f"    reessai chunk {chunk_no} : {len(out)}/{len(chunk)} tickers", file=sys.stderr)
+        closes.update(out)
         if chunk_no < n_chunks:
             time.sleep(CHUNK_DELAY)
     return closes
@@ -221,23 +281,32 @@ def asof_panel(daily_df: pd.DataFrame, dates) -> pd.DataFrame:
     return filled.loc[idx]
 
 
-def scan_daily_stop_loss(daily_native: pd.DataFrame, tk: str, entry_price: float,
-                          window_start, window_end):
-    """First trading day (window_start, window_end] where native-price unrealized return
-    breaches STOP_LOSS_PCT, or None if it never does in this window. Matches
-    recheck_and_exit(): the stop-loss decision uses the native price ratio, not EUR."""
+def scan_daily_exit(daily_native: pd.DataFrame, tk: str, entry_price: float,
+                     window_start, window_end, peak_in: float):
+    """Walks day-by-day through (window_start, window_end] tracking the running peak
+    unrealized return and evaluating recheck_and_exit()'s exact stop-loss/ratchet floor at
+    each day -- not a vectorized min-check, because the ratchet floor depends on the peak
+    SO FAR, which itself can only be known by walking forward. Returns (exit_date,
+    exit_price, reason, peak_at_exit) on the first day either floor is breached, or
+    (None, None, None, peak_at_window_end) if neither ever is -- the peak must be carried
+    forward to the next month's call regardless, since the ratchet never un-arms once a
+    milestone is crossed (matches simulate_portfolio.recheck_and_exit, 2026-09-11)."""
     if tk not in daily_native.columns or entry_price is None or pd.isna(entry_price) or entry_price == 0:
-        return None
+        return None, None, None, peak_in
     s = daily_native[tk]
     mask = (s.index > window_start) & (s.index <= window_end)
     sub = s[mask].dropna()
-    if sub.empty:
-        return None
-    unreal = sub / entry_price - 1
-    hit = unreal[unreal <= STOP_LOSS_PCT]
-    if hit.empty:
-        return None
-    return hit.index[0], float(sub.loc[hit.index[0]])
+    peak = peak_in
+    for dt, px in sub.items():
+        unreal = px / entry_price - 1
+        if unreal > peak:
+            peak = unreal
+        stop_loss_hit = unreal <= STOP_LOSS_PCT
+        milestone = int(peak // RATCHET_STEP_PCT)
+        trailing_stop_hit = milestone >= 1 and unreal <= milestone * RATCHET_STEP_PCT - RATCHET_GIVEBACK_PCT
+        if stop_loss_hit or trailing_stop_hit:
+            return dt, float(px), ("trailing_stop" if trailing_stop_hit else "stop_loss"), peak
+    return None, None, None, peak
 
 
 def run_bot1_blind(dates, mom, sec_mom, daily_native: pd.DataFrame, native_at_dates: pd.DataFrame) -> tuple:
@@ -250,13 +319,14 @@ def run_bot1_blind(dates, mom, sec_mom, daily_native: pd.DataFrame, native_at_da
         price_row = native_at_dates.loc[date_i]
         for tk in list(held):
             info = held[tk]
-            hit = scan_daily_stop_loss(daily_native, tk, info["entry_price"], prev_date, date_i)
-            if hit is not None:
-                hit_date, hit_price = hit
-                closed.append({**info, "ticker": tk, "exit_date": hit_date, "exit_price": hit_price,
-                               "exit_reason": "stop_loss", "return_pct": hit_price / info["entry_price"] - 1})
+            exit_date, exit_price, reason, peak = scan_daily_exit(
+                daily_native, tk, info["entry_price"], prev_date, date_i, info.get("peak", 0.0))
+            if exit_date is not None:
+                closed.append({**info, "ticker": tk, "exit_date": exit_date, "exit_price": exit_price,
+                               "exit_reason": reason, "return_pct": exit_price / info["entry_price"] - 1})
                 del held[tk]
                 continue
+            info["peak"] = peak
             if tk not in mom.columns:
                 continue
             m, sm = mom.loc[date_i].get(tk), sec_mom.loc[date_i].get(tk)
@@ -274,7 +344,7 @@ def run_bot1_blind(dates, mom, sec_mom, daily_native: pd.DataFrame, native_at_da
             entry_px = price_row.get(c["ticker"])
             if entry_px is None or pd.isna(entry_px):
                 continue
-            held[c["ticker"]] = {"sector": c["sector"], "entry_date": date_i, "entry_price": entry_px}
+            held[c["ticker"]] = {"sector": c["sector"], "entry_date": date_i, "entry_price": entry_px, "peak": 0.0}
         prev_date = date_i
 
     open_rows = []
@@ -329,9 +399,18 @@ def _price_asof(series: pd.Series, date):
 
 def run_slotted_bot(dates, mom, sec_mom, daily_native, daily_eur, currency_of,
                      native_at_dates, eur_at_dates,
-                     starting_slots, max_per_sector, mode) -> tuple:
-    target_size = STARTING_CAPITAL / starting_slots
-    cash = STARTING_CAPITAL
+                     starting_slots, max_per_sector, mode,
+                     starting_capital=None, reinforce_fn=None) -> tuple:
+    """reinforce_fn, if given, is called once per rebalance date between the exit scan and
+    the buy loop -- signature (held, cash, date_i, native_row, eur_row, target_size) -> cash,
+    mutating `held` in place. Kept as an injectable hook rather than a second near-duplicate
+    of this whole function (Bot #25 "Delta" needs it, Bot #2/#3 don't) specifically so the
+    shared buy/sell/NAV mechanics below have one authoritative copy -- see the module
+    docstring's 2026-09-14 note about the drift that came from an earlier duplication
+    (this script's own stop-loss constant going stale against the live bots' for 3 days)."""
+    starting_capital = STARTING_CAPITAL if starting_capital is None else starting_capital
+    target_size = starting_capital / starting_slots
+    cash = starting_capital
     held = {}  # ticker -> dict
     closed = []
     prev_date = dates[0] - pd.DateOffset(months=1)
@@ -342,31 +421,34 @@ def run_slotted_bot(dates, mom, sec_mom, daily_native, daily_eur, currency_of,
         eur_row = eur_at_dates.loc[date_i]
         for tk in list(held):
             info = held[tk]
-            hit = scan_daily_stop_loss(daily_native, tk, info["entry_price"], prev_date, date_i)
-            if hit is not None:
-                hit_date, hit_price = hit
-            else:
+            exit_date, exit_price, reason, peak = scan_daily_exit(
+                daily_native, tk, info["entry_price"], prev_date, date_i, info.get("peak", 0.0))
+            info["peak"] = peak
+            if exit_date is None:
                 if tk not in mom.columns:
                     continue
                 m, sm = mom.loc[date_i].get(tk), sec_mom.loc[date_i].get(tk)
                 if pd.isna(m) or pd.isna(sm) or (m > 0 and m > sm):
                     continue  # still passes the momentum bar, keep holding
-                hit_date, hit_price = date_i, native_row.get(tk)
-                if hit_price is None or pd.isna(hit_price):
+                exit_date, exit_price, reason = date_i, native_row.get(tk), "momentum_perdu"
+                if exit_price is None or pd.isna(exit_price):
                     continue
 
             exit_value_eur = None
             if tk in daily_eur.columns:
-                px_eur_now = eur_row.get(tk) if hit_date == date_i else _price_asof(daily_eur[tk], hit_date)
+                px_eur_now = eur_row.get(tk) if exit_date == date_i else _price_asof(daily_eur[tk], exit_date)
                 if pd.notna(px_eur_now) and pd.notna(info.get("entry_price_eur")) and info["entry_price_eur"]:
                     exit_value_eur = info["entry_value_eur"] * (px_eur_now / info["entry_price_eur"])
             if exit_value_eur is None:
                 exit_value_eur = info["entry_value_eur"]  # FX unavailable at exit -- fall back to entry value, same spirit as recheck_and_exit skipping on missing FX
             cash += exit_value_eur
-            closed.append({**info, "ticker": tk, "exit_date": hit_date, "exit_price": hit_price,
-                           "exit_reason": "stop_loss" if hit is not None else "momentum_perdu",
-                           "return_pct": hit_price / info["entry_price"] - 1, "exit_value_eur": exit_value_eur})
+            closed.append({**info, "ticker": tk, "exit_date": exit_date, "exit_price": exit_price,
+                           "exit_reason": reason,
+                           "return_pct": exit_price / info["entry_price"] - 1, "exit_value_eur": exit_value_eur})
             del held[tk]
+
+        if reinforce_fn is not None:
+            cash = reinforce_fn(held, cash, date_i, native_row, eur_row, target_size)
 
         cands = rank_candidates(date_i, mom, sec_mom, universe=UNIVERSE_G, held=set(held))
         rejected = set()
@@ -392,7 +474,7 @@ def run_slotted_bot(dates, mom, sec_mom, daily_native, daily_eur, currency_of,
                 continue
             held[tk] = {"sector": pick["sector"], "entry_date": date_i, "entry_price": entry_px_native,
                         "entry_price_eur": entry_px_eur, "entry_value_eur": target_size,
-                        "currency": currency_of.get(tk)}
+                        "currency": currency_of.get(tk), "peak": 0.0, "reinforcement_count": 0}
             cash -= target_size
 
         # month-end NAV: cash + mark-to-market EUR value of every open position
@@ -422,6 +504,52 @@ def run_slotted_bot(dates, mom, sec_mom, daily_native, daily_eur, currency_of,
     return pd.DataFrame(closed), pd.DataFrame(open_rows), pd.Series(nav_curve), cash
 
 
+def make_delta_reinforce_fn(mom, sec_mom, mom1m):
+    """Builds Bot #25's reinforce_fn (see run_slotted_bot) closed over the momentum panels --
+    momentum-only approximation of reinforce_convictions(), see module docstring's 2026-09-14
+    note for why the real valuation_gap_now requirement is dropped rather than approximated."""
+    def _reinforce(held, cash, date_i, native_row, eur_row, target_size):
+        cap_eur = DELTA_MAX_POSITION_SHARE * DELTA_STARTING_CAPITAL
+        for tk, info in held.items():
+            if info["entry_value_eur"] >= cap_eur or cash <= 0:
+                continue
+            px = native_row.get(tk)
+            if px is None or pd.isna(px):
+                continue
+            unrealized = px / info["entry_price"] - 1
+            if not (unrealized <= DELTA_MIN_DROP_PCT and unrealized > STOP_LOSS_PCT):
+                continue
+            deep = unrealized <= DELTA_DEEP_DROP_PCT
+            m = mom.loc[date_i].get(tk) if tk in mom.columns else None
+            sm = sec_mom.loc[date_i].get(tk) if tk in sec_mom.columns else None
+            m1 = mom1m.loc[date_i].get(tk) if tk in mom1m.columns else None
+            if pd.isna(m) or pd.isna(sm) or pd.isna(m1) or m1 <= 0:
+                continue
+            if deep and (m - sm) < DELTA_MOM_SPREAD_MIN:
+                continue
+
+            px_eur = eur_row.get(tk)
+            if px_eur is None or pd.isna(px_eur) or px_eur <= 0 or not info.get("entry_price_eur"):
+                continue
+            headroom = cap_eur - info["entry_value_eur"]
+            budget = min(target_size, headroom, cash)
+            if budget <= 0:
+                continue
+
+            old_value_eur = info["entry_value_eur"]
+            new_value_eur = old_value_eur + budget
+            # weighted-average native entry price, EUR-denominated weights (native and EUR
+            # move together for a fixed ticker, so this is equivalent to the real bot's
+            # native-share weighting without needing to track a synthetic share count here)
+            info["entry_price"] = (info["entry_price"] * old_value_eur + px * budget) / new_value_eur
+            info["entry_price_eur"] = (info["entry_price_eur"] * old_value_eur + px_eur * budget) / new_value_eur
+            info["entry_value_eur"] = new_value_eur
+            info["reinforcement_count"] = info.get("reinforcement_count", 0) + 1
+            cash -= budget
+        return cash
+    return _reinforce
+
+
 def build_equity_curve_bot1(dates, closed: pd.DataFrame, native_at_dates: pd.DataFrame, entry_info: dict) -> pd.Series:
     """Same 'average return of every bet placed so far' methodology as
     simulate_portfolio.append_equity_curve_point: not a compounding NAV, an honest running
@@ -446,7 +574,8 @@ def build_equity_curve_bot1(dates, closed: pd.DataFrame, native_at_dates: pd.Dat
     return pd.Series(curve)
 
 
-def summarize(label, closed: pd.DataFrame, open_df: pd.DataFrame, nav: pd.Series = None, final_cash: float = None) -> dict:
+def summarize(label, closed: pd.DataFrame, open_df: pd.DataFrame, nav: pd.Series = None, final_cash: float = None,
+              starting_capital: float = None) -> dict:
     n_closed = len(closed)
     win_rate = float((closed["return_pct"] > 0).mean()) if n_closed else None
     avg_return = float(closed["return_pct"].mean()) if n_closed else None
@@ -462,8 +591,9 @@ def summarize(label, closed: pd.DataFrame, open_df: pd.DataFrame, nav: pd.Series
     result = {"bot": label, "n_closed": n_closed, "win_rate": win_rate, "avg_return_closed": avg_return,
               "n_open": len(open_df), "avg_unrealized_open": avg_unrealized, "median_unrealized_open": med_unrealized}
     if nav is not None and len(nav):
-        total_return = nav.iloc[-1] / STARTING_CAPITAL - 1
-        print(f"  Equity EUR (depart {STARTING_CAPITAL:.0f}) : {nav.iloc[-1]:.2f} EUR ({total_return:+.1%})  "
+        cap = STARTING_CAPITAL if starting_capital is None else starting_capital
+        total_return = nav.iloc[-1] / cap - 1
+        print(f"  Equity EUR (depart {cap:.0f}) : {nav.iloc[-1]:.2f} EUR ({total_return:+.1%})  "
               f"cash_final={final_cash:.2f} EUR")
         result["final_equity_eur"] = float(nav.iloc[-1])
         result["total_return_pct"] = float(total_return)
@@ -494,16 +624,27 @@ def main():
         print(f"Panel FX trouve en cache ({fx_cache.name}), pas de re-telechargement.")
         fx_daily = pd.read_csv(fx_cache, index_col=0, parse_dates=True)
     else:
+        # Cooldown before the FX call -- the 2026-09-14 note in this module's docstring/
+        # CHUNK_DELAY comment found FX consistently coming back empty when it followed the
+        # price panel's 13-chunk download with no gap; a short pause here fixed it in an
+        # isolated re-test right after a degraded run.
+        print("Pause avant le telechargement FX (evite le throttling juste apres le panel prix)...")
+        time.sleep(15.0)
         print(f"Telechargement des taux de change historiques pour {len(currencies)} devises...")
         fx_daily = download_fx_daily(currencies)
         fx_daily.to_csv(fx_cache)
     print(f"FX obtenu pour : {list(fx_daily.columns)}")
+    if len(fx_daily.columns) < len(currencies) - 1:  # -1 tolerates GBp sharing GBP's series
+        print(f"  ATTENTION : {len(currencies)} devises attendues, seulement {len(fx_daily.columns)} recues -- "
+              f"probable throttling Yahoo Finance encore actif, les resultats EUR (Bot #2/#3/#25) sont a "
+              f"prendre avec prudence pour ce run.", file=sys.stderr)
 
     currency_of = universe.set_index("ticker")["currency"].to_dict()
     daily_eur = to_eur_panel(daily_native, currency_of, fx_daily)
 
     monthly_native = daily_native.resample("ME").last()
     mom = compute_momentum(monthly_native)
+    mom1m = monthly_native.pct_change(1)  # single most recent month -- see make_delta_reinforce_fn
     universe = universe[universe["ticker"].isin(daily_native.columns)].reset_index(drop=True)
     UNIVERSE_G = universe
     sec_mom = sector_momentum_series(mom, universe)
@@ -548,6 +689,20 @@ def main():
     closed3.to_csv(OUT_DIR / "bot3_large_proxy_trades.csv", index=False)
     open3.to_csv(OUT_DIR / "bot3_large_proxy_open.csv", index=False)
 
+    b25 = BOTS["bot25_delta"]
+    delta_reinforce_fn = make_delta_reinforce_fn(mom, sec_mom, mom1m)
+    closed25, open25, nav25, cash25 = run_slotted_bot(dates, mom, sec_mom, daily_native, daily_eur, currency_of,
+                                                        native_at_dates, eur_at_dates,
+                                                        b25["starting_slots"], b25["max_per_sector"], b25["mode"],
+                                                        starting_capital=DELTA_STARTING_CAPITAL,
+                                                        reinforce_fn=delta_reinforce_fn)
+    results.append(summarize(b25["label"], closed25, open25, nav25, cash25, starting_capital=DELTA_STARTING_CAPITAL))
+    n_reinforced = int((closed25["reinforcement_count"] > 0).sum()) if len(closed25) else 0
+    n_reinforced += int((open25["reinforcement_count"] > 0).sum()) if len(open25) else 0
+    print(f"  (dont {n_reinforced} position(s) ayant recu au moins un renfort de conviction)\n")
+    closed25.to_csv(OUT_DIR / "bot25_delta_proxy_trades.csv", index=False)
+    open25.to_csv(OUT_DIR / "bot25_delta_proxy_open.csv", index=False)
+
     bench_at_dates = asof_panel(daily_native[[tk for tk in BENCHMARKS.values() if tk in daily_native.columns]], dates)
     bench_curve = pd.DataFrame({name: bench_at_dates[tk] / bench_at_dates[tk].iloc[0] - 1
                                  for name, tk in BENCHMARKS.items() if tk in bench_at_dates.columns})
@@ -555,6 +710,7 @@ def main():
     curve_df["bot1_blind_avg_return"] = [eq1.get(d) for d in dates]
     curve_df["bot2_constrained_total_return"] = [(nav2.get(d) / STARTING_CAPITAL - 1) if d in nav2.index else None for d in dates]
     curve_df["bot3_large_total_return"] = [(nav3.get(d) / STARTING_CAPITAL - 1) if d in nav3.index else None for d in dates]
+    curve_df["bot25_delta_total_return"] = [(nav25.get(d) / DELTA_STARTING_CAPITAL - 1) if d in nav25.index else None for d in dates]
     for name in bench_curve.columns:
         curve_df[name] = bench_curve[name].values
     curve_df.to_csv(OUT_DIR / "equity_curve_proxy.csv", index=False)

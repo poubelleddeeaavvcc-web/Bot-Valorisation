@@ -1,24 +1,113 @@
-Univers : 3674 tickers (secteur/industrie/quality figes a aujourd'hui, prix+FX historiques reels)
-Panel de prix quotidien trouve en cache (price_panel_daily_cache.csv), pas de re-telechargement.
-Panel quotidien obtenu : 3676 tickers, 568 jours de bourse
-Panel FX trouve en cache (fx_daily_cache.csv), pas de re-telechargement.
-FX obtenu pour : ['TWD', 'HKD', 'MXN', 'AUD', 'BRL', 'CAD', 'USD', 'GBP', 'INR', 'JPY', 'CHF', 'SEK']
+  telechargement chunk 1/13 (300 tickers, 1d)...
+$GQG.AX: possibly delisted; no price data found  (period=26mo)
+$NCZ: possibly delisted; no price data found  (period=26mo)
+$AUPH: possibly delisted; no price data found  (period=26mo)
+$ALX: possibly delisted; no price data found  (period=26mo)
+$4763.TW: possibly delisted; no price data found  (period=26mo)
+$2471.TW: possibly delisted; no price data found  (period=26mo)
+$GCT: possibly delisted; no price data found  (period=26mo)
+$RA.MX: possibly delisted; no price data found  (period=26mo)
+$6782.TW: possibly delisted; no price data found  (period=26mo)
+$6887.TW: possibly delisted; no price data found  (period=26mo)
+$6753.TW: possibly delisted; no price data found  (period=26mo)
+$KEP: possibly delisted; no price data found  (period=26mo)
+$LSF.AX: possibly delisted; no price data found  (period=26mo)
+$ARCO: possibly delisted; no price data found  (period=26mo)
+$RI.PA: possibly delisted; no price data found  (period=26mo)
+$STNE: possibly delisted; no price data found  (period=26mo)
+$6192.TW: possibly delisted; no price data found  (period=26mo)
+
+17 Failed downloads:
+['GQG.AX', 'NCZ', 'AUPH', 'ALX', '4763.TW', '2471.TW', 'GCT', 'RA.MX', '6782.TW', '6887.TW', '6753.TW', 'KEP', 'LSF.AX', 'ARCO', 'RI.PA', 'STNE', '6192.TW']: possibly delisted; no price data found  (period=26mo)
+  telechargement chunk 2/13 (300 tickers, 1d)...
+  telechargement chunk 3/13 (300 tickers, 1d)...
+$3168.TW: possibly delisted; no price data found  (period=26mo)
+$0941.HK: possibly delisted; no price data found  (period=26mo)
+
+2 Failed downloads:
+['3168.TW', '0941.HK']: possibly delisted; no price data found  (period=26mo)
+  telechargement chunk 4/13 (300 tickers, 1d)...
+$AFRM: possibly delisted; no price data found  (period=26mo)
+$HBM.TO: possibly delisted; no price data found  (period=26mo)
+$HEN3.DE: possibly delisted; no price data found  (period=26mo)
+$ADP: possibly delisted; no price data found  (period=26mo)
+$DRH: possibly delisted; no price data found  (period=26mo)
+$CEU.TO: possibly delisted; no price data found  (period=26mo)
+$1959.T: possibly delisted; no price data found  (period=26mo)
+$ALV: possibly delisted; no price data found  (period=26mo)
+$ESTC: possibly delisted; no price data found  (period=26mo)
+$1342.TW: possibly delisted; no price data found  (period=26mo)
+$MONC.MI: possibly delisted; no price data found  (period=26mo)
+$5016.T: possibly delisted; no price data found  (period=26mo)
+$CNM: possibly delisted; no price data found  (period=26mo)
+$BRC: possibly delisted; no price data found  (period=26mo)
+
+14 Failed downloads:
+['AFRM', 'HBM.TO', 'HEN3.DE', 'ADP', 'DRH', 'CEU.TO', '1959.T', 'ALV', 'ESTC', '1342.TW', 'MONC.MI', '5016.T', 'CNM', 'BRC']: possibly delisted; no price data found  (period=26mo)
+  telechargement chunk 5/13 (300 tickers, 1d)...
+$2030.TW: possibly delisted; no price data found  (period=26mo)
+$MCHB: possibly delisted; no price data found  (period=26mo)
+$CM.TO: possibly delisted; no price data found  (period=26mo)
+$LECO: possibly delisted; no price data found  (period=26mo)
+$SRCE: possibly delisted; no price data found  (period=26mo)
+$1417.T: possibly delisted; no price data found  (period=26mo)
+$6146.T: possibly delisted; no price data found  (period=26mo)
+$DGX: possibly delisted; no price data found  (period=26mo)
+$BR: possibly delisted; no price data found  (period=26mo)
+$8604.T: possibly delisted; no price data found  (period=26mo)
+$WTW: possibly delisted; no price data found  (period=26mo)
+$4902.T: possibly delisted; no price data found  (period=26mo)
+$EOAN.DE: possibly delisted; no price data found  (period=26mo)
+
+13 Failed downloads:
+['2030.TW', 'MCHB', 'CM.TO', 'LECO', 'SRCE', '1417.T', '6146.T', 'DGX', 'BR', '8604.T', 'WTW', '4902.T', 'EOAN.DE']: possibly delisted; no price data found  (period=26mo)
+  telechargement chunk 6/13 (300 tickers, 1d)...
+  telechargement chunk 7/13 (300 tickers, 1d)...
+  telechargement chunk 8/13 (300 tickers, 1d)...
+  telechargement chunk 9/13 (300 tickers, 1d)...
+  telechargement chunk 10/13 (300 tickers, 1d)...
+$AKAM: possibly delisted; no price data found  (period=26mo)
+$NESR: possibly delisted; no price data found  (period=26mo)
+$GNRC: possibly delisted; no price data found  (period=26mo)
+
+3 Failed downloads:
+['AKAM', 'NESR', 'GNRC']: possibly delisted; no price data found  (period=26mo)
+  telechargement chunk 11/13 (300 tickers, 1d)...
+  telechargement chunk 12/13 (300 tickers, 1d)...
+  telechargement chunk 13/13 (38 tickers, 1d)...
+  telechargement chunk 1/1 (12 tickers, 1d)...
+  ATTENTION : 14 devises attendues, seulement 12 recues -- probable throttling Yahoo Finance encore actif, les resultats EUR (Bot #2/#3/#25) sont a prendre avec prudence pour ce run.
+C:\Users\alexa\Desktop\Trading\TV-strategies\screener\backtest_momentum_proxy.py:647: FutureWarning: The default fill_method='pad' in DataFrame.pct_change is deprecated and will be removed in a future version. Either fill in any non-leading NA values prior to calling pct_change or specify 'fill_method=None' to not fill NA values.
+  mom1m = monthly_native.pct_change(1)  # single most recent month -- see make_delta_reinforce_fn
+Univers : 3636 tickers (secteur/industrie/quality figes a aujourd'hui, prix+FX historiques reels)
+Telechargement de 26 mois de cloture QUOTIDIENNE pour 3638 tickers...
+Panel quotidien obtenu : 3589 tickers, 569 jours de bourse
+Pause avant le telechargement FX (evite le throttling juste apres le panel prix)...
+Telechargement des taux de change historiques pour 14 devises...
+FX obtenu pour : ['SEK', 'CAD', 'AUD', 'CHF', 'MXN', 'TWD', 'JPY', 'USD', 'HKD', 'BRL', 'INR', 'GBP']
 Fenetre de backtest : 2025-10-31 -> 2026-09-30 (12 points de rebalancement mensuels, stop-loss verifie quotidiennement entre chaque point)
 
 --- Bot #1 (blind, proxy momentum) ---
-  Clotures (proxy momentum+stop-loss quotidien) : n=2432  win_rate=+42.0%  retour_moyen=-2.5%
-  Positions ouvertes en fin de periode : n=1786  retour_latent_moyen=+27.2%  retour_latent_median=+13.6%
+  Clotures (proxy momentum+stop-loss quotidien) : n=5756  win_rate=+59.3%  retour_moyen=+4.9%
+  Positions ouvertes en fin de periode : n=1711  retour_latent_moyen=+3.3%  retour_latent_median=+0.0%
 
 --- Bot #2 (constrained, proxy momentum+quality) ---
-  Clotures (proxy momentum+stop-loss quotidien) : n=15  win_rate=+26.7%  retour_moyen=-12.7%
-  Positions ouvertes en fin de periode : n=13  retour_latent_moyen=+67.0%  retour_latent_median=+39.2%
-  Equity EUR (depart 500) : 727.58 EUR (+45.5%)  cash_final=0.81 EUR
+  Clotures (proxy momentum+stop-loss quotidien) : n=93  win_rate=+52.7%  retour_moyen=+6.5%
+  Positions ouvertes en fin de periode : n=21  retour_latent_moyen=+2.5%  retour_latent_median=+0.3%
+  Equity EUR (depart 500) : 723.70 EUR (+44.7%)  cash_final=6.24 EUR
 
 --- Bot #3 (large, proxy momentum+quality) ---
-  Clotures (proxy momentum+stop-loss quotidien) : n=27  win_rate=+22.2%  retour_moyen=-12.2%
-  Positions ouvertes en fin de periode : n=26  retour_latent_moyen=+46.1%  retour_latent_median=+36.1%
-  Equity EUR (depart 500) : 647.81 EUR (+29.6%)  cash_final=11.63 EUR
+  Clotures (proxy momentum+stop-loss quotidien) : n=157  win_rate=+52.9%  retour_moyen=+5.2%
+  Positions ouvertes en fin de periode : n=38  retour_latent_moyen=+1.6%  retour_latent_median=+0.0%
+  Equity EUR (depart 500) : 652.86 EUR (+30.6%)  cash_final=9.92 EUR
 
-Benchmarks sur la meme fenetre : sp500=+12.4%, euronext100=+11.7%
+--- Bot #25 Delta (constrained+conviction, proxy momentum+quality, valuation gate NOT modeled -- see docstring) ---
+  Clotures (proxy momentum+stop-loss quotidien) : n=61  win_rate=+54.1%  retour_moyen=+10.3%
+  Positions ouvertes en fin de periode : n=15  retour_latent_moyen=+4.0%  retour_latent_median=+0.0%
+  Equity EUR (depart 300) : 529.42 EUR (+76.5%)  cash_final=9.40 EUR
+
+  (dont 0 position(s) ayant recu au moins un renfort de conviction)
+
+Benchmarks sur la meme fenetre : sp500=+11.9%, euronext100=+10.1%
 
 Resultats ecrits dans results\backtest/
