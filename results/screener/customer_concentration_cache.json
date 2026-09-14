@@ -654,5 +654,13 @@
       "reason": "L'entreprise a une présence dans plusieurs domaines différents (démarrages de jeux vidéo, arcade, systèmes de jeux, sports), ce qui suggère une base de clients large et diversifiée.",
       "source": "ollama"
     }
+  },
+  "2606.TW": {
+    "checked_at": "2026-09-14",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "La description mentionne une relation exclusivement basée sur la fourniture de commodités aux secteurs public et privé, suggérant un client principal ou un contrat gouvernemental unique.",
+      "source": "ollama"
+    }
   }
 }
