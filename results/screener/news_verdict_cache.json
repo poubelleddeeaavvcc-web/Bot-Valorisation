@@ -3034,5 +3034,11 @@
     "sentiment": "positive",
     "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance du chiffre d'affaires, de profit record, de croissance des emprunts et de plans de recruitment et d'expansion de la banque.",
     "source": "ollama"
+  },
+  "GEV_2026-09-14": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "L'actualité présente plusieurs éléments négatifs, tels que une nouvelle note de vente avec un prix cible bas, une réduction du 9% du cours de l'action et des prévisions de chute du cours de 50%.",
+    "source": "ollama"
   }
 }
