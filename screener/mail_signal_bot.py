@@ -57,9 +57,11 @@ mechanic with no fundamentals model of its own to fall back on for continued-the
   - TAKE_PROFIT_PCT: a single newsletter tip, unlike the valuation model the other bots use,
     carries no ongoing thesis to re-check for "still has room to run" -- so a big favorable move
     locks in profit rather than riding indefinitely.
-  - MAX_HOLDING_DAYS: a tip's informational edge decays; unlike a valuation gap (which can stay
-    open for months until the price catches up), nothing here re-confirms the thesis is still
-    live, so a stale position is force-closed regardless of P&L.
+  - No max-holding-days force-close (removed 2026-09-14 at the user's request, was 20 days): a
+    position now only exits on stop-loss/take-profit/trailing-stop or an explicit contradicting
+    signal_inverse tip -- it can run indefinitely on an unresolved thesis, same as every other
+    bot in this repo. holding_days is still recorded on exit for information, it just no longer
+    triggers one.
 
 SIMPLIFICATION (documented, not hidden): a short's cash accounting mirrors a long's --
 entry_value_eur leaves the cash pool at open and current_value_eur = entry_value_eur * (1 +
@@ -109,7 +111,6 @@ MAX_WHOLE_SHARE_OVERSHOOT = 2.5  # same convention as simulate_constrained_portf
 TRADE_FEE_EUR = 1.0
 
 TAKE_PROFIT_PCT = 0.30    # see module docstring's EXIT LOGIC section
-MAX_HOLDING_DAYS = 20     # ~1 trading month -- a tip's edge decays, unlike a valuation gap
 MAX_TICKERS_PER_EMAIL = 3  # bounds noise/cost: a newsletter that name-drops a dozen tickers in
 # passing is diluting its own conviction, not producing a dozen real tips
 
@@ -377,12 +378,10 @@ def recheck_and_exit(ledger: pd.DataFrame, today: str, cash: float) -> tuple:
         take_profit_hit = unrealized >= TAKE_PROFIT_PCT
         milestone = int(peak // RATCHET_STEP_PCT) if pd.notna(peak) else 0
         trailing_stop_hit = milestone >= 1 and unrealized <= milestone * RATCHET_STEP_PCT - RATCHET_GIVEBACK_PCT
-        max_holding_hit = holding_days_elapsed >= MAX_HOLDING_DAYS
 
-        if stop_loss_hit or take_profit_hit or trailing_stop_hit or max_holding_hit:
+        if stop_loss_hit or take_profit_hit or trailing_stop_hit:
             reason = ("trailing_stop" if trailing_stop_hit else
-                      "stop_loss" if stop_loss_hit else
-                      "take_profit" if take_profit_hit else "duree_max_atteinte")
+                      "stop_loss" if stop_loss_hit else "take_profit")
             net_exit_value = current_value - TRADE_FEE_EUR
             net_return = unrealized - TRADE_FEE_EUR / entry_value_eur
             ledger.at[idx, "status"] = "closed"
