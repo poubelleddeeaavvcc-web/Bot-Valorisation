@@ -3028,5 +3028,11 @@
     "sentiment": "positive",
     "reason": "L'actualité présente plusieurs titres positifs, tels que le « U-Ming Wins » et le « U-Ming 2026 Annual Shareholders' Meeting », qui suggèrent une performance positive et une croissance de l'entreprise.",
     "source": "ollama"
+  },
+  "SBIN.NS_2026-09-14": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance du chiffre d'affaires, de profit record, de croissance des emprunts et de plans de recruitment et d'expansion de la banque.",
+    "source": "ollama"
   }
 }
