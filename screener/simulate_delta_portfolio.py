@@ -42,7 +42,7 @@ sys.path.insert(0, str(HERE))
 from screener.select_top_picks import (  # noqa: E402
     composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
 )
-from screener.simulate_portfolio import fails_fresh_check, fetch_fresh_single, STOP_LOSS_PCT  # noqa: E402
+from screener.simulate_portfolio import fails_fresh_check, STOP_LOSS_PCT  # noqa: E402
 from screener.simulate_constrained_portfolio import (  # noqa: E402
     LEDGER_COLUMNS as BASE_LEDGER_COLUMNS, MAX_PER_SECTOR, MAX_WHOLE_SHARE_OVERSHOOT, FX_PAIR,
     fetch_fx_rates, fractional_eligible, recheck_and_exit, to_eur,
@@ -72,12 +72,9 @@ DELTA_MIN_DROP_PCT = -0.07
 # Past this drop (and still short of STOP_LOSS_PCT), the pullback counts as "deep" -- the
 # stricter conviction bar below applies instead of the base one.
 DELTA_DEEP_DROP_PCT = -0.10
-# Required valuation_gap_now (still-undervalued margin, not just >0) to reinforce a "moderate"
-# pullback (DELTA_MIN_DROP_PCT..DELTA_DEEP_DROP_PCT).
-DELTA_CONVICTION_MARGIN_LOW = 0.10
-# Required valuation_gap_now for a "deep" pullback (below DELTA_DEEP_DROP_PCT) -- meaningfully
-# higher bar, per the user's "plus la baisse est forte, plus la conviction doit etre forte".
-DELTA_CONVICTION_MARGIN_HIGH = 0.20
+# No more fixed DELTA_CONVICTION_MARGIN_LOW/HIGH (removed 2026-09-14): reinforce_convictions()
+# now compares valuation_gap_now against the position's OWN entry_valuation_gap instead of a
+# fixed bar -- see that function's docstring for the reasoning and the algebra behind it.
 # Required momentum edge over the sector (mom_12_2 - sector_momentum) for a "deep" pullback --
 # not required at all for a "moderate" one (already-open positions have cleared momentum_lost's
 # bar, which only requires the edge to be positive, not any particular size).
@@ -119,22 +116,37 @@ def reinforce_convictions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: 
     thesis plays out. Runs before fill_slots so an existing conviction gets first claim on cash
     over a brand-new candidate.
 
-    Gate, from the user's own framing (2026-09-10) -- 'plus la baisse est forte, plus la
-    conviction doit etre forte a court terme': the required margin scales with how deep the
-    pullback already is, and a short-term signal (mom_1m, the single most recent month's
-    return -- the one thing mom_12_2 deliberately excludes) has to be positive either way, since
-    averaging into a name that's still actively falling right now defeats the purpose:
-      - DELTA_MIN_DROP_PCT <= unrealized < DELTA_DEEP_DROP_PCT ("moderate" pullback): needs
-        valuation_gap_now >= DELTA_CONVICTION_MARGIN_LOW and mom_1m > 0.
-      - unrealized < DELTA_DEEP_DROP_PCT ("deep" pullback, closer to STOP_LOSS_PCT): needs the
-        stricter valuation_gap_now >= DELTA_CONVICTION_MARGIN_HIGH, a real momentum edge over
-        the sector (mom_12_2 - sector_momentum >= DELTA_MOM_SPREAD_MIN), and mom_1m > 0.
-    A position never absorbs more than DELTA_MAX_POSITION_SHARE of STARTING_CAPITAL in total
-    (entry_value_eur across every buy and reinforcement combined).
+    Gate (rewritten 2026-09-14, replacing the original 2026-09-10 version -- see below for why):
+    DELTA_MIN_DROP_PCT <= unrealized < STOP_LOSS_PCT ("moderate" or "deep" pullback, same band
+    as before) needs valuation_gap_now >= entry_valuation_gap: the position must be at least as
+    good a bargain, relative to its OWN fair value, as it was the day it was bought -- not a
+    fixed absolute margin, a comparison against its own entry conviction. Deep pullbacks
+    (< DELTA_DEEP_DROP_PCT) additionally still need a real momentum edge over the sector
+    (mom_12_2 - sector_momentum >= DELTA_MOM_SPREAD_MIN), unchanged from before.
 
-    mom_1m needs its own fresh fetch (recheck_and_exit's fetch_fresh_single call already
-    happened this run but didn't need it) -- kept cheap by only fetching for positions that
-    already cleared the valuation/momentum gate above, not every open position.
+    Equivalent, simpler framing the user asked for directly (2026-09-14): "reinvest if the
+    fair-value estimate has dropped by less than (or not at all, vs) the price has" --
+    fair_value_now/fair_value_entry - 1 >= price_now/entry_price - 1. Since valuation_gap =
+    fair_value/price - 1, that inequality reduces algebraically to exactly
+    valuation_gap_now >= entry_valuation_gap (multiply both sides by entry_price/price_now,
+    both positive) -- no new data needed, entry_valuation_gap is already on every ledger row
+    and last_valuation_gap (this cycle's fresh valuation_gap, computed by recheck_and_exit right
+    before this function runs) already IS valuation_gap_now.
+
+    Original version's mom_1m > 0 requirement REMOVED (2026-09-14, user: "enleve le mom_1m"), not
+    just relaxed -- found to fight itself structurally: mom_12_2 deliberately excludes the most
+    recent month, so a position can only still be "held" (momentum gate not tripped) with a 7-15%
+    drawdown if that drawdown happened IN the excluded last month -- but that is exactly the same
+    month mom_1m > 0 required to be positive. A 12-month backtest of the (already looser, no
+    valuation requirement at all) proxy version of this gate found zero qualifying positions in a
+    whole year, which is what surfaced this. The new value-based condition has no such conflict
+    with mom_12_2's exclusion window.
+
+    No separate fetch needed any more either: mom_1m was the only reason this function fetched
+    its own fresh price (recheck_and_exit's fetch already happened this run, but its results
+    aren't mom_1m-aware) -- last_price/last_valuation_gap are already fresh as of this same
+    cycle, so reinforcement pricing reuses them instead of a second network round-trip per
+    candidate.
     """
     sector_mom = valuation.groupby("sector")["sector_momentum"].first()
     cap_eur = DELTA_MAX_POSITION_SHARE * STARTING_CAPITAL
@@ -150,23 +162,23 @@ def reinforce_convictions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: 
 
         unrealized = ledger.at[idx, "unrealized_return_pct"]
         valuation_gap_now = ledger.at[idx, "last_valuation_gap"]
+        entry_valuation_gap = ledger.at[idx, "entry_valuation_gap"]
         mom_12_2 = ledger.at[idx, "last_mom_12_2"]
-        if pd.isna(valuation_gap_now) or pd.isna(mom_12_2):
+        if pd.isna(valuation_gap_now) or pd.isna(entry_valuation_gap) or pd.isna(mom_12_2):
             continue
 
         deep = unrealized <= DELTA_DEEP_DROP_PCT
-        margin_needed = DELTA_CONVICTION_MARGIN_HIGH if deep else DELTA_CONVICTION_MARGIN_LOW
         spread_needed = DELTA_MOM_SPREAD_MIN if deep else 0.0
         today_sector_mom = sector_mom.get(ledger.at[idx, "sector"], 0.0)
-        if not (valuation_gap_now >= margin_needed and mom_12_2 - today_sector_mom >= spread_needed):
+        if not (valuation_gap_now >= entry_valuation_gap and mom_12_2 - today_sector_mom >= spread_needed):
             continue
 
         ticker = ledger.at[idx, "ticker"]
-        fresh = fetch_fresh_single(ticker)
-        if fresh is None or fresh.get("price") is None or pd.isna(fresh.get("mom_1m")) or fresh["mom_1m"] <= 0:
+        price = ledger.at[idx, "last_price"]
+        if pd.isna(price) or price <= 0:
             continue
 
-        price_eur = to_eur(fresh["price"], ledger.at[idx, "currency"], fx_rates)
+        price_eur = to_eur(price, ledger.at[idx, "currency"], fx_rates)
         if price_eur is None or price_eur <= 0:
             continue
 
@@ -186,20 +198,21 @@ def reinforce_convictions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: 
 
         old_shares = ledger.at[idx, "shares"]
         new_shares = old_shares + add_shares
-        new_entry_price = (ledger.at[idx, "entry_price"] * old_shares + fresh["price"] * add_shares) / new_shares
+        new_entry_price = (ledger.at[idx, "entry_price"] * old_shares + price * add_shares) / new_shares
         ledger.at[idx, "entry_price"] = new_entry_price
         ledger.at[idx, "shares"] = new_shares
         ledger.at[idx, "entry_value_eur"] = ledger.at[idx, "entry_value_eur"] + cost
         # move with the added shares immediately, same fix as Bot#3's RENFORCE -- see
         # simulate_large_portfolio.py's reinforcement branch for the bug this avoids.
         ledger.at[idx, "current_value_eur"] = ledger.at[idx, "current_value_eur"] + cost
-        ledger.at[idx, "unrealized_return_pct"] = fresh["price"] / new_entry_price - 1
+        ledger.at[idx, "unrealized_return_pct"] = price / new_entry_price - 1
         prior_count = ledger.at[idx, "reinforcement_count"]
         ledger.at[idx, "reinforcement_count"] = (0 if pd.isna(prior_count) else prior_count) + 1
         cash -= cost
         band = "profonde" if deep else "moderee"
-        print(f"  RENFORT CONVICTION {ticker} (baisse {band}, {unrealized:+.1%} avant renfort) : "
-              f"+{cost:.2f} EUR ({add_shares:.4f} actions) @ {fresh['price']:.2f} "
+        print(f"  RENFORT CONVICTION {ticker} (baisse {band}, {unrealized:+.1%} avant renfort, "
+              f"valorisation {valuation_gap_now:+.1%} vs {entry_valuation_gap:+.1%} a l'achat) : "
+              f"+{cost:.2f} EUR ({add_shares:.4f} actions) @ {price:.2f} "
               f"{ledger.at[idx, 'currency'] or '?'}, nouveau prix de revient {new_entry_price:.4f}")
 
     return ledger, cash
