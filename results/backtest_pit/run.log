@@ -1,0 +1,37 @@
+Extraction de l'historique Git de full_valuation_latest.csv...
+Historique Git : 253 snapshots de results/screener/full_valuation_latest.csv depuis 2026-08-07T12-45-03
+253 snapshots extraits/en cache.
+Fenetre tronquee a partir de 2026-08-21 (voir WINDOW_START) : 253 -> 226 points retenus.
+Telechargement FX historique (2 mois, 14 devises)...
+  telechargement chunk 1/1 (12 tickers, 1d)...
+  RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +33.33 EUR
+Fenetre : 2026-08-21 02:19:35 -> 2026-09-14 11:51:05 (226 points, univers 3441->3636 tickers)
+
+FX obtenu pour : ['TWD', 'MXN', 'HKD', 'CAD', 'USD', 'JPY', 'SEK', 'CHF', 'GBP', 'INR', 'AUD', 'BRL']
+
+--- Bot #1 (blind, PIT reel) ---
+  Clotures : n=15  win_rate=+46.7%  retour_moyen=-0.8%
+  Motifs de sortie : {'momentum_perdu': 14, 'trailing_stop': 1}
+  Positions ouvertes en fin de periode : n=72
+
+--- Bot #2 (constrained, PIT reel) ---
+  Clotures : n=1  win_rate=+0.0%  retour_moyen=-5.9%
+  Motifs de sortie : {'momentum_perdu': 1}
+  Positions ouvertes en fin de periode : n=14
+  Equity EUR (depart 500) : 506.49 EUR (+1.3%)  cash_final=31.54 EUR
+  Renforts de conviction reels declenches : 0 position(s)
+
+--- Bot #3 (large, PIT reel) ---
+  Clotures : n=3  win_rate=+66.7%  retour_moyen=-0.8%
+  Motifs de sortie : {'momentum_perdu': 3}
+  Positions ouvertes en fin de periode : n=30
+  Equity EUR (depart 500) : 504.29 EUR (+0.9%)  cash_final=0.27 EUR
+  Renforts de conviction reels declenches : 0 position(s)
+
+--- Bot #25 Delta (constrained+conviction REELLE, PIT reel) ---
+  Clotures : n=0  win_rate=n/a  retour_moyen=n/a
+  Positions ouvertes en fin de periode : n=8
+  Equity EUR (depart 300) : 309.92 EUR (+3.3%)  cash_final=0.00 EUR
+  Renforts de conviction reels declenches : 1 position(s)
+
+Resultats ecrits dans results\backtest_pit/

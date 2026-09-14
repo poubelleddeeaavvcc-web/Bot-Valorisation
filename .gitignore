@@ -18,6 +18,12 @@ data/factors/*.zip
 results/backtest/price_panel_daily_cache.csv
 results/backtest/fx_daily_cache.csv
 
+# backtest_pit_replay.py's extracted git-history snapshot cache -- 500MB+, and by
+# definition regenerable any time straight from this repo's own git history
+# (extract_snapshots() re-extracts anything missing), so committing it would just be
+# duplicating history the repo already has, at 500x the size
+results/backtest_pit/snapshots/
+
 # scoped to a single CI job's filesystem lifetime (see fetch_cache.fetch_one's docstring) --
 # deliberately never committed, would just be stale-on-arrival for the next job/run anyway
 results/screener/run_fetch_cache.json
