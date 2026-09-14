@@ -42,9 +42,13 @@ ledger" convention as Bot#25 "Delta"), long or short depending on the extracted 
   whatever whole-share amount gets closest to it, same fractional_eligible() split as every
   other capital-tracking bot -- imported, not reimplemented).
 - A signal that CONTRADICTS an existing open position (bullish while short, bearish while long)
-  closes it immediately ("signal_inverse") -- a fresh, explicit tip against the current thesis
-  is stronger grounds to bail than waiting for the price to prove it, and the freed cash is
-  eligible to reopen the position on the new side the same run.
+  closes it ("signal_inverse") -- but only once the price has already moved at least
+  MIN_REVERSAL_CONFIRM_PCT against the held side (2026-09-14, after a same-day 3-tip NVDA
+  whipsaw from a single source cost 3x the fixed fee for zero real price move): a contradicting
+  tip with no market move behind it yet is dropped outright rather than queued, and the bot
+  keeps holding until either the price itself confirms the new thesis or another exit rule
+  fires. Once confirmed, the freed cash is eligible to reopen the position on the new side the
+  same run.
 - A signal for a ticker already held on the SAME side is a no-op (already positioned).
 
 Exit logic on every run, independent of new signals -- the user's own explicit direction
@@ -111,6 +115,8 @@ MAX_WHOLE_SHARE_OVERSHOOT = 2.5  # same convention as simulate_constrained_portf
 TRADE_FEE_EUR = 1.0
 
 TAKE_PROFIT_PCT = 0.30    # see module docstring's EXIT LOGIC section
+MIN_REVERSAL_CONFIRM_PCT = 0.02  # see module docstring's Trading section -- price must already
+# have moved this much against the held side before an opposite tip is allowed to reverse it
 MAX_TICKERS_PER_EMAIL = 3  # bounds noise/cost: a newsletter that name-drops a dozen tickers in
 # passing is diluting its own conviction, not producing a dozen real tips
 
@@ -458,13 +464,22 @@ def apply_signals(ledger: pd.DataFrame, signals: list[dict], cash: float, today:
             existing_side = open_row.iloc[0]["side"]
             if existing_side == side:
                 continue  # already positioned this direction -- no-op
-            # opposite signal: close the existing position now, regardless of its current P&L
             idx = open_row.index[0]
             resolved = _resolve_ticker(ticker)
             if resolved is None:
                 continue
             entry_price = ledger.at[idx, "entry_price"]
             unrealized = _unrealized_return(existing_side, entry_price, resolved["price"])
+            if unrealized > -MIN_REVERSAL_CONFIRM_PCT:
+                # opposite tip, but the price hasn't moved against the held thesis yet -- a
+                # same-day text reversal with ~0% real price move is more likely noise (several
+                # tips off the same newsletter provider on the same event) than a genuine change
+                # of thesis; see 2026-09-14 NVDA whipsaw (3 contradicting seekingalpha.com tips
+                # same day, all closed at the fixed 1 EUR fee for a pure loss, zero price move).
+                # Dropped, not queued -- keep holding until either the price itself confirms the
+                # new thesis or another exit rule fires.
+                continue
+            # opposite signal, price-confirmed: close the existing position now
             entry_value_eur = ledger.at[idx, "entry_value_eur"]
             net_exit_value = entry_value_eur * (1 + unrealized) - TRADE_FEE_EUR
             net_return = unrealized - TRADE_FEE_EUR / entry_value_eur
