@@ -1,0 +1,51 @@
+name: Backtest point-in-time reel (Bot #1/#2/#3/#25)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write  # necessaire pour que le job puisse commit+push les resultats
+
+concurrency:
+  group: backtest-pit
+  cancel-in-progress: false
+
+jobs:
+  backtest-pit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0  # historique COMPLET requis -- le script mine les 253+ commits
+                           # historiques de results/screener/full_valuation_latest.csv
+                           # (voir screener/backtest_pit_replay.py), un checkout superficiel
+                           # (le defaut) ne verrait que le tout dernier commit
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances
+        run: pip install -r requirements.txt
+
+      - name: Lancer le backtest point-in-time
+        run: python screener/backtest_pit_replay.py
+
+      - name: Commit + push les resultats
+        run: |
+          git config user.name "screener-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add results/backtest_pit/*.csv results/backtest_pit/run.log
+          if git diff --cached --quiet; then
+            echo "Aucun changement dans les resultats (meme fenetre, memes donnees)."
+            exit 0
+          fi
+          git commit -m "Backtest point-in-time reel -- mise a jour automatique ($(date -u +'%Y-%m-%d %H:%M') UTC)"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
+            sleep 10
+          done
+          echo "Echec du push apres 5 tentatives."
+          exit 1
