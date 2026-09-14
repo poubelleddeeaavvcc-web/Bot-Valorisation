@@ -63,16 +63,23 @@ changed -- rightly so, it had, and this script was stale against it):
     so this can't drift silently again, and by tracking each held position's peak
     unrealized return day-by-day (scan_daily_exit()) to evaluate the ratchet floor exactly
     like recheck_and_exit() does.
-  - Extended to Bot #25 ("Delta"): same mechanics as Bot #2 (constrained) plus
-    conviction-averaging (see run_delta_bot()/DELTA_* below) -- with one gap that could NOT
-    be closed: the real reinforcement gate requires valuation_gap_now >= a margin, which
-    needs the same point-in-time fundamentals this whole script can't get. The proxy drops
-    that requirement entirely and keeps only the momentum-based half of the gate (pullback
-    depth, mom_1m > 0, and for deep pullbacks a momentum-vs-sector spread). This means the
-    Delta proxy almost certainly reinforces MORE often than the real bot would -- the
-    dropped filter was the strictest one. Treat delta_proxy's reinforcement_count and any
-    edge over bot2_constrained_proxy as an upper bound on what conviction-averaging can add,
-    not a faithful replay.
+  - Extended to Bot #25 ("Delta"): same mechanics as Bot #2 (constrained), same
+    diversification/capital rules, just its own smaller starting pool
+    (DELTA_STARTING_CAPITAL) -- WITHOUT conviction-averaging. An earlier version of this
+    script approximated the reinforcement gate with a momentum-only proxy (drop depth +
+    mom_1m > 0 + a momentum-vs-sector spread for deep pullbacks), but that gate itself got
+    rewritten live on 2026-09-14 (mom_1m removed entirely, replaced by
+    valuation_gap_now >= entry_valuation_gap -- see simulate_delta_portfolio.py's
+    reinforce_convictions()) specifically because the old mom_1m requirement turned out to
+    structurally conflict with mom_12_2's own exclusion of the most recent month (a position
+    can only still be open with a 7-15% drawdown if that drawdown happened in the excluded
+    month -- the same month mom_1m needed positive). The new gate has the same fundamental
+    problem this whole script exists to route around (needs the fair-value estimate at BOTH
+    entry and today, i.e. point-in-time fundamentals) so it's not any more backtestable than
+    the old one -- rather than replay a mechanic that no longer exists live, the proxy simply
+    doesn't model reinforcement at all now. bot25_delta_proxy is Bot #2's mechanics replayed
+    at Delta's own capital/slot count, nothing more; any real edge from conviction-averaging
+    itself remains untested here.
 """
 import pathlib
 import sys
@@ -108,13 +115,6 @@ CHUNK_RETRY_DELAY = 20.0
 STARTING_CAPITAL = 500.0       # same illustrative amount as the live bots
 DELTA_STARTING_CAPITAL = 300.0  # Bot #25's own, smaller pool -- see simulate_delta_portfolio.py
 
-# Delta's conviction-averaging gate -- momentum-only half, see module docstring's 2026-09-14
-# note for why the valuation_gap_now requirement (the strictest part) had to be dropped.
-DELTA_MIN_DROP_PCT = -0.07
-DELTA_DEEP_DROP_PCT = -0.10
-DELTA_MOM_SPREAD_MIN = 0.05
-DELTA_MAX_POSITION_SHARE = 0.25
-
 # Same FX ticker map as simulate_constrained_portfolio.FX_PAIR -- duplicated because that
 # module's fetch_fx_rates() only fetches a live snapshot, not a historical series.
 FX_PAIR = {
@@ -128,8 +128,8 @@ BOTS = {
     "bot1_blind": {"label": "Bot #1 (blind, proxy momentum)"},
     "bot2_constrained": {"label": "Bot #2 (constrained, proxy momentum+quality)",
                           "starting_slots": 15, "max_per_sector": 3, "mode": "capped"},
-    "bot25_delta": {"label": "Bot #25 Delta (constrained+conviction, proxy momentum+quality, "
-                              "valuation gate NOT modeled -- see docstring)",
+    "bot25_delta": {"label": "Bot #25 Delta (same mechanics as Bot #2 at its own capital, "
+                              "conviction-averaging NOT modeled -- see docstring)",
                      "starting_slots": 9, "max_per_sector": 3, "mode": "capped"},
     "bot3_large": {"label": "Bot #3 (large, proxy momentum+quality)",
                    "starting_slots": 30, "max_per_sector": None, "mode": "even_sector"},
@@ -504,52 +504,6 @@ def run_slotted_bot(dates, mom, sec_mom, daily_native, daily_eur, currency_of,
     return pd.DataFrame(closed), pd.DataFrame(open_rows), pd.Series(nav_curve), cash
 
 
-def make_delta_reinforce_fn(mom, sec_mom, mom1m):
-    """Builds Bot #25's reinforce_fn (see run_slotted_bot) closed over the momentum panels --
-    momentum-only approximation of reinforce_convictions(), see module docstring's 2026-09-14
-    note for why the real valuation_gap_now requirement is dropped rather than approximated."""
-    def _reinforce(held, cash, date_i, native_row, eur_row, target_size):
-        cap_eur = DELTA_MAX_POSITION_SHARE * DELTA_STARTING_CAPITAL
-        for tk, info in held.items():
-            if info["entry_value_eur"] >= cap_eur or cash <= 0:
-                continue
-            px = native_row.get(tk)
-            if px is None or pd.isna(px):
-                continue
-            unrealized = px / info["entry_price"] - 1
-            if not (unrealized <= DELTA_MIN_DROP_PCT and unrealized > STOP_LOSS_PCT):
-                continue
-            deep = unrealized <= DELTA_DEEP_DROP_PCT
-            m = mom.loc[date_i].get(tk) if tk in mom.columns else None
-            sm = sec_mom.loc[date_i].get(tk) if tk in sec_mom.columns else None
-            m1 = mom1m.loc[date_i].get(tk) if tk in mom1m.columns else None
-            if pd.isna(m) or pd.isna(sm) or pd.isna(m1) or m1 <= 0:
-                continue
-            if deep and (m - sm) < DELTA_MOM_SPREAD_MIN:
-                continue
-
-            px_eur = eur_row.get(tk)
-            if px_eur is None or pd.isna(px_eur) or px_eur <= 0 or not info.get("entry_price_eur"):
-                continue
-            headroom = cap_eur - info["entry_value_eur"]
-            budget = min(target_size, headroom, cash)
-            if budget <= 0:
-                continue
-
-            old_value_eur = info["entry_value_eur"]
-            new_value_eur = old_value_eur + budget
-            # weighted-average native entry price, EUR-denominated weights (native and EUR
-            # move together for a fixed ticker, so this is equivalent to the real bot's
-            # native-share weighting without needing to track a synthetic share count here)
-            info["entry_price"] = (info["entry_price"] * old_value_eur + px * budget) / new_value_eur
-            info["entry_price_eur"] = (info["entry_price_eur"] * old_value_eur + px_eur * budget) / new_value_eur
-            info["entry_value_eur"] = new_value_eur
-            info["reinforcement_count"] = info.get("reinforcement_count", 0) + 1
-            cash -= budget
-        return cash
-    return _reinforce
-
-
 def build_equity_curve_bot1(dates, closed: pd.DataFrame, native_at_dates: pd.DataFrame, entry_info: dict) -> pd.Series:
     """Same 'average return of every bet placed so far' methodology as
     simulate_portfolio.append_equity_curve_point: not a compounding NAV, an honest running
@@ -644,7 +598,6 @@ def main():
 
     monthly_native = daily_native.resample("ME").last()
     mom = compute_momentum(monthly_native)
-    mom1m = monthly_native.pct_change(1)  # single most recent month -- see make_delta_reinforce_fn
     universe = universe[universe["ticker"].isin(daily_native.columns)].reset_index(drop=True)
     UNIVERSE_G = universe
     sec_mom = sector_momentum_series(mom, universe)
@@ -690,16 +643,11 @@ def main():
     open3.to_csv(OUT_DIR / "bot3_large_proxy_open.csv", index=False)
 
     b25 = BOTS["bot25_delta"]
-    delta_reinforce_fn = make_delta_reinforce_fn(mom, sec_mom, mom1m)
     closed25, open25, nav25, cash25 = run_slotted_bot(dates, mom, sec_mom, daily_native, daily_eur, currency_of,
                                                         native_at_dates, eur_at_dates,
                                                         b25["starting_slots"], b25["max_per_sector"], b25["mode"],
-                                                        starting_capital=DELTA_STARTING_CAPITAL,
-                                                        reinforce_fn=delta_reinforce_fn)
+                                                        starting_capital=DELTA_STARTING_CAPITAL)
     results.append(summarize(b25["label"], closed25, open25, nav25, cash25, starting_capital=DELTA_STARTING_CAPITAL))
-    n_reinforced = int((closed25["reinforcement_count"] > 0).sum()) if len(closed25) else 0
-    n_reinforced += int((open25["reinforcement_count"] > 0).sum()) if len(open25) else 0
-    print(f"  (dont {n_reinforced} position(s) ayant recu au moins un renfort de conviction)\n")
     closed25.to_csv(OUT_DIR / "bot25_delta_proxy_trades.csv", index=False)
     open25.to_csv(OUT_DIR / "bot25_delta_proxy_open.csv", index=False)
 
