@@ -257,6 +257,12 @@ tr:hover td{background:var(--bg3)}
         </table>
       </div>
 
+      <div class="section-title">Évolution du taux de réussite par source</div>
+      <div class="muted-note" style="margin-bottom:6px">Taux de réussite cumulé au fil des clôtures (une ligne par source) — les positions encore ouvertes ne comptent pas tant qu'elles ne sont pas clôturées.</div>
+      <div class="card" style="margin-bottom:14px">
+        <div style="position:relative;height:300px"><canvas id="echoSourceEvolutionChart"></canvas></div>
+      </div>
+
       <div class="section-title">Positions ouvertes — clic sur une colonne pour trier</div>
       <div class="card tbl-wrap" style="margin-bottom:14px">
         <table id="echoOpenTable">
@@ -658,6 +664,8 @@ let echoLedgerData=[],echoScorecardData=[];
 let echoOpenSortState={col:'entry_date',dir:'desc'};
 let echoClosedSortState={col:'exit_date',dir:'desc'};
 let echoScorecardSortState={col:'win_rate_closed',dir:'desc'};
+let echoSourceEvolutionChartRef=null;
+const ECHO_SOURCE_PALETTE=['#caa84e','#388bfd','#3fb950','#f85149','#d29922','#a371f7','#39c5cf','#f778ba','#8b949e','#56d364','#79c0ff'];
 
 async function renderEchoTab(){
   const statusEl=document.getElementById('echo-status');
@@ -708,6 +716,7 @@ async function renderEchoTab(){
 
     echoSortAndRenderAll();
     echoWireSortHeaders();
+    echoDrawSourceEvolutionChart();
   }catch(e){
     statusEl.textContent='Impossible de charger les donnees du Bot Courrier ('+e.message+'). Le bot n\'a peut-etre pas encore tourne.';
     statusEl.style.color='var(--rd)';
@@ -771,6 +780,67 @@ function echoSortAndRenderAll(){
       <td class="${ar!=null?(ar>=0?'pos':'neg'):'neu'}">${ar!=null?(ar>=0?'+':'')+(ar*100).toFixed(1)+'%':'n/a'}</td>
     </tr>
   `;}).join('');
+}
+
+function echoDrawSourceEvolutionChart(){
+  const canvas=document.getElementById('echoSourceEvolutionChart');
+  if(!canvas)return;
+  if(echoSourceEvolutionChartRef)echoSourceEvolutionChartRef.destroy();
+
+  // Cumulative win rate per source, one point per closed trade for that source, in
+  // chronological order -- open positions don't count yet (their return isn't final), same
+  // basis as the scorecard's own win_rate_closed.
+  const closed=echoLedgerData.filter(r=>r.status!=='open'&&r.exit_date);
+  const bySource={};
+  closed.forEach(r=>{(bySource[r.source]=bySource[r.source]||[]).push(r);});
+
+  const allDates=[...new Set(closed.map(r=>r.exit_date))].sort();
+  const datasets=Object.keys(bySource).sort().map((source,i)=>{
+    const trades=bySource[source].slice().sort((a,b)=>a.exit_date.localeCompare(b.exit_date));
+    let wins=0,n=0;
+    const pointsByDate={};
+    trades.forEach(t=>{
+      n++;
+      if(t.return_pct!=null&&t.return_pct>0)wins++;
+      pointsByDate[t.exit_date]=wins/n*100;
+    });
+    // carry the last known value forward across dates where this source had no trade, so
+    // every line spans the full x-axis instead of stopping short.
+    let last=null;
+    const data=allDates.map(d=>{
+      if(pointsByDate[d]!=null)last=pointsByDate[d];
+      return last;
+    });
+    return{
+      label:source,
+      data,
+      borderColor:ECHO_SOURCE_PALETTE[i%ECHO_SOURCE_PALETTE.length],
+      backgroundColor:ECHO_SOURCE_PALETTE[i%ECHO_SOURCE_PALETTE.length],
+      borderWidth:2,pointRadius:3,tension:0,spanGaps:true,
+    };
+  });
+
+  if(!allDates.length){
+    canvas.parentElement.innerHTML='<div class="muted-note" style="padding:20px 0;text-align:center">Aucune position clôturée pour l\'instant -- le graphique se remplira au fil des clôtures.</div>';
+    return;
+  }
+
+  echoSourceEvolutionChartRef=new Chart(canvas.getContext('2d'),{
+    type:'line',
+    data:{labels:allDates,datasets},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'nearest',axis:'x',intersect:false},
+      plugins:{
+        legend:{position:'bottom',labels:{color:'#8b949e',font:{size:10},boxWidth:10}},
+        tooltip:{callbacks:{label:(c)=>c.dataset.label+' : '+(c.raw==null?'n/a':c.raw.toFixed(0)+'%')}},
+      },
+      scales:{
+        x:{ticks:{color:'#8b949e',font:{size:10}},grid:{color:'#30363d'}},
+        y:{min:0,max:100,ticks:{color:'#8b949e',callback:(v)=>v+'%'},grid:{color:'#30363d'}},
+      }
+    }
+  });
 }
 
 function echoWireSortHeaders(){
