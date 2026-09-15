@@ -207,9 +207,9 @@ tr:hover td{background:var(--bg3)}
 
     <div class="row" id="echo-kpis" style="display:none">
       <div class="card">
-        <div class="ctit">Équité totale</div>
-        <div class="kbig" id="echo-kpi-equity">-</div>
-        <div class="ksub" id="echo-kpi-return">-</div>
+        <div class="ctit">Tips analysés</div>
+        <div class="kbig" id="echo-kpi-tips">-</div>
+        <div class="ksub" id="echo-kpi-tips-sub">-</div>
       </div>
       <div class="card">
         <div class="ctit">Positions ouvertes</div>
@@ -232,9 +232,11 @@ tr:hover td{background:var(--bg3)}
       <div class="muted-note" style="margin-bottom:14px">
         Bot #33 ("Courrier") : positions long/short ouvertes directement à partir de tips individuels
         (une action présentée comme ayant un fort potentiel de hausse ou un risque de forte baisse)
-        détectés par Ollama dans les newsletters Gmail de l'utilisateur. Pool dédié de 300 EUR, indépendant
-        des autres bots. Aucune adresse email n'est jamais publiée — seul le domaine d'envoi de la newsletter
-        (ex. "fool.com") est conservé, pour construire le classement ci-dessous.
+        détectés par Ollama dans les newsletters Gmail de l'utilisateur. Sans plafond de capital —
+        chaque tip est testé, même si le pool notionnel de 300 EUR est déjà entièrement déployé, pour ne
+        pas biaiser le classement contre les sources qui parlent plus tard. Aucune adresse email n'est
+        jamais publiée — seul le domaine d'envoi de la newsletter (ex. "fool.com") est conservé, pour
+        construire le classement ci-dessous.
       </div>
 
       <div class="section-title">Classement des sources — qui appelle juste, qui appelle mal</div>
@@ -690,9 +692,9 @@ async function renderEchoTab(){
     document.getElementById('echo-kpis').style.display='';
     document.getElementById('echo-content').style.display='';
 
-    const equity=summary.total_equity_eur,ret=summary.total_return_pct;
-    document.getElementById('echo-kpi-equity').textContent=equity!=null?equity.toFixed(2)+' EUR':'n/a';
-    document.getElementById('echo-kpi-return').textContent=ret!=null?(ret>=0?'+':'')+(ret*100).toFixed(1)+'% depuis le depart':'-';
+    const nbSources=new Set(echoScorecardData.map(s=>s.source)).size;
+    document.getElementById('echo-kpi-tips').textContent=echoLedgerData.length;
+    document.getElementById('echo-kpi-tips-sub').textContent=`${nbSources} source${nbSources>1?'s':''} suivie${nbSources>1?'s':''}`;
     const nbOpen=(summary.nb_long_open||0)+(summary.nb_short_open||0);
     document.getElementById('echo-kpi-open').textContent=nbOpen;
     document.getElementById('echo-kpi-open-sub').textContent=`${summary.nb_long_open||0} long / ${summary.nb_short_open||0} short`;
