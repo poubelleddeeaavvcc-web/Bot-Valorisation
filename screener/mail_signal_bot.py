@@ -152,18 +152,30 @@ Reponds UNIQUEMENT en JSON : {{"is_finance_newsletter": true|false, "reason": "<
 # One call per EXTRACT returning a LIST (not one ticker per call) -- same "ask once, let the
 # model enumerate" shape as newsletter_digest.py's per-sector call, but this module wants every
 # explicit tip in the email, not just its single main topic.
+#
+# ANALYSE vs ACTUALITE (2026-09-15, at the user's explicit request after noticing plain news
+# coverage of well-known large caps -- e.g. a Tesla/Nvidia news item with no investment opinion
+# in it -- was being picked up as a "tip"): explicitly instructed to require a genuine
+# investment opinion (buy/sell call, rating change, price target, argued thesis), not just an
+# eventful-sounding piece of news about the company. A big name being in the news is not on its
+# own a directional call.
 EXTRACT_TICKER_PROMPT = """Voici un extrait de newsletter financiere recue aujourd'hui :
 
 Sujet : {subject}
 Extrait : {body}
 
-Identifie chaque action individuelle presentee dans cet extrait comme ayant soit un FORT POTENTIEL DE HAUSSE (recommandation d'achat, catalyseur positif, objectif de cours releve...), soit un RISQUE DE FORTE BAISSE (avertissement, degradation, catalyseur negatif...). Ignore les actions seulement mentionnees en passant sans avis directionnel clair.
+Identifie chaque action individuelle qui fait l'objet d'une VERITABLE ANALYSE BOURSIERE avec un avis d'investissement explicite dans cet extrait (recommandation d'achat/vente, notation relevee/abaissee, objectif de cours, these d'investissement argumentee) -- pas une simple actualite sur l'entreprise. Pour chaque action retenue, l'avis doit exprimer soit un FORT POTENTIEL DE HAUSSE, soit un RISQUE DE FORTE BAISSE.
 
-Pour chaque action identifiee (maximum {max_tickers}), donne son ticker boursier exact (le symbole utilise sur les marches, ex: AAPL, MC.PA -- si seul le nom de l'entreprise est donne, indique le ticker que tu connais pour cette entreprise) et le sens ("haussier" ou "baissier").
+IGNORE : (1) les actions seulement mentionnees en passant sans avis directionnel clair ; (2) une simple actualite/info sur une entreprise (resultats rapportes sans avis, annonce produit, actualite generale la concernant) SANS recommandation d'investissement explicite -- meme pour une grande entreprise connue (Tesla, Nvidia, Apple...) et meme si la nouvelle semble positive ou negative en soi : tant qu'aucun avis d'achat/vente/notation n'est donne, ce n'est pas un tip.
 
-Si aucune action n'a d'avis directionnel clair et explicite, reponds avec une liste vide.
+Pour chaque action identifiee (maximum {max_tickers}), donne :
+- "company" : son nom exact tel que mentionne dans l'extrait
+- "ticker" : son ticker boursier (le symbole utilise sur les marches, ex: AAPL, MC.PA -- ta meilleure estimation si seul le nom de l'entreprise est donne)
+- "sentiment" : "haussier" ou "baissier"
 
-Reponds UNIQUEMENT en JSON : {{"tips": [{{"ticker": "<SYMBOLE>", "sentiment": "haussier|baissier", "reason": "<une phrase courte citant ce que dit l'extrait>"}}, ...]}}
+Si aucune action ne fait l'objet d'une veritable analyse avec avis directionnel explicite, reponds avec une liste vide.
+
+Reponds UNIQUEMENT en JSON : {{"tips": [{{"company": "<NOM>", "ticker": "<SYMBOLE>", "sentiment": "haussier|baissier", "reason": "<une phrase courte citant ce que dit l'extrait>"}}, ...]}}
 """
 
 
@@ -299,36 +311,88 @@ def _extract_ticker_signals(msg: dict) -> list[dict]:
     out = []
     for tip in tips[:MAX_TICKERS_PER_EMAIL]:
         ticker = str(tip.get("ticker") or "").strip().upper()
+        company = str(tip.get("company") or "").strip()
         sentiment = tip.get("sentiment")
         if not ticker or sentiment not in ("haussier", "baissier"):
             continue
-        out.append({"ticker": ticker, "side": "long" if sentiment == "haussier" else "short",
+        out.append({"ticker": ticker, "company": company, "side": "long" if sentiment == "haussier" else "short",
                      "reason": str(tip.get("reason", ""))[:300], "source": msg["source"],
                      "subject": msg["subject"]})
     return out
 
 
-def _resolve_ticker(ticker: str) -> dict | None:
+# Real primary listings only -- excludes OTC pink sheets, foreign depositary receipts and other
+# secondary listings that _search_ticker_by_name()'s company-name search tends to also surface
+# (see that function's docstring for why a blind first-result pick is unsafe).
+MAJOR_EXCHANGES = {
+    "NMS", "NYQ", "NGM", "NCM", "ASE", "PCX", "BTS",              # US
+    "PAR", "GER", "FRA", "LSE", "AMS", "MIL", "MCE", "VIE", "SWX",  # Europe
+    "TOR", "TSE", "STO", "CPH", "HEL", "OSL", "BRU",
+}
+
+
+def _search_ticker_by_name(company: str) -> str | None:
+    """Fallback for when Ollama's own ticker guess doesn't resolve to real market data (eg.
+    "TSMC" instead of the real NYSE symbol "TSM") -- searches Yahoo's own symbol index by the
+    company name actually present in the extract (grounded text copied from the email, not a
+    guessed fact) and keeps the first result that's a real equity on a major exchange.
+
+    NOT safe to search by the ticker guess itself: tested 2026-09-15, yf.Search("TSMC") ranks a
+    Sao Paulo depositary receipt, an unrelated Italian company's OTC ticker ("TSMCF" = Tesmec
+    SpA, not Taiwan Semiconductor at all) and a crypto token above the real NYSE listing.
+    Searching by the full company name instead (eg. "Taiwan Semiconductor") reliably surfaces
+    the right primary listing first -- same behavior confirmed for LVMH -> MC.PA and
+    Engie -> ENGI.PA."""
+    if not company:
+        return None
+    try:
+        results = yf.Search(company, max_results=8).quotes
+    except Exception as e:
+        print(f"  echec recherche ticker pour \"{company}\": {e}", file=sys.stderr)
+        return None
+    for r in results:
+        if r.get("quoteType") == "EQUITY" and r.get("exchange") in MAJOR_EXCHANGES:
+            return r.get("symbol")
+    return None
+
+
+def _resolve_ticker(ticker: str, company: str = "") -> dict | None:
     """GROUNDING BACKSTOP: never trusts Ollama's ticker mapping blindly -- fetches real price
     history before this ticker is ever allowed to drive a trade. Returns None (dropped, not
-    guessed at) if it doesn't resolve to real, current market data."""
-    try:
-        tk = yf.Ticker(ticker)
-        hist = tk.history(period="5d")["Close"].dropna()
-        if hist.empty:
-            return None
-        price = float(hist.iloc[-1])
-        fast_info = tk.fast_info
-        currency = fast_info.get("currency") if fast_info else None
-        name = None
+    guessed at) if neither the ticker itself nor (when a company name is given) a name-based
+    lookup resolve to real, current market data. The returned dict's "ticker" is the SYMBOL THAT
+    ACTUALLY RESOLVED -- may differ from the input `ticker` if the name-based fallback kicked in;
+    callers must use it (not the original guess) as the ledger's canonical symbol from here on."""
+    candidates = [ticker]
+    tried_name_fallback = False
+    while candidates:
+        symbol = candidates.pop(0)
         try:
-            name = tk.info.get("shortName")
-        except Exception:
-            pass
-        return {"price": price, "currency": currency, "name": name or ticker}
-    except Exception as e:
-        print(f"  echec resolution ticker {ticker}: {e}", file=sys.stderr)
-        return None
+            tk = yf.Ticker(symbol)
+            hist = tk.history(period="5d")["Close"].dropna()
+            if not hist.empty:
+                price = float(hist.iloc[-1])
+                fast_info = tk.fast_info
+                currency = fast_info.get("currency") if fast_info else None
+                name = None
+                try:
+                    name = tk.info.get("shortName")
+                except Exception:
+                    pass
+                if symbol != ticker:
+                    print(f"  ticker corrige : \"{ticker}\" -> \"{symbol}\" (recherche par nom \"{company}\")")
+                return {"ticker": symbol, "price": price, "currency": currency, "name": name or symbol}
+        except Exception as e:
+            print(f"  echec resolution ticker {symbol}: {e}", file=sys.stderr)
+        # direct symbol lookup failed -- try the name-based fallback exactly once, only if a
+        # company name was actually given (see _search_ticker_by_name's docstring for why
+        # searching by the ticker guess itself instead would be unsafe).
+        if not candidates and not tried_name_fallback and company:
+            tried_name_fallback = True
+            fallback = _search_ticker_by_name(company)
+            if fallback and fallback != ticker:
+                candidates.append(fallback)
+    return None
 
 
 LEDGER_COLUMNS = [
@@ -468,7 +532,16 @@ def apply_signals(ledger: pd.DataFrame, signals: list[dict], cash: float, today:
     """Opens/reverses positions from today's freshly-extracted signals -- see module docstring's
     Trading section for the same-side/opposite-side/not-held decision tree."""
     for sig in signals:
-        ticker, side, source, reason = sig["ticker"], sig["side"], sig["source"], sig["reason"]
+        raw_ticker, side, source, reason = sig["ticker"], sig["side"], sig["source"], sig["reason"]
+        # Resolved ONCE up front (was twice before, once here and once again at open time) --
+        # also means the ledger lookup below keys off the CANONICAL symbol (eg. "TSM"), not
+        # whatever Ollama happened to type this particular tip (eg. "TSMC"): without this, a
+        # second tip on the same company under a differently-spelled ticker would look unheld
+        # and open a duplicate position instead of being recognized as a no-op/reversal.
+        resolved = _resolve_ticker(raw_ticker, sig.get("company", ""))
+        if resolved is None:
+            continue
+        ticker = resolved["ticker"]
         open_row = ledger[(ledger["ticker"] == ticker) & (ledger["status"] == "open")]
 
         if len(open_row):
@@ -476,9 +549,6 @@ def apply_signals(ledger: pd.DataFrame, signals: list[dict], cash: float, today:
             if existing_side == side:
                 continue  # already positioned this direction -- no-op
             idx = open_row.index[0]
-            resolved = _resolve_ticker(ticker)
-            if resolved is None:
-                continue
             entry_price = ledger.at[idx, "entry_price"]
             unrealized = _unrealized_return(existing_side, entry_price, resolved["price"])
             if unrealized > -MIN_REVERSAL_CONFIRM_PCT:
@@ -504,9 +574,6 @@ def apply_signals(ledger: pd.DataFrame, signals: list[dict], cash: float, today:
             cash += net_exit_value
             print(f"  CLOTURE {existing_side.upper()} {ticker} : signal_inverse, retour net {net_return:+.1%}")
 
-        resolved = _resolve_ticker(ticker)
-        if resolved is None:
-            continue
         ledger, cash, _ = _open_position(ledger, ticker, side, source, reason, resolved, cash, today, fx_rates)
     return ledger, cash
 
