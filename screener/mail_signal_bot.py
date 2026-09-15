@@ -558,9 +558,11 @@ def append_equity_curve_point(cash: float, total_equity: float, nb_open: int, nb
 def main():
     state = _load_json(STATE_PATH, {})
     today = datetime.now(timezone.utc).date().isoformat()
-    if state.get("last_run_date") == today:
-        print(f"mail_signal_bot deja execute aujourd'hui ({today}) -- rien a faire.")
-        return
+    # No same-day gate here (unlike newsletter_digest.py) -- the user's explicit request
+    # (2026-09-15, after noticing the bot only ever ran once, on its first day) is for mail
+    # analysis to happen OFTEN, not once/day. Safe to run on every workflow trigger: new_ids
+    # below already dedupes against processed_message_ids, so a run with nothing new to see
+    # costs one Gmail list call and returns, it doesn't reclassify/re-extract anything twice.
 
     ledger = load_ledger()
     cash = load_cash()

@@ -1,0 +1,84 @@
+name: Bot #33 Courrier (signaux actions dans les mails)
+
+on:
+  schedule:
+    # Toutes les 2h -- ce job n'existait pas du tout jusqu'ici (voir mail_signal_bot.py, ajoute
+    # le 2026-09-11 mais jamais cable a aucun workflow) : le bot n'avait donc tourne qu'une
+    # seule fois, manuellement, le jour de son ajout. Cadence "souvent" demandee par
+    # l'utilisateur le 2026-09-15 apres avoir remarque qu'aucune position n'avait ete ouverte
+    # depuis. mail_signal_bot.py n'a plus de gate quotidien interne (retire le meme jour) : un
+    # run sans nouveau mail ne coute qu'un appel de liste Gmail, donc tourner plus souvent que
+    # le screener principal (hourly) est sans risque.
+    - cron: "15 */2 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write  # necessaire pour que le job puisse commit+push ses resultats
+
+concurrency:
+  group: mail-signal-bot
+  cancel-in-progress: false
+
+jobs:
+  mail-signal-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances
+        run: pip install -r requirements.txt
+
+      # llama3.1:8b, pas le 3b utilise par les autres bots Ollama de ce repo -- voir le
+      # docstring de mail_signal_bot.py. Job separe = cache modele separe, pas de contention
+      # avec le cache llama3.2-3b du job bots-ollama d'update-screener.yml.
+      - name: Cache du modele Ollama
+        uses: actions/cache@v4
+        with:
+          path: ~/.ollama/models
+          key: ollama-models-llama3.1-8b
+
+      - name: Installer et demarrer Ollama
+        env:
+          OLLAMA_NUM_PARALLEL: "2"
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          nohup ollama serve > /tmp/ollama.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -s http://localhost:11434/api/version > /dev/null && break
+            sleep 2
+          done
+          ollama pull llama3.1:8b
+
+      - name: Signaux actions dans les mails (Bot #33 Courrier)
+        env:
+          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+          GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
+          GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+        run: python screener/mail_signal_bot.py
+
+      - name: Commit + push si des resultats ont change
+        run: |
+          git config user.name "screener-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add results/screener/mail_signal_state.json results/screener/mail_signal_source_scorecard.csv \
+                  results/simulation/mail_signal_state.json results/simulation/mail_signal_ledger.csv \
+                  results/simulation/mail_signal_summary.json results/simulation/mail_signal_equity_curve.csv
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau ce cycle."
+            exit 0
+          fi
+          git commit -m "Mise a jour automatique du bot Courrier ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
+            sleep 10
+          done
+          echo "Echec du push apres 5 tentatives."
+          exit 1
