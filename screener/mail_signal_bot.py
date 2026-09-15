@@ -36,8 +36,20 @@ newsletters they're personally subscribed to); only the sending domain (e.g. "fo
 public-safe enough to keep, and it's exactly enough to build the "which sources call it right"
 scorecard this bot exists for (see mail_signal_source_scorecard.csv).
 
-Trading: one dedicated 300 EUR pool (own ledger, own cash file -- same "propre pool, propre
-ledger" convention as Bot#25 "Delta"), long or short depending on the extracted sentiment.
+Trading: own ledger, own cash file -- same "propre pool, propre ledger" convention as Bot#25
+"Delta" -- long or short depending on the extracted sentiment, sized at TARGET_POSITION_SIZE per
+tip (STARTING_CAPITAL / STARTING_SLOTS -- a bet-sizing constant only, see below).
+NO CAP on concurrent open positions (removed 2026-09-15, the same day the CI job was first wired
+up, at the user's explicit request: "l'idee de ce bot c'est de savoir quelles analystes sont
+bons, je ne veux pas de plafond"). This bot's whole purpose is the per-source scorecard (see
+write_scorecard/mail_signal_source_scorecard.csv) -- a real capital constraint that starts
+dropping every new tip once STARTING_CAPITAL runs out (as the first CI run did within hours,
+9/9 slots filled) would silently stop testing whichever sources happen to tip *after* the pool
+fills, biasing the leaderboard toward early sources instead of ranking them all. cash_eur is
+therefore no longer a spending limit -- _open_position() never checks it -- just a running
+counter (can go negative, meaning more than STARTING_CAPITAL is notionally deployed at once)
+kept so total_equity_eur/total_return_pct in the summary stay interpretable against the nominal
+300 EUR baseline.
 - A signal for a ticker not currently held opens a position sized at TARGET_POSITION_SIZE (or
   whatever whole-share amount gets closest to it, same fractional_eligible() split as every
   other capital-tracking bot -- imported, not reimplemented).
@@ -415,23 +427,22 @@ def _fx_rate_for(currency: str | None, fx_rates: dict) -> dict:
 
 def _open_position(ledger: pd.DataFrame, ticker: str, side: str, source: str, reason: str,
                     resolved: dict, cash: float, today: str, fx_rates: dict) -> tuple:
+    """No cash/affordability gate here on purpose -- see module docstring's Trading section
+    (2026-09-15): this bot has no capital cap, every tip gets its shot at the scorecard
+    regardless of how much is already deployed. cash only gets debited below for reporting."""
     _fx_rate_for(resolved.get("currency"), fx_rates)
     price_eur = to_eur(resolved["price"], resolved.get("currency"), fx_rates)
-    if price_eur is None or price_eur <= 0 or price_eur > cash:
+    if price_eur is None or price_eur <= 0:
         return ledger, cash, False
 
     fractional = fractional_eligible(ticker, None, None)
     if fractional:
-        cost = min(TARGET_POSITION_SIZE, cash)
+        cost = TARGET_POSITION_SIZE
         shares = cost / price_eur
     else:
         if price_eur > MAX_WHOLE_SHARE_OVERSHOOT * TARGET_POSITION_SIZE:
             return ledger, cash, False
-        target_shares = max(1, int(TARGET_POSITION_SIZE // price_eur))
-        max_affordable = int(cash // price_eur)
-        shares = min(target_shares, max_affordable)
-        if shares < 1:
-            return ledger, cash, False
+        shares = max(1, int(TARGET_POSITION_SIZE // price_eur))
         cost = shares * price_eur
 
     new_row = {
@@ -493,8 +504,6 @@ def apply_signals(ledger: pd.DataFrame, signals: list[dict], cash: float, today:
             cash += net_exit_value
             print(f"  CLOTURE {existing_side.upper()} {ticker} : signal_inverse, retour net {net_return:+.1%}")
 
-        if cash < 1.0:
-            continue
         resolved = _resolve_ticker(ticker)
         if resolved is None:
             continue
