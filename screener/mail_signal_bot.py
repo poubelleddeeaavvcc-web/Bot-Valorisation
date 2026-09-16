@@ -173,6 +173,12 @@ MIN_REVERSAL_CONFIRM_PCT = 0.02  # see module docstring's Trading section -- pri
 MAX_TICKERS_PER_EMAIL = 3  # bounds noise/cost: a newsletter that name-drops a dozen tickers in
 # passing is diluting its own conviction, not producing a dozen real tips
 
+# Values a model reaches for when it has no real ticker but still wants to fill the field --
+# never real symbols, must never reach _resolve_ticker()'s name-search fallback (see
+# _extract_ticker_signals()). Not exhaustive by design -- the whitespace check next to this
+# catches most other cases ("NON RENSEIGNE", "NON MENTIONNE"...) without needing every phrasing.
+_PLACEHOLDER_TICKERS = {"N/A", "NA", "NONE", "AUCUN", "AUCUNE", "INCONNU", "UNKNOWN", "TBD", "-", "?"}
+
 OLLAMA_URL = "http://localhost:11434/api/generate"
 OLLAMA_MODEL = "llama3.1:8b"  # same as newsletter_digest.py -- see that module's docstring for
 # why the 3b model shared with news_filter.py's bots isn't reliable enough for this kind of call
@@ -205,16 +211,16 @@ EXTRACT_TICKER_PROMPT = """Voici un extrait de newsletter financiere recue aujou
 Sujet : {subject}
 Extrait : {body}
 
-Identifie chaque action individuelle qui fait l'objet d'une VERITABLE ANALYSE BOURSIERE avec un avis d'investissement explicite dans cet extrait (recommandation d'achat/vente, notation relevee/abaissee, objectif de cours, these d'investissement argumentee) -- pas une simple actualite sur l'entreprise. Pour chaque action retenue, l'avis doit exprimer soit un FORT POTENTIEL DE HAUSSE, soit un RISQUE DE FORTE BAISSE.
+Identifie chaque action individuelle d'une SOCIETE COTEE EN BOURSE PRECISE ET NOMMEE qui fait l'objet d'une VERITABLE ANALYSE BOURSIERE avec un avis d'investissement explicite dans cet extrait (recommandation d'achat/vente, notation relevee/abaissee, objectif de cours, these d'investissement argumentee) -- pas une simple actualite sur l'entreprise. Pour chaque action retenue, l'avis doit exprimer soit un FORT POTENTIEL DE HAUSSE, soit un RISQUE DE FORTE BAISSE.
 
-IGNORE : (1) les actions seulement mentionnees en passant sans avis directionnel clair ; (2) une simple actualite/info sur une entreprise (resultats rapportes sans avis, annonce produit, actualite generale la concernant) SANS recommandation d'investissement explicite -- meme pour une grande entreprise connue (Tesla, Nvidia, Apple...) et meme si la nouvelle semble positive ou negative en soi : tant qu'aucun avis d'achat/vente/notation n'est donne, ce n'est pas un tip.
+IGNORE : (1) les actions seulement mentionnees en passant sans avis directionnel clair ; (2) une simple actualite/info sur une entreprise (resultats rapportes sans avis, annonce produit, actualite generale la concernant) SANS recommandation d'investissement explicite -- meme pour une grande entreprise connue (Tesla, Nvidia, Apple...) et meme si la nouvelle semble positive ou negative en soi : tant qu'aucun avis d'achat/vente/notation n'est donne, ce n'est pas un tip ; (3) tout sujet qui n'est PAS une societe cotee precise -- une banque centrale (la Fed, la BCE), un pays, une devise, un indice, une matiere premiere, un secteur en general : si tu ne peux pas nommer la societe et son ticker exact, N'INCLUS PAS cette entree, ne mets jamais "N/A", "non renseigne" ou une valeur approximative a la place.
 
 Pour chaque action identifiee (maximum {max_tickers}), donne :
-- "company" : son nom exact tel que mentionne dans l'extrait
+- "company" : son nom exact tel que mentionne dans l'extrait (jamais un sujet macro comme "Fed" ou un pays)
 - "ticker" : son ticker boursier (le symbole utilise sur les marches, ex: AAPL, MC.PA -- ta meilleure estimation si seul le nom de l'entreprise est donne)
 - "sentiment" : "haussier" ou "baissier"
 
-Si aucune action ne fait l'objet d'une veritable analyse avec avis directionnel explicite, reponds avec une liste vide.
+Si aucune action ne fait l'objet d'une veritable analyse avec avis directionnel explicite sur une societe precise et nommee, reponds avec une liste vide.
 
 Reponds UNIQUEMENT en JSON : {{"tips": [{{"company": "<NOM>", "ticker": "<SYMBOLE>", "sentiment": "haussier|baissier", "reason": "<une phrase courte citant ce que dit l'extrait>"}}, ...]}}
 """
@@ -439,6 +445,15 @@ def _extract_ticker_signals(msg: dict) -> list[dict]:
         company = str(tip.get("company") or "").strip()
         sentiment = tip.get("sentiment")
         if not ticker or sentiment not in ("haussier", "baissier"):
+            continue
+        # BACKSTOP for the prompt's own "don't invent a ticker" instruction (2026-09-16, after a
+        # real run turned "Fed"/"France" macro pieces with no actual named company into "N/A"/
+        # "NON RENSEIGNE" tickers -- _search_ticker_by_name()'s name-based fallback then matched
+        # those vague company fields to a real but WRONG stock: FedEx for "Fed", Air France-KLM
+        # for "France". A ticker containing whitespace, or a from a closed set of placeholder
+        # values a model uses for "I don't actually have one", is never a real symbol -- drop the
+        # tip outright rather than let it reach _resolve_ticker()'s name-search fallback at all.
+        if " " in ticker or ticker in _PLACEHOLDER_TICKERS:
             continue
         out.append({"ticker": ticker, "company": company, "side": "long" if sentiment == "haussier" else "short",
                      "reason": str(tip.get("reason", ""))[:300], "source": msg["source"],
