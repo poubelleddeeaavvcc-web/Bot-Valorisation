@@ -29,6 +29,16 @@ about the market) -- but it is NEVER trusted blindly: _resolve_ticker() fetches 
 history for it before any trade happens, and a symbol that doesn't resolve to real market data is
 simply dropped, extract by extract.
 
+ARTICLE FETCH (see _fetch_article_extract(), added 2026-09-16): most newsletters only excerpt a
+couple of sentences before a "read more" link to the sender's own site -- the extraction above
+was working off that short teaser. Before extraction, each newsletter's own links are tried (see
+_extract_article_links()) and, for the ones that resolve to a domain hand-confirmed fetchable
+with a plain HTTP GET (zonebourse.com, tradingsat.com -- see FETCHABLE_DOMAINS), the full article
+text replaces the teaser. Seeking Alpha is deliberately NOT in that list: it returns HTTP 403
+behind a real PerimeterX CAPTCHA wall to a plain GET (tested 2026-09-16) -- that's bot-detection,
+not just a content paywall, and not something this bot tries to bypass; its tips keep using the
+email's own excerpt, same as every domain not in FETCHABLE_DOMAINS.
+
 Attribution (see _extract_source()): PRIVACY / REPO-PUBLIC CONSTRAINT (same standing rule as
 newsletter_digest.py -- this repo pushes to a public GitHub remote). The user's own explicit
 choice (2026-09-11): never persist the sender's full email address (that would publish which
@@ -87,11 +97,13 @@ open/close cash bookkeeping identical for both sides; it does NOT reproduce a re
 short economics, only this bot's own directional bet's P&L.
 """
 import base64
+import html
 import json
 import os
 import pathlib
 import re
 import sys
+import urllib.parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 
@@ -117,8 +129,37 @@ GMAIL_API = "https://gmail.googleapis.com/gmail/v1/users/me"
 GMAIL_QUERY = "newer_than:2d"  # same buffer/reasoning as newsletter_digest.py
 MAX_MESSAGES = 300
 BODY_TRUNCATE = 900
-EXTRACT_TRUNCATE = 900  # a per-ticker tip can be buried deeper in the email than the
-# sector-level gist newsletter_digest.py extracts, so this module truncates less aggressively
+EXTRACT_TRUNCATE = 2000  # a per-ticker tip can be buried deeper in the email than the
+# sector-level gist newsletter_digest.py extracts, so this module truncates less aggressively.
+# Raised from 900 on 2026-09-16 to fit the full text _fetch_article_extract() gets when it can
+# follow the newsletter's own link -- see that function's docstring.
+
+# ARTICLE FETCH (2026-09-16, at the user's explicit request after noticing most newsletters are
+# just a teaser before a "read more" link): many newsletters only excerpt a couple of sentences
+# in the email itself, with the real analysis living on the sender's own website. Hand-tested
+# (2026-09-15/16, real links from real newsletters) which sites are actually fetchable with a
+# plain HTTP GET, no browser/JS engine:
+#   - zonebourse.com, tradingsat.com: plain server-rendered pages, full article text in the raw
+#     HTML, no login/paywall on the article types seen in this user's newsletters.
+#   - seekingalpha.com: NOT fetchable this way -- returns HTTP 403 behind a PerimeterX CAPTCHA
+#     wall to a plain `requests` call (real bot-detection, not just a content paywall). Not
+#     something to try to bypass -- Seeking Alpha tips keep using the email's own excerpt only.
+# A domain not in FETCHABLE_DOMAINS (including seekingalpha.com) simply isn't fetched -- callers
+# fall back to the newsletter's own (usually truncated) body text, same behavior as before this
+# existed.
+FETCHABLE_DOMAINS = ("zonebourse.com", "tradingsat.com")
+ARTICLE_FETCH_TIMEOUT = 15
+ARTICLE_FETCH_TRUNCATE = 2500
+ARTICLE_LINK_CANDIDATES = 5  # try at most this many links per email before giving up
+ARTICLE_FETCH_MAX_WORKERS = 4  # plain HTTP GETs, not Ollama calls -- no memory-ceiling reason
+# to stay as conservative as OLLAMA_MAX_WORKERS
+# A full "claims to be Chrome 120" UA string tripped zonebourse.com's bot-detection outright
+# (403) precisely because it wasn't paired with the other headers a real Chrome browser sends
+# (Sec-Ch-Ua, Accept-Language, Sec-Fetch-*...) -- tested 2026-09-16, reproducible. This shorter,
+# generic-client-looking UA (no browser name attached) passes reliably on both fetchable domains.
+_FETCH_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+_EXCLUDE_LINK_SUBSTR = ("mailto:", "unsubscribe", "preferences", "facebook.com", "twitter.com",
+                         "x.com", "linkedin.com", "instagram.com", "youtube.com", "privacy")
 
 STARTING_CAPITAL = 300.0        # own pool, separate from every other bot -- see module docstring
 STARTING_SLOTS = 9              # -> TARGET_POSITION_SIZE ~= 33 EUR/slot, same granularity as Bot#2/3/25
@@ -270,6 +311,85 @@ def _extract_source(sender: str) -> str:
     return m.group(1).lower() if m else "inconnu"
 
 
+def _extract_html_part(payload: dict) -> str:
+    """Same walk as _extract_text() but returns the raw HTML part specifically (not stripped,
+    not truncated) -- needed to find the newsletter's own links, which a text/plain part
+    generally doesn't preserve as clickable URLs."""
+    stack = [payload]
+    while stack:
+        part = stack.pop()
+        if part.get("mimeType") == "text/html":
+            body_data = part.get("body", {}).get("data")
+            if body_data:
+                return _decode_part(body_data, _part_charset(part))
+        stack.extend(part.get("parts", []) or [])
+    return ""
+
+
+def _extract_article_links(html_body: str) -> list[str]:
+    """Every plausible "read more" / article link in the newsletter's HTML, in the order they
+    appear (newsletters put the actual story link first, tracking/social/footer links after) --
+    excludes the obvious non-article links (unsubscribe, social platforms, mailto:). Not a
+    fact-extraction step -- these are just URLs copied verbatim from the email, nothing here is
+    invented or guessed."""
+    if not html_body:
+        return []
+    out, seen = [], set()
+    for link in re.findall(r'href=["\']((?:https?:)?//[^"\']+)', html_body, re.IGNORECASE):
+        if link.startswith("//"):
+            link = "https:" + link
+        low = link.lower()
+        if any(x in low for x in _EXCLUDE_LINK_SUBSTR) or link in seen:
+            continue
+        seen.add(link)
+        out.append(link)
+    return out
+
+
+def _extract_article_text_from_html(page_html: str) -> str:
+    """Strips <script>/<style> blocks first (zonebourse.com in particular embeds a large JS
+    blob for a translation-disclaimer tooltip right at the top of its <article> tag -- without
+    this the extraction below would return that JS source instead of the story), then takes the
+    <article>...</article> region if there is one (falls back to the whole page otherwise),
+    strips remaining tags, unescapes HTML entities, collapses whitespace. Validated by hand
+    against real zonebourse.com/tradingsat.com article pages, 2026-09-16."""
+    cleaned = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", page_html, flags=re.DOTALL | re.IGNORECASE)
+    start = cleaned.find("<article")
+    if start == -1:
+        chunk = cleaned
+    else:
+        end = cleaned.find("</article>", start)
+        chunk = cleaned[start:end] if end != -1 else cleaned[start:]
+    text = re.sub(r"<[^>]+>", " ", chunk)
+    text = html.unescape(text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _fetch_article_extract(links: list[str]) -> str | None:
+    """Follows the newsletter's own links, in order, and returns the full article text from the
+    first one that resolves (after redirects -- newsletter links are often wrapped in a
+    click-tracker) to a domain in FETCHABLE_DOMAINS. Returns None -- not an empty string -- if
+    no candidate link qualifies or every fetch fails/times out, so callers can tell "nothing
+    better available" apart from "fetched but genuinely short" and fall back to the email's own
+    excerpt. See FETCHABLE_DOMAINS above for why only 2 domains are attempted at all."""
+    for link in links[:ARTICLE_LINK_CANDIDATES]:
+        try:
+            resp = requests.get(link, headers=_FETCH_HEADERS, timeout=ARTICLE_FETCH_TIMEOUT,
+                                 allow_redirects=True)
+        except Exception:
+            continue
+        if resp.status_code != 200:
+            continue
+        host = urllib.parse.urlsplit(resp.url).netloc.lower()
+        if not any(host == d or host.endswith("." + d) for d in FETCHABLE_DOMAINS):
+            continue
+        text = _extract_article_text_from_html(resp.content.decode(resp.encoding or "utf-8", errors="replace"))
+        if len(text) > 200:  # sanity floor -- an unexpectedly thin extraction (redesigned page,
+            # different article template) isn't worth preferring over the email's own excerpt
+            return text[:ARTICLE_FETCH_TRUNCATE]
+    return None
+
+
 def fetch_message(token: str, message_id: str) -> dict | None:
     headers = {"Authorization": f"Bearer {token}"}
     resp = requests.get(f"{GMAIL_API}/messages/{message_id}", params={"format": "full"},
@@ -282,9 +402,14 @@ def fetch_message(token: str, message_id: str) -> dict | None:
     def get_header(name):
         return next((h["value"] for h in hdrs if h["name"].lower() == name.lower()), "")
 
-    body = _extract_text(data.get("payload", {}))
+    payload = data.get("payload", {})
+    body = _extract_text(payload)
+    # Raw HTML kept only to look for article links (see _extract_article_links()) -- never
+    # printed/stored, and never a substitute for `body` in classify_newsletter (which stays on
+    # the short plain-text excerpt, cheap and enough for a yes/no classification).
     return {"id": message_id, "sender": get_header("From"), "subject": get_header("Subject"),
-            "source": _extract_source(get_header("From")), "body": body[:BODY_TRUNCATE]}
+            "source": _extract_source(get_header("From")), "body": body[:BODY_TRUNCATE],
+            "html": _extract_html_part(payload)}
 
 
 def classify_newsletter(msg: dict) -> bool:
@@ -663,6 +788,24 @@ def main():
 
             print(f"{len(new_ids)} nouveau(x) mail(s) examine(s), {len(newsletters)} newsletter(s) "
                   f"financiere(s) retenue(s).")
+
+            # Try to replace each newsletter's own (often short, teaser-only) excerpt with the
+            # full article text from its own link -- see _fetch_article_extract()'s docstring
+            # for which domains this actually works on. Done only for newsletters (not every
+            # fetched message) to avoid wasting fetches on mail already dropped by classify_newsletter.
+            with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_MAX_WORKERS) as ex:
+                fetched = dict(zip((m["id"] for m in newsletters),
+                                    ex.map(lambda m: _fetch_article_extract(_extract_article_links(m.get("html", ""))),
+                                           newsletters)))
+            n_fetched = 0
+            for m in newsletters:
+                article_text = fetched.get(m["id"])
+                if article_text:
+                    m["body"] = article_text
+                    n_fetched += 1
+            if n_fetched:
+                print(f"  contenu complet recupere depuis le lien de l'article pour {n_fetched} "
+                      f"newsletter(s) (zonebourse.com/tradingsat.com).")
 
             with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
                 futures = [ex.submit(_extract_ticker_signals, m) for m in newsletters]
