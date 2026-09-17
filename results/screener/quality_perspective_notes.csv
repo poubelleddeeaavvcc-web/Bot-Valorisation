@@ -4513,7 +4513,7 @@ FMC,FMC Corporation,Basic Materials,Agricultural Inputs,4.8,0.3,9.4,4.8,19.9,7.8
 FRME,First Merchants Corporation,Financial Services,Banks - Regional,,3.8,,10.0,13.3,9.0,3,False,10.2,8.4,9.3,2,False
 GRDN,"Guardian Pharmacy Services, Inc.",Healthcare,Medical Care Facilities,10.1,18.4,10.4,9.6,9.2,11.5,5,False,0.0,13.9,7.0,2,False
 HAPN,"Happen, Inc.",Financial Services,Banks - Regional,16.6,11.0,,5.8,,11.1,3,False,15.5,9.2,12.4,2,False
-HBM,Hudbay Minerals Inc.,Basic Materials,Copper,13.8,14.3,13.4,16.4,0.5,11.7,5,False,11.7,17.9,14.8,2,False
+HBM,Hudbay Minerals Inc.,Basic Materials,Copper,13.8,14.3,13.4,16.4,0.5,11.7,5,False,11.6,17.9,14.8,2,False
 HESM,Hess Midstream LP,Energy,Oil & Gas Midstream,3.7,19.8,9.0,17.4,17.4,13.5,5,False,14.5,6.9,10.7,2,False
 HG,"Hamilton Insurance Group, Ltd.",Financial Services,Insurance - Reinsurance,13.6,18.6,,7.8,7.0,11.8,4,False,17.7,17.2,17.4,2,False
 HIMS,"Hims & Hers Health, Inc.",Healthcare,Drug Manufacturers - Specialty & Generic,2.2,4.7,12.9,3.9,6.0,5.9,5,False,,0.7,0.7,1,True
@@ -5519,7 +5519,7 @@ AHR,"American Healthcare REIT, Inc.",Real Estate,REIT - Healthcare Facilities,16
 AMD,"Advanced Micro Devices, Inc.",Technology,Semiconductors,14.2,9.5,9.2,14.6,1.3,9.8,5,False,0.0,18.5,9.2,2,False
 APH,Amphenol Corporation,Technology,Electronic Components,6.1,18.2,8.6,16.8,4.2,10.8,5,False,1.5,11.4,6.4,2,False
 ARWR,"Arrowhead Pharmaceuticals, Inc.",Healthcare,Biotechnology,8.1,2.6,8.7,1.8,,5.3,4,False,,18.2,18.2,1,True
-BFC,Bank First Corporation,Financial Services,Banks - Regional,,8.7,,14.8,7.8,10.4,3,False,0.7,12.1,6.4,2,False
+BFC,Bank First Corporation,Financial Services,Banks - Regional,,8.7,,14.8,7.8,10.4,3,False,0.6,12.1,6.4,2,False
 BKU,"BankUnited, Inc.",Financial Services,Banks - Regional,,5.9,,9.6,10.7,8.7,3,False,11.6,11.6,11.6,2,False
 BKV,BKV Corporation,Energy,Oil & Gas E&P,7.8,11.5,2.4,15.2,0.1,7.4,5,False,19.3,2.5,10.9,2,False
 BPOP,"Popular, Inc.",Financial Services,Banks - Regional,,12.9,,11.8,12.0,12.2,3,False,13.7,14.4,14.0,2,False
@@ -5531,14 +5531,14 @@ CRL,"Charles River Laboratories International, Inc.",Healthcare,Diagnostics & Re
 CRUS,"Cirrus Logic, Inc.",Technology,Semiconductors,17.4,14.9,16.6,15.8,15.9,16.1,5,False,20.0,4.9,12.4,2,False
 DGX,Quest Diagnostics Incorporated,Healthcare,Diagnostics & Research,6.2,14.8,8.5,13.8,10.8,10.8,5,False,12.8,12.1,12.4,2,False
 DMRA,"Damora Therapeutics, Inc.",Healthcare,Biotechnology,19.1,1.3,12.8,6.4,,9.9,4,False,,19.9,19.9,1,True
-ELV,"Elevance Health, Inc.",Healthcare,Healthcare Plans,7.0,13.0,14.1,9.5,16.7,12.1,5,False,15.0,11.5,13.2,2,False
+ELV,"Elevance Health, Inc.",Healthcare,Healthcare Plans,7.0,13.0,14.0,9.5,16.7,12.0,5,False,15.0,11.5,13.2,2,False
 EWBC,"East West Bancorp, Inc.",Financial Services,Banks - Regional,,13.7,,17.5,6.6,12.6,3,False,11.9,11.3,11.6,2,False
 FMBH,"First Mid Bancshares, Inc.",Financial Services,Banks - Regional,,7.0,,10.0,3.8,6.9,3,False,11.4,14.3,12.8,2,False
 FSM,Fortuna Mining Corp.,Basic Materials,Gold,15.7,17.1,17.6,17.8,2.1,14.1,5,False,15.2,11.6,13.4,2,False
 GDRX,"GoodRx Holdings, Inc.",Healthcare,Health Information Services,2.5,8.9,11.6,11.0,19.8,10.8,5,False,0.3,3.5,1.9,2,False
 GLW,Corning Incorporated,Technology,Electronic Components,5.2,13.5,7.2,13.1,6.1,9.0,5,False,0.0,15.7,7.8,2,False
 GOOG,Alphabet Inc.,Communication Services,Internet Content & Information,16.0,19.0,8.5,19.0,3.8,13.3,5,False,10.2,17.9,14.0,2,False
-GTY,Getty Realty Corp.,Real Estate,REIT - Retail,12.6,12.9,10.8,15.8,12.4,12.9,5,False,12.2,17.4,14.8,2,False
+GTY,Getty Realty Corp.,Real Estate,REIT - Retail,12.6,12.9,10.9,15.8,12.4,12.9,5,False,12.2,17.4,14.8,2,False
 HLF,Herbalife Ltd.,Consumer Defensive,Packaged Foods,4.8,,10.2,9.0,,8.0,3,False,20.0,16.6,18.3,2,False
 INOD,Innodata Inc.,Technology,Information Technology Services,14.8,18.2,17.0,14.4,,16.1,4,False,0.0,2.1,1.0,2,False
 INTR,"Inter & Co, Inc.",Financial Services,Banks - Regional,,13.4,,8.0,,10.7,2,True,17.8,0.4,9.1,2,False
@@ -5568,4 +5568,4 @@ STEP,StepStone Group Inc.,Financial Services,Asset Management,5.4,0.2,,0.4,3.3,2
 TDY,Teledyne Technologies Incorporated,Technology,Scientific & Technical Instruments,10.0,9.1,9.7,15.0,5.5,9.9,5,False,10.2,7.9,9.0,2,False
 UVV,Universal Corporation,Consumer Defensive,Tobacco,8.2,2.8,10.2,2.2,17.5,8.2,5,False,0.0,4.3,2.2,2,False
 XP,XP Inc.,Financial Services,Capital Markets,6.0,16.7,,9.6,,10.8,3,False,17.4,3.9,10.6,2,False
-ZYME,Zymeworks Inc.,Healthcare,Biotechnology,13.8,2.0,9.5,4.0,7.3,7.3,5,False,,16.0,16.0,1,True
+ZYME,Zymeworks Inc.,Healthcare,Biotechnology,13.8,2.0,9.4,4.0,7.3,7.3,5,False,,16.0,16.0,1,True
