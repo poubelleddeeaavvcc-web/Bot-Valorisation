@@ -1,6 +1,8 @@
 name: Backtest point-in-time reel (Bot #1/#2/#3/#25)
 
 on:
+  schedule:
+    - cron: "20 22 * * *"  # tous les jours a 22h20 UTC, apres la cloture US et loin du :35 horaire de update-screener
   workflow_dispatch:
 
 permissions:
@@ -30,7 +32,9 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Lancer le backtest point-in-time
-        run: python screener/backtest_pit_replay.py
+        run: |
+          mkdir -p results/backtest_pit
+          python screener/backtest_pit_replay.py 2>&1 | tee results/backtest_pit/run.log
 
       - name: Commit + push les resultats
         run: |
