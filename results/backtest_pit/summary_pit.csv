@@ -1,16 +1,16 @@
 bot,n_closed,win_rate,avg_return_closed,n_open,final_equity_eur,total_return_pct
 "Bot #1 (blind, PIT reel)",15,0.4666666666666667,-0.008257091652847907,73,,
-"Bot #2 (constrained, PIT reel)",1,0.0,-0.05870051998714576,14,513.5442217528866,0.02708844350577322
-"Bot #3 (large, PIT reel)",3,0.6666666666666666,-0.007985236634655335,30,510.2583026577433,0.020516605315486602
-"Bot #25 Delta (constrained+conviction REELLE, PIT reel)",0,,,8,317.59858337120454,0.058661944570681746
-"Variante b2_stop_serre (base bot2_constrained, PIT reel)",5,0.0,-0.08507044782546876,14,507.965917082428,0.015931834164855996
-"Variante b2_stop_large (base bot2_constrained, PIT reel)",1,0.0,-0.05870051998714576,14,513.5442217528866,0.02708844350577322
-"Variante b2_sans_sortie_momentum (base bot2_constrained, PIT reel)",0,,,15,514.1971419283944,0.028394283856788993
-"Variante b2_sans_sortie_valorisation (base bot2_constrained, PIT reel)",1,0.0,-0.05870051998714576,14,513.5442217528866,0.02708844350577322
-"Variante b2_sous_evaluation_40 (base bot2_constrained, PIT reel)",2,1.0,0.017372405041589878,15,526.3087191976881,0.05261743839537614
-"Variante b2_momentum_fort (base bot2_constrained, PIT reel)",0,,,15,520.3554926492588,0.04071098529851769
-"Variante b2_qualite (base bot2_constrained, PIT reel)",3,0.6666666666666666,-0.007985236634655335,15,509.65502546588357,0.019310050931767186
-"Variante b2_concentre_8 (base bot2_constrained, PIT reel)",0,,,8,532.9973438210085,0.06599468764201699
-"Variante b3_sous_evaluation_40 (base bot3_large, PIT reel)",8,0.5,-0.005694505064892677,30,512.3033215207295,0.024606643041458875
-"Variante delta_renfort_agressif (base bot25_delta, PIT reel)",0,,,8,317.59858337120454,0.058661944570681746
-"Variante delta_sans_renfort (base bot25_delta, PIT reel)",0,,,8,317.59858337120454,0.058661944570681746
+"Bot #2 (constrained, PIT reel)",1,0.0,-0.05870051998714576,14,513.5455747062488,0.02709114941249746
+"Bot #3 (large, PIT reel)",5,0.6,-0.009269680652980483,30,506.3673238826562,0.012734647765312301
+"Bot #25 Delta (constrained+conviction REELLE, PIT reel)",0,,,8,317.600486948525,0.05866828982841654
+"Variante b2_stop_serre (base bot2_constrained, PIT reel)",5,0.0,-0.08507044782546876,14,507.9681896269942,0.015936379253988386
+"Variante b2_stop_large (base bot2_constrained, PIT reel)",1,0.0,-0.05870051998714576,14,513.5455747062488,0.02709114941249746
+"Variante b2_sans_sortie_momentum (base bot2_constrained, PIT reel)",0,,,15,514.1984948817567,0.02839698976351346
+"Variante b2_sans_sortie_valorisation (base bot2_constrained, PIT reel)",1,0.0,-0.05870051998714576,14,513.5455747062488,0.02709114941249746
+"Variante b2_sous_evaluation_40 (base bot2_constrained, PIT reel)",2,1.0,0.017372405041589878,15,526.2917628438487,0.05258352568769742
+"Variante b2_momentum_fort (base bot2_constrained, PIT reel)",0,,,15,520.3534756206244,0.04070695124124879
+"Variante b2_qualite (base bot2_constrained, PIT reel)",3,0.6666666666666666,-0.007985236634655335,15,509.65632915104067,0.019312658302081287
+"Variante b2_concentre_8 (base bot2_constrained, PIT reel)",0,,,8,533.0009130284843,0.06600182605696858
+"Variante b3_sous_evaluation_40 (base bot3_large, PIT reel)",8,0.5,-0.005694505064892677,30,512.4321908228919,0.024864381645783862
+"Variante delta_renfort_agressif (base bot25_delta, PIT reel)",0,,,8,317.600486948525,0.05866828982841654
+"Variante delta_sans_renfort (base bot25_delta, PIT reel)",0,,,8,317.600486948525,0.05866828982841654

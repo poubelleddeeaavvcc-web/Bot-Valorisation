@@ -1524,11 +1524,9 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:234: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
+/home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:234: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
   RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +33.33 EUR
-/home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:234: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
-  s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-/home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:234: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
-  s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:234: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:234: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -10110,7 +10108,7 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 Fenetre : 2026-08-21 02:19:35 -> 2026-09-21 19:52:00 (360 points, univers 3441->3641 tickers)
 
-FX obtenu pour : ['HKD', 'CHF', 'USD', 'SEK', 'TWD', 'AUD', 'MXN', 'INR', 'GBP', 'CAD', 'BRL', 'JPY']
+FX obtenu pour : ['CHF', 'INR', 'HKD', 'JPY', 'SEK', 'CAD', 'USD', 'TWD', 'GBP', 'MXN', 'BRL', 'AUD']
 
 --- Bot #1 (blind, PIT reel) ---
   Clotures : n=15  win_rate=+46.7%  retour_moyen=-0.8%
@@ -10121,14 +10119,14 @@ FX obtenu pour : ['HKD', 'CHF', 'USD', 'SEK', 'TWD', 'AUD', 'MXN', 'INR', 'GBP',
   Clotures : n=1  win_rate=+0.0%  retour_moyen=-5.9%
   Motifs de sortie : {'momentum_perdu': 1}
   Positions ouvertes en fin de periode : n=14
-  Equity EUR (depart 500) : 513.54 EUR (+2.7%)  cash_final=31.54 EUR
+  Equity EUR (depart 500) : 513.55 EUR (+2.7%)  cash_final=31.54 EUR
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Bot #3 (large, PIT reel) ---
-  Clotures : n=3  win_rate=+66.7%  retour_moyen=-0.8%
-  Motifs de sortie : {'momentum_perdu': 3}
+  Clotures : n=5  win_rate=+60.0%  retour_moyen=-0.9%
+  Motifs de sortie : {'momentum_perdu': 5}
   Positions ouvertes en fin de periode : n=30
-  Equity EUR (depart 500) : 510.26 EUR (+2.1%)  cash_final=0.27 EUR
+  Equity EUR (depart 500) : 506.37 EUR (+1.3%)  cash_final=0.05 EUR
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Bot #25 Delta (constrained+conviction REELLE, PIT reel) ---
@@ -10148,7 +10146,7 @@ FX obtenu pour : ['HKD', 'CHF', 'USD', 'SEK', 'TWD', 'AUD', 'MXN', 'INR', 'GBP',
   Clotures : n=1  win_rate=+0.0%  retour_moyen=-5.9%
   Motifs de sortie : {'momentum_perdu': 1}
   Positions ouvertes en fin de periode : n=14
-  Equity EUR (depart 500) : 513.54 EUR (+2.7%)  cash_final=31.54 EUR
+  Equity EUR (depart 500) : 513.55 EUR (+2.7%)  cash_final=31.54 EUR
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Variante b2_sans_sortie_momentum (base bot2_constrained, PIT reel) ---
@@ -10161,20 +10159,20 @@ FX obtenu pour : ['HKD', 'CHF', 'USD', 'SEK', 'TWD', 'AUD', 'MXN', 'INR', 'GBP',
   Clotures : n=1  win_rate=+0.0%  retour_moyen=-5.9%
   Motifs de sortie : {'momentum_perdu': 1}
   Positions ouvertes en fin de periode : n=14
-  Equity EUR (depart 500) : 513.54 EUR (+2.7%)  cash_final=31.54 EUR
+  Equity EUR (depart 500) : 513.55 EUR (+2.7%)  cash_final=31.54 EUR
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Variante b2_sous_evaluation_40 (base bot2_constrained, PIT reel) ---
   Clotures : n=2  win_rate=+100.0%  retour_moyen=+1.7%
   Motifs de sortie : {'momentum_perdu': 2}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 500) : 526.31 EUR (+5.3%)  cash_final=2.34 EUR
+  Equity EUR (depart 500) : 526.29 EUR (+5.3%)  cash_final=2.34 EUR
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Variante b2_momentum_fort (base bot2_constrained, PIT reel) ---
   Clotures : n=0  win_rate=n/a  retour_moyen=n/a
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 500) : 520.36 EUR (+4.1%)  cash_final=0.00 EUR
+  Equity EUR (depart 500) : 520.35 EUR (+4.1%)  cash_final=0.00 EUR
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Variante b2_qualite (base bot2_constrained, PIT reel) ---
@@ -10194,7 +10192,7 @@ FX obtenu pour : ['HKD', 'CHF', 'USD', 'SEK', 'TWD', 'AUD', 'MXN', 'INR', 'GBP',
   Clotures : n=8  win_rate=+50.0%  retour_moyen=-0.6%
   Motifs de sortie : {'momentum_perdu': 8}
   Positions ouvertes en fin de periode : n=30
-  Equity EUR (depart 500) : 512.30 EUR (+2.5%)  cash_final=0.26 EUR
+  Equity EUR (depart 500) : 512.43 EUR (+2.5%)  cash_final=0.26 EUR
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Variante delta_renfort_agressif (base bot25_delta, PIT reel) ---
