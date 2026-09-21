@@ -171,6 +171,21 @@ tr:hover td{background:var(--bg3)}
     </details>
 
   </div>
+
+    <div class="section-title">🔬 Backtest point-in-time réel (Bot #1/#2/#3/#25)</div>
+    <div class="xirr-explain">
+      Rejoue les vraies conditions de sortie (momentum perdu / valorisation atteinte / stop-loss / stop suiveur) et le vrai
+      renfort de conviction Delta, à partir de l'historique Git du screener (un snapshot horaire depuis le 21/08) : ce que les
+      bots auraient donné avec les informations réellement disponibles à chaque instant, sans biais rétrospectif. Fenêtre encore
+      courte : échantillon insuffisant pour juger une performance.
+      <br><a class="btn-checkin" href="https://github.com/poubelleddeeaavvcc-web/Bot-Valorisation/actions/workflows/backtest-pit.yml" target="_blank" rel="noopener">🔬 Actualiser le backtest point-in-time</a>
+      <span class="muted-note">Sur la page GitHub qui s'ouvre : « Run workflow » → « Run workflow » (~1 min). Recalculé aussi automatiquement chaque jour à 22h20 UTC.</span>
+    </div>
+    <div id="pit-window" class="muted-note">Chargement…</div>
+    <div class="tbl-wrap"><table id="pit-table" style="display:none">
+      <thead><tr><th>Bot</th><th>Trades clos</th><th>Taux de réussite</th><th>Rendement moyen (clos)</th><th>Positions ouvertes</th><th>Equity finale (EUR)</th><th>Rendement total</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
   </div>
   <!-- /tab-simulation -->
 
@@ -870,9 +885,34 @@ function echoWireSortHeaders(){
   });
 }
 
+async function renderPitBacktest(){
+  const w=document.getElementById('pit-window'),tb=document.getElementById('pit-table');
+  const bust=Date.now();
+  try{
+    const [sumTxt,logTxt]=await Promise.all([
+      fetch(`${BV_REPO_RAW}/results/backtest_pit/summary_pit.csv?_=${bust}`).then(r=>r.ok?r.text():''),
+      fetch(`${BV_REPO_RAW}/results/backtest_pit/run.log?_=${bust}`).then(r=>r.ok?r.text():'').catch(()=>'')
+    ]);
+    const rows=bvParseCSV(sumTxt);
+    if(!rows.length){w.textContent='Aucun résultat de backtest disponible.';return;}
+    const m=logTxt.match(/Fenetre : (.+)/);
+    w.textContent=m?('Fenêtre analysée : '+m[1]):'';
+    const pct=v=>(v===''||v==null||isNaN(parseFloat(v)))?'–':(parseFloat(v)*100).toFixed(1)+' %';
+    const cls=v=>(v===''||v==null||isNaN(parseFloat(v)))?'neu':(parseFloat(v)>=0?'pos':'neg');
+    tb.querySelector('tbody').innerHTML=rows.map(r=>{
+      const eq=(r.final_equity_eur===''||r.final_equity_eur==null)?'–':parseFloat(r.final_equity_eur).toFixed(2);
+      return `<tr><td>${r.bot}</td><td>${r.n_closed}</td><td>${pct(r.win_rate)}</td>`+
+        `<td class="${cls(r.avg_return_closed)}">${pct(r.avg_return_closed)}</td><td>${r.n_open}</td><td>${eq}</td>`+
+        `<td class="${cls(r.total_return_pct)}">${pct(r.total_return_pct)}</td></tr>`;
+    }).join('');
+    tb.style.display='';
+  }catch(e){w.textContent='Impossible de charger le backtest.';}
+}
+
 bvWireTabs();
 renderBotValueTab();
 renderEchoTab();
+renderPitBacktest();
 setInterval(renderBotValueTab,3600*1000);
 setInterval(renderEchoTab,3600*1000);
 </script>
