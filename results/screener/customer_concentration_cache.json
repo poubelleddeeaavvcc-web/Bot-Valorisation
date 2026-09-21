@@ -662,5 +662,13 @@
       "reason": "La description mentionne une relation exclusivement basée sur la fourniture de commodités aux secteurs public et privé, suggérant un client principal ou un contrat gouvernemental unique.",
       "source": "ollama"
     }
+  },
+  "2413.TW": {
+    "checked_at": "2026-09-21",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte indique que l'entreprise vend des produits électroniques à des clients dans plusieurs régions du monde, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
   }
 }
