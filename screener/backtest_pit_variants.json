@@ -11,6 +11,9 @@
     {"name": "b2_concentre_8", "base": "bot2_constrained", "slots": 8, "description": "8 positions au lieu de 15"},
     {"name": "b3_sous_evaluation_40", "base": "bot3_large", "min_valuation_gap": 0.40, "description": "Bot large, sous-evaluation >= 40%"},
     {"name": "delta_renfort_agressif", "base": "bot25_delta", "delta_min_drop_pct": -0.04, "delta_max_position_share": 0.40, "description": "Renfort des -4% et plafond de position a 40%"},
-    {"name": "delta_sans_renfort", "base": "bot25_delta", "reinforce": false, "description": "Delta sans renfort (isole l'effet du renfort)"}
+    {"name": "delta_sans_renfort", "base": "bot25_delta", "reinforce": false, "description": "Delta sans renfort (isole l'effet du renfort)"},
+    {"name": "echo_charlie_conviction", "base": "bot3_large", "reinforce": true, "label": "Bot Echo hypothetique (Charlie + conviction, PIT reel)", "description": "Charlie (large, 30 positions, equilibre par secteur) + renfort de conviction Delta, memes regles que Delta"},
+    {"name": "echo_precoce", "base": "bot3_large", "reinforce": true, "delta_min_drop_pct": -0.04, "label": "Echo hypothetique, renfort precoce (-4%)", "description": "Echo avec renfort des -4% au lieu de -7%"},
+    {"name": "echo_plafond_10", "base": "bot3_large", "reinforce": true, "delta_max_position_share": 0.10, "label": "Echo hypothetique, plafond position 10%", "description": "Echo avec plafond de 10% du capital par position (25% ~ 125 EUR = 7 slots sur 30, permissif)"}
   ]
 }
