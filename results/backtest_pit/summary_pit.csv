@@ -1,16 +1,22 @@
-bot,n_closed,win_rate,avg_return_closed,n_open,final_equity_eur,total_return_pct
-"Bot #1 (blind, PIT reel)",15,0.4666666666666667,-0.008257091652847907,73,,
-"Bot #2 (constrained, PIT reel)",1,0.0,-0.05870051998714576,14,513.5455747062488,0.02709114941249746
-"Bot #3 (large, PIT reel)",5,0.6,-0.009269680652980483,30,506.3673238826562,0.012734647765312301
-"Bot #25 Delta (constrained+conviction REELLE, PIT reel)",0,,,8,317.600486948525,0.05866828982841654
-"Variante b2_stop_serre (base bot2_constrained, PIT reel)",5,0.0,-0.08507044782546876,14,507.9681896269942,0.015936379253988386
-"Variante b2_stop_large (base bot2_constrained, PIT reel)",1,0.0,-0.05870051998714576,14,513.5455747062488,0.02709114941249746
-"Variante b2_sans_sortie_momentum (base bot2_constrained, PIT reel)",0,,,15,514.1984948817567,0.02839698976351346
-"Variante b2_sans_sortie_valorisation (base bot2_constrained, PIT reel)",1,0.0,-0.05870051998714576,14,513.5455747062488,0.02709114941249746
-"Variante b2_sous_evaluation_40 (base bot2_constrained, PIT reel)",2,1.0,0.017372405041589878,15,526.2917628438487,0.05258352568769742
-"Variante b2_momentum_fort (base bot2_constrained, PIT reel)",0,,,15,520.3534756206244,0.04070695124124879
-"Variante b2_qualite (base bot2_constrained, PIT reel)",3,0.6666666666666666,-0.007985236634655335,15,509.65632915104067,0.019312658302081287
-"Variante b2_concentre_8 (base bot2_constrained, PIT reel)",0,,,8,533.0009130284843,0.06600182605696858
-"Variante b3_sous_evaluation_40 (base bot3_large, PIT reel)",8,0.5,-0.005694505064892677,30,512.4321908228919,0.024864381645783862
-"Variante delta_renfort_agressif (base bot25_delta, PIT reel)",0,,,8,317.600486948525,0.05866828982841654
-"Variante delta_sans_renfort (base bot25_delta, PIT reel)",0,,,8,317.600486948525,0.05866828982841654
+bot,n_closed,win_rate,avg_return_closed,n_open,final_equity_eur,total_return_pct,contributions_eur
+"Bot #1 (blind, PIT reel)",15,0.4666666666666667,-0.008257091652847907,73,,,
+"Bot #2 (constrained, PIT reel)",1,0.0,-0.05870051998714576,14,513.5706118750426,0.02714122375008521,0.0
+"Bot #3 (large, PIT reel)",3,0.6666666666666666,-0.007985236634655335,30,509.09399919438795,0.018187998388775828,0.0
+"Bot #25 Delta (constrained+conviction REELLE, PIT reel)",0,,,8,317.6116989104847,0.05870566303494895,0.0
+"Variante b2_stop_serre (base bot2_constrained, PIT reel)",5,0.0,-0.08507044782546876,14,507.9887532664964,0.01597750653299279,0.0
+"Variante b2_stop_large (base bot2_constrained, PIT reel)",1,0.0,-0.05870051998714576,14,513.5706118750426,0.02714122375008521,0.0
+"Variante b2_sans_sortie_momentum (base bot2_constrained, PIT reel)",0,,,15,514.2272266645657,0.028454453329131324,0.0
+"Variante b2_sans_sortie_valorisation (base bot2_constrained, PIT reel)",1,0.0,-0.05870051998714576,14,513.5706118750426,0.02714122375008521,0.0
+"Variante b2_sous_evaluation_40 (base bot2_constrained, PIT reel)",2,1.0,0.017372405041589878,15,526.3307905252763,0.05266158105055241,0.0
+"Variante b2_momentum_fort (base bot2_constrained, PIT reel)",0,,,15,520.3881708783218,0.040776341756643575,0.0
+"Variante b2_qualite (base bot2_constrained, PIT reel)",3,0.6666666666666666,-0.007985236634655335,15,509.6804539505221,0.019360907901044166,0.0
+"Variante b2_concentre_8 (base bot2_constrained, PIT reel)",0,,,8,533.0219354571587,0.0660438709143174,0.0
+"Variante b3_sous_evaluation_40 (base bot3_large, PIT reel)",8,0.5,-0.005694505064892677,30,512.4815710366504,0.024963142073300748,0.0
+"Variante delta_renfort_agressif (base bot25_delta, PIT reel)",0,,,8,317.6116989104847,0.05870566303494895,0.0
+"Variante delta_sans_renfort (base bot25_delta, PIT reel)",0,,,8,317.6116989104847,0.05870566303494895,0.0
+"Bot Echo hypothetique (Charlie + conviction, PIT reel)",3,0.6666666666666666,-0.007985236634655335,29,508.7545583601129,0.017509116720225926,0.0
+"Echo hypothetique, renfort precoce (-4%)",3,0.6666666666666666,0.001593974246394329,27,508.62459131734954,0.01724918263469899,0.0
+Delta + apport 50 EUR/mois (renfort),0,,,8,367.6116989104847,0.05031913974424196,50.0
+Echo hypothetique + apport 50 EUR/mois (renfort),3,0.6666666666666666,-0.007985236634655335,30,559.0940091172755,0.016534562031409905,50.0
+Echo hypothetique + apport 50 EUR/mois (repartition egale),3,0.6666666666666666,-0.007985236634655335,30,559.0940091172755,0.016534562031409905,50.0
+"Echo hypothetique, plafond position 10%",3,0.6666666666666666,-0.007985236634655335,29,508.7545583601129,0.017509116720225926,0.0
