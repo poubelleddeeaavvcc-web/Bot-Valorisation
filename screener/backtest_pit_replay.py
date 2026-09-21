@@ -102,6 +102,12 @@ DEFAULT_PARAMS = {
     "delta_deep_drop_pct": DELTA_DEEP_DROP_PCT,
     "delta_mom_spread_min": DELTA_MOM_SPREAD_MIN,
     "delta_max_position_share": DELTA_MAX_POSITION_SHARE,
+    # Apport mensuel (EUR) reserve au renfort de conviction : credite au 1er snapshot de chaque nouveau
+    # mois calendaire (pas au tout premier : le capital de depart est deja la), jamais utilise pour de
+    # nouvelles positions. Reparti a chaque snapshot entre les positions qui passent la porte de
+    # conviction, dans la limite du plafond par position ; le reliquat attend la prochaine occasion.
+    "monthly_contribution_eur": 0.0,
+    "contribution_split": "valuation",       # "valuation" (poids = sous-evaluation actuelle) | "equal"
 }
 
 # Bots de reference sur lesquels une variante s'appuie (champ "base" du fichier de config).
@@ -312,6 +318,33 @@ def run_bot1_pit(panel: pd.DataFrame) -> tuple:
 
 # ============ 5. Bots #2/#3/#25 (capital contraint, EUR, diversifie) ============
 
+def conviction_gate(info: dict, row, p: dict):
+    """Porte de conviction de Bot #25 (reinforce_convictions) : renvoie valuation_gap_now si la
+    position peut etre renforcee, sinon None. Extraite pour servir aussi a l'apport mensuel."""
+    price, vg_now = row["price"], row["valuation_gap"]
+    if pd.isna(price) or pd.isna(vg_now):
+        return None
+    unrealized = price / info["entry_price"] - 1
+    if not (unrealized <= p["delta_min_drop_pct"] and unrealized > p["stop_loss_pct"]):
+        return None
+    if vg_now < info["entry_valuation_gap"]:
+        return None  # coeur de la regle du 2026-09-14 : pas moins sous-evalue qu'a l'achat
+    if unrealized <= p["delta_deep_drop_pct"]:
+        mom_12_2, sm = row["mom_12_2"], row["sector_momentum"]
+        if pd.isna(mom_12_2) or pd.isna(sm) or (mom_12_2 - sm) < p["delta_mom_spread_min"]:
+            return None
+    return vg_now
+
+
+def apply_reinforcement(info: dict, price, price_eur, budget: float):
+    old_v = info["entry_value_eur"]
+    new_v = old_v + budget
+    info["entry_price"] = (info["entry_price"] * old_v + price * budget) / new_v
+    info["entry_price_eur"] = (info["entry_price_eur"] * old_v + price_eur * budget) / new_v
+    info["entry_value_eur"] = new_v
+    info["reinforcement_count"] = info.get("reinforcement_count", 0) + 1
+
+
 def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFrame,
                      starting_slots: int, max_per_sector, mode: str,
                      starting_capital: float, reinforce: bool = False, params: dict = None) -> tuple:
@@ -321,10 +354,21 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
     held = {}
     closed = []
     nav_curve = {}
+    reserve = 0.0          # part de `cash` reservee au renfort (apport mensuel)
+    contributed = 0.0
+    last_month = None
     times = sorted(panel["snapshot_time"].unique())
 
     for t in times:
         snap = panel[panel["snapshot_time"] == t].set_index("ticker")
+
+        month = (t.year, t.month)
+        if p["monthly_contribution_eur"] and last_month is not None and month != last_month:
+            cash += p["monthly_contribution_eur"]
+            reserve += p["monthly_contribution_eur"]
+            contributed += p["monthly_contribution_eur"]
+            print(f"  APPORT {t.date()} : +{p['monthly_contribution_eur']:.2f} EUR (reserve renfort)", file=sys.stderr)
+        last_month = month
 
         for tk in list(held):
             info = held[tk]
@@ -357,37 +401,50 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
         if reinforce:
             cap_eur = p["delta_max_position_share"] * starting_capital
             for tk, info in held.items():
-                if info["entry_value_eur"] >= cap_eur or cash <= 0 or tk not in snap.index:
+                free_cash = cash - reserve
+                if info["entry_value_eur"] >= cap_eur or free_cash <= 0 or tk not in snap.index:
                     continue
                 row = snap.loc[tk]
-                price, vg_now = row["price"], row["valuation_gap"]
-                if pd.isna(price) or pd.isna(vg_now):
+                vg_now = conviction_gate(info, row, p)
+                if vg_now is None:
                     continue
-                unrealized = price / info["entry_price"] - 1
-                if not (unrealized <= p["delta_min_drop_pct"] and unrealized > p["stop_loss_pct"]):
-                    continue
-                if vg_now < info["entry_valuation_gap"]:
-                    continue  # coeur de la regle du 2026-09-14 : pas moins sous-evalue qu'a l'achat
-                deep = unrealized <= p["delta_deep_drop_pct"]
-                if deep:
-                    mom_12_2, sm = row["mom_12_2"], row["sector_momentum"]
-                    if pd.isna(mom_12_2) or pd.isna(sm) or (mom_12_2 - sm) < p["delta_mom_spread_min"]:
-                        continue
+                price = row["price"]
                 price_eur = to_eur_pit(price, info["currency"], fx_daily, t)
                 if not price_eur or price_eur <= 0:
                     continue
-                budget = min(target_size, cap_eur - info["entry_value_eur"], cash)
+                budget = min(target_size, cap_eur - info["entry_value_eur"], free_cash)
                 if budget <= 0:
                     continue
-                old_v = info["entry_value_eur"]
-                new_v = old_v + budget
-                info["entry_price"] = (info["entry_price"] * old_v + price * budget) / new_v
-                info["entry_price_eur"] = (info["entry_price_eur"] * old_v + price_eur * budget) / new_v
-                info["entry_value_eur"] = new_v
-                info["reinforcement_count"] = info.get("reinforcement_count", 0) + 1
+                apply_reinforcement(info, price, price_eur, budget)
                 cash -= budget
                 print(f"  RENFORT REEL {tk} @ {t.date()} (valorisation {vg_now:+.1%} vs "
                       f"{info['entry_valuation_gap']:+.1%} a l'achat) : +{budget:.2f} EUR", file=sys.stderr)
+
+            # ---- reserve d'apports : reparti entre les positions qui passent la porte de conviction ----
+            if reserve > 0.01:
+                eligible = []
+                for tk, info in held.items():
+                    if tk not in snap.index or info["entry_value_eur"] >= cap_eur:
+                        continue
+                    row = snap.loc[tk]
+                    vg_now = conviction_gate(info, row, p)
+                    price_eur = to_eur_pit(row["price"], info["currency"], fx_daily, t)
+                    if vg_now is None or not price_eur or price_eur <= 0:
+                        continue
+                    eligible.append((tk, info, row["price"], price_eur, vg_now))
+                if eligible:
+                    weights = [1.0 if p["contribution_split"] == "equal" else max(e[4], 1e-6) for e in eligible]
+                    total_w = sum(weights)
+                    pot = reserve
+                    for (tk, info, price, price_eur, vg_now), w in zip(eligible, weights):
+                        budget = min(pot * w / total_w, cap_eur - info["entry_value_eur"], reserve)
+                        if budget <= 0.01:
+                            continue
+                        apply_reinforcement(info, price, price_eur, budget)
+                        cash -= budget
+                        reserve -= budget
+                        print(f"  RENFORT APPORT {tk} @ {t.date()} (valorisation {vg_now:+.1%}) : +{budget:.2f} EUR",
+                              file=sys.stderr)
 
         # ---- nouvelles positions ----
         cand = snap[(snap["passes_filter"] == True) & (~snap.index.isin(held))].copy()  # noqa: E712
@@ -399,7 +456,7 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
             cand["score"] = composite_score(cand)
             rejected = set()
             exhausted = set()
-            while cash >= target_size and len(cand):
+            while cash - reserve >= target_size and len(cand):
                 sector_counts = {}
                 for info in held.values():
                     sector_counts[info["sector"]] = sector_counts.get(info["sector"], 0) + 1
@@ -445,7 +502,7 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
                    if price_eur and info.get("entry_price_eur") else info["entry_value_eur"])
         open_rows.append({**info, "ticker": tk, "unrealized_return_pct": px / info["entry_price"] - 1,
                            "current_value_eur": cur_val})
-    return pd.DataFrame(closed), pd.DataFrame(open_rows), pd.Series(nav_curve), cash
+    return pd.DataFrame(closed), pd.DataFrame(open_rows), pd.Series(nav_curve), cash, contributed
 
 
 # ============ 6. Variantes (fichier de config) ============
@@ -465,6 +522,10 @@ def load_variants() -> list:
         unknown = set(v) - allowed - meta
         if unknown:
             raise ValueError(f"variante {v.get('name')!r} : cles inconnues {sorted(unknown)}")
+        if v.get("monthly_contribution_eur") and not (v.get("reinforce", BASES.get(v.get("base"), {}).get("reinforce"))):
+            raise ValueError(f"variante {v.get('name')!r} : un apport mensuel exige reinforce=true")
+        if v.get("contribution_split", "valuation") not in ("valuation", "equal"):
+            raise ValueError(f"variante {v.get('name')!r} : contribution_split doit etre valuation|equal")
         if v.get("base") not in BASES:
             raise ValueError(f"variante {v.get('name')!r} : base doit etre parmi {sorted(BASES)}")
         if not v.get("name") or v["name"] in seen or v["name"] in BOTS:
@@ -477,10 +538,10 @@ def run_variant(panel, currency_of, fx_daily, v: dict) -> dict:
     over = ("slots", "max_per_sector", "mode", "capital", "reinforce")
     cfg = {**BASES[v["base"]], **{k: v[k] for k in over if k in v}}
     params = {k: v[k] for k in DEFAULT_PARAMS if k in v}
-    closed, open_df, nav, cash = run_slotted_pit(panel, currency_of, fx_daily, cfg["slots"], cfg["max_per_sector"],
+    closed, open_df, nav, cash, contributed = run_slotted_pit(panel, currency_of, fx_daily, cfg["slots"], cfg["max_per_sector"],
                                                   cfg["mode"], cfg["capital"], cfg["reinforce"], params)
     label = v.get("label") or f"Variante {v['name']} (base {v['base']}, PIT reel)"
-    result = summarize(label, closed, open_df, nav, cash, cfg["capital"])
+    result = summarize(label, closed, open_df, nav, cash, cfg["capital"], contributed)
     closed.to_csv(OUT_DIR / f"variant_{v['name']}_pit_trades.csv", index=False)
     open_df.to_csv(OUT_DIR / f"variant_{v['name']}_pit_open.csv", index=False)
     return result
@@ -488,7 +549,7 @@ def run_variant(panel, currency_of, fx_daily, v: dict) -> dict:
 
 # ============ 7. Sortie / orchestration ============
 
-def summarize(label, closed, open_df, nav=None, final_cash=None, starting_capital=None):
+def summarize(label, closed, open_df, nav=None, final_cash=None, starting_capital=None, contributed=0.0):
     n_closed = len(closed)
     win_rate = float((closed["return_pct"] > 0).mean()) if n_closed else None
     avg_return = float(closed["return_pct"].mean()) if n_closed else None
@@ -502,11 +563,12 @@ def summarize(label, closed, open_df, nav=None, final_cash=None, starting_capita
               "n_open": len(open_df)}
     if nav is not None and len(nav):
         cap = starting_capital
-        total_return = nav.iloc[-1] / cap - 1
+        total_return = nav.iloc[-1] / (cap + contributed) - 1  # sur tout l'argent verse, apports compris
         print(f"  Equity EUR (depart {cap:.0f}) : {nav.iloc[-1]:.2f} EUR ({total_return:+.1%})  "
               f"cash_final={final_cash:.2f} EUR")
         result["final_equity_eur"] = float(nav.iloc[-1])
         result["total_return_pct"] = float(total_return)
+        result["contributions_eur"] = float(contributed)
     if "reinforcement_count" in closed.columns or "reinforcement_count" in open_df.columns:
         n_r = int((closed["reinforcement_count"] > 0).sum()) if "reinforcement_count" in closed.columns and len(closed) else 0
         n_r += int((open_df["reinforcement_count"] > 0).sum()) if "reinforcement_count" in open_df.columns and len(open_df) else 0
@@ -543,19 +605,19 @@ def main():
     closed1.to_csv(OUT_DIR / "bot1_blind_pit_trades.csv", index=False)
     open1.to_csv(OUT_DIR / "bot1_blind_pit_open.csv", index=False)
 
-    closed2, open2, nav2, cash2 = run_slotted_pit(panel, currency_of, fx_daily, STARTING_SLOTS_B2,
+    closed2, open2, nav2, cash2, _ = run_slotted_pit(panel, currency_of, fx_daily, STARTING_SLOTS_B2,
                                                     MAX_PER_SECTOR, "capped", STARTING_CAPITAL)
     results.append(summarize(BOTS["bot2_constrained"], closed2, open2, nav2, cash2, STARTING_CAPITAL))
     closed2.to_csv(OUT_DIR / "bot2_constrained_pit_trades.csv", index=False)
     open2.to_csv(OUT_DIR / "bot2_constrained_pit_open.csv", index=False)
 
-    closed3, open3, nav3, cash3 = run_slotted_pit(panel, currency_of, fx_daily, STARTING_SLOTS_B3,
+    closed3, open3, nav3, cash3, _ = run_slotted_pit(panel, currency_of, fx_daily, STARTING_SLOTS_B3,
                                                     None, "even_sector", STARTING_CAPITAL)
     results.append(summarize(BOTS["bot3_large"], closed3, open3, nav3, cash3, STARTING_CAPITAL))
     closed3.to_csv(OUT_DIR / "bot3_large_pit_trades.csv", index=False)
     open3.to_csv(OUT_DIR / "bot3_large_pit_open.csv", index=False)
 
-    closed25, open25, nav25, cash25 = run_slotted_pit(panel, currency_of, fx_daily, STARTING_SLOTS_DELTA,
+    closed25, open25, nav25, cash25, _ = run_slotted_pit(panel, currency_of, fx_daily, STARTING_SLOTS_DELTA,
                                                         MAX_PER_SECTOR, "capped", DELTA_STARTING_CAPITAL,
                                                         reinforce=True)
     results.append(summarize(BOTS["bot25_delta"], closed25, open25, nav25, cash25, DELTA_STARTING_CAPITAL))

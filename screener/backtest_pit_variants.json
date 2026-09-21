@@ -14,6 +14,9 @@
     {"name": "delta_sans_renfort", "base": "bot25_delta", "reinforce": false, "description": "Delta sans renfort (isole l'effet du renfort)"},
     {"name": "echo_charlie_conviction", "base": "bot3_large", "reinforce": true, "label": "Bot Echo hypothetique (Charlie + conviction, PIT reel)", "description": "Charlie (large, 30 positions, equilibre par secteur) + renfort de conviction Delta, memes regles que Delta"},
     {"name": "echo_precoce", "base": "bot3_large", "reinforce": true, "delta_min_drop_pct": -0.04, "label": "Echo hypothetique, renfort precoce (-4%)", "description": "Echo avec renfort des -4% au lieu de -7%"},
+    {"name": "delta_apport50", "base": "bot25_delta", "monthly_contribution_eur": 50, "label": "Delta + apport 50 EUR/mois (renfort)", "description": "Delta avec 50 EUR/mois reserves au renfort, repartis selon la sous-evaluation actuelle"},
+    {"name": "echo_apport50", "base": "bot3_large", "reinforce": true, "monthly_contribution_eur": 50, "label": "Echo hypothetique + apport 50 EUR/mois (renfort)", "description": "Echo avec 50 EUR/mois reserves au renfort, repartis selon la sous-evaluation actuelle"},
+    {"name": "echo_apport50_egal", "base": "bot3_large", "reinforce": true, "monthly_contribution_eur": 50, "contribution_split": "equal", "label": "Echo hypothetique + apport 50 EUR/mois (repartition egale)", "description": "Comme echo_apport50 mais poids egaux entre positions eligibles"},
     {"name": "echo_plafond_10", "base": "bot3_large", "reinforce": true, "delta_max_position_share": 0.10, "label": "Echo hypothetique, plafond position 10%", "description": "Echo avec plafond de 10% du capital par position (25% ~ 125 EUR = 7 slots sur 30, permissif)"}
   ]
 }
