@@ -42,6 +42,7 @@ under sector/NA caps doesn't care where the score came from) and ticker_region/
 NORTH_AMERICA_MAX_SHARE/composite_score from select_top_picks.py -- single authoritative
 implementation, not a re-fork, same pattern already used throughout this repo.
 """
+import json
 import pathlib
 import sys
 import time
@@ -84,6 +85,35 @@ MAX_PER_SECTOR = 3
 STARTING_SLOTS_B2 = 15
 STARTING_SLOTS_B3 = 30
 STARTING_SLOTS_DELTA = 9
+
+# Parametres du moteur "slotted" (Bot #2/#3/#25 et toutes les variantes). Les valeurs par defaut
+# reproduisent exactement le comportement des bots reels -- un run sans surcharge donne les memes
+# resultats qu'avant l'ajout des variantes.
+DEFAULT_PARAMS = {
+    "stop_loss_pct": STOP_LOSS_PCT,
+    "ratchet_step_pct": RATCHET_STEP_PCT,
+    "ratchet_giveback_pct": RATCHET_GIVEBACK_PCT,
+    "exit_on_momentum_lost": True,
+    "exit_on_valuation_reached": True,
+    "min_valuation_gap": float("-inf"),      # filtres d'entree supplementaires
+    "min_mom_12_2": float("-inf"),
+    "min_quality_multiplier": float("-inf"),
+    "delta_min_drop_pct": DELTA_MIN_DROP_PCT,
+    "delta_deep_drop_pct": DELTA_DEEP_DROP_PCT,
+    "delta_mom_spread_min": DELTA_MOM_SPREAD_MIN,
+    "delta_max_position_share": DELTA_MAX_POSITION_SHARE,
+}
+
+# Bots de reference sur lesquels une variante s'appuie (champ "base" du fichier de config).
+BASES = {
+    "bot2_constrained": {"slots": STARTING_SLOTS_B2, "max_per_sector": MAX_PER_SECTOR, "mode": "capped",
+                          "capital": STARTING_CAPITAL, "reinforce": False},
+    "bot3_large": {"slots": STARTING_SLOTS_B3, "max_per_sector": None, "mode": "even_sector",
+                    "capital": STARTING_CAPITAL, "reinforce": False},
+    "bot25_delta": {"slots": STARTING_SLOTS_DELTA, "max_per_sector": MAX_PER_SECTOR, "mode": "capped",
+                     "capital": DELTA_STARTING_CAPITAL, "reinforce": True},
+}
+VARIANTS_PATH = HERE / "screener/backtest_pit_variants.json"
 
 BOTS = {
     "bot1_blind": "Bot #1 (blind, PIT reel)",
@@ -217,14 +247,15 @@ def to_eur_pit(price, ccy, fx_daily, when):
 
 # ============ 3. Sortie -- exacte replique de recheck_and_exit(), donnees reelles ============
 
-def check_exit(unrealized: float, peak: float):
+def check_exit(unrealized: float, peak: float, stop_loss: float = STOP_LOSS_PCT,
+               ratchet_step: float = RATCHET_STEP_PCT, ratchet_giveback: float = RATCHET_GIVEBACK_PCT):
     """Returns (exit_reason_or_None, new_peak) -- mirrors simulate_portfolio.recheck_and_exit's
     stop_loss/trailing_stop math exactly (2026-09-11 staircase ratchet). momentum_lost and
     valuation_reached are checked by the caller (need the live row, not just unrealized/peak)."""
     peak = unrealized if pd.isna(peak) or unrealized > peak else peak
-    stop_loss_hit = unrealized <= STOP_LOSS_PCT
-    milestone = int(peak // RATCHET_STEP_PCT) if pd.notna(peak) else 0
-    trailing_stop_hit = milestone >= 1 and unrealized <= milestone * RATCHET_STEP_PCT - RATCHET_GIVEBACK_PCT
+    stop_loss_hit = unrealized <= stop_loss
+    milestone = int(peak // ratchet_step) if pd.notna(peak) else 0
+    trailing_stop_hit = milestone >= 1 and unrealized <= milestone * ratchet_step - ratchet_giveback
     if trailing_stop_hit:
         return "trailing_stop", peak
     if stop_loss_hit:
@@ -283,7 +314,8 @@ def run_bot1_pit(panel: pd.DataFrame) -> tuple:
 
 def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFrame,
                      starting_slots: int, max_per_sector, mode: str,
-                     starting_capital: float, reinforce: bool = False) -> tuple:
+                     starting_capital: float, reinforce: bool = False, params: dict = None) -> tuple:
+    p = {**DEFAULT_PARAMS, **(params or {})}
     target_size = starting_capital / starting_slots
     cash = starting_capital
     held = {}
@@ -301,13 +333,14 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
             row = snap.loc[tk]
             price = row["price"]
             unrealized = price / info["entry_price"] - 1
-            reason, peak = check_exit(unrealized, info.get("peak"))
+            reason, peak = check_exit(unrealized, info.get("peak"), p["stop_loss_pct"],
+                                       p["ratchet_step_pct"], p["ratchet_giveback_pct"])
             info["peak"] = peak
             momentum_lost = pd.notna(row["mom_12_2"]) and (row["mom_12_2"] <= 0 or row["mom_12_2"] <= row["sector_momentum"])
             valuation_reached = pd.notna(row["valuation_gap"]) and row["valuation_gap"] <= 0
-            if reason is None and valuation_reached:
+            if reason is None and valuation_reached and p["exit_on_valuation_reached"]:
                 reason = "valorisation_atteinte"
-            if reason is None and momentum_lost:
+            if reason is None and momentum_lost and p["exit_on_momentum_lost"]:
                 reason = "momentum_perdu"
             if reason is None:
                 continue
@@ -322,7 +355,7 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
 
         # ---- renfort de conviction REEL (Bot #25 uniquement) ----
         if reinforce:
-            cap_eur = DELTA_MAX_POSITION_SHARE * starting_capital
+            cap_eur = p["delta_max_position_share"] * starting_capital
             for tk, info in held.items():
                 if info["entry_value_eur"] >= cap_eur or cash <= 0 or tk not in snap.index:
                     continue
@@ -331,14 +364,14 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
                 if pd.isna(price) or pd.isna(vg_now):
                     continue
                 unrealized = price / info["entry_price"] - 1
-                if not (unrealized <= DELTA_MIN_DROP_PCT and unrealized > STOP_LOSS_PCT):
+                if not (unrealized <= p["delta_min_drop_pct"] and unrealized > p["stop_loss_pct"]):
                     continue
                 if vg_now < info["entry_valuation_gap"]:
                     continue  # coeur de la regle du 2026-09-14 : pas moins sous-evalue qu'a l'achat
-                deep = unrealized <= DELTA_DEEP_DROP_PCT
+                deep = unrealized <= p["delta_deep_drop_pct"]
                 if deep:
                     mom_12_2, sm = row["mom_12_2"], row["sector_momentum"]
-                    if pd.isna(mom_12_2) or pd.isna(sm) or (mom_12_2 - sm) < DELTA_MOM_SPREAD_MIN:
+                    if pd.isna(mom_12_2) or pd.isna(sm) or (mom_12_2 - sm) < p["delta_mom_spread_min"]:
                         continue
                 price_eur = to_eur_pit(price, info["currency"], fx_daily, t)
                 if not price_eur or price_eur <= 0:
@@ -359,6 +392,8 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
         # ---- nouvelles positions ----
         cand = snap[(snap["passes_filter"] == True) & (~snap.index.isin(held))].copy()  # noqa: E712
         cand = cand.dropna(subset=["price", "valuation_gap", "mom_12_2", "sector_momentum", "quality_multiplier"])
+        cand = cand[(cand["valuation_gap"] >= p["min_valuation_gap"]) & (cand["mom_12_2"] >= p["min_mom_12_2"])
+                    & (cand["quality_multiplier"] >= p["min_quality_multiplier"])]
         if len(cand):
             cand = cand.reset_index()
             cand["score"] = composite_score(cand)
@@ -413,7 +448,45 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
     return pd.DataFrame(closed), pd.DataFrame(open_rows), pd.Series(nav_curve), cash
 
 
-# ============ 6. Sortie / orchestration ============
+# ============ 6. Variantes (fichier de config) ============
+
+def load_variants() -> list:
+    """Variantes definies dans screener/backtest_pit_variants.json. Chaque variante = un bot de
+    reference (`base`) + surcharges. Cles reconnues : slots, max_per_sector, mode, capital, reinforce
+    + toutes les cles de DEFAULT_PARAMS. Une cle inconnue leve une erreur (une faute de frappe ne doit
+    pas passer pour une variante qui ne change rien)."""
+    if not VARIANTS_PATH.exists():
+        return []
+    variants = json.loads(VARIANTS_PATH.read_text(encoding="utf-8")).get("variants", [])
+    allowed = set(DEFAULT_PARAMS) | {"slots", "max_per_sector", "mode", "capital", "reinforce"}
+    meta = {"name", "label", "base", "description"}
+    seen = set()
+    for v in variants:
+        unknown = set(v) - allowed - meta
+        if unknown:
+            raise ValueError(f"variante {v.get('name')!r} : cles inconnues {sorted(unknown)}")
+        if v.get("base") not in BASES:
+            raise ValueError(f"variante {v.get('name')!r} : base doit etre parmi {sorted(BASES)}")
+        if not v.get("name") or v["name"] in seen or v["name"] in BOTS:
+            raise ValueError(f"variante : nom manquant, duplique ou reserve ({v.get('name')!r})")
+        seen.add(v["name"])
+    return variants
+
+
+def run_variant(panel, currency_of, fx_daily, v: dict) -> dict:
+    over = ("slots", "max_per_sector", "mode", "capital", "reinforce")
+    cfg = {**BASES[v["base"]], **{k: v[k] for k in over if k in v}}
+    params = {k: v[k] for k in DEFAULT_PARAMS if k in v}
+    closed, open_df, nav, cash = run_slotted_pit(panel, currency_of, fx_daily, cfg["slots"], cfg["max_per_sector"],
+                                                  cfg["mode"], cfg["capital"], cfg["reinforce"], params)
+    label = v.get("label") or f"Variante {v['name']} (base {v['base']}, PIT reel)"
+    result = summarize(label, closed, open_df, nav, cash, cfg["capital"])
+    closed.to_csv(OUT_DIR / f"variant_{v['name']}_pit_trades.csv", index=False)
+    open_df.to_csv(OUT_DIR / f"variant_{v['name']}_pit_open.csv", index=False)
+    return result
+
+
+# ============ 7. Sortie / orchestration ============
 
 def summarize(label, closed, open_df, nav=None, final_cash=None, starting_capital=None):
     n_closed = len(closed)
@@ -488,6 +561,9 @@ def main():
     results.append(summarize(BOTS["bot25_delta"], closed25, open25, nav25, cash25, DELTA_STARTING_CAPITAL))
     closed25.to_csv(OUT_DIR / "bot25_delta_pit_trades.csv", index=False)
     open25.to_csv(OUT_DIR / "bot25_delta_pit_open.csv", index=False)
+
+    for v in load_variants():
+        results.append(run_variant(panel, currency_of, fx_daily, v))
 
     pd.DataFrame(results).to_csv(OUT_DIR / "summary_pit.csv", index=False)
     print(f"Resultats ecrits dans {OUT_DIR.relative_to(HERE)}/")

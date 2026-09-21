@@ -1,0 +1,16 @@
+{
+  "_doc": "Variantes rejouees par backtest_pit_replay.py. Chaque variante = un bot de reference (base : bot2_constrained | bot3_large | bot25_delta) + surcharges. Cles : slots, max_per_sector, mode (capped|even_sector), capital, reinforce, stop_loss_pct, ratchet_step_pct, ratchet_giveback_pct, exit_on_momentum_lost, exit_on_valuation_reached, min_valuation_gap, min_mom_12_2, min_quality_multiplier, delta_min_drop_pct, delta_deep_drop_pct, delta_mom_spread_min, delta_max_position_share. Ajouter une variante = ajouter un objet a la liste, puis relancer le workflow backtest-pit.",
+  "variants": [
+    {"name": "b2_stop_serre", "base": "bot2_constrained", "stop_loss_pct": -0.08, "description": "Stop-loss a -8% au lieu de -15%"},
+    {"name": "b2_stop_large", "base": "bot2_constrained", "stop_loss_pct": -0.25, "description": "Stop-loss a -25%"},
+    {"name": "b2_sans_sortie_momentum", "base": "bot2_constrained", "exit_on_momentum_lost": false, "description": "Ne sort jamais pour momentum perdu"},
+    {"name": "b2_sans_sortie_valorisation", "base": "bot2_constrained", "exit_on_valuation_reached": false, "description": "Ne sort jamais pour valorisation atteinte"},
+    {"name": "b2_sous_evaluation_40", "base": "bot2_constrained", "min_valuation_gap": 0.40, "description": "Achete seulement les titres sous-evalues d'au moins 40%"},
+    {"name": "b2_momentum_fort", "base": "bot2_constrained", "min_mom_12_2": 0.30, "description": "Achete seulement mom_12_2 >= 30%"},
+    {"name": "b2_qualite", "base": "bot2_constrained", "min_quality_multiplier": 1.15, "description": "Achete seulement quality_multiplier >= 1.15"},
+    {"name": "b2_concentre_8", "base": "bot2_constrained", "slots": 8, "description": "8 positions au lieu de 15"},
+    {"name": "b3_sous_evaluation_40", "base": "bot3_large", "min_valuation_gap": 0.40, "description": "Bot large, sous-evaluation >= 40%"},
+    {"name": "delta_renfort_agressif", "base": "bot25_delta", "delta_min_drop_pct": -0.04, "delta_max_position_share": 0.40, "description": "Renfort des -4% et plafond de position a 40%"},
+    {"name": "delta_sans_renfort", "base": "bot25_delta", "reinforce": false, "description": "Delta sans renfort (isole l'effet du renfort)"}
+  ]
+}
