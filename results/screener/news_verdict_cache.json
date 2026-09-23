@@ -4894,5 +4894,11 @@
     "sentiment": "positive",
     "reason": "Les actualites presentes sont presque toutes positives, avec des articles qui parlent de l'avenir prometteur de l'AI, de l'expansion de YouTube et de l'accumulation de Alphabet Inc. par des investisseurs notables.",
     "source": "ollama"
+  },
+  "WDC_2026-09-23": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des articles qui parlent de gains pour les actions de Micron et SanDisk, ainsi que d'une augmentation attendue pour Western Digital avant son prochain rapport d'earnings.",
+    "source": "ollama"
   }
 }
