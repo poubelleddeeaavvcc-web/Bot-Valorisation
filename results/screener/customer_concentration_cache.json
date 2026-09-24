@@ -670,5 +670,13 @@
       "reason": "Le texte indique que l'entreprise vend des produits électroniques à des clients dans plusieurs régions du monde, ce qui suggère une base de clients large et diversifiée.",
       "source": "ollama"
     }
+  },
+  "0300.HK": {
+    "checked_at": "2026-09-24",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise présente une gamme de produits pour différents marchés, y compris le grand public, les entreprises et les gouvernements, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
   }
 }
