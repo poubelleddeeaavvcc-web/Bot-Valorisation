@@ -678,5 +678,13 @@
       "reason": "L'entreprise présente une gamme de produits pour différents marchés, y compris le grand public, les entreprises et les gouvernements, ce qui suggère une base de clients large et diversifiée.",
       "source": "ollama"
     }
+  },
+  "PRG": {
+    "checked_at": "2026-09-28",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte ne fournit aucune indication sur la base de clients de l'entreprise, elle semble servir un grand public et divers clients B2B, avec des options de paiement pour les consommateurs de tous les profils de crédit.",
+      "source": "ollama"
+    }
   }
 }
