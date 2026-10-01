@@ -686,5 +686,21 @@
       "reason": "Le texte ne fournit aucune indication sur la base de clients de l'entreprise, elle semble servir un grand public et divers clients B2B, avec des options de paiement pour les consommateurs de tous les profils de crédit.",
       "source": "ollama"
     }
+  },
+  "ADEA": {
+    "checked_at": "2026-10-01",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2026-02-26) : five customers represented 55.7% of aggregate revenue [https://www.sec.gov/Archives/edgar/data/1803696/000119312526076549/adea-20251231.htm]",
+      "source": "sec_10k"
+    }
+  },
+  "BRC": {
+    "checked_at": "2026-10-01",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise serve des clients dans de nombreux secteurs, tels que l'industrie, les soins de santé, les transport, les energies, etc., ce qui suggere une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
   }
 }

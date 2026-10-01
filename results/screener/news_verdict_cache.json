@@ -4966,5 +4966,17 @@
     "sentiment": "positive",
     "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de gain de market share pour BRIUMVI, un potentiel de run rate de 1 milliard de dollars, et des commentaires positifs de l'CEO, ce qui suggere une tendance positive pour l'action.",
     "source": "ollama"
+  },
+  "ADEA_2026-10-01": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes montrent une augmentation des revenues et des projections de revenus pour Adeia Inc., ainsi qu'une nouvelle direction strategique avec la nomination d'un nouveau CEO, ce qui suggere une perspective positive pour l'action.",
+    "source": "ollama"
+  },
+  "BRC_2026-10-01": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance, de stratégie réussie et de fondations solides, ce qui suggère un ton général positif pour l'action BRC.",
+    "source": "ollama"
   }
 }
