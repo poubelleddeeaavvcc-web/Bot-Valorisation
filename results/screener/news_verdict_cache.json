@@ -5002,5 +5002,17 @@
     "sentiment": "neutral",
     "reason": "L'actualité présente des informations diverses sur SCREEN Holdings Co., Ltd., notamment une augmentation de prix, une annonce de dividendes et des résultats financiers décevants, ce qui ne permet pas de déterminer un ton général positif, neutre ou négatif.",
     "source": "ollama"
+  },
+  "ITUB4.SA_2026-10-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'action de Itaú Unibanco Holding S.A. a connu une augmentation de 6,5% et est considérée comme une opportunité avec un retour sur investissement (ROI) élevé, malgré une baisse de 11,98% par rapport à son 52e semaine.",
+    "source": "ollama"
+  },
+  "UCG.MI_2026-10-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des articles qui parlent de l'augmentation du prix de l'action et de la strategie de acquisition de UniCredit.",
+    "source": "ollama"
   }
 }
