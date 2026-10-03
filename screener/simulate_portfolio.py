@@ -77,6 +77,16 @@ STOP_LOSS_PCT = -0.15
 RATCHET_STEP_PCT = 0.15
 RATCHET_GIVEBACK_PCT = 0.05
 
+# A real price doesn't move by more than this factor between two consecutive checks of the same
+# position (hourly runs -- a few days apart at most, over a weekend or a run of failed fetches)
+# without a corporate action. Beyond it, the fresh price is reconciled before any bot acts on
+# it -- see reconcile_fresh_price.
+MAX_PLAUSIBLE_PRICE_RATIO = 3.0
+# how far back before a position's last check a split can explain a price jump. Generous on
+# purpose: Yahoo can keep serving a mix of pre- and post-split bars for days after the split
+# date, and a split only ever rescales a position when the observed jump matches its ratio.
+SPLIT_LOOKBACK_DAYS = 10
+
 MIN_INDUSTRY_PEERS = 5  # must match value_momentum_quality_screener_v2.MIN_INDUSTRY_PEERS --
 # duplicated rather than imported, same reasoning as simulate_constrained_portfolio.py gives
 # for duplicating the exit rules: this module tracks live positions and shouldn't depend on
@@ -169,6 +179,66 @@ def fetch_fresh_single(ticker: str) -> dict | None:
         return None
 
 
+def _split_factor_since(ticker: str, since_date) -> float:
+    """Product of the split ratios Yahoo lists on/after since_date (2.0 for a 2:1, 0.1 for a
+    1:10 reverse split) -- 1.0 if none, or on any fetch failure."""
+    try:
+        splits = yf.Ticker(ticker).splits
+    except Exception as e:
+        print(f"  echec fetch splits pour {ticker}: {e}", file=sys.stderr)
+        return 1.0
+    if splits is None or splits.empty:
+        return 1.0
+    dates = splits.index.tz_localize(None) if splits.index.tz is not None else splits.index
+    recent = splits[dates.normalize() >= pd.Timestamp(since_date).normalize()]
+    return float(recent.prod()) if len(recent) else 1.0
+
+
+def _daily_close(ticker: str) -> float | None:
+    try:
+        hist = yf.Ticker(ticker).history(period="5d", interval="1d", auto_adjust=True)["Close"].dropna()
+        return float(hist.iloc[-1]) if len(hist) else None
+    except Exception as e:
+        print(f"  echec fetch journalier pour {ticker}: {e}", file=sys.stderr)
+        return None
+
+
+def reconcile_fresh_price(ticker: str, fresh_price, last_price, last_check_date) -> tuple:
+    """Sanity check of a fresh price against the position's last recorded one, before any bot
+    revalues or exits on it. Returns (status, split_factor):
+      - ("ok", 1.0): plausible move, use the price as is.
+      - ("split", f): a split listed since shortly before the last check explains the jump --
+        the caller must rescale the position's per-share basis (entry_price / f, shares * f) so
+        its return stays continuous, instead of booking a fake -50%/-90% move (or +100%/+900%
+        for a reverse split).
+      - ("suspect", 1.0): unexplained jump that the daily series doesn't confirm either -- a bad
+        bar, not a real move. The caller skips the position this run (no revaluation, no exit).
+    Motivated by 5706.T on 2026-10-01, two days after its 10:1 split: the last monthly bar
+    alternated between the adjusted ~2,290 JPY and an unadjusted ~23,025 JPY from one run to the
+    next, so every bot holding it booked a phantom +905% "valorisation_atteinte" exit, re-bought
+    it at the adjusted price the next run, and repeated -- 8 round trips in one day on the blind
+    bots, +45 to +75 points of fake average return. A genuine move beyond
+    MAX_PLAUSIBLE_PRICE_RATIO (binary biotech news...) is still accepted once the independent
+    daily series agrees with it."""
+    if fresh_price is None or pd.isna(last_price) or last_price <= 0:
+        return "ok", 1.0
+    ratio = fresh_price / last_price
+    if 1 / MAX_PLAUSIBLE_PRICE_RATIO <= ratio <= MAX_PLAUSIBLE_PRICE_RATIO:
+        return "ok", 1.0
+    since = pd.Timestamp(last_check_date) - pd.Timedelta(days=SPLIT_LOOKBACK_DAYS)
+    factor = _split_factor_since(ticker, since)
+    if factor != 1.0 and 1 / 1.5 <= ratio * factor <= 1.5:
+        print(f"  SPLIT {ticker} : ratio {factor:g} depuis {since.date()}, prix {last_price:g} -> {fresh_price:g}, "
+              f"position recalee sur la nouvelle base")
+        return "split", factor
+    daily = _daily_close(ticker)
+    if daily is not None and abs(daily / fresh_price - 1) <= 0.15:
+        return "ok", 1.0
+    print(f"  PRIX SUSPECT {ticker} : {last_price:g} -> {fresh_price:g} (x{ratio:.2f}) sans split ni confirmation "
+          f"journaliere ({daily}) -- position non reevaluee ce run", file=sys.stderr)
+    return "suspect", 1.0
+
+
 def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, today: str) -> tuple:
     open_tickers = set(ledger.loc[ledger["status"] == "open", "ticker"])
     sector_pe = valuation.groupby("sector")["sector_median_pe"].first()
@@ -222,6 +292,12 @@ def recheck_open_positions(ledger: pd.DataFrame, valuation: pd.DataFrame, today:
         fresh = fetch_fresh_single(ticker)
         if fresh is None or fresh["price"] is None or fresh["eps"] is None:
             continue
+        price_check, split_factor = reconcile_fresh_price(ticker, fresh["price"], ledger.at[idx, "last_price"],
+                                                          ledger.at[idx, "last_check_date"])
+        if price_check == "suspect":
+            continue  # bad bar -- retry next run rather than book a phantom move
+        if price_check == "split":
+            ledger.at[idx, "entry_price"] = ledger.at[idx, "entry_price"] / split_factor
 
         sector = fresh["sector"] or ledger.at[idx, "sector"]
         today_peer_pe = resolve_peer_pe(sector, fresh.get("industry"), sector_pe, industry_pe, industry_count)

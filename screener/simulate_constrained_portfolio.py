@@ -58,7 +58,7 @@ from screener.select_top_picks import (  # noqa: E402
     composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
 )
 from screener.simulate_portfolio import (  # noqa: E402
-    fails_fresh_check, fetch_fresh_single, resolve_peer_pe, STOP_LOSS_PCT,
+    fails_fresh_check, fetch_fresh_single, reconcile_fresh_price, resolve_peer_pe, STOP_LOSS_PCT,
     RATCHET_STEP_PCT, RATCHET_GIVEBACK_PCT,
 )
 from screener.fetch_cache import fetch_one as fetch_cache_one  # noqa: E402
@@ -196,6 +196,15 @@ def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, 
         fresh = fetch_fresh_single(ticker)
         if fresh is None or fresh["price"] is None or fresh["eps"] is None:
             continue
+        # see simulate_portfolio.reconcile_fresh_price -- a split rescales the per-share basis
+        # only; entry_value_eur (what was actually paid) is unchanged by it.
+        price_check, split_factor = reconcile_fresh_price(ticker, fresh["price"], ledger.at[idx, "last_price"],
+                                                          ledger.at[idx, "last_check_date"])
+        if price_check == "suspect":
+            continue
+        if price_check == "split":
+            ledger.at[idx, "entry_price"] = ledger.at[idx, "entry_price"] / split_factor
+            ledger.at[idx, "shares"] = ledger.at[idx, "shares"] * split_factor
 
         sector = fresh["sector"] or ledger.at[idx, "sector"]
         today_peer_pe = resolve_peer_pe(sector, fresh.get("industry"), sector_pe, industry_pe, industry_count)

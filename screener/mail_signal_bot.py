@@ -114,7 +114,9 @@ import yfinance as yf
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
-from screener.simulate_portfolio import STOP_LOSS_PCT, RATCHET_STEP_PCT, RATCHET_GIVEBACK_PCT  # noqa: E402
+from screener.simulate_portfolio import (  # noqa: E402
+    STOP_LOSS_PCT, RATCHET_STEP_PCT, RATCHET_GIVEBACK_PCT, reconcile_fresh_price,
+)
 from screener.simulate_constrained_portfolio import fetch_fx_rates, to_eur, fractional_eligible  # noqa: E402
 
 STATE_PATH = HERE / "results/screener/mail_signal_state.json"
@@ -576,6 +578,14 @@ def recheck_and_exit(ledger: pd.DataFrame, today: str, cash: float) -> tuple:
         resolved = _resolve_ticker(ticker)
         if resolved is None:
             continue  # transient fetch failure -- retry next run, don't force an exit on it
+        # see simulate_portfolio.reconcile_fresh_price
+        price_check, split_factor = reconcile_fresh_price(ticker, resolved["price"], ledger.at[idx, "last_price"],
+                                                          ledger.at[idx, "last_check_date"])
+        if price_check == "suspect":
+            continue
+        if price_check == "split":
+            ledger.at[idx, "entry_price"] = ledger.at[idx, "entry_price"] / split_factor
+            ledger.at[idx, "shares"] = ledger.at[idx, "shares"] * split_factor
 
         entry_price = ledger.at[idx, "entry_price"]
         unrealized = _unrealized_return(side, entry_price, resolved["price"])
