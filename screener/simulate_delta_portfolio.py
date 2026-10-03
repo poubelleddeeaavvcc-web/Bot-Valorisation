@@ -108,7 +108,7 @@ def save_cash(cash: float):
 
 
 def reinforce_convictions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, cash: float,
-                           fx_rates: dict) -> tuple:
+                           fx_rates: dict, min_mom_margin: float = 0.0) -> tuple:
     """The bot's namesake mechanic: an open position that has pulled back from its cost basis
     but whose momentum/valuation signal still looks bullish (it hasn't hit any of
     recheck_and_exit's exit triggers, called right before this) gets MORE capital rather than
@@ -168,7 +168,9 @@ def reinforce_convictions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: 
             continue
 
         deep = unrealized <= DELTA_DEEP_DROP_PCT
-        spread_needed = DELTA_MOM_SPREAD_MIN if deep else 0.0
+        # min_mom_margin: Bot#37's entry margin, applied to reinforcements too (0 for every other
+        # Delta bot) -- see simulate_portfolio.MIN_ENTRY_MOM_MARGIN.
+        spread_needed = max(DELTA_MOM_SPREAD_MIN if deep else 0.0, min_mom_margin)
         today_sector_mom = sector_mom.get(ledger.at[idx, "sector"], 0.0)
         if not (valuation_gap_now >= entry_valuation_gap and mom_12_2 - today_sector_mom >= spread_needed):
             continue

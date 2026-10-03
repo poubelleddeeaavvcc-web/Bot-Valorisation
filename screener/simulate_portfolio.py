@@ -87,8 +87,9 @@ MAX_PLAUSIBLE_PRICE_RATIO = 3.0
 # date, and a split only ever rescales a position when the observed jump matches its ratio.
 SPLIT_LOOKBACK_DAYS = 10
 
-# Entry-only momentum edge over the sector required by the "marge momentum" bots (#34-#37,
-# A9/B9/C9/D9), on top of the plain "beats its sector" bar. Entry and exit used to share that
+# Momentum edge over the sector required at entry by the "marge momentum" bots (#34-#37,
+# A9/B9/C9/D9) -- and by D9's conviction reinforcements too -- on top of the plain "beats its
+# sector" bar. Entry and exit used to share that
 # exact bar, so a name bought barely above it fell back below at the next monthly roll of
 # mom_12_2 (monthly closes -- it only moves at month start). Measured on Bot#1's history on
 # 2026-10-03: momentum_perdu exits beat their sector by a median ~4 points at entry, vs ~30 for

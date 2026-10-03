@@ -1,13 +1,15 @@
 """Bot#37 (Delta + momentum entry margin): same conviction-averaging mechanics as
 simulate_delta_portfolio.py (Bot#25 -- 300 EUR, 9 slots, reinforce_convictions gate, exit rules),
 except a brand-new candidate is only bought if its mom_12_2 beats its sector's momentum by at
-least MIN_ENTRY_MOM_MARGIN (see simulate_portfolio.py). Reinforcements of positions already held
-keep Delta's own gate -- the margin is an entry rule. Exit rules are untouched.
+least MIN_ENTRY_MOM_MARGIN (see simulate_portfolio.py), and a conviction reinforcement needs that
+same margin too (instead of Delta's 0/+5 points) -- both are money going into a name, and a thin
+margin is what preceded the momentum_perdu exits (2026-10-03, user's choice: "margin on every
+buy"). Exit rules are untouched.
 
 reinforce_convictions/fill_slots/recheck_and_exit are Bot#25's own, reused by import with the
-margin passed in -- the margin is the only variable isolated against Bot#25.
+margin passed in -- the margin on every buy is the only variable isolated against Bot#25.
 """
-# Alias lisibilite (mapping perso) : D9 -- famille Delta (conviction), variante + marge momentum a l'entree
+# Alias lisibilite (mapping perso) : D9 -- famille Delta (conviction), variante + marge momentum a l'entree et au renfort
 import json
 import pathlib
 import sys
@@ -93,7 +95,8 @@ def main():
     fx_rates = fetch_fx_rates(set(FX_PAIR.keys()))
 
     ledger, cash = recheck_and_exit(ledger, valuation, today, cash, fx_rates)
-    ledger, cash = reinforce_convictions(ledger, valuation, today, cash, fx_rates)
+    ledger, cash = reinforce_convictions(ledger, valuation, today, cash, fx_rates,
+                                         min_mom_margin=MIN_ENTRY_MOM_MARGIN)
     ledger, cash = fill_slots(ledger, candidates, valuation, cash, today, fx_rates,
                               min_mom_margin=MIN_ENTRY_MOM_MARGIN)
 

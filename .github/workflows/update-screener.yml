@@ -408,8 +408,9 @@ jobs:
       - name: Simulation Delta + notes + veto sectoriel (Bot #28)
         run: python screener/simulate_delta_portfolio_notes_sector_outlook.py
 
-      # Bot #37 : meme mecanique que #25, sauf qu'a l'achat le momentum doit battre celui du
-      # secteur d'au moins 10 points (MIN_ENTRY_MOM_MARGIN) -- voir simulate_delta_portfolio_marge.py.
+      # Bot #37 : meme mecanique que #25, sauf qu'a l'achat ET au renfort de conviction le momentum
+      # doit battre celui du secteur d'au moins 10 points (MIN_ENTRY_MOM_MARGIN) -- voir
+      # simulate_delta_portfolio_marge.py.
       - name: Simulation Delta + marge momentum a l'entree (Bot #37)
         run: python screener/simulate_delta_portfolio_marge.py
 
