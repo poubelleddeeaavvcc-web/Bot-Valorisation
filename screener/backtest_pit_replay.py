@@ -37,6 +37,15 @@ CAVEATS (documented, not hidden -- same spirit as backtest_momentum_proxy.py):
   - Whole-share vs. fractional-share rounding, and the exact NA/state-linked cap relaxation
     order: same simplifications as backtest_momentum_proxy.py, not modeled here either.
 
+FEES AND MOMENTUM MARGIN (2026-10-03, user: "avant de lancer une nouvelle strategie encore, tu
+peux le backtester ?"): the slotted replay now deducts TRADE_FEE_EUR from every sale, like the live
+capital bots (before this, the replay was fee-free, which made it useless for judging fee-reduction
+ideas such as fewer/larger positions); closed rows keep both the net return_pct and the
+gross_return_pct. min_mom_margin replays the "marge momentum" bots (#34-37): entry needs
+mom_12_2 - sector_momentum >= the margin, and for Delta every reinforcement too. Each result also
+reports fees_eur and max_drawdown_pct (worst peak-to-trough of the EUR equity curve) -- fewer,
+larger positions cut fees but make each loser weigh more, so return alone isn't enough to compare.
+
 Reuses _pick_capped/_pick_even_sector from backtest_momentum_proxy.py (candidate picking
 under sector/NA caps doesn't care where the score came from) and ticker_region/
 NORTH_AMERICA_MAX_SHARE/composite_score from select_top_picks.py -- single authoritative
@@ -57,7 +66,10 @@ from screener.backtest_momentum_proxy import (  # noqa: E402
     _pick_capped, _pick_even_sector, _chunked_download, FX_PAIR,
 )
 from screener.select_top_picks import ticker_region, composite_score  # noqa: E402
-from screener.simulate_portfolio import STOP_LOSS_PCT, RATCHET_STEP_PCT, RATCHET_GIVEBACK_PCT  # noqa: E402
+from screener.simulate_portfolio import (  # noqa: E402
+    STOP_LOSS_PCT, RATCHET_STEP_PCT, RATCHET_GIVEBACK_PCT, MIN_ENTRY_MOM_MARGIN,
+)
+from screener.simulate_constrained_portfolio import TRADE_FEE_EUR  # noqa: E402
 from screener.simulate_delta_portfolio import (  # noqa: E402
     DELTA_MIN_DROP_PCT, DELTA_DEEP_DROP_PCT, DELTA_MOM_SPREAD_MIN, DELTA_MAX_POSITION_SHARE,
 )
@@ -98,6 +110,11 @@ DEFAULT_PARAMS = {
     "min_valuation_gap": float("-inf"),      # filtres d'entree supplementaires
     "min_mom_12_2": float("-inf"),
     "min_quality_multiplier": float("-inf"),
+    # marge de momentum exigee a l'achat (et au renfort Delta) au-dessus du momentum du secteur --
+    # 0 = simple "bat son secteur", comme les bots #2/#3/#25 ; MIN_ENTRY_MOM_MARGIN pour #35-37.
+    "min_mom_margin": 0.0,
+    # frais deduits a chaque vente, comme les bots a capital reels (simulate_constrained_portfolio)
+    "trade_fee_eur": TRADE_FEE_EUR,
     "delta_min_drop_pct": DELTA_MIN_DROP_PCT,
     "delta_deep_drop_pct": DELTA_DEEP_DROP_PCT,
     "delta_mom_spread_min": DELTA_MOM_SPREAD_MIN,
@@ -271,7 +288,7 @@ def check_exit(unrealized: float, peak: float, stop_loss: float = STOP_LOSS_PCT,
 
 # ============ 4. Bot #1 (aveugle, sans capital) ============
 
-def run_bot1_pit(panel: pd.DataFrame) -> tuple:
+def run_bot1_pit(panel: pd.DataFrame, min_mom_margin: float = 0.0) -> tuple:
     held = {}
     closed = []
     times = sorted(panel["snapshot_time"].unique())
@@ -300,6 +317,8 @@ def run_bot1_pit(panel: pd.DataFrame) -> tuple:
                 del held[tk]
 
         cands = snap[(snap["passes_filter"] == True) & (~snap.index.isin(held))]  # noqa: E712
+        if min_mom_margin:
+            cands = cands[(cands["mom_12_2"] - cands["sector_momentum"]) >= min_mom_margin]
         for tk, row in cands.iterrows():
             if pd.isna(row["price"]):
                 continue
@@ -329,9 +348,11 @@ def conviction_gate(info: dict, row, p: dict):
         return None
     if vg_now < info["entry_valuation_gap"]:
         return None  # coeur de la regle du 2026-09-14 : pas moins sous-evalue qu'a l'achat
-    if unrealized <= p["delta_deep_drop_pct"]:
+    deep = unrealized <= p["delta_deep_drop_pct"]
+    spread_needed = max(p["delta_mom_spread_min"] if deep else 0.0, p["min_mom_margin"])
+    if spread_needed > 0:
         mom_12_2, sm = row["mom_12_2"], row["sector_momentum"]
-        if pd.isna(mom_12_2) or pd.isna(sm) or (mom_12_2 - sm) < p["delta_mom_spread_min"]:
+        if pd.isna(mom_12_2) or pd.isna(sm) or (mom_12_2 - sm) < spread_needed:
             return None
     return vg_now
 
@@ -392,9 +413,11 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
             price_eur = to_eur_pit(price, info["currency"], fx_daily, t)
             exit_value_eur = (info["entry_value_eur"] * price_eur / info["entry_price_eur"]
                                if price_eur and info.get("entry_price_eur") else info["entry_value_eur"])
-            cash += exit_value_eur
-            closed.append({**info, "ticker": tk, "exit_date": t, "exit_price": price,
-                           "exit_reason": reason, "return_pct": unrealized, "exit_value_eur": exit_value_eur})
+            fee = p["trade_fee_eur"]
+            cash += exit_value_eur - fee
+            closed.append({**info, "ticker": tk, "exit_date": t, "exit_price": price, "exit_reason": reason,
+                           "return_pct": unrealized - fee / info["entry_value_eur"], "gross_return_pct": unrealized,
+                           "fee_eur": fee, "exit_value_eur": exit_value_eur - fee})
             del held[tk]
 
         # ---- renfort de conviction REEL (Bot #25 uniquement) ----
@@ -450,7 +473,8 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
         cand = snap[(snap["passes_filter"] == True) & (~snap.index.isin(held))].copy()  # noqa: E712
         cand = cand.dropna(subset=["price", "valuation_gap", "mom_12_2", "sector_momentum", "quality_multiplier"])
         cand = cand[(cand["valuation_gap"] >= p["min_valuation_gap"]) & (cand["mom_12_2"] >= p["min_mom_12_2"])
-                    & (cand["quality_multiplier"] >= p["min_quality_multiplier"])]
+                    & (cand["quality_multiplier"] >= p["min_quality_multiplier"])
+                    & ((cand["mom_12_2"] - cand["sector_momentum"]) >= p["min_mom_margin"])]
         if len(cand):
             cand = cand.reset_index()
             cand["score"] = composite_score(cand)
@@ -566,9 +590,14 @@ def summarize(label, closed, open_df, nav=None, final_cash=None, starting_capita
         total_return = nav.iloc[-1] / (cap + contributed) - 1  # sur tout l'argent verse, apports compris
         print(f"  Equity EUR (depart {cap:.0f}) : {nav.iloc[-1]:.2f} EUR ({total_return:+.1%})  "
               f"cash_final={final_cash:.2f} EUR")
+        max_dd = float((nav / nav.cummax() - 1).min())
+        fees = float(closed["fee_eur"].sum()) if "fee_eur" in closed.columns else 0.0
+        print(f"  Frais payes : {fees:.2f} EUR | perte max depuis un sommet (drawdown) : {max_dd:+.1%}")
         result["final_equity_eur"] = float(nav.iloc[-1])
         result["total_return_pct"] = float(total_return)
         result["contributions_eur"] = float(contributed)
+        result["fees_eur"] = fees
+        result["max_drawdown_pct"] = max_dd
     if "reinforcement_count" in closed.columns or "reinforcement_count" in open_df.columns:
         n_r = int((closed["reinforcement_count"] > 0).sum()) if "reinforcement_count" in closed.columns and len(closed) else 0
         n_r += int((open_df["reinforcement_count"] > 0).sum()) if "reinforcement_count" in open_df.columns and len(open_df) else 0
@@ -604,6 +633,11 @@ def main():
     results.append(summarize(BOTS["bot1_blind"], closed1, open1))
     closed1.to_csv(OUT_DIR / "bot1_blind_pit_trades.csv", index=False)
     open1.to_csv(OUT_DIR / "bot1_blind_pit_open.csv", index=False)
+
+    closed34, open34 = run_bot1_pit(panel, min_mom_margin=MIN_ENTRY_MOM_MARGIN)
+    results.append(summarize("Bot #34 (blind + marge momentum, PIT reel)", closed34, open34))
+    closed34.to_csv(OUT_DIR / "bot34_blind_marge_pit_trades.csv", index=False)
+    open34.to_csv(OUT_DIR / "bot34_blind_marge_pit_open.csv", index=False)
 
     closed2, open2, nav2, cash2, _ = run_slotted_pit(panel, currency_of, fx_daily, STARTING_SLOTS_B2,
                                                     MAX_PER_SECTOR, "capped", STARTING_CAPITAL)

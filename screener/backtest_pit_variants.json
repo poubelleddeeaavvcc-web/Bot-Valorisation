@@ -17,6 +17,19 @@
     {"name": "delta_apport50", "base": "bot25_delta", "monthly_contribution_eur": 50, "label": "Delta + apport 50 EUR/mois (renfort)", "description": "Delta avec 50 EUR/mois reserves au renfort, repartis selon la sous-evaluation actuelle"},
     {"name": "echo_apport50", "base": "bot3_large", "reinforce": true, "monthly_contribution_eur": 50, "label": "Echo hypothetique + apport 50 EUR/mois (renfort)", "description": "Echo avec 50 EUR/mois reserves au renfort, repartis selon la sous-evaluation actuelle"},
     {"name": "echo_apport50_egal", "base": "bot3_large", "reinforce": true, "monthly_contribution_eur": 50, "contribution_split": "equal", "label": "Echo hypothetique + apport 50 EUR/mois (repartition egale)", "description": "Comme echo_apport50 mais poids egaux entre positions eligibles"},
-    {"name": "echo_plafond_10", "base": "bot3_large", "reinforce": true, "delta_max_position_share": 0.10, "label": "Echo hypothetique, plafond position 10%", "description": "Echo avec plafond de 10% du capital par position (25% ~ 125 EUR = 7 slots sur 30, permissif)"}
+    {"name": "echo_plafond_10", "base": "bot3_large", "reinforce": true, "delta_max_position_share": 0.10, "label": "Echo hypothetique, plafond position 10%", "description": "Echo avec plafond de 10% du capital par position (25% ~ 125 EUR = 7 slots sur 30, permissif)"},
+    {"name": "b2_10_positions", "base": "bot2_constrained", "slots": 10, "label": "Beta, 10 positions (50 EUR)", "description": "Moins de positions, plus grosses : frais 2% par aller-retour au lieu de 3%"},
+    {"name": "b2_6_positions", "base": "bot2_constrained", "slots": 6, "label": "Beta, 6 positions (83 EUR)", "description": "Concentration forte : frais 1,2% par aller-retour"},
+    {"name": "b3_20_positions", "base": "bot3_large", "slots": 20, "label": "Charlie, 20 positions (25 EUR)", "description": "Charlie moins disperse : frais 4% au lieu de 6% par aller-retour"},
+    {"name": "b3_15_positions", "base": "bot3_large", "slots": 15, "label": "Charlie, 15 positions (33 EUR)", "description": "Charlie a la taille de Beta : frais 3% par aller-retour"},
+    {"name": "b3_10_positions", "base": "bot3_large", "slots": 10, "label": "Charlie, 10 positions (50 EUR)", "description": "Charlie concentre : frais 2% par aller-retour"},
+    {"name": "delta_6_positions", "base": "bot25_delta", "slots": 6, "label": "Delta, 6 positions (50 EUR)", "description": "Delta concentre : frais 2% au lieu de 3% par aller-retour"},
+    {"name": "delta_5_positions", "base": "bot25_delta", "slots": 5, "label": "Delta, 5 positions (60 EUR)", "description": "Delta tres concentre : frais 1,7% par aller-retour"},
+    {"name": "b2_marge", "base": "bot2_constrained", "min_mom_margin": 0.1, "label": "Beta + marge momentum (Bot #35)", "description": "Achat seulement si momentum >= secteur + 10 points"},
+    {"name": "b3_marge", "base": "bot3_large", "min_mom_margin": 0.1, "label": "Charlie + marge momentum (Bot #36)", "description": "Achat seulement si momentum >= secteur + 10 points"},
+    {"name": "delta_marge", "base": "bot25_delta", "min_mom_margin": 0.1, "label": "Delta + marge momentum (Bot #37)", "description": "Marge de 10 points a l'achat et au renfort"},
+    {"name": "b2_8_marge", "base": "bot2_constrained", "slots": 8, "min_mom_margin": 0.1, "label": "Beta, 8 positions + marge momentum", "description": "Concentration + marge"},
+    {"name": "b3_15_marge", "base": "bot3_large", "slots": 15, "min_mom_margin": 0.1, "label": "Charlie, 15 positions + marge momentum", "description": "Concentration + marge"},
+    {"name": "delta_6_marge", "base": "bot25_delta", "slots": 6, "min_mom_margin": 0.1, "label": "Delta, 6 positions + marge momentum", "description": "Concentration + marge"}
   ]
 }
