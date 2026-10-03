@@ -10,6 +10,10 @@ on:
     # run sans nouveau mail ne coute qu'un appel de liste Gmail, donc tourner plus souvent que
     # le screener principal (hourly) est sans risque.
     - cron: "15 */2 * * *"
+    # SEUL executant de mail_signal_bot.py depuis le 2026-10-03 : le repo newsletter-digest-bot faisait
+    # tourner le meme script sur le meme ledger dans son propre job (commits "Bot #33 Echo"), sans
+    # verrou commun -- quand les deux se chevauchaient, le second push echouait et son run etait perdu
+    # (en reel : des ordres passes mais jamais enregistres). Job retire de ce repo-la le meme jour.
   workflow_dispatch: {}
 
 permissions:
@@ -22,7 +26,7 @@ concurrency:
 jobs:
   mail-signal-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60  # 45 -> 60 le 2026-10-03 : verification Ollama de chaque avis + rattrapage de 30 mails/run
     steps:
       - uses: actions/checkout@v4
         with:
@@ -67,9 +71,9 @@ jobs:
         run: |
           git config user.name "screener-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add results/screener/mail_signal_state.json results/screener/mail_signal_source_scorecard.csv \
-                  results/simulation/mail_signal_state.json results/simulation/mail_signal_ledger.csv \
-                  results/simulation/mail_signal_summary.json results/simulation/mail_signal_equity_curve.csv
+          # pathspecs git entre quotes : couvre aussi journal, rejets, annulations et strategie reelle,
+          # sans echouer sur un fichier pas encore cree
+          git add 'results/screener/mail_signal_*' 'results/simulation/mail_signal_*'
           if git diff --cached --quiet; then
             echo "Rien de nouveau ce cycle."
             exit 0

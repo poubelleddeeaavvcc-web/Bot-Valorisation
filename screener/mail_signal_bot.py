@@ -5,107 +5,105 @@ user's explicit request: "des mails il y a souvent des suggestions d'actions a f
 ou au contraire des chutes -- je veux des long ou des shorts sur ces actions, et savoir de
 quelle newsletter ca vient pour identifier les bons/mauvais investisseurs").
 
-Deliberately a SEPARATE script/workflow job from newsletter_digest.py, not folded into it,
-for the same reason bots-delta got its own job in update-screener.yml and the digest itself
-got split into its own repo (newsletter-digest-bot) on 2026-09-08: this module makes its own
-full pass of Ollama calls (is-this-a-newsletter + per-extract ticker/sentiment extraction) on
-top of whatever else already runs in the same CI window, and a shared 60-min job budget with
-those doesn't leave enough margin -- see newsletter-digest-bot's own history (run cancelled
-2026-09-10 at 56min after a state reset forced a full backlog reclassification). Independent
-Gmail fetch + independent daily gate (own STATE_PATH), duplicated rather than shared, per this
-repo's standing "duplicate small helpers instead of introducing cross-module coupling" style
-(see simulate_constrained_portfolio.py's docstring).
+THREE LAYERS (since 2026-10-03)
+-------------------------------
+  1. JOURNAL (mail_signal_scoring.py): every validated tip from every newsletter, evaluated at
+     J+5/J+20/J+60 against its market's benchmark. Decides which newsletters are "fiable",
+     "bruit" or "observation", and measures the crowd's consensus. This is the scorecard.
+  2. LAB (this module's ledger, mail_signal_ledger.csv): the original uncapped long/short paper
+     book -- every live tip opens a position. Kept for continuity; no longer what the scorecard is
+     built from.
+  3. STRATEGIE REELLE (mail_signal_real.py): capital-limited, long-only, fee-aware book that only
+     follows reliable newsletters, with the crowd's consensus adjusting conviction.
 
-MECHANICS
----------
-Extraction (see _extract_ticker_signals()): each email already classified as a financial
-newsletter (same classify_newsletter() gate as newsletter_digest.py) is passed to Ollama once,
-asked to list every EXPLICIT stock tip it contains -- a ticker/company clearly framed as having
-strong upside potential ("haussier") or headed for a drop ("baissier"). GROUNDING RULE (same
-standing rule as news_filter.py/newsletter_digest.py): sentiment must be grounded in what the
-extract actually says, never invented. The ticker SYMBOL itself is allowed to be the model's own
-mapping from a clearly-named company (that's a lookup, not a fact the model could hallucinate
-about the market) -- but it is NEVER trusted blindly: _resolve_ticker() fetches real price
-history for it before any trade happens, and a symbol that doesn't resolve to real market data is
-simply dropped, extract by extract.
+2026-10-03 OVERHAUL (the user's go-live review: "fais toutes ces corrections")
+-----------------------------------------------------------------------------
+A hand review of the first 168 lab positions found ~43% of tips wrong: ticker mapping errors
+("Chevron" -> CHEV = Charging Robotics, the lab's only big winner; "BCE" = the European Central
+Bank -> Bell Canada; "The Dollar Went Up" -> USD, a 2x semiconductor ETF), inverted direction
+("Paychex Plunges, Providing the Entry Investors Have Been Waiting For" -> short), plain news or
+page boilerplate taken as tips, and 22 ETFs/funds. Root cause: the prompt asked the model for its
+"best guess" ticker (a guessed fact -- against this repo's grounding rule) and _resolve_ticker()
+only checked that the symbol had a price, not that it was the right company. Now every tip must
+pass, in order (see _validate_tip / _verify_tip / _resolve_instrument):
+  - deterministic text checks: a verbatim citation that really is in the email, the company
+    actually named in it, not a macro subject (central bank, currency, index...), no "pas d'avis"
+    style self-negation, no ad/boilerplate text, no explicit upgrade/downgrade wording
+    contradicting the claimed direction;
+  - a second, independent Ollama call that only sees the citation and must confirm an explicit
+    investment opinion on that company, in the same direction (it is not told which direction
+    was claimed);
+  - a Yahoo lookup: the ticker is only taken from the email when it is literally written there,
+    otherwise looked up by company name; the listing must be an EQUITY on a primary exchange
+    (no ETF, fund, OTC) whose Yahoo name matches the company named in the email.
+Rejected tips are logged with their reason (mail_signal_rejects.csv) so the filter itself can be
+audited.
+
+The lab's existing wrong positions were removed once (cash refunded at entry value, same as the
+2026-09-16 FDX/AF.PA cleanup) and archived with their reason in mail_signal_annulled.csv -- see
+cleanup_legacy_rows().
+
+Also fixed: fees are charged on BOTH orders (was exit only); position values are in EUR with the
+current FX rate (was the entry rate forever) -- stops still trigger on the local price, like a
+broker stop; one CI job only (the newsletter-digest-bot repo used to run this same script on the
+same ledger in parallel, losing whichever push came second); the summary now reports P&L and
+average return per position, because "total_return_pct" against the nominal 300 EUR was
+misleading once ~5,000 EUR of notional was deployed.
+
+Backfill: the first runs after this overhaul also walk back over the last BACKFILL_DAYS of mail
+from senders already known as newsletters, BACKFILL_MAX_PER_RUN emails per run, feeding the
+journal only (no lab trade on old tips) -- so newsletters get a J+20 track record in weeks instead
+of months.
+
+Deliberately a SEPARATE script/workflow job from newsletter_digest.py, not folded into it: this
+module makes its own full pass of Ollama calls on top of whatever else already runs in the same
+CI window. Duplicates small helpers rather than sharing them, per this repo's standing style.
 
 ARTICLE FETCH (see _fetch_article_extract(), added 2026-09-16): most newsletters only excerpt a
-couple of sentences before a "read more" link to the sender's own site -- the extraction above
-was working off that short teaser. Before extraction, each newsletter's own links are tried (see
-_extract_article_links()) and, for the ones that resolve to a domain hand-confirmed fetchable
-with a plain HTTP GET (zonebourse.com, tradingsat.com -- see FETCHABLE_DOMAINS), the full article
-text replaces the teaser. Seeking Alpha is deliberately NOT in that list: it returns HTTP 403
-behind a real PerimeterX CAPTCHA wall to a plain GET (tested 2026-09-16) -- that's bot-detection,
-not just a content paywall, and not something this bot tries to bypass; its tips keep using the
-email's own excerpt, same as every domain not in FETCHABLE_DOMAINS.
+couple of sentences before a "read more" link to the sender's own site. Each newsletter's own links
+are tried and, for the domains hand-confirmed fetchable with a plain HTTP GET (zonebourse.com,
+tradingsat.com -- see FETCHABLE_DOMAINS), the full article text replaces the teaser. Seeking Alpha
+is deliberately NOT in that list: it answers a plain GET with a PerimeterX CAPTCHA wall -- that's
+bot-detection, not something this bot tries to bypass.
 
-Attribution (see _extract_source()): PRIVACY / REPO-PUBLIC CONSTRAINT (same standing rule as
-newsletter_digest.py -- this repo pushes to a public GitHub remote). The user's own explicit
-choice (2026-09-11): never persist the sender's full email address (that would publish which
-newsletters they're personally subscribed to); only the sending domain (e.g. "fool.com") is
-public-safe enough to keep, and it's exactly enough to build the "which sources call it right"
-scorecard this bot exists for (see mail_signal_source_scorecard.csv).
+ATTRIBUTION (see _publication()): PRIVACY / REPO-PUBLIC CONSTRAINT -- this repo pushes to a public
+GitHub remote. The user's explicit choice (2026-09-11): never persist the sender's email address.
+The sending domain is kept (e.g. "seekingalpha.com"). Since 2026-10-03, for newsletter PLATFORMS
+(beehiiv, substack, sailthru...) where the domain is shared by dozens of unrelated newsletters, the
+sender's display name is used instead (e.g. "Some Newsletter (beehiiv.com)") -- otherwise "which
+newsletter calls it right" is unanswerable there. Still never the address itself. An author name
+is kept only when the email literally contains it (journal column, informational).
 
-Trading: own ledger, own cash file -- same "propre pool, propre ledger" convention as Bot#25
-"Delta" -- long or short depending on the extracted sentiment, sized at TARGET_POSITION_SIZE per
-tip (STARTING_CAPITAL / STARTING_SLOTS -- a bet-sizing constant only, see below).
-NO CAP on concurrent open positions (removed 2026-09-15, the same day the CI job was first wired
-up, at the user's explicit request: "l'idee de ce bot c'est de savoir quelles analystes sont
-bons, je ne veux pas de plafond"). This bot's whole purpose is the per-source scorecard (see
-write_scorecard/mail_signal_source_scorecard.csv) -- a real capital constraint that starts
-dropping every new tip once STARTING_CAPITAL runs out (as the first CI run did within hours,
-9/9 slots filled) would silently stop testing whichever sources happen to tip *after* the pool
-fills, biasing the leaderboard toward early sources instead of ranking them all. cash_eur is
-therefore no longer a spending limit -- _open_position() never checks it -- just a running
-counter (can go negative, meaning more than STARTING_CAPITAL is notionally deployed at once)
-kept so total_equity_eur/total_return_pct in the summary stay interpretable against the nominal
-300 EUR baseline.
-- A signal for a ticker not currently held opens a position sized at TARGET_POSITION_SIZE (or
-  whatever whole-share amount gets closest to it, same fractional_eligible() split as every
-  other capital-tracking bot -- imported, not reimplemented).
-- A signal that CONTRADICTS an existing open position (bullish while short, bearish while long)
-  closes it ("signal_inverse") -- but only once the price has already moved at least
-  MIN_REVERSAL_CONFIRM_PCT against the held side (2026-09-14, after a same-day 3-tip NVDA
-  whipsaw from a single source cost 3x the fixed fee for zero real price move): a contradicting
-  tip with no market move behind it yet is dropped outright rather than queued, and the bot
-  keeps holding until either the price itself confirms the new thesis or another exit rule
-  fires. Once confirmed, the freed cash is eligible to reopen the position on the new side the
-  same run.
-- A signal for a ticker already held on the SAME side is a no-op (already positioned).
+LAB TRADING: own ledger, own cash file -- long or short depending on the extracted sentiment,
+sized at TARGET_POSITION_SIZE per tip. NO CAP on concurrent open positions (2026-09-15, user's
+request: "l'idee de ce bot c'est de savoir quelles analystes sont bons, je ne veux pas de
+plafond"); cash_eur can go negative and is just a running counter.
+- A tip for a ticker not currently held opens a position.
+- A tip that CONTRADICTS an open position closes it ("signal_inverse") only once the price has
+  already moved at least MIN_REVERSAL_CONFIRM_PCT against the held side (2026-09-14 NVDA whipsaw);
+  otherwise it is dropped. Note this makes signal_inverse a loss-taking exit by construction.
+- A tip for a ticker already held on the same side is a no-op for the lab (it still counts in the
+  journal and the consensus).
+Exits: STOP_LOSS_PCT / the ratcheting stop / TAKE_PROFIT_PCT; no max-holding force-close in the lab
+(removed 2026-09-14 at the user's request). The real strategy does have one -- see
+mail_signal_real.py.
 
-Exit logic on every run, independent of new signals -- the user's own explicit direction
-(2026-09-11: "il faut qu'on instaure une logique de quand vendre"), since this is a fresh
-mechanic with no fundamentals model of its own to fall back on for continued-thesis checks:
-  - STOP_LOSS_PCT / the ratcheting stop (RATCHET_STEP_PCT/RATCHET_GIVEBACK_PCT), same constants
-    imported from simulate_portfolio.py, applied to whichever side's own "unrealized" (a short's
-    gain is the mirror of a long's -- see _unrealized_return()) -- symmetric risk discipline
-    rather than leaving a short's theoretically-unbounded downside unmanaged.
-  - TAKE_PROFIT_PCT: a single newsletter tip, unlike the valuation model the other bots use,
-    carries no ongoing thesis to re-check for "still has room to run" -- so a big favorable move
-    locks in profit rather than riding indefinitely.
-  - No max-holding-days force-close (removed 2026-09-14 at the user's request, was 20 days): a
-    position now only exits on stop-loss/take-profit/trailing-stop or an explicit contradicting
-    signal_inverse tip -- it can run indefinitely on an unresolved thesis, same as every other
-    bot in this repo. holding_days is still recorded on exit for information, it just no longer
-    triggers one.
-
-SIMPLIFICATION (documented, not hidden): a short's cash accounting mirrors a long's --
-entry_value_eur leaves the cash pool at open and current_value_eur = entry_value_eur * (1 +
-unrealized) returns at close, rather than modeling real short-sale mechanics (borrow fees,
-margin calls, proceeds-from-sale-generates-cash-immediately). That keeps the ledger's
-open/close cash bookkeeping identical for both sides; it does NOT reproduce a real broker's
-short economics, only this bot's own directional bet's P&L.
+SIMPLIFICATION (documented, not hidden): a short's cash accounting mirrors a long's rather than
+modeling real short-sale mechanics (borrow fees, margin calls) -- one more reason shorts stay in
+the lab and the real strategy is long-only.
 """
 import base64
+import difflib
 import html
 import json
 import os
 import pathlib
 import re
 import sys
+import unicodedata
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import pandas as pd
 import requests
@@ -118,6 +116,8 @@ from screener.simulate_portfolio import (  # noqa: E402
     STOP_LOSS_PCT, RATCHET_STEP_PCT, RATCHET_GIVEBACK_PCT, reconcile_fresh_price,
 )
 from screener.simulate_constrained_portfolio import fetch_fx_rates, to_eur, fractional_eligible  # noqa: E402
+from screener import mail_signal_scoring as scoring  # noqa: E402
+from screener.mail_signal_real import run_real_layer  # noqa: E402
 
 STATE_PATH = HERE / "results/screener/mail_signal_state.json"
 CASH_PATH = HERE / "results/simulation/mail_signal_state.json"
@@ -125,67 +125,104 @@ LEDGER_PATH = HERE / "results/simulation/mail_signal_ledger.csv"
 SUMMARY_PATH = HERE / "results/simulation/mail_signal_summary.json"
 EQUITY_CURVE_PATH = HERE / "results/simulation/mail_signal_equity_curve.csv"
 SCORECARD_PATH = HERE / "results/screener/mail_signal_source_scorecard.csv"
+REJECTS_PATH = HERE / "results/screener/mail_signal_rejects.csv"
+ANNULLED_PATH = HERE / "results/simulation/mail_signal_annulled.csv"
 
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 GMAIL_API = "https://gmail.googleapis.com/gmail/v1/users/me"
 GMAIL_QUERY = "newer_than:2d"  # same buffer/reasoning as newsletter_digest.py
 MAX_MESSAGES = 300
-BODY_TRUNCATE = 900
-EXTRACT_TRUNCATE = 2000  # a per-ticker tip can be buried deeper in the email than the
-# sector-level gist newsletter_digest.py extracts, so this module truncates less aggressively.
-# Raised from 900 on 2026-09-16 to fit the full text _fetch_article_extract() gets when it can
-# follow the newsletter's own link -- see that function's docstring.
+BODY_TRUNCATE = 900       # classification excerpt -- a yes/no call doesn't need more
+TEXT_TRUNCATE = 6000      # full email text kept in memory for extraction + citation checks
+EXTRACT_TRUNCATE = 3000   # what the extraction call actually sees (email text or fetched article)
+MAX_REJECTS_KEPT = 1000
 
-# ARTICLE FETCH (2026-09-16, at the user's explicit request after noticing most newsletters are
-# just a teaser before a "read more" link): many newsletters only excerpt a couple of sentences
-# in the email itself, with the real analysis living on the sender's own website. Hand-tested
-# (2026-09-15/16, real links from real newsletters) which sites are actually fetchable with a
-# plain HTTP GET, no browser/JS engine:
-#   - zonebourse.com, tradingsat.com: plain server-rendered pages, full article text in the raw
-#     HTML, no login/paywall on the article types seen in this user's newsletters.
-#   - seekingalpha.com: NOT fetchable this way -- returns HTTP 403 behind a PerimeterX CAPTCHA
-#     wall to a plain `requests` call (real bot-detection, not just a content paywall). Not
-#     something to try to bypass -- Seeking Alpha tips keep using the email's own excerpt only.
-# A domain not in FETCHABLE_DOMAINS (including seekingalpha.com) simply isn't fetched -- callers
-# fall back to the newsletter's own (usually truncated) body text, same behavior as before this
-# existed.
+BACKFILL_DAYS = 30
+BACKFILL_MAX_PER_RUN = 30  # bounds the extra Ollama time per CI run (~10 min at this size --
+# a long digest takes 30-90 s to extract on CPU, measured locally 2026-10-03)
+
+# ARTICLE FETCH -- see module docstring. A domain not listed here is never fetched.
 FETCHABLE_DOMAINS = ("zonebourse.com", "tradingsat.com")
 ARTICLE_FETCH_TIMEOUT = 15
 ARTICLE_FETCH_TRUNCATE = 2500
-ARTICLE_LINK_CANDIDATES = 5  # try at most this many links per email before giving up
-ARTICLE_FETCH_MAX_WORKERS = 4  # plain HTTP GETs, not Ollama calls -- no memory-ceiling reason
-# to stay as conservative as OLLAMA_MAX_WORKERS
-# A full "claims to be Chrome 120" UA string tripped zonebourse.com's bot-detection outright
-# (403) precisely because it wasn't paired with the other headers a real Chrome browser sends
-# (Sec-Ch-Ua, Accept-Language, Sec-Fetch-*...) -- tested 2026-09-16, reproducible. This shorter,
-# generic-client-looking UA (no browser name attached) passes reliably on both fetchable domains.
+ARTICLE_LINK_CANDIDATES = 5
+ARTICLE_FETCH_MAX_WORKERS = 4
+# A full "Chrome 120" UA without the matching Sec-* headers tripped zonebourse.com's bot-detection
+# (403, tested 2026-09-16); this generic one passes on both fetchable domains.
 _FETCH_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
 _EXCLUDE_LINK_SUBSTR = ("mailto:", "unsubscribe", "preferences", "facebook.com", "twitter.com",
                          "x.com", "linkedin.com", "instagram.com", "youtube.com", "privacy")
 
-STARTING_CAPITAL = 300.0        # own pool, separate from every other bot -- see module docstring
-STARTING_SLOTS = 9              # -> TARGET_POSITION_SIZE ~= 33 EUR/slot, same granularity as Bot#2/3/25
+STARTING_CAPITAL = 300.0        # lab pool -- see module docstring
+STARTING_SLOTS = 9
 TARGET_POSITION_SIZE = STARTING_CAPITAL / STARTING_SLOTS
-MAX_WHOLE_SHARE_OVERSHOOT = 2.5  # same convention as simulate_constrained_portfolio.py
-TRADE_FEE_EUR = 1.0
+MAX_WHOLE_SHARE_OVERSHOOT = 2.5
+TRADE_FEE_EUR = 1.0             # per ORDER -- charged at entry and at exit since 2026-10-03
 
-TAKE_PROFIT_PCT = 0.30    # see module docstring's EXIT LOGIC section
-MIN_REVERSAL_CONFIRM_PCT = 0.02  # see module docstring's Trading section -- price must already
-# have moved this much against the held side before an opposite tip is allowed to reverse it
-MAX_TICKERS_PER_EMAIL = 3  # bounds noise/cost: a newsletter that name-drops a dozen tickers in
-# passing is diluting its own conviction, not producing a dozen real tips
+TAKE_PROFIT_PCT = 0.30
+MIN_REVERSAL_CONFIRM_PCT = 0.02
+MAX_TICKERS_PER_EMAIL = 3
 
-# Values a model reaches for when it has no real ticker but still wants to fill the field --
-# never real symbols, must never reach _resolve_ticker()'s name-search fallback (see
-# _extract_ticker_signals()). Not exhaustive by design -- the whitespace check next to this
-# catches most other cases ("NON RENSEIGNE", "NON MENTIONNE"...) without needing every phrasing.
 _PLACEHOLDER_TICKERS = {"N/A", "NA", "NONE", "AUCUN", "AUCUNE", "INCONNU", "UNKNOWN", "TBD", "-", "?"}
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "llama3.1:8b"  # same as newsletter_digest.py -- see that module's docstring for
-# why the 3b model shared with news_filter.py's bots isn't reliable enough for this kind of call
-OLLAMA_TIMEOUT = 180
-OLLAMA_MAX_WORKERS = 2  # see newsletter_digest.py's own constant for the memory-ceiling reasoning
+OLLAMA_MODEL = "llama3.1:8b"  # same as newsletter_digest.py
+OLLAMA_TIMEOUT = 240
+OLLAMA_MAX_WORKERS = 2
+# temperature 0: extraction/verification are lookups, not creative writing -- and the same email
+# must give the same answer on a re-run. num_ctx 4096: the default context truncates a 3000-char
+# extract + prompt silently.
+OLLAMA_OPTIONS = {"temperature": 0, "num_ctx": 4096}
+
+# Newsletter platforms whose sending domain is shared by many unrelated newsletters -- see
+# ATTRIBUTION in the module docstring.
+PLATFORM_DOMAINS = ("beehiiv.com", "substack.com", "sailthru.com", "mailchimpapp.com", "mcsv.net",
+                    "convertkit.com", "kit.com", "ghost.io", "mailerlite.com", "sendgrid.net",
+                    "klaviyomail.com", "hubspotemail.net", "createsend.com", "list-manage.com")
+
+# Primary exchanges (Yahoo codes -- the same exchange can appear under two codes depending on the
+# endpoint, e.g. NYQ/NYSE). Excludes OTC (PNK, OTCM...) and Brazilian/other depositary listings.
+MAJOR_EXCHANGES = {
+    "NMS", "NYQ", "NGM", "NCM", "ASE", "PCX", "BTS", "NYSE", "NASDAQ", "AMEX",           # US
+    "PAR", "GER", "FRA", "LSE", "AMS", "MIL", "MCE", "VIE", "SWX", "EBS", "BRU", "LIS",  # Europe
+    "ISE", "STO", "CPH", "HEL", "OSL",
+    "TOR", "TSE", "TAI", "TWO", "HKG", "JPX", "KSC", "KOE",                              # other
+}
+
+# Subjects a model turns into a "company" although they are not one (2026-09-16 "Fed" -> FedEx,
+# 2026-09-13 "BCE" = Banque centrale europeenne -> Bell Canada). Exact match on the normalized
+# company name, plus the substrings below.
+_MACRO_TERMS = {
+    "bce", "fed", "la fed", "federal reserve", "reserve federale", "banque centrale europeenne", "ecb",
+    "boe", "boj", "bank of japan", "bank of england", "pboc", "snb", "fmi", "imf", "opep", "opec", "ocde",
+    "oecd", "usd", "eur", "dollar", "euro", "yen", "yuan", "bitcoin", "btc", "ethereum", "or", "gold",
+    "petrole", "oil", "brent", "wti", "sp 500", "s p 500", "nasdaq", "nasdaq 100", "dow jones", "cac 40",
+    "dax", "stoxx 600", "euro stoxx 50", "tresor", "treasury", "us treasury", "wall street", "france",
+    "etats unis", "chine", "china", "japon", "allemagne", "europe", "usa",
+}
+_MACRO_SUBSTRINGS = ("banque centrale", "central bank", "reserve federale", "federal reserve")
+# The model's own reason/citation saying there is no opinion (seen verbatim in 23 lab rows).
+_NEGATION_PATTERNS = ("pas d'avis", "aucun avis", "sans avis", "pas mentionné", "non mentionné",
+                      "pas d'information", "aucune information", "non renseigné", "pas de recommandation",
+                      "aucune recommandation", "no explicit", "not mentioned", "no opinion")
+# Page/ad boilerplate that was taken as tips (TipRanks footer -> TRKR/TSLA, BFM menu -> Rexel).
+_BOILERPLATE_PATTERNS = ("with tipranks you can", "follow the expert of your choice", "devenez membre",
+                         "se connecter", "rester connecté", "unsubscribe", "se désabonner", "privacy policy",
+                         "terms of service", "paid advertisement", "this is a paid", "sponsored content",
+                         "contenu sponsorisé", "publicité")
+_BULLISH_WORDS = ("rating upgrade", "upgraded", "upgrades", "upgrade to buy", "strong buy", "buy rating",
+                  "outperform", "overweight", "relevée à l'achat", "recommandation à l'achat", "conseil achat")
+_BEARISH_WORDS = ("rating downgrade", "downgraded", "downgrades", "downgrade to sell", "strong sell",
+                  "sell rating", "underperform", "underweight", "recommandation à la vente", "conseil vente")
+# Legal-form and filler words ignored when comparing company names.
+_NAME_STOP_TOKENS = {
+    "inc", "incorporated", "corp", "corporation", "co", "company", "companies", "ltd", "limited", "plc", "sa",
+    "se", "nv", "ag", "spa", "ab", "asa", "oyj", "lp", "llc", "group", "groupe", "holding", "holdings", "the",
+    "de", "du", "la", "le", "les", "et", "and", "of", "class", "cl", "ord", "adr", "ads", "sponsored", "new",
+    "com", "reit",
+}
+# Brand name -> legal-name token, when they share no word at all (kept tiny on purpose).
+_NAME_ALIASES = {"google": "alphabet", "facebook": "meta", "instagram": "meta", "whatsapp": "meta"}
 
 CLASSIFY_PROMPT = """Voici un email recu aujourd'hui :
 
@@ -198,40 +235,54 @@ Ceci est-il une newsletter financiere/economique (actualite des marches, d'un se
 Reponds UNIQUEMENT en JSON : {{"is_finance_newsletter": true|false, "reason": "<une phrase courte>"}}
 """
 
-# One call per EXTRACT returning a LIST (not one ticker per call) -- same "ask once, let the
-# model enumerate" shape as newsletter_digest.py's per-sector call, but this module wants every
-# explicit tip in the email, not just its single main topic.
-#
-# ANALYSE vs ACTUALITE (2026-09-15, at the user's explicit request after noticing plain news
-# coverage of well-known large caps -- e.g. a Tesla/Nvidia news item with no investment opinion
-# in it -- was being picked up as a "tip"): explicitly instructed to require a genuine
-# investment opinion (buy/sell call, rating change, price target, argued thesis), not just an
-# eventful-sounding piece of news about the company. A big name being in the news is not on its
-# own a directional call.
-EXTRACT_TICKER_PROMPT = """Voici un extrait de newsletter financiere recue aujourd'hui :
+# ANALYSE vs ACTUALITE (2026-09-15) and CITATION / NO-GUESS TICKER (2026-10-03) -- see module
+# docstring. The model no longer maps a company to a ticker itself: it only copies a ticker that is
+# literally written in the extract; otherwise the code looks it up by name.
+EXTRACT_TICKER_PROMPT = """Voici un extrait de newsletter financiere :
 
 Sujet : {subject}
 Extrait : {body}
 
-Identifie chaque action individuelle d'une SOCIETE COTEE EN BOURSE PRECISE ET NOMMEE qui fait l'objet d'une VERITABLE ANALYSE BOURSIERE avec un avis d'investissement explicite dans cet extrait (recommandation d'achat/vente, notation relevee/abaissee, objectif de cours, these d'investissement argumentee) -- pas une simple actualite sur l'entreprise. Pour chaque action retenue, l'avis doit exprimer soit un FORT POTENTIEL DE HAUSSE, soit un RISQUE DE FORTE BAISSE.
+Identifie chaque action d'une SOCIETE COTEE PRECISE ET NOMMEE qui fait l'objet d'un AVIS D'INVESTISSEMENT EXPLICITE dans cet extrait : recommandation d'achat/vente, notation relevee/abaissee, objectif de cours, ou these d'investissement argumentee concluant a un fort potentiel de hausse ou a un risque de forte baisse.
 
-IGNORE : (1) les actions seulement mentionnees en passant sans avis directionnel clair ; (2) une simple actualite/info sur une entreprise (resultats rapportes sans avis, annonce produit, actualite generale la concernant) SANS recommandation d'investissement explicite -- meme pour une grande entreprise connue (Tesla, Nvidia, Apple...) et meme si la nouvelle semble positive ou negative en soi : tant qu'aucun avis d'achat/vente/notation n'est donne, ce n'est pas un tip ; (3) tout sujet qui n'est PAS une societe cotee precise -- une banque centrale (la Fed, la BCE), un pays, une devise, un indice, une matiere premiere, un secteur en general : si tu ne peux pas nommer la societe et son ticker exact, N'INCLUS PAS cette entree, ne mets jamais "N/A", "non renseigne" ou une valeur approximative a la place.
+N'INCLUS PAS :
+(1) une action seulement mentionnee en passant ;
+(2) une simple actualite (resultats, annonce, partenariat, mouvement de cours, proces...) sans avis d'investissement explicite -- meme pour une grande entreprise connue ;
+(3) un sujet qui n'est pas une societe cotee precise : banque centrale (Fed, BCE), pays, devise, indice, matiere premiere, crypto, fonds/ETF, secteur en general ;
+(4) la banque ou le courtier qui EMET l'avis (dans "Bank of America releve Nvidia a l'achat", la societe analysee est Nvidia, pas Bank of America) ;
+(5) les publicites, menus, mentions legales, pieds de page et textes d'abonnement.
 
-Pour chaque action identifiee (maximum {max_tickers}), donne :
-- "company" : son nom exact tel que mentionne dans l'extrait (jamais un sujet macro comme "Fed" ou un pays)
-- "ticker" : son ticker boursier (le symbole utilise sur les marches, ex: AAPL, MC.PA -- ta meilleure estimation si seul le nom de l'entreprise est donne)
+SENS DE L'AVIS : deduis-le de l'opinion exprimee, jamais du mouvement passe du cours. Une action qui a chute et qui est presentee comme une opportunite d'achat est "haussier". Une action qui a monte et qui est jugee trop chere est "baissier". Si l'extrait compare deux titres, seul celui qui est explicitement recommande ou deconseille compte -- l'autre n'est pas un avis.
+
+Pour chaque action retenue (maximum {max_tickers}), donne :
+- "company" : le nom de la societe EXACTEMENT tel qu'ecrit dans l'extrait
+- "ticker" : le symbole boursier SEULEMENT s'il est ecrit tel quel dans l'extrait (ex: "(NVDA)"), sinon "" -- ne devine jamais un symbole
 - "sentiment" : "haussier" ou "baissier"
+- "citation" : la phrase de l'extrait qui exprime l'avis, COPIEE MOT POUR MOT (ne la reformule pas, ne la traduis pas)
+- "author" : le nom de l'auteur de l'analyse SEULEMENT s'il est ecrit dans l'extrait, sinon ""
 
-Si aucune action ne fait l'objet d'une veritable analyse avec avis directionnel explicite sur une societe precise et nommee, reponds avec une liste vide.
+Si aucune action ne remplit ces conditions, reponds avec une liste vide.
 
-Reponds UNIQUEMENT en JSON : {{"tips": [{{"company": "<NOM>", "ticker": "<SYMBOLE>", "sentiment": "haussier|baissier", "reason": "<une phrase courte citant ce que dit l'extrait>"}}, ...]}}
+Reponds UNIQUEMENT en JSON : {{"tips": [{{"company": "<NOM>", "ticker": "<SYMBOLE ou vide>", "sentiment": "haussier|baissier", "citation": "<phrase copiee>", "author": "<auteur ou vide>"}}, ...]}}
+"""
+
+# Independent second opinion on ONE tip (2026-10-03): sees only the subject and the citation, and
+# is not told which direction the extraction claimed -- so it can't just agree.
+VERIFY_PROMPT = """Sujet d'une newsletter financiere : {subject}
+Citation extraite de cette newsletter : "{citation}"
+
+Question : cette citation contient-elle un AVIS D'INVESTISSEMENT EXPLICITE sur l'action de la societe "{company}" elle-meme ? Un avis d'investissement = recommandation d'achat ou de vente, notation relevee ou abaissee, objectif de cours, ou conclusion argumentee sur le potentiel de hausse ou le risque de baisse de l'action.
+Ce n'est PAS un avis : une simple actualite (resultats, partenariat, contrat, proces, nomination), un mouvement de cours passe sans opinion, un avis sur une autre societe, une publicite.
+
+Si c'est un avis, quel est son sens ? "haussier" (acheter, potentiel de hausse -- y compris une baisse passee presentee comme une opportunite d'achat) ou "baissier" (vendre, risque de baisse).
+
+Reponds UNIQUEMENT en JSON : {{"avis_explicite": true|false, "sens": "haussier|baissier|aucun", "raison": "<une phrase courte>"}}
 """
 
 
 def _call_ollama_json(prompt: str) -> dict:
-    """Same shape as newsletter_digest.py's _call_ollama_json -- duplicated per this repo's
-    small-helper convention (see module docstring)."""
-    payload = {"model": OLLAMA_MODEL, "prompt": prompt, "stream": False, "format": "json", "keep_alive": "20m"}
+    payload = {"model": OLLAMA_MODEL, "prompt": prompt, "stream": False, "format": "json", "keep_alive": "20m",
+               "options": OLLAMA_OPTIONS}
     resp = requests.post(OLLAMA_URL, json=payload, timeout=OLLAMA_TIMEOUT)
     resp.raise_for_status()
     outer = json.loads(resp.content)
@@ -252,6 +303,10 @@ def _save_json(path: pathlib.Path, data):
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+# ---------------------------------------------------------------------------------------------
+# Gmail
+# ---------------------------------------------------------------------------------------------
+
 def get_access_token() -> str:
     resp = requests.post(TOKEN_URL, data={
         "refresh_token": os.environ["GMAIL_REFRESH_TOKEN"],
@@ -263,19 +318,19 @@ def get_access_token() -> str:
     return resp.json()["access_token"]
 
 
-def list_recent_message_ids(token: str) -> list[str]:
+def list_message_ids(token: str, query: str, max_messages: int = MAX_MESSAGES) -> list[str]:
     ids = []
-    params = {"q": GMAIL_QUERY, "maxResults": min(MAX_MESSAGES, 500)}
+    params = {"q": query, "maxResults": min(max_messages, 500)}
     headers = {"Authorization": f"Bearer {token}"}
     while True:
         resp = requests.get(f"{GMAIL_API}/messages", params=params, headers=headers, timeout=30)
         resp.raise_for_status()
         data = resp.json()
         ids.extend(m["id"] for m in data.get("messages", []))
-        if len(ids) >= MAX_MESSAGES or "nextPageToken" not in data:
+        if len(ids) >= max_messages or "nextPageToken" not in data:
             break
         params["pageToken"] = data["nextPageToken"]
-    return ids[:MAX_MESSAGES]
+    return ids[:max_messages]
 
 
 def _part_charset(part: dict) -> str:
@@ -295,7 +350,16 @@ def _decode_part(data_b64url: str, charset: str = "utf-8") -> str:
         return raw.decode("utf-8", errors="replace")
 
 
+def _html_to_text(page_html: str) -> str:
+    cleaned = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", page_html, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r"<[^>]+>", " ", cleaned)
+    return re.sub(r"\s+", " ", html.unescape(text)).strip()
+
+
 def _extract_text(payload: dict) -> str:
+    """text/plain part if there is one, else the HTML part converted to text (script/style blocks
+    removed and entities unescaped since 2026-10-03 -- an HTML-only newsletter used to hand the
+    model its CSS as the first 900 characters)."""
     stack = [payload]
     html_fallback = None
     while stack:
@@ -303,26 +367,31 @@ def _extract_text(payload: dict) -> str:
         mime = part.get("mimeType", "")
         body_data = part.get("body", {}).get("data")
         if mime == "text/plain" and body_data:
-            return _decode_part(body_data, _part_charset(part))
+            return re.sub(r"[ \t]+", " ", _decode_part(body_data, _part_charset(part))).strip()
         if mime == "text/html" and body_data and html_fallback is None:
             html_fallback = _decode_part(body_data, _part_charset(part))
         stack.extend(part.get("parts", []) or [])
-    if html_fallback:
-        return re.sub(r"<[^>]+>", " ", html_fallback)
-    return ""
+    return _html_to_text(html_fallback) if html_fallback else ""
 
 
 def _extract_source(sender: str) -> str:
-    """Sending domain only -- e.g. "Morning Brew <crew@morningbrew.com>" -> "morningbrew.com".
-    Never the local part / full address (see PRIVACY note in module docstring)."""
+    """Sending domain only -- never the local part / full address (see ATTRIBUTION)."""
     m = re.search(r'@([\w.-]+\.[A-Za-z]{2,})', sender or "")
     return m.group(1).lower() if m else "inconnu"
 
 
+def _publication(sender: str, domain: str) -> str:
+    """Scoring key of a newsletter -- see ATTRIBUTION in the module docstring."""
+    platform = next((p for p in PLATFORM_DOMAINS if domain == p or domain.endswith("." + p)), None)
+    if not platform:
+        return domain
+    name = re.sub(r"<[^>]*>", "", sender or "")
+    name = re.sub(r"\S*@\S*", "", name).strip().strip('"\'').strip()
+    name = re.sub(r"\s+", " ", name)[:60]
+    return f"{name} ({platform})" if name else domain
+
+
 def _extract_html_part(payload: dict) -> str:
-    """Same walk as _extract_text() but returns the raw HTML part specifically (not stripped,
-    not truncated) -- needed to find the newsletter's own links, which a text/plain part
-    generally doesn't preserve as clickable URLs."""
     stack = [payload]
     while stack:
         part = stack.pop()
@@ -335,11 +404,7 @@ def _extract_html_part(payload: dict) -> str:
 
 
 def _extract_article_links(html_body: str) -> list[str]:
-    """Every plausible "read more" / article link in the newsletter's HTML, in the order they
-    appear (newsletters put the actual story link first, tracking/social/footer links after) --
-    excludes the obvious non-article links (unsubscribe, social platforms, mailto:). Not a
-    fact-extraction step -- these are just URLs copied verbatim from the email, nothing here is
-    invented or guessed."""
+    """Plausible "read more" links copied verbatim from the email, in order."""
     if not html_body:
         return []
     out, seen = [], set()
@@ -355,12 +420,9 @@ def _extract_article_links(html_body: str) -> list[str]:
 
 
 def _extract_article_text_from_html(page_html: str) -> str:
-    """Strips <script>/<style> blocks first (zonebourse.com in particular embeds a large JS
-    blob for a translation-disclaimer tooltip right at the top of its <article> tag -- without
-    this the extraction below would return that JS source instead of the story), then takes the
-    <article>...</article> region if there is one (falls back to the whole page otherwise),
-    strips remaining tags, unescapes HTML entities, collapses whitespace. Validated by hand
-    against real zonebourse.com/tradingsat.com article pages, 2026-09-16."""
+    """<article> region if any (whole page otherwise), script/style stripped first --
+    zonebourse.com embeds a large JS blob at the top of its <article>. Validated by hand against
+    real zonebourse.com/tradingsat.com pages, 2026-09-16."""
     cleaned = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", page_html, flags=re.DOTALL | re.IGNORECASE)
     start = cleaned.find("<article")
     if start == -1:
@@ -374,16 +436,10 @@ def _extract_article_text_from_html(page_html: str) -> str:
 
 
 def _fetch_article_extract(links: list[str]) -> str | None:
-    """Follows the newsletter's own links, in order, and returns the full article text from the
-    first one that resolves (after redirects -- newsletter links are often wrapped in a
-    click-tracker) to a domain in FETCHABLE_DOMAINS. Returns None -- not an empty string -- if
-    no candidate link qualifies or every fetch fails/times out, so callers can tell "nothing
-    better available" apart from "fetched but genuinely short" and fall back to the email's own
-    excerpt. See FETCHABLE_DOMAINS above for why only 2 domains are attempted at all."""
+    """Full article text from the first link that resolves to a FETCHABLE_DOMAINS page, or None."""
     for link in links[:ARTICLE_LINK_CANDIDATES]:
         try:
-            resp = requests.get(link, headers=_FETCH_HEADERS, timeout=ARTICLE_FETCH_TIMEOUT,
-                                 allow_redirects=True)
+            resp = requests.get(link, headers=_FETCH_HEADERS, timeout=ARTICLE_FETCH_TIMEOUT, allow_redirects=True)
         except Exception:
             continue
         if resp.status_code != 200:
@@ -392,8 +448,7 @@ def _fetch_article_extract(links: list[str]) -> str | None:
         if not any(host == d or host.endswith("." + d) for d in FETCHABLE_DOMAINS):
             continue
         text = _extract_article_text_from_html(resp.content.decode(resp.encoding or "utf-8", errors="replace"))
-        if len(text) > 200:  # sanity floor -- an unexpectedly thin extraction (redesigned page,
-            # different article template) isn't worth preferring over the email's own excerpt
+        if len(text) > 200:
             return text[:ARTICLE_FETCH_TRUNCATE]
     return None
 
@@ -411,29 +466,149 @@ def fetch_message(token: str, message_id: str) -> dict | None:
         return next((h["value"] for h in hdrs if h["name"].lower() == name.lower()), "")
 
     payload = data.get("payload", {})
-    body = _extract_text(payload)
-    # Raw HTML kept only to look for article links (see _extract_article_links()) -- never
-    # printed/stored, and never a substitute for `body` in classify_newsletter (which stays on
-    # the short plain-text excerpt, cheap and enough for a yes/no classification).
-    return {"id": message_id, "sender": get_header("From"), "subject": get_header("Subject"),
-            "source": _extract_source(get_header("From")), "body": body[:BODY_TRUNCATE],
-            "html": _extract_html_part(payload)}
+    text = _extract_text(payload)[:TEXT_TRUNCATE]
+    sender = get_header("From")
+    domain = _extract_source(sender)
+    try:
+        mail_date = datetime.fromtimestamp(int(data["internalDate"]) / 1000, tz=timezone.utc)
+    except (KeyError, ValueError, TypeError):
+        mail_date = datetime.now(timezone.utc)
+    return {"id": message_id, "sender": sender, "subject": get_header("Subject"), "source": domain,
+            "publication": _publication(sender, domain), "date_utc": mail_date.isoformat(),
+            "body": text[:BODY_TRUNCATE], "text": text, "html": _extract_html_part(payload)}
 
 
-def classify_newsletter(msg: dict) -> bool:
+def classify_newsletter(msg: dict) -> bool | None:
+    """True/False, or None if Ollama itself failed (see process_messages: an all-None batch means
+    Ollama is down, and those emails must NOT be marked processed)."""
     prompt = CLASSIFY_PROMPT.format(sender=msg["sender"], subject=msg["subject"], body=msg["body"])
     try:
         raw = _call_ollama_json(prompt)
         return bool(raw.get("is_finance_newsletter", False))
     except Exception as e:
         print(f"  echec classification Ollama pour un mail: {e}", file=sys.stderr)
+        return None
+
+
+# ---------------------------------------------------------------------------------------------
+# Tip extraction + validation (2026-10-03 -- see module docstring)
+# ---------------------------------------------------------------------------------------------
+
+def _norm_text(s: str) -> str:
+    """ASCII-folded, lowercase, punctuation -> space, whitespace collapsed. Apostrophes are
+    dropped (not spaced) so "Dick's"/"L'Oreal" compare the same on both sides."""
+    s = unicodedata.normalize("NFKD", str(s or "")).encode("ascii", "ignore").decode("ascii").lower()
+    s = re.sub(r"['’`]s", "", s)  # possessive: "AMD's" -> "amd"
+    s = re.sub(r"['’`]", "", s)
+    s = s.replace("&", "")
+    s = re.sub(r"[^a-z0-9]+", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+# Patterns above are written naturally; matched in the same normalized form as the text.
+_NEGATION_PATTERNS = tuple(_norm_text(p) for p in _NEGATION_PATTERNS)
+_BOILERPLATE_PATTERNS = tuple(_norm_text(p) for p in _BOILERPLATE_PATTERNS)
+_BULLISH_WORDS = tuple(_norm_text(p) for p in _BULLISH_WORDS)
+_BEARISH_WORDS = tuple(_norm_text(p) for p in _BEARISH_WORDS)
+_MACRO_TERMS = {_norm_text(p) for p in _MACRO_TERMS}
+_MACRO_SUBSTRINGS = tuple(_norm_text(p) for p in _MACRO_SUBSTRINGS)
+
+
+def _name_tokens(name: str, drop_stops: bool = True) -> list[str]:
+    toks = [t for t in _norm_text(name).split() if len(t) >= 2]
+    return [t for t in toks if t not in _NAME_STOP_TOKENS] if drop_stops else toks
+
+
+def _names_match(company: str, listed_name: str) -> bool:
+    """Is `listed_name` (Yahoo) the company the email names? Every significant word of the
+    company must be in the listed name, and cover at least half of it (so "Mistral" no longer
+    matches "Mistral Iberia Real Estate Socimi" -- 2026-09-16 lab row); or the company is an
+    acronym of the listed name ("TSMC", "AMD"). Callers try both Yahoo's long and short name
+    ("LVMH" is the short name of a 7-word long name)."""
+    ct = {_NAME_ALIASES.get(t, t) for t in _name_tokens(company)}
+    rt = set(_name_tokens(listed_name))
+    if not ct or not rt:
         return False
+    if ct <= rt and (len(rt) <= 2 or len(ct) / len(rt) >= 0.5):
+        return True
+    if rt <= ct:
+        return True
+    if len(ct) == 1:
+        acro = next(iter(ct))
+        initials = "".join(t[0] for t in _name_tokens(listed_name, drop_stops=False))
+        if 2 <= len(acro) <= 6 and initials.startswith(acro):
+            return True
+    return False
 
 
-def _extract_ticker_signals(msg: dict) -> list[dict]:
-    """One Ollama call per newsletter, returns every grounded (ticker, sentiment) tip it
-    contains -- NOT yet validated against real market data, see _resolve_ticker()."""
-    prompt = EXTRACT_TICKER_PROMPT.format(subject=msg["subject"], body=msg["body"][:EXTRACT_TRUNCATE],
+def _citation_span(citation: str, text: str):
+    """(start, end) of the citation inside _norm_text(text), or None if it isn't really there
+    (exact, or a single contiguous block covering 80%+ of it -- tolerates a dropped quote mark,
+    not a paraphrase)."""
+    c, t = _norm_text(citation), _norm_text(text)
+    if len(c) < 15 or not t:
+        return None
+    pos = t.find(c)
+    if pos != -1:
+        return pos, pos + len(c)
+    m = difflib.SequenceMatcher(None, c, t, autojunk=False).find_longest_match(0, len(c), 0, len(t))
+    return (m.b - m.a, m.b - m.a + len(c)) if m.size >= 0.8 * len(c) else None
+
+
+# How far around the citation the company must be named. A citation that only says "we rate the
+# stock a Buy" belongs to whichever company is named right before/after it -- tested 2026-10-03:
+# llama3.1:8b attached a Chevron sentence to Nvidia, named 300+ characters further down the digest.
+CITATION_CONTEXT_BEFORE = 250
+CITATION_CONTEXT_AFTER = 150
+
+
+def _ticker_in_text(ticker: str, text: str) -> bool:
+    return bool(ticker) and re.search(rf"(?<![A-Za-z0-9.]){re.escape(ticker)}(?![A-Za-z0-9])", text) is not None
+
+
+def _validate_tip(tip: dict, text: str) -> tuple:
+    """Deterministic checks on one raw tip -- returns (cleaned tip, None) or (None, reason)."""
+    company = str(tip.get("company") or "").strip()
+    sentiment = tip.get("sentiment")
+    citation = str(tip.get("citation") or "").strip()
+    ticker = str(tip.get("ticker") or "").strip().upper()
+    if not company or sentiment not in ("haussier", "baissier"):
+        return None, "societe ou sens manquant"
+    nc = _norm_text(company)
+    if nc in _MACRO_TERMS or any(s in nc for s in _MACRO_SUBSTRINGS) or company.upper() in _PLACEHOLDER_TICKERS:
+        return None, f"'{company}' n'est pas une societe cotee"
+    ncit = _norm_text(citation)
+    if any(p in ncit for p in _NEGATION_PATTERNS):
+        return None, "la citation dit elle-meme qu'il n'y a pas d'avis"
+    if any(p in ncit for p in _BOILERPLATE_PATTERNS):
+        return None, "texte publicitaire ou de page, pas un avis"
+    span = _citation_span(citation, text)
+    if span is None:
+        return None, "citation introuvable mot pour mot dans le mail"
+    if ticker in _PLACEHOLDER_TICKERS or " " in ticker:
+        ticker = ""
+    if ticker and not _ticker_in_text(ticker, text):
+        ticker = ""  # not literally in the email -> never trusted, looked up by name instead
+    norm = _norm_text(text)
+    context = set(norm[max(0, span[0] - CITATION_CONTEXT_BEFORE):span[1] + CITATION_CONTEXT_AFTER].split())
+    company_tokens = [t for t in _name_tokens(company) if len(t) >= 3] or _name_tokens(company)
+    if not any(t in context for t in company_tokens) and not (ticker and ticker.lower() in context):
+        return None, f"'{company}' n'est pas nomme a cote de la citation (avis sur une autre societe ?)"
+    bull = any(w in ncit for w in _BULLISH_WORDS)
+    bear = any(w in ncit for w in _BEARISH_WORDS)
+    if sentiment == "haussier" and bear and not bull:
+        return None, "citation explicitement baissiere (downgrade...) pour un tip haussier"
+    if sentiment == "baissier" and bull and not bear:
+        return None, "citation explicitement haussiere (upgrade...) pour un tip baissier"
+    author = str(tip.get("author") or "").strip()
+    if author and _norm_text(author) not in _norm_text(text):
+        author = ""
+    return {"company": company, "ticker_in_text": ticker, "sentiment": sentiment, "citation": citation,
+            "author": author[:80]}, None
+
+
+def _extract_raw_tips(msg: dict) -> list[dict]:
+    prompt = EXTRACT_TICKER_PROMPT.format(subject=msg["subject"], body=msg["extract_text"],
                                            max_tickers=MAX_TICKERS_PER_EMAIL)
     try:
         raw = _call_ollama_json(prompt)
@@ -441,105 +616,187 @@ def _extract_ticker_signals(msg: dict) -> list[dict]:
         print(f"  echec extraction tickers pour \"{msg['subject']}\": {e}", file=sys.stderr)
         return []
     tips = raw.get("tips") or []
-    out = []
-    for tip in tips[:MAX_TICKERS_PER_EMAIL]:
-        ticker = str(tip.get("ticker") or "").strip().upper()
-        company = str(tip.get("company") or "").strip()
-        sentiment = tip.get("sentiment")
-        if not ticker or sentiment not in ("haussier", "baissier"):
-            continue
-        # BACKSTOP for the prompt's own "don't invent a ticker" instruction (2026-09-16, after a
-        # real run turned "Fed"/"France" macro pieces with no actual named company into "N/A"/
-        # "NON RENSEIGNE" tickers -- _search_ticker_by_name()'s name-based fallback then matched
-        # those vague company fields to a real but WRONG stock: FedEx for "Fed", Air France-KLM
-        # for "France". A ticker containing whitespace, or a from a closed set of placeholder
-        # values a model uses for "I don't actually have one", is never a real symbol -- drop the
-        # tip outright rather than let it reach _resolve_ticker()'s name-search fallback at all.
-        if " " in ticker or ticker in _PLACEHOLDER_TICKERS:
-            continue
-        out.append({"ticker": ticker, "company": company, "side": "long" if sentiment == "haussier" else "short",
-                     "reason": str(tip.get("reason", ""))[:300], "source": msg["source"],
-                     "subject": msg["subject"]})
-    return out
+    return [t for t in tips[:MAX_TICKERS_PER_EMAIL] if isinstance(t, dict)]
 
 
-# Real primary listings only -- excludes OTC pink sheets, foreign depositary receipts and other
-# secondary listings that _search_ticker_by_name()'s company-name search tends to also surface
-# (see that function's docstring for why a blind first-result pick is unsafe).
-MAJOR_EXCHANGES = {
-    "NMS", "NYQ", "NGM", "NCM", "ASE", "PCX", "BTS",              # US
-    "PAR", "GER", "FRA", "LSE", "AMS", "MIL", "MCE", "VIE", "SWX",  # Europe
-    "TOR", "TSE", "STO", "CPH", "HEL", "OSL", "BRU",
-}
-
-
-def _search_ticker_by_name(company: str) -> str | None:
-    """Fallback for when Ollama's own ticker guess doesn't resolve to real market data (eg.
-    "TSMC" instead of the real NYSE symbol "TSM") -- searches Yahoo's own symbol index by the
-    company name actually present in the extract (grounded text copied from the email, not a
-    guessed fact) and keeps the first result that's a real equity on a major exchange.
-
-    NOT safe to search by the ticker guess itself: tested 2026-09-15, yf.Search("TSMC") ranks a
-    Sao Paulo depositary receipt, an unrelated Italian company's OTC ticker ("TSMCF" = Tesmec
-    SpA, not Taiwan Semiconductor at all) and a crypto token above the real NYSE listing.
-    Searching by the full company name instead (eg. "Taiwan Semiconductor") reliably surfaces
-    the right primary listing first -- same behavior confirmed for LVMH -> MC.PA and
-    Engie -> ENGI.PA."""
-    if not company:
-        return None
+def _verify_tip(subject: str, tip: dict) -> tuple:
+    """Second, independent Ollama opinion -- see VERIFY_PROMPT. Fails closed on error."""
+    prompt = VERIFY_PROMPT.format(subject=subject, citation=tip["citation"][:600], company=tip["company"])
     try:
-        results = yf.Search(company, max_results=8).quotes
+        raw = _call_ollama_json(prompt)
     except Exception as e:
-        print(f"  echec recherche ticker pour \"{company}\": {e}", file=sys.stderr)
-        return None
-    for r in results:
-        if r.get("quoteType") == "EQUITY" and r.get("exchange") in MAJOR_EXCHANGES:
-            return r.get("symbol")
-    return None
+        return False, f"verification impossible ({e})"
+    if not raw.get("avis_explicite"):
+        return False, f"verification : pas d'avis explicite ({str(raw.get('raison', ''))[:120]})"
+    if raw.get("sens") != tip["sentiment"]:
+        return False, f"verification : sens contradictoire ({raw.get('sens')} vs {tip['sentiment']})"
+    return True, None
 
 
-def _resolve_ticker(ticker: str, company: str = "") -> dict | None:
-    """GROUNDING BACKSTOP: never trusts Ollama's ticker mapping blindly -- fetches real price
-    history before this ticker is ever allowed to drive a trade. Returns None (dropped, not
-    guessed at) if neither the ticker itself nor (when a company name is given) a name-based
-    lookup resolve to real, current market data. The returned dict's "ticker" is the SYMBOL THAT
-    ACTUALLY RESOLVED -- may differ from the input `ticker` if the name-based fallback kicked in;
-    callers must use it (not the original guess) as the ledger's canonical symbol from here on."""
-    candidates = [ticker]
-    tried_name_fallback = False
-    while candidates:
-        symbol = candidates.pop(0)
+def _fetch_price(symbol: str) -> dict | None:
+    """Last price + trading currency, no validation -- for symbols already validated (rechecks)."""
+    try:
+        tk = yf.Ticker(symbol)
+        hist = tk.history(period="5d")["Close"].dropna()
+        if hist.empty:
+            return None
+        currency = None
         try:
-            tk = yf.Ticker(symbol)
-            hist = tk.history(period="5d")["Close"].dropna()
-            if not hist.empty:
-                price = float(hist.iloc[-1])
-                fast_info = tk.fast_info
-                currency = fast_info.get("currency") if fast_info else None
-                name = None
-                try:
-                    name = tk.info.get("shortName")
-                except Exception:
-                    pass
-                if symbol != ticker:
-                    print(f"  ticker corrige : \"{ticker}\" -> \"{symbol}\" (recherche par nom \"{company}\")")
-                return {"ticker": symbol, "price": price, "currency": currency, "name": name or symbol}
-        except Exception as e:
-            print(f"  echec resolution ticker {symbol}: {e}", file=sys.stderr)
-        # direct symbol lookup failed -- try the name-based fallback exactly once, only if a
-        # company name was actually given (see _search_ticker_by_name's docstring for why
-        # searching by the ticker guess itself instead would be unsafe).
-        if not candidates and not tried_name_fallback and company:
-            tried_name_fallback = True
-            fallback = _search_ticker_by_name(company)
-            if fallback and fallback != ticker:
-                candidates.append(fallback)
-    return None
+            currency = tk.fast_info.get("currency")
+        except Exception:
+            pass
+        if not currency:
+            try:
+                currency = (tk.history_metadata or {}).get("currency")
+            except Exception:
+                pass
+        return {"price": float(hist.iloc[-1]), "currency": currency}
+    except Exception as e:
+        print(f"  echec prix {symbol}: {e}", file=sys.stderr)
+        return None
 
+
+def _search_quotes(query: str) -> list[dict]:
+    try:
+        return yf.Search(query, max_results=10).quotes or []
+    except Exception as e:
+        print(f"  echec recherche Yahoo \"{query}\": {e}", file=sys.stderr)
+        return []
+
+
+def _resolve_instrument(company: str, ticker_in_text: str) -> tuple:
+    """GROUNDING BACKSTOP -- returns ({ticker, price, currency, name, exchange}, None) or
+    (None, reason). Candidates: the ticker only if literally written in the email (exact symbol
+    match on Yahoo), then Yahoo's own search by the company name copied from the email. Each must
+    be an EQUITY on a primary exchange whose Yahoo name matches the company. 2026-09-15 note still
+    holds: never search by a guessed ticker ("TSMC" search ranks an unrelated Italian OTC stock
+    above Taiwan Semiconductor)."""
+    candidates = []
+    if ticker_in_text:
+        candidates += [q for q in _search_quotes(ticker_in_text) if str(q.get("symbol", "")).upper() == ticker_in_text][:1]
+    candidates += _search_quotes(company)
+    first_reason, tried, hopped = None, set(), False
+    while candidates:
+        q = candidates.pop(0)
+        sym = q.get("symbol")
+        if not sym or sym in tried:
+            continue
+        tried.add(sym)
+        names = [n for n in (q.get("longname"), q.get("shortname")) if n]
+        if q.get("quoteType") != "EQUITY":
+            reason = f"{sym} n'est pas une action ({q.get('quoteType')})"
+        elif str(q.get("exchange", "")).upper() not in MAJOR_EXCHANGES:
+            reason = f"{sym} cote hors place principale ({q.get('exchange')})"
+            # Right company, secondary listing only (e.g. "TSMC" -> TSMC34.SA, a Sao Paulo
+            # receipt): search once more by Yahoo's own long name of that listing -- a name Yahoo
+            # gave us, not one we guessed -- to reach the primary listing (TSM).
+            if not hopped and q.get("longname") and any(_names_match(company, n) for n in names):
+                hopped = True
+                candidates += _search_quotes(q["longname"])
+        elif not any(_names_match(company, n) for n in names):
+            reason = f"{sym} = '{names[0] if names else '?'}' ne correspond pas a '{company}'"
+        else:
+            px = _fetch_price(sym)
+            if px is None:
+                reason = f"{sym} sans prix"
+            else:
+                if first_reason:
+                    print(f"  ticker corrige pour '{company}' : {first_reason} -> {sym}")
+                return {"ticker": sym, "price": px["price"], "currency": px["currency"],
+                        "name": names[0] if names else sym, "exchange": str(q.get("exchange", "")).upper()}, None
+        first_reason = first_reason or reason
+    return None, first_reason or f"aucune cotation trouvee pour '{company}'"
+
+
+def process_messages(token: str, ids: list[str], backfill: bool = False) -> tuple:
+    """Full pipeline for a batch of Gmail ids -> (validated signals, rejected tips)."""
+    msgs = [m for m in (fetch_message(token, mid) for mid in ids) if m is not None]
+    with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
+        is_newsletter = dict(zip((m["id"] for m in msgs), ex.map(classify_newsletter, msgs)))
+    if msgs and all(v is None for v in is_newsletter.values()):
+        raise RuntimeError("Ollama n'a repondu a aucune classification -- mails laisses non traites")
+    newsletters = [m for m in msgs if is_newsletter.get(m["id"])]
+    label = "rattrapage" if backfill else "nouveau(x)"
+    print(f"{len(ids)} mail(s) {label} examine(s), {len(newsletters)} newsletter(s) financiere(s) retenue(s).")
+
+    with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_MAX_WORKERS) as ex:
+        fetched = dict(zip((m["id"] for m in newsletters),
+                            ex.map(lambda m: _fetch_article_extract(_extract_article_links(m.get("html", ""))),
+                                   newsletters)))
+    for m in newsletters:
+        m["extract_text"] = fetched.get(m["id"]) or m["text"][:EXTRACT_TRUNCATE]
+
+    raw = []
+    with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
+        futures = {ex.submit(_extract_raw_tips, m): m for m in newsletters}
+        for fut in as_completed(futures):
+            m = futures[fut]
+            try:
+                raw.extend((m, t) for t in fut.result())
+            except Exception as e:
+                print(f"  echec extraction (parallele, inattendu): {e}", file=sys.stderr)
+
+    rejects, prevalid = [], []
+    for m, tip in raw:
+        # citation checked against what the model saw AND the email itself (an article tip may
+        # quote the email's teaser)
+        clean, reason = _validate_tip(tip, m["extract_text"] + "\n" + m["text"])
+        if clean is None:
+            rejects.append(_reject_row(m, tip, reason))
+        else:
+            prevalid.append((m, clean))
+    with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
+        verdicts = list(ex.map(lambda mt: _verify_tip(mt[0]["subject"], mt[1]), prevalid))
+
+    signals, seen = [], set()
+    for (m, tip), (ok, reason) in zip(prevalid, verdicts):
+        if not ok:
+            rejects.append(_reject_row(m, tip, reason))
+            continue
+        resolved, reason = _resolve_instrument(tip["company"], tip["ticker_in_text"])
+        if resolved is None:
+            rejects.append(_reject_row(m, tip, reason))
+            continue
+        key = (m["id"], resolved["ticker"])
+        if key in seen:
+            continue
+        seen.add(key)
+        signals.append({
+            "message_id": m["id"], "mail_date_utc": m["date_utc"], "publication": m["publication"],
+            "domain": m["source"], "author": tip["author"], "company": tip["company"],
+            "ticker": resolved["ticker"], "name": resolved["name"], "exchange": resolved["exchange"],
+            "currency": resolved["currency"], "price": resolved["price"],
+            "side": "long" if tip["sentiment"] == "haussier" else "short",
+            "citation": tip["citation"], "backfill": backfill,
+        })
+    for r in rejects:
+        print(f"  rejete [{r['publication']}] {r['company']} ({r['sentiment']}) : {r['motif']}")
+    return signals, rejects
+
+
+def _reject_row(m: dict, tip: dict, reason: str) -> dict:
+    return {"date_utc": m["date_utc"], "publication": m["publication"], "company": str(tip.get("company") or "")[:80],
+            "ticker": str(tip.get("ticker") or tip.get("ticker_in_text") or "")[:12],
+            "sentiment": tip.get("sentiment"), "citation": str(tip.get("citation") or "")[:300], "motif": reason}
+
+
+def append_rejects(rejects: list[dict]):
+    if not rejects:
+        return
+    cols = ["date_utc", "publication", "company", "ticker", "sentiment", "citation", "motif"]
+    old = pd.read_csv(REJECTS_PATH) if REJECTS_PATH.exists() else pd.DataFrame(columns=cols)
+    out = pd.concat([old, pd.DataFrame(rejects, columns=cols)], ignore_index=True).tail(MAX_REJECTS_KEPT)
+    REJECTS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    out.to_csv(REJECTS_PATH, index=False)
+
+
+# ---------------------------------------------------------------------------------------------
+# Lab ledger
+# ---------------------------------------------------------------------------------------------
 
 LEDGER_COLUMNS = [
     "ticker", "name", "side", "source", "status", "currency", "fractional",
-    "entry_date", "entry_price", "shares", "entry_value_eur",
+    "entry_date", "entry_price", "shares", "entry_value_eur", "entry_fee_eur",
     "last_check_date", "last_price", "current_value_eur", "unrealized_return_pct",
     "peak_unrealized_return_pct", "peak_date",
     "exit_date", "exit_price", "exit_reason", "exit_value_eur", "return_pct", "holding_days",
@@ -553,8 +810,13 @@ def load_ledger() -> pd.DataFrame:
         for c in LEDGER_COLUMNS:
             if c not in df.columns:
                 df[c] = None
-        return df[LEDGER_COLUMNS]
-    return pd.DataFrame(columns=LEDGER_COLUMNS)
+        df = df[LEDGER_COLUMNS]
+    else:
+        df = pd.DataFrame(columns=LEDGER_COLUMNS)
+    for c in ("ticker", "name", "side", "source", "status", "currency", "entry_date", "last_check_date",
+              "peak_date", "exit_date", "exit_reason", "signal_reason"):
+        df[c] = df[c].astype(object)
+    return df
 
 
 def load_cash() -> float:
@@ -566,20 +828,58 @@ def save_cash(cash: float):
 
 
 def _unrealized_return(side: str, entry_price: float, last_price: float) -> float:
-    """A short's gain is the mirror of a long's -- see module docstring's SIMPLIFICATION note."""
     raw = last_price / entry_price - 1
     return raw if side == "long" else -raw
 
 
-def recheck_and_exit(ledger: pd.DataFrame, today: str, cash: float) -> tuple:
+def _ensure_fx(currency, fx_rates: dict) -> dict:
+    """Extends fx_rates in place with whichever currency a position needs (tickers come from
+    arbitrary mail tips, not a pre-scoped universe)."""
+    key = "GBP" if currency == "GBp" else (currency if isinstance(currency, str) and currency else "EUR")
+    if key not in fx_rates:
+        fx_rates.update(fetch_fx_rates({key}))
+    return fx_rates
+
+
+def _value_eur(ledger: pd.DataFrame, idx, side: str, price: float, fx_rates: dict):
+    """Current EUR value at today's FX rate (None if no rate). Entry price in EUR is recovered as
+    entry_value_eur / shares (exact for both the fractional and whole-share sizing paths)."""
+    currency = ledger.at[idx, "currency"]
+    _ensure_fx(currency, fx_rates)
+    price_eur = to_eur(price, currency if isinstance(currency, str) else None, fx_rates)
+    shares, entry_value = float(ledger.at[idx, "shares"]), float(ledger.at[idx, "entry_value_eur"])
+    if price_eur is None or shares <= 0:
+        return None
+    if side == "long":
+        return shares * price_eur
+    return entry_value * (2 - price_eur / (entry_value / shares))  # short: mirror of a long
+
+
+def _close_lab(ledger, idx, today, price, value_eur, reason) -> float:
+    entry_value = float(ledger.at[idx, "entry_value_eur"])
+    entry_fee = float(ledger.at[idx, "entry_fee_eur"]) if pd.notna(ledger.at[idx, "entry_fee_eur"]) else 0.0
+    net_exit_value = value_eur - TRADE_FEE_EUR
+    net_return = (net_exit_value - entry_value - entry_fee) / entry_value
+    ledger.at[idx, "status"] = "closed"
+    ledger.at[idx, "exit_date"] = today
+    ledger.at[idx, "exit_price"] = price
+    ledger.at[idx, "exit_reason"] = reason
+    ledger.at[idx, "exit_value_eur"] = net_exit_value
+    ledger.at[idx, "return_pct"] = net_return
+    ledger.at[idx, "holding_days"] = (pd.Timestamp(today) - pd.Timestamp(ledger.at[idx, "entry_date"])).days
+    print(f"  CLOTURE {str(ledger.at[idx, 'side']).upper()} {ledger.at[idx, 'ticker']} : {reason}, "
+          f"retour net {net_return:+.1%} (frais d'entree et de sortie deduits)")
+    return net_exit_value
+
+
+def recheck_and_exit(ledger: pd.DataFrame, today: str, cash: float, fx_rates: dict) -> tuple:
     for idx in ledger.index[ledger["status"] == "open"]:
         ticker = ledger.at[idx, "ticker"]
         side = ledger.at[idx, "side"]
-        resolved = _resolve_ticker(ticker)
-        if resolved is None:
+        px = _fetch_price(ticker)
+        if px is None:
             continue  # transient fetch failure -- retry next run, don't force an exit on it
-        # see simulate_portfolio.reconcile_fresh_price
-        price_check, split_factor = reconcile_fresh_price(ticker, resolved["price"], ledger.at[idx, "last_price"],
+        price_check, split_factor = reconcile_fresh_price(ticker, px["price"], ledger.at[idx, "last_price"],
                                                           ledger.at[idx, "last_check_date"])
         if price_check == "suspect":
             continue
@@ -587,13 +887,14 @@ def recheck_and_exit(ledger: pd.DataFrame, today: str, cash: float) -> tuple:
             ledger.at[idx, "entry_price"] = ledger.at[idx, "entry_price"] / split_factor
             ledger.at[idx, "shares"] = ledger.at[idx, "shares"] * split_factor
 
-        entry_price = ledger.at[idx, "entry_price"]
-        unrealized = _unrealized_return(side, entry_price, resolved["price"])
-        entry_value_eur = ledger.at[idx, "entry_value_eur"]
-        current_value = entry_value_eur * (1 + unrealized)  # see SIMPLIFICATION in module docstring
+        # stops on the LOCAL price move, like a broker stop; value in EUR at today's FX rate
+        unrealized = _unrealized_return(side, ledger.at[idx, "entry_price"], px["price"])
+        current_value = _value_eur(ledger, idx, side, px["price"], fx_rates)
+        if current_value is None:
+            current_value = float(ledger.at[idx, "entry_value_eur"]) * (1 + unrealized)
 
         ledger.at[idx, "last_check_date"] = today
-        ledger.at[idx, "last_price"] = resolved["price"]
+        ledger.at[idx, "last_price"] = px["price"]
         ledger.at[idx, "current_value_eur"] = current_value
         ledger.at[idx, "unrealized_return_pct"] = unrealized
 
@@ -603,52 +904,24 @@ def recheck_and_exit(ledger: pd.DataFrame, today: str, cash: float) -> tuple:
             ledger.at[idx, "peak_date"] = today
         peak = ledger.at[idx, "peak_unrealized_return_pct"]
 
-        entry_date = pd.Timestamp(ledger.at[idx, "entry_date"])
-        holding_days_elapsed = (pd.Timestamp(today) - entry_date).days
-
         stop_loss_hit = unrealized <= STOP_LOSS_PCT
         take_profit_hit = unrealized >= TAKE_PROFIT_PCT
         milestone = int(peak // RATCHET_STEP_PCT) if pd.notna(peak) else 0
         trailing_stop_hit = milestone >= 1 and unrealized <= milestone * RATCHET_STEP_PCT - RATCHET_GIVEBACK_PCT
-
         if stop_loss_hit or take_profit_hit or trailing_stop_hit:
             reason = ("trailing_stop" if trailing_stop_hit else
                       "stop_loss" if stop_loss_hit else "take_profit")
-            net_exit_value = current_value - TRADE_FEE_EUR
-            net_return = unrealized - TRADE_FEE_EUR / entry_value_eur
-            ledger.at[idx, "status"] = "closed"
-            ledger.at[idx, "exit_date"] = today
-            ledger.at[idx, "exit_price"] = resolved["price"]
-            ledger.at[idx, "exit_reason"] = reason
-            ledger.at[idx, "exit_value_eur"] = net_exit_value
-            ledger.at[idx, "return_pct"] = net_return
-            ledger.at[idx, "holding_days"] = holding_days_elapsed
-            cash += net_exit_value
-            print(f"  CLOTURE {side.upper()} {ticker} : {reason}, retour net {net_return:+.1%} "
-                  f"(frais {TRADE_FEE_EUR:.2f} EUR deduits), {net_exit_value:.2f} EUR reinjectes en cash")
+            cash += _close_lab(ledger, idx, today, px["price"], current_value, reason)
     return ledger, cash
 
 
-def _fx_rate_for(currency: str | None, fx_rates: dict) -> dict:
-    """Extends fx_rates in place with whichever currency this position needs -- tickers here
-    come from arbitrary mail tips, not a pre-scoped universe, so the set of currencies needed
-    can't be known ahead of a single fetch_fx_rates() call the way the other bots do it."""
-    key = "GBP" if currency == "GBp" else (currency or "EUR")
-    if key not in fx_rates:
-        fx_rates.update(fetch_fx_rates({key}))
-    return fx_rates
-
-
-def _open_position(ledger: pd.DataFrame, ticker: str, side: str, source: str, reason: str,
-                    resolved: dict, cash: float, today: str, fx_rates: dict) -> tuple:
-    """No cash/affordability gate here on purpose -- see module docstring's Trading section
-    (2026-09-15): this bot has no capital cap, every tip gets its shot at the scorecard
-    regardless of how much is already deployed. cash only gets debited below for reporting."""
-    _fx_rate_for(resolved.get("currency"), fx_rates)
-    price_eur = to_eur(resolved["price"], resolved.get("currency"), fx_rates)
+def _open_position(ledger: pd.DataFrame, sig: dict, cash: float, today: str, fx_rates: dict) -> tuple:
+    """No cash/affordability gate on purpose -- see LAB TRADING in the module docstring."""
+    _ensure_fx(sig.get("currency"), fx_rates)
+    price_eur = to_eur(sig["price"], sig.get("currency"), fx_rates)
     if price_eur is None or price_eur <= 0:
         return ledger, cash, False
-
+    ticker = sig["ticker"]
     fractional = fractional_eligible(ticker, None, None)
     if fractional:
         cost = TARGET_POSITION_SIZE
@@ -659,107 +932,131 @@ def _open_position(ledger: pd.DataFrame, ticker: str, side: str, source: str, re
         shares = max(1, int(TARGET_POSITION_SIZE // price_eur))
         cost = shares * price_eur
 
-    new_row = {
-        "ticker": ticker, "name": resolved.get("name") or ticker, "side": side, "source": source,
-        "status": "open", "currency": resolved.get("currency"), "fractional": bool(fractional),
-        "entry_date": today, "entry_price": resolved["price"], "shares": shares,
-        "entry_value_eur": cost, "last_check_date": today, "last_price": resolved["price"],
-        "current_value_eur": cost, "unrealized_return_pct": 0.0,
-        "peak_unrealized_return_pct": 0.0, "peak_date": today,
-        "exit_date": None, "exit_price": None, "exit_reason": None,
-        "exit_value_eur": None, "return_pct": None, "holding_days": None,
-        "signal_reason": reason,
-    }
-    ledger = pd.concat([ledger, pd.DataFrame([new_row])], ignore_index=True)
-    cash -= cost
+    new_row = {c: None for c in LEDGER_COLUMNS}
+    new_row.update({
+        "ticker": ticker, "name": sig.get("name") or ticker, "side": sig["side"], "source": sig["publication"],
+        "status": "open", "currency": sig.get("currency"), "fractional": bool(fractional),
+        "entry_date": today, "entry_price": sig["price"], "shares": shares, "entry_value_eur": cost,
+        "entry_fee_eur": TRADE_FEE_EUR, "last_check_date": today, "last_price": sig["price"],
+        "current_value_eur": cost, "unrealized_return_pct": 0.0, "peak_unrealized_return_pct": 0.0,
+        "peak_date": today, "signal_reason": sig["citation"][:300],
+    })
+    ledger = pd.concat([ledger, pd.DataFrame([new_row], columns=LEDGER_COLUMNS)], ignore_index=True)
+    cash -= cost + TRADE_FEE_EUR
     kind = "fractionne" if fractional else "entier"
-    print(f"  OUVERTURE {side.upper()} {ticker} ({source}) : {cost:.2f} EUR ({shares:.4f} actions, {kind}) "
-          f"@ {resolved['price']:.2f} {resolved.get('currency') or '?'}")
+    print(f"  OUVERTURE {sig['side'].upper()} {ticker} ({sig['publication']}) : {cost:.2f} EUR "
+          f"({shares:.4f} actions, {kind}) @ {sig['price']:.2f} {sig.get('currency') or '?'}")
     return ledger, cash, True
 
 
 def apply_signals(ledger: pd.DataFrame, signals: list[dict], cash: float, today: str, fx_rates: dict) -> tuple:
-    """Opens/reverses positions from today's freshly-extracted signals -- see module docstring's
-    Trading section for the same-side/opposite-side/not-held decision tree."""
+    """Lab decision tree (not held / same side / opposite side) for tips that were JUST added to
+    the journal -- already validated and resolved to their canonical symbol."""
     for sig in signals:
-        raw_ticker, side, source, reason = sig["ticker"], sig["side"], sig["source"], sig["reason"]
-        # Resolved ONCE up front (was twice before, once here and once again at open time) --
-        # also means the ledger lookup below keys off the CANONICAL symbol (eg. "TSM"), not
-        # whatever Ollama happened to type this particular tip (eg. "TSMC"): without this, a
-        # second tip on the same company under a differently-spelled ticker would look unheld
-        # and open a duplicate position instead of being recognized as a no-op/reversal.
-        resolved = _resolve_ticker(raw_ticker, sig.get("company", ""))
-        if resolved is None:
-            continue
-        ticker = resolved["ticker"]
+        ticker, side = sig["ticker"], sig["side"]
         open_row = ledger[(ledger["ticker"] == ticker) & (ledger["status"] == "open")]
-
         if len(open_row):
             existing_side = open_row.iloc[0]["side"]
             if existing_side == side:
-                continue  # already positioned this direction -- no-op
-            idx = open_row.index[0]
-            entry_price = ledger.at[idx, "entry_price"]
-            unrealized = _unrealized_return(existing_side, entry_price, resolved["price"])
-            if unrealized > -MIN_REVERSAL_CONFIRM_PCT:
-                # opposite tip, but the price hasn't moved against the held thesis yet -- a
-                # same-day text reversal with ~0% real price move is more likely noise (several
-                # tips off the same newsletter provider on the same event) than a genuine change
-                # of thesis; see 2026-09-14 NVDA whipsaw (3 contradicting seekingalpha.com tips
-                # same day, all closed at the fixed 1 EUR fee for a pure loss, zero price move).
-                # Dropped, not queued -- keep holding until either the price itself confirms the
-                # new thesis or another exit rule fires.
                 continue
-            # opposite signal, price-confirmed: close the existing position now
-            entry_value_eur = ledger.at[idx, "entry_value_eur"]
-            net_exit_value = entry_value_eur * (1 + unrealized) - TRADE_FEE_EUR
-            net_return = unrealized - TRADE_FEE_EUR / entry_value_eur
-            ledger.at[idx, "status"] = "closed"
-            ledger.at[idx, "exit_date"] = today
-            ledger.at[idx, "exit_price"] = resolved["price"]
-            ledger.at[idx, "exit_reason"] = "signal_inverse"
-            ledger.at[idx, "exit_value_eur"] = net_exit_value
-            ledger.at[idx, "return_pct"] = net_return
-            ledger.at[idx, "holding_days"] = (pd.Timestamp(today) - pd.Timestamp(ledger.at[idx, "entry_date"])).days
-            cash += net_exit_value
-            print(f"  CLOTURE {existing_side.upper()} {ticker} : signal_inverse, retour net {net_return:+.1%}")
-
-        ledger, cash, _ = _open_position(ledger, ticker, side, source, reason, resolved, cash, today, fx_rates)
+            idx = open_row.index[0]
+            unrealized = _unrealized_return(existing_side, ledger.at[idx, "entry_price"], sig["price"])
+            if unrealized > -MIN_REVERSAL_CONFIRM_PCT:
+                continue  # see 2026-09-14 NVDA whipsaw note in the module docstring
+            value = _value_eur(ledger, idx, existing_side, sig["price"], fx_rates)
+            if value is None:
+                value = float(ledger.at[idx, "entry_value_eur"]) * (1 + unrealized)
+            cash += _close_lab(ledger, idx, today, sig["price"], value, "signal_inverse")
+        ledger, cash, _ = _open_position(ledger, sig, cash, today, fx_rates)
     return ledger, cash
 
 
-def write_scorecard(ledger: pd.DataFrame):
-    """The "quels sont les bons/mauvais investisseurs" leaderboard this bot exists for --
-    recomputed fresh from the ledger every run, grouped by sending domain (see _extract_source
-    / PRIVACY note in module docstring). Rows with too few closed signals to mean anything are
-    still listed (n_closed=0 is informative on its own -- a source with many open signals and
-    no verdict yet), just not rankable by win_rate."""
-    rows = []
-    for source, grp in ledger.groupby("source"):
-        closed_grp = grp[grp["status"] == "closed"]
-        rows.append({
-            "source": source,
-            "n_signals_total": len(grp),
-            "n_closed": len(closed_grp),
-            "n_open": int((grp["status"] == "open").sum()),
-            "win_rate_closed": float((closed_grp["return_pct"] > 0).mean()) if len(closed_grp) else None,
-            "avg_return_closed": float(closed_grp["return_pct"].mean()) if len(closed_grp) else None,
-        })
-    columns = ["source", "n_signals_total", "n_closed", "n_open", "win_rate_closed", "avg_return_closed"]
-    out = pd.DataFrame(rows, columns=columns)
-    if len(out):
-        out = out.sort_values(by=["win_rate_closed", "n_closed"], ascending=[False, False], na_position="last")
-    SCORECARD_PATH.parent.mkdir(parents=True, exist_ok=True)
-    out.to_csv(SCORECARD_PATH, index=False)
+# Lab rows found wrong in the 2026-10-03 hand review that no automatic rule below would catch
+# (wrong company behind a real equity ticker). Keyed by (ticker, entry_date, source).
+MANUAL_ANNULMENTS = {
+    ("CHEV", "2026-09-13", "seekingalpha.com"): "l'article parlait de Chevron (CVX), pas de Charging Robotics (CHEV)",
+    ("BCE", "2026-09-13", "news.meilleurtaux.com"): "BCE = Banque centrale europeenne, pas Bell Canada",
+    ("YMIB.MC", "2026-09-16", "aktionnaire.com"): "Mistral (IA, non cotee) confondu avec Mistral Iberia Real Estate",
+    ("CS.PA", "2026-09-23", "aktionnaire.com"): "aucun avis sur AXA (article sur un prix litteraire)",
+    ("B", "2026-09-27", "seekingalpha.com"): "Barrick sans rapport avec l'article (puces Nvidia en Chine)",
+    ("ABBV", "2026-09-18", "analystratings.net"): "publicite sur l'IA/robotique, AbbVie sans rapport",
+    ("BLK", "2026-09-17", "analystratings.net"): "publicite ; BlackRock y est un actionnaire cite, pas le titre recommande",
+    ("BAC", "2026-09-15", "seekingalpha.com"): "Bank of America est l'analyste (semi-conducteurs), pas le titre analyse",
+    ("BAC", "2026-09-24", "substack.com"): "estimation de BofA sur les bons du Tresor, aucun avis sur l'action",
+    ("NDX", "2026-09-17", "tipranks.com"): "indice Nasdaq 100, pas une action",
+}
 
 
-def write_summary(ledger: pd.DataFrame, cash: float):
+def _quote_type(symbol: str) -> str | None:
+    for q in _search_quotes(symbol):
+        if str(q.get("symbol", "")).upper() == symbol.upper():
+            return q.get("quoteType")
+    try:
+        return yf.Ticker(symbol).info.get("quoteType")
+    except Exception:
+        return None
+
+
+def cleanup_legacy_rows(ledger: pd.DataFrame, cash: float, today: str) -> tuple:
+    """One-off (state flag) application of the 2026-10-03 rules to lab rows opened before them:
+    non-equity instruments, reasons that deny being an opinion / page boilerplate / empty, and
+    MANUAL_ANNULMENTS. Same treatment as the 2026-09-16 FDX/AF.PA cleanup -- the trade never
+    really existed, so cash is restored as if it had never been opened (open row: + entry value;
+    closed row: + entry value - exit value, i.e. its realized P&L is reversed). Archived with the
+    reason in mail_signal_annulled.csv rather than silently deleted."""
+    reasons = {}
+    for idx, r in ledger.iterrows():
+        key = (r["ticker"], str(r["entry_date"]), r["source"])
+        if key in MANUAL_ANNULMENTS:
+            reasons[idx] = "revue manuelle 2026-10-03 : " + MANUAL_ANNULMENTS[key]
+            continue
+        reason_txt = _norm_text(r["signal_reason"]) if isinstance(r["signal_reason"], str) else ""
+        if not reason_txt:
+            reasons[idx] = "aucune justification enregistree"
+        elif any(p in reason_txt for p in _NEGATION_PATTERNS):
+            reasons[idx] = "la justification dit elle-meme qu'il n'y a pas d'avis"
+        elif any(p in reason_txt for p in _BOILERPLATE_PATTERNS):
+            reasons[idx] = "justification = texte de page ou publicite"
+    types = {}
+    with ThreadPoolExecutor(max_workers=6) as ex:
+        for sym, qt in zip(ledger["ticker"].unique(), ex.map(_quote_type, ledger["ticker"].unique())):
+            types[sym] = qt
+    for idx, r in ledger.iterrows():
+        qt = types.get(r["ticker"])
+        if idx not in reasons and qt is not None and qt != "EQUITY":
+            reasons[idx] = f"instrument {qt}, pas une action"
+    if not reasons:
+        return ledger, cash
+    annulled = ledger.loc[list(reasons)].copy()
+    annulled["motif_annulation"] = [reasons[i] for i in annulled.index]
+    annulled["date_annulation"] = today
+    for idx in annulled.index:
+        entry_value = float(ledger.at[idx, "entry_value_eur"])
+        if ledger.at[idx, "status"] == "closed":
+            cash += entry_value - float(ledger.at[idx, "exit_value_eur"])
+        else:
+            cash += entry_value
+    old = pd.read_csv(ANNULLED_PATH) if ANNULLED_PATH.exists() else None
+    annulled = pd.concat([old, annulled], ignore_index=True) if old is not None else annulled
+    ANNULLED_PATH.parent.mkdir(parents=True, exist_ok=True)
+    annulled.to_csv(ANNULLED_PATH, index=False)
+    print(f"  nettoyage : {len(reasons)} position(s) du labo annulee(s) (detail dans {ANNULLED_PATH.name})")
+    return ledger.drop(index=list(reasons)).reset_index(drop=True), cash
+
+
+def write_summary(ledger: pd.DataFrame, cash: float) -> dict:
     closed = ledger[ledger["status"] == "closed"]
     open_pos = ledger[ledger["status"] == "open"]
     total_equity = cash + open_pos["current_value_eur"].sum()
+    per_position = pd.concat([closed["return_pct"], open_pos["unrealized_return_pct"]]).dropna()
     summary = {
         "cash_eur": cash, "total_equity_eur": total_equity,
+        # kept for the dashboard, but misleading on its own: the lab is uncapped, so its notional
+        # can be many times the 300 EUR baseline -- read pnl_eur / rendement_moyen_par_position
         "total_return_pct": total_equity / STARTING_CAPITAL - 1,
+        "pnl_eur": total_equity - STARTING_CAPITAL,
+        "capital_engage_eur": float(open_pos["entry_value_eur"].sum()),
+        "rendement_moyen_par_position": float(per_position.mean()) if len(per_position) else None,
         "nb_open": len(open_pos), "nb_closed": len(closed),
         "nb_long_open": int((open_pos["side"] == "long").sum()),
         "nb_short_open": int((open_pos["side"] == "short").sum()),
@@ -767,10 +1064,10 @@ def write_summary(ledger: pd.DataFrame, cash: float):
         "avg_return_closed": float(closed["return_pct"].mean()) if len(closed) else None,
     }
     SUMMARY_PATH.write_text(pd.Series(summary).to_json(), encoding="utf-8")
-    print(f"\n=== Bot #33 Courrier : {summary['nb_open']} positions ouvertes "
+    print(f"\n=== Bot #33 Courrier (labo) : {summary['nb_open']} positions ouvertes "
           f"({summary['nb_long_open']} long / {summary['nb_short_open']} short), "
-          f"{cash:.2f} EUR cash, valeur totale {total_equity:.2f} EUR "
-          f"({summary['total_return_pct']:+.1%} depuis le depart) ===")
+          f"P&L {summary['pnl_eur']:+.2f} EUR pour {summary['capital_engage_eur']:.0f} EUR engages ===")
+    return summary
 
 
 def append_equity_curve_point(cash: float, total_equity: float, nb_open: int, nb_closed: int):
@@ -781,86 +1078,106 @@ def append_equity_curve_point(cash: float, total_equity: float, nb_open: int, nb
     pd.DataFrame([row]).to_csv(EQUITY_CURVE_PATH, mode="a", header=header, index=False)
 
 
+# ---------------------------------------------------------------------------------------------
+# Orchestration
+# ---------------------------------------------------------------------------------------------
+
+def _backfill_ids(token: str, state: dict, ledger: pd.DataFrame, journal: pd.DataFrame, live_ids: set) -> list[str]:
+    """Next batch of older emails to backfill -- fixed window ending the day the backfill started
+    (the live 2-day listing covers everything after), only from senders already seen as
+    newsletters. Marks the backfill done once the window is exhausted."""
+    bf = state.setdefault("backfill", {})
+    if bf.get("done"):
+        return []
+    if "end_date" not in bf:
+        bf["end_date"] = datetime.now(timezone.utc).date().isoformat()
+        bf["processed_ids"] = []
+    domains = set(journal["domain"].dropna()) | {s for s in ledger["source"].dropna() if " " not in s and "." in s}
+    if not domains:
+        bf["done"] = True
+        return []
+    end = datetime.fromisoformat(bf["end_date"]).date()
+    start = end - timedelta(days=BACKFILL_DAYS)
+    query = (f"after:{start:%Y/%m/%d} before:{end:%Y/%m/%d} from:(" +
+             " OR ".join(sorted(domains)) + ")")
+    done_ids = set(bf["processed_ids"]) | live_ids
+    ids = [i for i in list_message_ids(token, query, max_messages=2000) if i not in done_ids]
+    if not ids:
+        bf["done"] = True
+        print("Rattrapage termine.")
+        return []
+    batch = ids[-BACKFILL_MAX_PER_RUN:]  # Gmail lists newest first -> walk from the oldest
+    print(f"Rattrapage : {len(ids)} mail(s) restant(s) sur {BACKFILL_DAYS} jours, {len(batch)} traite(s) ce run.")
+    return batch
+
+
 def main():
     state = _load_json(STATE_PATH, {})
-    today = datetime.now(timezone.utc).date().isoformat()
-    # No same-day gate here (unlike newsletter_digest.py) -- the user's explicit request
-    # (2026-09-15, after noticing the bot only ever ran once, on its first day) is for mail
-    # analysis to happen OFTEN, not once/day. Safe to run on every workflow trigger: new_ids
-    # below already dedupes against processed_message_ids, so a run with nothing new to see
-    # costs one Gmail list call and returns, it doesn't reclassify/re-extract anything twice.
+    now = pd.Timestamp.now(tz="UTC")
+    today = now.date().isoformat()
 
     ledger = load_ledger()
     cash = load_cash()
+    journal = scoring.load_journal()
+    if not state.get("legacy_cleanup_2026_10_03"):
+        ledger, cash = cleanup_legacy_rows(ledger, cash, today)
+        state["legacy_cleanup_2026_10_03"] = today
 
-    signals: list[dict] = []
-    message_ids = None
-    missing = [v for v in ("GMAIL_REFRESH_TOKEN", "GMAIL_CLIENT_ID", "GMAIL_CLIENT_SECRET")
-               if not os.environ.get(v)]
+    signals, rejects = [], []
+    message_ids = None  # set only once the live batch was fully processed
+    missing = [v for v in ("GMAIL_REFRESH_TOKEN", "GMAIL_CLIENT_ID", "GMAIL_CLIENT_SECRET") if not os.environ.get(v)]
     if missing:
-        print(f"Variables manquantes ({', '.join(missing)}) -- run ignore.", file=sys.stderr)
+        print(f"Variables manquantes ({', '.join(missing)}) -- lecture des mails ignoree.", file=sys.stderr)
     else:
         try:
             token = get_access_token()
-            message_ids = list_recent_message_ids(token)
-            previously_processed = set(state.get("processed_message_ids", []))
-            new_ids = [m for m in message_ids if m not in previously_processed]
-
-            msgs = [m for m in (fetch_message(token, mid) for mid in new_ids) if m is not None]
-            with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
-                is_newsletter = dict(zip((m["id"] for m in msgs), ex.map(classify_newsletter, msgs)))
-            newsletters = [m for m in msgs if is_newsletter.get(m["id"])]
-
-            print(f"{len(new_ids)} nouveau(x) mail(s) examine(s), {len(newsletters)} newsletter(s) "
-                  f"financiere(s) retenue(s).")
-
-            # Try to replace each newsletter's own (often short, teaser-only) excerpt with the
-            # full article text from its own link -- see _fetch_article_extract()'s docstring
-            # for which domains this actually works on. Done only for newsletters (not every
-            # fetched message) to avoid wasting fetches on mail already dropped by classify_newsletter.
-            with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_MAX_WORKERS) as ex:
-                fetched = dict(zip((m["id"] for m in newsletters),
-                                    ex.map(lambda m: _fetch_article_extract(_extract_article_links(m.get("html", ""))),
-                                           newsletters)))
-            n_fetched = 0
-            for m in newsletters:
-                article_text = fetched.get(m["id"])
-                if article_text:
-                    m["body"] = article_text
-                    n_fetched += 1
-            if n_fetched:
-                print(f"  contenu complet recupere depuis le lien de l'article pour {n_fetched} "
-                      f"newsletter(s) (zonebourse.com/tradingsat.com).")
-
-            with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
-                futures = [ex.submit(_extract_ticker_signals, m) for m in newsletters]
-                for fut in as_completed(futures):
-                    try:
-                        signals.extend(fut.result())
-                    except Exception as e:
-                        print(f"  echec extraction (parallele, inattendu): {e}", file=sys.stderr)
+            listed = list_message_ids(token, GMAIL_QUERY)
+            previously = set(state.get("processed_message_ids", [])) | set(state.get("backfill", {}).get("processed_ids", []))
+            new_ids = [m for m in listed if m not in previously]
+            s, r = process_messages(token, new_ids)
+            signals += s
+            rejects += r
+            message_ids = listed
+            batch = _backfill_ids(token, state, ledger, journal, set(listed))
+            if batch:
+                s, r = process_messages(token, batch, backfill=True)
+                signals += s
+                rejects += r
+                state["backfill"]["processed_ids"] = state["backfill"]["processed_ids"] + batch
         except Exception as e:
-            print(f"echec acces Gmail: {e} -- run ignore.", file=sys.stderr)
+            print(f"echec acces Gmail: {e} -- lecture des mails ignoree ce run.", file=sys.stderr)
 
-    if signals:
-        print(f"{len(signals)} tip(s) extrait(s) : "
-              + "; ".join(f"{s['ticker']}({s['side']},{s['source']})" for s in signals))
+    journal, added = scoring.add_signals(journal, signals, now.isoformat())
+    if added:
+        print(f"{len(added)} avis ajoute(s) au journal : "
+              + "; ".join(f"{s['ticker']}({s['side']},{s['publication']}{',rattrapage' if s['backfill'] else ''})"
+                          for s in added))
+    append_rejects(rejects)
+    journal = scoring.evaluate_journal(journal, today)
+    scores, crowd = scoring.score_sources(journal, state.get("source_status", {}))
+    state["source_status"] = scoring.save_status(scores, crowd)
+    fiables = [p for p, st in state["source_status"].items() if st == "fiable"]
+    print(f"Newsletters fiables : {', '.join(fiables) if fiables else 'aucune pour l instant'} ; foule : "
+          f"edge {crowd['edge']:+.2%} sur {crowd['n']} evenement(s) ({crowd['status']}).")
 
-    fx_rates = fetch_fx_rates({"USD", "EUR"})  # warm the common-case cache; per-trade calls
-    # above fetch the rest on demand since tickers are unpredictable ahead of time here
-    ledger, cash = recheck_and_exit(ledger, today, cash)
-    if signals:
-        ledger, cash = apply_signals(ledger, signals, cash, today, fx_rates)
+    currencies = {c for c in ledger["currency"].dropna() if isinstance(c, str)} | {"USD"}
+    fx_rates = fetch_fx_rates(currencies)
+    ledger, cash = recheck_and_exit(ledger, today, cash, fx_rates)
+    live = [s for s in added if not s["backfill"]]
+    if live:
+        ledger, cash = apply_signals(ledger, live, cash, today, fx_rates)
 
     write_summary(ledger, cash)
-    write_scorecard(ledger)
+    scoring.build_scorecard(scores, crowd, ledger).to_csv(SCORECARD_PATH, index=False)
     open_pos = ledger[ledger["status"] == "open"]
     append_equity_curve_point(cash, cash + open_pos["current_value_eur"].sum(), len(open_pos),
                                int((ledger["status"] == "closed").sum()))
-
     LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
     ledger.to_csv(LEDGER_PATH, index=False)
     save_cash(cash)
+    scoring.save_journal(journal)
+
+    run_real_layer(journal, scores, crowd, now, fx_rates, _fetch_price, _ensure_fx)
 
     if message_ids is not None:
         state["processed_message_ids"] = message_ids

@@ -1,0 +1,13 @@
+{
+  "_aide": "Parametres de la strategie reelle du Bot #33 Courrier (screener/mail_signal_real.py). Modifier capital_eur = apport ou retrait (la difference est ajoutee/retiree du cash, l'historique est conserve).",
+  "capital_eur": 1000.0,
+  "frais_par_ordre_eur": 1.0,
+  "taille_min_position_eur": 150.0,
+  "taille_max_position_pct": 0.30,
+  "max_par_newsletter_pct": 0.50,
+  "alpha_plein": 0.04,
+  "marge_alpha": 0.005,
+  "marge_rotation": 0.01,
+  "detention_min_jours": 3,
+  "detention_max_jours": 30
+}

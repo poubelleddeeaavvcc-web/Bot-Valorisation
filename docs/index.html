@@ -245,27 +245,68 @@ tr:hover td{background:var(--bg3)}
 
     <div id="echo-content" style="display:none">
       <div class="muted-note" style="margin-bottom:14px">
-        Bot #33 ("Courrier") : positions long/short ouvertes directement à partir de tips individuels
-        (une action présentée comme ayant un fort potentiel de hausse ou un risque de forte baisse)
-        détectés par Ollama dans les newsletters Gmail de l'utilisateur. Sans plafond de capital —
-        chaque tip est testé, même si le pool notionnel de 300 EUR est déjà entièrement déployé, pour ne
-        pas biaiser le classement contre les sources qui parlent plus tard. Aucune adresse email n'est
-        jamais publiée — seul le domaine d'envoi de la newsletter (ex. "fool.com") est conservé, pour
-        construire le classement ci-dessous.
+        Bot #33 ("Courrier") : avis d'investissement individuels (achat ou vente d'une action précise) détectés par
+        Ollama dans les newsletters Gmail de l'utilisateur. Depuis le 03/10/2026, chaque avis doit passer des contrôles
+        stricts avant d'être retenu : citation retrouvée mot pour mot dans le mail, société réellement nommée à côté,
+        seconde vérification indépendante du sens, action cotée sur une place principale (pas d'ETF, de fonds
+        ni d'OTC), nom Yahoo cohérent avec la société citée. Trois couches : le <b>journal</b> note chaque newsletter
+        sur le rendement de ses avis à 5/20/60 jours par rapport à l'indice de son marché ; le <b>labo</b> (positions
+        long/short sans plafond, plus bas) teste chaque avis ; la <b>stratégie réelle</b> n'engage que les
+        newsletters fiables, avec un capital limité. Aucune adresse email n'est publiée : seul le domaine d'envoi
+        est conservé, ou le nom affiché de la newsletter pour les plateformes partagées (beehiiv, substack…).
       </div>
 
+      <div class="section-title">Stratégie réelle — capital limité, newsletters fiables uniquement</div>
+      <div class="muted-note" style="margin-bottom:8px">
+        Seules les newsletters au statut <b>fiable</b> (au moins 15 avis évalués à 20 jours et un t-stat ≥ 1,5)
+        peuvent déclencher un achat. Les autres sont écoutées : quand plusieurs d'entre elles sont d'accord (ou en
+        désaccord) avec une newsletter fiable, le rendement espéré de l'idée monte (ou baisse), selon ce que ce
+        consensus a réellement rapporté jusqu'ici. Les idées sont classées par rendement espéré, la taille grandit
+        avec la conviction, chaque idée doit couvrir ses frais, une newsletter ne peut pas porter plus de la moitié
+        du capital, et une position n'est remplacée que par une idée nettement meilleure. Long uniquement.
+      </div>
+      <div id="real-status" class="muted-note" style="margin-bottom:10px"></div>
+      <div class="row" id="real-kpis">
+        <div class="card"><div class="ctit">Valeur</div><div class="kbig" id="real-kpi-equity">-</div><div class="ksub" id="real-kpi-return">-</div></div>
+        <div class="card"><div class="ctit">Positions</div><div class="kbig" id="real-kpi-open">-</div><div class="ksub" id="real-kpi-open-sub">-</div></div>
+        <div class="card"><div class="ctit">Newsletters fiables</div><div class="kbig" id="real-kpi-fiables">-</div><div class="ksub" id="real-kpi-fiables-sub">-</div></div>
+        <div class="card"><div class="ctit">Consensus des autres</div><div class="kbig" id="real-kpi-foule">-</div><div class="ksub" id="real-kpi-foule-sub">-</div></div>
+      </div>
+      <div class="card tbl-wrap" style="margin-bottom:14px">
+        <table>
+          <thead><tr><th>Ticker</th><th>Newsletter</th><th>Entrée</th><th>Montant</th><th>Rendement espéré à l'entrée</th><th>Rendement espéré actuel</th><th>Rendement latent</th></tr></thead>
+          <tbody id="realOpenTbody"></tbody>
+        </table>
+      </div>
+      <details class="card tbl-wrap" style="margin-bottom:14px">
+        <summary class="section-title" style="display:inline-block;cursor:pointer;margin:0">Idées du moment et décision prise — clic pour dérouler</summary>
+        <table style="margin-top:10px">
+          <thead><tr><th>Ticker</th><th>Rendement espéré (20j)</th><th>dont newsletters fiables</th><th>dont consensus des autres</th><th>Pour / contre (autres)</th><th>Newsletter</th><th>Décision</th></tr></thead>
+          <tbody id="realCandTbody"></tbody>
+        </table>
+      </details>
+
       <div class="section-title">Classement des sources — qui appelle juste, qui appelle mal</div>
+      <div class="muted-note" style="margin-bottom:6px">Le statut et le rendement espéré viennent du journal :
+        chaque avis est mesuré 20 jours de bourse plus tard contre l'indice de son marché (signe inversé pour un avis
+        baissier). « Rendement espéré » = moyenne ramenée vers 0 tant qu'il y a peu d'avis. Les deux dernières colonnes
+        viennent des positions clôturées du labo.</div>
       <div class="card tbl-wrap" style="margin-bottom:14px">
         <table id="echoScorecardTable">
           <thead>
             <tr>
               <th data-col="rank">#</th>
               <th data-col="source">Source</th>
+              <th data-col="statut">Statut</th>
+              <th data-col="n_evalues_20j">Avis évalués (20j)</th>
+              <th data-col="excess_moy_20j">Excès moyen 20j</th>
+              <th data-col="edge_estime">Rendement espéré</th>
+              <th data-col="t_stat">t-stat</th>
               <th data-col="n_signals_total">Tips au total</th>
               <th data-col="n_open">Ouverts</th>
               <th data-col="n_closed">Clôturés</th>
-              <th data-col="win_rate_closed">Taux de réussite</th>
-              <th data-col="avg_return_closed">Retour moyen</th>
+              <th data-col="win_rate_closed">Réussite (labo)</th>
+              <th data-col="avg_return_closed">Retour moyen (labo)</th>
             </tr>
           </thead>
           <tbody id="echoScorecardTbody"></tbody>
@@ -678,7 +719,7 @@ const BV_REPO_RAW_ECHO=BV_REPO_RAW;
 let echoLedgerData=[],echoScorecardData=[];
 let echoOpenSortState={col:'entry_date',dir:'desc'};
 let echoClosedSortState={col:'exit_date',dir:'desc'};
-let echoScorecardSortState={col:'win_rate_closed',dir:'desc'};
+let echoScorecardSortState={col:'t_stat',dir:'desc'};
 let echoSourceEvolutionChartRef=null;
 const ECHO_SOURCE_PALETTE=['#caa84e','#388bfd','#3fb950','#f85149','#d29922','#a371f7','#39c5cf','#f778ba','#8b949e','#56d364','#79c0ff'];
 
@@ -701,8 +742,11 @@ async function renderEchoTab(){
       exit_reason:r.exit_reason||'',
     })).filter(r=>r.ticker);
 
+    const num=v=>(v===''||v==null||isNaN(parseFloat(v)))?null:parseFloat(v);
     echoScorecardData=bvParseCSV(scorecardTxt).map(r=>({
-      source:r.source,n_signals_total:parseInt(r.n_signals_total)||0,
+      source:r.source,statut:r.statut||'observation',n_evalues_20j:parseInt(r.n_evalues_20j)||0,
+      excess_moy_20j:num(r.excess_moy_20j),edge_estime:num(r.edge_estime),t_stat:num(r.t_stat),
+      n_signals_total:parseInt(r.n_signals_total)||0,
       n_open:parseInt(r.n_open)||0,n_closed:parseInt(r.n_closed)||0,
       win_rate_closed:r.win_rate_closed!==''&&r.win_rate_closed!=null?parseFloat(r.win_rate_closed):null,
       avg_return_closed:r.avg_return_closed!==''&&r.avg_return_closed!=null?parseFloat(r.avg_return_closed):null,
@@ -732,6 +776,7 @@ async function renderEchoTab(){
     echoSortAndRenderAll();
     echoWireSortHeaders();
     echoDrawSourceEvolutionChart();
+    renderRealStrategy(bust);
   }catch(e){
     statusEl.textContent='Impossible de charger les donnees du Bot Courrier ('+e.message+'). Le bot n\'a peut-etre pas encore tourne.';
     statusEl.style.color='var(--rd)';
@@ -778,7 +823,7 @@ function echoSortAndRenderAll(){
   const {col,dir}=echoScorecardSortState;
   const sortedSc=[...echoScorecardData].sort((a,b)=>{
     let va=a[col],vb=b[col];
-    if(col==='source')return dir==='asc'?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va));
+    if(col==='source'||col==='statut')return dir==='asc'?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va));
     va=(va==null)?-Infinity:va;vb=(vb==null)?-Infinity:vb;
     return dir==='asc'?va-vb:vb-va;
   });
@@ -788,6 +833,11 @@ function echoSortAndRenderAll(){
     <tr>
       <td class="source-rank">${i+1}</td>
       <td><strong>${r.source}</strong></td>
+      <td class="${r.statut==='fiable'?'pos':(r.statut==='bruit'?'neg':'neu')}">${r.statut}</td>
+      <td>${r.n_evalues_20j}</td>
+      <td class="${r.excess_moy_20j!=null?(r.excess_moy_20j>=0?'pos':'neg'):'neu'}">${echoPct(r.excess_moy_20j)}</td>
+      <td class="${r.edge_estime!=null?(r.edge_estime>=0?'pos':'neg'):'neu'}">${echoPct(r.edge_estime)}</td>
+      <td>${r.t_stat!=null?r.t_stat.toFixed(2):'n/a'}</td>
       <td>${r.n_signals_total}</td>
       <td>${r.n_open}</td>
       <td>${r.n_closed}</td>
@@ -883,6 +933,46 @@ function echoWireSortHeaders(){
       echoSortAndRenderAll();
     };
   });
+}
+
+function echoPct(v,d=1){return v==null||isNaN(v)?'n/a':(v>=0?'+':'')+(v*100).toFixed(d)+'%';}
+
+async function renderRealStrategy(bust){
+  const st=document.getElementById('real-status');
+  try{
+    const [sumTxt,ledTxt,candTxt]=await Promise.all([
+      fetch(`${BV_REPO_RAW_ECHO}/results/simulation/mail_signal_real_summary.json?_=${bust}`).then(r=>r.ok?r.text():''),
+      fetch(`${BV_REPO_RAW_ECHO}/results/simulation/mail_signal_real_ledger.csv?_=${bust}`).then(r=>r.ok?r.text():''),
+      fetch(`${BV_REPO_RAW_ECHO}/results/simulation/mail_signal_real_candidates.csv?_=${bust}`).then(r=>r.ok?r.text():''),
+    ]);
+    if(!sumTxt){st.textContent='La stratégie réelle n\'a pas encore tourné.';return;}
+    const s=JSON.parse(sumTxt);
+    st.textContent='Statut : '+s.statut+(s.derniere_maj_utc?' (mise à jour '+s.derniere_maj_utc.replace('T',' ').replace('Z',' UTC')+')':'');
+    document.getElementById('real-kpi-equity').textContent=s.total_equity_eur!=null?s.total_equity_eur.toFixed(2)+' €':'n/a';
+    document.getElementById('real-kpi-return').textContent=echoPct(s.total_return_pct)+' sur '+(s.capital_eur||0).toFixed(0)+' € — frais payés '+(s.frais_payes_eur||0).toFixed(2)+' €';
+    document.getElementById('real-kpi-open').textContent=s.nb_open;
+    document.getElementById('real-kpi-open-sub').textContent=(s.cash_eur!=null?s.cash_eur.toFixed(2):'?')+' € en cash, '+s.nb_closed+' clôturée(s)';
+    document.getElementById('real-kpi-fiables').textContent=s.nb_newsletters_fiables;
+    const fiables=echoScorecardData.filter(r=>r.statut==='fiable'&&!r.source.startsWith('(')).map(r=>r.source);
+    document.getElementById('real-kpi-fiables-sub').textContent=fiables.length?fiables.join(', '):'aucune pour l\'instant';
+    const f=s.foule||{};
+    document.getElementById('real-kpi-foule').textContent=echoPct(f.edge_estime,2);
+    document.getElementById('real-kpi-foule-sub').textContent=`effet mesuré sur ${f.n_evenements||0} consensus (${f.statut||'observation'})`;
+    const led=bvParseCSV(ledTxt).filter(r=>r.ticker&&r.status==='open');
+    document.getElementById('realOpenTbody').innerHTML=led.map(r=>{
+      const u=parseFloat(r.unrealized_return_pct);
+      return `<tr><td><strong>${r.ticker}</strong></td><td>${r.newsletter_principale||''}</td><td>${r.entry_date}</td>`+
+        `<td>${parseFloat(r.entry_value_eur).toFixed(2)} €</td><td>${echoPct(parseFloat(r.entry_alpha))}</td>`+
+        `<td>${echoPct(parseFloat(r.current_alpha))}</td><td class="${u>=0?'pos':'neg'}">${echoPct(u)}</td></tr>`;
+    }).join('')||'<tr><td colspan="7" class="neu">aucune position — capital en cash</td></tr>';
+    const cand=bvParseCSV(candTxt).filter(r=>r.ticker);
+    document.getElementById('realCandTbody').innerHTML=cand.slice(0,40).map(r=>{
+      const a=parseFloat(r.alpha);
+      return `<tr><td><strong>${r.ticker}</strong></td><td class="${a>0?'pos':(a<0?'neg':'neu')}">${echoPct(a,2)}</td>`+
+        `<td>${echoPct(parseFloat(r.alpha_fiable),2)}</td><td>${echoPct(parseFloat(r.foule_terme),2)}</td>`+
+        `<td>${r.n_foule_long||0} / ${r.n_foule_short||0}</td><td>${r.newsletter_principale||''}</td><td>${r.decision||''}</td></tr>`;
+    }).join('')||'<tr><td colspan="7" class="neu">aucun avis récent</td></tr>';
+  }catch(e){st.textContent='Impossible de charger la stratégie réelle ('+e.message+').';}
 }
 
 async function renderPitBacktest(){
