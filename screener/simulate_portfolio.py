@@ -87,6 +87,16 @@ MAX_PLAUSIBLE_PRICE_RATIO = 3.0
 # date, and a split only ever rescales a position when the observed jump matches its ratio.
 SPLIT_LOOKBACK_DAYS = 10
 
+# Entry-only momentum edge over the sector required by the "marge momentum" bots (#34-#37,
+# A9/B9/C9/D9), on top of the plain "beats its sector" bar. Entry and exit used to share that
+# exact bar, so a name bought barely above it fell back below at the next monthly roll of
+# mom_12_2 (monthly closes -- it only moves at month start). Measured on Bot#1's history on
+# 2026-10-03: momentum_perdu exits beat their sector by a median ~4 points at entry, vs ~30 for
+# the positions still open, and 40/49 of them fired on the 1st-2nd of a month; a 10-point
+# margin would have avoided 39/49 of them for 2 good exits and 2 open winners lost. Chosen
+# in-sample, hence tested as separate bots rather than applied to the existing ones.
+MIN_ENTRY_MOM_MARGIN = 0.10
+
 MIN_INDUSTRY_PEERS = 5  # must match value_momentum_quality_screener_v2.MIN_INDUSTRY_PEERS --
 # duplicated rather than imported, same reasoning as simulate_constrained_portfolio.py gives
 # for duplicating the exit rules: this module tracks live positions and shouldn't depend on
@@ -105,14 +115,17 @@ def resolve_peer_pe(sector, industry, sector_pe_map, industry_pe_map, industry_c
 
 
 def fails_fresh_check(fresh: dict, qmult, sector_pe_map, sector_mom_map, industry_pe_map, industry_count_map,
-                       fallback_valuation_gap=None) -> tuple:
+                       fallback_valuation_gap=None, min_mom_margin: float = 0.0) -> tuple:
     """True if a FRESH fetch already meets one of recheck_open_positions' exit conditions
     (momentum lost / valuation gap closed) -- used as a gate before a candidate is bought,
     not just to decide an exit on an existing position. Buying on stale screener data and
     then instantly re-failing this same bar on a fresh check is exactly the same-day
     round-trip bug this gate exists to prevent. Returns (fails, state); state carries the
     fresh valuation_gap/sector_momentum so the caller can record the position's true entry
-    basis rather than the (possibly stale) candidate-list values."""
+    basis rather than the (possibly stale) candidate-list values.
+
+    min_mom_margin: extra momentum edge over the sector required at entry only (0 = the plain
+    "beats its sector" bar, unchanged for every existing bot) -- see MIN_ENTRY_MOM_MARGIN."""
     sector = fresh.get("sector")
     peer_pe = resolve_peer_pe(sector, fresh.get("industry"), sector_pe_map, industry_pe_map, industry_count_map)
     sector_momentum = sector_mom_map.get(sector, 0.0)
@@ -121,9 +134,10 @@ def fails_fresh_check(fresh: dict, qmult, sector_pe_map, sector_mom_map, industr
     else:
         valuation_gap = fallback_valuation_gap
     momentum_lost = fresh["mom_12_2"] <= 0 or fresh["mom_12_2"] <= sector_momentum
+    margin_too_thin = fresh["mom_12_2"] - sector_momentum < min_mom_margin
     valuation_reached = pd.notna(valuation_gap) and valuation_gap <= 0
     state = {"sector": sector, "valuation_gap": valuation_gap, "sector_momentum": sector_momentum}
-    return (momentum_lost or valuation_reached), state
+    return (momentum_lost or margin_too_thin or valuation_reached), state
 
 
 LEDGER_COLUMNS = [
@@ -239,7 +253,8 @@ def reconcile_fresh_price(ticker: str, fresh_price, last_price, last_check_date)
     return "suspect", 1.0
 
 
-def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, today: str) -> tuple:
+def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, today: str,
+                       min_mom_margin: float = 0.0) -> tuple:
     open_tickers = set(ledger.loc[ledger["status"] == "open", "ticker"])
     sector_pe = valuation.groupby("sector")["sector_median_pe"].first()
     sector_mom = valuation.groupby("sector")["sector_momentum"].first()
@@ -255,7 +270,8 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation
             print(f"  achat ignore {c['ticker']} : echec verification fraiche", file=sys.stderr)
             continue
         fails, state = fails_fresh_check(fresh, c["quality_multiplier"], sector_pe, sector_mom,
-                                          industry_pe, industry_count, fallback_valuation_gap=c["valuation_gap"])
+                                          industry_pe, industry_count, fallback_valuation_gap=c["valuation_gap"],
+                                          min_mom_margin=min_mom_margin)
         if fails:
             print(f"  achat ecarte {c['ticker']} : ne passe plus le filtre momentum/valorisation en verification fraiche")
             continue

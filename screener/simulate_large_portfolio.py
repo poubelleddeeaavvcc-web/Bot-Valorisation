@@ -88,7 +88,7 @@ def save_cash(cash: float):
 
 
 def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, cash: float, today: str,
-               fx_rates: dict) -> tuple:
+               fx_rates: dict, min_mom_margin: float = 0.0) -> tuple:
     held_tickers = set(ledger.loc[ledger["status"] == "open", "ticker"])
     sector_counts = ledger.loc[ledger["status"] == "open", "sector"].value_counts().to_dict()
     total_held = len(held_tickers)
@@ -185,7 +185,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             qmult = ledger.at[reinforce_idx, "entry_quality_multiplier"]
             fallback_gap = ledger.at[reinforce_idx, "last_valuation_gap"]
         fails, state = fails_fresh_check(fresh, qmult, sector_pe, sector_mom, industry_pe, industry_count,
-                                          fallback_valuation_gap=fallback_gap)
+                                          fallback_valuation_gap=fallback_gap,
+                                          min_mom_margin=min_mom_margin if is_new else 0.0)
         if fails:
             rejected.add(ticker)
             continue

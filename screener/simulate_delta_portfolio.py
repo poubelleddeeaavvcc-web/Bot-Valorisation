@@ -219,7 +219,7 @@ def reinforce_convictions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: 
 
 
 def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, cash: float, today: str,
-               fx_rates: dict) -> tuple:
+               fx_rates: dict, min_mom_margin: float = 0.0) -> tuple:
     """Identical to Bot#2/3's diversified-buy logic -- see simulate_constrained_portfolio.py."""
     held_tickers = set(ledger.loc[ledger["status"] == "open", "ticker"])
     sector_counts = ledger.loc[ledger["status"] == "open", "sector"].value_counts().to_dict()
@@ -283,7 +283,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             continue
 
         fails, state = fails_fresh_check(fresh, pick_row["quality_multiplier"], sector_pe, sector_mom,
-                                          industry_pe, industry_count, fallback_valuation_gap=pick_row["valuation_gap"])
+                                          industry_pe, industry_count, fallback_valuation_gap=pick_row["valuation_gap"],
+                                          min_mom_margin=min_mom_margin)
         if fails:
             rejected.add(ticker)
             continue

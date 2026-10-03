@@ -231,6 +231,11 @@ jobs:
       - name: Simulation en aveugle + notes + veto sectoriel (Bot #19)
         run: python screener/simulate_portfolio_notes_sector_outlook.py
 
+      # Bot #34 : meme mecanique que #1, sauf qu'a l'achat le momentum doit battre celui du
+      # secteur d'au moins 10 points (MIN_ENTRY_MOM_MARGIN) -- voir simulate_portfolio_marge.py.
+      - name: Simulation en aveugle + marge momentum a l'entree (Bot #34)
+        run: python screener/simulate_portfolio_marge.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
@@ -286,6 +291,11 @@ jobs:
       - name: Simulation a capital contraint + notes + veto sectoriel (Bot #20)
         run: python screener/simulate_constrained_portfolio_notes_sector_outlook.py
 
+      # Bot #35 : meme mecanique que #2, sauf qu'a l'achat le momentum doit battre celui du
+      # secteur d'au moins 10 points (MIN_ENTRY_MOM_MARGIN) -- voir simulate_constrained_portfolio_marge.py.
+      - name: Simulation a capital contraint + marge momentum a l'entree (Bot #35)
+        run: python screener/simulate_constrained_portfolio_marge.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
@@ -337,6 +347,11 @@ jobs:
       # strategie large -- voir simulate_large_portfolio_notes_sector_outlook.py.
       - name: Simulation large + notes + veto sectoriel (Bot #21)
         run: python screener/simulate_large_portfolio_notes_sector_outlook.py
+
+      # Bot #36 : meme mecanique que #3, sauf qu'a l'achat le momentum doit battre celui du
+      # secteur d'au moins 10 points (MIN_ENTRY_MOM_MARGIN) -- voir simulate_large_portfolio_marge.py.
+      - name: Simulation large + marge momentum a l'entree (Bot #36)
+        run: python screener/simulate_large_portfolio_marge.py
 
       - name: Commit + push si des resultats ont change
         run: |
@@ -392,6 +407,11 @@ jobs:
 
       - name: Simulation Delta + notes + veto sectoriel (Bot #28)
         run: python screener/simulate_delta_portfolio_notes_sector_outlook.py
+
+      # Bot #37 : meme mecanique que #25, sauf qu'a l'achat le momentum doit battre celui du
+      # secteur d'au moins 10 points (MIN_ENTRY_MOM_MARGIN) -- voir simulate_delta_portfolio_marge.py.
+      - name: Simulation Delta + marge momentum a l'entree (Bot #37)
+        run: python screener/simulate_delta_portfolio_marge.py
 
       - name: Commit + push si des resultats ont change
         run: |
