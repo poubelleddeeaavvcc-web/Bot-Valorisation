@@ -75,9 +75,10 @@ jobs:
         run: |
           git config user.name "screener-bot"
           git config user.email "actions@users.noreply.github.com"
-          # pathspecs git entre quotes : couvre aussi journal, rejets, annulations et strategie reelle,
-          # sans echouer sur un fichier pas encore cree
-          git add 'results/screener/mail_signal_*' 'results/simulation/mail_signal_*'
+          # pathspecs git entre quotes : journal, rejets, strategie reelle... sans echouer sur un
+          # fichier pas encore cree ; -A enregistre aussi les suppressions (fichiers de l'ancien labo,
+          # retires une fois par mail_signal_bot.py le 2026-10-04)
+          git add -A 'results/screener/mail_signal_*' 'results/simulation/mail_signal_*'
           if git diff --cached --quiet; then
             echo "Rien de nouveau ce cycle."
             exit 0

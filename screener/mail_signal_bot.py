@@ -1,33 +1,36 @@
-"""Bot #33 ("Courrier"): paper-trading LONG and SHORT positions on individual stock tips found
-directly in the user's own Gmail newsletters -- the per-ticker counterpart to
-screener/newsletter_digest.py's per-sector qualitative signal (added 2026-09-11, per the
-user's explicit request: "des mails il y a souvent des suggestions d'actions a fort potentiel
-ou au contraire des chutes -- je veux des long ou des shorts sur ces actions, et savoir de
-quelle newsletter ca vient pour identifier les bons/mauvais investisseurs").
+"""Bot #33 ("Courrier"): individual stock tips found directly in the user's own Gmail
+newsletters, scored per newsletter, and a capital-limited strategy that only follows the
+newsletters that have proven themselves -- the per-ticker counterpart to
+screener/newsletter_digest.py's per-sector qualitative signal (added 2026-09-11, per the user's
+explicit request: "des mails il y a souvent des suggestions d'actions a fort potentiel ou au
+contraire des chutes [...] et savoir de quelle newsletter ca vient pour identifier les
+bons/mauvais investisseurs").
 
-THREE LAYERS (since 2026-10-03)
--------------------------------
+TWO LAYERS (since 2026-10-04)
+-----------------------------
   1. JOURNAL (mail_signal_scoring.py): every validated tip from every newsletter, evaluated at
-     J+5/J+20/J+60 against its market's benchmark. Decides which newsletters are "fiable",
-     "bruit" or "observation", and measures the crowd's consensus. This is the scorecard.
-  2. LAB (this module's ledger, mail_signal_ledger.csv): the original uncapped long/short paper
-     book -- every live tip opens a position. Kept for continuity; no longer what the scorecard is
-     built from.
-  3. STRATEGIE REELLE (mail_signal_real.py): capital-limited, long-only, fee-aware book that only
+     J+5/J+20/J+60 against its market's benchmark -> the per-site performance the dashboard shows,
+     each newsletter's status ("fiable" / "bruit" / "observation") and the crowd's consensus.
+  2. STRATEGIE REELLE (mail_signal_real.py): capital-limited, long-only, fee-aware book that only
      follows reliable newsletters, with the crowd's consensus adjusting conviction.
+The original uncapped long/short paper book ("labo", mail_signal_ledger.csv + its 300 EUR
+notional pool) was retired on 2026-10-04 at the user's request ("supprime le labo, je n'ai jamais
+compris ce que c'etait"): the journal measures every tip without needing a position per tip, and
+the real strategy is the only book with an actual capital. retire_lab() deletes its files once
+(they stay in git history) after saving the newsletter domains it knew, which the backfill needs.
 
 2026-10-03 OVERHAUL (the user's go-live review: "fais toutes ces corrections")
 -----------------------------------------------------------------------------
-A hand review of the first 168 lab positions found ~43% of tips wrong: ticker mapping errors
-("Chevron" -> CHEV = Charging Robotics, the lab's only big winner; "BCE" = the European Central
-Bank -> Bell Canada; "The Dollar Went Up" -> USD, a 2x semiconductor ETF), inverted direction
-("Paychex Plunges, Providing the Entry Investors Have Been Waiting For" -> short), plain news or
-page boilerplate taken as tips, and 22 ETFs/funds. Root cause: the prompt asked the model for its
-"best guess" ticker (a guessed fact -- against this repo's grounding rule) and _resolve_ticker()
-only checked that the symbol had a price, not that it was the right company. Now every tip must
-pass, in order (see _validate_tip / _verify_tip / _resolve_instrument):
-  - deterministic text checks: a verbatim citation that really is in the email, the company
-    actually named in it, not a macro subject (central bank, currency, index...), no "pas d'avis"
+A hand review of the first 168 tips found ~43% of them wrong: ticker mapping errors ("Chevron" ->
+CHEV = Charging Robotics; "BCE" = the European Central Bank -> Bell Canada; "The Dollar Went Up" ->
+USD, a 2x semiconductor ETF), inverted direction ("Paychex Plunges, Providing the Entry Investors
+Have Been Waiting For" -> short), plain news or page boilerplate taken as tips, and 22 ETFs/funds.
+Root cause: the prompt asked the model for its "best guess" ticker (a guessed fact -- against this
+repo's grounding rule) and the resolver only checked that the symbol had a price, not that it was
+the right company. Now every tip must pass, in order (see _validate_tip / _verify_tip /
+_resolve_instrument):
+  - deterministic text checks: a verbatim citation that really is in the email, the company named
+    right next to it, not a macro subject (central bank, currency, index...), no "pas d'avis"
     style self-negation, no ad/boilerplate text, no explicit upgrade/downgrade wording
     contradicting the claimed direction;
   - a second, independent Ollama call that only sees the citation and must confirm an explicit
@@ -37,60 +40,31 @@ pass, in order (see _validate_tip / _verify_tip / _resolve_instrument):
     otherwise looked up by company name; the listing must be an EQUITY on a primary exchange
     (no ETF, fund, OTC) whose Yahoo name matches the company named in the email.
 Rejected tips are logged with their reason (mail_signal_rejects.csv) so the filter itself can be
-audited.
+audited. One CI job only (the newsletter-digest-bot repo used to run this same script on the same
+files in parallel, losing whichever push came second).
 
-The lab's existing wrong positions were removed once (cash refunded at entry value, same as the
-2026-09-16 FDX/AF.PA cleanup) and archived with their reason in mail_signal_annulled.csv -- see
-cleanup_legacy_rows().
+CI TIME BUDGET (2026-10-04): the CPU-only runner needs ~1.7 min per email (classify + extract +
+verify). Ollama calls are sequential, phase by phase, with the fixed instructions first in every
+prompt (Ollama reuses the cached prefix), and no call is started after RUN_BUDGET_MIN -- an email not
+fully handled by then is retried next run instead of being marked processed.
 
-Also fixed: fees are charged on BOTH orders (was exit only); position values are in EUR with the
-current FX rate (was the entry rate forever) -- stops still trigger on the local price, like a
-broker stop; one CI job only (the newsletter-digest-bot repo used to run this same script on the
-same ledger in parallel, losing whichever push came second); the summary now reports P&L and
-average return per position, because "total_return_pct" against the nominal 300 EUR was
-misleading once ~5,000 EUR of notional was deployed.
-
-Backfill: the first runs after this overhaul also walk back over the last BACKFILL_DAYS of mail
-from senders already known as newsletters, BACKFILL_MAX_PER_RUN emails per run, feeding the
-journal only (no lab trade on old tips) -- so newsletters get a J+20 track record in weeks instead
-of months.
-
-Deliberately a SEPARATE script/workflow job from newsletter_digest.py, not folded into it: this
-module makes its own full pass of Ollama calls on top of whatever else already runs in the same
-CI window. Duplicates small helpers rather than sharing them, per this repo's standing style.
+Backfill: the runs after the overhaul also walk back over the last BACKFILL_DAYS of mail from
+senders known as newsletters, feeding the journal only -- so newsletters get a J+20 track record in
+weeks instead of months.
 
 ARTICLE FETCH (see _fetch_article_extract(), added 2026-09-16): most newsletters only excerpt a
-couple of sentences before a "read more" link to the sender's own site. Each newsletter's own links
-are tried and, for the domains hand-confirmed fetchable with a plain HTTP GET (zonebourse.com,
-tradingsat.com -- see FETCHABLE_DOMAINS), the full article text replaces the teaser. Seeking Alpha
-is deliberately NOT in that list: it answers a plain GET with a PerimeterX CAPTCHA wall -- that's
-bot-detection, not something this bot tries to bypass.
+couple of sentences before a "read more" link to the sender's own site. For the domains
+hand-confirmed fetchable with a plain HTTP GET (zonebourse.com, tradingsat.com -- see
+FETCHABLE_DOMAINS), the full article text replaces the teaser. Seeking Alpha is deliberately NOT in
+that list: it answers a plain GET with a PerimeterX CAPTCHA wall -- bot-detection, not something
+this bot tries to bypass.
 
 ATTRIBUTION (see _publication()): PRIVACY / REPO-PUBLIC CONSTRAINT -- this repo pushes to a public
 GitHub remote. The user's explicit choice (2026-09-11): never persist the sender's email address.
-The sending domain is kept (e.g. "seekingalpha.com"). Since 2026-10-03, for newsletter PLATFORMS
-(beehiiv, substack, sailthru...) where the domain is shared by dozens of unrelated newsletters, the
-sender's display name is used instead (e.g. "Some Newsletter (beehiiv.com)") -- otherwise "which
-newsletter calls it right" is unanswerable there. Still never the address itself. An author name
-is kept only when the email literally contains it (journal column, informational).
-
-LAB TRADING: own ledger, own cash file -- long or short depending on the extracted sentiment,
-sized at TARGET_POSITION_SIZE per tip. NO CAP on concurrent open positions (2026-09-15, user's
-request: "l'idee de ce bot c'est de savoir quelles analystes sont bons, je ne veux pas de
-plafond"); cash_eur can go negative and is just a running counter.
-- A tip for a ticker not currently held opens a position.
-- A tip that CONTRADICTS an open position closes it ("signal_inverse") only once the price has
-  already moved at least MIN_REVERSAL_CONFIRM_PCT against the held side (2026-09-14 NVDA whipsaw);
-  otherwise it is dropped. Note this makes signal_inverse a loss-taking exit by construction.
-- A tip for a ticker already held on the same side is a no-op for the lab (it still counts in the
-  journal and the consensus).
-Exits: STOP_LOSS_PCT / the ratcheting stop / TAKE_PROFIT_PCT; no max-holding force-close in the lab
-(removed 2026-09-14 at the user's request). The real strategy does have one -- see
-mail_signal_real.py.
-
-SIMPLIFICATION (documented, not hidden): a short's cash accounting mirrors a long's rather than
-modeling real short-sale mechanics (borrow fees, margin calls) -- one more reason shorts stay in
-the lab and the real strategy is long-only.
+The sending domain is kept (e.g. "seekingalpha.com"). For newsletter PLATFORMS (beehiiv, substack,
+sailthru...) where the domain is shared by dozens of unrelated newsletters, the sender's display
+name is used instead (e.g. "Some Newsletter (beehiiv.com)"). Still never the address itself. An
+author name is kept only when the email literally contains it (journal column, informational).
 """
 import base64
 import difflib
@@ -113,21 +87,22 @@ import yfinance as yf
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
-from screener.simulate_portfolio import (  # noqa: E402
-    STOP_LOSS_PCT, RATCHET_STEP_PCT, RATCHET_GIVEBACK_PCT, reconcile_fresh_price,
-)
-from screener.simulate_constrained_portfolio import fetch_fx_rates, to_eur, fractional_eligible  # noqa: E402
+from screener.simulate_constrained_portfolio import fetch_fx_rates  # noqa: E402
 from screener import mail_signal_scoring as scoring  # noqa: E402
 from screener.mail_signal_real import run_real_layer  # noqa: E402
 
 STATE_PATH = HERE / "results/screener/mail_signal_state.json"
-CASH_PATH = HERE / "results/simulation/mail_signal_state.json"
-LEDGER_PATH = HERE / "results/simulation/mail_signal_ledger.csv"
-SUMMARY_PATH = HERE / "results/simulation/mail_signal_summary.json"
-EQUITY_CURVE_PATH = HERE / "results/simulation/mail_signal_equity_curve.csv"
 SCORECARD_PATH = HERE / "results/screener/mail_signal_source_scorecard.csv"
 REJECTS_PATH = HERE / "results/screener/mail_signal_rejects.csv"
-ANNULLED_PATH = HERE / "results/simulation/mail_signal_annulled.csv"
+# Files of the retired "labo" -- deleted once by retire_lab() (see module docstring)
+LEGACY_LAB_LEDGER = HERE / "results/simulation/mail_signal_ledger.csv"
+LEGACY_LAB_FILES = (
+    LEGACY_LAB_LEDGER,
+    HERE / "results/simulation/mail_signal_state.json",
+    HERE / "results/simulation/mail_signal_summary.json",
+    HERE / "results/simulation/mail_signal_equity_curve.csv",
+    HERE / "results/simulation/mail_signal_annulled.csv",
+)
 
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 GMAIL_API = "https://gmail.googleapis.com/gmail/v1/users/me"
@@ -162,14 +137,6 @@ _FETCH_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
 _EXCLUDE_LINK_SUBSTR = ("mailto:", "unsubscribe", "preferences", "facebook.com", "twitter.com",
                          "x.com", "linkedin.com", "instagram.com", "youtube.com", "privacy")
 
-STARTING_CAPITAL = 300.0        # lab pool -- see module docstring
-STARTING_SLOTS = 9
-TARGET_POSITION_SIZE = STARTING_CAPITAL / STARTING_SLOTS
-MAX_WHOLE_SHARE_OVERSHOOT = 2.5
-TRADE_FEE_EUR = 1.0             # per ORDER -- charged at entry and at exit since 2026-10-03
-
-TAKE_PROFIT_PCT = 0.30
-MIN_REVERSAL_CONFIRM_PCT = 0.02
 MAX_TICKERS_PER_EMAIL = 3
 
 _PLACEHOLDER_TICKERS = {"N/A", "NA", "NONE", "AUCUN", "AUCUNE", "INCONNU", "UNKNOWN", "TBD", "-", "?"}
@@ -722,7 +689,8 @@ def _resolve_instrument(company: str, ticker_in_text: str) -> tuple:
 
 def process_messages(token: str, ids: list[str], deadline: float, backfill: bool = False,
                      attempts: dict | None = None) -> tuple:
-    """Full pipeline for a batch of Gmail ids -> (validated signals, rejected tips, ids DONE).
+    """Full pipeline for a batch of Gmail ids -> (validated signals, rejected tips, ids DONE,
+    domains of the emails classified as financial newsletters).
     Phase by phase (classify all, then extract all, then verify all -- same prompt type in a row so
     Ollama reuses its cached instructions), one Ollama call at a time, and no call STARTED after
     `deadline` (time.monotonic()). An id is DONE only once it is fully handled (not a newsletter, or
@@ -826,7 +794,7 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
         print(f"  {pending} mail(s) {label} reporte(s) au prochain run (budget de temps ou echec Ollama).")
     for r in rejects:
         print(f"  rejete [{r['publication']}] {r['company']} ({r['sentiment']}) : {r['motif']}")
-    return signals, rejects, done
+    return signals, rejects, done, {m["source"] for m in classified}
 
 
 def _reject_row(m: dict, tip: dict, reason: str) -> dict:
@@ -847,46 +815,8 @@ def append_rejects(rejects: list[dict]):
 
 
 # ---------------------------------------------------------------------------------------------
-# Lab ledger
+# Helpers for the real strategy + retirement of the old lab
 # ---------------------------------------------------------------------------------------------
-
-LEDGER_COLUMNS = [
-    "ticker", "name", "side", "source", "status", "currency", "fractional",
-    "entry_date", "entry_price", "shares", "entry_value_eur", "entry_fee_eur",
-    "last_check_date", "last_price", "current_value_eur", "unrealized_return_pct",
-    "peak_unrealized_return_pct", "peak_date",
-    "exit_date", "exit_price", "exit_reason", "exit_value_eur", "return_pct", "holding_days",
-    "signal_reason",
-]
-
-
-def load_ledger() -> pd.DataFrame:
-    if LEDGER_PATH.exists():
-        df = pd.read_csv(LEDGER_PATH)
-        for c in LEDGER_COLUMNS:
-            if c not in df.columns:
-                df[c] = None
-        df = df[LEDGER_COLUMNS]
-    else:
-        df = pd.DataFrame(columns=LEDGER_COLUMNS)
-    for c in ("ticker", "name", "side", "source", "status", "currency", "entry_date", "last_check_date",
-              "peak_date", "exit_date", "exit_reason", "signal_reason"):
-        df[c] = df[c].astype(object)
-    return df
-
-
-def load_cash() -> float:
-    return _load_json(CASH_PATH, {"cash_eur": STARTING_CAPITAL})["cash_eur"]
-
-
-def save_cash(cash: float):
-    _save_json(CASH_PATH, {"cash_eur": cash})
-
-
-def _unrealized_return(side: str, entry_price: float, last_price: float) -> float:
-    raw = last_price / entry_price - 1
-    return raw if side == "long" else -raw
-
 
 def _ensure_fx(currency, fx_rates: dict) -> dict:
     """Extends fx_rates in place with whichever currency a position needs (tickers come from
@@ -897,248 +827,30 @@ def _ensure_fx(currency, fx_rates: dict) -> dict:
     return fx_rates
 
 
-def _value_eur(ledger: pd.DataFrame, idx, side: str, price: float, fx_rates: dict):
-    """Current EUR value at today's FX rate (None if no rate). Entry price in EUR is recovered as
-    entry_value_eur / shares (exact for both the fractional and whole-share sizing paths)."""
-    currency = ledger.at[idx, "currency"]
-    _ensure_fx(currency, fx_rates)
-    price_eur = to_eur(price, currency if isinstance(currency, str) else None, fx_rates)
-    shares, entry_value = float(ledger.at[idx, "shares"]), float(ledger.at[idx, "entry_value_eur"])
-    if price_eur is None or shares <= 0:
-        return None
-    if side == "long":
-        return shares * price_eur
-    return entry_value * (2 - price_eur / (entry_value / shares))  # short: mirror of a long
-
-
-def _close_lab(ledger, idx, today, price, value_eur, reason) -> float:
-    entry_value = float(ledger.at[idx, "entry_value_eur"])
-    entry_fee = float(ledger.at[idx, "entry_fee_eur"]) if pd.notna(ledger.at[idx, "entry_fee_eur"]) else 0.0
-    net_exit_value = value_eur - TRADE_FEE_EUR
-    net_return = (net_exit_value - entry_value - entry_fee) / entry_value
-    ledger.at[idx, "status"] = "closed"
-    ledger.at[idx, "exit_date"] = today
-    ledger.at[idx, "exit_price"] = price
-    ledger.at[idx, "exit_reason"] = reason
-    ledger.at[idx, "exit_value_eur"] = net_exit_value
-    ledger.at[idx, "return_pct"] = net_return
-    ledger.at[idx, "holding_days"] = (pd.Timestamp(today) - pd.Timestamp(ledger.at[idx, "entry_date"])).days
-    print(f"  CLOTURE {str(ledger.at[idx, 'side']).upper()} {ledger.at[idx, 'ticker']} : {reason}, "
-          f"retour net {net_return:+.1%} (frais d'entree et de sortie deduits)")
-    return net_exit_value
-
-
-def recheck_and_exit(ledger: pd.DataFrame, today: str, cash: float, fx_rates: dict) -> tuple:
-    for idx in ledger.index[ledger["status"] == "open"]:
-        ticker = ledger.at[idx, "ticker"]
-        side = ledger.at[idx, "side"]
-        px = _fetch_price(ticker)
-        if px is None:
-            continue  # transient fetch failure -- retry next run, don't force an exit on it
-        price_check, split_factor = reconcile_fresh_price(ticker, px["price"], ledger.at[idx, "last_price"],
-                                                          ledger.at[idx, "last_check_date"])
-        if price_check == "suspect":
-            continue
-        if price_check == "split":
-            ledger.at[idx, "entry_price"] = ledger.at[idx, "entry_price"] / split_factor
-            ledger.at[idx, "shares"] = ledger.at[idx, "shares"] * split_factor
-
-        # stops on the LOCAL price move, like a broker stop; value in EUR at today's FX rate
-        unrealized = _unrealized_return(side, ledger.at[idx, "entry_price"], px["price"])
-        current_value = _value_eur(ledger, idx, side, px["price"], fx_rates)
-        if current_value is None:
-            current_value = float(ledger.at[idx, "entry_value_eur"]) * (1 + unrealized)
-
-        ledger.at[idx, "last_check_date"] = today
-        ledger.at[idx, "last_price"] = px["price"]
-        ledger.at[idx, "current_value_eur"] = current_value
-        ledger.at[idx, "unrealized_return_pct"] = unrealized
-
-        peak = ledger.at[idx, "peak_unrealized_return_pct"]
-        if pd.isna(peak) or unrealized > peak:
-            ledger.at[idx, "peak_unrealized_return_pct"] = unrealized
-            ledger.at[idx, "peak_date"] = today
-        peak = ledger.at[idx, "peak_unrealized_return_pct"]
-
-        stop_loss_hit = unrealized <= STOP_LOSS_PCT
-        take_profit_hit = unrealized >= TAKE_PROFIT_PCT
-        milestone = int(peak // RATCHET_STEP_PCT) if pd.notna(peak) else 0
-        trailing_stop_hit = milestone >= 1 and unrealized <= milestone * RATCHET_STEP_PCT - RATCHET_GIVEBACK_PCT
-        if stop_loss_hit or take_profit_hit or trailing_stop_hit:
-            reason = ("trailing_stop" if trailing_stop_hit else
-                      "stop_loss" if stop_loss_hit else "take_profit")
-            cash += _close_lab(ledger, idx, today, px["price"], current_value, reason)
-    return ledger, cash
-
-
-def _open_position(ledger: pd.DataFrame, sig: dict, cash: float, today: str, fx_rates: dict) -> tuple:
-    """No cash/affordability gate on purpose -- see LAB TRADING in the module docstring."""
-    _ensure_fx(sig.get("currency"), fx_rates)
-    price_eur = to_eur(sig["price"], sig.get("currency"), fx_rates)
-    if price_eur is None or price_eur <= 0:
-        return ledger, cash, False
-    ticker = sig["ticker"]
-    fractional = fractional_eligible(ticker, None, None)
-    if fractional:
-        cost = TARGET_POSITION_SIZE
-        shares = cost / price_eur
-    else:
-        if price_eur > MAX_WHOLE_SHARE_OVERSHOOT * TARGET_POSITION_SIZE:
-            return ledger, cash, False
-        shares = max(1, int(TARGET_POSITION_SIZE // price_eur))
-        cost = shares * price_eur
-
-    new_row = {c: None for c in LEDGER_COLUMNS}
-    new_row.update({
-        "ticker": ticker, "name": sig.get("name") or ticker, "side": sig["side"], "source": sig["publication"],
-        "status": "open", "currency": sig.get("currency"), "fractional": bool(fractional),
-        "entry_date": today, "entry_price": sig["price"], "shares": shares, "entry_value_eur": cost,
-        "entry_fee_eur": TRADE_FEE_EUR, "last_check_date": today, "last_price": sig["price"],
-        "current_value_eur": cost, "unrealized_return_pct": 0.0, "peak_unrealized_return_pct": 0.0,
-        "peak_date": today, "signal_reason": sig["citation"][:300],
-    })
-    ledger = pd.concat([ledger, pd.DataFrame([new_row], columns=LEDGER_COLUMNS)], ignore_index=True)
-    cash -= cost + TRADE_FEE_EUR
-    kind = "fractionne" if fractional else "entier"
-    print(f"  OUVERTURE {sig['side'].upper()} {ticker} ({sig['publication']}) : {cost:.2f} EUR "
-          f"({shares:.4f} actions, {kind}) @ {sig['price']:.2f} {sig.get('currency') or '?'}")
-    return ledger, cash, True
-
-
-def apply_signals(ledger: pd.DataFrame, signals: list[dict], cash: float, today: str, fx_rates: dict) -> tuple:
-    """Lab decision tree (not held / same side / opposite side) for tips that were JUST added to
-    the journal -- already validated and resolved to their canonical symbol."""
-    for sig in signals:
-        ticker, side = sig["ticker"], sig["side"]
-        open_row = ledger[(ledger["ticker"] == ticker) & (ledger["status"] == "open")]
-        if len(open_row):
-            existing_side = open_row.iloc[0]["side"]
-            if existing_side == side:
-                continue
-            idx = open_row.index[0]
-            unrealized = _unrealized_return(existing_side, ledger.at[idx, "entry_price"], sig["price"])
-            if unrealized > -MIN_REVERSAL_CONFIRM_PCT:
-                continue  # see 2026-09-14 NVDA whipsaw note in the module docstring
-            value = _value_eur(ledger, idx, existing_side, sig["price"], fx_rates)
-            if value is None:
-                value = float(ledger.at[idx, "entry_value_eur"]) * (1 + unrealized)
-            cash += _close_lab(ledger, idx, today, sig["price"], value, "signal_inverse")
-        ledger, cash, _ = _open_position(ledger, sig, cash, today, fx_rates)
-    return ledger, cash
-
-
-# Lab rows found wrong in the 2026-10-03 hand review that no automatic rule below would catch
-# (wrong company behind a real equity ticker). Keyed by (ticker, entry_date, source).
-MANUAL_ANNULMENTS = {
-    ("CHEV", "2026-09-13", "seekingalpha.com"): "l'article parlait de Chevron (CVX), pas de Charging Robotics (CHEV)",
-    ("BCE", "2026-09-13", "news.meilleurtaux.com"): "BCE = Banque centrale europeenne, pas Bell Canada",
-    ("YMIB.MC", "2026-09-16", "aktionnaire.com"): "Mistral (IA, non cotee) confondu avec Mistral Iberia Real Estate",
-    ("CS.PA", "2026-09-23", "aktionnaire.com"): "aucun avis sur AXA (article sur un prix litteraire)",
-    ("B", "2026-09-27", "seekingalpha.com"): "Barrick sans rapport avec l'article (puces Nvidia en Chine)",
-    ("ABBV", "2026-09-18", "analystratings.net"): "publicite sur l'IA/robotique, AbbVie sans rapport",
-    ("BLK", "2026-09-17", "analystratings.net"): "publicite ; BlackRock y est un actionnaire cite, pas le titre recommande",
-    ("BAC", "2026-09-15", "seekingalpha.com"): "Bank of America est l'analyste (semi-conducteurs), pas le titre analyse",
-    ("BAC", "2026-09-24", "substack.com"): "estimation de BofA sur les bons du Tresor, aucun avis sur l'action",
-    ("NDX", "2026-09-17", "tipranks.com"): "indice Nasdaq 100, pas une action",
-}
-
-
-def _quote_type(symbol: str) -> str | None:
-    for q in _search_quotes(symbol):
-        if str(q.get("symbol", "")).upper() == symbol.upper():
-            return q.get("quoteType")
-    try:
-        return yf.Ticker(symbol).info.get("quoteType")
-    except Exception:
-        return None
-
-
-def cleanup_legacy_rows(ledger: pd.DataFrame, cash: float, today: str) -> tuple:
-    """One-off (state flag) application of the 2026-10-03 rules to lab rows opened before them:
-    non-equity instruments, reasons that deny being an opinion / page boilerplate / empty, and
-    MANUAL_ANNULMENTS. Same treatment as the 2026-09-16 FDX/AF.PA cleanup -- the trade never
-    really existed, so cash is restored as if it had never been opened (open row: + entry value;
-    closed row: + entry value - exit value, i.e. its realized P&L is reversed). Archived with the
-    reason in mail_signal_annulled.csv rather than silently deleted."""
-    reasons = {}
-    for idx, r in ledger.iterrows():
-        key = (r["ticker"], str(r["entry_date"]), r["source"])
-        if key in MANUAL_ANNULMENTS:
-            reasons[idx] = "revue manuelle 2026-10-03 : " + MANUAL_ANNULMENTS[key]
-            continue
-        reason_txt = _norm_text(r["signal_reason"]) if isinstance(r["signal_reason"], str) else ""
-        if not reason_txt:
-            reasons[idx] = "aucune justification enregistree"
-        elif any(p in reason_txt for p in _NEGATION_PATTERNS):
-            reasons[idx] = "la justification dit elle-meme qu'il n'y a pas d'avis"
-        elif any(p in reason_txt for p in _BOILERPLATE_PATTERNS):
-            reasons[idx] = "justification = texte de page ou publicite"
-    types = {}
-    with ThreadPoolExecutor(max_workers=6) as ex:
-        for sym, qt in zip(ledger["ticker"].unique(), ex.map(_quote_type, ledger["ticker"].unique())):
-            types[sym] = qt
-    for idx, r in ledger.iterrows():
-        qt = types.get(r["ticker"])
-        if idx not in reasons and qt is not None and qt != "EQUITY":
-            reasons[idx] = f"instrument {qt}, pas une action"
-    if not reasons:
-        return ledger, cash
-    annulled = ledger.loc[list(reasons)].copy()
-    annulled["motif_annulation"] = [reasons[i] for i in annulled.index]
-    annulled["date_annulation"] = today
-    for idx in annulled.index:
-        entry_value = float(ledger.at[idx, "entry_value_eur"])
-        if ledger.at[idx, "status"] == "closed":
-            cash += entry_value - float(ledger.at[idx, "exit_value_eur"])
-        else:
-            cash += entry_value
-    old = pd.read_csv(ANNULLED_PATH) if ANNULLED_PATH.exists() else None
-    annulled = pd.concat([old, annulled], ignore_index=True) if old is not None else annulled
-    ANNULLED_PATH.parent.mkdir(parents=True, exist_ok=True)
-    annulled.to_csv(ANNULLED_PATH, index=False)
-    print(f"  nettoyage : {len(reasons)} position(s) du labo annulee(s) (detail dans {ANNULLED_PATH.name})")
-    return ledger.drop(index=list(reasons)).reset_index(drop=True), cash
-
-
-def write_summary(ledger: pd.DataFrame, cash: float) -> dict:
-    closed = ledger[ledger["status"] == "closed"]
-    open_pos = ledger[ledger["status"] == "open"]
-    total_equity = cash + open_pos["current_value_eur"].sum()
-    per_position = pd.concat([closed["return_pct"], open_pos["unrealized_return_pct"]]).dropna()
-    summary = {
-        "cash_eur": cash, "total_equity_eur": total_equity,
-        # kept for the dashboard, but misleading on its own: the lab is uncapped, so its notional
-        # can be many times the 300 EUR baseline -- read pnl_eur / rendement_moyen_par_position
-        "total_return_pct": total_equity / STARTING_CAPITAL - 1,
-        "pnl_eur": total_equity - STARTING_CAPITAL,
-        "capital_engage_eur": float(open_pos["entry_value_eur"].sum()),
-        "rendement_moyen_par_position": float(per_position.mean()) if len(per_position) else None,
-        "nb_open": len(open_pos), "nb_closed": len(closed),
-        "nb_long_open": int((open_pos["side"] == "long").sum()),
-        "nb_short_open": int((open_pos["side"] == "short").sum()),
-        "win_rate_closed": float((closed["return_pct"] > 0).mean()) if len(closed) else None,
-        "avg_return_closed": float(closed["return_pct"].mean()) if len(closed) else None,
-    }
-    SUMMARY_PATH.write_text(pd.Series(summary).to_json(), encoding="utf-8")
-    print(f"\n=== Bot #33 Courrier (labo) : {summary['nb_open']} positions ouvertes "
-          f"({summary['nb_long_open']} long / {summary['nb_short_open']} short), "
-          f"P&L {summary['pnl_eur']:+.2f} EUR pour {summary['capital_engage_eur']:.0f} EUR engages ===")
-    return summary
-
-
-def append_equity_curve_point(cash: float, total_equity: float, nb_open: int, nb_closed: int):
-    row = {"timestamp": pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%dT%H:%M:%SZ"),
-           "cash_eur": cash, "total_equity_eur": total_equity, "n_open": nb_open, "n_closed": nb_closed}
-    header = not EQUITY_CURVE_PATH.exists()
-    EQUITY_CURVE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame([row]).to_csv(EQUITY_CURVE_PATH, mode="a", header=header, index=False)
+def retire_lab(state: dict, journal: pd.DataFrame):
+    """One-off (2026-10-04, see module docstring): keep the newsletter domains the old lab ledger
+    knew -- the backfill searches Gmail by sender domain and the journal alone doesn't know them
+    all yet -- then delete the lab's files (they remain in git history)."""
+    domains = set(state.get("known_domains", [])) | set(journal["domain"].dropna())
+    if LEGACY_LAB_LEDGER.exists():
+        try:
+            lab = pd.read_csv(LEGACY_LAB_LEDGER)
+            domains |= {s for s in lab["source"].dropna() if " " not in s and "." in s}
+        except Exception as e:
+            print(f"  lecture de l'ancien labo impossible: {e}", file=sys.stderr)
+    state["known_domains"] = sorted(domains)
+    removed = [f.name for f in LEGACY_LAB_FILES if f.exists()]
+    for f in LEGACY_LAB_FILES:
+        f.unlink(missing_ok=True)
+    if removed:
+        print(f"  labo retire : {', '.join(removed)} supprime(s) (historique conserve dans git).")
 
 
 # ---------------------------------------------------------------------------------------------
 # Orchestration
 # ---------------------------------------------------------------------------------------------
 
-def _backfill_ids(token: str, state: dict, ledger: pd.DataFrame, journal: pd.DataFrame, live_ids: set) -> list[str]:
+def _backfill_ids(token: str, state: dict, journal: pd.DataFrame, live_ids: set) -> list[str]:
     """Next batch of older emails to backfill -- fixed window ending the day the backfill started
     (the live 2-day listing covers everything after), only from senders already seen as
     newsletters. Marks the backfill done once the window is exhausted."""
@@ -1148,7 +860,7 @@ def _backfill_ids(token: str, state: dict, ledger: pd.DataFrame, journal: pd.Dat
     if "end_date" not in bf:
         bf["end_date"] = datetime.now(timezone.utc).date().isoformat()
         bf["processed_ids"] = []
-    domains = set(journal["domain"].dropna()) | {s for s in ledger["source"].dropna() if " " not in s and "." in s}
+    domains = set(journal["domain"].dropna()) | set(state.get("known_domains", []))
     if not domains:
         bf["done"] = True
         return []
@@ -1173,12 +885,11 @@ def main():
     now = pd.Timestamp.now(tz="UTC")
     today = now.date().isoformat()
 
-    ledger = load_ledger()
-    cash = load_cash()
     journal = scoring.load_journal()
-    if not state.get("legacy_cleanup_2026_10_03"):
-        ledger, cash = cleanup_legacy_rows(ledger, cash, today)
-        state["legacy_cleanup_2026_10_03"] = today
+    if not state.get("lab_retired"):
+        retire_lab(state, journal)
+        state["lab_retired"] = today
+    state.pop("legacy_cleanup_2026_10_03", None)  # flag of the lab's one-off cleanup, now moot
 
     signals, rejects = [], []
     message_ids = None  # set only once the live batch was fully processed
@@ -1192,15 +903,16 @@ def main():
             previously = set(state.get("processed_message_ids", [])) | set(state.get("backfill", {}).get("processed_ids", []))
             new_ids = [m for m in listed if m not in previously]
             attempts = state.setdefault("ollama_attempts", {})
-            s, r, done = process_messages(token, new_ids, deadline, attempts=attempts)
+            s, r, done, domains = process_messages(token, new_ids, deadline, attempts=attempts)
             signals += s
             rejects += r
+            state["known_domains"] = sorted(set(state.get("known_domains", [])) | domains)
             # only ids actually handled -- the others stay "new" and are retried next run
             message_ids = [m for m in listed if m in previously or m in done]
             if time.monotonic() < deadline:
-                batch = _backfill_ids(token, state, ledger, journal, set(listed))
+                batch = _backfill_ids(token, state, journal, set(listed))
                 if batch:
-                    s, r, done_bf = process_messages(token, batch, deadline, backfill=True, attempts=attempts)
+                    s, r, done_bf, _ = process_messages(token, batch, deadline, backfill=True, attempts=attempts)
                     signals += s
                     rejects += r
                     state["backfill"]["processed_ids"] = state["backfill"]["processed_ids"] + sorted(done_bf)
@@ -1221,24 +933,10 @@ def main():
     fiables = [p for p, st in state["source_status"].items() if st == "fiable"]
     print(f"Newsletters fiables : {', '.join(fiables) if fiables else 'aucune pour l instant'} ; foule : "
           f"edge {crowd['edge']:+.2%} sur {crowd['n']} evenement(s) ({crowd['status']}).")
-
-    currencies = {c for c in ledger["currency"].dropna() if isinstance(c, str)} | {"USD"}
-    fx_rates = fetch_fx_rates(currencies)
-    ledger, cash = recheck_and_exit(ledger, today, cash, fx_rates)
-    live = [s for s in added if not s["backfill"]]
-    if live:
-        ledger, cash = apply_signals(ledger, live, cash, today, fx_rates)
-
-    write_summary(ledger, cash)
-    scoring.build_scorecard(scores, crowd, ledger).to_csv(SCORECARD_PATH, index=False)
-    open_pos = ledger[ledger["status"] == "open"]
-    append_equity_curve_point(cash, cash + open_pos["current_value_eur"].sum(), len(open_pos),
-                               int((ledger["status"] == "closed").sum()))
-    LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
-    ledger.to_csv(LEDGER_PATH, index=False)
-    save_cash(cash)
+    scoring.build_scorecard(scores, crowd).to_csv(SCORECARD_PATH, index=False)
     scoring.save_journal(journal)
 
+    fx_rates = fetch_fx_rates({"USD"})
     run_real_layer(journal, scores, crowd, now, fx_rates, _fetch_price, _ensure_fx)
 
     if message_ids is not None:

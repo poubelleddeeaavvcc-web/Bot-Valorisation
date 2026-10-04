@@ -306,19 +306,18 @@ BOTS = [
         "summary": SIM_DIR / "delta_summary_newsgated_notes_sector_outlook.json",
         "has_eur_equity": True,
     },
-    # Bot #33 ("Echo", ajoute 2026-09-11) : mecanique entierement differente des autres --
-    # pas de candidats du screener valeur+momentum, les positions viennent de tips individuels
-    # (ticker + sens haussier/baissier) extraits directement des newsletters Gmail par
-    # screener/mail_signal_bot.py, long OU short selon le tip. Propre pool de 300 EUR. Peut
-    # rester a ledger vide (aucune position jamais ouverte) plus longtemps que les autres bots
-    # -- contrairement a eux, qui achetent immediatement au premier run, celui-ci ne fait rien
-    # tant qu'aucun mail ne contient un tip explicite -- voir check_bot() pour la gestion de ce
-    # cas (ledger vide -> launch_date/days_running indisponibles plutot qu'un crash).
+    # Bot #33 ("Courrier", ex-"Echo") : avis individuels extraits des newsletters Gmail par
+    # screener/mail_signal_bot.py. Depuis le 2026-10-04 c'est sa STRATEGIE REELLE qui est suivie
+    # ici (screener/mail_signal_real.py : capital limite, long uniquement, newsletters fiables
+    # uniquement) -- l'ancien "labo" long/short sans plafond (mail_signal_ledger.csv) a ete retire a
+    # la demande de l'utilisateur. Peut rester a ledger vide longtemps : elle ne trade pas tant
+    # qu'aucune newsletter n'a fait ses preuves -- voir check_bot() pour la gestion de ce cas
+    # (ledger vide -> launch_date/days_running indisponibles plutot qu'un crash).
     {
-        "key": "bot33_echo_mail_signals",
-        "label": "Bot #33 (Echo, long/short sur tips newsletters)",
-        "ledger": SIM_DIR / "mail_signal_ledger.csv",
-        "summary": SIM_DIR / "mail_signal_summary.json",
+        "key": "bot33_courrier_reel",
+        "label": "Bot #33 (Courrier, strategie reelle -- newsletters fiables)",
+        "ledger": SIM_DIR / "mail_signal_real_ledger.csv",
+        "summary": SIM_DIR / "mail_signal_real_summary.json",
         "has_eur_equity": True,
     },
 ]
@@ -355,7 +354,7 @@ def check_bot(bot: dict) -> dict:
     ledger = pd.read_csv(bot["ledger"])
     # A ledger can be genuinely empty (0 rows, not just 0 CLOSED trades) for a bot whose
     # positions depend on an external trigger rather than buying immediately every run --
-    # Bot#33 "Echo" can sit with no signal at all for days (see BOTS' comment on that entry).
+    # Bot#33 "Courrier" can sit with no position at all for weeks (see BOTS' comment on that entry).
     # entry_date.min() on an empty column is NaT, and NaT - date crashes rather than
     # comparing as "unknown" -- launch_date/days_running stay None here instead.
     if len(ledger):

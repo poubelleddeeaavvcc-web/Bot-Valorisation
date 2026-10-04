@@ -46,6 +46,13 @@ tr:hover td{background:var(--bg3)}
 .long-badge{color:var(--gr);font-weight:700}
 .short-badge{color:var(--rd);font-weight:700}
 .source-rank{display:inline-block;min-width:18px;color:var(--mu);font-size:10px}
+.slicers{display:flex;flex-wrap:wrap;gap:14px 24px;margin-bottom:12px}
+.slicer{display:flex;flex-direction:column;gap:6px;min-width:0}
+.slicer-head{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.5px}
+.slicer-chips{display:flex;flex-wrap:wrap;gap:5px}
+.slicer-chip{padding:4px 10px;border:1px solid var(--bd);border-radius:6px;cursor:pointer;font-size:11px;color:var(--mu);background:none;white-space:nowrap;transition:.15s;font-family:inherit}
+.slicer-chip:hover{color:var(--tx);background:var(--bg3)}
+.slicer-chip.on{background:var(--bd);color:var(--tx);border-color:var(--g);font-weight:600}
 </style>
 </head>
 <body>
@@ -219,41 +226,16 @@ tr:hover td{background:var(--bg3)}
 
   <div id="tab-echo" class="tabpane">
     <div id="echo-status" class="muted-note" style="margin-bottom:14px">Chargement des données depuis GitHub…</div>
-
-    <div class="row" id="echo-kpis" style="display:none">
-      <div class="card">
-        <div class="ctit">Tips analysés</div>
-        <div class="kbig" id="echo-kpi-tips">-</div>
-        <div class="ksub" id="echo-kpi-tips-sub">-</div>
-      </div>
-      <div class="card">
-        <div class="ctit">Positions ouvertes</div>
-        <div class="kbig" id="echo-kpi-open">-</div>
-        <div class="ksub" id="echo-kpi-open-sub">-</div>
-      </div>
-      <div class="card">
-        <div class="ctit">Meilleure source</div>
-        <div class="kbig pos" id="echo-kpi-best-source">-</div>
-        <div class="ksub" id="echo-kpi-best-source-sub">-</div>
-      </div>
-      <div class="card">
-        <div class="ctit">Pire source</div>
-        <div class="kbig neg" id="echo-kpi-worst-source">-</div>
-        <div class="ksub" id="echo-kpi-worst-source-sub">-</div>
-      </div>
-    </div>
-
     <div id="echo-content" style="display:none">
-      <div class="muted-note" style="margin-bottom:14px">
-        Bot #33 ("Courrier") : avis d'investissement individuels (achat ou vente d'une action précise) détectés par
-        Ollama dans les newsletters Gmail de l'utilisateur. Depuis le 03/10/2026, chaque avis doit passer des contrôles
-        stricts avant d'être retenu : citation retrouvée mot pour mot dans le mail, société réellement nommée à côté,
-        seconde vérification indépendante du sens, action cotée sur une place principale (pas d'ETF, de fonds
-        ni d'OTC), nom Yahoo cohérent avec la société citée. Trois couches : le <b>journal</b> note chaque newsletter
-        sur le rendement de ses avis à 5/20/60 jours par rapport à l'indice de son marché ; le <b>labo</b> (positions
-        long/short sans plafond, plus bas) teste chaque avis ; la <b>stratégie réelle</b> n'engage que les
-        newsletters fiables, avec un capital limité. Aucune adresse email n'est publiée : seul le domaine d'envoi
-        est conservé, ou le nom affiché de la newsletter pour les plateformes partagées (beehiiv, substack…).
+      <div class="xirr-explain" style="margin-bottom:14px">
+        <b>Bot #33 « Courrier » :</b> avis d'investissement individuels (achat ou vente d'une action précise) détectés par
+        Ollama dans les newsletters Gmail de l'utilisateur. Chaque avis doit passer des contrôles stricts avant d'être
+        retenu : citation retrouvée mot pour mot dans le mail, société nommée à côté, seconde vérification indépendante du
+        sens, action cotée sur une place principale (pas d'ETF, de fonds ni d'OTC), nom Yahoo cohérent avec la société
+        citée. Chaque avis retenu est ensuite mesuré à 5, 20 et 60 jours de bourse : c'est la <b>performance de chaque
+        site</b> plus bas. La <b>stratégie réelle</b> n'engage que les sites qui ont fait leurs preuves, avec un capital
+        limité. Aucune adresse email n'est publiée : seul le domaine d'envoi est conservé, ou le nom affiché de la
+        newsletter pour les plateformes partagées (beehiiv, substack…).
       </div>
 
       <div class="section-title">Stratégie réelle — capital limité, newsletters fiables uniquement</div>
@@ -286,74 +268,34 @@ tr:hover td{background:var(--bg3)}
         </table>
       </details>
 
-      <div class="section-title">Classement des sources — qui appelle juste, qui appelle mal</div>
-      <div class="muted-note" style="margin-bottom:6px">Le statut et le rendement espéré viennent du journal :
-        chaque avis est mesuré 20 jours de bourse plus tard contre l'indice de son marché (signe inversé pour un avis
-        baissier). « Rendement espéré » = moyenne ramenée vers 0 tant qu'il y a peu d'avis. Les deux dernières colonnes
-        viennent des positions clôturées du labo.</div>
-      <div class="card tbl-wrap" style="margin-bottom:14px">
-        <table id="echoScorecardTable">
-          <thead>
-            <tr>
-              <th data-col="rank">#</th>
-              <th data-col="source">Source</th>
-              <th data-col="statut">Statut</th>
-              <th data-col="n_evalues_20j">Avis évalués (20j)</th>
-              <th data-col="excess_moy_20j">Excès moyen 20j</th>
-              <th data-col="edge_estime">Rendement espéré</th>
-              <th data-col="t_stat">t-stat</th>
-              <th data-col="n_signals_total">Tips au total</th>
-              <th data-col="n_open">Ouverts</th>
-              <th data-col="n_closed">Clôturés</th>
-              <th data-col="win_rate_closed">Réussite (labo)</th>
-              <th data-col="avg_return_closed">Retour moyen (labo)</th>
-            </tr>
-          </thead>
-          <tbody id="echoScorecardTbody"></tbody>
-        </table>
+      <div class="section-title">Performance de chaque site</div>
+      <div class="muted-note" style="margin-bottom:8px">
+        Pour chaque site (newsletter), ce qu'ont donné en moyenne ses avis <b>5, 20 ou 60 jours de bourse</b> après le mail.
+        <b>Par rapport au marché</b> : rendement dans le sens de l'avis moins celui de l'indice de son marché sur la même
+        période (S&amp;P 500 pour une action US, Stoxx Europe 600 pour une action européenne…) — c'est la vraie valeur ajoutée
+        du site. <b>Rendement brut</b> : sans retirer le marché. <b>Taux de réussite</b> : part des avis qui ont battu le marché.
+        Un avis de <b>vente</b> compte positivement si l'action a baissé. Entre parenthèses : nombre d'avis mesurés. Un clic sur
+        un site affiche ses avis plus bas.
       </div>
-
-      <div class="section-title">Évolution du taux de réussite par source</div>
-      <div class="muted-note" style="margin-bottom:6px">Taux de réussite cumulé au fil des clôtures (une ligne par source) — les positions encore ouvertes ne comptent pas tant qu'elles ne sont pas clôturées.</div>
+      <div id="echo-perf-slicers" class="slicers"></div>
       <div class="card" style="margin-bottom:14px">
-        <div style="position:relative;height:300px"><canvas id="echoSourceEvolutionChart"></canvas></div>
+        <div id="echo-perf-chart-wrap" style="position:relative;height:200px"><canvas id="echoPerfChart"></canvas></div>
+        <div id="echo-perf-empty" class="muted-note"></div>
       </div>
-
-      <div class="section-title">Positions ouvertes — clic sur une colonne pour trier</div>
       <div class="card tbl-wrap" style="margin-bottom:14px">
-        <table id="echoOpenTable">
-          <thead>
-            <tr>
-              <th data-col="side">Sens</th>
-              <th data-col="ticker">Ticker</th>
-              <th data-col="source">Source</th>
-              <th data-col="entry_date">Date d'entrée</th>
-              <th data-col="entry_price">Prix d'entrée</th>
-              <th data-col="last_price">Dernier prix</th>
-              <th data-col="unrealized_return_pct">Rendement latent</th>
-            </tr>
-          </thead>
-          <tbody id="echoOpenTbody"></tbody>
+        <table>
+          <thead><tr><th>Site</th><th title="fiable : au moins 15 avis mesurés à 20 jours et un résultat solide (t-stat ≥ 1,5) — seuls ces sites peuvent déclencher un achat dans la stratégie réelle. observation : pas encore assez d'avis mesurés. bruit : assez d'avis, mais pas de résultat solide.">Statut ℹ️</th><th>Avis reçus</th><th>5 jours</th><th>20 jours</th><th>60 jours</th></tr></thead>
+          <tbody id="echoPerfTbody"></tbody>
         </table>
       </div>
-
-      <details class="card tbl-wrap">
-        <summary class="section-title" style="display:inline-block;cursor:pointer;margin:0">Positions clôturées — clic pour dérouler</summary>
-        <table id="echoClosedTable" style="margin-top:10px">
-          <thead>
-            <tr>
-              <th data-col="side">Sens</th>
-              <th data-col="ticker">Ticker</th>
-              <th data-col="source">Source</th>
-              <th data-col="entry_date">Date d'entrée</th>
-              <th data-col="exit_date">Date de sortie</th>
-              <th data-col="return_pct">Rendement réalisé</th>
-              <th data-col="exit_reason">Raison de sortie</th>
-            </tr>
-          </thead>
-          <tbody id="echoClosedTbody"></tbody>
+      <div class="section-title">Avis d'un site</div>
+      <div class="card tbl-wrap" style="margin-bottom:14px">
+        <div style="margin-bottom:8px"><select id="echo-site-select" style="background:var(--bg3);color:var(--tx);border:1px solid var(--bd);border-radius:6px;padding:4px 8px;font-size:12px"></select></div>
+        <table>
+          <thead><tr><th>Date</th><th>Ticker</th><th>Nom</th><th>Sens</th><th>5 jours</th><th>20 jours</th><th>60 jours</th><th>Citation</th></tr></thead>
+          <tbody id="echoSiteTbody"></tbody>
         </table>
-      </details>
+      </div>
     </div>
   </div>
   <!-- /tab-echo -->
@@ -715,224 +657,159 @@ function bvWireTabs(){
 }
 
 // ============ Bot Courrier (mails) tab ============
+// L'ancien "labo" (positions long/short sans plafond, mail_signal_ledger.csv) a ete retire le
+// 2026-10-04 a la demande de l'utilisateur : l'onglet montre la strategie reelle et la performance
+// de chaque site, calculee depuis le journal des avis.
 const BV_REPO_RAW_ECHO=BV_REPO_RAW;
-let echoLedgerData=[],echoScorecardData=[];
-let echoOpenSortState={col:'entry_date',dir:'desc'};
-let echoClosedSortState={col:'exit_date',dir:'desc'};
-let echoScorecardSortState={col:'t_stat',dir:'desc'};
-let echoSourceEvolutionChartRef=null;
-const ECHO_SOURCE_PALETTE=['#caa84e','#388bfd','#3fb950','#f85149','#d29922','#a371f7','#39c5cf','#f778ba','#8b949e','#56d364','#79c0ff'];
+let echoScorecardData=[],echoJournalData=[];
 
 async function renderEchoTab(){
   const statusEl=document.getElementById('echo-status');
   try{
     const bust=Date.now();
-    const [ledgerTxt,summaryTxt,scorecardTxt]=await Promise.all([
-      fetch(`${BV_REPO_RAW_ECHO}/results/simulation/mail_signal_ledger.csv?_=${bust}`).then(r=>r.ok?r.text():'').catch(()=>''),
-      fetch(`${BV_REPO_RAW_ECHO}/results/simulation/mail_signal_summary.json?_=${bust}`).then(r=>r.ok?r.text():'{}').catch(()=>'{}'),
-      fetch(`${BV_REPO_RAW_ECHO}/results/screener/mail_signal_source_scorecard.csv?_=${bust}`).then(r=>r.ok?r.text():'').catch(()=>''),
+    const [scTxt,jTxt]=await Promise.all([
+      fetch(`${BV_REPO_RAW_ECHO}/results/screener/mail_signal_source_scorecard.csv?_=${bust}`).then(r=>r.ok?r.text():''),
+      fetch(`${BV_REPO_RAW_ECHO}/results/screener/mail_signal_journal.csv?_=${bust}`).then(r=>r.ok?r.text():''),
     ]);
-
-    echoLedgerData=bvParseCSV(ledgerTxt).map(r=>({
-      ticker:r.ticker,side:r.side,source:r.source,status:r.status,
-      entry_date:r.entry_date,entry_price:r.entry_price?parseFloat(r.entry_price):null,
-      last_price:r.last_price?parseFloat(r.last_price):null,
-      unrealized_return_pct:r.unrealized_return_pct!==''&&r.unrealized_return_pct!=null?parseFloat(r.unrealized_return_pct):null,
-      exit_date:r.exit_date||'',return_pct:r.return_pct!==''&&r.return_pct!=null?parseFloat(r.return_pct):null,
-      exit_reason:r.exit_reason||'',
-    })).filter(r=>r.ticker);
-
-    const num=v=>(v===''||v==null||isNaN(parseFloat(v)))?null:parseFloat(v);
-    echoScorecardData=bvParseCSV(scorecardTxt).map(r=>({
-      source:r.source,statut:r.statut||'observation',n_evalues_20j:parseInt(r.n_evalues_20j)||0,
-      excess_moy_20j:num(r.excess_moy_20j),edge_estime:num(r.edge_estime),t_stat:num(r.t_stat),
-      n_signals_total:parseInt(r.n_signals_total)||0,
-      n_open:parseInt(r.n_open)||0,n_closed:parseInt(r.n_closed)||0,
-      win_rate_closed:r.win_rate_closed!==''&&r.win_rate_closed!=null?parseFloat(r.win_rate_closed):null,
-      avg_return_closed:r.avg_return_closed!==''&&r.avg_return_closed!=null?parseFloat(r.avg_return_closed):null,
-    }));
-
-    let summary={};
-    try{summary=JSON.parse(summaryTxt);}catch(e){summary={};}
-
+    echoScorecardData=bvParseCSV(scTxt).filter(r=>r.source).map(r=>({source:r.source,statut:r.statut||'observation'}));
+    echoJournalData=echoParseJournal(jTxt);
     statusEl.style.display='none';
-    document.getElementById('echo-kpis').style.display='';
     document.getElementById('echo-content').style.display='';
-
-    const nbSources=new Set(echoScorecardData.map(s=>s.source)).size;
-    document.getElementById('echo-kpi-tips').textContent=echoLedgerData.length;
-    document.getElementById('echo-kpi-tips-sub').textContent=`${nbSources} source${nbSources>1?'s':''} suivie${nbSources>1?'s':''}`;
-    const nbOpen=(summary.nb_long_open||0)+(summary.nb_short_open||0);
-    document.getElementById('echo-kpi-open').textContent=nbOpen;
-    document.getElementById('echo-kpi-open-sub').textContent=`${summary.nb_long_open||0} long / ${summary.nb_short_open||0} short`;
-
-    const ranked=echoScorecardData.filter(s=>s.n_closed>0).sort((a,b)=>b.win_rate_closed-a.win_rate_closed);
-    const best=ranked[0],worst=ranked[ranked.length-1];
-    document.getElementById('echo-kpi-best-source').textContent=best?(best.win_rate_closed*100).toFixed(0)+'%':'n/a';
-    document.getElementById('echo-kpi-best-source-sub').textContent=best?best.source+' ('+best.n_closed+' clotures)':'aucune cloture pour l\'instant';
-    document.getElementById('echo-kpi-worst-source').textContent=worst&&worst!==best?(worst.win_rate_closed*100).toFixed(0)+'%':'n/a';
-    document.getElementById('echo-kpi-worst-source-sub').textContent=worst&&worst!==best?worst.source+' ('+worst.n_closed+' clotures)':'-';
-
-    echoSortAndRenderAll();
-    echoWireSortHeaders();
-    echoDrawSourceEvolutionChart();
+    const rerender=()=>echoRenderPerf(echoJournalData,echoScorecardData);
+    echoRenderPerfSlicers(rerender);
+    rerender();
     renderRealStrategy(bust);
   }catch(e){
-    statusEl.textContent='Impossible de charger les donnees du Bot Courrier ('+e.message+'). Le bot n\'a peut-etre pas encore tourne.';
+    statusEl.textContent='Impossible de charger les donnees du Bot Courrier ('+e.message+').';
     statusEl.style.color='var(--rd)';
   }
 }
 
-function echoSortAndRenderAll(){
-  const open=echoLedgerData.filter(r=>r.status==='open');
-  const closed=echoLedgerData.filter(r=>r.status!=='open');
+// Performance de chaque site (2026-10-04, demande de l'utilisateur : "affiche-moi la performance de
+// chaque site") -- calculee ici a partir du journal du Bot #33 (results/screener/mail_signal_journal.csv) :
+// un avis par ligne, mesure a 5/20/60 jours de bourse apres le mail. Segments facon TCD (meme principe
+// que le graphique a segments des bots) : horizon, mesure, sens des avis.
+const echoPERF_SLICERS=[
+  {key:'horizon',title:'Horizon',options:[{key:'5',label:'5 jours'},{key:'20',label:'20 jours'},{key:'60',label:'60 jours'}]},
+  {key:'mesure',title:'Mesure',options:[{key:'excess',label:'Par rapport au marché'},{key:'brut',label:'Rendement brut'},{key:'reussite',label:'Taux de réussite'}]},
+  {key:'sens',title:'Sens des avis',options:[{key:'tous',label:'Tous'},{key:'long',label:'Achats'},{key:'short',label:'Ventes'}]},
+];
+const echoPERF_STATE={horizon:'20',mesure:'excess',sens:'tous',site:''};
+let echoPerfChartRef=null;
 
-  const openTbody=document.getElementById('echoOpenTbody');
-  openTbody.innerHTML=bvSortRows(open,echoOpenSortState).map(r=>{
-    const retVal=r.unrealized_return_pct;
-    const retTxt=retVal!=null?(retVal>=0?'+':'')+(retVal*100).toFixed(1)+'%':'n/a';
-    return `
-    <tr>
-      <td class="${r.side==='long'?'long-badge':'short-badge'}">${r.side==='long'?'LONG':'SHORT'}</td>
-      <td><strong>${r.ticker}</strong></td>
-      <td>${r.source||''}</td>
-      <td>${r.entry_date||''}</td>
-      <td>${r.entry_price!=null?r.entry_price.toFixed(2):'n/a'}</td>
-      <td>${r.last_price!=null?r.last_price.toFixed(2):'n/a'}</td>
-      <td class="${retVal>=0?'pos':(retVal!=null?'neg':'neu')}">${retTxt}</td>
-    </tr>
-  `;}).join('');
-
-  const closedTbody=document.getElementById('echoClosedTbody');
-  closedTbody.innerHTML=bvSortRows(closed,echoClosedSortState).map(r=>{
-    const retVal=r.return_pct;
-    const retTxt=retVal!=null?(retVal>=0?'+':'')+(retVal*100).toFixed(1)+'%':'n/a';
-    return `
-    <tr>
-      <td class="${r.side==='long'?'long-badge':'short-badge'}">${r.side==='long'?'LONG':'SHORT'}</td>
-      <td><strong>${r.ticker}</strong></td>
-      <td>${r.source||''}</td>
-      <td>${r.entry_date||''}</td>
-      <td>${r.exit_date||''}</td>
-      <td class="${retVal>=0?'pos':(retVal!=null?'neg':'neu')}">${retTxt}</td>
-      <td>${r.exit_reason||''}</td>
-    </tr>
-  `;}).join('');
-
-  const scTbody=document.getElementById('echoScorecardTbody');
-  const {col,dir}=echoScorecardSortState;
-  const sortedSc=[...echoScorecardData].sort((a,b)=>{
-    let va=a[col],vb=b[col];
-    if(col==='source'||col==='statut')return dir==='asc'?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va));
-    va=(va==null)?-Infinity:va;vb=(vb==null)?-Infinity:vb;
-    return dir==='asc'?va-vb:vb-va;
-  });
-  scTbody.innerHTML=sortedSc.map((r,i)=>{
-    const wr=r.win_rate_closed,ar=r.avg_return_closed;
-    return `
-    <tr>
-      <td class="source-rank">${i+1}</td>
-      <td><strong>${r.source}</strong></td>
-      <td class="${r.statut==='fiable'?'pos':(r.statut==='bruit'?'neg':'neu')}">${r.statut}</td>
-      <td>${r.n_evalues_20j}</td>
-      <td class="${r.excess_moy_20j!=null?(r.excess_moy_20j>=0?'pos':'neg'):'neu'}">${echoPct(r.excess_moy_20j)}</td>
-      <td class="${r.edge_estime!=null?(r.edge_estime>=0?'pos':'neg'):'neu'}">${echoPct(r.edge_estime)}</td>
-      <td>${r.t_stat!=null?r.t_stat.toFixed(2):'n/a'}</td>
-      <td>${r.n_signals_total}</td>
-      <td>${r.n_open}</td>
-      <td>${r.n_closed}</td>
-      <td class="${wr!=null?(wr>=0.5?'pos':'neg'):'neu'}">${wr!=null?(wr*100).toFixed(0)+'%':'n/a'}</td>
-      <td class="${ar!=null?(ar>=0?'pos':'neg'):'neu'}">${ar!=null?(ar>=0?'+':'')+(ar*100).toFixed(1)+'%':'n/a'}</td>
-    </tr>
-  `;}).join('');
+function echoParseJournal(txt){
+  const num=v=>(v===''||v==null||isNaN(parseFloat(v)))?null:parseFloat(v);
+  return bvParseCSV(txt||'').filter(r=>r.ticker&&r.publication).map(r=>({
+    site:r.publication,ticker:r.ticker,name:r.name||'',side:r.side,date:(r.mail_date_utc||'').slice(0,10),
+    repeat:String(r.repeat).toLowerCase()==='true',citation:r.citation||'',
+    ex:{5:num(r.ex_5),20:num(r.ex_20),60:num(r.ex_60)},ret:{5:num(r.ret_5),20:num(r.ret_20),60:num(r.ret_60)},
+  }));
 }
 
-function echoDrawSourceEvolutionChart(){
-  const canvas=document.getElementById('echoSourceEvolutionChart');
-  if(!canvas)return;
-  if(echoSourceEvolutionChartRef)echoSourceEvolutionChartRef.destroy();
+// Valeur d'un avis pour la mesure choisie : excess = rendement dans le sens de l'avis moins l'indice
+// du marche (deja signe par le bot) ; brut = rendement dans le sens de l'avis ; reussite = 1 si l'avis a
+// battu le marche dans son sens, 0 sinon.
+function echoTipValue(t,h,mesure){
+  const ex=t.ex[h];
+  if(ex==null)return null;
+  if(mesure==='excess')return ex;
+  if(mesure==='reussite')return ex>0?1:0;
+  const r=t.ret[h];
+  return r==null?null:(t.side==='short'?-r:r);
+}
 
-  // Cumulative win rate per source, one point per closed trade for that source, in
-  // chronological order -- open positions don't count yet (their return isn't final), same
-  // basis as the scorecard's own win_rate_closed.
-  const closed=echoLedgerData.filter(r=>r.status!=='open'&&r.exit_date);
-  const bySource={};
-  closed.forEach(r=>{(bySource[r.source]=bySource[r.source]||[]).push(r);});
+function echoFmtVal(v,mesure){
+  if(v==null||isNaN(v))return 'n/a';
+  if(mesure==='reussite')return (v*100).toFixed(0)+'%';
+  return (v>=0?'+':'')+(v*100).toFixed(1)+'%';
+}
+function echoValCls(v,mesure){
+  if(v==null||isNaN(v))return 'neu';
+  return (mesure==='reussite'?v>=0.5:v>=0)?'pos':'neg';
+}
 
-  const allDates=[...new Set(closed.map(r=>r.exit_date))].sort();
-  const datasets=Object.keys(bySource).sort().map((source,i)=>{
-    const trades=bySource[source].slice().sort((a,b)=>a.exit_date.localeCompare(b.exit_date));
-    let wins=0,n=0;
-    const pointsByDate={};
-    trades.forEach(t=>{
-      n++;
-      if(t.return_pct!=null&&t.return_pct>0)wins++;
-      pointsByDate[t.exit_date]=wins/n*100;
-    });
-    // carry the last known value forward across dates where this source had no trade, so
-    // every line spans the full x-axis instead of stopping short.
-    let last=null;
-    const data=allDates.map(d=>{
-      if(pointsByDate[d]!=null)last=pointsByDate[d];
-      return last;
-    });
-    return{
-      label:source,
-      data,
-      borderColor:ECHO_SOURCE_PALETTE[i%ECHO_SOURCE_PALETTE.length],
-      backgroundColor:ECHO_SOURCE_PALETTE[i%ECHO_SOURCE_PALETTE.length],
-      borderWidth:2,pointRadius:3,tension:0,spanGaps:true,
-    };
+function echoSiteStats(journal,scorecard){
+  const st=echoPERF_STATE,bySite={};
+  journal.forEach(t=>{
+    const s=bySite[t.site]=bySite[t.site]||{site:t.site,n:0,nLong:0,nShort:0,vals:{5:[],20:[],60:[]}};
+    s.n++;
+    if(t.side==='short')s.nShort++;else s.nLong++;
+    if(t.repeat)return;  // un site qui repete son avis dans la semaine ne compte qu'une fois
+    if(st.sens!=='tous'&&t.side!==st.sens)return;
+    [5,20,60].forEach(h=>{const v=echoTipValue(t,h,st.mesure);if(v!=null)s.vals[h].push(v);});
   });
+  const statut=Object.fromEntries((scorecard||[]).map(r=>[r.source,r.statut]));
+  return Object.values(bySite).map(s=>({site:s.site,n:s.n,nLong:s.nLong,nShort:s.nShort,statut:statut[s.site]||'observation',
+    mean:Object.fromEntries([5,20,60].map(h=>[h,s.vals[h].length?s.vals[h].reduce((a,b)=>a+b,0)/s.vals[h].length:null])),
+    count:Object.fromEntries([5,20,60].map(h=>[h,s.vals[h].length]))}));
+}
 
-  if(!allDates.length){
-    canvas.parentElement.innerHTML='<div class="muted-note" style="padding:20px 0;text-align:center">Aucune position clôturée pour l\'instant -- le graphique se remplira au fil des clôtures.</div>';
-    return;
+function echoRenderPerfSlicers(rerender){
+  const host=document.getElementById('echo-perf-slicers');
+  if(!host)return;
+  host.innerHTML=echoPERF_SLICERS.map(sl=>`<div class="slicer"><div class="slicer-head">${sl.title}</div><div class="slicer-chips">`+
+    sl.options.map(o=>`<button type="button" class="slicer-chip${echoPERF_STATE[sl.key]===o.key?' on':''}" data-sl="${sl.key}" data-k="${o.key}">${o.label}</button>`).join('')+
+    `</div></div>`).join('');
+  host.querySelectorAll('button[data-sl]').forEach(b=>b.onclick=()=>{echoPERF_STATE[b.dataset.sl]=b.dataset.k;echoRenderPerfSlicers(rerender);rerender();});
+}
+
+function echoRenderPerf(journal,scorecard){
+  const st=echoPERF_STATE,h=st.horizon,mes=st.mesure;
+  const stats=echoSiteStats(journal,scorecard).sort((a,b)=>{
+    const va=a.mean[h],vb=b.mean[h];
+    if(va==null&&vb==null)return b.n-a.n;
+    if(va==null)return 1;if(vb==null)return -1;return vb-va;
+  });
+  // graphique : une barre par site mesurable a cet horizon
+  const withData=stats.filter(s=>s.mean[h]!=null);
+  const wrap=document.getElementById('echo-perf-chart-wrap'),empty=document.getElementById('echo-perf-empty');
+  const pending=stats.length-withData.length;
+  empty.textContent=!stats.length?'Aucun avis dans le journal pour l\'instant.'
+    :(!withData.length?`Aucun avis encore mesurable à ${h} jours de bourse : il faut attendre ${h} séances après chaque mail.`
+    :(pending?`${pending} site(s) sans avis encore mesurable à ${h} jours (pas affichés sur le graphique).`:''));
+  wrap.style.display=withData.length?'':'none';
+  if(echoPerfChartRef){echoPerfChartRef.destroy();echoPerfChartRef=null;}
+  if(withData.length){
+    wrap.style.height=Math.max(140,30*withData.length+50)+'px';
+    const vals=withData.map(s=>mes==='reussite'?s.mean[h]*100:s.mean[h]*100);
+    const colors=withData.map(s=>echoValCls(s.mean[h],mes)==='pos'?'#3fb950':'#f85149');
+    echoPerfChartRef=new Chart(document.getElementById('echoPerfChart').getContext('2d'),{
+      type:'bar',
+      data:{labels:withData.map(s=>`${s.site} (${s.count[h]} avis)`),datasets:[{data:vals,backgroundColor:colors,borderRadius:3}]},
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>echoFmtVal(withData[c.dataIndex].mean[h],mes)+' en moyenne sur '+withData[c.dataIndex].count[h]+' avis'}}},
+        scales:{x:{ticks:{color:'#8b949e',callback:v=>v+'%'},grid:{color:'#30363d'},...(mes==='reussite'?{min:0,max:100}:{})},
+                y:{ticks:{color:'#e6edf3',font:{size:11}},grid:{display:false}}}}
+    });
   }
-
-  echoSourceEvolutionChartRef=new Chart(canvas.getContext('2d'),{
-    type:'line',
-    data:{labels:allDates,datasets},
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      interaction:{mode:'nearest',axis:'x',intersect:false},
-      plugins:{
-        legend:{position:'bottom',labels:{color:'#8b949e',font:{size:10},boxWidth:10}},
-        tooltip:{callbacks:{label:(c)=>c.dataset.label+' : '+(c.raw==null?'n/a':c.raw.toFixed(0)+'%')}},
-      },
-      scales:{
-        x:{ticks:{color:'#8b949e',font:{size:10}},grid:{color:'#30363d'}},
-        y:{min:0,max:100,ticks:{color:'#8b949e',callback:(v)=>v+'%'},grid:{color:'#30363d'}},
-      }
-    }
-  });
+  // tableau : tous les sites, les 3 horizons pour la mesure choisie
+  const cell=(s,hh)=>s.mean[hh]==null?'<td class="neu">n/a</td>'
+    :`<td class="${echoValCls(s.mean[hh],mes)}">${echoFmtVal(s.mean[hh],mes)} <span class="neu" style="font-size:10px">(${s.count[hh]})</span></td>`;
+  const tb=document.getElementById('echoPerfTbody');
+  tb.innerHTML=stats.map(s=>`<tr style="cursor:pointer" data-site="${s.site.replace(/"/g,'&quot;')}">
+      <td><strong>${s.site}</strong></td>
+      <td class="${s.statut==='fiable'?'pos':(s.statut==='bruit'?'neg':'neu')}">${s.statut}</td>
+      <td>${s.n} <span class="neu" style="font-size:10px">(${s.nLong} achat${s.nLong>1?'s':''} / ${s.nShort} vente${s.nShort>1?'s':''})</span></td>
+      ${cell(s,5)}${cell(s,20)}${cell(s,60)}
+    </tr>`).join('')||'<tr><td colspan="6" class="neu">aucun site pour l\'instant</td></tr>';
+  tb.querySelectorAll('tr[data-site]').forEach(tr=>tr.onclick=()=>{st.site=tr.dataset.site;echoRenderSiteTips(journal,stats);});
+  if(!st.site||!stats.some(s=>s.site===st.site))st.site=stats.length?stats[0].site:'';
+  echoRenderSiteTips(journal,stats);
 }
 
-function echoWireSortHeaders(){
-  document.querySelectorAll('#echoOpenTable th[data-col]').forEach(th=>{
-    th.onclick=()=>{
-      const col=th.dataset.col;
-      if(echoOpenSortState.col===col)echoOpenSortState.dir=echoOpenSortState.dir==='asc'?'desc':'asc';
-      else{echoOpenSortState.col=col;echoOpenSortState.dir='desc';}
-      echoSortAndRenderAll();
-    };
-  });
-  document.querySelectorAll('#echoClosedTable th[data-col]').forEach(th=>{
-    th.onclick=()=>{
-      const col=th.dataset.col;
-      if(echoClosedSortState.col===col)echoClosedSortState.dir=echoClosedSortState.dir==='asc'?'desc':'asc';
-      else{echoClosedSortState.col=col;echoClosedSortState.dir='desc';}
-      echoSortAndRenderAll();
-    };
-  });
-  document.querySelectorAll('#echoScorecardTable th[data-col]').forEach(th=>{
-    th.onclick=()=>{
-      const col=th.dataset.col;
-      if(echoScorecardSortState.col===col)echoScorecardSortState.dir=echoScorecardSortState.dir==='asc'?'desc':'asc';
-      else{echoScorecardSortState.col=col;echoScorecardSortState.dir='desc';}
-      echoSortAndRenderAll();
-    };
-  });
+function echoRenderSiteTips(journal,stats){
+  const st=echoPERF_STATE,mes=st.mesure;
+  const sel=document.getElementById('echo-site-select');
+  sel.innerHTML=stats.map(s=>`<option value="${s.site.replace(/"/g,'&quot;')}"${s.site===st.site?' selected':''}>${s.site} (${s.n} avis)</option>`).join('');
+  sel.onchange=()=>{st.site=sel.value;echoRenderSiteTips(journal,stats);};
+  const tips=journal.filter(t=>t.site===st.site).sort((a,b)=>b.date.localeCompare(a.date));
+  const c=(t,h)=>{const v=echoTipValue(t,h,mes);return v==null?'<td class="neu">à venir</td>':`<td class="${echoValCls(v,mes)}">${mes==='reussite'?(v?'oui':'non'):echoFmtVal(v,mes)}</td>`;};
+  document.getElementById('echoSiteTbody').innerHTML=tips.map(t=>`<tr>
+      <td>${t.date}</td><td><strong>${t.ticker}</strong></td><td>${t.name}</td>
+      <td class="${t.side==='short'?'short-badge':'long-badge'}">${t.side==='short'?'Vente':'Achat'}${t.repeat?' <span class="neu" style="font-size:10px" title="Même avis répété par ce site dans la semaine : affiché, mais compté une seule fois dans sa performance">(répété)</span>':''}</td>
+      ${c(t,5)}${c(t,20)}${c(t,60)}
+      <td style="font-size:11px;color:var(--mu);max-width:420px">${(t.citation||'').replace(/</g,'&lt;').slice(0,180)}</td>
+    </tr>`).join('')||'<tr><td colspan="8" class="neu">aucun avis</td></tr>';
 }
 
 function echoPct(v,d=1){return v==null||isNaN(v)?'n/a':(v>=0?'+':'')+(v*100).toFixed(d)+'%';}

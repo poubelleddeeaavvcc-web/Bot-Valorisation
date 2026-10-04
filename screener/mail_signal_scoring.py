@@ -1,9 +1,9 @@
 """Bot #33 Courrier -- journal of every newsletter tip, per-newsletter scoring, and consensus
 (added 2026-10-03, at the user's explicit request after the go-live analysis of the bot).
 
-WHY A JOURNAL, SEPARATE FROM THE LAB LEDGER
--------------------------------------------
-The lab ledger (mail_signal_ledger.csv) only records the tips that opened a position: a second
+WHY A JOURNAL (and why the old lab ledger was retired on 2026-10-04)
+--------------------------------------------------------------------
+The old lab ledger (mail_signal_ledger.csv) only recorded the tips that opened a position: a second
 newsletter recommending a ticker already held on the same side was a silent no-op, so its opinion
 was lost. And the old scorecard could only rank a newsletter once its positions had CLOSED --
 after 3 weeks, 9 of the 13 sources had zero closed positions, i.e. no verdict at all.
@@ -297,33 +297,53 @@ def _status(n: int, t: float, previous: str | None) -> str:
     return "bruit"
 
 
+# Per-site performance columns, one block per horizon (2026-10-04, user's request: "affiche-moi la
+# performance de chaque site"). For each horizon h (trading days after the email):
+#   n_evalues_{h}j      tips of that site already measurable at h
+#   excess_moy_{h}j     mean return in the advised direction MINUS the benchmark's (a "baissier"
+#                       tip whose stock falls more than the market scores positive)
+#   rendement_brut_{h}j mean return in the advised direction, market not subtracted
+#   taux_reussite_{h}j  share of tips that beat the market in the advised direction
+SCORE_COLUMNS = ["statut", "n_signaux", "n_achat", "n_vente"] + [
+    f"{c}_{h}j" for h in HORIZONS for c in ("n_evalues", "excess_moy", "rendement_brut", "taux_reussite")
+] + ["edge_estime", "t_stat"]
+
+
 def score_sources(journal: pd.DataFrame, previous_status: dict) -> tuple:
-    """Returns (scores DataFrame indexed by publication, crowd dict). See module docstring."""
-    cols = ["statut", "n_signaux", "n_evalues_20j", "excess_moy_5j", "excess_moy_20j", "excess_moy_60j",
-            "taux_reussite_20j", "edge_estime", "t_stat"]
+    """Returns (scores DataFrame indexed by publication, crowd dict). Status / edge / t-stat use
+    PRIMARY_HORIZON only -- see module docstring; the other horizons are informational."""
     if journal.empty:
         crowd = {"edge": CROWD_PRIOR_EDGE, "n": 0, "t": float("nan"), "status": "observation", "mean": float("nan")}
-        return pd.DataFrame(columns=cols), crowd
+        return pd.DataFrame(columns=SCORE_COLUMNS), crowd
     scored = journal[~_flag(journal["repeat"])]
     sigma = _pooled_sigma(scored)
     rows = {}
     for pub, g in scored.groupby("publication"):
-        x = g[f"ex_{PRIMARY_HORIZON}"].dropna().astype(float)
+        sign = g["side"].map({"long": 1.0, "short": -1.0})
+        row = {}
+        for h in HORIZONS:
+            ex = pd.to_numeric(g[f"ex_{h}"], errors="coerce")
+            raw = pd.to_numeric(g[f"ret_{h}"], errors="coerce") * sign
+            ok = ex.notna()
+            row[f"n_evalues_{h}j"] = int(ok.sum())
+            row[f"excess_moy_{h}j"] = float(ex[ok].mean()) if ok.any() else float("nan")
+            row[f"rendement_brut_{h}j"] = float(raw[ok].mean()) if ok.any() else float("nan")
+            row[f"taux_reussite_{h}j"] = float((ex[ok] > 0).mean()) if ok.any() else float("nan")
+        x = pd.to_numeric(g[f"ex_{PRIMARY_HORIZON}"], errors="coerce").dropna()
         n = len(x)
         mean = float(x.mean()) if n else float("nan")
         t = mean * math.sqrt(n) / sigma if n else float("nan")
-        rows[pub] = {
+        all_rows = journal[journal["publication"] == pub]
+        row.update({
             "statut": _status(n, t, previous_status.get(pub)),
-            "n_signaux": int(len(journal[journal["publication"] == pub])),
-            "n_evalues_20j": n,
-            "excess_moy_5j": float(g["ex_5"].dropna().astype(float).mean()) if g["ex_5"].notna().any() else float("nan"),
-            "excess_moy_20j": mean,
-            "excess_moy_60j": float(g["ex_60"].dropna().astype(float).mean()) if g["ex_60"].notna().any() else float("nan"),
-            "taux_reussite_20j": float((x > 0).mean()) if n else float("nan"),
+            "n_signaux": int(len(all_rows)),
+            "n_achat": int((all_rows["side"] == "long").sum()),
+            "n_vente": int((all_rows["side"] == "short").sum()),
             "edge_estime": float(x.sum()) / (n + K_SHRINK) if n else 0.0,
             "t_stat": t,
-        }
-    scores = pd.DataFrame.from_dict(rows, orient="index", columns=cols)
+        })
+        rows[pub] = row
+    scores = pd.DataFrame.from_dict(rows, orient="index", columns=SCORE_COLUMNS)
     status_map = scores["statut"].to_dict()
     crowd = _crowd_stats(scored, status_map, sigma, previous_status.get(CROWD_PUBLICATION))
     return scores, crowd
@@ -431,35 +451,24 @@ def consensus_for(votes: pd.DataFrame, ticker: str, scores: pd.DataFrame, crowd:
     }
 
 
-def build_scorecard(scores: pd.DataFrame, crowd: dict, lab_ledger: pd.DataFrame) -> pd.DataFrame:
-    """Journal-based score (the one that decides) merged with the lab ledger's legacy
-    closed-position stats (kept for continuity with the dashboard's existing columns)."""
-    lab_rows = {}
-    for source, grp in lab_ledger.groupby("source"):
-        closed = grp[grp["status"] == "closed"]
-        lab_rows[source] = {
-            "n_signals_total": len(grp), "n_closed": len(closed), "n_open": int((grp["status"] == "open").sum()),
-            "win_rate_closed": float((closed["return_pct"] > 0).mean()) if len(closed) else None,
-            "avg_return_closed": float(closed["return_pct"].mean()) if len(closed) else None,
-        }
+def build_scorecard(scores: pd.DataFrame, crowd: dict) -> pd.DataFrame:
+    """Per-site performance + status, one row per newsletter, plus one row for the crowd's
+    consensus (its own J+20 track record -- see module docstring). Reliable sites first, then by
+    t-stat."""
     out = scores.copy()
-    out.loc[CROWD_PUBLICATION, ["statut", "n_evalues_20j", "excess_moy_20j", "edge_estime", "t_stat"]] = [
+    pk = f"{PRIMARY_HORIZON}j"
+    out.loc[CROWD_PUBLICATION, ["statut", f"n_evalues_{pk}", f"excess_moy_{pk}", "edge_estime", "t_stat"]] = [
         crowd["status"], crowd["n"], crowd["mean"], crowd["edge"], crowd["t"]]
-    lab = pd.DataFrame.from_dict(lab_rows, orient="index")
-    out = out.join(lab, how="outer")
     out.index.name = "source"
     out = out.reset_index()
     out["statut"] = out["statut"].fillna("observation")
-    for c in ("n_signaux", "n_evalues_20j", "n_signals_total", "n_closed", "n_open"):
+    for c in ["n_signaux", "n_achat", "n_vente"] + [f"n_evalues_{h}j" for h in HORIZONS]:
         out[c] = pd.to_numeric(out[c], errors="coerce").fillna(0).astype(int)
     order = {"fiable": 0, "observation": 1, "bruit": 2}
     out["_o"] = out["statut"].map(order).fillna(3)
-    out = out.sort_values(["_o", "t_stat", "n_signals_total"], ascending=[True, False, False],
+    out = out.sort_values(["_o", "t_stat", "n_signaux"], ascending=[True, False, False],
                           na_position="last").drop(columns="_o")
-    columns = ["source", "statut", "n_signaux", "n_evalues_20j", "excess_moy_5j", "excess_moy_20j",
-               "excess_moy_60j", "taux_reussite_20j", "edge_estime", "t_stat",
-               "n_signals_total", "n_closed", "n_open", "win_rate_closed", "avg_return_closed"]
-    return out[columns]
+    return out[["source"] + SCORE_COLUMNS]
 
 
 def save_status(scores: pd.DataFrame, crowd: dict) -> dict:
