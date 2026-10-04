@@ -115,6 +115,7 @@ EXTRACT_TRUNCATE = 1800   # what the extraction call actually sees (email text o
 # 240 s timeout and 3 runs in a row hit the 60-min job limit without saving anything.
 MAX_REJECTS_KEPT = 1000
 MAX_ATTEMPTS_PER_MAIL = 3  # an email whose Ollama calls keep failing/timing out is given up after this
+CHUNK_SIZE = 4  # emails taken through every phase together -- see process_messages()
 
 BACKFILL_DAYS = 30
 BACKFILL_MAX_PER_RUN = 25  # upper bound only -- RUN_BUDGET_MIN is what actually stops a run (first CI
@@ -688,113 +689,130 @@ def _resolve_instrument(company: str, ticker_in_text: str) -> tuple:
 
 
 def process_messages(token: str, ids: list[str], deadline: float, backfill: bool = False,
-                     attempts: dict | None = None) -> tuple:
+                     attempts: dict | None = None, known_domains: set | None = None) -> tuple:
     """Full pipeline for a batch of Gmail ids -> (validated signals, rejected tips, ids DONE,
     domains of the emails classified as financial newsletters).
-    Phase by phase (classify all, then extract all, then verify all -- same prompt type in a row so
-    Ollama reuses its cached instructions), one Ollama call at a time, and no call STARTED after
-    `deadline` (time.monotonic()). An id is DONE only once it is fully handled (not a newsletter, or
-    every tip of it extracted, verified and resolved); the rest is retried next run, up to
-    MAX_ATTEMPTS_PER_MAIL times (`attempts`, persisted by the caller)."""
+
+    CHUNKS of CHUNK_SIZE emails, each taken through every phase (classify, extract, verify,
+    resolve) before the next chunk starts -- 2026-10-04: classifying a whole 25-email backfill batch
+    first used up 17 of the 40 budget minutes, then extraction ran out of time and NOTHING of that
+    batch was saved. Inside a chunk, calls of the same type still run back to back (Ollama reuses the
+    cached instructions). One Ollama call at a time, none STARTED after `deadline`
+    (time.monotonic()). An id is DONE only once fully handled; the rest is retried next run, up to
+    MAX_ATTEMPTS_PER_MAIL times when Ollama itself fails (`attempts`, persisted by the caller).
+
+    Emails from `known_domains` (senders already seen as financial newsletters) skip the
+    classification call: it costs ~40 s per email on the CI runner and was "yes" for 24 of 25
+    such emails -- an occasional non-newsletter from those senders just yields no tip."""
     attempts = attempts if attempts is not None else {}
+    known_domains = known_domains or set()
     msgs = [m for m in (fetch_message(token, mid) for mid in ids) if m is not None]
     msgs.sort(key=lambda m: m["date_utc"])  # oldest first: they are closest to leaving the listing window
-    done, failed = set(), set()
     label = "rattrapage" if backfill else "nouveau(x)"
+    done, failed, newsletter_domains = set(), set(), set()
+    signals, rejects, seen = [], [], set()
+    n_classify_ok = n_classify_err = 0
 
     def out_of_time() -> bool:
         return time.monotonic() >= deadline
 
-    classified = []
-    n_errors = 0
-    for m in msgs:
+    for start in range(0, len(msgs), CHUNK_SIZE):
         if out_of_time():
             break
-        verdict = classify_newsletter(m)
-        if verdict is None:
-            n_errors += 1
-            failed.add(m["id"])
-        elif verdict:
-            classified.append(m)
-        else:
-            done.add(m["id"])
-    if msgs and n_errors and not done and not classified:
-        raise RuntimeError("Ollama n'a repondu a aucune classification -- mails laisses non traites")
-    print(f"{len(msgs)} mail(s) {label} a examiner, {len(done) + len(classified)} classe(s) ce run, "
-          f"{len(classified)} newsletter(s) financiere(s).")
+        chunk = msgs[start:start + CHUNK_SIZE]
 
-    with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_MAX_WORKERS) as ex:  # plain HTTP, no Ollama
-        fetched = dict(zip((m["id"] for m in classified),
-                            ex.map(lambda m: _fetch_article_extract(_extract_article_links(m.get("html", ""))),
-                                   classified)))
-    for m in classified:
-        m["extract_text"] = fetched.get(m["id"]) or m["text"][:EXTRACT_TRUNCATE]
-
-    extracted = []
-    for m in classified:
-        if out_of_time():
-            break
-        tips = _extract_raw_tips(m)
-        if tips is None:
-            failed.add(m["id"])
-        else:
-            extracted.append((m, tips))
-
-    rejects, signals, seen = [], [], set()
-    for m, tips in extracted:
-        complete = True
-        verified = []
-        for tip in tips:
-            # citation checked against what the model saw AND the email itself (an article tip may
-            # quote the email's teaser)
-            clean, reason = _validate_tip(tip, m["extract_text"] + "\n" + m["text"])
-            if clean is None:
-                rejects.append(_reject_row(m, tip, reason))
+        classified = []
+        for m in chunk:
+            if m["source"] in known_domains:
+                classified.append(m)
                 continue
             if out_of_time():
-                complete = False
                 break
-            ok, reason = _verify_tip(m["subject"], clean)
-            if ok is None:
-                complete = False
+            verdict = classify_newsletter(m)
+            if verdict is None:
+                n_classify_err += 1
                 failed.add(m["id"])
-                break
-            if not ok:
-                rejects.append(_reject_row(m, clean, reason))
             else:
-                verified.append(clean)
-        if not complete:
-            continue  # retried next run -- its rejects so far are dropped too, to avoid duplicates
-        for tip in verified:
-            resolved, reason = _resolve_instrument(tip["company"], tip["ticker_in_text"])
-            if resolved is None:
-                rejects.append(_reject_row(m, tip, reason))
-                continue
-            if (m["id"], resolved["ticker"]) in seen:
-                continue
-            seen.add((m["id"], resolved["ticker"]))
-            signals.append({
-                "message_id": m["id"], "mail_date_utc": m["date_utc"], "publication": m["publication"],
-                "domain": m["source"], "author": tip["author"], "company": tip["company"],
-                "ticker": resolved["ticker"], "name": resolved["name"], "exchange": resolved["exchange"],
-                "currency": resolved["currency"], "price": resolved["price"],
-                "side": "long" if tip["sentiment"] == "haussier" else "short",
-                "citation": tip["citation"], "backfill": backfill,
-            })
-        done.add(m["id"])
-    rejects = [r for r in rejects if r["_id"] in done]
+                n_classify_ok += 1
+                if verdict:
+                    classified.append(m)
+                else:
+                    done.add(m["id"])
+        if n_classify_err and not n_classify_ok and not classified:
+            raise RuntimeError("Ollama n'a repondu a aucune classification -- mails laisses non traites")
+        newsletter_domains |= {m["source"] for m in classified}
+
+        with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_MAX_WORKERS) as ex:  # plain HTTP, no Ollama
+            fetched = dict(zip((m["id"] for m in classified),
+                                ex.map(lambda m: _fetch_article_extract(_extract_article_links(m.get("html", ""))),
+                                       classified)))
+        for m in classified:
+            m["extract_text"] = fetched.get(m["id"]) or m["text"][:EXTRACT_TRUNCATE]
+
+        extracted = []
+        for m in classified:
+            if out_of_time():
+                break
+            tips = _extract_raw_tips(m)
+            if tips is None:
+                failed.add(m["id"])
+            else:
+                extracted.append((m, tips))
+
+        for m, tips in extracted:
+            complete, verified, mail_rejects = True, [], []
+            for tip in tips:
+                # citation checked against what the model saw AND the email itself (an article tip
+                # may quote the email's teaser)
+                clean, reason = _validate_tip(tip, m["extract_text"] + "\n" + m["text"])
+                if clean is None:
+                    mail_rejects.append(_reject_row(m, tip, reason))
+                    continue
+                if out_of_time():
+                    complete = False
+                    break
+                ok, reason = _verify_tip(m["subject"], clean)
+                if ok is None:
+                    complete = False
+                    failed.add(m["id"])
+                    break
+                if not ok:
+                    mail_rejects.append(_reject_row(m, clean, reason))
+                else:
+                    verified.append(clean)
+            if not complete:
+                continue  # retried next run -- its rejects so far are dropped too, to avoid duplicates
+            for tip in verified:
+                resolved, reason = _resolve_instrument(tip["company"], tip["ticker_in_text"])
+                if resolved is None:
+                    mail_rejects.append(_reject_row(m, tip, reason))
+                    continue
+                if (m["id"], resolved["ticker"]) in seen:
+                    continue
+                seen.add((m["id"], resolved["ticker"]))
+                signals.append({
+                    "message_id": m["id"], "mail_date_utc": m["date_utc"], "publication": m["publication"],
+                    "domain": m["source"], "author": tip["author"], "company": tip["company"],
+                    "ticker": resolved["ticker"], "name": resolved["name"], "exchange": resolved["exchange"],
+                    "currency": resolved["currency"], "price": resolved["price"],
+                    "side": "long" if tip["sentiment"] == "haussier" else "short",
+                    "citation": tip["citation"], "backfill": backfill,
+                })
+            rejects += mail_rejects
+            done.add(m["id"])
 
     for mid in failed - done:
         attempts[mid] = attempts.get(mid, 0) + 1
         if attempts[mid] >= MAX_ATTEMPTS_PER_MAIL:
             print(f"  mail abandonne apres {attempts[mid]} echecs Ollama", file=sys.stderr)
             done.add(mid)
+    print(f"{len(msgs)} mail(s) {label} a examiner, {len(done)} traite(s) ce run.")
     pending = len(msgs) - len(done)
     if pending:
         print(f"  {pending} mail(s) {label} reporte(s) au prochain run (budget de temps ou echec Ollama).")
     for r in rejects:
         print(f"  rejete [{r['publication']}] {r['company']} ({r['sentiment']}) : {r['motif']}")
-    return signals, rejects, done, {m["source"] for m in classified}
+    return signals, rejects, done, newsletter_domains
 
 
 def _reject_row(m: dict, tip: dict, reason: str) -> dict:
@@ -903,7 +921,8 @@ def main():
             previously = set(state.get("processed_message_ids", [])) | set(state.get("backfill", {}).get("processed_ids", []))
             new_ids = [m for m in listed if m not in previously]
             attempts = state.setdefault("ollama_attempts", {})
-            s, r, done, domains = process_messages(token, new_ids, deadline, attempts=attempts)
+            known = set(state.get("known_domains", [])) | set(journal["domain"].dropna())
+            s, r, done, domains = process_messages(token, new_ids, deadline, attempts=attempts, known_domains=known)
             signals += s
             rejects += r
             state["known_domains"] = sorted(set(state.get("known_domains", [])) | domains)
@@ -912,7 +931,8 @@ def main():
             if time.monotonic() < deadline:
                 batch = _backfill_ids(token, state, journal, set(listed))
                 if batch:
-                    s, r, done_bf, _ = process_messages(token, batch, deadline, backfill=True, attempts=attempts)
+                    s, r, done_bf, _ = process_messages(token, batch, deadline, backfill=True, attempts=attempts,
+                                                        known_domains=known | domains)
                     signals += s
                     rejects += r
                     state["backfill"]["processed_ids"] = state["backfill"]["processed_ids"] + sorted(done_bf)
