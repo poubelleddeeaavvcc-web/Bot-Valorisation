@@ -65,6 +65,10 @@ jobs:
           GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
           GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
           GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+          # le script cesse de lancer de nouveaux appels Ollama apres ce budget (minutes), pour finir
+          # et committer avant la limite du job ; ce qui reste est repris au run suivant
+          MAIL_BOT_BUDGET_MIN: "40"
+          PYTHONUNBUFFERED: "1"  # logs visibles au fil de l'eau (sinon tout arrive a la fin, ou jamais si le job est coupe)
         run: python screener/mail_signal_bot.py
 
       - name: Commit + push si des resultats ont change

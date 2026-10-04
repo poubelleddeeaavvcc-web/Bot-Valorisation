@@ -100,9 +100,10 @@ import os
 import pathlib
 import re
 import sys
+import time
 import unicodedata
 import urllib.parse
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 
 import pandas as pd
@@ -134,17 +135,24 @@ GMAIL_QUERY = "newer_than:2d"  # same buffer/reasoning as newsletter_digest.py
 MAX_MESSAGES = 300
 BODY_TRUNCATE = 900       # classification excerpt -- a yes/no call doesn't need more
 TEXT_TRUNCATE = 6000      # full email text kept in memory for extraction + citation checks
-EXTRACT_TRUNCATE = 3000   # what the extraction call actually sees (email text or fetched article)
+EXTRACT_TRUNCATE = 1800   # what the extraction call actually sees (email text or fetched article) --
+# was 3000 for one day (2026-10-03): on the CPU-only CI runner each extraction then exceeded the
+# 240 s timeout and 3 runs in a row hit the 60-min job limit without saving anything.
 MAX_REJECTS_KEPT = 1000
+MAX_ATTEMPTS_PER_MAIL = 3  # an email whose Ollama calls keep failing/timing out is given up after this
 
 BACKFILL_DAYS = 30
-BACKFILL_MAX_PER_RUN = 30  # bounds the extra Ollama time per CI run (~10 min at this size --
-# a long digest takes 30-90 s to extract on CPU, measured locally 2026-10-03)
+BACKFILL_MAX_PER_RUN = 15  # and only with whatever time is left after the live emails (see RUN_BUDGET)
+
+# Time budget per run (CI job limit is 60 min, ~2 min of setup before this script starts and a few
+# minutes of Yahoo work after the mail pass). New Ollama work is not STARTED past the deadline; an
+# email not fully processed by then is simply left for the next run (it is not marked processed).
+RUN_BUDGET_MIN = float(os.environ.get("MAIL_BOT_BUDGET_MIN", "40"))
 
 # ARTICLE FETCH -- see module docstring. A domain not listed here is never fetched.
 FETCHABLE_DOMAINS = ("zonebourse.com", "tradingsat.com")
 ARTICLE_FETCH_TIMEOUT = 15
-ARTICLE_FETCH_TRUNCATE = 2500
+ARTICLE_FETCH_TRUNCATE = EXTRACT_TRUNCATE
 ARTICLE_LINK_CANDIDATES = 5
 ARTICLE_FETCH_MAX_WORKERS = 4
 # A full "Chrome 120" UA without the matching Sec-* headers tripped zonebourse.com's bot-detection
@@ -167,12 +175,16 @@ _PLACEHOLDER_TICKERS = {"N/A", "NA", "NONE", "AUCUN", "AUCUNE", "INCONNU", "UNKN
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 OLLAMA_MODEL = "llama3.1:8b"  # same as newsletter_digest.py
-OLLAMA_TIMEOUT = 240
-OLLAMA_MAX_WORKERS = 2
-# temperature 0: extraction/verification are lookups, not creative writing -- and the same email
-# must give the same answer on a re-run. num_ctx 4096: the default context truncates a 3000-char
-# extract + prompt silently.
-OLLAMA_OPTIONS = {"temperature": 0, "num_ctx": 4096}
+OLLAMA_TIMEOUT = 300
+# SEQUENTIAL calls (was 2 workers): on the CPU-only CI runner two concurrent requests just queue
+# behind each other inside Ollama, so each one's wall time doubled and hit the timeout. Sequential
+# calls of the SAME prompt type in a row also let Ollama reuse the cached prefix of the (long, fixed)
+# instructions, which is why every prompt below puts the instructions FIRST and the email LAST --
+# measured locally 2026-10-03: prompt evaluation ~60% faster from the second call on.
+# temperature 0: extraction/verification are lookups, not creative writing, and the same email must
+# give the same answer on a re-run. num_ctx 2048 fits instructions + an EXTRACT_TRUNCATE extract +
+# the answer; num_predict bounds generation time (the slowest part on CPU).
+OLLAMA_OPTIONS = {"temperature": 0, "num_ctx": 2048, "num_predict": 400}
 
 # Newsletter platforms whose sending domain is shared by many unrelated newsletters -- see
 # ATTRIBUTION in the module docstring.
@@ -224,26 +236,19 @@ _NAME_STOP_TOKENS = {
 # Brand name -> legal-name token, when they share no word at all (kept tiny on purpose).
 _NAME_ALIASES = {"google": "alphabet", "facebook": "meta", "instagram": "meta", "whatsapp": "meta"}
 
-CLASSIFY_PROMPT = """Voici un email recu aujourd'hui :
+CLASSIFY_PROMPT = """L'email ci-dessous est-il une newsletter financiere/economique (actualite des marches, d'un secteur, ou macroeconomique) -- par opposition a un email personnel, professionnel, transactionnel, ou publicitaire non lie a la finance ?
+
+Reponds UNIQUEMENT en JSON : {{"is_finance_newsletter": true|false, "reason": "<une phrase courte>"}}
 
 Expediteur : {sender}
 Sujet : {subject}
 Extrait : {body}
-
-Ceci est-il une newsletter financiere/economique (actualite des marches, d'un secteur, ou macroeconomique) -- par opposition a un email personnel, professionnel, transactionnel, ou publicitaire non lie a la finance ?
-
-Reponds UNIQUEMENT en JSON : {{"is_finance_newsletter": true|false, "reason": "<une phrase courte>"}}
 """
 
 # ANALYSE vs ACTUALITE (2026-09-15) and CITATION / NO-GUESS TICKER (2026-10-03) -- see module
 # docstring. The model no longer maps a company to a ticker itself: it only copies a ticker that is
 # literally written in the extract; otherwise the code looks it up by name.
-EXTRACT_TICKER_PROMPT = """Voici un extrait de newsletter financiere :
-
-Sujet : {subject}
-Extrait : {body}
-
-Identifie chaque action d'une SOCIETE COTEE PRECISE ET NOMMEE qui fait l'objet d'un AVIS D'INVESTISSEMENT EXPLICITE dans cet extrait : recommandation d'achat/vente, notation relevee/abaissee, objectif de cours, ou these d'investissement argumentee concluant a un fort potentiel de hausse ou a un risque de forte baisse.
+EXTRACT_TICKER_PROMPT = """Dans l'extrait de newsletter financiere donne a la fin, identifie chaque action d'une SOCIETE COTEE PRECISE ET NOMMEE qui fait l'objet d'un AVIS D'INVESTISSEMENT EXPLICITE : recommandation d'achat/vente, notation relevee/abaissee, objectif de cours, ou these d'investissement argumentee concluant a un fort potentiel de hausse ou a un risque de forte baisse.
 
 N'INCLUS PAS :
 (1) une action seulement mentionnee en passant ;
@@ -264,19 +269,23 @@ Pour chaque action retenue (maximum {max_tickers}), donne :
 Si aucune action ne remplit ces conditions, reponds avec une liste vide.
 
 Reponds UNIQUEMENT en JSON : {{"tips": [{{"company": "<NOM>", "ticker": "<SYMBOLE ou vide>", "sentiment": "haussier|baissier", "citation": "<phrase copiee>", "author": "<auteur ou vide>"}}, ...]}}
+
+Sujet : {subject}
+Extrait : {body}
 """
 
 # Independent second opinion on ONE tip (2026-10-03): sees only the subject and the citation, and
 # is not told which direction the extraction claimed -- so it can't just agree.
-VERIFY_PROMPT = """Sujet d'une newsletter financiere : {subject}
-Citation extraite de cette newsletter : "{citation}"
-
-Question : cette citation contient-elle un AVIS D'INVESTISSEMENT EXPLICITE sur l'action de la societe "{company}" elle-meme ? Un avis d'investissement = recommandation d'achat ou de vente, notation relevee ou abaissee, objectif de cours, ou conclusion argumentee sur le potentiel de hausse ou le risque de baisse de l'action.
+VERIFY_PROMPT = """Question : la citation de newsletter financiere donnee a la fin contient-elle un AVIS D'INVESTISSEMENT EXPLICITE sur l'action de la societe nommee a la fin, elle-meme ? Un avis d'investissement = recommandation d'achat ou de vente, notation relevee ou abaissee, objectif de cours, ou conclusion argumentee sur le potentiel de hausse ou le risque de baisse de l'action.
 Ce n'est PAS un avis : une simple actualite (resultats, partenariat, contrat, proces, nomination), un mouvement de cours passe sans opinion, un avis sur une autre societe, une publicite.
 
 Si c'est un avis, quel est son sens ? "haussier" (acheter, potentiel de hausse -- y compris une baisse passee presentee comme une opportunite d'achat) ou "baissier" (vendre, risque de baisse).
 
 Reponds UNIQUEMENT en JSON : {{"avis_explicite": true|false, "sens": "haussier|baissier|aucun", "raison": "<une phrase courte>"}}
+
+Societe : {company}
+Sujet de la newsletter : {subject}
+Citation : "{citation}"
 """
 
 
@@ -607,25 +616,27 @@ def _validate_tip(tip: dict, text: str) -> tuple:
             "author": author[:80]}, None
 
 
-def _extract_raw_tips(msg: dict) -> list[dict]:
+def _extract_raw_tips(msg: dict) -> list[dict] | None:
     prompt = EXTRACT_TICKER_PROMPT.format(subject=msg["subject"], body=msg["extract_text"],
                                            max_tickers=MAX_TICKERS_PER_EMAIL)
     try:
         raw = _call_ollama_json(prompt)
     except Exception as e:
         print(f"  echec extraction tickers pour \"{msg['subject']}\": {e}", file=sys.stderr)
-        return []
+        return None  # retried next run, unlike a genuine empty answer
     tips = raw.get("tips") or []
     return [t for t in tips[:MAX_TICKERS_PER_EMAIL] if isinstance(t, dict)]
 
 
 def _verify_tip(subject: str, tip: dict) -> tuple:
-    """Second, independent Ollama opinion -- see VERIFY_PROMPT. Fails closed on error."""
+    """Second, independent Ollama opinion -- see VERIFY_PROMPT. (True|False, reason), or (None, ...)
+    if Ollama itself failed -- the email is then retried next run rather than its tip dropped."""
     prompt = VERIFY_PROMPT.format(subject=subject, citation=tip["citation"][:600], company=tip["company"])
     try:
         raw = _call_ollama_json(prompt)
     except Exception as e:
-        return False, f"verification impossible ({e})"
+        print(f"  echec verification pour \"{subject}\": {e}", file=sys.stderr)
+        return None, f"verification impossible ({e})"
     if not raw.get("avis_explicite"):
         return False, f"verification : pas d'avis explicite ({str(raw.get('raison', ''))[:120]})"
     if raw.get("sens") != tip["sentiment"]:
@@ -708,74 +719,117 @@ def _resolve_instrument(company: str, ticker_in_text: str) -> tuple:
     return None, first_reason or f"aucune cotation trouvee pour '{company}'"
 
 
-def process_messages(token: str, ids: list[str], backfill: bool = False) -> tuple:
-    """Full pipeline for a batch of Gmail ids -> (validated signals, rejected tips)."""
+def process_messages(token: str, ids: list[str], deadline: float, backfill: bool = False,
+                     attempts: dict | None = None) -> tuple:
+    """Full pipeline for a batch of Gmail ids -> (validated signals, rejected tips, ids DONE).
+    Phase by phase (classify all, then extract all, then verify all -- same prompt type in a row so
+    Ollama reuses its cached instructions), one Ollama call at a time, and no call STARTED after
+    `deadline` (time.monotonic()). An id is DONE only once it is fully handled (not a newsletter, or
+    every tip of it extracted, verified and resolved); the rest is retried next run, up to
+    MAX_ATTEMPTS_PER_MAIL times (`attempts`, persisted by the caller)."""
+    attempts = attempts if attempts is not None else {}
     msgs = [m for m in (fetch_message(token, mid) for mid in ids) if m is not None]
-    with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
-        is_newsletter = dict(zip((m["id"] for m in msgs), ex.map(classify_newsletter, msgs)))
-    if msgs and all(v is None for v in is_newsletter.values()):
-        raise RuntimeError("Ollama n'a repondu a aucune classification -- mails laisses non traites")
-    newsletters = [m for m in msgs if is_newsletter.get(m["id"])]
+    msgs.sort(key=lambda m: m["date_utc"])  # oldest first: they are closest to leaving the listing window
+    done, failed = set(), set()
     label = "rattrapage" if backfill else "nouveau(x)"
-    print(f"{len(ids)} mail(s) {label} examine(s), {len(newsletters)} newsletter(s) financiere(s) retenue(s).")
 
-    with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_MAX_WORKERS) as ex:
-        fetched = dict(zip((m["id"] for m in newsletters),
+    def out_of_time() -> bool:
+        return time.monotonic() >= deadline
+
+    classified = []
+    n_errors = 0
+    for m in msgs:
+        if out_of_time():
+            break
+        verdict = classify_newsletter(m)
+        if verdict is None:
+            n_errors += 1
+            failed.add(m["id"])
+        elif verdict:
+            classified.append(m)
+        else:
+            done.add(m["id"])
+    if msgs and n_errors and not done and not classified:
+        raise RuntimeError("Ollama n'a repondu a aucune classification -- mails laisses non traites")
+    print(f"{len(msgs)} mail(s) {label} a examiner, {len(done) + len(classified)} classe(s) ce run, "
+          f"{len(classified)} newsletter(s) financiere(s).")
+
+    with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_MAX_WORKERS) as ex:  # plain HTTP, no Ollama
+        fetched = dict(zip((m["id"] for m in classified),
                             ex.map(lambda m: _fetch_article_extract(_extract_article_links(m.get("html", ""))),
-                                   newsletters)))
-    for m in newsletters:
+                                   classified)))
+    for m in classified:
         m["extract_text"] = fetched.get(m["id"]) or m["text"][:EXTRACT_TRUNCATE]
 
-    raw = []
-    with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
-        futures = {ex.submit(_extract_raw_tips, m): m for m in newsletters}
-        for fut in as_completed(futures):
-            m = futures[fut]
-            try:
-                raw.extend((m, t) for t in fut.result())
-            except Exception as e:
-                print(f"  echec extraction (parallele, inattendu): {e}", file=sys.stderr)
-
-    rejects, prevalid = [], []
-    for m, tip in raw:
-        # citation checked against what the model saw AND the email itself (an article tip may
-        # quote the email's teaser)
-        clean, reason = _validate_tip(tip, m["extract_text"] + "\n" + m["text"])
-        if clean is None:
-            rejects.append(_reject_row(m, tip, reason))
+    extracted = []
+    for m in classified:
+        if out_of_time():
+            break
+        tips = _extract_raw_tips(m)
+        if tips is None:
+            failed.add(m["id"])
         else:
-            prevalid.append((m, clean))
-    with ThreadPoolExecutor(max_workers=OLLAMA_MAX_WORKERS) as ex:
-        verdicts = list(ex.map(lambda mt: _verify_tip(mt[0]["subject"], mt[1]), prevalid))
+            extracted.append((m, tips))
 
-    signals, seen = [], set()
-    for (m, tip), (ok, reason) in zip(prevalid, verdicts):
-        if not ok:
-            rejects.append(_reject_row(m, tip, reason))
-            continue
-        resolved, reason = _resolve_instrument(tip["company"], tip["ticker_in_text"])
-        if resolved is None:
-            rejects.append(_reject_row(m, tip, reason))
-            continue
-        key = (m["id"], resolved["ticker"])
-        if key in seen:
-            continue
-        seen.add(key)
-        signals.append({
-            "message_id": m["id"], "mail_date_utc": m["date_utc"], "publication": m["publication"],
-            "domain": m["source"], "author": tip["author"], "company": tip["company"],
-            "ticker": resolved["ticker"], "name": resolved["name"], "exchange": resolved["exchange"],
-            "currency": resolved["currency"], "price": resolved["price"],
-            "side": "long" if tip["sentiment"] == "haussier" else "short",
-            "citation": tip["citation"], "backfill": backfill,
-        })
+    rejects, signals, seen = [], [], set()
+    for m, tips in extracted:
+        complete = True
+        verified = []
+        for tip in tips:
+            # citation checked against what the model saw AND the email itself (an article tip may
+            # quote the email's teaser)
+            clean, reason = _validate_tip(tip, m["extract_text"] + "\n" + m["text"])
+            if clean is None:
+                rejects.append(_reject_row(m, tip, reason))
+                continue
+            if out_of_time():
+                complete = False
+                break
+            ok, reason = _verify_tip(m["subject"], clean)
+            if ok is None:
+                complete = False
+                failed.add(m["id"])
+                break
+            if not ok:
+                rejects.append(_reject_row(m, clean, reason))
+            else:
+                verified.append(clean)
+        if not complete:
+            continue  # retried next run -- its rejects so far are dropped too, to avoid duplicates
+        for tip in verified:
+            resolved, reason = _resolve_instrument(tip["company"], tip["ticker_in_text"])
+            if resolved is None:
+                rejects.append(_reject_row(m, tip, reason))
+                continue
+            if (m["id"], resolved["ticker"]) in seen:
+                continue
+            seen.add((m["id"], resolved["ticker"]))
+            signals.append({
+                "message_id": m["id"], "mail_date_utc": m["date_utc"], "publication": m["publication"],
+                "domain": m["source"], "author": tip["author"], "company": tip["company"],
+                "ticker": resolved["ticker"], "name": resolved["name"], "exchange": resolved["exchange"],
+                "currency": resolved["currency"], "price": resolved["price"],
+                "side": "long" if tip["sentiment"] == "haussier" else "short",
+                "citation": tip["citation"], "backfill": backfill,
+            })
+        done.add(m["id"])
+    rejects = [r for r in rejects if r["_id"] in done]
+
+    for mid in failed - done:
+        attempts[mid] = attempts.get(mid, 0) + 1
+        if attempts[mid] >= MAX_ATTEMPTS_PER_MAIL:
+            print(f"  mail abandonne apres {attempts[mid]} echecs Ollama", file=sys.stderr)
+            done.add(mid)
+    pending = len(msgs) - len(done)
+    if pending:
+        print(f"  {pending} mail(s) {label} reporte(s) au prochain run (budget de temps ou echec Ollama).")
     for r in rejects:
         print(f"  rejete [{r['publication']}] {r['company']} ({r['sentiment']}) : {r['motif']}")
-    return signals, rejects
+    return signals, rejects, done
 
 
 def _reject_row(m: dict, tip: dict, reason: str) -> dict:
-    return {"date_utc": m["date_utc"], "publication": m["publication"], "company": str(tip.get("company") or "")[:80],
+    return {"_id": m["id"], "date_utc": m["date_utc"], "publication": m["publication"], "company": str(tip.get("company") or "")[:80],
             "ticker": str(tip.get("ticker") or tip.get("ticker_in_text") or "")[:12],
             "sentiment": tip.get("sentiment"), "citation": str(tip.get("citation") or "")[:300], "motif": reason}
 
@@ -784,6 +838,7 @@ def append_rejects(rejects: list[dict]):
     if not rejects:
         return
     cols = ["date_utc", "publication", "company", "ticker", "sentiment", "citation", "motif"]
+    rejects = [{k: r[k] for k in cols} for r in rejects]
     old = pd.read_csv(REJECTS_PATH) if REJECTS_PATH.exists() else pd.DataFrame(columns=cols)
     out = pd.concat([old, pd.DataFrame(rejects, columns=cols)], ignore_index=True).tail(MAX_REJECTS_KEPT)
     REJECTS_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -1112,6 +1167,7 @@ def _backfill_ids(token: str, state: dict, ledger: pd.DataFrame, journal: pd.Dat
 
 
 def main():
+    deadline = time.monotonic() + RUN_BUDGET_MIN * 60
     state = _load_json(STATE_PATH, {})
     now = pd.Timestamp.now(tz="UTC")
     today = now.date().isoformat()
@@ -1134,16 +1190,21 @@ def main():
             listed = list_message_ids(token, GMAIL_QUERY)
             previously = set(state.get("processed_message_ids", [])) | set(state.get("backfill", {}).get("processed_ids", []))
             new_ids = [m for m in listed if m not in previously]
-            s, r = process_messages(token, new_ids)
+            attempts = state.setdefault("ollama_attempts", {})
+            s, r, done = process_messages(token, new_ids, deadline, attempts=attempts)
             signals += s
             rejects += r
-            message_ids = listed
-            batch = _backfill_ids(token, state, ledger, journal, set(listed))
-            if batch:
-                s, r = process_messages(token, batch, backfill=True)
-                signals += s
-                rejects += r
-                state["backfill"]["processed_ids"] = state["backfill"]["processed_ids"] + batch
+            # only ids actually handled -- the others stay "new" and are retried next run
+            message_ids = [m for m in listed if m in previously or m in done]
+            if time.monotonic() < deadline:
+                batch = _backfill_ids(token, state, ledger, journal, set(listed))
+                if batch:
+                    s, r, done_bf = process_messages(token, batch, deadline, backfill=True, attempts=attempts)
+                    signals += s
+                    rejects += r
+                    state["backfill"]["processed_ids"] = state["backfill"]["processed_ids"] + sorted(done_bf)
+            # ids given up on are now in a processed list -- only still-pending counters are worth keeping
+            state["ollama_attempts"] = {k: v for k, v in attempts.items() if v < MAX_ATTEMPTS_PER_MAIL}
         except Exception as e:
             print(f"echec acces Gmail: {e} -- lecture des mails ignoree ce run.", file=sys.stderr)
 
