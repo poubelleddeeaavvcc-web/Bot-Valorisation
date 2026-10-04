@@ -1,0 +1,34 @@
+{
+  "capital_eur": 1000.0,
+  "cash_eur": 1000.0,
+  "investi_eur": 0.0,
+  "total_equity_eur": 1000.0,
+  "total_return_pct": 0.0,
+  "nb_open": 0,
+  "nb_closed": 0,
+  "frais_payes_eur": 0.0,
+  "win_rate_closed": null,
+  "avg_return_closed": null,
+  "exposition_par_newsletter_eur": {},
+  "nb_newsletters_fiables": 0,
+  "foule": {
+    "statut": "observation",
+    "edge_estime": 0.005,
+    "n_evenements": 0,
+    "t_stat": null
+  },
+  "statut": "en attente : aucune newsletter n'est encore fiable (il faut au moins 15 avis evalues a 20 jours et un t-stat >= 1.5) -- le capital reste en cash",
+  "config": {
+    "capital_eur": 1000.0,
+    "frais_par_ordre_eur": 1.0,
+    "taille_min_position_eur": 150.0,
+    "taille_max_position_pct": 0.3,
+    "max_par_newsletter_pct": 0.5,
+    "alpha_plein": 0.04,
+    "marge_alpha": 0.005,
+    "marge_rotation": 0.01,
+    "detention_min_jours": 3,
+    "detention_max_jours": 30
+  },
+  "derniere_maj_utc": "2026-10-04T06:21:20Z"
+}

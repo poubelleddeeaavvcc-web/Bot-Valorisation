@@ -1,14 +1,11 @@
-source,n_signals_total,n_closed,n_open,win_rate_closed,avg_return_closed
-mail.beehiiv.com,24,3,21,0.6666666666666666,-0.0244241740911694
-seekingalpha.com,94,15,79,0.2,0.002977090939203438
-mail.sailthru.com,2,1,1,0.0,-0.05079256668784
-tradingsat.com,2,1,1,0.0,-0.2033898757128008
-advisor.thedailyupside.com,3,0,3,,
-aktionnaire.com,4,0,4,,
-analystratings.net,23,0,23,,
-email.zacks.com,4,0,4,,
-etf.thedailyupside.com,2,0,2,,
-news.meilleurtaux.com,2,0,2,,
-substack.com,1,0,1,,
-thedailyupside.com,4,0,4,,
-tipranks.com,7,0,7,,
+source,statut,n_signaux,n_evalues_20j,excess_moy_5j,excess_moy_20j,excess_moy_60j,taux_reussite_20j,edge_estime,t_stat,n_signals_total,n_closed,n_open,win_rate_closed,avg_return_closed
+seekingalpha.com,observation,8,0,-0.02097332521204436,,,,0.0,,71,11,60,0.18181818181818182,-0.0624571831248939
+mail.beehiiv.com,observation,0,0,,,,,,,22,3,19,0.6666666666666666,-0.0244241740911694
+analystratings.net,observation,0,0,,,,,,,18,0,18,,
+thedailyupside.com,observation,0,0,,,,,,,4,0,4,,
+tipranks.com,observation,0,0,,,,,,,3,0,3,,
+advisor.thedailyupside.com,observation,0,0,,,,,,,2,0,2,,
+mail.sailthru.com,observation,0,0,,,,,,,2,1,1,0.0,-0.05079256668784
+email.zacks.com,observation,0,0,,,,,,,1,0,1,,
+news.meilleurtaux.com,observation,0,0,,,,,,,1,0,1,,
+(consensus des newsletters non fiables),observation,0,0,,,,,0.005,,0,0,0,,

@@ -1,5 +1,8 @@
 {
   "processed_message_ids": [
+    "1a10586b4edd8d27",
+    "1a1036a74170b61c",
+    "1a10362da755030e",
     "1a1021c9b7c2f1e0",
     "1a1021a9c87ef2b4",
     "1a10216ef7d476a1",
@@ -47,14 +50,34 @@
     "1a0fc326104aa914",
     "1a0fba9370b038a2",
     "1a0fb862083fb75f",
-    "1a0fb51e8e240840",
-    "1a0fb3b5c70e148e",
-    "1a0fb166cbc0be14",
-    "1a0fae4e60ab0cc9",
-    "1a0facdcd004bb9c",
-    "1a0f93190ef7d508",
-    "1a0f8ddb8bb70c88",
-    "1a0f8d2132c019ad"
+    "1a0fb51e8e240840"
   ],
-  "last_run_date": "2026-10-03"
+  "last_run_date": "2026-10-04",
+  "legacy_cleanup_2026_10_03": "2026-10-04",
+  "ollama_attempts": {
+    "1a06c3dc17d92321": 1
+  },
+  "backfill": {
+    "end_date": "2026-10-04",
+    "processed_ids": [
+      "1a06b4a3fe813393",
+      "1a06b4c364fad3b5",
+      "1a06b5215f6a62d8",
+      "1a06b88f45030ee2",
+      "1a06be26126c9941",
+      "1a06c039cc46efda",
+      "1a06c1cc66fc87af",
+      "1a06c2f357a7a52d",
+      "1a06c39af70917aa",
+      "1a06c3dc363dee33",
+      "1a06c423bbd7ad0f",
+      "1a06c45e496a2cea",
+      "1a06c45fe0f728c6",
+      "1a06c4b65d0de171"
+    ]
+  },
+  "source_status": {
+    "seekingalpha.com": "observation",
+    "(consensus des newsletters non fiables)": "observation"
+  }
 }
