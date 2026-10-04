@@ -377,7 +377,12 @@ def _pick_capped(cands: pd.DataFrame, held: dict, sector_counts: dict, na_count:
 def _pick_even_sector(cands: pd.DataFrame, held: dict, sector_counts: dict, na_count: int,
                        total_held: int, exhausted_sectors: set, rejected: set):
     max_na = int((total_held + 1) * NORTH_AMERICA_MAX_SHARE)
-    sectors_by_count = sorted(set(sector_counts) | set(cands["sector"].dropna()), key=lambda s: sector_counts.get(s, 0))
+    # ties on sector count broken by sector name, like the live bot (simulate_large_portfolio.fill_slots
+    # takes min() over an alphabetically sorted list) -- sorting the set on count alone left ties in
+    # set iteration order, which follows Python's per-process string hash seed: the same window gave
+    # Charlie results up to ~0.9 point apart from one run to the next (seen 2026-10-04).
+    sectors_by_count = sorted(set(sector_counts) | set(cands["sector"].dropna()),
+                              key=lambda s: (sector_counts.get(s, 0), s))
     for sector in sectors_by_count:
         if sector in exhausted_sectors:
             continue
