@@ -14115,12 +14115,6 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-/home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
-  s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-/home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
-  s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-/home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
-  s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
   RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +33.33 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
@@ -16464,7 +16458,7 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-  RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +15.94 EUR
+  RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +13.72 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -16515,6 +16509,7 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
+  RENFORT REEL WDC @ 2026-09-03 (valorisation +50.9% vs +43.9% a l'achat) : +14.67 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -16713,7 +16708,6 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-  RENFORT REEL 2503.T @ 2026-09-10 (valorisation +62.3% vs +54.0% a l'achat) : +14.67 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -17544,6 +17538,7 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
+  RENFORT REEL YUMC @ 2026-10-02 (valorisation +73.8% vs +39.6% a l'achat) : +15.17 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -17625,6 +17620,7 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
+  RENFORT REEL YUMC @ 2026-09-02 (valorisation +62.5% vs +39.6% a l'achat) : +14.79 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -17641,7 +17637,7 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-  RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +15.94 EUR
+  RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +15.59 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -17681,7 +17677,6 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-  RENFORT REEL AMN @ 2026-09-03 (valorisation +42.0% vs +39.7% a l'achat) : +14.83 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -17694,6 +17689,7 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
+  RENFORT REEL WDC @ 2026-09-03 (valorisation +50.9% vs +43.9% a l'achat) : +14.83 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -18725,7 +18721,6 @@ Telechargement FX historique (2 mois, 14 devises)...
   RENFORT REEL 2503.T @ 2026-10-02 (valorisation +54.7% vs +54.0% a l'achat) : +15.17 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-  RENFORT REEL JAZZ @ 2026-10-02 (valorisation +35.1% vs +32.4% a l'achat) : +16.67 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -19992,7 +19987,7 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-  RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +15.94 EUR
+  RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +13.72 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -20043,6 +20038,8 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
+  RENFORT REEL WDC @ 2026-09-03 (valorisation +50.9% vs +43.9% a l'achat) : +14.67 EUR
+  RENFORT APPORT YUMC @ 2026-09-03 (valorisation +58.2%) : +50.00 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -20241,7 +20238,6 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-  RENFORT REEL 2503.T @ 2026-09-10 (valorisation +62.3% vs +54.0% a l'achat) : +14.67 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -20536,7 +20532,6 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-  RENFORT APPORT BVS @ 2026-09-17 (valorisation +59.1%) : +50.00 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -20992,6 +20987,7 @@ Telechargement FX historique (2 mois, 14 devises)...
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
   APPORT 2026-10-01 : +50.00 EUR (reserve renfort)
+  RENFORT APPORT GL @ 2026-10-01 (valorisation +52.9%) : +50.00 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -21171,7 +21167,7 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-  RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +15.94 EUR
+  RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +13.72 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -21222,6 +21218,8 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
+  RENFORT REEL WDC @ 2026-09-03 (valorisation +50.9% vs +43.9% a l'achat) : +14.67 EUR
+  RENFORT APPORT YUMC @ 2026-09-03 (valorisation +58.2%) : +50.00 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -21420,7 +21418,6 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-  RENFORT REEL 2503.T @ 2026-09-10 (valorisation +62.3% vs +54.0% a l'achat) : +14.67 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -21715,7 +21712,6 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-  RENFORT APPORT BVS @ 2026-09-17 (valorisation +59.1%) : +50.00 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -22171,6 +22167,7 @@ Telechargement FX historique (2 mois, 14 devises)...
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
   APPORT 2026-10-01 : +50.00 EUR (reserve renfort)
+  RENFORT APPORT GL @ 2026-10-01 (valorisation +52.9%) : +50.00 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -22269,7 +22266,7 @@ Telechargement FX historique (2 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 Fenetre : 2026-08-21 02:19:35 -> 2026-10-02 19:51:38 (584 points, univers 3441->3666 tickers)
 
-FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL', 'JPY', 'CAD', 'SEK']
+FX obtenu pour : ['HKD', 'CAD', 'TWD', 'JPY', 'INR', 'BRL', 'MXN', 'USD', 'GBP', 'AUD', 'SEK', 'CHF']
 
 --- Bot #1 (blind, PIT reel) ---
   Clotures : n=23  win_rate=+47.8%  retour_moyen=-4.5%
@@ -22290,11 +22287,11 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Bot #3 (large, PIT reel) ---
-  Clotures : n=5  win_rate=+20.0%  retour_moyen=-5.8%
-  Motifs de sortie : {'momentum_perdu': 4, 'trailing_stop': 1}
+  Clotures : n=6  win_rate=+0.0%  retour_moyen=-7.9%
+  Motifs de sortie : {'momentum_perdu': 6}
   Positions ouvertes en fin de periode : n=29
-  Equity EUR (depart 500) : 510.15 EUR (+2.0%)  cash_final=13.81 EUR
-  Frais payes : 5.00 EUR | perte max depuis un sommet (drawdown) : -2.3%
+  Equity EUR (depart 500) : 505.93 EUR (+1.2%)  cash_final=10.23 EUR
+  Frais payes : 6.00 EUR | perte max depuis un sommet (drawdown) : -2.2%
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Bot #25 Delta (constrained+conviction REELLE, PIT reel) ---
@@ -22373,7 +22370,7 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   Clotures : n=10  win_rate=+10.0%  retour_moyen=-6.1%
   Motifs de sortie : {'momentum_perdu': 9, 'trailing_stop': 1}
   Positions ouvertes en fin de periode : n=29
-  Equity EUR (depart 500) : 506.06 EUR (+1.2%)  cash_final=8.79 EUR
+  Equity EUR (depart 500) : 506.05 EUR (+1.2%)  cash_final=8.79 EUR
   Frais payes : 10.00 EUR | perte max depuis un sommet (drawdown) : -2.5%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -22394,20 +22391,20 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Bot Echo hypothetique (Charlie + conviction, PIT reel) ---
-  Clotures : n=5  win_rate=+20.0%  retour_moyen=-5.8%
-  Motifs de sortie : {'momentum_perdu': 4, 'trailing_stop': 1}
+  Clotures : n=6  win_rate=+0.0%  retour_moyen=-7.9%
+  Motifs de sortie : {'momentum_perdu': 6}
   Positions ouvertes en fin de periode : n=27
-  Equity EUR (depart 500) : 511.15 EUR (+2.2%)  cash_final=16.54 EUR
-  Frais payes : 5.00 EUR | perte max depuis un sommet (drawdown) : -2.3%
+  Equity EUR (depart 500) : 506.59 EUR (+1.3%)  cash_final=0.00 EUR
+  Frais payes : 6.00 EUR | perte max depuis un sommet (drawdown) : -2.2%
   Renforts de conviction reels declenches : 2 position(s)
 
 --- Echo hypothetique, renfort precoce (-4%) ---
-  Clotures : n=5  win_rate=+20.0%  retour_moyen=-4.6%
-  Motifs de sortie : {'momentum_perdu': 4, 'trailing_stop': 1}
+  Clotures : n=6  win_rate=+0.0%  retour_moyen=-6.9%
+  Motifs de sortie : {'momentum_perdu': 6}
   Positions ouvertes en fin de periode : n=25
-  Equity EUR (depart 500) : 511.12 EUR (+2.2%)  cash_final=1.36 EUR
-  Frais payes : 5.00 EUR | perte max depuis un sommet (drawdown) : -2.3%
-  Renforts de conviction reels declenches : 5 position(s)
+  Equity EUR (depart 500) : 507.11 EUR (+1.4%)  cash_final=0.00 EUR
+  Frais payes : 6.00 EUR | perte max depuis un sommet (drawdown) : -2.2%
+  Renforts de conviction reels declenches : 4 position(s)
 
 --- Delta + apport 50 EUR/mois (renfort) ---
   Clotures : n=1  win_rate=+100.0%  retour_moyen=+7.0%
@@ -22418,14 +22415,15 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   Renforts de conviction reels declenches : 1 position(s)
 
 --- Echo hypothetique + apport 50 EUR/mois (renfort) ---
-  Clotures : n=5  win_rate=+20.0%  retour_moyen=-5.8%
-  Motifs de sortie : {'momentum_perdu': 4, 'trailing_stop': 1}
+  Clotures : n=6  win_rate=+0.0%  retour_moyen=-7.9%
+  Motifs de sortie : {'momentum_perdu': 6}
   Positions ouvertes en fin de periode : n=27
-  Equity EUR (depart 500) : 614.99 EUR (+2.5%)  cash_final=66.54 EUR
-  Frais payes : 5.00 EUR | perte max depuis un sommet (drawdown) : -2.1%
+  Equity EUR (depart 500) : 607.52 EUR (+1.3%)  cash_final=15.17 EUR
+  Frais payes : 6.00 EUR | perte max depuis un sommet (drawdown) : -1.9%
   Renforts de conviction reels declenches : 3 position(s)
 
---- Echo hypothetique + apport 50 EUR/mois (repartition egale) ---/home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+--- Echo hypothetique + apport 50 EUR/mois (repartition egale) ---
+  Clotures : n=6  win_rate=+0.0%  retour_moyen=-7.9%/home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
@@ -22507,7 +22505,7 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-  RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +15.94 EUR
+  RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +13.72 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -22558,6 +22556,7 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
+  RENFORT REEL WDC @ 2026-09-03 (valorisation +50.9% vs +43.9% a l'achat) : +14.67 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -22756,7 +22755,6 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-  RENFORT REEL 2503.T @ 2026-09-10 (valorisation +62.3% vs +54.0% a l'achat) : +14.67 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -23587,10 +23585,7 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-/home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
-  s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-/home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
-  s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
+  RENFORT REEL YUMC @ 2026-10-02 (valorisation +73.8% vs +39.6% a l'achat) : +15.17 EUR
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -41242,11 +41237,7 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
-/home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
-  s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
   RENFORT REEL WDC @ 2026-09-02 (valorisation +48.3% vs +43.9% a l'achat) : +33.33 EUR
-/home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
-  s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
@@ -45848,19 +45839,18 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
 /home/runner/work/Bot-Valorisation/Bot-Valorisation/screener/backtest_pit_replay.py:264: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 
-  Clotures : n=5  win_rate=+20.0%  retour_moyen=-5.8%
-  Motifs de sortie : {'momentum_perdu': 4, 'trailing_stop': 1}
+  Motifs de sortie : {'momentum_perdu': 6}
   Positions ouvertes en fin de periode : n=27
-  Equity EUR (depart 500) : 614.99 EUR (+2.5%)  cash_final=66.54 EUR
-  Frais payes : 5.00 EUR | perte max depuis un sommet (drawdown) : -2.1%
+  Equity EUR (depart 500) : 607.52 EUR (+1.3%)  cash_final=15.17 EUR
+  Frais payes : 6.00 EUR | perte max depuis un sommet (drawdown) : -1.9%
   Renforts de conviction reels declenches : 3 position(s)
 
 --- Echo hypothetique, plafond position 10% ---
-  Clotures : n=5  win_rate=+20.0%  retour_moyen=-5.8%
-  Motifs de sortie : {'momentum_perdu': 4, 'trailing_stop': 1}
+  Clotures : n=6  win_rate=+0.0%  retour_moyen=-7.9%
+  Motifs de sortie : {'momentum_perdu': 6}
   Positions ouvertes en fin de periode : n=27
-  Equity EUR (depart 500) : 511.15 EUR (+2.2%)  cash_final=16.54 EUR
-  Frais payes : 5.00 EUR | perte max depuis un sommet (drawdown) : -2.3%
+  Equity EUR (depart 500) : 506.59 EUR (+1.3%)  cash_final=0.00 EUR
+  Frais payes : 6.00 EUR | perte max depuis un sommet (drawdown) : -2.2%
   Renforts de conviction reels declenches : 2 position(s)
 
 --- Beta, 10 positions (50 EUR) ---
@@ -45880,27 +45870,26 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Charlie, 20 positions (25 EUR) ---
-  Clotures : n=3  win_rate=+33.3%  retour_moyen=-1.7%
-  Motifs de sortie : {'momentum_perdu': 2, 'trailing_stop': 1}
-  Positions ouvertes en fin de periode : n=20
-  Equity EUR (depart 500) : 514.96 EUR (+3.0%)  cash_final=0.55 EUR
-  Frais payes : 3.00 EUR | perte max depuis un sommet (drawdown) : -2.1%
+  Clotures : n=4  win_rate=+0.0%  retour_moyen=-6.2%
+  Motifs de sortie : {'momentum_perdu': 4}
+  Positions ouvertes en fin de periode : n=19
+  Equity EUR (depart 500) : 509.64 EUR (+1.9%)  cash_final=20.67 EUR
+  Frais payes : 4.00 EUR | perte max depuis un sommet (drawdown) : -2.6%
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Charlie, 15 positions (33 EUR) ---
-  Clotures : n=3  win_rate=+33.3%  retour_moyen=-0.7%
-  Motifs de sortie : {'momentum_perdu': 2, 'trailing_stop': 1}
-  Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 500) : 518.00 EUR (+3.6%)  cash_final=1.73 EUR
-  Frais payes : 3.00 EUR | perte max depuis un sommet (drawdown) : -1.7%
+  Clotures : n=2  win_rate=+0.0%  retour_moyen=-4.6%
+  Motifs de sortie : {'momentum_perdu': 2}
+  Positions ouvertes en fin de periode : n=14
+  Equity EUR (depart 500) : 515.14 EUR (+3.0%)  cash_final=31.33 EUR
+  Frais payes : 2.00 EUR | perte max depuis un sommet (drawdown) : -1.8%
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Charlie, 10 positions (50 EUR) ---
-  Clotures : n=1  win_rate=+100.0%  retour_moyen=+8.0%
-  Motifs de sortie : {'trailing_stop': 1}
+  Clotures : n=0  win_rate=n/a  retour_moyen=n/a
   Positions ouvertes en fin de periode : n=10
-  Equity EUR (depart 500) : 521.02 EUR (+4.2%)  cash_final=6.09 EUR
-  Frais payes : 1.00 EUR | perte max depuis un sommet (drawdown) : -1.7%
+  Equity EUR (depart 500) : 520.08 EUR (+4.0%)  cash_final=0.00 EUR
+  Frais payes : 0.00 EUR | perte max depuis un sommet (drawdown) : -2.0%
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Delta, 6 positions (50 EUR) ---
@@ -45931,7 +45920,7 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   Clotures : n=2  win_rate=+50.0%  retour_moyen=-3.9%
   Motifs de sortie : {'momentum_perdu': 1, 'trailing_stop': 1}
   Positions ouvertes en fin de periode : n=29
-  Equity EUR (depart 500) : 514.00 EUR (+2.8%)  cash_final=16.13 EUR
+  Equity EUR (depart 500) : 513.28 EUR (+2.7%)  cash_final=16.13 EUR
   Frais payes : 2.00 EUR | perte max depuis un sommet (drawdown) : -1.6%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -45955,8 +45944,8 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   Clotures : n=1  win_rate=+100.0%  retour_moyen=+7.0%
   Motifs de sortie : {'trailing_stop': 1}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 500) : 512.72 EUR (+2.5%)  cash_final=3.73 EUR
-  Frais payes : 1.00 EUR | perte max depuis un sommet (drawdown) : -2.6%
+  Equity EUR (depart 500) : 521.33 EUR (+4.3%)  cash_final=3.73 EUR
+  Frais payes : 1.00 EUR | perte max depuis un sommet (drawdown) : -1.5%
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Delta, 6 positions + marge momentum ---
@@ -45979,7 +45968,7 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   Clotures : n=2  win_rate=+50.0%  retour_moyen=-3.9%
   Motifs de sortie : {'momentum_perdu': 1, 'trailing_stop': 1}
   Positions ouvertes en fin de periode : n=29
-  Equity EUR (depart 500) : 523.60 EUR (+4.7%)  cash_final=16.13 EUR
+  Equity EUR (depart 500) : 522.88 EUR (+4.6%)  cash_final=16.13 EUR
   Frais payes : 2.00 EUR | perte max depuis un sommet (drawdown) : -2.0%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -46003,8 +45992,8 @@ FX obtenu pour : ['AUD', 'MXN', 'TWD', 'USD', 'HKD', 'INR', 'CHF', 'GBP', 'BRL',
   Clotures : n=2  win_rate=+50.0%  retour_moyen=-0.9%
   Motifs de sortie : {'momentum_perdu': 1, 'trailing_stop': 1}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 500) : 517.71 EUR (+3.5%)  cash_final=0.93 EUR
-  Frais payes : 2.00 EUR | perte max depuis un sommet (drawdown) : -2.4%
+  Equity EUR (depart 500) : 513.04 EUR (+2.6%)  cash_final=0.93 EUR
+  Frais payes : 2.00 EUR | perte max depuis un sommet (drawdown) : -3.0%
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Delta, 6 positions + pool qualifie ---
