@@ -142,7 +142,8 @@ MAX_REJECTS_KEPT = 1000
 MAX_ATTEMPTS_PER_MAIL = 3  # an email whose Ollama calls keep failing/timing out is given up after this
 
 BACKFILL_DAYS = 30
-BACKFILL_MAX_PER_RUN = 15  # and only with whatever time is left after the live emails (see RUN_BUDGET)
+BACKFILL_MAX_PER_RUN = 25  # upper bound only -- RUN_BUDGET_MIN is what actually stops a run (first CI
+# run with the budget, 2026-10-04: 18 emails in 30 min; the 30-day window held 717 newsletter emails)
 
 # Time budget per run (CI job limit is 60 min, ~2 min of setup before this script starts and a few
 # minutes of Yahoo work after the mail pass). New Ollama work is not STARTED past the deadline; an
@@ -184,7 +185,7 @@ OLLAMA_TIMEOUT = 300
 # temperature 0: extraction/verification are lookups, not creative writing, and the same email must
 # give the same answer on a re-run. num_ctx 2048 fits instructions + an EXTRACT_TRUNCATE extract +
 # the answer; num_predict bounds generation time (the slowest part on CPU).
-OLLAMA_OPTIONS = {"temperature": 0, "num_ctx": 2048, "num_predict": 400}
+OLLAMA_OPTIONS = {"temperature": 0, "num_ctx": 2048, "num_predict": 700}  # 400 cut a 3-tip answer mid-JSON (2026-10-04)
 
 # Newsletter platforms whose sending domain is shared by many unrelated newsletters -- see
 # ATTRIBUTION in the module docstring.
