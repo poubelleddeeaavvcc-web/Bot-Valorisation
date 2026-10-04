@@ -127,6 +127,13 @@ DEFAULT_PARAMS = {
     "contribution_split": "valuation",       # "valuation" (poids = sous-evaluation actuelle) | "equal"
 }
 
+# Famille de chaque ligne de summary_pit.csv (colonne "famille", lue par le dashboard pour ses
+# segments). Une variante herite celle de sa base -- sauf Charlie + renfort de conviction, qui est
+# la famille Echo -- ou la fixe elle-meme avec la cle "famille" du fichier de config.
+FAMILLES = ("alpha", "beta", "charlie", "delta", "echo")
+FAMILLE_OF_BASE = {"bot1_blind": "alpha", "bot2_constrained": "beta", "bot3_large": "charlie",
+                   "bot25_delta": "delta"}
+
 # Bots de reference sur lesquels une variante s'appuie (champ "base" du fichier de config).
 BASES = {
     "bot2_constrained": {"slots": STARTING_SLOTS_B2, "max_per_sector": MAX_PER_SECTOR, "mode": "capped",
@@ -540,7 +547,7 @@ def load_variants() -> list:
         return []
     variants = json.loads(VARIANTS_PATH.read_text(encoding="utf-8")).get("variants", [])
     allowed = set(DEFAULT_PARAMS) | {"slots", "max_per_sector", "mode", "capital", "reinforce"}
-    meta = {"name", "label", "base", "description"}
+    meta = {"name", "label", "base", "description", "famille"}
     seen = set()
     for v in variants:
         unknown = set(v) - allowed - meta
@@ -550,6 +557,8 @@ def load_variants() -> list:
             raise ValueError(f"variante {v.get('name')!r} : un apport mensuel exige reinforce=true")
         if v.get("contribution_split", "valuation") not in ("valuation", "equal"):
             raise ValueError(f"variante {v.get('name')!r} : contribution_split doit etre valuation|equal")
+        if v.get("famille", "alpha") not in FAMILLES:
+            raise ValueError(f"variante {v.get('name')!r} : famille doit etre parmi {list(FAMILLES)}")
         if v.get("base") not in BASES:
             raise ValueError(f"variante {v.get('name')!r} : base doit etre parmi {sorted(BASES)}")
         if not v.get("name") or v["name"] in seen or v["name"] in BOTS:
@@ -565,7 +574,9 @@ def run_variant(panel, currency_of, fx_daily, v: dict) -> dict:
     closed, open_df, nav, cash, contributed = run_slotted_pit(panel, currency_of, fx_daily, cfg["slots"], cfg["max_per_sector"],
                                                   cfg["mode"], cfg["capital"], cfg["reinforce"], params)
     label = v.get("label") or f"Variante {v['name']} (base {v['base']}, PIT reel)"
-    result = summarize(label, closed, open_df, nav, cash, cfg["capital"], contributed)
+    famille = v.get("famille") or ("echo" if v["base"] == "bot3_large" and cfg["reinforce"]
+                                   else FAMILLE_OF_BASE[v["base"]])
+    result = summarize(label, closed, open_df, nav, cash, cfg["capital"], contributed, famille=famille)
     closed.to_csv(OUT_DIR / f"variant_{v['name']}_pit_trades.csv", index=False)
     open_df.to_csv(OUT_DIR / f"variant_{v['name']}_pit_open.csv", index=False)
     return result
@@ -573,7 +584,8 @@ def run_variant(panel, currency_of, fx_daily, v: dict) -> dict:
 
 # ============ 7. Sortie / orchestration ============
 
-def summarize(label, closed, open_df, nav=None, final_cash=None, starting_capital=None, contributed=0.0):
+def summarize(label, closed, open_df, nav=None, final_cash=None, starting_capital=None, contributed=0.0,
+              famille=None):
     n_closed = len(closed)
     win_rate = float((closed["return_pct"] > 0).mean()) if n_closed else None
     avg_return = float(closed["return_pct"].mean()) if n_closed else None
@@ -583,8 +595,8 @@ def summarize(label, closed, open_df, nav=None, final_cash=None, starting_capita
     if n_closed:
         print(f"  Motifs de sortie : {closed['exit_reason'].value_counts().to_dict()}")
     print(f"  Positions ouvertes en fin de periode : n={len(open_df)}")
-    result = {"bot": label, "n_closed": n_closed, "win_rate": win_rate, "avg_return_closed": avg_return,
-              "n_open": len(open_df)}
+    result = {"bot": label, "famille": famille, "n_closed": n_closed, "win_rate": win_rate,
+              "avg_return_closed": avg_return, "n_open": len(open_df)}
     if nav is not None and len(nav):
         cap = starting_capital
         total_return = nav.iloc[-1] / (cap + contributed) - 1  # sur tout l'argent verse, apports compris
@@ -630,31 +642,34 @@ def main():
     results = []
 
     closed1, open1 = run_bot1_pit(panel)
-    results.append(summarize(BOTS["bot1_blind"], closed1, open1))
+    results.append(summarize(BOTS["bot1_blind"], closed1, open1, famille="alpha"))
     closed1.to_csv(OUT_DIR / "bot1_blind_pit_trades.csv", index=False)
     open1.to_csv(OUT_DIR / "bot1_blind_pit_open.csv", index=False)
 
     closed34, open34 = run_bot1_pit(panel, min_mom_margin=MIN_ENTRY_MOM_MARGIN)
-    results.append(summarize("Bot #34 (blind + marge momentum, PIT reel)", closed34, open34))
+    results.append(summarize("Bot #34 (blind + marge momentum, PIT reel)", closed34, open34, famille="alpha"))
     closed34.to_csv(OUT_DIR / "bot34_blind_marge_pit_trades.csv", index=False)
     open34.to_csv(OUT_DIR / "bot34_blind_marge_pit_open.csv", index=False)
 
     closed2, open2, nav2, cash2, _ = run_slotted_pit(panel, currency_of, fx_daily, STARTING_SLOTS_B2,
                                                     MAX_PER_SECTOR, "capped", STARTING_CAPITAL)
-    results.append(summarize(BOTS["bot2_constrained"], closed2, open2, nav2, cash2, STARTING_CAPITAL))
+    results.append(summarize(BOTS["bot2_constrained"], closed2, open2, nav2, cash2, STARTING_CAPITAL,
+                             famille="beta"))
     closed2.to_csv(OUT_DIR / "bot2_constrained_pit_trades.csv", index=False)
     open2.to_csv(OUT_DIR / "bot2_constrained_pit_open.csv", index=False)
 
     closed3, open3, nav3, cash3, _ = run_slotted_pit(panel, currency_of, fx_daily, STARTING_SLOTS_B3,
                                                     None, "even_sector", STARTING_CAPITAL)
-    results.append(summarize(BOTS["bot3_large"], closed3, open3, nav3, cash3, STARTING_CAPITAL))
+    results.append(summarize(BOTS["bot3_large"], closed3, open3, nav3, cash3, STARTING_CAPITAL,
+                             famille="charlie"))
     closed3.to_csv(OUT_DIR / "bot3_large_pit_trades.csv", index=False)
     open3.to_csv(OUT_DIR / "bot3_large_pit_open.csv", index=False)
 
     closed25, open25, nav25, cash25, _ = run_slotted_pit(panel, currency_of, fx_daily, STARTING_SLOTS_DELTA,
                                                         MAX_PER_SECTOR, "capped", DELTA_STARTING_CAPITAL,
                                                         reinforce=True)
-    results.append(summarize(BOTS["bot25_delta"], closed25, open25, nav25, cash25, DELTA_STARTING_CAPITAL))
+    results.append(summarize(BOTS["bot25_delta"], closed25, open25, nav25, cash25, DELTA_STARTING_CAPITAL,
+                             famille="delta"))
     closed25.to_csv(OUT_DIR / "bot25_delta_pit_trades.csv", index=False)
     open25.to_csv(OUT_DIR / "bot25_delta_pit_open.csv", index=False)
 
