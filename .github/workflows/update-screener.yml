@@ -296,6 +296,11 @@ jobs:
       - name: Simulation a capital contraint + marge momentum a l'entree (Bot #35)
         run: python screener/simulate_constrained_portfolio_marge.py
 
+      # Bot #38 : meme mecanique que #35 (Beta + marge), avec 8 positions (62,50 EUR) au lieu de 15 -- moins de frais par trade,
+      # retenu apres le backtest point-in-time du 2026-10-04. Voir simulate_constrained_portfolio_concentre_marge.py.
+      - name: Simulation a capital contraint, 8 positions + marge momentum (Bot #38)
+        run: python screener/simulate_constrained_portfolio_concentre_marge.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
@@ -352,6 +357,11 @@ jobs:
       # secteur d'au moins 10 points (MIN_ENTRY_MOM_MARGIN) -- voir simulate_large_portfolio_marge.py.
       - name: Simulation large + marge momentum a l'entree (Bot #36)
         run: python screener/simulate_large_portfolio_marge.py
+
+      # Bot #39 : meme mecanique que #36 (Charlie + marge), avec 15 positions (33 EUR) au lieu de 30 -- moins de frais par trade,
+      # retenu apres le backtest point-in-time du 2026-10-04. Voir simulate_large_portfolio_concentre_marge.py.
+      - name: Simulation large, 15 positions + marge momentum (Bot #39)
+        run: python screener/simulate_large_portfolio_concentre_marge.py
 
       - name: Commit + push si des resultats ont change
         run: |
@@ -413,6 +423,11 @@ jobs:
       # simulate_delta_portfolio_marge.py.
       - name: Simulation Delta + marge momentum a l'entree (Bot #37)
         run: python screener/simulate_delta_portfolio_marge.py
+
+      # Bot #40 : meme mecanique que #37 (Delta + marge), avec 6 positions (50 EUR) au lieu de 9 -- moins de frais par trade,
+      # retenu apres le backtest point-in-time du 2026-10-04. Voir simulate_delta_portfolio_concentre_marge.py.
+      - name: Simulation Delta, 6 positions + marge momentum (Bot #40)
+        run: python screener/simulate_delta_portfolio_concentre_marge.py
 
       - name: Commit + push si des resultats ont change
         run: |

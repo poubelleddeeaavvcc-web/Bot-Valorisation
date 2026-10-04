@@ -108,7 +108,7 @@ def save_cash(cash: float):
 
 
 def reinforce_convictions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, cash: float,
-                           fx_rates: dict, min_mom_margin: float = 0.0) -> tuple:
+                           fx_rates: dict, min_mom_margin: float = 0.0, target_size: float = None) -> tuple:
     """The bot's namesake mechanic: an open position that has pulled back from its cost basis
     but whose momentum/valuation signal still looks bullish (it hasn't hit any of
     recheck_and_exit's exit triggers, called right before this) gets MORE capital rather than
@@ -148,6 +148,7 @@ def reinforce_convictions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: 
     cycle, so reinforcement pricing reuses them instead of a second network round-trip per
     candidate.
     """
+    target = TARGET_POSITION_SIZE if target_size is None else target_size
     sector_mom = valuation.groupby("sector")["sector_momentum"].first()
     cap_eur = DELTA_MAX_POSITION_SHARE * STARTING_CAPITAL
 
@@ -185,7 +186,7 @@ def reinforce_convictions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: 
             continue
 
         headroom = cap_eur - ledger.at[idx, "entry_value_eur"]
-        budget = min(TARGET_POSITION_SIZE, headroom, cash)
+        budget = min(target, headroom, cash)
         if budget <= 0:
             continue
 
@@ -221,8 +222,10 @@ def reinforce_convictions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: 
 
 
 def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, cash: float, today: str,
-               fx_rates: dict, min_mom_margin: float = 0.0) -> tuple:
+               fx_rates: dict, min_mom_margin: float = 0.0, target_size: float = None,
+               min_position_eur: float = 0.0) -> tuple:
     """Identical to Bot#2/3's diversified-buy logic -- see simulate_constrained_portfolio.py."""
+    target = TARGET_POSITION_SIZE if target_size is None else target_size
     held_tickers = set(ledger.loc[ledger["status"] == "open", "ticker"])
     sector_counts = ledger.loc[ledger["status"] == "open", "sector"].value_counts().to_dict()
     total_held = len(held_tickers)
@@ -242,6 +245,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
 
     new_rows = []
     while True:
+        if min_position_eur and cash < min_position_eur:
+            break
         pick_row = None
         for enforce_geo_caps in (True, False):
             for cap in range(MAX_PER_SECTOR, 10):
@@ -280,7 +285,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
                    if avg_vol is not None and pd.notna(avg_vol) else None)
         fractional = fractional_eligible(ticker, market_cap_eur, adv_eur)
 
-        if not fractional and price_eur > MAX_WHOLE_SHARE_OVERSHOOT * TARGET_POSITION_SIZE:
+        if not fractional and price_eur > MAX_WHOLE_SHARE_OVERSHOOT * target:
             rejected.add(ticker)
             continue
 
@@ -292,13 +297,19 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             continue
 
         if fractional:
-            cost = min(TARGET_POSITION_SIZE, cash)
+            cost = min(target, cash)
             shares = cost / price_eur
         else:
-            target_shares = max(1, int(TARGET_POSITION_SIZE // price_eur))
+            target_shares = max(1, int(target // price_eur))
             max_affordable = int(cash // price_eur)
             shares = min(target_shares, max_affordable)
             cost = shares * price_eur
+
+        # plancher (bots #38-40) : chaque position fermera avec 1 EUR de frais, une ligne de 7 EUR
+        # bouclee avec le reliquat de cash en paierait ~14 % -- mieux vaut garder ce cash.
+        if cost < min_position_eur:
+            rejected.add(ticker)
+            continue
 
         new_rows.append({
             "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"],

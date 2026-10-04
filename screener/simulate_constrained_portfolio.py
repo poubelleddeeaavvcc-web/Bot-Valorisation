@@ -273,7 +273,9 @@ def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, 
 
 
 def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, cash: float, today: str,
-               fx_rates: dict, min_mom_margin: float = 0.0) -> tuple:
+               fx_rates: dict, min_mom_margin: float = 0.0, target_size: float = None,
+               min_position_eur: float = 0.0) -> tuple:
+    target = TARGET_POSITION_SIZE if target_size is None else target_size
     held_tickers = set(ledger.loc[ledger["status"] == "open", "ticker"])
     sector_counts = ledger.loc[ledger["status"] == "open", "sector"].value_counts().to_dict()
     total_held = len(held_tickers)
@@ -298,6 +300,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
 
     new_rows = []
     while True:
+        if min_position_eur and cash < min_position_eur:
+            break
         pick_row = None
         # try honoring the North America and state-linked caps first (see
         # select_top_picks.NORTH_AMERICA_MAX_SHARE / STATE_LINKED_MAX_SHARE), across every
@@ -345,7 +349,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
                    if avg_vol is not None and pd.notna(avg_vol) else None)
         fractional = fractional_eligible(ticker, market_cap_eur, adv_eur)
 
-        if not fractional and price_eur > MAX_WHOLE_SHARE_OVERSHOOT * TARGET_POSITION_SIZE:
+        if not fractional and price_eur > MAX_WHOLE_SHARE_OVERSHOOT * target:
             rejected.add(ticker)
             continue
 
@@ -362,16 +366,22 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             continue
 
         if fractional:
-            cost = min(TARGET_POSITION_SIZE, cash)
+            cost = min(target, cash)
             shares = cost / price_eur
         else:
             # whole shares only (not IBKR fractional-eligible): buy as many as get closest to
             # the target size without exceeding available cash -- at least 1, guaranteed
             # affordable by the price_eur<=cash check above.
-            target_shares = max(1, int(TARGET_POSITION_SIZE // price_eur))
+            target_shares = max(1, int(target // price_eur))
             max_affordable = int(cash // price_eur)
             shares = min(target_shares, max_affordable)
             cost = shares * price_eur
+
+        # plancher (bots #38-40) : chaque position fermera avec 1 EUR de frais, une ligne de 7 EUR
+        # bouclee avec le reliquat de cash en paierait ~14 % -- mieux vaut garder ce cash.
+        if cost < min_position_eur:
+            rejected.add(ticker)
+            continue
 
         new_rows.append({
             "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"],
