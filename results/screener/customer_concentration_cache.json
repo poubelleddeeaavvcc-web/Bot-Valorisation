@@ -702,5 +702,13 @@
       "reason": "L'entreprise serve des clients dans de nombreux secteurs, tels que l'industrie, les soins de santé, les transport, les energies, etc., ce qui suggere une base de clients large et diversifiée.",
       "source": "ollama"
     }
+  },
+  "2497.TW": {
+    "checked_at": "2026-10-05",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte ne mentionne qu'une seule activité principale (conception et manufacturing d'appareils électroniques pour l'industrie automobile) et plusieurs produits diversifiés, ce qui suggère une base de clients large et variée.",
+      "source": "ollama"
+    }
   }
 }
