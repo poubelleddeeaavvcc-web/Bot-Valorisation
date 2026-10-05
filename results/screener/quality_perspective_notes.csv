@@ -654,8 +654,6 @@ RA.MX,Regional S.A.B. de C.V.,Financial Services,Banks - Regional,,14.5,,15.0,16
 005380.KS,Hyundai Motor Company,Consumer Cyclical,Auto Manufacturers,8.8,7.7,3.2,7.9,9.9,7.5,5,False,,19.6,19.6,1,True
 006260.KS,LS Corp.,Industrials,Electrical Equipment & Parts,1.8,7.7,0.9,4.3,4.6,3.9,5,False,,19.0,19.0,1,True
 008730.KS,"Youlchon Chemical Co.,Ltd.",Consumer Cyclical,Packaging & Containers,6.3,3.7,3.0,5.8,3.6,4.5,5,False,,1.1,1.1,1,True
-ASK.AX,,,,,,,,,,0,True,,,,0,True
-ZIP.AX,Zip Co Limited,Financial Services,Credit Services,8.7,13.9,,7.6,6.0,9.0,4,False,0.0,0.3,0.2,2,False
 1951.T,"EXEO Group, Inc.",Industrials,Engineering & Construction,14.8,8.5,10.2,6.6,13.3,10.7,5,False,12.4,13.2,12.8,2,False
 2212.T,"Yamazaki Baking Co., Ltd.",Consumer Defensive,Packaged Foods,14.9,8.4,11.8,6.8,5.9,9.6,5,False,11.5,13.5,12.5,2,False
 3391.T,Tsuruha Holdings Inc.,Healthcare,Pharmaceutical Retailers,7.0,,10.7,9.2,15.3,10.6,4,False,10.4,7.6,9.0,2,False
@@ -1074,7 +1072,7 @@ AXISBANK.NS,Axis Bank Limited,Financial Services,Banks - Regional,,11.1,,14.4,0.
 9935.TW,"Ching Feng Home Fashions Co.,Ltd",Consumer Cyclical,"Furnishings, Fixtures & Appliances",6.4,13.9,6.0,13.3,13.6,10.6,5,False,20.0,10.9,15.4,2,False
 9941.TW,Taiwan Acceptance Corporation,Financial Services,Credit Services,4.8,9.2,,4.6,15.9,8.6,4,False,12.9,1.9,7.4,2,False
 9945.TW,"Ruentex Development Co.,Ltd.",Industrials,Engineering & Construction,7.2,17.5,3.0,18.4,17.0,12.6,5,False,20.0,6.6,13.3,2,False
-0388.HK,Hong Kong Exchanges and Clearing Limited,Financial Services,Financial Data & Stock Exchanges,11.8,18.8,,18.4,5.8,13.7,4,False,9.0,4.2,6.6,2,False
+0388.HK,Hong Kong Exchanges and Clearing Limited,Financial Services,Financial Data & Stock Exchanges,11.8,18.8,,18.4,5.9,13.7,4,False,9.0,4.2,6.6,2,False
 1810.HK,Xiaomi Corporation,Technology,Consumer Electronics,8.5,11.1,,8.4,,9.3,3,False,13.0,0.6,6.8,2,False
 2359.HK,"WuXi AppTec Co., Ltd.",Healthcare,Diagnostics & Research,11.4,18.1,,19.4,,16.3,3,False,15.5,16.1,15.8,2,False
 ASIANPAINT.NS,Asian Paints Limited,Basic Materials,Specialty Chemicals,14.0,,15.0,13.0,4.7,11.7,4,False,0.0,8.0,4.0,2,False
@@ -2040,7 +2038,7 @@ SUNPHARMA.BO,Sun Pharmaceutical Industries Limited,Healthcare,Drug Manufacturers
 5301.T,"Tokai Carbon Co., Ltd.",Basic Materials,Specialty Chemicals,8.8,8.6,7.6,8.6,7.6,8.2,5,False,10.0,17.8,13.9,2,False
 6702.T,Fujitsu Limited,Technology,Information Technology Services,13.1,13.1,14.1,9.8,12.9,12.6,5,False,4.1,9.3,6.7,2,False
 6707.T,"Sanken Electric Co., Ltd.",Technology,Semiconductors,4.0,2.3,2.0,2.0,18.5,5.8,5,False,,7.5,7.5,1,True
-7167.T,"Mebuki Financial Group,Inc.",Financial Services,Banks - Regional,,5.9,,10.8,5.9,7.5,3,False,0.0,19.4,9.7,2,False
+7167.T,"Mebuki Financial Group,Inc.",Financial Services,Banks - Regional,,5.9,,10.8,6.0,7.6,3,False,0.0,19.4,9.7,2,False
 9021.T,West Japan Railway Company,Industrials,Railroads,3.6,7.6,1.8,10.9,15.9,8.0,5,False,17.3,5.7,11.5,2,False
 9449.T,"GMO internet group, Inc.",Communication Services,Telecom Services,3.6,13.2,5.1,10.8,7.7,8.1,5,False,0.1,15.0,7.6,2,False
 1101.TW,"TCC Group Holdings Co., Ltd.",Basic Materials,Building Materials,10.2,3.4,14.4,3.4,13.9,9.1,5,False,,5.5,5.5,1,True
@@ -2493,7 +2491,7 @@ BGR,BlackRock Energy and Resources Trust,Financial Services,Asset Management,12.
 BHF,"Brighthouse Financial, Inc.",Financial Services,Insurance - Life,3.8,11.2,,12.0,18.8,11.4,4,False,20.0,4.8,12.4,2,False
 CCEP,Coca-Cola Europacific Partners PLC,Consumer Defensive,Beverages - Non-Alcoholic,5.2,17.0,,14.2,,12.1,3,False,10.1,15.4,12.8,2,False
 CMP,"Compass Minerals International, Inc.",Basic Materials,Other Industrial Metals & Mining,3.4,8.7,10.2,5.0,5.5,6.6,5,False,0.0,11.2,5.6,2,False
-COIN,"Coinbase Global, Inc.",Financial Services,Financial Data & Stock Exchanges,10.0,0.7,,0.4,1.3,3.1,4,False,,0.2,0.2,1,True
+COIN,"Coinbase Global, Inc.",Financial Services,Financial Data & Stock Exchanges,10.0,0.7,,0.4,1.3,3.1,4,False,,0.3,0.3,1,True
 CRVL,CorVel Corporation,Financial Services,Insurance Brokers,14.2,18.5,,4.8,2.4,10.0,4,False,10.0,2.3,6.2,2,False
 DOCU,"DocuSign, Inc.",Technology,Software - Application,7.8,13.9,15.4,12.1,16.1,13.1,5,False,3.0,5.9,4.4,2,False
 EFX,Equifax Inc.,Industrials,Consulting Services,2.9,11.8,10.4,14.2,12.1,10.3,5,False,9.3,1.9,5.6,2,False
@@ -3896,7 +3894,7 @@ AXISBANK.BO,Axis Bank Limited,Financial Services,Banks - Regional,,11.1,,14.4,0.
 4676.T,"Fuji Media Holdings, Inc.",Communication Services,Broadcasting,5.2,5.4,3.6,7.0,18.7,8.0,5,False,0.0,15.7,7.8,2,False
 4689.T,LY Corporation,Consumer Cyclical,Internet Retail,8.6,8.4,7.0,15.6,10.5,10.0,5,False,16.6,14.6,15.6,2,False
 4911.T,"Shiseido Company, Limited",Consumer Defensive,Household & Personal Products,10.5,1.4,9.7,6.6,4.7,6.6,5,False,,17.6,17.6,1,True
-5831.T,"Shizuoka Financial Group,Inc.",Financial Services,Banks - Regional,,4.6,,10.4,5.7,6.9,3,False,0.0,19.3,9.6,2,False
+5831.T,"Shizuoka Financial Group,Inc.",Financial Services,Banks - Regional,,4.6,,10.4,5.8,6.9,3,False,0.0,19.3,9.6,2,False
 6501.T,"Hitachi, Ltd.",Industrials,Conglomerates,11.0,,15.3,10.4,6.7,10.9,4,False,0.0,8.4,4.2,2,False
 6752.T,Panasonic Holdings Corporation,Technology,Consumer Electronics,7.2,6.5,5.9,8.2,5.0,6.6,5,False,0.0,17.8,8.9,2,False
 6849.T,Nihon Kohden Corporation,Healthcare,Medical Devices,12.5,10.9,16.2,8.2,16.4,12.8,5,False,15.4,5.7,10.6,2,False
@@ -5616,3 +5614,5 @@ WY,Weyerhaeuser Company,Real Estate,REIT - Specialty,14.6,7.8,9.2,4.8,16.1,10.5,
 XERS,"Xeris Biopharma Holdings, Inc.",Healthcare,Drug Manufacturers - Specialty & Generic,4.7,,9.4,6.6,3.5,6.1,4,False,,7.3,7.3,1,True
 XPEL,"XPEL, Inc.",Consumer Cyclical,Auto Parts,14.6,14.6,9.3,15.4,0.3,10.8,5,False,2.3,17.1,9.7,2,False
 ZWS,Zurn Elkay Water Solutions Corporation,Industrials,Pollution & Treatment Controls,15.6,13.7,13.2,17.6,10.0,14.0,5,False,1.8,7.1,4.4,2,False
+ASK.AX,,,,,,,,,,0,True,,,,0,True
+ZIP.AX,Zip Co Limited,Financial Services,Credit Services,8.7,13.9,,7.6,5.7,9.0,4,False,0.0,0.2,0.1,2,False
