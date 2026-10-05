@@ -5056,5 +5056,17 @@
     "sentiment": "neutral",
     "reason": "L'actualité présente des informations diverses sur l'action d'E-Lead Electronic Co., Ltd., notamment une émission de parts, une performance boursière et une prévision de marché, ce qui suggère un ton neutre.",
     "source": "ollama"
+  },
+  "8035.T_2026-10-05": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des analyses positives, des recommandations de buy et des commentaires sur la croissance et la rentabilite de l'action.",
+    "source": "ollama"
+  },
+  "GIC_2026-10-05": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "L'actualité présente plusieurs éléments négatifs, tels que des prévisions de sous-performance et des résultats financiers décevants, ce qui suggère un ton général négatif pour l'action de Global Industrial Company (GIC).",
+    "source": "ollama"
   }
 }
