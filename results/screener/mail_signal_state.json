@@ -1,5 +1,12 @@
 {
   "processed_message_ids": [
+    "1a10b44e7324233e",
+    "1a10b20e7dc697d5",
+    "1a10b08dff98d19b",
+    "1a10afb4878d8dbd",
+    "1a10abf62e129701",
+    "1a10aad0bf58f491",
+    "1a10a5a28138e1d8",
     "1a1096c4097e4858",
     "1a108881cf893b57",
     "1a1078e5c455b021",
@@ -42,14 +49,12 @@
     "1a10187a1fd48931",
     "1a1016f1bd6cc696",
     "1a101602438ca1ad",
-    "1a101486b3a99043",
-    "1a10075a14ed93ad",
-    "1a1006012ae30a8b"
+    "1a101486b3a99043"
   ],
   "last_run_date": "2026-10-05",
   "ollama_attempts": {
     "1a06c3dc17d92321": 1,
-    "1a080d744fee4403": 1
+    "1a080d744fee4403": 2
   },
   "backfill": {
     "end_date": "2026-10-04",
@@ -148,7 +153,22 @@
       "1a08154b8ecc806b",
       "1a081cd6a38304ff",
       "1a0820e5eff317ea",
-      "1a08236b5004ec63"
+      "1a08236b5004ec63",
+      "1a06e44c613b3a3e",
+      "1a07a8acfe63bcd0",
+      "1a07ae24d2113a86",
+      "1a07b17218f29ecd",
+      "1a07fabc1fbd5281",
+      "1a084d61a9093c18",
+      "1a08528c8b98c37f",
+      "1a085a209ec5415d",
+      "1a085cb6b18c84cd",
+      "1a085ef0ffa57ede",
+      "1a085f8e562c6f5c",
+      "1a085fdd4a61545b",
+      "1a085fdec3a815a0",
+      "1a086012db873f32",
+      "1a08605ca91c2960"
     ]
   },
   "source_status": {
@@ -163,12 +183,15 @@
     "advisor.thedailyupside.com",
     "analystratings.net",
     "email.zacks.com",
+    "gmail.com",
     "mail.beehiiv.com",
     "mail.sailthru.com",
     "news.meilleurtaux.com",
     "seekingalpha.com",
     "thedailyupside.com",
-    "tipranks.com"
+    "tipranks.com",
+    "tradingsat.com",
+    "zonebourse.com"
   ],
   "lab_retired": "2026-10-04"
 }
