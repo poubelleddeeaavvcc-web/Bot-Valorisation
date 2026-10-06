@@ -1,5 +1,5 @@
 source,statut,n_signaux,n_achat,n_vente,n_evalues_5j,excess_moy_5j,rendement_brut_5j,taux_reussite_5j,n_evalues_20j,excess_moy_20j,rendement_brut_20j,taux_reussite_20j,n_evalues_60j,excess_moy_60j,rendement_brut_60j,taux_reussite_60j,edge_estime,t_stat
-seekingalpha.com,observation,45,40,5,26,-0.026497333675560047,-0.03376393096900814,0.34615384615384615,7,-0.04441494177960322,-0.040762383067102656,0.5714285714285714,0,,,,-0.01828850543866015,-1.807859852988349
+seekingalpha.com,observation,51,45,6,27,-0.02690110005129118,-0.03413168559294265,0.3333333333333333,7,-0.04441494177960324,-0.04076238306710267,0.5714285714285714,0,,,,-0.018288505438660157,-1.8078598529883498
 Stocks & Sectors (sailthru.com),observation,2,2,0,1,0.0061713107833791,-0.0050172569596468,1.0,0,,,,0,,,,0.0,
 tipranks.com,observation,2,2,0,0,,,,0,,,,0,,,,0.0,
 Dividend Ideas (sailthru.com),observation,1,1,0,0,,,,0,,,,0,,,,0.0,
