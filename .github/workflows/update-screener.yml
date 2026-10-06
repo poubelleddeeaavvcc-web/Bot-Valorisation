@@ -446,3 +446,44 @@ jobs:
           done
           echo "Echec du push apres 5 tentatives."
           exit 1
+
+  # Resume compact des courbes d'equity pour le dashboard (2026-10-06) : 31 derniers jours en
+  # entier, 1 releve par jour au-dela -- voir screener/build_equity_summary.py. Les ~40 courbes
+  # completes grossissent de ~29 lignes par jour et par bot et etaient retelechargees en entier
+  # par le dashboard a chaque cycle. Apres TOUS les jobs de bots (chacun pousse ses propres
+  # courbes) ; always() pour qu'un job de bots en echec ne fige pas le resume des autres. Seul
+  # job a ecrire ce fichier, aucun appel reseau, bibliotheque standard uniquement.
+  resume-courbes:
+    needs: [bots-ollama, bots-aveugle, bots-contraint, bots-large, bots-delta]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Construire le resume des courbes
+        run: python screener/build_equity_summary.py
+
+      - name: Commit + push si le resume a change
+        run: |
+          git config user.name "screener-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add results/simulation/equity_curves_summary.json
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau ce cycle."
+            exit 0
+          fi
+          git commit -m "Mise a jour automatique du screener -- resume des courbes ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
+            sleep 10
+          done
+          echo "Echec du push apres 5 tentatives."
+          exit 1
