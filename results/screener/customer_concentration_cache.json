@@ -718,5 +718,13 @@
       "reason": "Le texte ne donne aucune indication claire sur la concentration de clients, mais il mentionne des régions géographiques (Japan, South Korea, Taiwan, China, North America, Europe) et des produits diversifiés, ce qui suggère une base de clients large et diversifiée.",
       "source": "ollama"
     }
+  },
+  "MULT3.SA": {
+    "checked_at": "2026-10-06",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte décrit une gamme de services et d'activités très larges, allant de la gestion de shopping malls à l'organisation de spectacles et d'événements, indiquant une base de clients diversifiée.",
+      "source": "ollama"
+    }
   }
 }
