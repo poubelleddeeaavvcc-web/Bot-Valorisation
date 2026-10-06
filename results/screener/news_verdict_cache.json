@@ -1,340 +1,4 @@
 {
-  "MD_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes montrent une tendance positive pour l'action de Pediatrix Medical Group, Inc., avec des augmentations des revenus et des bénéfices, ainsi qu'une stabilisation du prix de l'action.",
-    "source": "ollama"
-  },
-  "FRSH_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes montrent un sentiment general positif, avec des mentions de stocks qui ",
-    "source": "ollama"
-  },
-  "FHI_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des articles qui soulignent les avantages de l'action de Federated Hermes, Inc. (FHI) en termes de dividendes, de valeur et de tendance inverse, ce qui suggere un ton general positif.",
-    "source": "ollama"
-  },
-  "1802.T_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'acquisition de Multiplex par Obayashi pourrait renforcer sa position sur le marché de la construction mondiale et accroître ses revenus, ce qui pourrait être un facteur de croissance pour l'action.",
-    "source": "ollama"
-  },
-  "9939.TW_2026-09-21": {
-    "relevant": true,
-    "sentiment": "negative",
-    "reason": "Aucune information positive ou neutre est disponible dans les actualités fournies, les sources sont toutes liées à d'autres sociétés ou à des données futures.",
-    "source": "ollama"
-  },
-  "2404.TW_2026-09-21": {
-    "relevant": true,
-    "sentiment": "neutral",
-    "reason": "Seules actualités positives sont absentes, les autres sont des annonces de prix ou de forums sans lien direct avec l'action 2404.TW",
-    "source": "ollama"
-  },
-  "ASM.AS_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'action ASM International NV a connu une performance positive avec une augmentation de son stock après son plan de reprise de 150 millions d'euros et une actualité positive sur son plan de reprise de shares.",
-    "source": "ollama"
-  },
-  "PATH_2026-09-21": {
-    "relevant": true,
-    "sentiment": null,
-    "reason": "Bien que certaines actualités mentionnent une chute du prix de l'action, d'autres soulignent l'adoption croissante de l'entreprise et son positionnement dans le secteur de l'IA, ce qui suggère un ton mixte avec des éléments positifs et négatifs.",
-    "source": "ollama"
-  },
-  "GEO_2026-09-21": {
-    "relevant": true,
-    "sentiment": "neutral",
-    "reason": "Les actualites presentes sont mixtes, avec des elements positifs (gains de valeur, augmentation des revenus) et des elements negatifs (concerns sur la croissance, coûts élevés)",
-    "source": "ollama"
-  },
-  "GEV_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes montrent une augmentation de la confiance en GE Vernova Inc., avec un backlog de 200 milliards de dollars qui devrait arriver plus tôt que prévu, ainsi qu'une augmentation de la valeur de l'action et des commentaires positifs de personnalités financières.",
-    "source": "ollama"
-  },
-  "GL_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes montrent que Globe Life Inc. (GL) est en train de surperformer son secteur, de croitre ses revenus et de renforcer sa position sur le marché, avec des commentaires positifs de ses dirigeants et des analyses favorables de ses performances.",
-    "source": "ollama"
-  },
-  "ABEV3.SA_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes montrent une croissance revenue et des marges expansionnees, ainsi qu'une activation renforcee du World Cup, ce qui suggere un ton general positif pour l'action Ambev S.A.",
-    "source": "ollama"
-  },
-  "SNA_2026-09-21": {
-    "relevant": true,
-    "sentiment": "neutral",
-    "reason": "Bien que les actualites presentent des informations positives sur le stock de Snap-on, telles que son performance en bourse et son dividendes, elles soulignent également des risques et des inquiétudes, comme la concurrence et la volatilité du marché, ce qui maintient un ton neutre.",
-    "source": "ollama"
-  },
-  "AMN_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites recentes sur AMN Healthcare Services, Inc. (AMN) suggere un ton general positif, avec des reports de revenus et de profit, des analyses de croissance et des recommandations d'investissement, ce qui indique que l'action est en phase de renforcement.",
-    "source": "ollama"
-  },
-  "AMAT_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance, de profitabilite et de performances solides, ce qui suggere un ton general positif pour l'action d'Applied Materials, Inc.",
-    "source": "ollama"
-  },
-  "5706.T_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'action de Mitsui Kinzoku Company, Limited a bénéficié de l'annonce d'une partenariat stratégique avec Factorial Energy Inc. pour développer et amplifier la production de batteries à solide électrolyte, ce qui suggère une opportunité de croissance et de développement.",
-    "source": "ollama"
-  },
-  "DCI_2026-09-21": {
-    "relevant": true,
-    "sentiment": "neutral",
-    "reason": "Les actualites presentent des informations contradictoires sur l'action, avec des points positifs (gain de 9.1% en 12 mois, forte demande pour les produits de filtration) et des points négatifs (faible croissance en 6 mois, risque de déclin de la part de certains analystes)",
-    "source": "ollama"
-  },
-  "GOOGL_2026-09-21": {
-    "relevant": true,
-    "sentiment": "neutral",
-    "reason": "Bien que plusieurs actualités mentionnent des investissements et des développements positifs pour Alphabet Inc. (GOOGL), d'autres soulignent des problèmes de concurrence et des risques liés à l'antitrust, ce qui équilibre le ton général et le rend neutre.",
-    "source": "ollama"
-  },
-  "AMZN_2026-09-21": {
-    "relevant": false,
-    "sentiment": null,
-    "reason": "'sued' actif (2/3 votes) : Problèmes potentiels liés à la sétimentation de problèmes de santé de la main pour les travailleurs de warehouse de Amazon.; Risque actif et non résolu lié à une accusation récente, ce qui peut avoir une incidence sur la réputation et la confiance de (titre: Amazon (AMZN) Sued Again, This Time over How it Treats Pregnant Warehouse Workers)",
-    "source": "keyword_veto"
-  },
-  "URBN_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des articles sur les performances de l'action, des analyses positives et des conseils d'investissement favorables.",
-    "source": "ollama"
-  },
-  "2357.TW_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'actualité présente plusieurs éléments positifs, tels que l'expansion de l'écosystème AI d'ASUSTeK avec Intel, les résultats financiers solides d'American States Water, et la croissance de l'entreprise, qui ont contribué à un ton général positif.",
-    "source": "ollama"
-  },
-  "BPOP_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des articles qui soulignent les avantages de l'action de Popular, Inc. (BPOP) en termes de dividendes, de croissance et de valeur, ce qui suggere un ton general positif.",
-    "source": "ollama"
-  },
-  "UCG.MI_2026-09-21": {
-    "relevant": true,
-    "sentiment": "neutral",
-    "reason": "Les actualites presentes sont mixtes, avec des informations sur des tendances de croissance, des conditions de takeover, des prévisions de prix et des informations sur les actions de Coinbase et Robinhood, mais sans une tonalité clairement positive ou négative",
-    "source": "ollama"
-  },
-  "AMG_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des articles sur le rendement du stock, des repurchases de actions, des performances financieres positives et des investissements renforcees dans l'entreprise.",
-    "source": "ollama"
-  },
-  "1878.T_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'action de Daito Trust Construction Co.,Ltd. a gagné du soutien après l'execution d'un accord de prêt avec des covenants financiers, et a conclu des accords importants avec des sociétés étrangères.",
-    "source": "ollama"
-  },
-  "JAZZ_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des annonces de croissance, de nouveaux developpements et de perspectives de revenus, ce qui suggere une tendance positive pour l'action.",
-    "source": "ollama"
-  },
-  "THG_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites recentes sur The Hanover Insurance Group, Inc. (THG) suggererent une attention accrue et des mouvements positifs, tels que des actions de repurchase d'actions, des annonces de dividendes et des commentaires positifs sur la croissance et la rentabilite.",
-    "source": "ollama"
-  },
-  "SBIN.NS_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'action de State Bank of India est mentionnée dans plusieurs articles positifs, tels que le reportage de MarketWatch et Bloomberg, qui soulignent son performance boursière et son profit solide.",
-    "source": "ollama"
-  },
-  "LCII_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Bien que les ventes aient baissé, les bénéfices ont augmenté, et les marges ont également augmenté, indiquant une meilleure gestion des coûts et une stratégie de croissance.",
-    "source": "ollama"
-  },
-  "9766.T_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes montrent une rotation des investissements vers les actions japonaises de jeux vidéo, une premiere sortie de slot de Bomberman et des resultats de bilan superieurs, indiquant un ton general positif pour l'action de Konami Group Corporation.",
-    "source": "ollama"
-  },
-  "TILE_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des articles qui parlent de l'investissement dans l'action, de son potentiel de croissance et de ses performances financieres.",
-    "source": "ollama"
-  },
-  "B3SA3.SA_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance, de nouveaux produits et de gains operatifs, ce qui suggere un ton general positif pour l'action.",
-    "source": "ollama"
-  },
-  "OFG_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des articles qui soulignent les avantages de l'action d'OFG, son rendement et son ajout aux listes de stocks a forte croissance et de dividendes.",
-    "source": "ollama"
-  },
-  "1893.T_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'action de Penta-Ocean Construction Co., Ltd. (1893.T) a connu des fluctuations de prix récentes, mais les actualités récentes suggèrent une valorisation raisonnable après une période de rebond, ainsi que des projets de développement et d'expansion de l'entreprise.",
-    "source": "ollama"
-  },
-  "2006.TW_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'action de Tung Ho Steel Enterprise Corporation est soutenue par des actualites positives sur son secteur, tels que la securite de 25 millions de dollars et la stabilisation des prix de l'acier, ainsi que des articles sur son leadership dans l'urban mining et la valorisation des déchets.",
-    "source": "ollama"
-  },
-  "9942.TW_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Le rapport de CES SEULES indique que la part de revenue de la Chine est passée de 34,6% à 47% et que le bénéfice est en augmentation, ce qui suggère une tendance positive pour l'action.",
-    "source": "ollama"
-  },
-  "LAUR_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites recentes sur Laureate Education, Inc. (LAUR) presentent une tendance generale positive, avec des articles mettant en avant son potentiel de croissance, son rendement recent et des activites de revente de parts par des dirigeants internes, ce qui suggere un ton positif.",
-    "source": "ollama"
-  },
-  "DINO_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des annonces de croissance, de renforcement de la position de l'entreprise et de nouveaux programmes de repartition de dividendes, ce qui suggere un ton general positif pour l'action HF Sinclair Corporation (DINO).",
-    "source": "ollama"
-  },
-  "4503.T_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des accords de prix avec Trump, des resultats financiers positifs et des analyses positives sur la valeur de l'action.",
-    "source": "ollama"
-  },
-  "1590.TW_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes montrent une croissance robuste et des revenus qui surgent, indiquant un ton general positif pour l'action Airtac International Group.",
-    "source": "ollama"
-  },
-  "2303.TW_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance, d'augmentation des revenus, d'upgrade de la note de notation et de nouvelles opportunites dans les domaines de l'intelligence artificielle et des technologies de communication haute vitesse.",
-    "source": "ollama"
-  },
-  "YETI_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'action de YETI Holdings, Inc. a connu une augmentation de 3.1% après une mise à jour positive de Stifel, ce qui suggère un ton positif pour l'action.",
-    "source": "ollama"
-  },
-  "2503.T_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'actualité présente plusieurs éléments positifs, tels que la sélection de Kirin Holdings comme 'DX Stock 2026' pour son engagement en matière de transformation numérique, ainsi que des partenariats stratégiques avec des entreprises comme Blackmores et Jamieson Wellness Inc. qui suggèrent une croiss",
-    "source": "ollama"
-  },
-  "4507.T_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'action de Shionogi & Co., Ltd. (4507.T) a connu une augmentation de 5,4% après avoir obtenu l'approbation du médicament VTAMA Cream pour les enfants, ainsi qu'une performance solide en termes d'earnings dans son dernier rapport.",
-    "source": "ollama"
-  },
-  "2548.TW_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont toutes positives, avec une augmentation des actions de Taiwan et une performance positive des actions de Huaku Development Co., Ltd.",
-    "source": "ollama"
-  },
-  "3044.TW_2026-09-21": {
-    "relevant": true,
-    "sentiment": null,
-    "reason": "Aucune actualité récente fournie",
-    "source": "ollama"
-  },
-  "BVS_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de performances solides, de croissance et de perspectives positives pour l'action de Bioventus Inc. (BVS), ce qui suggere un ton general positif.",
-    "source": "ollama"
-  },
-  "NDX1.DE_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'action de Nordex SE a connu une augmentation de 228% sur les trois dernières années, et les actualités récentes soulignent des gains de vent, des nouveaux ordres et une confiance croissante des investisseurs, indiquant un ton général positif.",
-    "source": "ollama"
-  },
-  "UFCS_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites recentes sur United Fire Group, Inc. (UFCS) suggererent une tendance positive, avec des actions de Zacks Research et des annonces de gains, ainsi que des commentaires positifs sur les resultats financiers.",
-    "source": "ollama"
-  },
-  "YUMC_2026-09-21": {
-    "relevant": true,
-    "sentiment": "neutral",
-    "reason": "Bien que les actualites presentent des informations negatives sur la baisse des actions de Yum China Holdings, Inc. (YUMC), elles soulignent également des points positifs tels que l'expansion des magasins, la propriete de la marque et l'innovation KFC, ce qui laisse place a une interpretation neutre [verification 'sues' : resolu favorablement (3/3 votes) -- La mention d'un 'sues' n'est pas un terme d'alerte courant, mais plutôt une erreur de frappe, ce qui suggère que le titre peut être trompeur ou peu précis.]",
-    "source": "ollama"
-  },
-  "7269.T_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'actualité présente plusieurs éléments positifs, tels que la croissance de la révenue et du bénéfice de Suzuki Motor Corporation, ainsi que des plans pour prendre le contrôle de Pak Suzuki et de lancer de nouvelles usines, ce qui suggère une perspective optimiste pour l'avenir de l'entreprise.",
-    "source": "ollama"
-  },
-  "SENEB_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance des ventes et des bénéfices, ainsi que des commentaires positifs de personnalités financières telles que Jim Cramer.",
-    "source": "ollama"
-  },
-  "TGTX_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de gain de market share pour BRIUMVI, un potentiel de run rate de 1 milliard de dollars, une rebondie du stock et des commentaires positifs sur la performance de la company.",
-    "source": "ollama"
-  },
-  "2432.T_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "L'actualité présente des informations positives sur DeNA Co., Ltd., telles que des gains de valeur, une augmentation de la rentabilité et une diversification de ses activités, ce qui suggère un ton général positif pour l'action.",
-    "source": "ollama"
-  },
-  "2413.TW_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes montrent un ton general positif, avec des mentions de share buyback, de valuation et de performances positives, ce qui suggere que l'action de Universal Microelectronics Co., Ltd. (2413.TW) est en phase de renforcement.",
-    "source": "ollama"
-  },
-  "MU_2026-09-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Les actualites presentes sont presque toutes positives pour l'action de Micron Technology, Inc. (MU), avec des articles qui parlent de son potentiel de croissance, de son integration dans les secteurs de l'intelligence artificielle et de la mémoire, ainsi que de ses performances positives sur le mar",
-    "source": "ollama"
-  },
   "FHI_2026-09-22": {
     "relevant": true,
     "sentiment": "positive",
@@ -5067,6 +4731,342 @@
     "relevant": true,
     "sentiment": "negative",
     "reason": "L'actualité présente plusieurs éléments négatifs, tels que des prévisions de sous-performance et des résultats financiers décevants, ce qui suggère un ton général négatif pour l'action de Global Industrial Company (GIC).",
+    "source": "ollama"
+  },
+  "LCII_2026-10-06": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "L'actualité présente plusieurs éléments négatifs, tels que le hit du 52e week low à 81,53 $, une stock forecast neutre et une réaction mitigée de la part de Robert W. Baird, ce qui suggère un ton général négatif pour l'action.",
+    "source": "ollama"
+  },
+  "1893.T_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Aucune information positive ou négative est disponible dans les actualités fournies.",
+    "source": "ollama"
+  },
+  "YUMC_2026-10-06": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "Les actualites recentes indiquent que l'action de Yum China Holdings est en baisse, avec un 52-week low et une valeur actuelle en dessous du prix de 52 semaines, ce qui suggere un ton negatif.",
+    "source": "ollama"
+  },
+  "PRG_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes sont des annonces de rating, de dividendes et de resultats financiers, qui ne transmettent pas un ton particulierement positif ou négatif.",
+    "source": "ollama"
+  },
+  "7269.T_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente plusieurs éléments positifs, tels que le développement accéléré de Suzuki pour 2030 et la préférence des grands investisseurs, ce qui suggère une tendance positive pour l'action.",
+    "source": "ollama"
+  },
+  "2432.T_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente plusieurs éléments positifs, tels que le report d'un bénéfice record de DeNA Co., Ltd. et une autorisation de share buyback de Nintendo, ce qui suggère une confiance dans la croissance de l'entreprise.",
+    "source": "ollama"
+  },
+  "MU_2026-10-06": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "Les actualites recentes sur Micron Technology, Inc. (MU) presentent une tonalite negatif, avec des articles qui mentionnent des risques pour le cycle de memoire, une chute des actions et des avertissements sur les tentatives de timing du pic des prix.",
+    "source": "ollama"
+  },
+  "FHI_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes sont des informations generales sur l'action de Federated Hermes, Inc. sans donner de commentaires ou de recommandations specifiques.",
+    "source": "ollama"
+  },
+  "MD_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes sont principalement des annonces de resultats et de transactions de parts, sans donner de commentaires positifs ou négatifs sur la performance de l'action.",
+    "source": "ollama"
+  },
+  "GEO_2026-10-06": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "L'actualité présente des ventes d'un centre de détention pour 950 millions de dollars et une augmentation de l'autorisation de réachat d'action, ce qui peut suggérer une réduction des investissements, ce qui est un signe négatif pour l'action.",
+    "source": "ollama"
+  },
+  "GL_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des mentions de croissance, de dividendes et d'opportunites d'investissement, ce qui suggere un ton general positif pour l'action de Globe Life Inc.",
+    "source": "ollama"
+  },
+  "DINO_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des articles qui parlent de la performance de l'action, de son potentiel de croissance et de ses stratégies de portefeuille.",
+    "source": "ollama"
+  },
+  "GIC_2026-10-06": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "L'actualité mentionne une mauvaise performance continue de l'action (Global Industrial Company) et une donation de produits à Habitat for Humanity, ce qui suggère un ton négatif.",
+    "source": "ollama"
+  },
+  "ASM.AS_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "L'actualité présente des informations positives (lancement de nouveaux produits et finition de programmes de reprise de parts) mais aussi une baisse de 1,12% du prix de l'action après l'annonce du lancement de Vertos Flowable Carbon.",
+    "source": "ollama"
+  },
+  "AMAT_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentent des informations contradictoires sur le rendement de l'action d'Applied Materials, Inc. (AMAT), avec des articles qui indiquent des gains et des pertes par rapport aux autres actions du secteur.",
+    "source": "ollama"
+  },
+  "AMZN_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "L'actualité présente des informations sur des transactions de parts et des changements de portefeuille, sans fournir de commentaires ou d'analyse significative sur la performance de l'action.",
+    "source": "ollama"
+  },
+  "NDX1.DE_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'action de Nordex SE est mentionnée dans plusieurs articles positifs, tels que le reportage de Reuters sur son excès de profit et le fait qu'elle a atteint 25 ans comme société cotée.",
+    "source": "ollama"
+  },
+  "AMN_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes sont des annonces de resultats financiers et de forets, sans mention de tendances negatives ou positives specifiques pour l'action AMN.",
+    "source": "ollama"
+  },
+  "URBN_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes sont des forets de prix et des informations generales sur l'action, sans une tonalite clairement positive ou negative.",
+    "source": "ollama"
+  },
+  "1878.T_2026-10-06": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "Les actualites presentent des informations positives (expansion de l'entreprise en Amérique du Nord et conclusion d'un accord sur la cession de parts) mais aussi des informations négatives (dépréciation du prix de l'action après l'emission de nouveaux prêts)",
+    "source": "ollama"
+  },
+  "SNA_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente des annonces positives, telles que le déclarant d'un dividende et une autorisation de réduction de capital, ce qui suggère une confiance dans la performance de l'entreprise.",
+    "source": "ollama"
+  },
+  "ADEA_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente plusieurs éléments positifs, tels que le gain de 3,6% et le beat EPS de 15%, ainsi que la nomination d'un nouveau CEO, ce qui suggère une perspective optimiste pour l'action.",
+    "source": "ollama"
+  },
+  "JAZZ_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes sont mixtes, avec des annonces de ventes et d'offres de parts, mais sans mention de resultats financiers ou de changements significatifs dans la situation de l'entreprise.",
+    "source": "ollama"
+  },
+  "BPOP_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "L'actualité présente des annonces de dividendes et de distributions, mais aucune information significative sur les performances financières ou les perspectives de l'entreprise.",
+    "source": "ollama"
+  },
+  "THG_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "L'actualité présente une diversité d'informations, notamment des ventes d'actions par un investisseur institutionnel, une analyse sur la valeur de l'action, une présentation d'un événement pour les analystes et les investisseurs, ainsi qu'une mention de l'échéance des résultats financiers. Il n'y a ",
+    "source": "ollama"
+  },
+  "UCG.MI_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des articles qui parlent de l'augmentation du prix de l'action d'UniCredit et de la confiance des analystes dans la performance de la banque.",
+    "source": "ollama"
+  },
+  "2357.TW_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "L'actualité fournie ne contient pas de commentaires ou d'analyse spécifiques sur la performance de l'action ASUSTeK Computer Inc., ce qui rend difficile l'évaluation du ton général.",
+    "source": "ollama"
+  },
+  "BRC_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes sont des informations de gestion et de changement de personnel, sans mention d'evolution significative de la performance financiere de l'action.",
+    "source": "ollama"
+  },
+  "8035.T_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'action de Tokyo Electron Limited a connu une augmentation de 5,50 % et a été analysée positivement pour sa forte moat et son croissance élevée dans le secteur des équipements de semi-conducteurs.",
+    "source": "ollama"
+  },
+  "TILE_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des forets de croissance, une vente de actions de dirigeant et un CEO vendant des actions, ce qui suggere une confiance dans l'entreprise.",
+    "source": "ollama"
+  },
+  "B3SA3.SA_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "L'actualité présente une diversité d'informations, allant de l'investissement en ETFs à la delisting d'une autre société, sans évoquer un ton particulièrement positif ou négatif pour l'action de B3 S.A.",
+    "source": "ollama"
+  },
+  "7735.T_2026-10-06": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "L'action de SCREEN Holdings Co., Ltd. a manqué les attentes en termes de bénéfices, mais les analystes ont mis à jour leurs modèles.",
+    "source": "ollama"
+  },
+  "9939.TW_2026-10-06": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "Aucune information positive ou neutre n'est disponible dans les actualités fournies, les articles semblent aborder d'autres sociétés ou entreprises.",
+    "source": "ollama"
+  },
+  "ITUB4.SA_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'action d'Itaú Unibanco Holding S.A. a connu une augmentation de 17,40% et a atteint un nouveau haut de 52 semaines, indiquant un ton positif dans les actualités.",
+    "source": "ollama"
+  },
+  "OFG_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites recentes sur OFG Bancorp suggererent que l'action pourrait etre sous-valorisee et que le dividende offert par l'entreprise etait attractif, indiquant un ton general positif.",
+    "source": "ollama"
+  },
+  "0300.HK_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente plusieurs articles de presse positifs sur Midea Group Co., Ltd., indiquant une tendance à la hausse du prix de l'action et des prévisions de croissance.",
+    "source": "ollama"
+  },
+  "2497.TW_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "L'actualité présente des informations diverses sur l'action d'E-Lead Electronic Co., Ltd., notamment une émission de parts, une performance boursière et une prévision de marché, ce qui suggère un ton neutre.",
+    "source": "ollama"
+  },
+  "2006.TW_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité mentionne l'importance de Tung Ho Steel Enterprise Corporation dans le domaine de l'urban mining et de la valorisation des déchets métalliques, ce qui suggère une tendance positive pour l'action.",
+    "source": "ollama"
+  },
+  "9942.TW_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les résultats financiers de NAK Sealing Technologies Corporation pour la première moitié de l'année sont positifs, avec une augmentation de 14.53% du chiffre d'affaires et une part de marché chinoise de 47%.",
+    "source": "ollama"
+  },
+  "LAUR_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente plusieurs articles positifs sur l'action de Laureate Education, Inc., soulignant son potentiel de croissance et sa valeur à long terme.",
+    "source": "ollama"
+  },
+  "4503.T_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "L'actualité présente uniquement des informations de base sur les actions d'Astellas Pharma Inc. sans évoquer de sentiments émotionnels ou de tendances claires.",
+    "source": "ollama"
+  },
+  "YETI_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'action de YETI Holdings, Inc. est mentionnée dans plusieurs articles positifs, tels que celui de Seeking Alpha qui souligne les perspectives de croissance et d'expansion internationale.",
+    "source": "ollama"
+  },
+  "2503.T_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'entreprise a été sélectionnée comme 'DX Stock 2026' et a battu ses prévisions de bénéfice, ce qui suggère une tendance positive.",
+    "source": "ollama"
+  },
+  "4507.T_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "L'actualité présente une diversité d'informations, notamment une analyse de dividendes, des investissements en ETF, une sélection comme « DX Stock 2026 », une approbation de l'Union européenne et une actualité financière, mais sans évoquer de commentaires ou de réactions émotionnelles significatives",
+    "source": "ollama"
+  },
+  "3044.TW_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité mentionne une augmentation du prix de l'action de Tripod Technology Corporation, indiquant une tendance positive.",
+    "source": "ollama"
+  },
+  "BVS_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites recentes sur Bioventus Inc. (BVS) suggere un ton general positif, avec des analyses et des prédictions favorables à l'action, indiquant un potentiel de croissance et de valeur à long terme.",
+    "source": "ollama"
+  },
+  "UFCS_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente plusieurs éléments positifs, tels que le report d'un résultat net positif, une augmentation des bénéfices, une augmentation du dividende et une nouvelle nomination au conseil d'administration.",
+    "source": "ollama"
+  },
+  "1802.T_2026-10-06": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "L'action d'Obayashi Corporation est en baisse de 30,6% par rapport à son high annuel, avec des actualités négatives sur son acquisition de Multiplex et une baisse de valeur de l'action.",
+    "source": "ollama"
+  },
+  "2413.TW_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Aucune actualité n'est mentionnée pour Universal Microelectronics Co., Ltd. (2413.TW), mais les actualités mentionnent des actions du secteur Technology qui sont en hausse.",
+    "source": "ollama"
+  },
+  "ABEV3.SA_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'action d'Ambev S.A. (ABEV3.SA) a connu une augmentation de 10,70% le 5 octobre 2026, selon les actualités fournies.",
+    "source": "ollama"
+  },
+  "1590.TW_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente des résultats positifs pour Airtac International Group, avec une croissance robuste et une augmentation du bénéfice de 43% par rapport à la même période de l'année précédente.",
+    "source": "ollama"
+  },
+  "2303.TW_2026-10-06": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes sont des informations de vente, de prix et de mouvement du cours, sans donner de commentaires ou de jugements positifs ou négatifs sur l'action de United Microelectronics Corporation.",
+    "source": "ollama"
+  },
+  "AMG_2026-10-06": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "ollama indisponible (500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate)",
+    "source": "ollama_error"
+  },
+  "GOOGL_2026-10-06": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "Les actualites presentent un ton mixte, avec des articles qui mentionnent des points positifs (amélioration de l'AI, performance de la recherche) et des points négatifs (déficit de liquidités, report de Q3)",
+    "source": "ollama"
+  },
+  "2404.TW_2026-10-06": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "Aucune information positive ou neutre est disponible dans les actualités fournies, les articles semblent se concentrer sur d'autres sociétés.",
+    "source": "ollama"
+  },
+  "TGTX_2026-10-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Les actualites presentes sont presque toutes positives, avec des articles qui parlent de la croissance potentielle de l'action et de ses perspectives de croissance.",
     "source": "ollama"
   }
 }
