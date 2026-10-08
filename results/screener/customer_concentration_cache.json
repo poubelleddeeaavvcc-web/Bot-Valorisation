@@ -726,5 +726,13 @@
       "reason": "Le texte décrit une gamme de services et d'activités très larges, allant de la gestion de shopping malls à l'organisation de spectacles et d'événements, indiquant une base de clients diversifiée.",
       "source": "ollama"
     }
+  },
+  "BTO.TO": {
+    "checked_at": "2026-10-08",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise a plusieurs mines et projets dans différents pays, ce qui suggère qu'elle n'est pas dépendante d'un petit nombre de clients.",
+      "source": "ollama"
+    }
   }
 }
