@@ -1,8 +1,9 @@
 source,statut,n_signaux,n_achat,n_vente,n_evalues_5j,excess_moy_5j,rendement_brut_5j,taux_reussite_5j,n_evalues_20j,excess_moy_20j,rendement_brut_20j,taux_reussite_20j,n_evalues_60j,excess_moy_60j,rendement_brut_60j,taux_reussite_60j,edge_estime,t_stat
 Stocks & Sectors (sailthru.com),observation,2,2,0,1,0.0061713107833791,-0.0050172569596468,1.0,1,-0.0682175830056941,-0.0485498985574461,0.0,0,,,,-0.0062015984550631,-1.0495012770106784
 tipranks.com,observation,3,3,0,0,,,,0,,,,0,,,,0.0,
-analystratings.net,observation,2,2,0,2,0.0030975821800510728,0.026745179515396456,0.5,0,,,,0,,,,0.0,
-Dividend Ideas (sailthru.com),observation,1,1,0,0,,,,0,,,,0,,,,0.0,
+Dividend Ideas (sailthru.com),observation,2,2,0,0,,,,0,,,,0,,,,0.0,
+analystratings.net,observation,2,2,0,2,0.0030975821800510997,0.0267451795153964,0.5,0,,,,0,,,,0.0,
+Energy Investing (sailthru.com),observation,1,1,0,0,,,,0,,,,0,,,,0.0,
 Morning Briefing (sailthru.com),observation,1,1,0,0,,,,0,,,,0,,,,0.0,
 (consensus des newsletters non fiables),observation,0,0,0,0,,,,0,,,,0,,,,0.005,
-seekingalpha.com,bruit,84,74,10,41,-0.010371343936687864,-0.01029190621648147,0.4146341463414634,25,-0.054961047230558974,-0.04412947247861809,0.28,0,,,,-0.0392578908789707,-4.227772863889151
+seekingalpha.com,bruit,97,84,13,46,-0.008723115299770294,-0.0072973148035730285,0.41304347826086957,25,-0.054961047230558974,-0.044129472478618086,0.28,0,,,,-0.0392578908789707,-4.227772863889151
