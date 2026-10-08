@@ -734,5 +734,13 @@
       "reason": "L'entreprise a plusieurs mines et projets dans différents pays, ce qui suggère qu'elle n'est pas dépendante d'un petit nombre de clients.",
       "source": "ollama"
     }
+  },
+  "VOLV-B.ST": {
+    "checked_at": "2026-10-08",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte ne mentionne aucun client principal explicite et mentionne plutôt une gamme de produits et de services offerts à une large gamme de clients dans plusieurs industries.",
+      "source": "ollama"
+    }
   }
 }

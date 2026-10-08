@@ -5050,5 +5050,11 @@
     "sentiment": "positive",
     "reason": "Les actualites presentes sont presque toutes positives, avec une mention de B2Gold Corp. comme une entreprise ",
     "source": "ollama"
+  },
+  "VOLV-B.ST_2026-10-08": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'actualité présente des informations positives sur AB Volvo, notamment l'annonce de l'ouverture de nouvelles opérations au Texas et la confiance de UBS envers la valeur de l'action.",
+    "source": "ollama"
   }
 }
