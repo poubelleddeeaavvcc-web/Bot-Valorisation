@@ -1,5 +1,8 @@
 {
   "processed_message_ids": [
+    "1a11c3c3f862cef2",
+    "1a11c18027e1ec0a",
+    "1a11bd9bf5b8a48e",
     "1a11ba2d95530369",
     "1a11b96c60bb10f3",
     "1a11b963b3fbc1ea",
@@ -48,13 +51,7 @@
     "1a1150de5e709357",
     "1a114f9ec798d606",
     "1a114a7ae6ea3b4b",
-    "1a112d5985e61be8",
-    "1a112c7228f4267e",
-    "1a111f5315c24a9e",
-    "1a1119bf3f1dfbb4",
-    "1a1118d173fc7397",
-    "1a1118b945b9c8d8",
-    "1a1117170b8228f4"
+    "1a112d5985e61be8"
   ],
   "last_run_date": "2026-10-08",
   "ollama_attempts": {
@@ -375,7 +372,28 @@
       "1a0aa199eccf8e7c",
       "1a0aa1a969f5062f",
       "1a0aa1b7e32a3540",
-      "1a0aa1e0af0879b4"
+      "1a0aa1e0af0879b4",
+      "1a0aa3e2a4bec0ed",
+      "1a0aa7998b0dc0f4",
+      "1a0aa8677a6c24e2",
+      "1a0aa87d0bb3b991",
+      "1a0aa8dc65e18b12",
+      "1a0aa9c9936aaabd",
+      "1a0aa9f2bee48cdb",
+      "1a0aac56435dae1a",
+      "1a0aac564a8aa040",
+      "1a0aac675a41f261",
+      "1a0aacb11f7573cf",
+      "1a0aaee8d3f02278",
+      "1a0ab573e748fc68",
+      "1a0abbb6e6a30346",
+      "1a0ac2c2790ec207",
+      "1a0ac796252386b7",
+      "1a0ac94d64cee94a",
+      "1a0acba8c83df0fa",
+      "1a0acc3e74bd4676",
+      "1a0ad621d103abbb",
+      "1a0ada45c400f58d"
     ]
   },
   "source_status": {
@@ -383,6 +401,7 @@
     "Energy Investing (sailthru.com)": "observation",
     "Morning Briefing (sailthru.com)": "observation",
     "Stocks & Sectors (sailthru.com)": "observation",
+    "aktionnaire.com": "observation",
     "analystratings.net": "observation",
     "seekingalpha.com": "bruit",
     "tipranks.com": "observation",
