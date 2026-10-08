@@ -1,5 +1,8 @@
 {
   "processed_message_ids": [
+    "1a11a033f8c5f2b6",
+    "1a119c8502fa6ac9",
+    "1a118dc6408ccb7f",
     "1a117fb6001cad44",
     "1a11715e1ebd5d6e",
     "1a116eec037a0096",
@@ -51,16 +54,13 @@
     "1a11032d8017e755",
     "1a11030ef1547194",
     "1a10fe4cd716a2a5",
-    "1a10fd32b92b2995",
-    "1a10fb6688e1fde8",
-    "1a10f80b3716a2c7"
+    "1a10fd32b92b2995"
   ],
   "last_run_date": "2026-10-08",
   "ollama_attempts": {
     "1a06c3dc17d92321": 1,
     "1a080d744fee4403": 2,
-    "1a08b22fc69654e5": 2,
-    "1a09fbd4121bf31f": 2
+    "1a08b22fc69654e5": 2
   },
   "backfill": {
     "end_date": "2026-10-04",
@@ -325,19 +325,46 @@
       "1a0a4d58b5ae6ce6",
       "1a0a4d6969b0486e",
       "1a0a4df97a00575b",
-      "1a0a4e404d2252a1"
+      "1a0a4e404d2252a1",
+      "1a06b34c361cb1b0",
+      "1a06b40fd6f0f4b8",
+      "1a07a22b12985989",
+      "1a07f49822ff36d9",
+      "1a08470fcd32d7d5",
+      "1a0899916030711f",
+      "1a08ebc98ebdd4c2",
+      "1a09e332c53bffcb",
+      "1a09fbd4121bf31f",
+      "1a0a359abbb5b703",
+      "1a0a4e40f14022a0",
+      "1a0a4e8f02b3f8df",
+      "1a0a4ebd31be45e5",
+      "1a0a4ebe1e4b9cf8",
+      "1a0a4f1c3add8a9d",
+      "1a0a4f50f95804a9",
+      "1a0a4f6cd13a82f0",
+      "1a0a51984311e2c0",
+      "1a0a528237610dae",
+      "1a0a535109c0e994",
+      "1a0a549abc14c16d",
+      "1a0a5535cd498c56",
+      "1a0a560dd92fd16e",
+      "1a0a5c864227a0e7",
+      "1a0a5dad393ae412"
     ]
   },
   "source_status": {
     "Dividend Ideas (sailthru.com)": "observation",
     "Morning Briefing (sailthru.com)": "observation",
     "Stocks & Sectors (sailthru.com)": "observation",
+    "analystratings.net": "observation",
     "seekingalpha.com": "bruit",
     "tipranks.com": "observation",
     "(consensus des newsletters non fiables)": "observation"
   },
   "known_domains": [
     "advisor.thedailyupside.com",
+    "aktionnaire.com",
     "analystratings.net",
     "email.zacks.com",
     "etf.thedailyupside.com",
