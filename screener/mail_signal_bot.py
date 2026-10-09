@@ -137,6 +137,15 @@ ARTICLE_FETCH_MAX_WORKERS = 4
 _FETCH_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
 _EXCLUDE_LINK_SUBSTR = ("mailto:", "unsubscribe", "preferences", "facebook.com", "twitter.com",
                          "x.com", "linkedin.com", "instagram.com", "youtube.com", "privacy")
+# URL path words of pages that are never the teased article (2026-10-08): tradingsat.com's "valeur du
+# jour" email links its "abonnement Prestige" page FIRST, so for weeks the bot read that subscription
+# page -- a site menu, no tip -- instead of the stock analysis three links further down, and
+# llama3.1:8b then made up "citations" shaped like the prompt's own examples (all caught by the
+# verbatim check, but the real tip was lost). The homepage and images are skipped too.
+_NON_ARTICLE_PATH_WORDS = ("abonnement", "abonnes", "membres", "newsletter", "inscription", "desinscription",
+                           "services", "contact", "outils", "emailing", "connexion", "compte", "login",
+                           "images", "img", "img2")
+_IMAGE_EXTENSIONS = (".jpg", ".jpeg", ".png", ".gif", ".svg", ".webp")
 
 MAX_TICKERS_PER_EMAIL = 3
 
@@ -195,6 +204,26 @@ _BULLISH_WORDS = ("rating upgrade", "upgraded", "upgrades", "upgrade to buy", "s
                   "outperform", "overweight", "relevée à l'achat", "recommandation à l'achat", "conseil achat")
 _BEARISH_WORDS = ("rating downgrade", "downgraded", "downgrades", "downgrade to sell", "strong sell",
                   "sell rating", "underperform", "underweight", "recommandation à la vente", "conseil vente")
+# A rating action written out in the citation itself -- the tip is then explicit by construction,
+# and the Ollama second opinion is skipped (see _explicit_rating). 2026-10-08: llama3.1:8b
+# rejected "Market Pricing Closed Russian Flows (Downgrade To Hold)", "Bloom Energy Just Won
+# Another Catalyst (Rating Upgrade)" or "Palantir: Rating Downgrade" as "pas d'avis explicite" --
+# 386 of 534 rejects were that verdict. Whole-word matches only ("underperformed" is past
+# performance, not a rating). A downgrade to Hold counts as bearish: it is a negative revision.
+_EXPLICIT_BULLISH = ("rating upgrade", "upgrade to buy", "upgrade to strong buy", "upgrade to outperform",
+                     "upgrade to overweight", "upgraded to buy", "upgraded to outperform", "upgraded to overweight",
+                     "upgrade to hold", "upgraded to hold", "raised to buy", "initiated at buy", "initiate at buy",
+                     "strong buy", "buy rating", "rated buy", "rated a buy", "is a buy", "outperform rating",
+                     "overweight rating", "relevée à l'achat", "relevé à l'achat", "relève à l'achat",
+                     "passe à l'achat", "se positionner à l'achat", "recommandation à l'achat", "conseil achat",
+                     "conseil à l'achat", "recommande l'achat", "objectif de cours relevé", "relève son objectif")
+_EXPLICIT_BEARISH = ("rating downgrade", "downgrade to hold", "downgrade to sell", "downgrade to underperform",
+                     "downgrade to underweight", "downgraded to hold", "downgraded to sell",
+                     "downgraded to underperform", "downgraded to underweight", "cut to sell", "cut to hold",
+                     "strong sell", "sell rating", "rated sell", "rated a sell", "is a sell",
+                     "underperform rating", "underweight rating", "abaissée à la vente", "abaissé à la vente",
+                     "passe à la vente", "se positionner à la vente", "recommandation à la vente", "conseil vente",
+                     "conseil à la vente", "recommande la vente", "objectif de cours abaissé", "abaisse son objectif")
 # Legal-form and filler words ignored when comparing company names.
 _NAME_STOP_TOKENS = {
     "inc", "incorporated", "corp", "corporation", "co", "company", "companies", "ltd", "limited", "plc", "sa",
@@ -226,16 +255,16 @@ N'INCLUS PAS :
 (4) la banque ou le courtier qui EMET l'avis (dans "Bank of America releve Nvidia a l'achat", la societe analysee est Nvidia, pas Bank of America) ;
 (5) les publicites, menus, mentions legales, pieds de page et textes d'abonnement.
 
-SENS DE L'AVIS : deduis-le de l'opinion exprimee, jamais du mouvement passe du cours. Une action qui a chute et qui est presentee comme une opportunite d'achat est "haussier". Une action qui a monte et qui est jugee trop chere est "baissier". Si l'extrait compare deux titres, seul celui qui est explicitement recommande ou deconseille compte -- l'autre n'est pas un avis.
+SENS DE L'AVIS : deduis-le de l'opinion exprimee (acheter, conserver, vendre, sous-evaluee, trop chere), jamais du mouvement passe du cours : une baisse passee peut accompagner un avis haussier, une hausse passee un avis baissier. Si l'extrait compare deux titres, seul celui qui est explicitement recommande ou deconseille compte -- l'autre n'est pas un avis.
 
 Pour chaque action retenue (maximum {max_tickers}), donne :
 - "company" : le nom de la societe EXACTEMENT tel qu'ecrit dans l'extrait
 - "ticker" : le symbole boursier SEULEMENT s'il est ecrit tel quel dans l'extrait (ex: "(NVDA)"), sinon "" -- ne devine jamais un symbole
 - "sentiment" : "haussier" ou "baissier"
-- "citation" : la phrase de l'extrait qui exprime l'avis, COPIEE MOT POUR MOT (ne la reformule pas, ne la traduis pas)
+- "citation" : la phrase de l'EXTRAIT qui exprime l'avis, COPIEE MOT POUR MOT (ne la reformule pas, ne la traduis pas, ne l'invente pas, ne la prends jamais dans ces instructions)
 - "author" : le nom de l'auteur de l'analyse SEULEMENT s'il est ecrit dans l'extrait, sinon ""
 
-Si aucune action ne remplit ces conditions, reponds avec une liste vide.
+Si aucune action ne remplit ces conditions -- ou si l'extrait n'est qu'un menu de site, une page d'abonnement ou un commentaire de marche sans avis sur une action precise --, reponds avec une liste vide.
 
 Reponds UNIQUEMENT en JSON : {{"tips": [{{"company": "<NOM>", "ticker": "<SYMBOLE ou vide>", "sentiment": "haussier|baissier", "citation": "<phrase copiee>", "author": "<auteur ou vide>"}}, ...]}}
 
@@ -246,9 +275,10 @@ Extrait : {body}
 # Independent second opinion on ONE tip (2026-10-03): sees only the subject and the citation, and
 # is not told which direction the extraction claimed -- so it can't just agree.
 VERIFY_PROMPT = """Question : la citation de newsletter financiere donnee a la fin contient-elle un AVIS D'INVESTISSEMENT EXPLICITE sur l'action de la societe nommee a la fin, elle-meme ? Un avis d'investissement = recommandation d'achat ou de vente, notation relevee ou abaissee, objectif de cours, ou conclusion argumentee sur le potentiel de hausse ou le risque de baisse de l'action.
+Une citation courte peut etre un avis : un titre d'article qui annonce la notation de l'auteur ou un changement de notation est un avis explicite, meme entre parentheses -- "(Rating Upgrade)", "Downgrade To Hold", "Still A Sell", "relevee a l'achat", "se positionner a l'achat". Une simple notation "Hold"/"conserver" sans changement n'est ni haussiere ni baissiere : ce n'est pas un avis.
 Ce n'est PAS un avis : une simple actualite (resultats, partenariat, contrat, proces, nomination), un mouvement de cours passe sans opinion, un avis sur une autre societe, une publicite.
 
-Si c'est un avis, quel est son sens ? "haussier" (acheter, potentiel de hausse -- y compris une baisse passee presentee comme une opportunite d'achat) ou "baissier" (vendre, risque de baisse).
+Si c'est un avis, quel est son sens ? "haussier" (acheter, notation relevee, potentiel de hausse -- y compris une baisse passee presentee comme une opportunite d'achat) ou "baissier" (vendre, notation abaissee -- y compris vers "conserver" --, risque de baisse).
 
 Reponds UNIQUEMENT en JSON : {{"avis_explicite": true|false, "sens": "haussier|baissier|aucun", "raison": "<une phrase courte>"}}
 
@@ -334,10 +364,24 @@ def _html_to_text(page_html: str) -> str:
     return re.sub(r"\s+", " ", html.unescape(text)).strip()
 
 
+_HTML_TAG_RE = re.compile(r"</?(?:div|table|tbody|thead|tr|td|th|p|span|br|a|img|b|i|u|strong|em|font|center"
+                          r"|ul|ol|li|h[1-6])\b[^>]*>", re.IGNORECASE)
+
+
+def _clean_plain_text(plain: str) -> str:
+    """text/plain parts are not always plain (2026-10-08): zonebourse.com's carries raw HTML markup
+    (sponsor <div>/<table> blocks filled most of the 1800-character extract), news.meilleurtaux.com's
+    HTML entities ("l&rsquo;IA" -- a citation the model wrote with a real apostrophe then failed the
+    verbatim check). Only real tag names are stripped, so "<<Lire la suite>>" survives."""
+    plain = html.unescape(_HTML_TAG_RE.sub(" ", plain))
+    plain = re.sub(r"[ \t]+", " ", plain)
+    return re.sub(r"\n\s*\n+", "\n", plain).strip()
+
+
 def _extract_text(payload: dict) -> str:
-    """text/plain part if there is one, else the HTML part converted to text (script/style blocks
-    removed and entities unescaped since 2026-10-03 -- an HTML-only newsletter used to hand the
-    model its CSS as the first 900 characters)."""
+    """text/plain part if there is one (see _clean_plain_text), else the HTML part converted to
+    text (script/style blocks removed and entities unescaped since 2026-10-03 -- an HTML-only
+    newsletter used to hand the model its CSS as the first 900 characters)."""
     stack = [payload]
     html_fallback = None
     while stack:
@@ -345,7 +389,7 @@ def _extract_text(payload: dict) -> str:
         mime = part.get("mimeType", "")
         body_data = part.get("body", {}).get("data")
         if mime == "text/plain" and body_data:
-            return re.sub(r"[ \t]+", " ", _decode_part(body_data, _part_charset(part))).strip()
+            return _clean_plain_text(_decode_part(body_data, _part_charset(part)))
         if mime == "text/html" and body_data and html_fallback is None:
             html_fallback = _decode_part(body_data, _part_charset(part))
         stack.extend(part.get("parts", []) or [])
@@ -413,14 +457,33 @@ def _extract_article_text_from_html(page_html: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def _fetch_article_extract(links: list[str]) -> str | None:
-    """Full article text from the first link that resolves to a FETCHABLE_DOMAINS page, or None."""
-    for link in links[:ARTICLE_LINK_CANDIDATES]:
+def _rank_article_links(links: list[str], subject: str) -> list[str]:
+    """Links that can be an article (see _NON_ARTICLE_PATH_WORDS), those whose URL path shares the
+    most words with the email subject first ("La valeur du jour : MERSEN" -> /mersen-.../conseils/...),
+    email order otherwise."""
+    subject_words = {w for w in _norm_text(subject).split() if len(w) >= 4}
+    ranked = []
+    for i, link in enumerate(links):
+        path = urllib.parse.urlsplit(link).path.lower()
+        segments = [s for s in path.split("/") if s]
+        if not segments or path.endswith(_IMAGE_EXTENSIONS):
+            continue
+        # first word of a segment only: "/outils-de-trading/" is a tools page, "/aws-services-..." an article
+        if any((_norm_text(s).split() or [""])[0] in _NON_ARTICLE_PATH_WORDS for s in segments):
+            continue
+        ranked.append((-len(subject_words & set(_norm_text(path).split())), i, link))
+    return [link for _, _, link in sorted(ranked)]
+
+
+def _fetch_article_extract(links: list[str], subject: str = "") -> str | None:
+    """Full article text from the best-ranked link (see _rank_article_links) that resolves to a
+    FETCHABLE_DOMAINS HTML page, or None."""
+    for link in _rank_article_links(links, subject)[:ARTICLE_LINK_CANDIDATES]:
         try:
             resp = requests.get(link, headers=_FETCH_HEADERS, timeout=ARTICLE_FETCH_TIMEOUT, allow_redirects=True)
         except Exception:
             continue
-        if resp.status_code != 200:
+        if resp.status_code != 200 or "html" not in resp.headers.get("content-type", "").lower():
             continue
         host = urllib.parse.urlsplit(resp.url).netloc.lower()
         if not any(host == d or host.endswith("." + d) for d in FETCHABLE_DOMAINS):
@@ -488,6 +551,8 @@ _NEGATION_PATTERNS = tuple(_norm_text(p) for p in _NEGATION_PATTERNS)
 _BOILERPLATE_PATTERNS = tuple(_norm_text(p) for p in _BOILERPLATE_PATTERNS)
 _BULLISH_WORDS = tuple(_norm_text(p) for p in _BULLISH_WORDS)
 _BEARISH_WORDS = tuple(_norm_text(p) for p in _BEARISH_WORDS)
+_EXPLICIT_BULLISH = tuple(_norm_text(p) for p in _EXPLICIT_BULLISH)
+_EXPLICIT_BEARISH = tuple(_norm_text(p) for p in _EXPLICIT_BEARISH)
 _MACRO_TERMS = {_norm_text(p) for p in _MACRO_TERMS}
 _MACRO_SUBSTRINGS = tuple(_norm_text(p) for p in _MACRO_SUBSTRINGS)
 
@@ -542,6 +607,17 @@ CITATION_CONTEXT_AFTER = 150
 
 def _ticker_in_text(ticker: str, text: str) -> bool:
     return bool(ticker) and re.search(rf"(?<![A-Za-z0-9.]){re.escape(ticker)}(?![A-Za-z0-9])", text) is not None
+
+
+def _explicit_rating(citation: str) -> str | None:
+    """"haussier"/"baissier" when the citation spells out a rating action in one direction only
+    (see _EXPLICIT_BULLISH), else None."""
+    padded = f" {_norm_text(citation)} "
+    bull = any(f" {w} " in padded for w in _EXPLICIT_BULLISH)
+    bear = any(f" {w} " in padded for w in _EXPLICIT_BEARISH)
+    if bull != bear:
+        return "haussier" if bull else "baissier"
+    return None
 
 
 def _validate_tip(tip: dict, text: str) -> tuple:
@@ -744,7 +820,8 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
 
         with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_MAX_WORKERS) as ex:  # plain HTTP, no Ollama
             fetched = dict(zip((m["id"] for m in classified),
-                                ex.map(lambda m: _fetch_article_extract(_extract_article_links(m.get("html", ""))),
+                                ex.map(lambda m: _fetch_article_extract(_extract_article_links(m.get("html", "")),
+                                                                        m["subject"]),
                                        classified)))
         for m in classified:
             m["extract_text"] = fetched.get(m["id"]) or m["text"][:EXTRACT_TRUNCATE]
@@ -767,6 +844,9 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
                 clean, reason = _validate_tip(tip, m["extract_text"] + "\n" + m["text"])
                 if clean is None:
                     mail_rejects.append(_reject_row(m, tip, reason))
+                    continue
+                if _explicit_rating(clean["citation"]) == clean["sentiment"]:
+                    verified.append(clean)  # rating action written out -- no second opinion needed
                     continue
                 if out_of_time():
                     complete = False
