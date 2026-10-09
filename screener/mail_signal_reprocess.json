@@ -1,0 +1,10 @@
+{
+  "_comment": "Mails a refaire passer dans le pipeline actuel du Bot #33 Courrier (voir 'Re-processing' dans screener/mail_signal_bot.py). Une demande = un identifiant unique + une requete Gmail ; elle est faite une seule fois (etat dans results/screener/mail_signal_state.json, cle 'reprocess'). Ce fichier n'est jamais ecrit par la CI.",
+  "requests": [
+    {
+      "id": "tradingsat-valeur-du-jour-2026-10-09",
+      "query": "from:tradingsat.com after:2026/09/03 before:2026/10/09",
+      "reason": "Les 'valeur du jour' etaient lues via le lien 'abonnement Prestige' au lieu de l'article (corrige dans 2838d3f6b) : 0 avis retenu sur tradingsat jusqu'ici."
+    }
+  ]
+}

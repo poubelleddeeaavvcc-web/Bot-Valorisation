@@ -52,6 +52,11 @@ Backfill: the runs after the overhaul also walk back over the last BACKFILL_DAYS
 senders known as newsletters, feeding the journal only -- so newsletters get a J+20 track record in
 weeks instead of months.
 
+Re-processing (2026-10-09, see _reprocess_ids): emails already handled by a since-fixed pipeline can
+be run again by adding a Gmail query to REPROCESS_PATH (a repo file, never written by CI). They go
+first, before the backfill, as backfill tips (recorded late, measured from the email's date); the
+journal ignores a tip it already has, so a re-run never double-counts.
+
 ARTICLE FETCH (see _fetch_article_extract(), added 2026-09-16): most newsletters only excerpt a
 couple of sentences before a "read more" link to the sender's own site. For the domains
 hand-confirmed fetchable with a plain HTTP GET (zonebourse.com, tradingsat.com -- see
@@ -94,6 +99,7 @@ from screener.mail_signal_real import run_real_layer  # noqa: E402
 STATE_PATH = HERE / "results/screener/mail_signal_state.json"
 SCORECARD_PATH = HERE / "results/screener/mail_signal_source_scorecard.csv"
 REJECTS_PATH = HERE / "results/screener/mail_signal_rejects.csv"
+REPROCESS_PATH = HERE / "screener/mail_signal_reprocess.json"
 # Files of the retired "labo" -- deleted once by retire_lab() (see module docstring)
 LEGACY_LAB_LEDGER = HERE / "results/simulation/mail_signal_ledger.csv"
 LEGACY_LAB_FILES = (
@@ -966,7 +972,7 @@ def _backfill_ids(token: str, state: dict, journal: pd.DataFrame, live_ids: set)
     start = end - timedelta(days=BACKFILL_DAYS)
     query = (f"after:{start:%Y/%m/%d} before:{end:%Y/%m/%d} from:(" +
              " OR ".join(sorted(domains)) + ")")
-    done_ids = set(bf["processed_ids"]) | live_ids
+    done_ids = set(bf["processed_ids"]) | live_ids | set(state.get("reprocess", {}).get("processed_ids", []))
     ids = [i for i in list_message_ids(token, query, max_messages=2000) if i not in done_ids]
     if not ids:
         bf["done"] = True
@@ -974,6 +980,28 @@ def _backfill_ids(token: str, state: dict, journal: pd.DataFrame, live_ids: set)
         return []
     batch = ids[-BACKFILL_MAX_PER_RUN:]  # Gmail lists newest first -> walk from the oldest
     print(f"Rattrapage : {len(ids)} mail(s) restant(s) sur {BACKFILL_DAYS} jours, {len(batch)} traite(s) ce run.")
+    return batch
+
+
+def _reprocess_ids(token: str, state: dict) -> list[str]:
+    """Next batch of emails to run again (see Re-processing in the module docstring): for each
+    request of REPROCESS_PATH not done yet, the ids its Gmail query lists that no previous
+    re-processing run handled, oldest first. A request is done once its query has none left."""
+    requests_ = _load_json(REPROCESS_PATH, {}).get("requests", [])
+    rp = state.setdefault("reprocess", {"done_requests": [], "processed_ids": []})
+    done_ids = set(rp["processed_ids"])
+    batch = []
+    for req in requests_:
+        if req["id"] in rp["done_requests"] or len(batch) >= BACKFILL_MAX_PER_RUN:
+            continue
+        ids = [i for i in list_message_ids(token, req["query"], max_messages=500) if i not in done_ids and i not in batch]
+        if not ids:
+            rp["done_requests"].append(req["id"])
+            print(f"Re-traitement '{req['id']}' termine.")
+            continue
+        take = ids[-(BACKFILL_MAX_PER_RUN - len(batch)):]  # Gmail lists newest first
+        print(f"Re-traitement '{req['id']}' : {len(ids)} mail(s) restant(s), {len(take)} traite(s) ce run.")
+        batch += take
     return batch
 
 
@@ -1008,6 +1036,14 @@ def main():
             state["known_domains"] = sorted(set(state.get("known_domains", [])) | domains)
             # only ids actually handled -- the others stay "new" and are retried next run
             message_ids = [m for m in listed if m in previously or m in done]
+            if time.monotonic() < deadline:
+                batch = _reprocess_ids(token, state)
+                if batch:
+                    s, r, done_rp, _ = process_messages(token, batch, deadline, backfill=True, attempts=attempts,
+                                                        known_domains=known | domains)
+                    signals += s
+                    rejects += r
+                    state["reprocess"]["processed_ids"] = state["reprocess"]["processed_ids"] + sorted(done_rp)
             if time.monotonic() < deadline:
                 batch = _backfill_ids(token, state, journal, set(listed))
                 if batch:
