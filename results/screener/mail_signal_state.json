@@ -1,5 +1,6 @@
 {
   "processed_message_ids": [
+    "1a11fab023eecc18",
     "1a11f9c2922d5dff",
     "1a11f485724c24da",
     "1a11f470d1d9f54f",
@@ -51,8 +52,7 @@
     "1a116212e3231952",
     "1a116117c0115ebb",
     "1a115e282e472c26",
-    "1a115d0597ce93ec",
-    "1a11558be15dd152"
+    "1a115d0597ce93ec"
   ],
   "last_run_date": "2026-10-09",
   "ollama_attempts": {
@@ -432,7 +432,32 @@
       "1a0afea99df26f23",
       "1a0b01622c064fd4",
       "1a0b0808ff832eaf",
-      "1a0b0c35dd152c18"
+      "1a0b0c35dd152c18",
+      "1a0b0fb15431e3d1",
+      "1a0b1a90c58fd4d6",
+      "1a0b1ecf08664b0d",
+      "1a0b2c95832035df",
+      "1a0b2f9f8fd1903b",
+      "1a0b3375603419f3",
+      "1a0b38545fb413a0",
+      "1a0b4010387fb287",
+      "1a0b404ad15c260f",
+      "1a0b40e59f0accb4",
+      "1a0b42c3b610f117",
+      "1a0b448d194cdbc9",
+      "1a0b452c29033b70",
+      "1a0b45428e732a33",
+      "1a0b456dd3892191",
+      "1a0b458e3f22acf6",
+      "1a0b45d02759edeb",
+      "1a0b45ee20d8aa29",
+      "1a0b464886401f12",
+      "1a0b46b079438d91",
+      "1a0b46bea329d798",
+      "1a0b471c017188a8",
+      "1a0b48d138287f9f",
+      "1a0b493db8743119",
+      "1a0b4965b9cf5e08"
     ]
   },
   "source_status": {
@@ -467,7 +492,9 @@
   ],
   "lab_retired": "2026-10-04",
   "reprocess": {
-    "done_requests": [],
+    "done_requests": [
+      "tradingsat-valeur-du-jour-2026-10-09"
+    ],
     "processed_ids": [
       "1a09f3240842e01c",
       "1a0a3fd2dca8f7ee",
