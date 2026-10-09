@@ -1,5 +1,9 @@
 {
   "processed_message_ids": [
+    "1a11f9c2922d5dff",
+    "1a11f485724c24da",
+    "1a11f470d1d9f54f",
+    "1a11ef362bc8a7f7",
     "1a11e03fc85012a5",
     "1a11d22004358624",
     "1a11c3c3f862cef2",
@@ -48,11 +52,7 @@
     "1a116117c0115ebb",
     "1a115e282e472c26",
     "1a115d0597ce93ec",
-    "1a11558be15dd152",
-    "1a115419cb23183e",
-    "1a1150de5e709357",
-    "1a114f9ec798d606",
-    "1a114a7ae6ea3b4b"
+    "1a11558be15dd152"
   ],
   "last_run_date": "2026-10-09",
   "ollama_attempts": {
@@ -419,7 +419,20 @@
       "1a0af437ad7f1c42",
       "1a0af4e18b79b431",
       "1a0af4f4eac20b5f",
-      "1a0af66bcf7e371d"
+      "1a0af66bcf7e371d",
+      "1a0af6c4b2e025fd",
+      "1a0af6fb9093d22d",
+      "1a0af8a2b2681c38",
+      "1a0af9a12e00540d",
+      "1a0af9ea078312fd",
+      "1a0afa06706dc922",
+      "1a0afaee7faaa15c",
+      "1a0afb54ac1ca7c4",
+      "1a0afc1f7b780a85",
+      "1a0afea99df26f23",
+      "1a0b01622c064fd4",
+      "1a0b0808ff832eaf",
+      "1a0b0c35dd152c18"
     ]
   },
   "source_status": {
@@ -431,6 +444,7 @@
     "analystratings.net": "observation",
     "seekingalpha.com": "bruit",
     "tipranks.com": "observation",
+    "tradingsat.com": "observation",
     "(consensus des newsletters non fiables)": "observation"
   },
   "known_domains": [
@@ -451,5 +465,28 @@
     "tradingsat.com",
     "zonebourse.com"
   ],
-  "lab_retired": "2026-10-04"
+  "lab_retired": "2026-10-04",
+  "reprocess": {
+    "done_requests": [],
+    "processed_ids": [
+      "1a09f3240842e01c",
+      "1a0a3fd2dca8f7ee",
+      "1a0a9244e37369b9",
+      "1a0ae4b1f28c454d",
+      "1a0b3743765d60d4",
+      "1a0c2e15a351d43c",
+      "1a0c80862a1d3890",
+      "1a0cd2a3f1a8d743",
+      "1a0d77c7ff59045f",
+      "1a0e6ec4cc4c4c78",
+      "1a0ec1466483d413",
+      "1a0f139addb11d67",
+      "1a0f660349be2f5e",
+      "1a0fb862083fb75f",
+      "1a10afb4878d8dbd",
+      "1a11030ef1547194",
+      "1a115419cb23183e",
+      "1a11a6f2b61430b9"
+    ]
+  }
 }
