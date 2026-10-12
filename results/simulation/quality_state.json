@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 465.53845351545124
+  "pool": 437.718453820627
  },
  "pending": [
   {
@@ -126,20 +126,6 @@
    "sector": "Basic Materials",
    "country": "Australia",
    "currency": "AUD",
-   "fractional": false,
-   "score": 16.7
-  },
-  {
-   "side": "buy",
-   "ticker": "SDF.DE",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 16.7",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "K+S Aktiengesellschaft",
-   "sector": "Basic Materials",
-   "country": "Germany",
-   "currency": "EUR",
    "fractional": false,
    "score": 16.7
   },

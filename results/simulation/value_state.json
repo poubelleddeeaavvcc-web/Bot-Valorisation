@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 432.29319967240633
+  "pool": 279.37940019236885
  },
  "pending": [
   {
@@ -75,34 +75,6 @@
   },
   {
    "side": "buy",
-   "ticker": "SDF.DE",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9878",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "K+S Aktiengesellschaft",
-   "sector": "Basic Materials",
-   "country": "Germany",
-   "currency": "EUR",
-   "fractional": false,
-   "score": 0.9878
-  },
-  {
-   "side": "buy",
-   "ticker": "VOW3.DE",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9875",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Volkswagen AG",
-   "sector": "Consumer Cyclical",
-   "country": "Germany",
-   "currency": "EUR",
-   "fractional": true,
-   "score": 0.9875
-  },
-  {
-   "side": "buy",
    "ticker": "9022.T",
    "bucket": "pool",
    "reason": "revision trimestrielle, score 0.9865",
@@ -131,20 +103,6 @@
   },
   {
    "side": "buy",
-   "ticker": "AT1.DE",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9844",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Aroundtown SA",
-   "sector": "Real Estate",
-   "country": "Luxembourg",
-   "currency": "EUR",
-   "fractional": false,
-   "score": 0.9844
-  },
-  {
-   "side": "buy",
    "ticker": "9504.T",
    "bucket": "pool",
    "reason": "revision trimestrielle, score 0.9828",
@@ -170,20 +128,6 @@
    "currency": "USD",
    "fractional": true,
    "score": 0.9766
-  },
-  {
-   "side": "buy",
-   "ticker": "TBCG.L",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9745",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "TBC Bank Group PLC",
-   "sector": "Financial Services",
-   "country": "United Kingdom",
-   "currency": "GBp",
-   "fractional": false,
-   "score": 0.9745
   }
  ],
  "launched_at": "2026-10-12T07:24:36Z",
