@@ -447,6 +447,54 @@ jobs:
           echo "Echec du push apres 5 tentatives."
           exit 1
 
+  # Bots #41-43 (2026-10-12) : une strategie chacun, sans rapport avec le screener valeur+momentum
+  # des bots #1-40 -- Qualite (notes seules), Valeur (decote seule), Tendance (8 ETF multi-actifs,
+  # regle des 10 mois), a combiner plus tard. Moteur commun screener/sleeve_book.py : ordres
+  # executes a la cloture de la seance qui suit la decision, valorisation dividendes compris.
+  # Fichiers de sortie propres (quality_*, value_*, trend_*), aucun cache partage.
+  bots-strategies:
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances
+        run: pip install -r requirements.txt
+
+      - name: Strategie Qualite, notes seules (Bot #41)
+        run: python screener/simulate_quality_portfolio.py
+
+      - name: Strategie Valeur, decote seule (Bot #42)
+        run: python screener/simulate_value_portfolio.py
+
+      - name: Strategie Tendance, 8 ETF multi-actifs (Bot #43)
+        run: python screener/simulate_trend_portfolio.py
+
+      - name: Commit + push si des resultats ont change
+        run: |
+          git config user.name "screener-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add results/simulation/
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau ce cycle."
+            exit 0
+          fi
+          git commit -m "Mise a jour automatique du screener -- bots strategies ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
+            sleep 10
+          done
+          echo "Echec du push apres 5 tentatives."
+          exit 1
+
   # Resume compact des courbes d'equity pour le dashboard (2026-10-06) : 31 derniers jours en
   # entier, 1 releve par jour au-dela -- voir screener/build_equity_summary.py. Les ~40 courbes
   # completes grossissent de ~29 lignes par jour et par bot et etaient retelechargees en entier
@@ -454,7 +502,7 @@ jobs:
   # courbes) ; always() pour qu'un job de bots en echec ne fige pas le resume des autres. Seul
   # job a ecrire ce fichier, aucun appel reseau, bibliotheque standard uniquement.
   resume-courbes:
-    needs: [bots-ollama, bots-aveugle, bots-contraint, bots-large, bots-delta]
+    needs: [bots-ollama, bots-aveugle, bots-contraint, bots-large, bots-delta, bots-strategies]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 10
