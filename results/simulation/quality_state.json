@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 437.718453820627
+  "pool": 204.38512048729376
  },
  "pending": [
   {
@@ -16,34 +16,6 @@
    "currency": "JPY",
    "fractional": false,
    "score": 17.9
-  },
-  {
-   "side": "buy",
-   "ticker": "STNG",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 17.7",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Scorpio Tankers Inc.",
-   "sector": "Energy",
-   "country": "Monaco",
-   "currency": "USD",
-   "fractional": true,
-   "score": 17.7
-  },
-  {
-   "side": "buy",
-   "ticker": "ZM",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 17.3",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Zoom Communications, Inc.",
-   "sector": "Technology",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 17.3
   },
   {
    "side": "buy",
@@ -71,20 +43,6 @@
    "country": "Japan",
    "currency": "JPY",
    "fractional": false,
-   "score": 16.9
-  },
-  {
-   "side": "buy",
-   "ticker": "CPRT",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 16.9",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Copart, Inc.",
-   "sector": "Industrials",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
    "score": 16.9
   },
   {
@@ -128,62 +86,6 @@
    "currency": "AUD",
    "fractional": false,
    "score": 16.7
-  },
-  {
-   "side": "buy",
-   "ticker": "EXEL",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 16.6",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Exelixis, Inc.",
-   "sector": "Healthcare",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 16.6
-  },
-  {
-   "side": "buy",
-   "ticker": "INCY",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 16.6",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Incyte Corporation",
-   "sector": "Healthcare",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 16.6
-  },
-  {
-   "side": "buy",
-   "ticker": "CF",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 16.5",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "CF Industries Holdings, Inc.",
-   "sector": "Basic Materials",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 16.5
-  },
-  {
-   "side": "buy",
-   "ticker": "DOCS",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 16.5",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Doximity, Inc.",
-   "sector": "Healthcare",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 16.5
   }
  ],
  "launched_at": "2026-10-12T07:24:34Z",

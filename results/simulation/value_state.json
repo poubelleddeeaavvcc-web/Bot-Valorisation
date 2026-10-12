@@ -1,36 +1,8 @@
 {
  "cash": {
-  "pool": 279.37940019236885
+  "pool": 146.04606685903548
  },
  "pending": [
-  {
-   "side": "buy",
-   "ticker": "KEP",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 1",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Korea Electric Power Corporation",
-   "sector": "Utilities",
-   "country": "South Korea",
-   "currency": "USD",
-   "fractional": true,
-   "score": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "BHF",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9958",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Brighthouse Financial, Inc.",
-   "sector": "Financial Services",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 0.9958
-  },
   {
    "side": "buy",
    "ticker": "9505.T",
@@ -58,20 +30,6 @@
    "currency": "TWD",
    "fractional": false,
    "score": 0.9908
-  },
-  {
-   "side": "buy",
-   "ticker": "DAC",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9899",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Danaos Corporation",
-   "sector": "Industrials",
-   "country": "Greece",
-   "currency": "USD",
-   "fractional": true,
-   "score": 0.9899
   },
   {
    "side": "buy",
@@ -114,20 +72,6 @@
    "currency": "JPY",
    "fractional": false,
    "score": 0.9828
-  },
-  {
-   "side": "buy",
-   "ticker": "LNC",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9766",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Lincoln National Corporation",
-   "sector": "Financial Services",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 0.9766
   }
  ],
  "launched_at": "2026-10-12T07:24:36Z",

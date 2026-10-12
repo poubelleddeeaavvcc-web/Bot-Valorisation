@@ -1,72 +1,15 @@
 {
  "cash": {
-  "SPY": 125.0,
-  "EFA": 125.0,
-  "EEM": 125.0,
+  "SPY": 0.0,
+  "EFA": 0.0,
+  "EEM": 0.0,
   "IEF": 125.0,
   "TLT": 125.0,
   "GLD": 125.0,
-  "DBC": 125.0,
+  "DBC": 0.0,
   "VNQ": 125.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "SPY",
-   "bucket": "SPY",
-   "reason": "au-dessus de sa moyenne (cloture 762.63 > moyenne 10 mois 717.66)",
-   "decided_at": "2026-10-12T07:24:38Z",
-   "amount_eur": 125.0,
-   "name": "SPDR S&P 500 ETF",
-   "sector": "Actions US",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": null
-  },
-  {
-   "side": "buy",
-   "ticker": "EFA",
-   "bucket": "EFA",
-   "reason": "au-dessus de sa moyenne (cloture 103.89 > moyenne 10 mois 101.78)",
-   "decided_at": "2026-10-12T07:24:38Z",
-   "amount_eur": 125.0,
-   "name": "iShares MSCI EAFE ETF",
-   "sector": "Actions pays developpes hors US",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": null
-  },
-  {
-   "side": "buy",
-   "ticker": "EEM",
-   "bucket": "EEM",
-   "reason": "au-dessus de sa moyenne (cloture 66.79 > moyenne 10 mois 63.02)",
-   "decided_at": "2026-10-12T07:24:38Z",
-   "amount_eur": 125.0,
-   "name": "iShares MSCI Emerging Markets ETF",
-   "sector": "Actions emergentes",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": null
-  },
-  {
-   "side": "buy",
-   "ticker": "DBC",
-   "bucket": "DBC",
-   "reason": "au-dessus de sa moyenne (cloture 32.32 > moyenne 10 mois 28.12)",
-   "decided_at": "2026-10-12T07:24:38Z",
-   "amount_eur": 125.0,
-   "name": "Invesco DB Commodity Index Tracking Fund",
-   "sector": "Matieres premieres",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": null
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-12T07:24:37Z",
  "signals": {
   "SPY": {
