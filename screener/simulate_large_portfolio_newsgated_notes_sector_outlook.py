@@ -151,12 +151,13 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
         # Son budget reste reserve ce run : un candidat moins bien classe dont le marche est ouvert
         # ne prend pas sa place.
         if not tradable_now(ticker):
-            hold = min(TARGET_POSITION_SIZE, cash)
+            hold = max(0.0, min(TARGET_POSITION_SIZE, cash))  # cash can be negative (5706.T split cleanup)
             reserved += hold
             cash -= hold
             rejected.add(ticker)
             round_counts[target_sector] = round_counts.get(target_sector, 0) + 1
-            print(f"  ACHAT REPORTE {ticker} : marche ferme, {hold:.2f} EUR reserves jusqu'a sa prochaine seance")
+            if hold > 0:
+                print(f"  ACHAT REPORTE {ticker} : marche ferme, {hold:.2f} EUR reserves jusqu'a sa prochaine seance")
             if cash <= 0:
                 break
             continue
