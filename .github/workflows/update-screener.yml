@@ -520,6 +520,12 @@ jobs:
         with:
           python-version: "3.12"
 
+      # Portefeuille combine (2026-10-12) : melange virtuel a risque egal sous-evaluation (B1/C1/D1) +
+      # R1 + T1, recalcule a chaque run depuis les courbes des bots -- voir build_combined_portfolio.py.
+      # Avant le resume, qui reprend sa courbe comme celle des bots.
+      - name: Construire le portefeuille combine
+        run: pip install "pandas<3" && python screener/build_combined_portfolio.py
+
       - name: Construire le resume des courbes
         run: python screener/build_equity_summary.py
 
@@ -528,6 +534,7 @@ jobs:
           git config user.name "screener-bot"
           git config user.email "actions@users.noreply.github.com"
           git add results/simulation/equity_curves_summary.json
+          git add results/simulation/combined_equity_curve.csv results/simulation/combined_summary.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Rien de nouveau ce cycle."
             exit 0
