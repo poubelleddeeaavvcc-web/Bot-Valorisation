@@ -1,5 +1,7 @@
 {
   "processed_message_ids": [
+    "1a12e61c90fcc33f",
+    "1a12d79f65d69ff0",
     "1a12c95189980528",
     "1a12b85036c83432",
     "1a12b7b4a6535e39",
@@ -40,7 +42,7 @@
     "1a12481f4a952f25",
     "1a1246be80f54048"
   ],
-  "last_run_date": "2026-10-11",
+  "last_run_date": "2026-10-12",
   "ollama_attempts": {
     "1a06c3dc17d92321": 1,
     "1a080d744fee4403": 2,
@@ -661,7 +663,32 @@
       "1a0d783e836886c8",
       "1a0d787396a06b52",
       "1a0d808b0fa23894",
-      "1a0d8091d0f16554"
+      "1a0d8091d0f16554",
+      "1a0d827815e20c3c",
+      "1a0d83b9feb5e855",
+      "1a0d854e9163bf1b",
+      "1a0d85ece567bc18",
+      "1a0d85eeb705304a",
+      "1a0d85f20e740b63",
+      "1a0d8613b6ee098b",
+      "1a0d86272bad0c0f",
+      "1a0d863a80f965ef",
+      "1a0d864e53a7a85a",
+      "1a0d86b7174b4488",
+      "1a0d86cdd93ee3b8",
+      "1a0d8745982e75a8",
+      "1a0d875f5e5a4e0a",
+      "1a0d87620e82f3d7",
+      "1a0d8786be2647aa",
+      "1a0d8880eb99dc3d",
+      "1a0d8998891cb795",
+      "1a0d89e8eb804dc9",
+      "1a0d8a2bf66bcdf2",
+      "1a0d8e08b883dba0",
+      "1a0d8e87131e0ff9",
+      "1a0d9068b466ca31",
+      "1a0d9209e7a8389d",
+      "1a0d923b1e93dd95"
     ]
   },
   "source_status": {
@@ -670,6 +697,7 @@
     "Morning Briefing (sailthru.com)": "observation",
     "Must Reads (sailthru.com)": "observation",
     "Stocks & Sectors (sailthru.com)": "observation",
+    "Ticker Talk Newsletter (beehiiv.com)": "observation",
     "aktionnaire.com": "observation",
     "analystratings.net": "observation",
     "seekingalpha.com": "bruit",
