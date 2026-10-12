@@ -24,6 +24,7 @@ import pandas as pd
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
+from screener.market_hours import tradable_now  # noqa: E402
 from screener.select_top_picks import (  # noqa: E402
     composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
 )
@@ -99,6 +100,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
     all_sectors = sorted(set(candidates["sector"].dropna().unique()) | set(sector_counts.keys()))
     round_counts = dict(sector_counts)
     rejected = set()
+    reserved = 0.0  # budget held for a top pick whose market is closed (see tradable_now below)
     exhausted = set()
 
     while len(exhausted) < len(all_sectors):
@@ -138,6 +140,20 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             # momentum/valuation gate can read this position's own entry basis
             reinforce_idx = ledger.index[(ledger["status"] == "open") & (ledger["ticker"] == ticker)][0]
 
+        # marche ferme (2026-10-12) : achat reporte a la prochaine seance de ce titre, au cours
+        # vivant d'alors -- plus jamais au dernier cours d'un marche ferme (voir market_hours.tradable_now).
+        # Son budget reste reserve ce run : un candidat moins bien classe dont le marche est ouvert
+        # ne prend pas sa place.
+        if not tradable_now(ticker):
+            hold = min(TARGET_POSITION_SIZE, cash)
+            reserved += hold
+            cash -= hold
+            rejected.add(ticker)
+            round_counts[target_sector] = round_counts.get(target_sector, 0) + 1
+            print(f"  ACHAT REPORTE {ticker} : marche ferme, {hold:.2f} EUR reserves jusqu'a sa prochaine seance")
+            if cash <= 0:
+                break
+            continue
         fresh = fetch_cache_one(ticker)
         time.sleep(0.4)
         if fresh.get("price") is None or fresh.get("error"):
@@ -254,7 +270,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
         cash -= cost
         round_counts[target_sector] = round_counts.get(target_sector, 0) + 1
 
-    return ledger, cash
+    return ledger, cash + reserved
 
 
 def write_summary(ledger: pd.DataFrame, cash: float):

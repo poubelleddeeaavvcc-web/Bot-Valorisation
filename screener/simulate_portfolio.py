@@ -50,6 +50,8 @@ import yfinance as yf
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
+from screener.market_hours import tradable_now  # noqa: E402
+
 LEDGER_PATH = HERE / "results/simulation/portfolio_ledger.csv"
 CANDIDATES_PATH = HERE / "results/screener/long_candidates_latest.csv"
 VALUATION_PATH = HERE / "results/screener/full_valuation_latest.csv"
@@ -266,6 +268,8 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation
     for _, c in candidates.iterrows():
         if c["ticker"] in open_tickers:
             continue
+        if not tradable_now(c["ticker"]):
+            continue  # marche ferme : achat reporte a sa prochaine seance (voir market_hours.tradable_now)
         fresh = fetch_fresh_single(c["ticker"])
         if fresh is None or fresh["price"] is None or fresh["eps"] is None:
             print(f"  achat ignore {c['ticker']} : echec verification fraiche", file=sys.stderr)
@@ -360,6 +364,11 @@ def recheck_open_positions(ledger: pd.DataFrame, valuation: pd.DataFrame, today:
             reason = ("trailing_stop" if trailing_stop_hit else
                       "stop_loss" if stop_loss_hit else
                       "valorisation_atteinte" if valuation_reached else "momentum_perdu")
+            # marche ferme (2026-10-12) : la vente attend la prochaine seance du titre et y est
+            # re-evaluee au cours vivant (voir market_hours.tradable_now)
+            if not tradable_now(ticker):
+                print(f"  VENTE REPORTEE {ticker} : {reason}, marche ferme -- re-evaluee a sa prochaine seance")
+                continue
             entry_date = pd.Timestamp(ledger.at[idx, "entry_date"])
             ledger.at[idx, "status"] = "closed"
             ledger.at[idx, "exit_date"] = today

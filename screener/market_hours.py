@@ -25,9 +25,11 @@ without extra logic; tzdata is pinned in requirements.txt since Windows has no O
 database for zoneinfo to fall back on (not a concern for the Linux CI runner, which ships
 system tzdata, but keeps local development/testing consistent).
 """
+import sys
 from zoneinfo import ZoneInfo
 
 import pandas as pd
+import yfinance as yf
 
 # suffix -> (IANA tz, open_hour, close_hour, label)
 MARKET_HOURS = {
@@ -90,3 +92,44 @@ def current_slot_for_market(tz_name: str, open_hour: int, close_hour: int):
     session_hours = close_hour - open_hour
     slot = now_local.weekday() * session_hours + (now_local.hour - open_hour)
     return slot, 5 * session_hours
+
+
+# One answer per ticker per process: a bot run lasts minutes, the session state doesn't change.
+_TRADABLE_CACHE = {}
+
+
+def tradable_now(ticker: str) -> bool:
+    """True when an order on this ticker would really execute right now (2026-10-12).
+
+    Before this, the bots #1-40 bought and sold at whatever price Yahoo returned, market open or
+    not: Bot #40 bought B3SA3.SA on Sunday 2026-10-04 at Friday's close (19.00 BRL) and booked the
+    +16% Monday gap (open 22.10) as its own gain -- a fill no real order could have had, and the
+    reason D10 looked like it had "an edge". Every buy, conviction top-up and sale now waits for a
+    run during the ticker's own session (the hourly CI gets several per session), at that run's
+    live price; a closed market defers the trade, it doesn't cancel it.
+
+    Two checks, cheapest first: the exchange's weekday hours (MARKET_HOURS, no request), then at
+    least one 1-minute Yahoo bar dated today in the exchange's time zone -- which catches what
+    MARKET_HOURS deliberately ignores (holidays: Tokyo on 2026-10-12, Sports Day; a session not
+    open yet at :05 past the hour). Tested 2026-10-12 on US, Paris, Xetra, London, Zurich,
+    Stockholm, Oslo, Taipei, Tokyo, Hong Kong, Sao Paulo, Mexico, Sydney, Mumbai, Seoul, Toronto:
+    every one serves 1-minute bars (15-min delayed for most). A ticker without 1-minute data falls
+    back to today's daily bar, so an exotic listing can't be locked out of its own exits.
+    """
+    tz_name, open_hour, close_hour, _ = market_of(ticker)
+    if current_slot_for_market(tz_name, open_hour, close_hour) is None:
+        return False
+    if ticker not in _TRADABLE_CACHE:
+        tz = ZoneInfo(tz_name)
+        today = pd.Timestamp.now(tz=tz).date()
+        ok = False
+        try:
+            t = yf.Ticker(ticker)
+            bars = t.history(period="1d", interval="1m")
+            if not len(bars):
+                bars = t.history(period="5d", interval="1d")
+            ok = bool(len(bars)) and bars.index[-1].tz_convert(tz).date() == today
+        except Exception as e:
+            print(f"  echec verification de seance pour {ticker}: {e}", file=sys.stderr)
+        _TRADABLE_CACHE[ticker] = ok
+    return _TRADABLE_CACHE[ticker]

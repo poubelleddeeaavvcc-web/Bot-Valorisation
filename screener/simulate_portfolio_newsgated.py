@@ -29,6 +29,7 @@ import yfinance as yf
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
+from screener.market_hours import tradable_now  # noqa: E402
 from screener.simulate_portfolio import (  # noqa: E402
     BENCHMARKS, STOP_LOSS_PCT, fails_fresh_check, fetch_fresh_single, recheck_open_positions, resolve_peer_pe,
 )
@@ -81,6 +82,8 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation
             continue
         # fresh momentum/valuation gate first, before spending an Ollama call: no point
         # news-checking a candidate that's already failing the entry bar on fresh data.
+        if not tradable_now(c["ticker"]):
+            continue  # marche ferme : achat reporte a sa prochaine seance (voir market_hours.tradable_now)
         fresh = fetch_fresh_single(c["ticker"])
         if fresh is None or fresh["price"] is None or fresh["eps"] is None:
             skipped.append((c["ticker"], "echec verification fraiche"))

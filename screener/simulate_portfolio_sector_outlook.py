@@ -18,6 +18,7 @@ import yfinance as yf
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
+from screener.market_hours import tradable_now  # noqa: E402
 from screener.simulate_portfolio import (  # noqa: E402
     LEDGER_COLUMNS, BENCHMARKS, fetch_fresh_single, fails_fresh_check, recheck_open_positions,
 )
@@ -55,6 +56,8 @@ def open_new_positions(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation
             continue
         if c["sector"] in pressured:
             continue
+        if not tradable_now(c["ticker"]):
+            continue  # marche ferme : achat reporte a sa prochaine seance (voir market_hours.tradable_now)
         fresh = fetch_fresh_single(c["ticker"])
         if fresh is None or fresh["price"] is None or fresh["eps"] is None:
             print(f"  achat ignore {c['ticker']} : echec verification fraiche", file=sys.stderr)

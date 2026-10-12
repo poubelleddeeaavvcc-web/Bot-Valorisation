@@ -54,6 +54,7 @@ import yfinance as yf
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
+from screener.market_hours import tradable_now  # noqa: E402
 from screener.select_top_picks import (  # noqa: E402
     composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
 )
@@ -250,6 +251,11 @@ def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, 
             reason = ("trailing_stop" if trailing_stop_hit else
                       "stop_loss" if stop_loss_hit else
                       "valorisation_atteinte" if valuation_reached else "momentum_perdu")
+            # marche ferme (2026-10-12) : la vente attend la prochaine seance du titre et y est
+            # re-evaluee au cours vivant (voir market_hours.tradable_now)
+            if not tradable_now(ticker):
+                print(f"  VENTE REPORTEE {ticker} : {reason}, marche ferme -- re-evaluee a sa prochaine seance")
+                continue
             entry_date = pd.Timestamp(ledger.at[idx, "entry_date"])
             # Fee deducted from the sale proceeds, not from the price-return calc above (which
             # only decides whether to exit): the position still exits on the same momentum/
@@ -297,6 +303,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
     # tickers tried and rejected this run (fetch failed, unaffordable, ...) -- don't retry
     # them within the same run, but they're free to come up again next run.
     rejected = set()
+    reserved = 0.0  # budget held for a top pick whose market is closed (see tradable_now below)
 
     new_rows = []
     while True:
@@ -328,6 +335,20 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             break  # nothing left to try, however relaxed -- stop, keep the cash
 
         ticker = pick_row["ticker"]
+        # marche ferme (2026-10-12) : achat reporte a la prochaine seance de ce titre, au cours
+        # vivant d'alors -- plus jamais au dernier cours d'un marche ferme (voir market_hours.tradable_now).
+        # Son budget reste reserve ce run : un candidat moins bien classe dont le marche est ouvert
+        # ne prend pas sa place.
+        if not tradable_now(ticker):
+            hold = min(target, cash)
+            reserved += hold
+            cash -= hold
+            rejected.add(ticker)
+            sector_counts[pick_row["sector"]] = sector_counts.get(pick_row["sector"], 0) + 1
+            print(f"  ACHAT REPORTE {ticker} : marche ferme, {hold:.2f} EUR reserves jusqu'a sa prochaine seance")
+            if cash <= 0:
+                break
+            continue
         # fresh single-ticker fetch at the moment of purchase: currency/avg_volume are new
         # fields (added 2026-08-17) that the 7-day progressive cache hasn't necessarily
         # backfilled for this ticker yet, and affordability/fractional-eligibility depend on
@@ -411,7 +432,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
 
     if new_rows:
         ledger = pd.concat([ledger, pd.DataFrame(new_rows)], ignore_index=True)
-    return ledger, cash
+    return ledger, cash + reserved
 
 
 def write_summary(ledger: pd.DataFrame, cash: float):
