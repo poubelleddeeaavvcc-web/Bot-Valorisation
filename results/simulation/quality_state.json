@@ -1,22 +1,8 @@
 {
  "cash": {
-  "pool": 500.0
+  "pool": 465.53845351545124
  },
  "pending": [
-  {
-   "side": "buy",
-   "ticker": "0006.HK",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 17.9",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Power Assets Holdings Limited",
-   "sector": "Utilities",
-   "country": "Hong Kong",
-   "currency": "HKD",
-   "fractional": false,
-   "score": 17.9
-  },
   {
    "side": "buy",
    "ticker": "6417.T",

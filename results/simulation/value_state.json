@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 500.0
+  "pool": 432.29319967240633
  },
  "pending": [
   {
@@ -33,20 +33,6 @@
   },
   {
    "side": "buy",
-   "ticker": "0267.HK",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9949",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "CITIC Limited",
-   "sector": "Industrials",
-   "country": "Hong Kong",
-   "currency": "HKD",
-   "fractional": false,
-   "score": 0.9949
-  },
-  {
-   "side": "buy",
    "ticker": "9505.T",
    "bucket": "pool",
    "reason": "revision trimestrielle, score 0.9914",
@@ -58,20 +44,6 @@
    "currency": "JPY",
    "fractional": false,
    "score": 0.9914
-  },
-  {
-   "side": "buy",
-   "ticker": "1099.HK",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9911",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Sinopharm Group Co. Ltd.",
-   "sector": "Healthcare",
-   "country": "China",
-   "currency": "HKD",
-   "fractional": false,
-   "score": 0.9911
   },
   {
    "side": "buy",
