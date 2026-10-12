@@ -447,7 +447,7 @@ jobs:
           echo "Echec du push apres 5 tentatives."
           exit 1
 
-  # Bots #41-43 (2026-10-12) : une strategie chacun, sans rapport avec le screener valeur+momentum
+  # Bots #41-44 (2026-10-12) : une strategie chacun, sans rapport avec le screener valeur+momentum
   # des bots #1-40 -- Qualite (notes seules), Valeur (decote seule), Tendance (8 ETF multi-actifs,
   # regle des 10 mois), a combiner plus tard. Moteur commun screener/sleeve_book.py : ordres
   # executes a la cloture de la seance qui suit la decision, valorisation dividendes compris.
@@ -476,6 +476,11 @@ jobs:
 
       - name: Strategie Tendance, 8 ETF multi-actifs (Bot #43)
         run: python screener/simulate_trend_portfolio.py
+
+      # Bot #44 (2026-10-12) : retour a la moyenne RSI(2) sur le S&P 500, decide pendant la derniere
+      # heure de la seance US, execute a la cloture -- voir simulate_rsi2_portfolio.py.
+      - name: Strategie Retour a la moyenne RSI2 (Bot #44)
+        run: python screener/simulate_rsi2_portfolio.py
 
       - name: Commit + push si des resultats ont change
         run: |
