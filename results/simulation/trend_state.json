@@ -1,0 +1,122 @@
+{
+ "cash": {
+  "SPY": 125.0,
+  "EFA": 125.0,
+  "EEM": 125.0,
+  "IEF": 125.0,
+  "TLT": 125.0,
+  "GLD": 125.0,
+  "DBC": 125.0,
+  "VNQ": 125.0
+ },
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "SPY",
+   "bucket": "SPY",
+   "reason": "au-dessus de sa moyenne (cloture 762.63 > moyenne 10 mois 717.66)",
+   "decided_at": "2026-10-12T07:24:38Z",
+   "amount_eur": 125.0,
+   "name": "SPDR S&P 500 ETF",
+   "sector": "Actions US",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": null
+  },
+  {
+   "side": "buy",
+   "ticker": "EFA",
+   "bucket": "EFA",
+   "reason": "au-dessus de sa moyenne (cloture 103.89 > moyenne 10 mois 101.78)",
+   "decided_at": "2026-10-12T07:24:38Z",
+   "amount_eur": 125.0,
+   "name": "iShares MSCI EAFE ETF",
+   "sector": "Actions pays developpes hors US",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": null
+  },
+  {
+   "side": "buy",
+   "ticker": "EEM",
+   "bucket": "EEM",
+   "reason": "au-dessus de sa moyenne (cloture 66.79 > moyenne 10 mois 63.02)",
+   "decided_at": "2026-10-12T07:24:38Z",
+   "amount_eur": 125.0,
+   "name": "iShares MSCI Emerging Markets ETF",
+   "sector": "Actions emergentes",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": null
+  },
+  {
+   "side": "buy",
+   "ticker": "DBC",
+   "bucket": "DBC",
+   "reason": "au-dessus de sa moyenne (cloture 32.32 > moyenne 10 mois 28.12)",
+   "decided_at": "2026-10-12T07:24:38Z",
+   "amount_eur": 125.0,
+   "name": "Invesco DB Commodity Index Tracking Fund",
+   "sector": "Matieres premieres",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": null
+  }
+ ],
+ "launched_at": "2026-10-12T07:24:37Z",
+ "signals": {
+  "SPY": {
+   "month_end": "2026-09-30",
+   "close": 762.6300048828125,
+   "sma": 717.6562377929688,
+   "above": true
+  },
+  "EFA": {
+   "month_end": "2026-09-30",
+   "close": 103.88999938964844,
+   "sma": 101.77534942626953,
+   "above": true
+  },
+  "EEM": {
+   "month_end": "2026-09-30",
+   "close": 66.79000091552734,
+   "sma": 63.0188648223877,
+   "above": true
+  },
+  "IEF": {
+   "month_end": "2026-09-30",
+   "close": 89.00299835205078,
+   "sma": 92.75273971557617,
+   "above": false
+  },
+  "TLT": {
+   "month_end": "2026-09-30",
+   "close": 77.4679946899414,
+   "sma": 83.4353126525879,
+   "above": false
+  },
+  "GLD": {
+   "month_end": "2026-09-30",
+   "close": 380.8399963378906,
+   "sma": 412.5260040283203,
+   "above": false
+  },
+  "DBC": {
+   "month_end": "2026-09-30",
+   "close": 32.31999969482422,
+   "sma": 28.11500015258789,
+   "above": true
+  },
+  "VNQ": {
+   "month_end": "2026-09-30",
+   "close": 89.62999725341797,
+   "sma": 92.22007522583007,
+   "above": false
+  }
+ },
+ "decision_month": "2026-10"
+}
