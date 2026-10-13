@@ -1,5 +1,9 @@
 {
   "processed_message_ids": [
+    "1a133e9840a66dcc",
+    "1a133e01159408a0",
+    "1a1338af83134dc5",
+    "1a132a16d1a49477",
     "1a1323ceffde5d60",
     "1a131d4ac7df4c2e",
     "1a131bae61251667",
@@ -46,17 +50,15 @@
     "1a12ac8351d98a7a",
     "1a12ac40b71ccc0b",
     "1a12aa70ef97b572",
-    "1a12aa2a610d88e7",
-    "1a129a89a83cee59",
-    "1a129936328d3acd"
+    "1a12aa2a610d88e7"
   ],
-  "last_run_date": "2026-10-12",
+  "last_run_date": "2026-10-13",
   "ollama_attempts": {
     "1a06c3dc17d92321": 1,
     "1a080d744fee4403": 2,
     "1a08b22fc69654e5": 2,
     "1a0b9be15691e810": 1,
-    "1a0dd89b9fd37cd6": 1
+    "1a0dd89b9fd37cd6": 2
   },
   "backfill": {
     "end_date": "2026-10-04",
@@ -732,7 +734,31 @@
       "1a0e254fd0cf2cb4",
       "1a0e26f8cd2ef7c5",
       "1a0e27af57d49f4f",
-      "1a0e2aab0b5b70c4"
+      "1a0e2aab0b5b70c4",
+      "1a0e2af35f0722b5",
+      "1a0e2b25120104e6",
+      "1a0e2b823ba02a83",
+      "1a0e2c179c3c2bc1",
+      "1a0e2e673904c213",
+      "1a0e2eab1552c2cb",
+      "1a0e2f11f2ed523a",
+      "1a0e2f6e82b42f88",
+      "1a0e30d928c9837c",
+      "1a0e32b169c724d3",
+      "1a0e32c1fd6fa904",
+      "1a0e33350235fa29",
+      "1a0e33d30e10151c",
+      "1a0e3629bf1b29e1",
+      "1a0e369073310c9f",
+      "1a0e3f4958d090ce",
+      "1a0e484c347bec04",
+      "1a0e5600eb75d9ab",
+      "1a0e64b5d99deff9",
+      "1a0e69824472fa6a",
+      "1a0e6acea198015a",
+      "1a0e6ff31f492455",
+      "1a0e74e14ea41808",
+      "1a0e77b4109957fd"
     ]
   },
   "source_status": {
