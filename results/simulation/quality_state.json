@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 204.38512048729376
+  "pool": 169.8415584371938
  },
  "pending": [
   {
@@ -70,20 +70,6 @@
    "sector": "Technology",
    "country": "Taiwan",
    "currency": "TWD",
-   "fractional": false,
-   "score": 16.7
-  },
-  {
-   "side": "buy",
-   "ticker": "DRR.AX",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 16.7",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Deterra Royalties Limited",
-   "sector": "Basic Materials",
-   "country": "Australia",
-   "currency": "AUD",
    "fractional": false,
    "score": 16.7
   }
