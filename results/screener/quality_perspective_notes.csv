@@ -355,7 +355,7 @@ MLKN,"MillerKnoll, Inc.",Consumer Cyclical,"Furnishings, Fixtures & Appliances",
 MMS,"Maximus, Inc.",Industrials,Specialty Business Services,11.6,15.5,10.8,11.0,18.2,13.4,5,False,20.0,1.1,10.6,2,False
 MMYT,MakeMyTrip Limited,Consumer Cyclical,Travel Services,18.6,20.0,8.6,11.2,19.6,15.6,5,False,0.0,1.5,0.8,2,False
 MOD,Modine Manufacturing Company,Consumer Cyclical,Auto Parts,12.3,11.5,8.8,9.4,0.5,8.5,5,False,0.0,16.8,8.4,2,False
-MSCI,MSCI Inc.,Financial Services,Financial Data & Stock Exchanges,7.1,,,16.2,12.1,11.8,3,False,4.1,5.9,5.0,2,False
+MSCI,MSCI Inc.,Financial Services,Financial Data & Stock Exchanges,7.1,,,16.2,12.1,11.8,3,False,4.0,5.9,5.0,2,False
 MSEX,Middlesex Water Company,Utilities,Utilities - Regulated Water,9.6,10.8,13.8,17.8,3.8,11.2,5,False,10.0,12.7,11.4,2,False
 MSGE,Madison Square Garden Entertainment Corp.,Communication Services,Entertainment,2.4,20.0,10.6,5.2,3.4,8.3,5,False,0.0,19.1,9.6,2,False
 MSGS,Madison Square Garden Sports Corp.,Communication Services,Entertainment,2.7,,7.0,7.0,3.0,4.9,4,False,0.0,19.0,9.5,2,False
@@ -635,10 +635,6 @@ ADEA,Adeia Inc.,Technology,Software - Application,10.8,16.8,11.2,18.1,9.9,13.4,5
 DPC,DPC Holdings PLC,Industrials,Aerospace & Defense,9.4,,15.6,0.5,,8.5,3,False,,,,0,True
 CCZ,Comcast Holdings ZONES,,,,,,,,,0,True,,,,0,True
 LBRDK,Liberty Broadband Corporation,Communication Services,Telecom Services,6.6,0.6,,3.8,,3.7,3,False,,,,0,True
-0388.HK,Hong Kong Exchanges and Clearing Limited,Financial Services,Financial Data & Stock Exchanges,11.8,18.8,,18.4,5.8,13.7,4,False,9.9,3.9,6.9,2,False
-1810.HK,Xiaomi Corporation,Technology,Consumer Electronics,8.5,11.1,,8.4,,9.3,3,False,13.0,1.2,7.1,2,False
-2359.HK,"WuXi AppTec Co., Ltd.",Healthcare,Diagnostics & Research,11.4,18.1,,19.4,,16.3,3,False,14.0,18.3,16.2,2,False
-ASIANPAINT.NS,Asian Paints Limited,Basic Materials,Specialty Chemicals,14.0,,15.0,13.0,4.8,11.7,4,False,0.0,4.3,2.2,2,False
 FGR.PA,Eiffage SA,Industrials,Engineering & Construction,3.3,14.1,10.5,7.0,19.5,10.9,5,False,20.0,7.0,13.5,2,False
 PRY.MI,Prysmian S.p.A.,Industrials,Electrical Equipment & Parts,6.8,15.9,8.8,8.8,3.8,8.8,5,False,10.6,16.0,13.3,2,False
 LGEN.L,Legal & General Group Plc,Financial Services,Asset Management,1.9,17.9,,5.2,,8.3,3,False,0.0,11.8,5.9,2,False
@@ -3422,7 +3418,7 @@ AXISBANK.BO,Axis Bank Limited,Financial Services,Banks - Regional,,11.1,,14.3,0.
 7735.T,"SCREEN Holdings Co., Ltd.",Technology,Semiconductor Equipment & Materials,13.8,14.3,12.0,12.9,7.5,12.1,5,False,17.7,16.4,17.0,2,False
 8086.T,Nipro Corporation,Healthcare,Medical Instruments & Supplies,1.6,9.6,0.1,9.4,8.9,5.9,5,False,18.3,6.6,12.4,2,False
 8341.T,"The 77 Bank, Ltd.",Financial Services,Banks - Regional,,6.1,,14.4,2.6,7.7,3,False,4.2,19.5,11.8,2,False
-8411.T,"Mizuho Financial Group, Inc.",Financial Services,Banks - Regional,,10.1,,12.4,5.9,9.5,3,False,6.5,18.9,12.7,2,False
+8411.T,"Mizuho Financial Group, Inc.",Financial Services,Banks - Regional,,10.1,,12.4,5.8,9.4,3,False,6.5,18.9,12.7,2,False
 1234.TW,Hey Song Corporation,Consumer Defensive,Beverages - Non-Alcoholic,13.0,3.6,8.2,7.0,15.6,9.5,5,False,10.8,6.8,8.8,2,False
 1419.TW,"Shinkong Textile Co., Ltd.",Consumer Cyclical,Textile Manufacturing,16.0,15.3,15.4,14.2,4.4,13.1,5,False,20.0,16.0,18.0,2,False
 1512.TW,"Jui Li Enterprise Co., Ltd.",Consumer Cyclical,Auto Parts,6.4,4.3,0.8,3.4,,3.7,4,False,0.0,4.6,2.3,2,False
@@ -5616,3 +5612,7 @@ AXISBANK.NS,Axis Bank Limited,Financial Services,Banks - Regional,,11.1,,14.3,0.
 9935.TW,"Ching Feng Home Fashions Co.,Ltd",Consumer Cyclical,"Furnishings, Fixtures & Appliances",6.4,13.9,6.0,13.3,13.4,10.6,5,False,20.0,9.9,15.0,2,False
 9941.TW,Taiwan Acceptance Corporation,Financial Services,Credit Services,4.8,9.2,,4.6,16.1,8.7,4,False,14.2,2.5,8.4,2,False
 9945.TW,"Ruentex Development Co.,Ltd.",Industrials,Engineering & Construction,7.2,17.5,3.0,18.4,17.0,12.6,5,False,20.0,8.5,14.2,2,False
+0388.HK,Hong Kong Exchanges and Clearing Limited,Financial Services,Financial Data & Stock Exchanges,11.8,18.8,,18.4,5.9,13.7,4,False,10.1,3.9,7.0,2,False
+1810.HK,Xiaomi Corporation,Technology,Consumer Electronics,8.5,11.1,,8.4,,9.3,3,False,13.5,1.2,7.4,2,False
+2359.HK,"WuXi AppTec Co., Ltd.",Healthcare,Diagnostics & Research,11.4,18.1,,19.4,,16.3,3,False,14.7,18.3,16.5,2,False
+ASIANPAINT.NS,Asian Paints Limited,Basic Materials,Specialty Chemicals,14.0,,15.0,13.0,4.8,11.7,4,False,0.0,4.3,2.2,2,False
