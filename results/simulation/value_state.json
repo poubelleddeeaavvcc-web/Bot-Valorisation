@@ -2,24 +2,11 @@
  "cash": {
   "pool": 5.4812824515359395
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "PXT.TO",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9864",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Parex Resources Inc.",
-   "sector": "Energy",
-   "country": "Canada",
-   "currency": "CAD",
-   "fractional": true,
-   "score": 0.9864
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-12T07:24:36Z",
- "dropped": [],
+ "dropped": [
+  "PXT.TO"
+ ],
  "ranking": [
   {
    "ticker": "KEP",

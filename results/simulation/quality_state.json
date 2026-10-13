@@ -1,23 +1,8 @@
 {
  "cash": {
-  "pool": 33.035399927243574
+  "pool": 3.7346533938066564
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "BBSE3.SA",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 17",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "BB Seguridade Participações S.A.",
-   "sector": "Financial Services",
-   "country": "Brazil",
-   "currency": "BRL",
-   "fractional": false,
-   "score": 17.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-12T07:24:34Z",
  "dropped": [],
  "ranking": [
