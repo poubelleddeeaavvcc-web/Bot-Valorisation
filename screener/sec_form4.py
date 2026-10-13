@@ -29,7 +29,7 @@ _session = requests.Session()
 _session.headers.update(SEC_HEADERS)
 
 
-def _get(url: str, retries: int = 4):
+def _get(url: str, retries: int = 4, missing_codes=(404,)):
     for k in range(retries):
         try:
             r = _session.get(url, timeout=30)
@@ -38,7 +38,7 @@ def _get(url: str, retries: int = 4):
             continue
         if r.status_code == 200:
             return r.text
-        if r.status_code == 404:
+        if r.status_code in missing_codes:
             return None
         time.sleep(5 * (k + 1))  # 429 / 503: back off
     return None
@@ -47,7 +47,9 @@ def _get(url: str, retries: int = 4):
 def form4_paths(day: pd.Timestamp):
     """Archive paths of the Form 4 filings of `day`, or None if that day's index doesn't exist (yet)."""
     q = (day.month - 1) // 3 + 1
-    text = _get(DAILY_INDEX_URL.format(y=day.year, q=q, ymd=day.strftime("%Y%m%d")))
+    # a daily index that doesn't exist (not published yet, or a federal holiday such as Columbus Day
+    # 2026-10-12, when EDGAR is closed) answers 403, not 404 -- not a rate limit, don't retry it
+    text = _get(DAILY_INDEX_URL.format(y=day.year, q=q, ymd=day.strftime("%Y%m%d")), missing_codes=(403, 404))
     if text is None:
         return None
     paths = set()
