@@ -447,7 +447,7 @@ jobs:
           echo "Echec du push apres 5 tentatives."
           exit 1
 
-  # Bots #41-44 (2026-10-12) : une strategie chacun, sans rapport avec le screener valeur+momentum
+  # Bots #41-45 (2026-10-12/13) : une strategie chacun, sans rapport avec le screener valeur+momentum
   # des bots #1-40 -- Qualite (notes seules), Valeur (decote seule), Tendance (8 ETF multi-actifs,
   # regle des 10 mois), a combiner plus tard. Moteur commun screener/sleeve_book.py : ordres
   # executes a la cloture de la seance qui suit la decision, valorisation dividendes compris.
@@ -455,7 +455,7 @@ jobs:
   bots-strategies:
     needs: setup
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
@@ -481,6 +481,12 @@ jobs:
       # heure de la seance US, execute a la cloture -- voir simulate_rsi2_portfolio.py.
       - name: Strategie Retour a la moyenne RSI2 (Bot #44)
         run: python screener/simulate_rsi2_portfolio.py
+
+      # Bot #45 (2026-10-13) : achats d'inities sur petites capitalisations US, lus chaque matin dans
+      # l'index quotidien EDGAR (~600 formulaires 4 par jour, ~3 min une fois par jour) -- voir
+      # simulate_insider_portfolio.py et sec_form4.py.
+      - name: Strategie Inities petites capitalisations (Bot #45)
+        run: python screener/simulate_insider_portfolio.py
 
       - name: Commit + push si des resultats ont change
         run: |
@@ -521,7 +527,7 @@ jobs:
           python-version: "3.12"
 
       # Portefeuille combine (2026-10-12) : melange virtuel a risque egal sous-evaluation (B1/C1/D1) +
-      # R1 + T1, recalcule a chaque run depuis les courbes des bots -- voir build_combined_portfolio.py.
+      # R1 + T1 + I1 (depuis le 2026-10-13), recalcule a chaque run depuis les courbes des bots -- voir build_combined_portfolio.py.
       # Avant le resume, qui reprend sa courbe comme celle des bots.
       - name: Construire le portefeuille combine
         run: pip install "pandas<3" && python screener/build_combined_portfolio.py
