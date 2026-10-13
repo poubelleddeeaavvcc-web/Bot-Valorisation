@@ -1,22 +1,8 @@
 {
  "cash": {
-  "pool": 169.8415584371938
+  "pool": 33.035399927243574
  },
  "pending": [
-  {
-   "side": "buy",
-   "ticker": "6417.T",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 17.9",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Sankyo Co., Ltd.",
-   "sector": "Consumer Cyclical",
-   "country": "Japan",
-   "currency": "JPY",
-   "fractional": false,
-   "score": 17.9
-  },
   {
    "side": "buy",
    "ticker": "BBSE3.SA",
@@ -30,48 +16,6 @@
    "currency": "BRL",
    "fractional": false,
    "score": 17.0
-  },
-  {
-   "side": "buy",
-   "ticker": "9744.T",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 16.9",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "MEITEC Group Holdings Inc.",
-   "sector": "Industrials",
-   "country": "Japan",
-   "currency": "JPY",
-   "fractional": false,
-   "score": 16.9
-  },
-  {
-   "side": "buy",
-   "ticker": "3014.TW",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 16.8",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "ITE Tech. Inc",
-   "sector": "Technology",
-   "country": "Taiwan",
-   "currency": "TWD",
-   "fractional": false,
-   "score": 16.8
-  },
-  {
-   "side": "buy",
-   "ticker": "2451.TW",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 16.7",
-   "decided_at": "2026-10-12T07:24:35Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Transcend Information, Inc.",
-   "sector": "Technology",
-   "country": "Taiwan",
-   "currency": "TWD",
-   "fractional": false,
-   "score": 16.7
   }
  ],
  "launched_at": "2026-10-12T07:24:34Z",

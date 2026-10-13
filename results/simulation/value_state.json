@@ -1,50 +1,8 @@
 {
  "cash": {
-  "pool": 146.04606685903548
+  "pool": 5.4812824515359395
  },
  "pending": [
-  {
-   "side": "buy",
-   "ticker": "9505.T",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9914",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Hokuriku Electric Power Company",
-   "sector": "Utilities",
-   "country": "Japan",
-   "currency": "JPY",
-   "fractional": false,
-   "score": 0.9914
-  },
-  {
-   "side": "buy",
-   "ticker": "2392.TW",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9908",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Cheng Uei Precision Industry Co., Ltd.",
-   "sector": "Technology",
-   "country": "Taiwan",
-   "currency": "TWD",
-   "fractional": false,
-   "score": 0.9908
-  },
-  {
-   "side": "buy",
-   "ticker": "9022.T",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9865",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "Central Japan Railway Company",
-   "sector": "Industrials",
-   "country": "Japan",
-   "currency": "JPY",
-   "fractional": false,
-   "score": 0.9865
-  },
   {
    "side": "buy",
    "ticker": "PXT.TO",
@@ -58,20 +16,6 @@
    "currency": "CAD",
    "fractional": true,
    "score": 0.9864
-  },
-  {
-   "side": "buy",
-   "ticker": "9504.T",
-   "bucket": "pool",
-   "reason": "revision trimestrielle, score 0.9828",
-   "decided_at": "2026-10-12T07:24:37Z",
-   "amount_eur": 33.333333333333336,
-   "name": "The Chugoku Electric Power Co., Inc.",
-   "sector": "Utilities",
-   "country": "Japan",
-   "currency": "JPY",
-   "fractional": false,
-   "score": 0.9828
   }
  ],
  "launched_at": "2026-10-12T07:24:36Z",
