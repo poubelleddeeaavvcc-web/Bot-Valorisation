@@ -742,5 +742,13 @@
       "reason": "Le texte ne mentionne aucun client principal explicite et mentionne plutôt une gamme de produits et de services offerts à une large gamme de clients dans plusieurs industries.",
       "source": "ollama"
     }
+  },
+  "CVSA": {
+    "checked_at": "2026-10-13",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "10-K SEC (2026-08-06) : No one customer accounted for more than 10% of Covista s consolidated revenue [https://www.sec.gov/Archives/edgar/data/730464/000110465926092044/cvsa-20260630x10k.htm]",
+      "source": "sec_10k"
+    }
   }
 }

@@ -4918,5 +4918,11 @@
     "sentiment": "positive",
     "reason": "Les actualites presentes sont presque toutes positives, avec des analyses favorables sur la progression des patients avec BRIUMVI et des prévisions de croissance pour l'action.",
     "source": "ollama"
+  },
+  "CVSA_2026-10-13": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites presentes sont principalement des informations de trading et de divulgation de informations financieres, sans donner de commentaires ou de evaluations positives ou negatives sur l'action de Covista Inc.",
+    "source": "ollama"
   }
 }
