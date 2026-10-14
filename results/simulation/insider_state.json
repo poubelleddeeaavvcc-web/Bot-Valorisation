@@ -2,16 +2,136 @@
  "cash": {
   "pool": 5000.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "ONMD",
+   "bucket": "pool",
+   "reason": "2 initie(s), 1000 k$ le 2026-10-07",
+   "decided_at": "2026-10-14T10:51:44Z",
+   "amount_eur": 100.0,
+   "name": "OneMedNet Corp",
+   "sector": "Inities (petites cap.)",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 999999.0
+  },
+  {
+   "side": "buy",
+   "ticker": "PED",
+   "bucket": "pool",
+   "reason": "1 initie(s), 1912 k$ le 2026-10-08",
+   "decided_at": "2026-10-14T10:51:44Z",
+   "amount_eur": 100.0,
+   "name": "PEDEVCO CORP",
+   "sector": "Inities (petites cap.)",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1911910.0
+  },
+  {
+   "side": "buy",
+   "ticker": "SWZ",
+   "bucket": "pool",
+   "reason": "1 initie(s), 29 k$ le 2026-10-08",
+   "decided_at": "2026-10-14T10:51:44Z",
+   "amount_eur": 100.0,
+   "name": "Total Return Securities Fund",
+   "sector": "Inities (petites cap.)",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 28637.0
+  }
+ ],
  "launched_at": "2026-10-13T10:17:04Z",
- "edgar_days_done": [],
- "hold_until": {},
- "events_log": [],
+ "edgar_days_done": [
+  "2026-10-13"
+ ],
+ "hold_until": {
+  "ONMD": "2027-04-08",
+  "PED": "2027-04-08",
+  "SWZ": "2027-04-08"
+ },
+ "events_log": [
+  {
+   "filing_date": "2026-10-13",
+   "ticker": "AVO",
+   "issuer": "Mission Produce, Inc.",
+   "value_usd": 594785,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 13632154,
+   "decision": "liquidite hors bande (13.63 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-13",
+   "ticker": "GME",
+   "issuer": "GameStop Corp.",
+   "value_usd": 22774728,
+   "insiders": 1,
+   "title": "President, CEO and Chairman",
+   "adv_usd": 271854496,
+   "decision": "liquidite hors bande (271.85 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-13",
+   "ticker": "ONMD",
+   "issuer": "OneMedNet Corp",
+   "value_usd": 999999,
+   "insiders": 2,
+   "title": "Chief Medical Officer",
+   "adv_usd": 419186,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-13",
+   "ticker": "PED",
+   "issuer": "PEDEVCO CORP",
+   "value_usd": 1911910,
+   "insiders": 1,
+   "title": "Chief Executive Officer",
+   "adv_usd": 432086,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-13",
+   "ticker": "RTSN",
+   "issuer": "Retension Pharmaceuticals, Inc.",
+   "value_usd": 369600,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": null,
+   "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-10-13",
+   "ticker": "SAR",
+   "issuer": "SARATOGA INVESTMENT CORP.",
+   "value_usd": 445800,
+   "insiders": 1,
+   "title": "CEO and Director",
+   "adv_usd": 2815476,
+   "decision": "liquidite hors bande (2.82 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-13",
+   "ticker": "SWZ",
+   "issuer": "Total Return Securities Fund",
+   "value_usd": 28637,
+   "insiders": 1,
+   "title": "Secretary",
+   "adv_usd": 203885,
+   "decision": "achat"
+  }
+ ],
  "counters": {
-  "jours": 0,
-  "evenements": 0,
-  "retenus": 0,
-  "achetes": 0,
+  "jours": 1,
+  "evenements": 7,
+  "retenus": 3,
+  "achetes": 3,
   "complet": 0,
   "prolonges": 0
  }
