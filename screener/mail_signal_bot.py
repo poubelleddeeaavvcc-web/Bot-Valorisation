@@ -1264,7 +1264,11 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
         for m in classified:
             if m["profile"] in (MODE_BROKERS, MODE_ZACKS):
                 if m["profile"] == MODE_BROKERS and not m["article"]:
-                    failed.add(m["id"])  # the list is only in the article -- retried next run
+                    # the list is only in the article, and zonebourse.com answers HTTP 403 to GitHub's
+                    # runners (2026-10-14, every link) while a home connection reads it -- a permanent
+                    # refusal, not something to retry or work around. The user chose to leave it so
+                    # for now (a relay from their PC was offered).
+                    done.add(m["id"])
                 else:
                     extracted.append((m, []))  # read by its parser below, no Ollama call
                 continue
