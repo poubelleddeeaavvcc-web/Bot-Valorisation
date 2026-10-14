@@ -64,6 +64,12 @@ FETCHABLE_DOMAINS), the full article text replaces the teaser. Seeking Alpha is 
 that list: it answers a plain GET with a PerimeterX CAPTCHA wall -- bot-detection, not something
 this bot tries to bypass.
 
+BROKER RATING CHANGES (2026-10-14, see _parse_broker_changes): zonebourse's Morning Meeting article
+lists the day's broker upgrades/downgrades in a fixed section that the 1800-character extract never
+reached. It is read deterministically (no Ollama), scored as its own publication
+("Recos courtiers (zonebourse.com)") with the broker as author, and the target price's currency
+picks the listing (European line rather than a US receipt).
+
 ATTRIBUTION (see _publication()): PRIVACY / REPO-PUBLIC CONSTRAINT -- this repo pushes to a public
 GitHub remote. The user's explicit choice (2026-09-11): never persist the sender's email address.
 The sending domain is kept (e.g. "seekingalpha.com"). For newsletter PLATFORMS (beehiiv, substack,
@@ -135,7 +141,10 @@ RUN_BUDGET_MIN = float(os.environ.get("MAIL_BOT_BUDGET_MIN", "40"))
 # ARTICLE FETCH -- see module docstring. A domain not listed here is never fetched.
 FETCHABLE_DOMAINS = ("zonebourse.com", "tradingsat.com")
 ARTICLE_FETCH_TIMEOUT = 15
-ARTICLE_FETCH_TRUNCATE = EXTRACT_TRUNCATE
+# The fetched article is kept WHOLE (up to this cap) since 2026-10-14: the Ollama extraction still
+# only sees its first EXTRACT_TRUNCATE characters, but the deterministic broker-changes parser (see
+# _parse_broker_changes) reads the whole page -- zonebourse's list sits ~7000 characters in.
+ARTICLE_FETCH_TRUNCATE = 40000
 ARTICLE_LINK_CANDIDATES = 5
 ARTICLE_FETCH_MAX_WORKERS = 4
 # A full "Chrome 120" UA without the matching Sec-* headers tripped zonebourse.com's bot-detection
@@ -482,8 +491,8 @@ def _rank_article_links(links: list[str], subject: str) -> list[str]:
 
 
 def _fetch_article_extract(links: list[str], subject: str = "") -> str | None:
-    """Full article text from the best-ranked link (see _rank_article_links) that resolves to a
-    FETCHABLE_DOMAINS HTML page, or None."""
+    """Full article text (up to ARTICLE_FETCH_TRUNCATE) from the best-ranked link (see
+    _rank_article_links) that resolves to a FETCHABLE_DOMAINS HTML page, or None."""
     for link in _rank_article_links(links, subject)[:ARTICLE_LINK_CANDIDATES]:
         try:
             resp = requests.get(link, headers=_FETCH_HEADERS, timeout=ARTICLE_FETCH_TIMEOUT, allow_redirects=True)
@@ -626,6 +635,139 @@ def _explicit_rating(citation: str) -> str | None:
     return None
 
 
+# ---------------------------------------------------------------------------------------------
+# Broker rating changes listed in zonebourse's Morning Meeting (2026-10-14)
+# ---------------------------------------------------------------------------------------------
+# The user's question: "ZoneBourse est une newsletter que tu recois mais il n'y a jamais
+# d'investissement". The email is only a teaser; the full article (fetched, see ARTICLE FETCH) ends
+# with a fixed section "Les principaux changements de recommandations" -- 15-25 lines a day like
+# "Pennon Group : Jefferies releve sa recommandation de conserver a acheter et reduit son objectif
+# de cours de 500 a 380 GBX." -- ~7000 characters into the page, so the 1800-character extract the
+# model sees never reached it: 26 Morning Meetings, 0 tips. The list is regular enough to be read
+# WITHOUT Ollama: each line is a rating change written out (explicit by construction, like the
+# _explicit_rating fast path), costs no CI time, and can't be hallucinated. Only rating CHANGES
+# count -- an upgrade/downgrade or a coverage started at buy/sell; "reste a l'achat avec un
+# objectif releve" is no new opinion. They are scored as their own publication (BROKER_PUBLICATION),
+# the issuing broker kept as author, since they are the brokers' opinions, not zonebourse's.
+BROKER_SECTION_TITLE = "changements de recommandations"
+BROKER_SECTION_ENDS = ("annonces importantes", "dans le vaste monde", "les principales publications")
+BROKER_SECTION_MAX = 8000
+BROKER_PUBLICATION = "Recos courtiers (zonebourse.com)"
+_BROKER_UP_VERBS = {"releve", "relevee", "rehausse", "remonte", "upgrade"}
+_BROKER_DOWN_VERBS = {"degrade", "abaisse", "retrograde", "relegue", "downgrade"}
+_BROKER_INIT_VERBS = {"demarre", "initie", "entame", "debute", "inaugure"}
+_BROKER_CLAUSE_STOP = {"avec", "et", "tout", "mais", "apres", "sur", "en"}
+_BROKER_TARGET_WORDS = {"objectif", "objectifs", "lobjectif", "prevision", "previsions", "estimation", "estimations"}
+# normalized (see _norm_text) -- "sous-performance" -> "sous performance", "d'acheter" -> "dacheter"
+# (hence substring matching); bearish first so "sous ponderer" is never read as "ponderer"
+_RATING_BEARISH = ("vente", "vendre", "sous performance", "sousperformance", "sous ponderer", "souponderer",
+                   "sousponderer", "sous pondere", "alleger", "reduire", "underperform", "underweight", "sell")
+_RATING_BULLISH = ("achat", "acheter", "surperformance", "sur performance", "surponderer", "sur ponderer",
+                   "surpondere", "renforcer", "accumuler", "outperform", "overweight", "buy")
+_RATING_NEUTRAL = ("neutre", "conserver", "ponderation", "en ligne", "performance", "hold", "equal weight",
+                   "market perform")
+_RATING_RANK = {"baissier": 0, "neutre": 1, "haussier": 2}
+# Currency of the target price -> exchanges of the listing it refers to (Yahoo codes): a grounded
+# way to pick the European line ("Vinci ... 139 EUR" -> DG.PA, not a US OTC receipt).
+_CURRENCY_EXCHANGES = {
+    "EUR": {"PAR", "AMS", "BRU", "LIS", "MIL", "MCE", "GER", "FRA", "VIE", "ISE", "HEL"},
+    "CHF": {"SWX", "EBS"}, "GBX": {"LSE"}, "GBP": {"LSE"}, "SEK": {"STO"}, "DKK": {"CPH"}, "NOK": {"OSL"},
+    "USD": {"NMS", "NYQ", "NGM", "NCM", "ASE", "PCX", "BTS", "NYSE", "NASDAQ", "AMEX"},
+}
+_BROKER_ENTRY_RE = re.compile(r"(?:^|(?<=[.!?] ))([A-ZÀ-ÖØ-Ý0-9][^:.;!?]{0,60}?) : ")
+_BROKER_SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+(?=[A-ZÀ-ÖØ-Ý])")
+
+
+def _rating_word(clause: str) -> str | None:
+    if any(w in clause for w in _RATING_BEARISH):
+        return "baissier"
+    if any(w in clause for w in _RATING_BULLISH):
+        return "haussier"
+    if any(w in clause for w in _RATING_NEUTRAL):
+        return "neutre"
+    return None
+
+
+def _classify_broker_sentence(sentence: str) -> str | None:
+    """"haussier"/"baissier" for a rating change written out in one broker sentence, else None.
+    Upgrade/downgrade verbs give the direction; the words right after the verb must name a rating
+    (so "releve l'objectif de cours" or "un objectif de cours releve de 57 a 76 CHF" don't count).
+    A coverage started ("demarre le suivi a l'achat") counts only at a buy or sell rating; "passe
+    de X a Y" by comparing the two ratings ("passe de surperformance a performance sectorielle")."""
+    toks = _norm_text(sentence).split()
+    found = set()
+    for i, t in enumerate(toks):
+        if t == "passe" and toks[i + 1:i + 2] == ["de"] and "a" in toks[i + 2:i + 8]:
+            j = toks.index("a", i + 2)
+            before, after = _rating_word(" ".join(toks[i + 2:j])), _rating_word(" ".join(toks[j + 1:j + 5]))
+            if before and after and before != after:
+                found.add("haussier" if _RATING_RANK[after] > _RATING_RANK[before] else "baissier")
+            continue
+        if t == "passe" and toks[i + 1:i + 2] == ["a"]:
+            rating = _rating_word(" ".join(toks[i + 2:i + 5]))
+            if rating in ("haussier", "baissier"):
+                found.add(rating)
+            continue
+        if t not in _BROKER_UP_VERBS | _BROKER_DOWN_VERBS | _BROKER_INIT_VERBS:
+            continue
+        if _BROKER_TARGET_WORDS & set(toks[max(0, i - 3):i]):
+            continue  # "objectif de cours releve ..." -- a target change, not a rating
+        clause = []
+        for w in toks[i + 1:i + 12]:
+            if w in _BROKER_CLAUSE_STOP and clause and clause[-1] not in ("de", "a"):
+                break
+            clause.append(w)
+        if _BROKER_TARGET_WORDS & set(clause[:2]):  # "releve (son) objectif ..."
+            continue
+        rating = _rating_word(" ".join(clause))
+        if rating is None:
+            continue
+        if t in _BROKER_INIT_VERBS:
+            if rating in ("haussier", "baissier"):
+                found.add(rating)
+        else:
+            found.add("haussier" if t in _BROKER_UP_VERBS else "baissier")
+    return found.pop() if len(found) == 1 else None
+
+
+def _parse_broker_changes(article: str) -> list[dict]:
+    """Rating changes of the "Les principaux changements de recommandations" section of a
+    zonebourse Morning Meeting article, as raw tips (company, sentiment, citation, author = the
+    broker, target-price currency). A company given opposite changes by two brokers the same day is
+    left out."""
+    norm_low = article.lower()
+    start = norm_low.find(BROKER_SECTION_TITLE)
+    if start == -1:
+        return []
+    body_start = start + len(BROKER_SECTION_TITLE)
+    end = min([p for p in (norm_low.find(e, body_start) for e in BROKER_SECTION_ENDS) if p != -1]
+              or [body_start + BROKER_SECTION_MAX])
+    section = re.sub(r"\s+", " ", article[body_start:min(end, body_start + BROKER_SECTION_MAX)]).strip()
+    entries = list(_BROKER_ENTRY_RE.finditer(section))
+    by_company = {}
+    for k, m in enumerate(entries):
+        company = m.group(1).strip()
+        body = section[m.end():entries[k + 1].start() if k + 1 < len(entries) else len(section)].strip()
+        for sentence in _BROKER_SENTENCE_SPLIT_RE.split(body):
+            sentence = sentence.strip()
+            sens = _classify_broker_sentence(sentence)
+            if sens is None:
+                continue
+            verb = re.search(r"\s(rel[eè]v|rehausse|remonte|d[ée]grad|abaiss|r[ée]trograd|rel[ée]gu|d[ée]marr|initi|"
+                             r"entam|d[ée]but|inaugur|upgrad|downgrad|passe\s)", sentence, re.IGNORECASE)
+            author = sentence[:verb.start()].strip() if verb else ""
+            cur = re.search(r"\b(EUR|USD|CHF|GBX|GBP|SEK|DKK|NOK)\b", sentence)
+            by_company.setdefault(company, []).append({
+                "company": company, "sentiment": sens, "citation": sentence[:300], "ticker": "",
+                "author": author if 0 < len(author) <= 40 else "", "currency_hint": cur.group(1) if cur else None,
+            })
+    tips = []
+    for company, rows in by_company.items():
+        if len({r["sentiment"] for r in rows}) == 1:
+            tips.append(rows[0])
+    return tips
+
+
 def _validate_tip(tip: dict, text: str) -> tuple:
     """Deterministic checks on one raw tip -- returns (cleaned tip, None) or (None, reason)."""
     company = str(tip.get("company") or "").strip()
@@ -726,17 +868,23 @@ def _search_quotes(query: str) -> list[dict]:
         return []
 
 
-def _resolve_instrument(company: str, ticker_in_text: str) -> tuple:
+def _resolve_instrument(company: str, ticker_in_text: str, currency_hint: str | None = None) -> tuple:
     """GROUNDING BACKSTOP -- returns ({ticker, price, currency, name, exchange}, None) or
     (None, reason). Candidates: the ticker only if literally written in the email (exact symbol
     match on Yahoo), then Yahoo's own search by the company name copied from the email. Each must
     be an EQUITY on a primary exchange whose Yahoo name matches the company. 2026-09-15 note still
     holds: never search by a guessed ticker ("TSMC" search ranks an unrelated Italian OTC stock
-    above Taiwan Semiconductor)."""
+    above Taiwan Semiconductor). `currency_hint` = the currency written in the tip itself (a
+    broker's target price): Yahoo's results on that currency's exchanges are tried first."""
     candidates = []
     if ticker_in_text:
         candidates += [q for q in _search_quotes(ticker_in_text) if str(q.get("symbol", "")).upper() == ticker_in_text][:1]
-    candidates += _search_quotes(company)
+    by_name = _search_quotes(company)
+    folded = unicodedata.normalize("NFKD", company).encode("ascii", "ignore").decode("ascii")
+    if not by_name and folded != company:  # Yahoo's search finds nothing for "Jerónimo Martins"
+        by_name = _search_quotes(folded)
+    preferred = _CURRENCY_EXCHANGES.get(currency_hint or "", set())
+    candidates += sorted(by_name, key=lambda q: str(q.get("exchange", "")).upper() not in preferred)  # stable
     first_reason, tried, hopped = None, set(), False
     while candidates:
         q = candidates.pop(0)
@@ -830,7 +978,8 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
                                                                         m["subject"]),
                                        classified)))
         for m in classified:
-            m["extract_text"] = fetched.get(m["id"]) or m["text"][:EXTRACT_TRUNCATE]
+            m["article"] = fetched.get(m["id"]) or ""
+            m["extract_text"] = (m["article"] or m["text"])[:EXTRACT_TRUNCATE]
 
         extracted = []
         for m in classified:
@@ -868,8 +1017,14 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
                     verified.append(clean)
             if not complete:
                 continue  # retried next run -- its rejects so far are dropped too, to avoid duplicates
+            for raw in _parse_broker_changes(m["article"]):  # explicit by construction -- no Ollama call
+                clean, reason = _validate_tip(raw, m["article"])
+                if clean is None:
+                    mail_rejects.append(_reject_row(m, raw, reason))
+                    continue
+                verified.append({**clean, "publication": BROKER_PUBLICATION, "currency_hint": raw["currency_hint"]})
             for tip in verified:
-                resolved, reason = _resolve_instrument(tip["company"], tip["ticker_in_text"])
+                resolved, reason = _resolve_instrument(tip["company"], tip["ticker_in_text"], tip.get("currency_hint"))
                 if resolved is None:
                     mail_rejects.append(_reject_row(m, tip, reason))
                     continue
@@ -877,7 +1032,8 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
                     continue
                 seen.add((m["id"], resolved["ticker"]))
                 signals.append({
-                    "message_id": m["id"], "mail_date_utc": m["date_utc"], "publication": m["publication"],
+                    "message_id": m["id"], "mail_date_utc": m["date_utc"],
+                    "publication": tip.get("publication") or m["publication"],
                     "domain": m["source"], "author": tip["author"], "company": tip["company"],
                     "ticker": resolved["ticker"], "name": resolved["name"], "exchange": resolved["exchange"],
                     "currency": resolved["currency"], "price": resolved["price"],
