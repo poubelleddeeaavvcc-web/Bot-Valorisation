@@ -750,5 +750,13 @@
       "reason": "10-K SEC (2026-08-06) : No one customer accounted for more than 10% of Covista s consolidated revenue [https://www.sec.gov/Archives/edgar/data/730464/000110465926092044/cvsa-20260630x10k.htm]",
       "source": "sec_10k"
     }
+  },
+  "BBVA": {
+    "checked_at": "2026-10-14",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise propose des services financiers à un large éventail de clients dans plusieurs pays et régions géographiques, indiquant une diversification de ses activités et de ses clients.",
+      "source": "ollama"
+    }
   }
 }

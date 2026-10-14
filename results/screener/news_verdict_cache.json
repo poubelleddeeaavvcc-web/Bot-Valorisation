@@ -4882,5 +4882,11 @@
     "sentiment": "positive",
     "reason": "Les actualites presentes montrent une augmentation de 60% de la valeur de l'action de TG Therapeutics en 6 mois, ainsi que des resultats positifs des analyses de disability avec BRIUMVI et ofatumumab.",
     "source": "ollama"
+  },
+  "BBVA_2026-10-14": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "L'actualité présente une mélange de résultats positifs (dividendes, cible de Citi) et négatifs (décision de baisse du 7 octobre) sans évoquer une tendance clairement dominante.",
+    "source": "ollama"
   }
 }
