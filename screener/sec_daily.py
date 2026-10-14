@@ -1,6 +1,5 @@
 """EDGAR daily-index helpers shared by the filing-text bots (2026-10-14): #49 Ton des communiques (8-K earnings
-releases, simulate_tone_portfolio.py) and #50 Rapports inchanges (10-K / 10-Q year-on-year text, simulate_lazy_
-portfolio.py). Same fair-access discipline as sec_form4.py (repo SEC User-Agent, ~5 requests/second at most).
+releases, simulate_tone_portfolio.py) and #50 Rapports inchanges (10-K / 10-Q year-on-year text, simulate_lazy_portfolio.py). Same fair-access discipline as sec_form4.py (repo SEC User-Agent, ~5 requests/second at most).
 
 daily_filings(day, forms) -> rows of that day's form index (form, company, cik, accession, archive path), or None
 when the index does not exist (not published yet, or EDGAR closed: a missing index answers 403);

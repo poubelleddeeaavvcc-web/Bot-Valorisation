@@ -2,8 +2,8 @@
 (simulate_quality_portfolio.py), #42 Valeur (simulate_value_portfolio.py) and #43 Tendance
 (simulate_trend_portfolio.py), then #44 Retour a la moyenne (simulate_rsi2_portfolio.py), #45 Inities petites capitalisations
 (simulate_insider_portfolio.py), #46 Commandes publiques (simulate_govcontracts_portfolio.py), #47 Attention
-Wikipedia (simulate_wikiattention_portfolio.py) #48 Copie des elus (simulate_congress_portfolio.py) and #49 Ton des communiques
-(simulate_tone_portfolio.py). Per the user (2026-10-12): the ~40 earlier bots are one strategy
+Wikipedia (simulate_wikiattention_portfolio.py) #48 Copie des elus (simulate_congress_portfolio.py) #49 Ton des communiques
+(simulate_tone_portfolio.py) and #50 Rapports inchanges (simulate_lazy_portfolio.py). Per the user (2026-10-12): the ~40 earlier bots are one strategy
 (value + momentum screener) in many variants, so these three each test ONE independent idea, to be
 combined later once each has its own track record.
 
