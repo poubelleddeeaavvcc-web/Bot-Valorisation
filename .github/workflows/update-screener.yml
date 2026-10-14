@@ -494,6 +494,12 @@ jobs:
       - name: Strategie Commandes publiques (Bot #46)
         run: python screener/simulate_govcontracts_portfolio.py
 
+      # Bot #47 (2026-10-14) : timing de marche sur les vues Wikipedia des pages des 30 societes du Dow
+      # (Moat et al. 2013) ; decision hebdomadaire le premier jour de bourse, avant la cloture -- voir
+      # simulate_wikiattention_portfolio.py.
+      - name: Strategie Attention Wikipedia (Bot #47)
+        run: python screener/simulate_wikiattention_portfolio.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
