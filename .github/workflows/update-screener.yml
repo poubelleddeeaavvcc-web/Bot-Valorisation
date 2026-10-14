@@ -500,6 +500,12 @@ jobs:
       - name: Strategie Attention Wikipedia (Bot #47)
         run: python screener/simulate_wikiattention_portfolio.py
 
+      # Bot #48 (2026-10-14) : copie des achats d'actions declares par les elus de la Chambre (index du
+      # greffe rafraichi chaque jour, PDF lus avec PyMuPDF) ; traceur sans edge attendu -- voir
+      # simulate_congress_portfolio.py.
+      - name: Strategie Copie des elus (Bot #48)
+        run: python screener/simulate_congress_portfolio.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
