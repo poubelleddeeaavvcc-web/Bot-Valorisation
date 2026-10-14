@@ -9,9 +9,15 @@ Components (each normalised to 1 at the mix's start or last rebalance):
   - T1 #43 tendance (trend_*);
   - I1 #45 inities petites capitalisations (insider_*), added 2026-10-13 -- in the 2008-2026 backtest it
     lifted the mix's Sharpe from 0.66 to 0.79 (its excess return runs -0.31 against the value proxy).
+  - G1 #46 commandes publiques (govcontracts_*) and W1 #47 attention Wikipedia (wikiattention_*), added
+    2026-10-14 at the user's request. Backtest 2015-10 -> 2026-09 (the window where W1's page views exist,
+    scratchpad combo_m1_g1w1.py): mix Sharpe 0.86 -> 0.93 (2015-20 0.66 -> 0.80, 2021-26 1.10 -> 1.09), worst
+    drawdown -17.9% -> -21.0%. Caveats: both are mostly equity exposure (monthly correlation with the value
+    proxy 0.76 for G1, 0.59 for W1), and G1's backtest only holds contractors still listed today.
 Weights: risk parity, inverse of each component's long-run volatility, FIXED from the 2007-2026 backtest
 of 2026-10-12 (proxies: 50/50 IWD+EFV for the screener, SPY RSI2, 8-ETF trend, small-cap insider book;
-median trailing-252-day vols 15.2% / 5.8% / 6.7% / 16.2%). Weights changed on 2026-10-13 when I1 joined:
+median trailing-252-day vols 15.2% / 5.8% / 6.7% / 16.2%; G1 20.9% and W1 10.7% over 2015-2026, the window of their
+data). Weights changed on 2026-10-13 when I1 joined and on 2026-10-14 when G1 and W1 joined:
 the curve is rebuilt from the launch each run, so its first day now reflects them too. Re-estimate them from the live curves once they hold a year of history --
 not before (two months of data would just chase noise). Back to target weights on the first run of each
 month. Backtest 2007-2026: Sharpe 0.61 vs 0.33 for the undervaluation proxy alone, worst drawdown -18% vs
@@ -32,10 +38,11 @@ START = pd.Timestamp("2026-10-12T07:00:00Z")      # launch of the trend bot, fir
 BASE_EUR = 1000.0
 UNDERVALUATION = ["constrained_equity_curve.csv", "large_equity_curve.csv", "delta_equity_curve.csv"]
 COMPONENTS = {"Sous-evaluation": UNDERVALUATION, "R1": ["rsi2_equity_curve.csv"], "T1": ["trend_equity_curve.csv"],
-              "I1": ["insider_equity_curve.csv"]}
-LONG_RUN_VOL = {"Sous-evaluation": 0.152, "R1": 0.058, "T1": 0.067, "I1": 0.162}
+              "I1": ["insider_equity_curve.csv"], "G1": ["govcontracts_equity_curve.csv"],
+              "W1": ["wikiattention_equity_curve.csv"]}
+LONG_RUN_VOL = {"Sous-evaluation": 0.152, "R1": 0.058, "T1": 0.067, "I1": 0.162, "G1": 0.209, "W1": 0.107}
 _inv = {k: 1 / v for k, v in LONG_RUN_VOL.items()}
-WEIGHTS = {k: v / sum(_inv.values()) for k, v in _inv.items()}   # ~0.15 / 0.38 / 0.33 / 0.14
+WEIGHTS = {k: v / sum(_inv.values()) for k, v in _inv.items()}   # ~0.11 / 0.29 / 0.25 / 0.10 / 0.08 / 0.16
 
 
 def curve(name: str) -> pd.Series:
