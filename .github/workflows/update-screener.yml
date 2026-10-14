@@ -488,6 +488,12 @@ jobs:
       - name: Strategie Inities petites capitalisations (Bot #45)
         run: python screener/simulate_insider_portfolio.py
 
+      # Bot #46 (2026-10-14) : sous-traitants de l'Etat federal dont le carnet de commandes publiques
+      # (USAspending) grossit plus que prevu, revision mensuelle ; la mise a jour (~95 appels API) est
+      # etalee sur plusieurs passages (40 par run) -- voir simulate_govcontracts_portfolio.py.
+      - name: Strategie Commandes publiques (Bot #46)
+        run: python screener/simulate_govcontracts_portfolio.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
