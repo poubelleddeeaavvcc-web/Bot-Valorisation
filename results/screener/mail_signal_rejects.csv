@@ -1,9 +1,4 @@
 date_utc,publication,company,ticker,sentiment,citation,motif
-2026-10-05T07:33:22+00:00,tradingsat.com,Mersen,,haussier,"Mersen, qui a connu une forte baisse ces derniers mois, est une opportunité d'achat.",citation introuvable mot pour mot dans le mail
-2026-10-05T08:12:46+00:00,seekingalpha.com,Nvidia,NVDA,haussier,Nvidia’s valuation shows AI stocks are far from a bubble,"verification : pas d'avis explicite (La citation ne contient pas de recommandation d'achat ou de vente, ni de notation, ni d'objectif de cours, ni de conclus)"
-2026-10-05T08:53:34+00:00,gmail.com,GOLD,,haussier,"L’or profite d’un emploi américain décevant, qui réduit les anticipations de hausses des taux de la Fed.",'GOLD' n'est pas une societe cotee
-2026-09-07T08:00:31+00:00,gmail.com,Oracle,,baissier,Le véritable test pour l'optimisme du marché réside dans la publication des résultats d'Oracle et d'Adobe.,'Oracle' n'est pas nomme a cote de la citation (avis sur une autre societe ?)
-2026-09-07T08:00:31+00:00,gmail.com,Adobe,,baissier,Le véritable test pour l'optimisme du marché réside dans la publication des résultats d'Oracle et d'Adobe.,'Adobe' n'est pas nomme a cote de la citation (avis sur une autre societe ?)
 2026-09-09T10:06:20+00:00,seekingalpha.com,Grown Rogue,,haussier,"targeting sustainable growth in an immature, volatile cannabis market","verification : pas d'avis explicite (La citation ne contient pas de recommandation d'achat ou de vente, ni de notation, ni d'objectif de cours, ni de conclus)"
 2026-09-09T10:06:20+00:00,seekingalpha.com,Nvidia,NVDA,haussier,NVDA aims to secure a strategic ecosystem control,citation introuvable mot pour mot dans le mail
 2026-09-09T10:06:20+00:00,seekingalpha.com,Alphabet,,baissier,I'm Out,citation introuvable mot pour mot dans le mail
@@ -999,3 +994,8 @@ date_utc,publication,company,ticker,sentiment,citation,motif
 2026-10-01T12:05:13+00:00,seekingalpha.com,Veritone,,baissier,Veritone announces $15M registered direct offering,verification : sens haussier (L'annonce d'une offre directe de 15 millions de dollars peut être interprétée comme un signe de confiance de la part des)
 2026-10-01T12:50:22+00:00,seekingalpha.com,SpaceX,,haussier,"SpaceX: In 10 Years, Your Kids Will Thank You For Buying After Starship Made Orbit",SPCX = 'Space Exploration Technologies Corp.' ne correspond pas a 'SpaceX'
 2026-10-01T14:10:14+00:00,seekingalpha.com,S&P 500,,haussier,But Here's Why I'm Bullish,'S&P 500' n'est pas une societe cotee
+2026-10-01T20:39:30+00:00,seekingalpha.com,AI stocks,,haussier,create attractive opportunities in fundamentally strong companie,aucune cotation trouvee pour 'AI stocks'
+2026-10-01T20:39:30+00:00,seekingalpha.com,SPY,,baissier,8 out of 11 SPY sectors are below their 200 dma levels,SPY n'est pas une action (ETF)
+2026-10-02T11:58:40+00:00,tipranks.com,SpaceX,,haussier,"That should bring ever-larger opportunities for investors, given the major space stocks are definitely going to get a piece of that pie.",'SpaceX' n'est pas nomme a cote de la citation (avis sur une autre societe ?)
+2026-10-02T11:58:40+00:00,tipranks.com,Rocket Lab,,haussier,"That should bring ever-larger opportunities for investors, given the major space stocks are definitely going to get a piece of that pie.",'Rocket Lab' n'est pas nomme a cote de la citation (avis sur une autre societe ?)
+2026-10-02T12:00:54+00:00,thedailyupside.com,TSMC,TSMC,haussier,"$212.30 ▲+15.78% Stock data as of market close on October 1, 2026.",'TSMC' n'est pas nomme a cote de la citation (avis sur une autre societe ?)
