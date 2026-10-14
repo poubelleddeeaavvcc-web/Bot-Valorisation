@@ -546,15 +546,32 @@ def _rank_article_links(links: list[str], subject: str) -> list[str]:
     return [link for _, _, link in sorted(ranked)]
 
 
-def _fetch_article_extract(links: list[str], subject: str = "") -> str | None:
+def _message_links(m: dict) -> list[str]:
+    """Links of an email: the DIRECT ones written in its text first (zonebourse's text/plain has
+    "https://www.zonebourse.com/actualite-bourse/..."), then the HTML's -- which are often click-
+    tracking redirects (Mailjet's mjt.lu): 2026-10-14, all 25 Morning Meetings of a CI run failed to
+    fetch through them while the direct URL works, and a direct URL doesn't log a click as the user."""
+    plain = [l.rstrip(".,;") for l in re.findall(r"https?://[^\s<>\"'\]\[()]+", m.get("text", ""))]
+    plain = [l for l in plain if not any(x in l.lower() for x in _EXCLUDE_LINK_SUBSTR)]
+    return list(dict.fromkeys(plain + _extract_article_links(m.get("html", ""))))
+
+
+def _fetch_article_extract(links: list[str], subject: str = "", log: bool = False) -> str | None:
     """Full article text (up to ARTICLE_FETCH_TRUNCATE) from the best-ranked link (see
-    _rank_article_links) that resolves to a FETCHABLE_DOMAINS HTML page, or None."""
+    _rank_article_links) that resolves to a FETCHABLE_DOMAINS HTML page, or None. `log`: print why
+    each candidate failed (for emails whose tips are only in the article)."""
     for link in _rank_article_links(links, subject)[:ARTICLE_LINK_CANDIDATES]:
+        host0 = urllib.parse.urlsplit(link).netloc
         try:
             resp = requests.get(link, headers=_FETCH_HEADERS, timeout=ARTICLE_FETCH_TIMEOUT, allow_redirects=True)
-        except Exception:
+        except Exception as e:
+            if log:
+                print(f"  article {host0} : echec ({type(e).__name__})", file=sys.stderr)
             continue
         if resp.status_code != 200 or "html" not in resp.headers.get("content-type", "").lower():
+            if log:
+                print(f"  article {host0} -> {urllib.parse.urlsplit(resp.url).netloc} : HTTP {resp.status_code}",
+                      file=sys.stderr)
             continue
         host = urllib.parse.urlsplit(resp.url).netloc.lower()
         if not any(host == d or host.endswith("." + d) for d in FETCHABLE_DOMAINS):
@@ -1230,8 +1247,8 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
         to_fetch = [m for m in classified if m["profile"] in (MODE_ARTICLE, MODE_BROKERS, MODE_GENERIC)]
         with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_MAX_WORKERS) as ex:  # plain HTTP, no Ollama
             fetched = dict(zip((m["id"] for m in to_fetch),
-                                ex.map(lambda m: _fetch_article_extract(_extract_article_links(m.get("html", "")),
-                                                                        m["subject"]),
+                                ex.map(lambda m: _fetch_article_extract(_message_links(m), m["subject"],
+                                                                        log=m["profile"] == MODE_BROKERS),
                                        to_fetch)))
         for m in classified:
             m["article"] = fetched.get(m["id"]) or ""
@@ -1282,6 +1299,8 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
                     explicit = _explicit_rating(m["subject"])  # the model quoted the headline without "(Rating Upgrade)"
                 if explicit:
                     tip = {**tip, "sentiment": explicit}
+                elif tip.get("sentiment") == "neutre":
+                    continue  # no opinion, as STANCE_PROMPT asks to leave out (the model sometimes lists it anyway)
                 # citation checked against what the model saw AND the email itself (an article tip
                 # may quote the email's teaser)
                 clean, reason = _validate_tip(tip, m["extract_text"] + "\n" + m["text"])
