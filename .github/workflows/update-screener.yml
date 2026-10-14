@@ -506,6 +506,11 @@ jobs:
       - name: Strategie Copie des elus (Bot #48)
         run: python screener/simulate_congress_portfolio.py
 
+      # Bot #49 (2026-10-14) : ton anormal des communiques de resultats du S&P 500 (8-K 2.02, EX-99.1,
+      # index EDGAR quotidien), Huang-Teoh-Zhang 2014 -- voir simulate_tone_portfolio.py et sec_daily.py.
+      - name: Strategie Ton des communiques (Bot #49)
+        run: python screener/simulate_tone_portfolio.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
