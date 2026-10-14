@@ -10,6 +10,16 @@
       "id": "zonebourse-recos-courtiers-2026-10-14",
       "query": "from:zonebourse.com subject:\"Morning Meeting\" after:2026/09/03 before:2026/10/15",
       "reason": "La section 'Les principaux changements de recommandations' de l'article complet du Morning Meeting (~7000 caracteres apres le debut) n'etait jamais lue : l'extrait etait coupe a 1800 caracteres. 26 Morning Meetings, 0 avis. Lue desormais par _parse_broker_changes (sans Ollama)."
+    },
+    {
+      "id": "beehiiv-texte-vide-2026-10-14",
+      "query": "from:mail.beehiiv.com after:2026/09/19 before:2026/10/15",
+      "reason": "La version texte des mails beehiiv (American Market News, Stock Market News, Alpha Signals...) ne contient qu'un lien vers la version web : le bot ne lisait rien. Le HTML est lu desormais, et seul l'article mis en avant (profil 'article mis en avant')."
+    },
+    {
+      "id": "zacks-rank-portefeuille-2026-10-14",
+      "query": "from:email.zacks.com subject:\"Daily portfolio update\" after:2026/09/03 before:2026/10/15",
+      "reason": "Le tableau 'Portfolio Summary' (changements de Zacks Rank) n'etait jamais lu : le CSS de la page remplissait l'extrait. Lu desormais par _parse_zacks_rank_changes (sans Ollama)."
     }
   ]
 }

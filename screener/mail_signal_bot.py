@@ -64,6 +64,11 @@ FETCHABLE_DOMAINS), the full article text replaces the teaser. Seeking Alpha is 
 that list: it answers a plain GET with a PerimeterX CAPTCHA wall -- bot-detection, not something
 this bot tries to bypass.
 
+NEWSLETTER PROFILES (2026-10-14, see _source_profile): each known newsletter is read where it puts a
+stock forward -- the featured headline of a digest, a structured list (broker changes, Zacks Rank),
+the company paragraphs of a news letter (scored apart as "<name> (ton)") -- and its promotions are
+skipped without any Ollama call. Unknown senders keep the generic reading.
+
 BROKER RATING CHANGES (2026-10-14, see _parse_broker_changes): zonebourse's Morning Meeting article
 lists the day's broker upgrades/downgrades in a fixed section that the 1800-character extract never
 reached. It is read deterministically (no Ollama), scored as its own publication
@@ -303,6 +308,41 @@ Citation : "{citation}"
 """
 
 
+# THESIS / TONE (2026-10-14, see "Newsletter profiles"): for a featured headline (MODE_TITLE) or a
+# news paragraph (MODE_NEWS) -- the conclusion for a shareholder, not a formal rating.
+STANCE_PROMPT = """Tu lis un passage de newsletter financiere : un titre d'article d'analyse (eventuellement suivi de son auteur et d'un resume), ou un paragraphe d'actualite. Identifie la ou les SOCIETES COTEES PRECISES ET NOMMEES qui sont le SUJET PRINCIPAL du passage (maximum {max_tickers}) -- pas une societe citee en passant, ni un pays, un indice, une devise, une matiere premiere, une crypto, un fonds/ETF, une banque centrale ou une societe non cotee.
+
+Pour chacune, donne la CONCLUSION du passage pour un actionnaire de cette societe :
+- "haussier" : le passage la presente favorablement (achat, opportunite, sous-evaluee, solide, perspectives qui s'ameliorent) ;
+- "baissier" : le passage la presente defavorablement (vendre, trop chere, menace, perspectives qui se degradent, prudence) ;
+- "neutre" : simple fait sans jugement, avis partage ou hesitant -- dans ce cas NE LA RETIENS PAS.
+Ne deduis jamais le sens du seul mouvement passe du cours : une baisse passee peut etre presentee comme une opportunite.
+
+Pour chaque societe retenue, donne :
+- "company" : son nom EXACTEMENT tel qu'ecrit dans le passage
+- "ticker" : le symbole boursier SEULEMENT s'il est ecrit tel quel dans le passage, sinon ""
+- "sentiment" : "haussier" ou "baissier"
+- "citation" : la phrase du passage qui porte cette conclusion, COPIEE MOT POUR MOT (pour un titre : le titre lui-meme)
+- "author" : l'auteur SEULEMENT s'il est ecrit dans le passage, sinon ""
+
+Si aucune societe ne remplit ces conditions, reponds avec une liste vide.
+
+Reponds UNIQUEMENT en JSON : {{"tips": [{{"company": "<NOM>", "ticker": "<SYMBOLE ou vide>", "sentiment": "haussier|baissier", "citation": "<phrase copiee>", "author": "<auteur ou vide>"}}, ...]}}
+
+Sujet : {subject}
+Passage : {body}
+"""
+
+STANCE_VERIFY_PROMPT = """Question : pour un actionnaire de la societe nommee a la fin, la phrase de newsletter donnee a la fin est-elle plutot favorable ("haussier"), defavorable ("baissier") ou sans jugement ("neutre") ? Juge la conclusion exprimee (opinion, perspective, opportunite, menace), pas le seul mouvement passe du cours. Une phrase qui porte sur une autre societe, ou une publicite, est "neutre".
+
+Reponds UNIQUEMENT en JSON : {{"sens": "haussier|baissier|neutre", "raison": "<une phrase courte>"}}
+
+Societe : {company}
+Sujet de la newsletter : {subject}
+Phrase : "{citation}"
+"""
+
+
 def _call_ollama_json(prompt: str) -> dict:
     payload = {"model": OLLAMA_MODEL, "prompt": prompt, "stream": False, "format": "json", "keep_alive": "20m",
                "options": OLLAMA_OPTIONS}
@@ -387,28 +427,44 @@ def _clean_plain_text(plain: str) -> str:
     """text/plain parts are not always plain (2026-10-08): zonebourse.com's carries raw HTML markup
     (sponsor <div>/<table> blocks filled most of the 1800-character extract), news.meilleurtaux.com's
     HTML entities ("l&rsquo;IA" -- a citation the model wrote with a real apostrophe then failed the
-    verbatim check). Only real tag names are stripped, so "<<Lire la suite>>" survives."""
+    verbatim check). Only real tag names are stripped, so "<<Lire la suite>>" survives. The <head>,
+    <style> and <script> blocks go first, CONTENT included (2026-10-14): email.zacks.com's text/plain
+    part is a whole HTML page and its CSS used to fill the extract."""
+    plain = re.sub(r"<(head|style|script)\b[^>]*>.*?</\1>|<!--.*?-->|<!DOCTYPE[^>]*>|</?(?:html|body)\b[^>]*>", " ",
+                   plain, flags=re.DOTALL | re.IGNORECASE)
     plain = html.unescape(_HTML_TAG_RE.sub(" ", plain))
     plain = re.sub(r"[ \t]+", " ", plain)
     return re.sub(r"\n\s*\n+", "\n", plain).strip()
 
 
+# A text/plain part this short, or saying it only points to the web version, is a stub: the HTML
+# part has the content (2026-10-14: every beehiiv newsletter -- American Market News, Stock Market
+# News, Alpha Signals... -- sends "You are reading a plain text version of this post [...] link", so
+# the bot read nothing of them).
+PLAIN_STUB_MAX_CHARS = 400
+_PLAIN_STUB_MARKERS = ("plain text version of this post", "view this post on the web")
+
+
 def _extract_text(payload: dict) -> str:
-    """text/plain part if there is one (see _clean_plain_text), else the HTML part converted to
-    text (script/style blocks removed and entities unescaped since 2026-10-03 -- an HTML-only
-    newsletter used to hand the model its CSS as the first 900 characters)."""
+    """text/plain part if there is a real one (see _clean_plain_text and PLAIN_STUB_MAX_CHARS),
+    else the HTML part converted to text (script/style blocks removed and entities unescaped since
+    2026-10-03 -- an HTML-only newsletter used to hand the model its CSS as the first 900 characters)."""
     stack = [payload]
-    html_fallback = None
+    plain, html_part = None, None
     while stack:
         part = stack.pop()
         mime = part.get("mimeType", "")
         body_data = part.get("body", {}).get("data")
-        if mime == "text/plain" and body_data:
-            return _clean_plain_text(_decode_part(body_data, _part_charset(part)))
-        if mime == "text/html" and body_data and html_fallback is None:
-            html_fallback = _decode_part(body_data, _part_charset(part))
+        if mime == "text/plain" and body_data and plain is None:
+            plain = _clean_plain_text(_decode_part(body_data, _part_charset(part)))
+        if mime == "text/html" and body_data and html_part is None:
+            html_part = _decode_part(body_data, _part_charset(part))
         stack.extend(part.get("parts", []) or [])
-    return _html_to_text(html_fallback) if html_fallback else ""
+    stub = plain is not None and (len(plain) < PLAIN_STUB_MAX_CHARS
+                                  or any(s in plain.lower() for s in _PLAIN_STUB_MARKERS))
+    if plain is not None and not (stub and html_part):
+        return plain
+    return _html_to_text(html_part) if html_part else ""
 
 
 def _extract_source(sender: str) -> str:
@@ -768,6 +824,177 @@ def _parse_broker_changes(article: str) -> list[dict]:
     return tips
 
 
+# ---------------------------------------------------------------------------------------------
+# Newsletter profiles (2026-10-14): read only the stock each newsletter puts forward
+# ---------------------------------------------------------------------------------------------
+# The user's direction: "etudie la maniere dont elles sont construites et va seulement lire l'action
+# qui est mise en avant". A study of every sender of the last 30 days found three families:
+#   - ONE FEATURED PIECE whose headline is the email's subject: Seeking Alpha's digests ("Today's
+#     Free Read" = subject, then ~25 other headlines the bot used to read at random), TipRanks
+#     (featured story among news teasers), MarketBeat's beehiiv letters and analystratings.net (one
+#     article per email). -> MODE_TITLE: the model only sees the subject + the teaser that follows
+#     that headline in the email, cut at the next section.
+#   - A STRUCTURED LIST read without Ollama: zonebourse's broker rating changes (MODE_BROKERS),
+#     Zacks Rank changes of the "Daily portfolio update" (MODE_ZACKS). tradingsat's "La valeur du
+#     jour : X" names its stock in the subject and is read from the fetched article (MODE_ARTICLE).
+#   - NEWS / MACRO letters: aktionnaire, meilleurtaux, The Daily Upside, Chartbook, MoneyRadar,
+#     Snowball, Virgil. No formal recommendation, but often one or a few companies discussed with a
+#     clear editorial tone -- the user (2026-10-14): "il y a souvent dans ces newsletters une ou
+#     plusieurs actions, isole-les et prends en compte la recommandation". -> MODE_NEWS: up to
+#     NEWS_MAX_BLOCKS paragraphs centred on a company (_news_blocks) are each read for their
+#     conclusion for a shareholder (STANCE_PROMPT), and scored as a SEPARATE publication
+#     "<name> (ton)" -- the journal then measures whether that tone carries information, without
+#     mixing it with the explicit recommendations.
+#   - PROMOTION / market wrap emails of the senders above (webinars, Premium offers, Zacks "Market
+#     Moves", zonebourse's weekly recap) -> MODE_SKIP: done without any Ollama call.
+# A featured headline or a news paragraph is a thesis, not a formal rating: both go through
+# STANCE_PROMPT / STANCE_VERIFY_PROMPT (direction of the conclusion), not the "explicit opinion"
+# prompts -- which rejected "Why We're Buying VICI Properties At An 8% Yield" (local test, 2026-10-14).
+# Any other sender keeps the generic pipeline (MODE_GENERIC) -- the log names it, so a new
+# newsletter can be given its profile once its layout is known.
+MODE_SKIP, MODE_TITLE, MODE_ARTICLE, MODE_BROKERS, MODE_ZACKS, MODE_NEWS, MODE_GENERIC = (
+    "ignoree", "article mis en avant", "article du site", "recos courtiers", "zacks rank", "actualite (ton)",
+    "generique")
+NEWS_MAX_BLOCKS = 3
+NEWS_BLOCK_CHARS = 900
+NEWS_PUBLICATION_SUFFIX = " (ton)"
+# normalized words of a paragraph about a listed company (see _news_blocks)
+_STOCK_WORDS = ("action", "actions", "titre", "bourse", "cours", "capitalisation", "actionnaire", "actionnaires",
+                "investisseurs", "chiffre daffaires", "resultats", "benefice", "dividende", "valorisation",
+                "analystes", "rachat", "stock", "stocks", "shares", "shareholders", "investors", "earnings",
+                "revenue", "valuation", "analysts", "dividend", "buyback", "guidance", "market cap",
+                "ventes", "marge", "dette", "perte", "augmentation de capital", "croissance", "rentabilite",
+                "sales", "margin", "debt", "profit", "growth")
+NEWS_ONLY_DOMAINS = ("aktionnaire.com", "meilleurtaux.com", "thedailyupside.com", "snowball.xyz", "wearevirgil.com")
+NEWS_ONLY_PUBLICATIONS = ("chartbook", "adam tooze", "moneyradar")  # substack newsletters, by display name
+# Seeking Alpha digests that feature one article (normalized, see _norm_text); its other emails
+# (Wall Street Breakfast news, quizzes, webinars, Alpha Picks promos) have none of these
+SA_FEATURED_MARKERS = ("todays free read", "todays free analysis", "free trending article", "trending now")
+FEATURED_BLOCK_CHARS = 900
+# where the featured piece's teaser ends and the next item of the email starts
+_FEATURED_END_MARKERS = ("trending analysis", "more top analysis", "more trending", "top analysis",
+                         "continue reading", "read more", "lire la suite", "discover more")
+ZACKS_PUBLICATION = "Zacks Rank (email.zacks.com)"
+_ZACKS_ROW_RE = re.compile(r"\b([A-Z][A-Z.\-]{0,6})\s+([1-5])\s*([▲▼])\s+[\d,]+\.\d+\s+[+\-][\d,]+\.\d+\s*\([^)]*\)")
+
+
+def _source_profile(m: dict) -> str:
+    """Reading mode of one email -- see the comment block above."""
+    dom, sender = m["source"], (m.get("sender") or "").lower()
+    subj, pub = _norm_text(m["subject"]), m["publication"].lower()
+
+    def on(*domains):
+        return any(dom == d or dom.endswith("." + d) for d in domains)
+
+    if on(*NEWS_ONLY_DOMAINS) or any(p in pub for p in NEWS_ONLY_PUBLICATIONS):
+        return MODE_NEWS
+    if on("zonebourse.com"):
+        return MODE_BROKERS if subj.startswith("morning meeting") else MODE_SKIP
+    if on("tradingsat.com"):
+        return MODE_ARTICLE if "valeur du jour" in subj else MODE_SKIP
+    if on("zacks.com"):
+        return MODE_ZACKS if "portfolio update" in subj else MODE_SKIP
+    if on("seekingalpha.com") or "seekingalpha" in sender:
+        text = _norm_text(m["text"][:3000])
+        return MODE_TITLE if any(k in text for k in SA_FEATURED_MARKERS) else MODE_SKIP
+    if on("analystratings.net"):
+        return MODE_SKIP if "partners@" in sender else MODE_TITLE  # partners@ = paid promotions
+    if on("tipranks.com"):  # the daily letter, not its Premium sales emails
+        text = _norm_text(m["text"])
+        return MODE_TITLE if "top stories" in text or "continue reading" in text else MODE_SKIP
+    if on("beehiiv.com") and "moneyradar" not in pub:
+        return MODE_TITLE
+    return MODE_GENERIC
+
+
+def _featured_block(m: dict) -> str:
+    """The subject (= the featured piece's headline) + the teaser that follows where the email
+    repeats it, up to the next item (_FEATURED_END_MARKERS) -- never the rest of the digest."""
+    subject = re.sub(r"^[^\w'\"‘“(]+", "", m["subject"]).strip()  # emoji / symbol prefixes
+    text = m["text"]
+    low = text.lower()
+    pos = -1
+    for probe in (subject.lower(), subject.lower()[:50]):
+        if len(probe) >= 15:
+            pos = low.find(probe)
+            if pos != -1:
+                break
+    after = text[pos + len(subject):pos + len(subject) + FEATURED_BLOCK_CHARS] if pos != -1 else ""
+    low_after = after.lower()
+    cut = min([p for p in (low_after.find(k) for k in _FEATURED_END_MARKERS) if p != -1] or [len(after)])
+    return f"{subject}\n{after[:cut].strip()}".strip()
+
+
+def _news_blocks(text: str) -> list[str]:
+    """Up to NEWS_MAX_BLOCKS passages of a news letter that are about a listed company: the most
+    stock-vocabulary words (_STOCK_WORDS) and "(TICKER)" mentions, a capitalized name inside a
+    sentence, kept in the email's order. A passage = the START of a section (its title and first
+    paragraphs, up to NEWS_BLOCK_CHARS -- where the company is named: aktionnaire's "LV-Mal aime"
+    section only says "LVMH" in its first lines), a section starting at a heading line ("** ..." /
+    "# ..." or a short line without a final period). An HTML-converted email (one long line) is cut
+    into windows of whole sentences instead."""
+    sections, current = [], []
+    for line in text.split("\n"):
+        line = line.strip()
+        if not line or set(line) <= set("-=_*"):
+            continue
+        heading = (line.startswith(("**", "#")) or (len(line) < 70 and not line.endswith((".", "…", ":", ";")))
+                   or unicodedata.category(line[0]) == "So")  # "🪨 Sauvetage critique : ..." = one news item
+        if heading and current:
+            sections.append(" ".join(current))
+            current = []
+        current.append(line.strip("*# ").strip())
+    if current:
+        sections.append(" ".join(current))
+    paragraphs = []
+    for section in sections:
+        if len(section) <= NEWS_BLOCK_CHARS or "\n" in text.strip():
+            paragraphs.append(section[:NEWS_BLOCK_CHARS])
+            continue
+        window = ""  # one long line: whole-sentence windows
+        for sentence in re.split(r"(?<=[.!?])\s+", section):
+            if window and len(window) + len(sentence) > NEWS_BLOCK_CHARS:
+                paragraphs.append(window)
+                window = ""
+            window = f"{window} {sentence}".strip()
+        paragraphs.append(window)
+    scored = []
+    for i, p in enumerate(paragraphs):
+        if len(p) < 120:
+            continue
+        padded = f" {_norm_text(p)} "
+        score = sum(f" {w} " in padded for w in _STOCK_WORDS) + 2 * len(re.findall(r"\([A-Z]{1,5}\)", p))
+        has_name = re.search(r"[a-z,;:]\s+[A-Z][\w&'’.-]{2,}", p) is not None
+        if score >= 2 and has_name:
+            scored.append((-score, i, p[:NEWS_BLOCK_CHARS]))
+    best = sorted(scored)[:NEWS_MAX_BLOCKS]
+    return [p for _, _, p in sorted(best, key=lambda x: x[1])]
+
+
+def _parse_zacks_rank_changes(text: str) -> list[dict]:
+    """Zacks Rank changes of a Zacks "Daily portfolio update" table: a row "SMCI 4 ▼ 39.07 -0.91
+    (-2.28%)" is a stock whose Rank just changed (arrow) to 4 = Sell. Only a move INTO Buy/Strong Buy
+    (1-2, up arrow) or Sell/Strong Sell (4-5, down arrow) counts. The symbol is the table's own
+    ticker column -- see `trusted_ticker` in _resolve_instrument."""
+    start = text.find("Portfolio Summary")
+    if start == -1:
+        return []
+    end = text.find("Zacks Commentary", start)
+    section = text[start:end if end != -1 else start + 4000]
+    tips = []
+    for row in _ZACKS_ROW_RE.finditer(section):
+        sym, rank, arrow = row.group(1), int(row.group(2)), row.group(3)
+        if arrow == "▲" and rank <= 2:
+            sens = "haussier"
+        elif arrow == "▼" and rank >= 4:
+            sens = "baissier"
+        else:
+            continue
+        tips.append({"company": sym, "ticker": sym, "sentiment": sens, "citation": re.sub(r"\s+", " ", row.group(0)).strip(),
+                     "author": "Zacks Rank", "trusted_ticker": True})
+    return tips
+
+
 def _validate_tip(tip: dict, text: str) -> tuple:
     """Deterministic checks on one raw tip -- returns (cleaned tip, None) or (None, reason)."""
     company = str(tip.get("company") or "").strip()
@@ -776,6 +1003,8 @@ def _validate_tip(tip: dict, text: str) -> tuple:
     ticker = str(tip.get("ticker") or "").strip().upper()
     if not company or sentiment not in ("haussier", "baissier"):
         return None, "societe ou sens manquant"
+    if not any(ch.isupper() or ch.isdigit() for ch in company):
+        return None, f"'{company}' n'est pas un nom de societe"  # "le coeur du reacteur" (2026-10-14 test)
     nc = _norm_text(company)
     if nc in _MACRO_TERMS or any(s in nc for s in _MACRO_SUBSTRINGS) or company.upper() in _PLACEHOLDER_TICKERS:
         return None, f"'{company}' n'est pas une societe cotee"
@@ -809,9 +1038,10 @@ def _validate_tip(tip: dict, text: str) -> tuple:
             "author": author[:80]}, None
 
 
-def _extract_raw_tips(msg: dict) -> list[dict] | None:
-    prompt = EXTRACT_TICKER_PROMPT.format(subject=msg["subject"], body=msg["extract_text"],
-                                           max_tickers=MAX_TICKERS_PER_EMAIL)
+def _extract_raw_tips(msg: dict, body: str | None = None, stance: bool = False) -> list[dict] | None:
+    """`stance`: STANCE_PROMPT (featured headline / news paragraph) instead of EXTRACT_TICKER_PROMPT."""
+    prompt = (STANCE_PROMPT if stance else EXTRACT_TICKER_PROMPT).format(
+        subject=msg["subject"], body=msg["extract_text"] if body is None else body, max_tickers=MAX_TICKERS_PER_EMAIL)
     try:
         raw = _call_ollama_json(prompt)
     except Exception as e:
@@ -819,6 +1049,20 @@ def _extract_raw_tips(msg: dict) -> list[dict] | None:
         return None  # retried next run, unlike a genuine empty answer
     tips = raw.get("tips") or []
     return [t for t in tips[:MAX_TICKERS_PER_EMAIL] if isinstance(t, dict)]
+
+
+def _verify_stance(subject: str, tip: dict) -> tuple:
+    """Second, independent opinion for a STANCE_PROMPT tip: the citation alone must read in the
+    same direction (not told which one was claimed). Same return contract as _verify_tip."""
+    prompt = STANCE_VERIFY_PROMPT.format(subject=subject, citation=tip["citation"][:600], company=tip["company"])
+    try:
+        raw = _call_ollama_json(prompt)
+    except Exception as e:
+        print(f"  echec verification pour \"{subject}\": {e}", file=sys.stderr)
+        return None, f"verification impossible ({e})"
+    if raw.get("sens") != tip["sentiment"]:
+        return False, f"verification : sens {raw.get('sens')} ({str(raw.get('raison', ''))[:120]})"
+    return True, None
 
 
 def _verify_tip(subject: str, tip: dict) -> tuple:
@@ -868,14 +1112,18 @@ def _search_quotes(query: str) -> list[dict]:
         return []
 
 
-def _resolve_instrument(company: str, ticker_in_text: str, currency_hint: str | None = None) -> tuple:
+def _resolve_instrument(company: str, ticker_in_text: str, currency_hint: str | None = None,
+                        trusted_ticker: bool = False) -> tuple:
     """GROUNDING BACKSTOP -- returns ({ticker, price, currency, name, exchange}, None) or
     (None, reason). Candidates: the ticker only if literally written in the email (exact symbol
     match on Yahoo), then Yahoo's own search by the company name copied from the email. Each must
     be an EQUITY on a primary exchange whose Yahoo name matches the company. 2026-09-15 note still
     holds: never search by a guessed ticker ("TSMC" search ranks an unrelated Italian OTC stock
     above Taiwan Semiconductor). `currency_hint` = the currency written in the tip itself (a
-    broker's target price): Yahoo's results on that currency's exchanges are tried first."""
+    broker's target price): Yahoo's results on that currency's exchanges are tried first.
+    `trusted_ticker`: the symbol comes from a ticker column (Zacks' table, where `company` IS that
+    symbol), so Yahoo's listing with exactly that symbol is accepted without the name check --
+    "PSX" can't name-match "Phillips 66"."""
     candidates = []
     if ticker_in_text:
         candidates += [q for q in _search_quotes(ticker_in_text) if str(q.get("symbol", "")).upper() == ticker_in_text][:1]
@@ -903,7 +1151,7 @@ def _resolve_instrument(company: str, ticker_in_text: str, currency_hint: str | 
             if not hopped and q.get("longname") and any(_names_match(company, n) for n in names):
                 hopped = True
                 candidates += _search_quotes(q["longname"])
-        elif not any(_names_match(company, n) for n in names):
+        elif not (trusted_ticker and sym == ticker_in_text) and not any(_names_match(company, n) for n in names):
             reason = f"{sym} = '{names[0] if names else '?'}' ne correspond pas a '{company}'"
         else:
             px = _fetch_price(sym)
@@ -942,6 +1190,7 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
     done, failed, newsletter_domains = set(), set(), set()
     signals, rejects, seen = [], [], set()
     n_classify_ok = n_classify_err = 0
+    profiles, unprofiled = {}, set()  # reading mode counts (see _source_profile), for the log
 
     def out_of_time() -> bool:
         return time.monotonic() >= deadline
@@ -953,9 +1202,15 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
 
         classified = []
         for m in chunk:
-            if m["source"] in known_domains:
-                classified.append(m)
+            m["profile"] = _source_profile(m)
+            profiles[m["profile"]] = profiles.get(m["profile"], 0) + 1
+            if m["profile"] == MODE_SKIP:
+                done.add(m["id"])  # news / macro / promotion: no stock put forward, no Ollama call
                 continue
+            if m["profile"] != MODE_GENERIC or m["source"] in known_domains:
+                classified.append(m)  # a profiled sender is a newsletter by construction
+                continue
+            unprofiled.add(m["publication"])
             if out_of_time():
                 break
             verdict = classify_newsletter(m)
@@ -972,20 +1227,42 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
             raise RuntimeError("Ollama n'a repondu a aucune classification -- mails laisses non traites")
         newsletter_domains |= {m["source"] for m in classified}
 
+        to_fetch = [m for m in classified if m["profile"] in (MODE_ARTICLE, MODE_BROKERS, MODE_GENERIC)]
         with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_MAX_WORKERS) as ex:  # plain HTTP, no Ollama
-            fetched = dict(zip((m["id"] for m in classified),
+            fetched = dict(zip((m["id"] for m in to_fetch),
                                 ex.map(lambda m: _fetch_article_extract(_extract_article_links(m.get("html", "")),
                                                                         m["subject"]),
-                                       classified)))
+                                       to_fetch)))
         for m in classified:
             m["article"] = fetched.get(m["id"]) or ""
-            m["extract_text"] = (m["article"] or m["text"])[:EXTRACT_TRUNCATE]
+            if m["profile"] == MODE_TITLE:
+                m["extract_text"] = _featured_block(m)
+            elif m["profile"] == MODE_NEWS:
+                m["blocks"] = _news_blocks(m["text"])
+                m["extract_text"] = "\n".join(m["blocks"])
+            else:
+                m["extract_text"] = (m["article"] or m["text"])[:EXTRACT_TRUNCATE]
 
         extracted = []
         for m in classified:
+            if m["profile"] in (MODE_BROKERS, MODE_ZACKS):
+                if m["profile"] == MODE_BROKERS and not m["article"]:
+                    failed.add(m["id"])  # the list is only in the article -- retried next run
+                else:
+                    extracted.append((m, []))  # read by its parser below, no Ollama call
+                continue
             if out_of_time():
                 break
-            tips = _extract_raw_tips(m)
+            if m["profile"] == MODE_NEWS:  # one call per company paragraph
+                tips = []
+                for block in m["blocks"]:
+                    block_tips = _extract_raw_tips(m, block, stance=True)
+                    if block_tips is None:
+                        tips = None
+                        break
+                    tips += block_tips
+            else:
+                tips = _extract_raw_tips(m, stance=m["profile"] == MODE_TITLE)
             if tips is None:
                 failed.add(m["id"])
             else:
@@ -993,20 +1270,33 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
 
         for m, tips in extracted:
             complete, verified, mail_rejects = True, [], []
+            stance = m["profile"] in (MODE_TITLE, MODE_NEWS)
+            tone_pub = m["publication"] + NEWS_PUBLICATION_SUFFIX if m["profile"] == MODE_NEWS else None
             for tip in tips:
+                # A rating action written out in the citation sets the direction -- llama3.1 read
+                # "Micron: Winter Is Coming (Rating Upgrade)" as bearish (2026-10-14 test) -- and then
+                # needs no second opinion.
+                citation = str(tip.get("citation") or "")
+                explicit = _explicit_rating(citation)
+                if not explicit and m["profile"] == MODE_TITLE and _norm_text(citation) in _norm_text(m["subject"]):
+                    explicit = _explicit_rating(m["subject"])  # the model quoted the headline without "(Rating Upgrade)"
+                if explicit:
+                    tip = {**tip, "sentiment": explicit}
                 # citation checked against what the model saw AND the email itself (an article tip
                 # may quote the email's teaser)
                 clean, reason = _validate_tip(tip, m["extract_text"] + "\n" + m["text"])
                 if clean is None:
                     mail_rejects.append(_reject_row(m, tip, reason))
                     continue
-                if _explicit_rating(clean["citation"]) == clean["sentiment"]:
-                    verified.append(clean)  # rating action written out -- no second opinion needed
+                if tone_pub:
+                    clean["publication"] = tone_pub
+                if explicit:
+                    verified.append(clean)
                     continue
                 if out_of_time():
                     complete = False
                     break
-                ok, reason = _verify_tip(m["subject"], clean)
+                ok, reason = (_verify_stance if stance else _verify_tip)(m["subject"], clean)
                 if ok is None:
                     complete = False
                     failed.add(m["id"])
@@ -1017,21 +1307,31 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
                     verified.append(clean)
             if not complete:
                 continue  # retried next run -- its rejects so far are dropped too, to avoid duplicates
-            for raw in _parse_broker_changes(m["article"]):  # explicit by construction -- no Ollama call
-                clean, reason = _validate_tip(raw, m["article"])
+            # structured lists: explicit by construction, no Ollama call
+            if m["profile"] == MODE_BROKERS:
+                raws, ref, pub = _parse_broker_changes(m["article"]), m["article"], BROKER_PUBLICATION
+            elif m["profile"] == MODE_ZACKS:
+                raws, ref, pub = _parse_zacks_rank_changes(m["text"]), m["text"], ZACKS_PUBLICATION
+            else:
+                raws, ref, pub = [], "", None
+            for raw in raws:
+                clean, reason = _validate_tip(raw, ref)
                 if clean is None:
                     mail_rejects.append(_reject_row(m, raw, reason))
                     continue
-                verified.append({**clean, "publication": BROKER_PUBLICATION, "currency_hint": raw["currency_hint"]})
+                verified.append({**clean, "publication": pub, "currency_hint": raw.get("currency_hint"),
+                                 "trusted_ticker": raw.get("trusted_ticker", False)})
+            mail_signals = []
             for tip in verified:
-                resolved, reason = _resolve_instrument(tip["company"], tip["ticker_in_text"], tip.get("currency_hint"))
+                resolved, reason = _resolve_instrument(tip["company"], tip["ticker_in_text"], tip.get("currency_hint"),
+                                                       tip.get("trusted_ticker", False))
                 if resolved is None:
                     mail_rejects.append(_reject_row(m, tip, reason))
                     continue
                 if (m["id"], resolved["ticker"]) in seen:
                     continue
                 seen.add((m["id"], resolved["ticker"]))
-                signals.append({
+                mail_signals.append({
                     "message_id": m["id"], "mail_date_utc": m["date_utc"],
                     "publication": tip.get("publication") or m["publication"],
                     "domain": m["source"], "author": tip["author"], "company": tip["company"],
@@ -1040,6 +1340,18 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
                     "side": "long" if tip["sentiment"] == "haussier" else "short",
                     "citation": tip["citation"], "backfill": backfill,
                 })
+            # Two tips of one email landing on the same issuer under two listings (2026-10-14 test:
+            # aktionnaire's LVMH paragraph -> MC.PA short, its "Moet-Hennessy" division -> MOH.F long,
+            # an LVMH line in Frankfurt): opposite directions cancel out, same direction counts once.
+            by_issuer = {}
+            for s in mail_signals:
+                by_issuer.setdefault(" ".join(_name_tokens(s["name"])[:2]), []).append(s)  # Yahoo names vary in length
+            for group in by_issuer.values():
+                if len({s["side"] for s in group}) == 1:
+                    signals.append(group[0])
+                else:
+                    mail_rejects += [_reject_row(m, {**s, "sentiment": s["side"]}, "avis contradictoires sur la meme societe "
+                                                 "dans le meme mail") for s in group]
             rejects += mail_rejects
             done.add(m["id"])
 
@@ -1049,6 +1361,10 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
             print(f"  mail abandonne apres {attempts[mid]} echecs Ollama", file=sys.stderr)
             done.add(mid)
     print(f"{len(msgs)} mail(s) {label} a examiner, {len(done)} traite(s) ce run.")
+    if profiles:
+        print("  lecture : " + ", ".join(f"{k} {v}" for k, v in sorted(profiles.items())))
+    if unprofiled:
+        print(f"  newsletters sans profil (lecture generique) : {', '.join(sorted(unprofiled))}")
     pending = len(msgs) - len(done)
     if pending:
         print(f"  {pending} mail(s) {label} reporte(s) au prochain run (budget de temps ou echec Ollama).")

@@ -130,20 +130,30 @@ def save_journal(journal: pd.DataFrame):
     journal.to_csv(JOURNAL_PATH, index=False)
 
 
+def _quote_key(citation) -> str:
+    """Citation compared case/punctuation-insensitively (journal citations are cut at 300 chars)."""
+    return "".join(ch for ch in str(citation or "").lower() if ch.isalnum())[:200]
+
+
 def add_signals(journal: pd.DataFrame, signals: list[dict], now_iso: str) -> tuple:
     """Appends validated tips. IDEMPOTENT: a (message_id, ticker) already in the journal is
     skipped -- this is the key that keeps a re-run, a retried push or an overlapping backfill from
     ever counting (or trading) the same tip twice. Returns (journal, list of newly added signal
     dicts) -- only the newly added ones may drive the lab ledger's trades."""
     known = set(journal["signal_id"].astype(str))
+    # Same article relayed by two digests of the same sender (Seeking Alpha's Morning Briefing and
+    # Top Stock Ideas both feature it, 2026-10-14): same ticker + same quoted headline = one opinion.
+    known_quotes = {(str(t), _quote_key(c)) for t, c in zip(journal["ticker"], journal["citation"])}
     added_rows, added = [], []
     existing = journal[["publication", "ticker", "side", "mail_date_utc"]].copy()
     existing["mail_date_utc"] = pd.to_datetime(existing["mail_date_utc"], utc=True, errors="coerce")
     for sig in signals:
         sid = f"{sig['message_id']}:{sig['ticker']}"
-        if sid in known:
+        quote = (str(sig["ticker"]), _quote_key(sig["citation"]))
+        if sid in known or (quote[1] and quote in known_quotes):
             continue
         known.add(sid)
+        known_quotes.add(quote)
         mail_ts = pd.Timestamp(sig["mail_date_utc"])
         prior = existing[(existing["publication"] == sig["publication"]) & (existing["ticker"] == sig["ticker"]) &
                          (existing["side"] == sig["side"]) &
