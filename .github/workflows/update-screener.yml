@@ -516,6 +516,11 @@ jobs:
       - name: Strategie Rapports inchanges (Bot #50)
         run: python screener/simulate_lazy_portfolio.py
 
+      # Bot #51 (2026-10-14) : meilleures idees des gerants actifs (jeux de donnees 13F trimestriels de la
+      # SEC, ~100 Mo telecharges une fois par trimestre) -- voir simulate_bestideas_portfolio.py.
+      - name: Strategie Meilleures idees des gerants (Bot #51)
+        run: python screener/simulate_bestideas_portfolio.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
