@@ -635,22 +635,6 @@ ADEA,Adeia Inc.,Technology,Software - Application,10.8,16.8,11.2,18.1,9.8,13.3,5
 DPC,DPC Holdings PLC,Industrials,Aerospace & Defense,9.4,,15.6,0.5,,8.5,3,False,,,,0,True
 CCZ,Comcast Holdings ZONES,,,,,,,,,0,True,,,,0,True
 LBRDK,Liberty Broadband Corporation,Communication Services,Telecom Services,6.6,0.6,,3.8,,3.7,3,False,,,,0,True
-AIR.PA,Airbus SE,Industrials,Aerospace & Defense,5.6,16.2,11.2,10.9,5.5,9.9,5,False,16.3,5.1,10.7,2,False
-ALW.L,Alliance Witan Ord,,,,,,,,,0,True,,,,0,True
-ENT.L,Entain Plc,Consumer Cyclical,Gambling,2.8,0.4,,6.5,,3.2,3,False,,0.6,0.6,1,True
-APN.L,Applied Nutrition Plc,Consumer Defensive,Packaged Foods,18.0,19.3,,19.0,,18.8,3,False,3.8,19.4,11.6,2,False
-AGT.L,AVI Global Trust Ord,,,,,,,,,0,True,,,,0,True
-PNN.L,Pennon Group Plc,Utilities,Utilities - Regulated Water,9.3,4.9,,10.4,,8.2,3,False,12.3,2.7,7.5,2,False
-PCGH.L,Polar Capital Glb Healthcare Ord,,,,,,,,,0,True,,,,0,True
-RNK.L,The Rank Group Plc,Consumer Cyclical,Gambling,7.0,8.1,,9.0,,8.0,3,False,18.4,1.8,10.1,2,False
-TATE.L,Tate & Lyle plc,Consumer Defensive,Packaged Foods,12.1,6.1,,12.1,,10.1,3,False,2.6,19.0,10.8,2,False
-TRIG.L,The Renewables Infrastructure Group Limited,Utilities,Utilities - Renewable,19.6,1.2,,10.7,,10.5,3,False,,9.3,9.3,1,True
-TRN.L,Trainline plc,Consumer Cyclical,Travel Services,5.8,17.4,,18.3,,13.8,3,False,18.3,4.3,11.3,2,False
-MRK.DE,Merck KGaA,Healthcare,Drug Manufacturers - Specialty & Generic,7.0,11.0,10.1,14.0,4.6,9.3,5,False,3.4,12.9,8.2,2,False
-TKA.DE,thyssenkrupp AG,Industrials,Conglomerates,11.8,3.6,10.4,2.8,4.5,6.6,5,False,0.0,18.2,9.1,2,False
-LONN.SW,Lonza Group AG,Healthcare,Diagnostics & Research,4.8,14.1,5.3,10.4,12.4,9.4,5,False,6.4,9.3,7.8,2,False
-SAAB-B.ST,Saab AB (publ),Industrials,Aerospace & Defense,10.0,13.0,11.6,11.0,1.3,9.4,5,False,5.7,12.6,9.2,2,False
-SHRIRAMFIN.NS,Shriram Finance Limited,Financial Services,Credit Services,2.4,14.9,,17.8,1.8,9.2,4,False,4.7,14.3,9.5,2,False
 BNP.PA,BNP Paribas SA,Financial Services,Banks - Regional,,7.5,,10.0,,8.8,2,True,17.0,17.4,17.2,2,False
 EQNR.OL,Equinor ASA,Energy,Oil & Gas Integrated,8.2,15.3,,11.3,,11.6,3,False,12.0,15.7,13.8,2,False
 JMT.LS,"Jerónimo Martins, SGPS, S.A.",Consumer Defensive,Food Distribution,2.2,16.2,9.6,4.2,10.0,8.4,5,False,15.0,4.3,9.6,2,False
@@ -5616,3 +5600,19 @@ HDFCLIFE.NS,HDFC Life Insurance Company Limited,Financial Services,Insurance - L
 NTPC.NS,NTPC Limited,Utilities,Utilities - Regulated Electric,11.5,,7.8,12.8,6.6,9.7,4,False,18.4,6.4,12.4,2,False
 SUNPHARMA.NS,Sun Pharmaceutical Industries Limited,Healthcare,Drug Manufacturers - Specialty & Generic,16.0,,12.8,16.8,6.7,13.1,4,False,0.0,10.1,5.0,2,False
 NTPC.BO,NTPC Limited,Utilities,Utilities - Regulated Electric,11.5,,7.5,12.8,6.8,9.6,4,False,18.5,6.1,12.3,2,False
+AIR.PA,Airbus SE,Industrials,Aerospace & Defense,5.6,16.2,11.2,10.9,5.5,9.9,5,False,16.4,5.1,10.8,2,False
+ALW.L,Alliance Witan Ord,,,,,,,,,0,True,,,,0,True
+ENT.L,Entain Plc,Consumer Cyclical,Gambling,2.8,0.4,,6.5,,3.2,3,False,,0.6,0.6,1,True
+APN.L,Applied Nutrition Plc,Consumer Defensive,Packaged Foods,18.0,19.3,,19.0,,18.8,3,False,1.1,19.4,10.2,2,False
+AGT.L,AVI Global Trust Ord,,,,,,,,,0,True,,,,0,True
+PNN.L,Pennon Group Plc,Utilities,Utilities - Regulated Water,9.3,4.9,,10.4,,8.2,3,False,14.0,2.7,8.4,2,False
+PCGH.L,Polar Capital Glb Healthcare Ord,,,,,,,,,0,True,,,,0,True
+RNK.L,The Rank Group Plc,Consumer Cyclical,Gambling,7.0,8.1,,9.0,,8.0,3,False,18.3,1.8,10.0,2,False
+TATE.L,Tate & Lyle plc,Consumer Defensive,Packaged Foods,12.1,6.1,,12.1,,10.1,3,False,2.6,19.0,10.8,2,False
+TRIG.L,The Renewables Infrastructure Group Limited,Utilities,Utilities - Renewable,19.6,1.2,,10.7,,10.5,3,False,,9.3,9.3,1,True
+TRN.L,Trainline plc,Consumer Cyclical,Travel Services,5.8,17.4,,18.3,,13.8,3,False,17.7,4.3,11.0,2,False
+MRK.DE,Merck KGaA,Healthcare,Drug Manufacturers - Specialty & Generic,7.0,11.0,10.2,14.0,4.6,9.4,5,False,3.9,12.9,8.4,2,False
+TKA.DE,thyssenkrupp AG,Industrials,Conglomerates,11.8,3.6,10.4,2.8,4.5,6.6,5,False,0.0,18.2,9.1,2,False
+LONN.SW,Lonza Group AG,Healthcare,Diagnostics & Research,4.8,14.1,5.3,10.4,12.4,9.4,5,False,6.7,9.3,8.0,2,False
+SAAB-B.ST,Saab AB (publ),Industrials,Aerospace & Defense,10.0,13.0,11.6,11.0,1.3,9.4,5,False,5.2,12.6,8.9,2,False
+SHRIRAMFIN.NS,Shriram Finance Limited,Financial Services,Credit Services,2.4,14.9,,17.8,1.8,9.2,4,False,4.5,14.3,9.4,2,False
