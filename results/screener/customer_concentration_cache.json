@@ -758,5 +758,13 @@
       "reason": "L'entreprise propose des services financiers à un large éventail de clients dans plusieurs pays et régions géographiques, indiquant une diversification de ses activités et de ses clients.",
       "source": "ollama"
     }
+  },
+  "8020.T": {
+    "checked_at": "2026-10-15",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "L'entreprise trade dans plusieurs domaines, tels que electronics, alimentos, acier, matières et plantes, et services de transport, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
   }
 }
