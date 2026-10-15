@@ -498,15 +498,26 @@
   0.99903,
   0.99735
  ],
- "edgar_days_done": [],
+ "edgar_days_done": [
+  "2026-10-14"
+ ],
  "queue": [],
- "scores": [],
+ "scores": [
+  {
+   "ticker": "WINA",
+   "form": "10-Q",
+   "date": "2026-10-14",
+   "cos": 0.992207,
+   "jac": 0.89589,
+   "period": "2026-09-26"
+  }
+ ],
  "shadow": [],
  "hold_until": {},
  "counters": {
-  "rapports": 0,
-  "compares": 0,
-  "sans_comparable": 0,
+  "rapports": 2,
+  "compares": 1,
+  "sans_comparable": 1,
   "achetes": 0
  },
  "entry_key": "2026-10"
