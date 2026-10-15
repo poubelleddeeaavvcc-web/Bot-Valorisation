@@ -2,89 +2,38 @@
  "cash": {
   "pool": 5000.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "BAC",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 8%)",
+   "decided_at": "2026-10-15T04:53:10Z",
+   "amount_eur": 100.0,
+   "name": "BANK OF AMERICA CORP /DE/",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.009148
+  },
+  {
+   "side": "buy",
+   "ticker": "PGR",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 1%)",
+   "decided_at": "2026-10-15T04:53:10Z",
+   "amount_eur": 100.0,
+   "name": "PROGRESSIVE CORP/OH/",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.017853
+  }
+ ],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
-  {
-   "ticker": "ES",
-   "date": "2025-10-14",
-   "tone": -0.003643,
-   "ret12": 0.197432,
-   "size": 24.120352,
-   "stdret": 0.045277,
-   "react": -0.03843,
-   "age": 3.036364
-  },
-  {
-   "ticker": "JNJ",
-   "date": "2025-10-14",
-   "tone": 0.005783,
-   "ret12": 0.225553,
-   "size": 26.83645,
-   "stdret": 0.051055,
-   "react": -0.013422,
-   "age": 3.036364
-  },
-  {
-   "ticker": "FAST",
-   "date": "2025-10-14",
-   "tone": 0.014493,
-   "ret12": 0.324229,
-   "size": 24.685681,
-   "stdret": 0.072396,
-   "react": -0.08029,
-   "age": 3.036364
-  },
-  {
-   "ticker": "DPZ",
-   "date": "2025-10-14",
-   "tone": 0.009325,
-   "ret12": -0.001624,
-   "size": 23.468984,
-   "stdret": 0.081704,
-   "react": 0.029847,
-   "age": 3.036364
-  },
-  {
-   "ticker": "WFC",
-   "date": "2025-10-14",
-   "tone": 0.001049,
-   "ret12": 0.37898,
-   "size": 26.228893,
-   "stdret": 0.109925,
-   "react": 0.075306,
-   "age": 3.036364
-  },
-  {
-   "ticker": "JPM",
-   "date": "2025-10-14",
-   "tone": 0.002136,
-   "ret12": 0.439694,
-   "size": 27.483306,
-   "stdret": 0.077239,
-   "react": -0.010149,
-   "age": 3.036364
-  },
-  {
-   "ticker": "BLK",
-   "date": "2025-10-14",
-   "tone": 0.001332,
-   "ret12": 0.20896,
-   "size": 25.93493,
-   "stdret": 0.063675,
-   "react": 0.040561,
-   "age": 3.036364
-  },
-  {
-   "ticker": "C",
-   "date": "2025-10-14",
-   "tone": 0.000751,
-   "ret12": 0.509899,
-   "size": 25.831453,
-   "stdret": 0.099477,
-   "react": 0.048815,
-   "age": 3.036364
-  },
   {
    "ticker": "SYF",
    "date": "2025-10-15",
@@ -18654,19 +18603,145 @@
    "stdret": 0.090119,
    "react": 0.035283,
    "age": 2.846661
+  },
+  {
+   "ticker": "BAC",
+   "date": "2026-10-14",
+   "ret12": 0.145805,
+   "size": 26.607583,
+   "stdret": 0.088485,
+   "react": -0.047522,
+   "age": 3.08502,
+   "tone": -0.003851
+  },
+  {
+   "ticker": "BLK",
+   "date": "2026-10-14",
+   "ret12": -0.022322,
+   "size": 25.837042,
+   "stdret": 0.080799,
+   "react": 0.001578,
+   "age": 3.08502,
+   "tone": 0.007637
+  },
+  {
+   "ticker": "FAST",
+   "date": "2026-10-14",
+   "ret12": 0.149158,
+   "size": 24.812093,
+   "stdret": 0.072299,
+   "react": 0.020829,
+   "age": 3.08502,
+   "tone": 0.016731
+  },
+  {
+   "ticker": "MS",
+   "date": "2026-10-14",
+   "ret12": 0.27965,
+   "size": 26.376013,
+   "stdret": 0.08973,
+   "react": -0.033861,
+   "age": 3.08502,
+   "tone": 0.010349
+  },
+  {
+   "ticker": "PGR",
+   "date": "2026-10-14",
+   "ret12": -0.022459,
+   "size": 25.542678,
+   "stdret": 0.043559,
+   "react": -0.020037,
+   "age": 3.08502,
+   "tone": -0.012872
+  },
+  {
+   "ticker": "STT",
+   "date": "2026-10-14",
+   "ret12": 0.613323,
+   "size": 24.548531,
+   "stdret": 0.070956,
+   "react": -0.035037,
+   "age": 3.08502,
+   "tone": 0.002177
   }
  ],
- "edgar_days_done": [],
+ "edgar_days_done": [
+  "2026-10-14"
+ ],
  "awaiting": [],
- "shadow": [],
- "events_log": [],
- "hold_until": {},
+ "shadow": [
+  {
+   "ticker": "FAST",
+   "day0": "2026-10-14",
+   "rang": 0.957
+  }
+ ],
+ "events_log": [
+  {
+   "ticker": "BAC",
+   "company": "BANK OF AMERICA CORP /DE/",
+   "day0": "2026-10-14",
+   "tone": -0.00385,
+   "abtone": -0.00915,
+   "rang": 0.078,
+   "decision": "achat"
+  },
+  {
+   "ticker": "BLK",
+   "company": "BlackRock, Inc.",
+   "day0": "2026-10-14",
+   "tone": 0.00764,
+   "abtone": 0.0028,
+   "rang": 0.686,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "FAST",
+   "company": "FASTENAL CO",
+   "day0": "2026-10-14",
+   "tone": 0.01673,
+   "abtone": 0.0128,
+   "rang": 0.957,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "MS",
+   "company": "MORGAN STANLEY",
+   "day0": "2026-10-14",
+   "tone": 0.01035,
+   "abtone": 0.0053,
+   "rang": 0.798,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "PGR",
+   "company": "PROGRESSIVE CORP/OH/",
+   "day0": "2026-10-14",
+   "tone": -0.01287,
+   "abtone": -0.01785,
+   "rang": 0.008,
+   "decision": "achat"
+  },
+  {
+   "ticker": "STT",
+   "company": "STATE STREET CORP",
+   "day0": "2026-10-14",
+   "tone": 0.00218,
+   "abtone": -0.00113,
+   "rang": 0.445,
+   "decision": "neutre"
+  }
+ ],
+ "hold_until": {
+  "BAC": "2027-01-07",
+  "PGR": "2027-01-07"
+ },
  "counters": {
-  "jours": 0,
-  "communiques": 0,
-  "evalues": 0,
-  "achetes": 0,
-  "ombre": 0,
+  "jours": 1,
+  "communiques": 6,
+  "evalues": 6,
+  "achetes": 2,
+  "ombre": 1,
   "complet": 0
  }
 }
