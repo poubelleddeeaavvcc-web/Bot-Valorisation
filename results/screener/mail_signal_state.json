@@ -1,5 +1,7 @@
 {
   "processed_message_ids": [
+    "1a13dd71f3769e91",
+    "1a13cef346ac8755",
     "1a13c063373fe2eb",
     "1a13b2cb37d7945e",
     "1a13af6dc1f63370",
@@ -58,10 +60,9 @@
     "1a1342f84cfe4e67",
     "1a133e9840a66dcc",
     "1a133e01159408a0",
-    "1a1338af83134dc5",
-    "1a132a16d1a49477"
+    "1a1338af83134dc5"
   ],
-  "last_run_date": "2026-10-14",
+  "last_run_date": "2026-10-15",
   "ollama_attempts": {
     "1a06c3dc17d92321": 1,
     "1a080d744fee4403": 2,
@@ -975,10 +976,12 @@
       "1a1021c9b7c2f1e0",
       "1a10362da755030e",
       "1a1036a74170b61c"
-    ]
+    ],
+    "done": true
   },
   "source_status": {
     "Alpha Signals (beehiiv.com)": "observation",
+    "American Market News (beehiiv.com)": "observation",
     "Dividend Ideas (sailthru.com)": "observation",
     "Energy Investing (sailthru.com)": "observation",
     "Morning Briefing (sailthru.com)": "observation",
@@ -986,6 +989,7 @@
     "StockNews.com (beehiiv.com)": "observation",
     "Stocks & Sectors (sailthru.com)": "observation",
     "Ticker Talk Newsletter (beehiiv.com)": "observation",
+    "Zacks Rank (email.zacks.com)": "observation",
     "aktionnaire.com": "observation",
     "aktionnaire.com (ton)": "observation",
     "analystratings.net": "observation",
@@ -1020,7 +1024,8 @@
   "lab_retired": "2026-10-04",
   "reprocess": {
     "done_requests": [
-      "tradingsat-valeur-du-jour-2026-10-09"
+      "tradingsat-valeur-du-jour-2026-10-09",
+      "zonebourse-recos-courtiers-2026-10-14"
     ],
     "processed_ids": [
       "1a09f3240842e01c",
@@ -1090,7 +1095,32 @@
       "1a0edb83f4471b23",
       "1a12ec911f9f1405",
       "1a133e9840a66dcc",
-      "1a1392d27914b42e"
+      "1a1392d27914b42e",
+      "1a0af31e8a45af64",
+      "1a0b458e3f22acf6",
+      "1a0c3c4fe05c44ad",
+      "1a0c8f957a5ead6d",
+      "1a0ce23a7aa8d12e",
+      "1a0d33e6f739f3d5",
+      "1a0d864e53a7a85a",
+      "1a110e8d9b96cb16",
+      "1a11155a5188711e",
+      "1a1118b945b9c8d8",
+      "1a116117c0115ebb",
+      "1a11b3425b0ba560",
+      "1a1205d57728e35c",
+      "1a125816a6874899",
+      "1a1265da079cfd83",
+      "1a12aa70ef97b572",
+      "1a12b85036c83432",
+      "1a12fcc84864b7bf",
+      "1a130a95097a93ec",
+      "1a134f58f488dbc5",
+      "1a1356138e62f9eb",
+      "1a1359aba4ae9928",
+      "1a135d051199da20",
+      "1a13a1ed0eeeab15",
+      "1a13af6dc1f63370"
     ]
   }
 }
