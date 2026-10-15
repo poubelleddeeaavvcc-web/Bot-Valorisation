@@ -1,37 +1,8 @@
 {
  "cash": {
-  "pool": 5000.0
+  "pool": 4800.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "BAC",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 8%)",
-   "decided_at": "2026-10-15T04:53:10Z",
-   "amount_eur": 100.0,
-   "name": "BANK OF AMERICA CORP /DE/",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.009148
-  },
-  {
-   "side": "buy",
-   "ticker": "PGR",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 1%)",
-   "decided_at": "2026-10-15T04:53:10Z",
-   "amount_eur": 100.0,
-   "name": "PROGRESSIVE CORP/OH/",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.017853
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
