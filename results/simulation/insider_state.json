@@ -5,7 +5,8 @@
  "pending": [],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
-  "2026-10-13"
+  "2026-10-13",
+  "2026-10-14"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -82,11 +83,31 @@
    "title": "Secretary",
    "adv_usd": 203885,
    "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-14",
+   "ticker": "BPRE",
+   "issuer": "Bluerock Private Real Estate Fund",
+   "value_usd": 5477975,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 11913609,
+   "decision": "liquidite hors bande (11.91 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-14",
+   "ticker": "INBX",
+   "issuer": "Inhibrx Biosciences, Inc.",
+   "value_usd": 840401,
+   "insiders": 1,
+   "title": "Chief Executive Officer",
+   "adv_usd": 24501603,
+   "decision": "liquidite hors bande (24.50 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 1,
-  "evenements": 7,
+  "jours": 2,
+  "evenements": 9,
   "retenus": 3,
   "achetes": 3,
   "complet": 0,
