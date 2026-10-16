@@ -4804,5 +4804,11 @@
     "sentiment": "positive",
     "reason": "L'action de TG Therapeutics, Inc. (TGTX) a connu une augmentation de 60% de son prix en 6 mois, selon les actualités récentes.",
     "source": "ollama"
+  },
+  "5706.T_2026-10-16": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "L'actualité présente des informations positives (mise en place d'une partenariat pour l'industrie des batteries) et négatives (le prix de l'action est en dessous de son high) qui équilibrent les deux, ce qui donne un ton neutre.",
+    "source": "ollama"
   }
 }
