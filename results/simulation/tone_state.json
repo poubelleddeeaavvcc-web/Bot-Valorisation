@@ -2,7 +2,22 @@
  "cash": {
   "pool": 4800.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "PRU",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 11%)",
+   "decided_at": "2026-10-16T21:37:48Z",
+   "amount_eur": 100.0,
+   "name": "PRUDENTIAL FINANCIAL INC",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.008032
+  }
+ ],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
@@ -18584,42 +18599,53 @@
    "react": 0.016784,
    "age": 3.085145,
    "tone": 0.008663
+  },
+  {
+   "ticker": "JBHT",
+   "date": "2026-10-16",
+   "ret12": 0.679416,
+   "size": 23.790661,
+   "stdret": 0.118578,
+   "react": -0.006308,
+   "age": 3.08527,
+   "tone": 0.016871
+  },
+  {
+   "ticker": "IBKR",
+   "date": "2026-10-16",
+   "ret12": 0.218224,
+   "size": 24.346674,
+   "stdret": 0.088545,
+   "react": -0.008982,
+   "age": 3.018102,
+   "tone": 0.00328
+  },
+  {
+   "ticker": "PRU",
+   "date": "2026-10-16",
+   "ret12": 0.15238,
+   "size": 24.411869,
+   "stdret": 0.071487,
+   "react": 0.029575,
+   "age": 3.08527,
+   "tone": -0.004447
+  },
+  {
+   "ticker": "SCHW",
+   "date": "2026-10-16",
+   "ret12": 0.049761,
+   "size": 25.792357,
+   "stdret": 0.053431,
+   "react": -0.041749,
+   "age": 3.08527,
+   "tone": 0.006874
   }
  ],
  "edgar_days_done": [
   "2026-10-14",
   "2026-10-15"
  ],
- "awaiting": [
-  {
-   "ticker": "JBHT",
-   "acc": "0001437749-26-032715",
-   "accepted": "2026-10-15T16:23:02-04:00",
-   "tone": 0.01687051876845213,
-   "company": "HUNT J B TRANSPORT SERVICES INC"
-  },
-  {
-   "ticker": "IBKR",
-   "acc": "0001381197-26-000154",
-   "accepted": "2026-10-15T16:01:15-04:00",
-   "tone": 0.003280032800328003,
-   "company": "Interactive Brokers Group, Inc."
-  },
-  {
-   "ticker": "PRU",
-   "acc": "0001137774-26-000210",
-   "accepted": "2026-10-15T16:22:03-04:00",
-   "tone": -0.0044469149527515284,
-   "company": "PRUDENTIAL FINANCIAL INC"
-  },
-  {
-   "ticker": "SCHW",
-   "acc": "0000316709-26-000035",
-   "accepted": "2026-10-15T16:18:01-04:00",
-   "tone": 0.00687366674567433,
-   "company": "SCHWAB CHARLES CORP"
-  }
- ],
+ "awaiting": [],
  "shadow": [
   {
    "ticker": "FAST",
@@ -18630,6 +18656,11 @@
    "ticker": "PNC",
    "day0": "2026-10-15",
    "rang": 0.805
+  },
+  {
+   "ticker": "JBHT",
+   "day0": "2026-10-16",
+   "rang": 0.972
   }
  ],
  "events_log": [
@@ -18740,18 +18771,55 @@
    "abtone": 0.00445,
    "rang": 0.763,
    "decision": "neutre"
+  },
+  {
+   "ticker": "JBHT",
+   "company": "HUNT J B TRANSPORT SERVICES INC",
+   "day0": "2026-10-16",
+   "tone": 0.01687,
+   "abtone": 0.01493,
+   "rang": 0.972,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "IBKR",
+   "company": "Interactive Brokers Group, Inc.",
+   "day0": "2026-10-16",
+   "tone": 0.00328,
+   "abtone": 0.00021,
+   "rang": 0.54,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "PRU",
+   "company": "PRUDENTIAL FINANCIAL INC",
+   "day0": "2026-10-16",
+   "tone": -0.00445,
+   "abtone": -0.00803,
+   "rang": 0.11,
+   "decision": "achat"
+  },
+  {
+   "ticker": "SCHW",
+   "company": "SCHWAB CHARLES CORP",
+   "day0": "2026-10-16",
+   "tone": 0.00687,
+   "abtone": 0.00186,
+   "rang": 0.639,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
   "BAC": "2027-01-07",
-  "PGR": "2027-01-07"
+  "PGR": "2027-01-07",
+  "PRU": "2027-01-11"
  },
  "counters": {
   "jours": 2,
   "communiques": 16,
-  "evalues": 12,
-  "achetes": 2,
-  "ombre": 2,
+  "evalues": 16,
+  "achetes": 3,
+  "ombre": 3,
   "complet": 0
  }
 }

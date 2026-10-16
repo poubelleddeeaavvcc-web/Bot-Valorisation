@@ -1,51 +1,8 @@
 {
  "cash": {
-  "pool": 4900.0
+  "pool": 4600.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "T",
-   "bucket": "pool",
-   "reason": "achat declare par David J. Taylor (OH02), >= 1,001 $ le 10/09/2026",
-   "decided_at": "2026-10-16T14:52:48Z",
-   "amount_eur": 100.0,
-   "name": "T",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 1001.0
-  },
-  {
-   "side": "buy",
-   "ticker": "FITB",
-   "bucket": "pool",
-   "reason": "achat declare par David J. Taylor (OH02), >= 1,001 $ le 10/09/2026",
-   "decided_at": "2026-10-16T14:52:48Z",
-   "amount_eur": 100.0,
-   "name": "FITB",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 1001.0
-  },
-  {
-   "side": "buy",
-   "ticker": "RPM",
-   "bucket": "pool",
-   "reason": "achat declare par David J. Taylor (OH02), >= 1,001 $ le 10/09/2026",
-   "decided_at": "2026-10-16T14:52:48Z",
-   "amount_eur": 100.0,
-   "name": "RPM",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 1001.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20035487",
