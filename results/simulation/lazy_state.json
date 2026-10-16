@@ -499,7 +499,8 @@
   0.99735
  ],
  "edgar_days_done": [
-  "2026-10-14"
+  "2026-10-14",
+  "2026-10-15"
  ],
  "queue": [],
  "scores": [
@@ -510,13 +511,21 @@
    "cos": 0.992207,
    "jac": 0.89589,
    "period": "2026-09-26"
+  },
+  {
+   "ticker": "MRSH",
+   "form": "10-Q",
+   "date": "2026-10-15",
+   "cos": 0.983881,
+   "jac": 0.85721,
+   "period": "2026-09-30"
   }
  ],
  "shadow": [],
  "hold_until": {},
  "counters": {
-  "rapports": 2,
-  "compares": 1,
+  "rapports": 3,
+  "compares": 2,
   "sans_comparable": 1,
   "achetes": 0
  },
