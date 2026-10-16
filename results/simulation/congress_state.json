@@ -2,18 +2,67 @@
  "cash": {
   "pool": 4900.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "T",
+   "bucket": "pool",
+   "reason": "achat declare par David J. Taylor (OH02), >= 1,001 $ le 10/09/2026",
+   "decided_at": "2026-10-16T14:52:48Z",
+   "amount_eur": 100.0,
+   "name": "T",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1001.0
+  },
+  {
+   "side": "buy",
+   "ticker": "FITB",
+   "bucket": "pool",
+   "reason": "achat declare par David J. Taylor (OH02), >= 1,001 $ le 10/09/2026",
+   "decided_at": "2026-10-16T14:52:48Z",
+   "amount_eur": 100.0,
+   "name": "FITB",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1001.0
+  },
+  {
+   "side": "buy",
+   "ticker": "RPM",
+   "bucket": "pool",
+   "reason": "achat declare par David J. Taylor (OH02), >= 1,001 $ le 10/09/2026",
+   "decided_at": "2026-10-16T14:52:48Z",
+   "amount_eur": 100.0,
+   "name": "RPM",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1001.0
+  }
+ ],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20035487",
   "20035588",
   "20035627",
+  "20035637",
   "20035648",
   "20035651",
-  "20035652"
+  "20035652",
+  "20035660",
+  "9116378"
  ],
  "hold_until": {
-  "BRK-B": "2027-04-01"
+  "BRK-B": "2027-04-01",
+  "T": "2027-04-02",
+  "FITB": "2027-04-02",
+  "RPM": "2027-04-02"
  },
  "events_log": [
   {
@@ -24,13 +73,40 @@
    "trade_date": "09/18/2026",
    "amount_low": 1001,
    "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-15",
+   "member": "David J. Taylor",
+   "district": "OH02",
+   "ticker": "T",
+   "trade_date": "10/09/2026",
+   "amount_low": 1001,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-15",
+   "member": "David J. Taylor",
+   "district": "OH02",
+   "ticker": "FITB",
+   "trade_date": "10/09/2026",
+   "amount_low": 1001,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-15",
+   "member": "David J. Taylor",
+   "district": "OH02",
+   "ticker": "RPM",
+   "trade_date": "10/09/2026",
+   "amount_low": 1001,
+   "decision": "achat"
   }
  ],
  "counters": {
-  "rapports": 6,
+  "rapports": 9,
   "illisibles": 0,
-  "achats_declares": 1,
-  "achetes": 1,
+  "achats_declares": 4,
+  "achetes": 4,
   "complet": 0,
   "prolonges": 0,
   "sans_cours": 0
