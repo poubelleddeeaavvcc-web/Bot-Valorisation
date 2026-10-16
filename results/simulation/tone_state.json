@@ -6,116 +6,6 @@
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
-   "ticker": "SYF",
-   "date": "2025-10-15",
-   "tone": 0.011394,
-   "ret12": 0.384611,
-   "size": 24.062598,
-   "stdret": 0.129796,
-   "react": 0.027868,
-   "age": 2.500329
-  },
-  {
-   "ticker": "ABT",
-   "date": "2025-10-15",
-   "tone": -0.001359,
-   "ret12": 0.158147,
-   "size": 26.230301,
-   "stdret": 0.067327,
-   "react": -0.013521,
-   "age": 3.036554
-  },
-  {
-   "ticker": "PLD",
-   "date": "2025-10-15",
-   "tone": 0.004582,
-   "ret12": -0.012154,
-   "size": 25.450781,
-   "stdret": 0.0717,
-   "react": 0.085858,
-   "age": 3.036554
-  },
-  {
-   "ticker": "PGR",
-   "date": "2025-10-15",
-   "tone": -0.010562,
-   "ret12": -0.042399,
-   "size": 25.63626,
-   "stdret": 0.057481,
-   "react": -0.044604,
-   "age": 3.036554
-  },
-  {
-   "ticker": "CFG",
-   "date": "2025-10-15",
-   "tone": 0.0048,
-   "ret12": 0.264624,
-   "size": 23.906053,
-   "stdret": 0.094827,
-   "react": 0.025643,
-   "age": 2.487878
-  },
-  {
-   "ticker": "PNC",
-   "date": "2025-10-15",
-   "tone": 0.012625,
-   "ret12": 0.056263,
-   "size": 25.18397,
-   "stdret": 0.089431,
-   "react": -0.018762,
-   "age": 3.036554
-  },
-  {
-   "ticker": "BAC",
-   "date": "2025-10-15",
-   "tone": -0.002125,
-   "ret12": 0.251184,
-   "size": 26.705341,
-   "stdret": 0.074158,
-   "react": 0.066783,
-   "age": 3.036554
-  },
-  {
-   "ticker": "MS",
-   "date": "2025-10-15",
-   "tone": 0.010665,
-   "ret12": 0.478183,
-   "size": 26.336643,
-   "stdret": 0.106101,
-   "react": 0.045263,
-   "age": 3.036554
-  },
-  {
-   "ticker": "UAL",
-   "date": "2025-10-15",
-   "tone": 0.004037,
-   "ret12": 0.669094,
-   "size": 24.417862,
-   "stdret": 0.176663,
-   "react": -0.045684,
-   "age": 3.02833
-  },
-  {
-   "ticker": "BDX",
-   "date": "2025-10-15",
-   "tone": 0.003847,
-   "ret12": -0.186883,
-   "size": 24.394978,
-   "stdret": 0.065947,
-   "react": -0.014004,
-   "age": 3.036745
-  },
-  {
-   "ticker": "JBHT",
-   "date": "2025-10-15",
-   "tone": 0.000405,
-   "ret12": -0.17441,
-   "size": 23.44836,
-   "stdret": 0.099672,
-   "react": 0.21909,
-   "age": 3.036745
-  },
-  {
    "ticker": "MTB",
    "date": "2025-10-16",
    "tone": 0.003235,
@@ -18634,17 +18524,112 @@
    "react": -0.035037,
    "age": 3.08502,
    "tone": 0.002177
+  },
+  {
+   "ticker": "BNY",
+   "date": "2026-10-15",
+   "ret12": 0.350972,
+   "size": 25.291862,
+   "stdret": 0.063189,
+   "react": 0.015511,
+   "age": 3.085145,
+   "tone": 0.002304
+  },
+  {
+   "ticker": "KMB",
+   "date": "2026-10-15",
+   "ret12": -0.133716,
+   "size": 24.267452,
+   "stdret": 0.073,
+   "react": 0.0668,
+   "age": 3.085145,
+   "tone": -0.001181
+  },
+  {
+   "ticker": "MRSH",
+   "date": "2026-10-15",
+   "ret12": -0.119183,
+   "size": 25.212116,
+   "stdret": 0.059745,
+   "react": 0.061834,
+   "age": 3.085145,
+   "tone": 0.008068
+  },
+  {
+   "ticker": "PNC",
+   "date": "2026-10-15",
+   "ret12": 0.21283,
+   "size": 25.174831,
+   "stdret": 0.08473,
+   "react": -0.003684,
+   "age": 3.085145,
+   "tone": 0.009479
+  },
+  {
+   "ticker": "PLD",
+   "date": "2026-10-15",
+   "ret12": 0.221991,
+   "size": 25.516038,
+   "stdret": 0.048584,
+   "react": -0.0415,
+   "age": 3.085145,
+   "tone": 0.004842
+  },
+  {
+   "ticker": "USB",
+   "date": "2026-10-15",
+   "ret12": 0.279862,
+   "size": 25.216572,
+   "stdret": 0.078788,
+   "react": 0.016784,
+   "age": 3.085145,
+   "tone": 0.008663
   }
  ],
  "edgar_days_done": [
-  "2026-10-14"
+  "2026-10-14",
+  "2026-10-15"
  ],
- "awaiting": [],
+ "awaiting": [
+  {
+   "ticker": "JBHT",
+   "acc": "0001437749-26-032715",
+   "accepted": "2026-10-15T16:23:02-04:00",
+   "tone": 0.01687051876845213,
+   "company": "HUNT J B TRANSPORT SERVICES INC"
+  },
+  {
+   "ticker": "IBKR",
+   "acc": "0001381197-26-000154",
+   "accepted": "2026-10-15T16:01:15-04:00",
+   "tone": 0.003280032800328003,
+   "company": "Interactive Brokers Group, Inc."
+  },
+  {
+   "ticker": "PRU",
+   "acc": "0001137774-26-000210",
+   "accepted": "2026-10-15T16:22:03-04:00",
+   "tone": -0.0044469149527515284,
+   "company": "PRUDENTIAL FINANCIAL INC"
+  },
+  {
+   "ticker": "SCHW",
+   "acc": "0000316709-26-000035",
+   "accepted": "2026-10-15T16:18:01-04:00",
+   "tone": 0.00687366674567433,
+   "company": "SCHWAB CHARLES CORP"
+  }
+ ],
  "shadow": [
   {
    "ticker": "FAST",
    "day0": "2026-10-14",
    "rang": 0.957
+  },
+  {
+   "ticker": "PNC",
+   "day0": "2026-10-15",
+   "rang": 0.805
   }
  ],
  "events_log": [
@@ -18701,6 +18686,60 @@
    "abtone": -0.00113,
    "rang": 0.445,
    "decision": "neutre"
+  },
+  {
+   "ticker": "BNY",
+   "company": "Bank of New York Mellon Corp",
+   "day0": "2026-10-15",
+   "tone": 0.0023,
+   "abtone": -0.00218,
+   "rang": 0.375,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "KMB",
+   "company": "KIMBERLY CLARK CORP",
+   "day0": "2026-10-15",
+   "tone": -0.00118,
+   "abtone": -0.00481,
+   "rang": 0.233,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "MRSH",
+   "company": "MARSH & MCLENNAN COMPANIES, INC.",
+   "day0": "2026-10-15",
+   "tone": 0.00807,
+   "abtone": 0.00329,
+   "rang": 0.706,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "PNC",
+   "company": "PNC FINANCIAL SERVICES GROUP, INC.",
+   "day0": "2026-10-15",
+   "tone": 0.00948,
+   "abtone": 0.00546,
+   "rang": 0.805,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "PLD",
+   "company": "Prologis, Inc.",
+   "day0": "2026-10-15",
+   "tone": 0.00484,
+   "abtone": 0.00013,
+   "rang": 0.53,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "USB",
+   "company": "US BANCORP \\DE\\",
+   "day0": "2026-10-15",
+   "tone": 0.00866,
+   "abtone": 0.00445,
+   "rang": 0.763,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -18708,11 +18747,11 @@
   "PGR": "2027-01-07"
  },
  "counters": {
-  "jours": 1,
-  "communiques": 6,
-  "evalues": 6,
+  "jours": 2,
+  "communiques": 16,
+  "evalues": 12,
   "achetes": 2,
-  "ombre": 1,
+  "ombre": 2,
   "complet": 0
  }
 }
