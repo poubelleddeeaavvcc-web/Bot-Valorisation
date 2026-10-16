@@ -4810,5 +4810,11 @@
     "sentiment": "neutral",
     "reason": "L'actualité présente des informations positives (mise en place d'une partenariat pour l'industrie des batteries) et négatives (le prix de l'action est en dessous de son high) qui équilibrent les deux, ce qui donne un ton neutre.",
     "source": "ollama"
+  },
+  "ITUB4.SA_2026-10-16": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "L'action de Itaú Unibanco Holding S.A. a connu une augmentation de 3.36% le 9 octobre 2026, et a été ciblée par une augmentation de cible de 10,50 $ par Goldman Sachs.",
+    "source": "ollama"
   }
 }
