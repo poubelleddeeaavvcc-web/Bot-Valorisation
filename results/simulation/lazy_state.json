@@ -500,7 +500,8 @@
  ],
  "edgar_days_done": [
   "2026-10-14",
-  "2026-10-15"
+  "2026-10-15",
+  "2026-10-16"
  ],
  "queue": [],
  "scores": [
@@ -519,13 +520,37 @@
    "cos": 0.983881,
    "jac": 0.85721,
    "period": "2026-09-30"
+  },
+  {
+   "ticker": "ACN",
+   "form": "10-K",
+   "date": "2026-10-16",
+   "cos": 0.999033,
+   "jac": 0.90854,
+   "period": "2026-08-31"
+  },
+  {
+   "ticker": "CMC",
+   "form": "10-K",
+   "date": "2026-10-16",
+   "cos": 0.998485,
+   "jac": 0.90211,
+   "period": "2026-08-31"
+  },
+  {
+   "ticker": "TRV",
+   "form": "10-Q",
+   "date": "2026-10-16",
+   "cos": 0.997559,
+   "jac": 0.94583,
+   "period": "2026-09-30"
   }
  ],
  "shadow": [],
  "hold_until": {},
  "counters": {
-  "rapports": 3,
-  "compares": 2,
+  "rapports": 6,
+  "compares": 5,
   "sans_comparable": 1,
   "achetes": 0
  },
