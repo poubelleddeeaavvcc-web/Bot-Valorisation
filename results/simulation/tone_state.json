@@ -21,106 +21,6 @@
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
-   "ticker": "MTB",
-   "date": "2025-10-16",
-   "tone": 0.003235,
-   "ret12": 0.03878,
-   "size": 24.159401,
-   "stdret": 0.092028,
-   "react": -0.042563,
-   "age": 3.036745
-  },
-  {
-   "ticker": "KEY",
-   "date": "2025-10-16",
-   "tone": -0.001565,
-   "ret12": 0.095947,
-   "size": 23.805535,
-   "stdret": 0.095393,
-   "react": -0.065894,
-   "age": 3.036745
-  },
-  {
-   "ticker": "SNA",
-   "date": "2025-10-16",
-   "tone": 0.010963,
-   "ret12": 0.184761,
-   "size": 23.722011,
-   "stdret": 0.074996,
-   "react": 0.023616,
-   "age": 3.036745
-  },
-  {
-   "ticker": "MRSH",
-   "date": "2025-10-16",
-   "tone": 0.008848,
-   "ret12": -0.065415,
-   "size": 25.411358,
-   "stdret": 0.036678,
-   "react": -0.096817,
-   "age": 3.036745
-  },
-  {
-   "ticker": "USB",
-   "date": "2025-10-16",
-   "tone": 0.00807,
-   "ret12": 0.063707,
-   "size": 25.125767,
-   "stdret": 0.085745,
-   "react": -0.028179,
-   "age": 3.036745
-  },
-  {
-   "ticker": "TRV",
-   "date": "2025-10-16",
-   "tone": 0.01072,
-   "ret12": 0.184374,
-   "size": 24.820624,
-   "stdret": 0.048747,
-   "react": -0.048644,
-   "age": 3.036745
-  },
-  {
-   "ticker": "BNY",
-   "date": "2025-10-16",
-   "tone": 0.005294,
-   "ret12": 0.478311,
-   "size": 25.116214,
-   "stdret": 0.072144,
-   "react": -0.00124,
-   "age": 3.036745
-  },
-  {
-   "ticker": "CSX",
-   "date": "2025-10-16",
-   "tone": 0.000853,
-   "ret12": 0.04295,
-   "size": 25.000214,
-   "stdret": 0.072542,
-   "react": 0.011106,
-   "age": 3.036935
-  },
-  {
-   "ticker": "IBKR",
-   "date": "2025-10-16",
-   "tone": 0.001963,
-   "ret12": 0.854427,
-   "size": 25.478589,
-   "stdret": 0.150488,
-   "react": -0.049566,
-   "age": 2.966745
-  },
-  {
-   "ticker": "SCHW",
-   "date": "2025-10-16",
-   "tone": 0.004682,
-   "ret12": 0.408749,
-   "size": 25.930818,
-   "stdret": 0.06647,
-   "react": -0.000842,
-   "age": 3.036935
-  },
-  {
    "ticker": "RF",
    "date": "2025-10-17",
    "tone": 0.001908,
@@ -18639,11 +18539,62 @@
    "react": -0.041749,
    "age": 3.08527,
    "tone": 0.006874
+  },
+  {
+   "ticker": "CFG",
+   "date": "2026-10-16",
+   "ret12": 0.244253,
+   "size": 24.007396,
+   "stdret": 0.086239,
+   "react": 0.020877,
+   "age": 2.569572,
+   "tone": 0.00863
+  },
+  {
+   "ticker": "MTB",
+   "date": "2026-10-16",
+   "ret12": 0.188199,
+   "size": 24.163722,
+   "stdret": 0.083359,
+   "react": 0.004687,
+   "age": 3.08527,
+   "tone": -0.000718
+  },
+  {
+   "ticker": "RF",
+   "date": "2026-10-16",
+   "ret12": 0.111971,
+   "size": 23.875381,
+   "stdret": 0.081474,
+   "react": 0.029077,
+   "age": 3.08527,
+   "tone": 0.001502
+  },
+  {
+   "ticker": "TRV",
+   "date": "2026-10-16",
+   "ret12": 0.39165,
+   "size": 25.120776,
+   "stdret": 0.065886,
+   "react": 0.039271,
+   "age": 3.08527,
+   "tone": 0.00748
+  },
+  {
+   "ticker": "TFC",
+   "date": "2026-10-16",
+   "ret12": 0.081769,
+   "size": 24.775085,
+   "stdret": 0.076809,
+   "react": 0.041167,
+   "age": 3.08527,
+   "tone": 0.001871
   }
  ],
  "edgar_days_done": [
   "2026-10-14",
-  "2026-10-15"
+  "2026-10-15",
+  "2026-10-16"
  ],
  "awaiting": [],
  "shadow": [
@@ -18661,6 +18612,11 @@
    "ticker": "JBHT",
    "day0": "2026-10-16",
    "rang": 0.972
+  },
+  {
+   "ticker": "CFG",
+   "day0": "2026-10-16",
+   "rang": 0.823
   }
  ],
  "events_log": [
@@ -18807,6 +18763,51 @@
    "abtone": 0.00186,
    "rang": 0.639,
    "decision": "neutre"
+  },
+  {
+   "ticker": "CFG",
+   "company": "CITIZENS FINANCIAL GROUP INC/RI",
+   "day0": "2026-10-16",
+   "tone": 0.00863,
+   "abtone": 0.0059,
+   "rang": 0.823,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "MTB",
+   "company": "M&T BANK CORP",
+   "day0": "2026-10-16",
+   "tone": -0.00072,
+   "abtone": -0.00375,
+   "rang": 0.286,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "RF",
+   "company": "REGIONS FINANCIAL CORP",
+   "day0": "2026-10-16",
+   "tone": 0.0015,
+   "abtone": -0.00138,
+   "rang": 0.426,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "TRV",
+   "company": "TRAVELERS COMPANIES, INC.",
+   "day0": "2026-10-16",
+   "tone": 0.00748,
+   "abtone": 0.0031,
+   "rang": 0.698,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "TFC",
+   "company": "TRUIST FINANCIAL CORP",
+   "day0": "2026-10-16",
+   "tone": 0.00187,
+   "abtone": -0.00209,
+   "rang": 0.379,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -18815,11 +18816,11 @@
   "PRU": "2027-01-11"
  },
  "counters": {
-  "jours": 2,
-  "communiques": 16,
-  "evalues": 16,
+  "jours": 3,
+  "communiques": 21,
+  "evalues": 21,
   "achetes": 3,
-  "ombre": 3,
+  "ombre": 4,
   "complet": 0
  }
 }
