@@ -8,7 +8,8 @@
   "2026-10-12",
   "2026-10-13",
   "2026-10-14",
-  "2026-10-15"
+  "2026-10-15",
+  "2026-10-16"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -135,11 +136,31 @@
    "title": "Chief Executive Officer",
    "adv_usd": null,
    "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-10-16",
+   "ticker": "FIS",
+   "issuer": "Fidelity National Information Services, Inc.",
+   "value_usd": 57694,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 220766485,
+   "decision": "liquidite hors bande (220.77 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-16",
+   "ticker": "PEP",
+   "issuer": "PEPSICO INC",
+   "value_usd": 17904168,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 1292117015,
+   "decision": "liquidite hors bande (1292.12 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 3,
-  "evenements": 12,
+  "jours": 4,
+  "evenements": 14,
   "retenus": 3,
   "achetes": 3,
   "complet": 0,
