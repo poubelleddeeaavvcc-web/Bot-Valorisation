@@ -46,6 +46,16 @@ mom_12_2 - sector_momentum >= the margin, and for Delta every reinforcement too.
 reports fees_eur and max_drawdown_pct (worst peak-to-trough of the EUR equity curve) -- fewer,
 larger positions cut fees but make each loser weigh more, so return alone isn't enough to compare.
 
+CAPITAL, PLANCHER ET FRAIS DES DEUX COTES (2026-10-19, aligne sur le commit 89ae52962 des bots
+reels) : capitaux de depart importes des bots (2000 EUR Beta/contraint, 4000 EUR Charlie/large,
+1200 EUR Delta -- meme nombre de lignes, ~133 EUR chacune) au lieu de 500/300 EUR codes en dur ;
+TRADE_FEE_EUR preleve aussi a CHAQUE achat (nouvelle ligne, renfort de conviction, renfort par
+apport), en plus de la vente ; return_pct = rendement brut - (frais d'entree + frais de sortie) /
+entry_value_eur, comme recheck_and_exit ; fees_eur = frais des deux cotes, positions encore
+ouvertes comprises. Chaque ordre passe par size_buy() (plancher MIN_POSITION_EUR = 100 EUR) : en
+dessous, le cash reste en attente. Le replay reste en fractions d'action (cost = min(cible, cash
+- frais)), comme avant -- pas d'arrondi aux actions entieres.
+
 Reuses _pick_capped/_pick_even_sector from backtest_momentum_proxy.py (candidate picking
 under sector/NA caps doesn't care where the score came from) and ticker_region/
 NORTH_AMERICA_MAX_SHARE/composite_score from select_top_picks.py -- single authoritative
@@ -69,9 +79,13 @@ from screener.select_top_picks import ticker_region, composite_score  # noqa: E4
 from screener.simulate_portfolio import (  # noqa: E402
     STOP_LOSS_PCT, RATCHET_STEP_PCT, RATCHET_GIVEBACK_PCT, MIN_ENTRY_MOM_MARGIN,
 )
-from screener.simulate_constrained_portfolio import TRADE_FEE_EUR  # noqa: E402
+from screener.simulate_constrained_portfolio import (  # noqa: E402
+    TRADE_FEE_EUR, MIN_POSITION_EUR, STARTING_CAPITAL as B2_STARTING_CAPITAL, can_afford_order, size_buy,
+)
+from screener.simulate_large_portfolio import STARTING_CAPITAL as B3_STARTING_CAPITAL  # noqa: E402
 from screener.simulate_delta_portfolio import (  # noqa: E402
     DELTA_MIN_DROP_PCT, DELTA_DEEP_DROP_PCT, DELTA_MOM_SPREAD_MIN, DELTA_MAX_POSITION_SHARE,
+    STARTING_CAPITAL as DELTA_STARTING_CAPITAL,
 )
 
 VALUATION_PATH = HERE / "results/screener/full_valuation_latest.csv"
@@ -79,8 +93,6 @@ OUT_DIR = HERE / "results/backtest_pit"
 SNAP_DIR = OUT_DIR / "snapshots"
 SNAP_DIR.mkdir(parents=True, exist_ok=True)
 
-STARTING_CAPITAL = 500.0
-DELTA_STARTING_CAPITAL = 300.0
 # The first ~2 weeks (2026-08-07 -> ~08-21) are excluded -- found by running this script
 # unfiltered first: 197 of 198 Bot#1 "valorisation_atteinte" exits in that first run had
 # entry_date in the single week of 2026-08-07..09, median hold time 19 minutes, median
@@ -113,8 +125,11 @@ DEFAULT_PARAMS = {
     # marge de momentum exigee a l'achat (et au renfort Delta) au-dessus du momentum du secteur --
     # 0 = simple "bat son secteur", comme les bots #2/#3/#25 ; MIN_ENTRY_MOM_MARGIN pour #35-37.
     "min_mom_margin": 0.0,
-    # frais deduits a chaque vente, comme les bots a capital reels (simulate_constrained_portfolio)
+    # frais preleves a chaque ordre -- achat (neuf ou renfort) ET vente --, comme les bots a capital
+    # reels depuis le 2026-10-19 (simulate_constrained_portfolio.size_buy / recheck_and_exit)
     "trade_fee_eur": TRADE_FEE_EUR,
+    # plancher par ordre (achat neuf et renfort) : sous ce montant, le cash reste en attente
+    "min_position_eur": MIN_POSITION_EUR,
     "delta_min_drop_pct": DELTA_MIN_DROP_PCT,
     "delta_deep_drop_pct": DELTA_DEEP_DROP_PCT,
     "delta_mom_spread_min": DELTA_MOM_SPREAD_MIN,
@@ -137,9 +152,9 @@ FAMILLE_OF_BASE = {"bot1_blind": "alpha", "bot2_constrained": "beta", "bot3_larg
 # Bots de reference sur lesquels une variante s'appuie (champ "base" du fichier de config).
 BASES = {
     "bot2_constrained": {"slots": STARTING_SLOTS_B2, "max_per_sector": MAX_PER_SECTOR, "mode": "capped",
-                          "capital": STARTING_CAPITAL, "reinforce": False},
+                          "capital": B2_STARTING_CAPITAL, "reinforce": False},
     "bot3_large": {"slots": STARTING_SLOTS_B3, "max_per_sector": None, "mode": "even_sector",
-                    "capital": STARTING_CAPITAL, "reinforce": False},
+                    "capital": B3_STARTING_CAPITAL, "reinforce": False},
     "bot25_delta": {"slots": STARTING_SLOTS_DELTA, "max_per_sector": MAX_PER_SECTOR, "mode": "capped",
                      "capital": DELTA_STARTING_CAPITAL, "reinforce": True},
 }
@@ -364,7 +379,9 @@ def conviction_gate(info: dict, row, p: dict):
     return vg_now
 
 
-def apply_reinforcement(info: dict, price, price_eur, budget: float):
+def apply_reinforcement(info: dict, price, price_eur, budget: float, fee: float):
+    """Renfort de `budget` EUR (hors frais) ; `fee` s'ajoute aux frais d'achat deja payes."""
+    info["entry_fee_eur"] = info.get("entry_fee_eur", 0.0) + fee
     old_v = info["entry_value_eur"]
     new_v = old_v + budget
     info["entry_price"] = (info["entry_price"] * old_v + price * budget) / new_v
@@ -421,10 +438,14 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
             exit_value_eur = (info["entry_value_eur"] * price_eur / info["entry_price_eur"]
                                if price_eur and info.get("entry_price_eur") else info["entry_value_eur"])
             fee = p["trade_fee_eur"]
+            entry_fees = info.get("entry_fee_eur", 0.0)
             cash += exit_value_eur - fee
+            # meme formule que recheck_and_exit : frais d'entree (deja sortis du cash a l'achat) +
+            # frais de sortie, rapportes a la mise
             closed.append({**info, "ticker": tk, "exit_date": t, "exit_price": price, "exit_reason": reason,
-                           "return_pct": unrealized - fee / info["entry_value_eur"], "gross_return_pct": unrealized,
-                           "fee_eur": fee, "exit_value_eur": exit_value_eur - fee})
+                           "return_pct": unrealized - (entry_fees + fee) / info["entry_value_eur"],
+                           "gross_return_pct": unrealized, "exit_fee_eur": fee, "fee_eur": entry_fees + fee,
+                           "exit_value_eur": exit_value_eur - fee})
             del held[tk]
 
         # ---- renfort de conviction REEL (Bot #25 uniquement) ----
@@ -442,11 +463,14 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
                 price_eur = to_eur_pit(price, info["currency"], fx_daily, t)
                 if not price_eur or price_eur <= 0:
                     continue
-                budget = min(target_size, cap_eur - info["entry_value_eur"], free_cash)
-                if budget <= 0:
+                # meme plancher et memes frais qu'un achat neuf (simulate_delta_portfolio.reinforce_convictions)
+                sized = size_buy(min(target_size, cap_eur - info["entry_value_eur"]), free_cash, price_eur, True,
+                                 p["min_position_eur"])
+                if sized is None:
                     continue
-                apply_reinforcement(info, price, price_eur, budget)
-                cash -= budget
+                budget = sized[1]
+                apply_reinforcement(info, price, price_eur, budget, p["trade_fee_eur"])
+                cash -= budget + p["trade_fee_eur"]
                 print(f"  RENFORT REEL {tk} @ {t.date()} (valorisation {vg_now:+.1%} vs "
                       f"{info['entry_valuation_gap']:+.1%} a l'achat) : +{budget:.2f} EUR", file=sys.stderr)
 
@@ -467,12 +491,16 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
                     total_w = sum(weights)
                     pot = reserve
                     for (tk, info, price, price_eur, vg_now), w in zip(eligible, weights):
-                        budget = min(pot * w / total_w, cap_eur - info["entry_value_eur"], reserve)
-                        if budget <= 0.01:
+                        # plancher + frais : une part trop petite reste dans la reserve, qui grossit
+                        # jusqu'a la prochaine occasion (frais pris sur la reserve elle-meme)
+                        sized = size_buy(min(pot * w / total_w, cap_eur - info["entry_value_eur"]), reserve,
+                                         price_eur, True, p["min_position_eur"])
+                        if sized is None:
                             continue
-                        apply_reinforcement(info, price, price_eur, budget)
-                        cash -= budget
-                        reserve -= budget
+                        budget = sized[1]
+                        apply_reinforcement(info, price, price_eur, budget, p["trade_fee_eur"])
+                        cash -= budget + p["trade_fee_eur"]
+                        reserve -= budget + p["trade_fee_eur"]
                         print(f"  RENFORT APPORT {tk} @ {t.date()} (valorisation {vg_now:+.1%}) : +{budget:.2f} EUR",
                               file=sys.stderr)
 
@@ -487,7 +515,7 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
             cand["score"] = composite_score(cand)
             rejected = set()
             exhausted = set()
-            while cash - reserve >= target_size and len(cand):
+            while can_afford_order(cash - reserve, p["min_position_eur"]) and len(cand):
                 sector_counts = {}
                 for info in held.values():
                     sector_counts[info["sector"]] = sector_counts.get(info["sector"], 0) + 1
@@ -507,11 +535,17 @@ def run_slotted_pit(panel: pd.DataFrame, currency_of: dict, fx_daily: pd.DataFra
                     rejected.add(tk)
                     cand = cand[cand["ticker"] != tk]
                     continue
+                # cible ~133 EUR, ou le reste du cash s'il couvre encore le plancher (comme fill_slots)
+                sized = size_buy(target_size, cash - reserve, price_eur, True, p["min_position_eur"])
+                if sized is None:
+                    break  # meme le plancher ne passe plus : aucun autre candidat ne passera ce snapshot
+                cost = sized[1]
                 held[tk] = {"sector": pick["sector"], "entry_date": t, "entry_price": price,
-                            "entry_price_eur": price_eur, "entry_value_eur": target_size,
+                            "entry_price_eur": price_eur, "entry_value_eur": cost,
+                            "entry_fee_eur": p["trade_fee_eur"],
                             "entry_valuation_gap": pick["valuation_gap"], "currency": currency_of.get(tk),
                             "peak": 0.0, "reinforcement_count": 0}
-                cash -= target_size
+                cash -= cost + p["trade_fee_eur"]
                 cand = cand[cand["ticker"] != tk]
 
         mtm = 0.0
@@ -603,7 +637,9 @@ def summarize(label, closed, open_df, nav=None, final_cash=None, starting_capita
         print(f"  Equity EUR (depart {cap:.0f}) : {nav.iloc[-1]:.2f} EUR ({total_return:+.1%})  "
               f"cash_final={final_cash:.2f} EUR")
         max_dd = float((nav / nav.cummax() - 1).min())
+        # frais des deux cotes : achats + ventes des positions cloturees, achats des positions ouvertes
         fees = float(closed["fee_eur"].sum()) if "fee_eur" in closed.columns else 0.0
+        fees += float(open_df["entry_fee_eur"].sum()) if "entry_fee_eur" in open_df.columns else 0.0
         print(f"  Frais payes : {fees:.2f} EUR | perte max depuis un sommet (drawdown) : {max_dd:+.1%}")
         result["final_equity_eur"] = float(nav.iloc[-1])
         result["total_return_pct"] = float(total_return)
@@ -652,15 +688,15 @@ def main():
     open34.to_csv(OUT_DIR / "bot34_blind_marge_pit_open.csv", index=False)
 
     closed2, open2, nav2, cash2, _ = run_slotted_pit(panel, currency_of, fx_daily, STARTING_SLOTS_B2,
-                                                    MAX_PER_SECTOR, "capped", STARTING_CAPITAL)
-    results.append(summarize(BOTS["bot2_constrained"], closed2, open2, nav2, cash2, STARTING_CAPITAL,
+                                                    MAX_PER_SECTOR, "capped", B2_STARTING_CAPITAL)
+    results.append(summarize(BOTS["bot2_constrained"], closed2, open2, nav2, cash2, B2_STARTING_CAPITAL,
                              famille="beta"))
     closed2.to_csv(OUT_DIR / "bot2_constrained_pit_trades.csv", index=False)
     open2.to_csv(OUT_DIR / "bot2_constrained_pit_open.csv", index=False)
 
     closed3, open3, nav3, cash3, _ = run_slotted_pit(panel, currency_of, fx_daily, STARTING_SLOTS_B3,
-                                                    None, "even_sector", STARTING_CAPITAL)
-    results.append(summarize(BOTS["bot3_large"], closed3, open3, nav3, cash3, STARTING_CAPITAL,
+                                                    None, "even_sector", B3_STARTING_CAPITAL)
+    results.append(summarize(BOTS["bot3_large"], closed3, open3, nav3, cash3, B3_STARTING_CAPITAL,
                              famille="charlie"))
     closed3.to_csv(OUT_DIR / "bot3_large_pit_trades.csv", index=False)
     open3.to_csv(OUT_DIR / "bot3_large_pit_open.csv", index=False)
