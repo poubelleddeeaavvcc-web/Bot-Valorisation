@@ -4702,5 +4702,11 @@
     "sentiment": "positive",
     "reason": "L'action de TG Therapeutics a connu une augmentation de 60% en 6 mois, et le groupe a sécurisé un nouveau financement de 500 millions de dollars et a élargi son programme de rachat d'actions.",
     "source": "ollama"
+  },
+  "2330.TW_2026-10-19": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "Les actualites presentes sont presque toutes negatives, avec des titres indiquant que le 'easy money' est passe, que TSMC est 'weighed on fund returns' et que son stock est 'not cheap'.",
+    "source": "ollama"
   }
 }

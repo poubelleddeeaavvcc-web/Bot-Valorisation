@@ -766,5 +766,13 @@
       "reason": "L'entreprise trade dans plusieurs domaines, tels que electronics, alimentos, acier, matières et plantes, et services de transport, ce qui suggère une base de clients large et diversifiée.",
       "source": "ollama"
     }
+  },
+  "2330.TW": {
+    "checked_at": "2026-10-19",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "Le texte mentionne des marchés tels que les smartphones, Internet des objets, automobiles et consommation numérique du consommateur, ce qui suggère une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
   }
 }
