@@ -4726,5 +4726,11 @@
     "sentiment": "negative",
     "reason": "L'action GE Vernova Inc. (GEV) a connu une chute plus importante que le marché, indiquant un ton général négatif.",
     "source": "ollama"
+  },
+  "AMAT_2026-10-19": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "Les actualites presentes sont presque toutes negatives, avec des sous-titres comme 'underperforms', 'moved down', ce qui suggere un ton general negatif pour l'action d'Applied Materials, Inc.",
+    "source": "ollama"
   }
 }
