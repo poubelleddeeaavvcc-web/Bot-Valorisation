@@ -1,23 +1,8 @@
 {
  "cash": {
-  "pool": 4800.0
+  "pool": 4700.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "PRU",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 11%)",
-   "decided_at": "2026-10-16T21:37:48Z",
-   "amount_eur": 100.0,
-   "name": "PRUDENTIAL FINANCIAL INC",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.008032
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {

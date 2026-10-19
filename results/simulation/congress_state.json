@@ -1,23 +1,8 @@
 {
  "cash": {
-  "pool": 4600.0
+  "pool": 4500.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "NOKBF",
-   "bucket": "pool",
-   "reason": "achat declare par Laurel Lee (FL15), >= 15,001 $ le 09/18/2026",
-   "decided_at": "2026-10-19T15:54:46Z",
-   "amount_eur": 100.0,
-   "name": "NOKBF",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 15001.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20035487",
