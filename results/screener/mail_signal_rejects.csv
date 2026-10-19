@@ -1,9 +1,4 @@
 date_utc,publication,company,ticker,sentiment,citation,motif
-2026-10-06T11:53:57+00:00,email.zacks.com,Zacks,,haussier,Don't miss today's Zacks Rank changes,"verification : pas d'avis explicite (La citation ne contient pas de recommandation d'achat ou de vente, ni de notation, ni d'objectif de cours, ni de conclus)"
-2026-10-06T11:55:22+00:00,seekingalpha.com,Energy Transfer,,haussier,A Bigger Distribution Hike Is Likely Coming,"verification : pas d'avis explicite (La citation ne contient pas de recommandation d'achat ou de vente, ni de notation, ni d'objectif de cours, ni de conclus)"
-2026-10-06T11:55:22+00:00,seekingalpha.com,Clean Energy Fuels,,baissier,The Time Might Be Arriving (Just Maybe),"verification : pas d'avis explicite (La citation est une remarque enigmatique sans recommandation d'achat ou de vente, ni notation, ni objectif de cours, ni )"
-2026-10-06T11:55:22+00:00,seekingalpha.com,Clean Energy Fuels,,baissier,Sell-Off Is An Attractive Buying Opportunity,verification : sens contradictoire (haussier vs baissier)
-2026-10-06T11:56:20+00:00,seekingalpha.com,Banque de France,,baissier,,citation introuvable mot pour mot dans le mail
 2026-10-06T11:56:20+00:00,seekingalpha.com,France,,baissier,,'France' n'est pas une societe cotee
 2026-10-06T11:56:20+00:00,seekingalpha.com,Germany,,baissier,,citation introuvable mot pour mot dans le mail
 2026-10-06T12:00:51+00:00,thedailyupside.com,GM,,haussier,GM $80.23 ▲+2.50%,citation introuvable mot pour mot dans le mail
@@ -999,3 +994,8 @@ date_utc,publication,company,ticker,sentiment,citation,motif
 2026-10-19T11:32:28+00:00,tipranks.com,defense stocks,,haussier,The investment firm believes select companies are well-positioned to benefit and has recommended two defense stocks with more than 70% upside potential over the next year,'defense stocks' n'est pas un nom de societe
 2026-10-19T11:32:28+00:00,tipranks.com,select companies,,haussier,The investment firm believes select companies are well-positioned to benefit and has recommended two defense stocks with more than 70% upside potential over the next year,'select companies' n'est pas un nom de societe
 2026-10-19T12:55:31+00:00,seekingalpha.com,Broadcom,AVGO,haussier,Broadcom stays firmly as a Buy despite the recent selloff tied to AI lab customer concerns.,"verification : sens neutre (L'actionnaire considere que la societe reste une bonne affaire malgre la baisse du cours, ce qui est un jugement positif)"
+2026-10-19T14:10:19+00:00,seekingalpha.com,S&P,,baissier,S&P 500 Falls As Investors Shift Forward-Looking Focus Back To Q4 2026,^GSPC n'est pas une action (INDEX)
+2026-10-19T14:10:19+00:00,seekingalpha.com,S&P,,baissier,S&P 500 Falls As Investors Shift Forward-Looking Focus Back To Q4 2026,^GSPC n'est pas une action (INDEX)
+2026-10-19T14:10:19+00:00,seekingalpha.com,U.S. Stocks,,haussier,A Stealth Bear Market Has Just Made U.S. Stocks A Generational Buy,TOPT n'est pas une action (ETF)
+2026-10-19T15:09:44+00:00,StockNews.com (beehiiv.com),IAT,IAT,haussier,"KBE offers diversified exposure, while IAT takes a more concentrated regional-bank approach",verification : sens neutre (La phrase compare les approches de deux ETF sans exprimer un jugement favorable ou défavorable sur l'une ou l'autre.)
+2026-10-19T16:12:44+00:00,news.meilleurtaux.com,RUBIS,,baissier,"Les dirigeants historiques recevraient 12,7 millions de nouvelles actions, ce qui diluerait d’environ 11% la participation des actionnaires actuels.",'RUBIS' n'est pas nomme a cote de la citation (avis sur une autre societe ?)
