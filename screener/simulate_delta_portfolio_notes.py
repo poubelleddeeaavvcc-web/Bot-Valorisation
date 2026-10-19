@@ -20,6 +20,9 @@ import pandas as pd
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
+from screener.simulate_constrained_portfolio import (  # noqa: E402
+    TRADE_FEE_EUR, can_afford_order, size_buy,
+)
 from screener.market_hours import tradable_now  # noqa: E402
 from screener.select_top_picks import ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE  # noqa: E402
 from screener.simulate_delta_portfolio import (  # noqa: E402
@@ -89,6 +92,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
 
     new_rows = []
     while True:
+        if not can_afford_order(cash):
+            break  # plus de quoi passer un ordre au plancher, frais compris
         pick_row = None
         for enforce_geo_caps in (True, False):
             for cap in range(MAX_PER_SECTOR, 10):
@@ -152,21 +157,19 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             rejected.add(ticker)
             continue
 
-        if fractional:
-            cost = min(TARGET_POSITION_SIZE, cash)
-            shares = cost / price_eur
-        else:
-            target_shares = max(1, int(TARGET_POSITION_SIZE // price_eur))
-            max_affordable = int(cash // price_eur)
-            shares = min(target_shares, max_affordable)
-            cost = shares * price_eur
+        # plancher MIN_POSITION_EUR + frais d'entree (2026-10-19, voir simulate_constrained_portfolio.size_buy)
+        sized = size_buy(TARGET_POSITION_SIZE, cash, price_eur, fractional)
+        if sized is None:
+            rejected.add(ticker)
+            continue
+        shares, cost = sized
 
         new_rows.append({
             "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"],
             "country": pick_row.get("country"), "status": "open",
             "currency": fresh.get("currency"), "fractional": bool(fractional),
             "entry_date": today, "entry_price": fresh["price"], "shares": shares,
-            "entry_value_eur": cost,
+            "entry_value_eur": cost, "entry_fee_eur": TRADE_FEE_EUR,
             "entry_valuation_gap": state["valuation_gap"], "entry_quality_multiplier": pick_row["quality_multiplier"],
             "entry_mom_12_2": fresh["mom_12_2"], "entry_sector_momentum": state["sector_momentum"],
             "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": state["valuation_gap"],
@@ -180,7 +183,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             "entry_note_perspective": pick_row.get("note_perspective_20"),
             "entry_note_perspective_low_confidence": pick_row.get("note_perspective_low_confidence"),
         })
-        cash -= cost
+        cash -= cost + TRADE_FEE_EUR
         held_tickers.add(ticker)
         sector_counts[pick_row["sector"]] = sector_counts.get(pick_row["sector"], 0) + 1
         total_held += 1

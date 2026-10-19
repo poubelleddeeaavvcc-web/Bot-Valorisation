@@ -39,6 +39,9 @@ import pandas as pd
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
+from screener.simulate_constrained_portfolio import (  # noqa: E402
+    MIN_POSITION_EUR, TRADE_FEE_EUR, add_entry_fee, can_afford_order, size_buy,
+)
 from screener.market_hours import tradable_now  # noqa: E402
 from screener.select_top_picks import (  # noqa: E402
     composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
@@ -57,8 +60,10 @@ VALUATION_PATH = HERE / "results/screener/full_valuation_latest.csv"
 SUMMARY_PATH = HERE / "results/simulation/delta_summary.json"
 EQUITY_CURVE_PATH = HERE / "results/simulation/delta_equity_curve.csv"
 
-STARTING_CAPITAL = 300.0      # separate, smaller pool than Bot#2/3's 500 EUR -- the user's own example
-STARTING_SLOTS = 9            # -> TARGET_POSITION_SIZE ~= 33 EUR/slot, same granularity as Bot#2/3
+# 300 -> 1200 EUR (2026-10-19, plancher ~100-150 EUR par ligne, voir
+# simulate_constrained_portfolio.STARTING_CAPITAL) -- historique mis a l'echelle x4.
+STARTING_CAPITAL = 1200.0     # separate, smaller pool than Bot#2/3's -- the user's own example, x4
+STARTING_SLOTS = 9            # -> TARGET_POSITION_SIZE ~= 133 EUR/slot, same granularity as Bot#2/3
 TARGET_POSITION_SIZE = STARTING_CAPITAL / STARTING_SLOTS
 # MAX_PER_SECTOR/MAX_WHOLE_SHARE_OVERSHOOT reused as-is from Bot#2/3 (imported above) -- no
 # reason for Delta's diversification/whole-share caps to differ from Bot#2's.
@@ -189,18 +194,15 @@ def reinforce_convictions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: 
             continue
 
         headroom = cap_eur - ledger.at[idx, "entry_value_eur"]
-        budget = min(target, headroom, cash)
-        if budget <= 0:
+        budget = min(target, headroom)
+        fractional = bool(ledger.at[idx, "fractional"])
+        if budget <= 0 or (not fractional and price_eur > budget):
             continue
-
-        if bool(ledger.at[idx, "fractional"]):
-            add_shares = budget / price_eur
-            cost = budget
-        else:
-            add_shares = int(budget // price_eur)
-            if add_shares < 1:
-                continue
-            cost = add_shares * price_eur
+        # meme plancher et memes frais d'entree qu'un achat neuf (voir size_buy)
+        sized = size_buy(budget, cash, price_eur, fractional)
+        if sized is None:
+            continue
+        add_shares, cost = sized
 
         old_shares = ledger.at[idx, "shares"]
         new_shares = old_shares + add_shares
@@ -208,13 +210,14 @@ def reinforce_convictions(ledger: pd.DataFrame, valuation: pd.DataFrame, today: 
         ledger.at[idx, "entry_price"] = new_entry_price
         ledger.at[idx, "shares"] = new_shares
         ledger.at[idx, "entry_value_eur"] = ledger.at[idx, "entry_value_eur"] + cost
+        add_entry_fee(ledger, idx)
         # move with the added shares immediately, same fix as Bot#3's RENFORCE -- see
         # simulate_large_portfolio.py's reinforcement branch for the bug this avoids.
         ledger.at[idx, "current_value_eur"] = ledger.at[idx, "current_value_eur"] + cost
         ledger.at[idx, "unrealized_return_pct"] = price / new_entry_price - 1
         prior_count = ledger.at[idx, "reinforcement_count"]
         ledger.at[idx, "reinforcement_count"] = (0 if pd.isna(prior_count) else prior_count) + 1
-        cash -= cost
+        cash -= cost + TRADE_FEE_EUR
         band = "profonde" if deep else "moderee"
         print(f"  RENFORT CONVICTION {ticker} (baisse {band}, {unrealized:+.1%} avant renfort, "
               f"valorisation {valuation_gap_now:+.1%} vs {entry_valuation_gap:+.1%} a l'achat) : "
@@ -249,7 +252,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
 
     new_rows = []
     while True:
-        if min_position_eur and cash < min_position_eur:
+        if not can_afford_order(cash, max(min_position_eur, MIN_POSITION_EUR)):
             break
         pick_row = None
         for enforce_geo_caps in (True, False):
@@ -315,27 +318,19 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             rejected.add(ticker)
             continue
 
-        if fractional:
-            cost = min(target, cash)
-            shares = cost / price_eur
-        else:
-            target_shares = max(1, int(target // price_eur))
-            max_affordable = int(cash // price_eur)
-            shares = min(target_shares, max_affordable)
-            cost = shares * price_eur
-
-        # plancher (bots #38-40) : chaque position fermera avec 1 EUR de frais, une ligne de 7 EUR
-        # bouclee avec le reliquat de cash en paierait ~14 % -- mieux vaut garder ce cash.
-        if cost < min_position_eur:
+        # plancher MIN_POSITION_EUR + frais d'entree (2026-10-19, voir simulate_constrained_portfolio.size_buy)
+        sized = size_buy(target, cash, price_eur, fractional, min_position_eur)
+        if sized is None:
             rejected.add(ticker)
             continue
+        shares, cost = sized
 
         new_rows.append({
             "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"],
             "country": pick_row.get("country"), "status": "open",
             "currency": fresh.get("currency"), "fractional": bool(fractional),
             "entry_date": today, "entry_price": fresh["price"], "shares": shares,
-            "entry_value_eur": cost,
+            "entry_value_eur": cost, "entry_fee_eur": TRADE_FEE_EUR,
             "entry_valuation_gap": state["valuation_gap"], "entry_quality_multiplier": pick_row["quality_multiplier"],
             "entry_mom_12_2": fresh["mom_12_2"], "entry_sector_momentum": state["sector_momentum"],
             "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": state["valuation_gap"],
@@ -345,7 +340,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             "exit_date": None, "exit_price": None, "exit_reason": None,
             "exit_value_eur": None, "return_pct": None, "holding_days": None,
         })
-        cash -= cost
+        cash -= cost + TRADE_FEE_EUR
         held_tickers.add(ticker)
         sector_counts[pick_row["sector"]] = sector_counts.get(pick_row["sector"], 0) + 1
         total_held += 1

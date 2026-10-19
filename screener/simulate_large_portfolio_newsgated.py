@@ -24,6 +24,9 @@ import pandas as pd
 HERE = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(HERE))
 
+from screener.simulate_constrained_portfolio import (  # noqa: E402
+    MIN_POSITION_EUR, TRADE_FEE_EUR, add_entry_fee, can_afford_order, size_buy,
+)
 from screener.market_hours import tradable_now  # noqa: E402
 from screener.select_top_picks import (  # noqa: E402
     composite_score, ticker_region, is_state_linked, NORTH_AMERICA_MAX_SHARE, STATE_LINKED_MAX_SHARE,
@@ -43,7 +46,7 @@ VALUATION_PATH = HERE / "results/screener/full_valuation_latest.csv"
 SUMMARY_PATH = HERE / "results/simulation/large_summary_newsgated.json"
 EQUITY_CURVE_PATH = HERE / "results/simulation/large_equity_curve_newsgated.csv"
 
-STARTING_CAPITAL = 500.0       # illustrative, same as Bot#3 -- change freely
+STARTING_CAPITAL = 4000.0       # 500 -> 4000 EUR (2026-10-19, ~133 EUR/ligne, voir simulate_constrained_portfolio)
 STARTING_SLOTS = 30            # same as Bot#3 -- "large" vs Bot#2's 15
 TARGET_POSITION_SIZE = STARTING_CAPITAL / STARTING_SLOTS
 
@@ -104,6 +107,8 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
     exhausted = set()
 
     while len(exhausted) < len(all_sectors):
+        if not can_afford_order(cash):
+            break  # plus de quoi passer un ordre au plancher, frais compris
         remaining = [s for s in all_sectors if s not in exhausted]
         target_sector = min(remaining, key=lambda s: round_counts.get(s, 0))
 
@@ -210,16 +215,16 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
         # simulate_constrained_portfolio_newsgated.fill_slots for the reasoning.
         concentration = news_filter.customer_concentration_verdict(ticker, news_name, news_country)
         size_factor = news_filter.CONCENTRATION_SIZE_FACTOR.get(concentration["concentration"], 1.0)
-        target_size = TARGET_POSITION_SIZE * size_factor
+        # demi-ligne (clients concentres) mais jamais sous le plancher : sinon size_buy rejetterait
+        # d'office ces titres, ce qui en ferait un veto au lieu d'une reduction (2026-10-19)
+        target_size = max(TARGET_POSITION_SIZE * size_factor, MIN_POSITION_EUR)
 
-        if fractional:
-            cost = min(target_size, cash)
-            add_shares = cost / price_eur
-        else:
-            target_shares = max(1, int(target_size // price_eur))
-            max_affordable = int(cash // price_eur)
-            add_shares = min(target_shares, max_affordable)
-            cost = add_shares * price_eur
+        # plancher MIN_POSITION_EUR + frais d'entree (2026-10-19, voir simulate_constrained_portfolio.size_buy)
+        sized = size_buy(target_size, cash, price_eur, fractional)
+        if sized is None:
+            rejected.add(ticker)
+            continue
+        add_shares, cost = sized
 
         if is_new:
             new_row = {
@@ -227,7 +232,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
                 "country": pick_row.get("country"), "status": "open",
                 "currency": fresh.get("currency"), "fractional": bool(fractional),
                 "entry_date": today, "entry_price": fresh["price"], "shares": add_shares,
-                "entry_value_eur": cost,
+                "entry_value_eur": cost, "entry_fee_eur": TRADE_FEE_EUR,
                 "entry_valuation_gap": state["valuation_gap"], "entry_quality_multiplier": pick_row["quality_multiplier"],
                 "entry_mom_12_2": fresh["mom_12_2"], "entry_sector_momentum": state["sector_momentum"],
                 "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": state["valuation_gap"],
@@ -261,6 +266,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             ledger.at[idx, "entry_price"] = new_entry_price
             ledger.at[idx, "shares"] = new_shares
             ledger.at[idx, "entry_value_eur"] = ledger.at[idx, "entry_value_eur"] + cost
+            add_entry_fee(ledger, idx)
             ledger.at[idx, "last_check_date"] = today
             ledger.at[idx, "last_price"] = fresh["price"]
             ledger.at[idx, "current_value_eur"] = ledger.at[idx, "current_value_eur"] + cost
@@ -268,7 +274,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             print(f"  RENFORCE {ticker} ({target_sector}) : +{cost:.2f} EUR ({add_shares:.4f} actions) "
                   f"@ {fresh['price']:.2f} {fresh.get('currency') or '?'} -- plus de candidat frais dans ce secteur")
 
-        cash -= cost
+        cash -= cost + TRADE_FEE_EUR
         round_counts[target_sector] = round_counts.get(target_sector, 0) + 1
 
     return ledger, cash + reserved

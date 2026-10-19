@@ -21,8 +21,8 @@ Mechanics:
     TARGET_POSITION_SIZE bar more than once per run, so a big win can open 2+ new slots
     in the same cycle. Growth scales the *number* of positions, not just their size --
     per the user's instruction, a windfall should diversify into a 5th/6th/7th name
-    rather than doubling down on fewer, bigger bets. Starts at STARTING_SLOTS=15 (~33 EUR
-    each) rather than a handful of strong convictions -- the user wants many small,
+    rather than doubling down on fewer, bigger bets. Starts at STARTING_SLOTS=15 (~133 EUR
+    each since 2026-10-19, ~33 EUR before) rather than a handful of strong convictions -- the user wants many small,
     incrementally-reinvested gains over a few large bets; existing open positions keep
     their original entry size when this target changes, only new buys use the new one.
 
@@ -71,8 +71,12 @@ VALUATION_PATH = HERE / "results/screener/full_valuation_latest.csv"
 SUMMARY_PATH = HERE / "results/simulation/constrained_summary.json"
 EQUITY_CURVE_PATH = HERE / "results/simulation/constrained_equity_curve.csv"
 
-STARTING_CAPITAL = 500.0      # illustrative -- the user's own example; change freely
-STARTING_SLOTS = 15           # -> TARGET_POSITION_SIZE = 500/15 ~= 33 EUR per slot
+# 500 -> 2000 EUR (2026-10-19, user: "taille minimale de position ~100-150 EUR") : a 33 EUR la
+# ligne, 1 EUR de frais par ordre coutait 3-4 % par sortie et noyait tout avantage du signal.
+# Meme nombre de lignes, chacune ~133 EUR ; l'historique d'avant a ete mis a l'echelle x4
+# (screener/rescale_capital_bots.py) pour garder la continuite des courbes en %.
+STARTING_CAPITAL = 2000.0
+STARTING_SLOTS = 15           # -> TARGET_POSITION_SIZE = 2000/15 ~= 133 EUR per slot
 TARGET_POSITION_SIZE = STARTING_CAPITAL / STARTING_SLOTS
 # raised from 1 alongside STARTING_SLOTS 4->15 (2026-08-26, per the user's direction to grow
 # toward many small positions instead of a handful of strong convictions): with only ~8
@@ -80,21 +84,25 @@ TARGET_POSITION_SIZE = STARTING_CAPITAL / STARTING_SLOTS
 # make 15 concurrent slots unreachable even before the NA-share and relaxation logic kicks in.
 MAX_PER_SECTOR = 3
 # a whole-share buy (see fractional_eligible()) costing more than this multiple of the slot
-# target is rejected rather than forced -- at a 33 EUR slot, a single ~70+ EUR non-fractional
-# name (e.g. TSMC) would otherwise eat 2-3 slots' worth of budget in one line, defeating the
+# target is rejected rather than forced -- at a ~133 EUR slot, a single ~330+ EUR non-fractional
+# name would otherwise eat 2-3 slots' worth of budget in one line, defeating the
 # "many small positions" goal. Fractional-eligible names are unaffected: they always buy
 # exactly TARGET_POSITION_SIZE regardless of share price.
 MAX_WHOLE_SHARE_OVERSHOOT = 2.5
 
-# Flat commission deducted once, at the sale, from every closed position's proceeds -- per the
-# user's explicit direction (2026-09-04): not charged on entry, and not doubled into a
-# round-trip cost. Applies here (and to every bot that imports recheck_and_exit rather than
-# duplicating it -- Bot#2/3/5/6/8/9/11/12, see each module's own docstring) but deliberately
-# NOT to the "blind" bots (#1/4/7/10, simulate_portfolio.py's own exit logic): those track no
-# capital/cost basis at all, only a raw price-return percentage, so there's no EUR amount to
-# deduct a flat fee from without inventing a notional position size that would change their
-# "no capital assumption" design.
+# Flat commission per ORDER -- charged on every buy (new line or reinforcement, see size_buy()
+# and the "entry_fee_eur" ledger column) AND on every sale (recheck_and_exit). Until
+# 2026-10-19 it was charged at the sale only (user's direction of 2026-09-04); the user then
+# asked for it on both sides, like a real broker. Positions opened before that date carry no
+# entry fee (entry_fee_eur empty -> 0). Applies to every capital bot (constrained/large/delta
+# and their variants) but deliberately NOT to the "blind" bots (#1/4/7/10,
+# simulate_portfolio.py's own exit logic): those track no capital/cost basis at all, only a
+# raw price-return percentage, so there's no EUR amount to deduct a flat fee from without
+# inventing a notional position size that would change their "no capital assumption" design.
 TRADE_FEE_EUR = 1.0
+# Plancher par ordre (2026-10-19, user) : en dessous, 2 EUR de frais aller-retour depassent
+# 2 % de la ligne -- le cash reste plutot en attente du prochain achat.
+MIN_POSITION_EUR = 100.0
 
 LEDGER_COLUMNS = [
     "ticker", "name", "sector", "country", "status", "currency", "fractional",
@@ -103,6 +111,7 @@ LEDGER_COLUMNS = [
     "last_check_date", "last_price", "last_valuation_gap", "last_mom_12_2",
     "current_value_eur", "unrealized_return_pct", "peak_unrealized_return_pct", "peak_date",
     "exit_date", "exit_price", "exit_reason", "exit_value_eur", "return_pct", "holding_days",
+    "entry_fee_eur",
 ]
 
 # Yahoo FX ticker for EUR/<currency> -- rate = units of <currency> per 1 EUR, so
@@ -261,9 +270,12 @@ def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, 
             # only decides whether to exit): the position still exits on the same momentum/
             # valuation/stop-loss triggers regardless of a flat 1 EUR commission, but what
             # actually lands in cash -- and the recorded return_pct used for win-rate/avg-return
-            # reporting -- reflects the real cost of the trade.
+            # reporting -- reflects the real cost of the trade, entry fee(s) included (already
+            # paid out of cash at the buy, see size_buy()).
+            entry_fee = ledger.at[idx, "entry_fee_eur"]
+            entry_fee = 0.0 if pd.isna(entry_fee) else float(entry_fee)
             net_exit_value = current_value - TRADE_FEE_EUR
-            net_return = unrealized - TRADE_FEE_EUR / ledger.at[idx, "entry_value_eur"]
+            net_return = unrealized - (entry_fee + TRADE_FEE_EUR) / ledger.at[idx, "entry_value_eur"]
             ledger.at[idx, "status"] = "closed"
             ledger.at[idx, "exit_date"] = today
             ledger.at[idx, "exit_price"] = fresh["price"]
@@ -276,6 +288,39 @@ def recheck_and_exit(ledger: pd.DataFrame, valuation: pd.DataFrame, today: str, 
                   f"(frais {TRADE_FEE_EUR:.2f} EUR deduits), {net_exit_value:.2f} EUR reinjectes en cash")
 
     return ledger, cash
+
+
+def can_afford_order(cash: float, min_position_eur: float = MIN_POSITION_EUR) -> bool:
+    """Assez de cash pour un ordre au plancher, frais d'entree compris -- sinon inutile de
+    parcourir (et re-fetcher) le reste des candidats ce run."""
+    return cash >= min_position_eur + TRADE_FEE_EUR
+
+
+def size_buy(target: float, cash: float, price_eur: float, fractional: bool,
+             min_position_eur: float = MIN_POSITION_EUR):
+    """Taille d'un achat (nouvelle ligne ou renfort) : (shares, cost) ou None si l'ordre
+    tomberait sous le plancher. cost exclut les frais ; l'appelant debite cost + TRADE_FEE_EUR
+    du cash et note TRADE_FEE_EUR dans entry_fee_eur."""
+    budget = cash - TRADE_FEE_EUR
+    if price_eur is None or price_eur <= 0 or budget <= 0:
+        return None
+    if fractional:
+        cost = min(target, budget)
+        shares = cost / price_eur
+    else:
+        # whole shares only (not IBKR fractional-eligible): as many as get closest to the target
+        # without exceeding available cash (fee included)
+        shares = min(max(1, int(target // price_eur)), int(budget // price_eur))
+        cost = shares * price_eur
+    if shares <= 0 or cost < max(min_position_eur, MIN_POSITION_EUR):
+        return None
+    return shares, cost
+
+
+def add_entry_fee(ledger: pd.DataFrame, idx):
+    """Renfort d'une ligne deja ouverte : ses frais d'achat s'ajoutent a ceux deja payes."""
+    paid = ledger.at[idx, "entry_fee_eur"]
+    ledger.at[idx, "entry_fee_eur"] = (0.0 if pd.isna(paid) else float(paid)) + TRADE_FEE_EUR
 
 
 def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.DataFrame, cash: float, today: str,
@@ -307,7 +352,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
 
     new_rows = []
     while True:
-        if min_position_eur and cash < min_position_eur:
+        if not can_afford_order(cash, max(min_position_eur, MIN_POSITION_EUR)):
             break
         pick_row = None
         # try honoring the North America and state-linked caps first (see
@@ -387,30 +432,19 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             rejected.add(ticker)
             continue
 
-        if fractional:
-            cost = min(target, cash)
-            shares = cost / price_eur
-        else:
-            # whole shares only (not IBKR fractional-eligible): buy as many as get closest to
-            # the target size without exceeding available cash -- at least 1, guaranteed
-            # affordable by the price_eur<=cash check above.
-            target_shares = max(1, int(target // price_eur))
-            max_affordable = int(cash // price_eur)
-            shares = min(target_shares, max_affordable)
-            cost = shares * price_eur
-
-        # plancher (bots #38-40) : chaque position fermera avec 1 EUR de frais, une ligne de 7 EUR
-        # bouclee avec le reliquat de cash en paierait ~14 % -- mieux vaut garder ce cash.
-        if cost < min_position_eur:
+        # plancher (MIN_POSITION_EUR, ou celui plus haut des bots #38-40) et frais d'entree
+        sized = size_buy(target, cash, price_eur, fractional, min_position_eur)
+        if sized is None:
             rejected.add(ticker)
             continue
+        shares, cost = sized
 
         new_rows.append({
             "ticker": ticker, "name": pick_row["name"], "sector": pick_row["sector"],
             "country": pick_row.get("country"), "status": "open",
             "currency": fresh.get("currency"), "fractional": bool(fractional),
             "entry_date": today, "entry_price": fresh["price"], "shares": shares,
-            "entry_value_eur": cost,
+            "entry_value_eur": cost, "entry_fee_eur": TRADE_FEE_EUR,
             "entry_valuation_gap": state["valuation_gap"], "entry_quality_multiplier": pick_row["quality_multiplier"],
             "entry_mom_12_2": fresh["mom_12_2"], "entry_sector_momentum": state["sector_momentum"],
             "last_check_date": today, "last_price": fresh["price"], "last_valuation_gap": state["valuation_gap"],
@@ -419,7 +453,7 @@ def fill_slots(ledger: pd.DataFrame, candidates: pd.DataFrame, valuation: pd.Dat
             "exit_date": None, "exit_price": None, "exit_reason": None,
             "exit_value_eur": None, "return_pct": None, "holding_days": None,
         })
-        cash -= cost
+        cash -= cost + TRADE_FEE_EUR
         held_tickers.add(ticker)
         sector_counts[pick_row["sector"]] = sector_counts.get(pick_row["sector"], 0) + 1
         total_held += 1
