@@ -4708,5 +4708,11 @@
     "sentiment": "negative",
     "reason": "Les actualites presentes sont presque toutes negatives, avec des titres indiquant que le 'easy money' est passe, que TSMC est 'weighed on fund returns' et que son stock est 'not cheap'.",
     "source": "ollama"
+  },
+  "3034.TW_2026-10-19": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "L'action de Novatek Microelectronics Corp. est en baisse, avec une valeur de 6.77% en dessous de son high de 52 semaines et une valeur boursière de TWD 343,8 milliards, malgré une révenue de TWD 30 milliards.",
+    "source": "ollama"
   }
 }

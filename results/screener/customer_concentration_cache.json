@@ -774,5 +774,13 @@
       "reason": "Le texte mentionne des marchés tels que les smartphones, Internet des objets, automobiles et consommation numérique du consommateur, ce qui suggère une base de clients large et diversifiée.",
       "source": "ollama"
     }
+  },
+  "3034.TW": {
+    "checked_at": "2026-10-19",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "le texte ne donne aucune indication claire sur les clients principaux ou les contrats gouvernementaux, mais mentionne une large gamme de produits pour différents marchés, tels que télévisions, ordinateurs portables, smartphones et appareils de surveillance",
+      "source": "ollama"
+    }
   }
 }
