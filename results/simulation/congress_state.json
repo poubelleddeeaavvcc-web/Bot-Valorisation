@@ -2,10 +2,26 @@
  "cash": {
   "pool": 4600.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "NOKBF",
+   "bucket": "pool",
+   "reason": "achat declare par Laurel Lee (FL15), >= 15,001 $ le 09/18/2026",
+   "decided_at": "2026-10-19T15:54:46Z",
+   "amount_eur": 100.0,
+   "name": "NOKBF",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 15001.0
+  }
+ ],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20035487",
+  "20035490",
   "20035588",
   "20035627",
   "20035637",
@@ -19,7 +35,8 @@
   "BRK-B": "2027-04-01",
   "T": "2027-04-02",
   "FITB": "2027-04-02",
-  "RPM": "2027-04-02"
+  "RPM": "2027-04-02",
+  "NOKBF": "2027-04-05"
  },
  "events_log": [
   {
@@ -57,13 +74,22 @@
    "trade_date": "10/09/2026",
    "amount_low": 1001,
    "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-16",
+   "member": "Laurel Lee",
+   "district": "FL15",
+   "ticker": "NOKBF",
+   "trade_date": "09/18/2026",
+   "amount_low": 15001,
+   "decision": "achat"
   }
  ],
  "counters": {
-  "rapports": 9,
+  "rapports": 10,
   "illisibles": 0,
-  "achats_declares": 4,
-  "achetes": 4,
+  "achats_declares": 5,
+  "achetes": 5,
   "complet": 0,
   "prolonges": 0,
   "sans_cours": 0
