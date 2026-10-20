@@ -9,7 +9,8 @@
   "2026-10-13",
   "2026-10-14",
   "2026-10-15",
-  "2026-10-16"
+  "2026-10-16",
+  "2026-10-19"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -156,11 +157,51 @@
    "title": "Director",
    "adv_usd": 1292117015,
    "decision": "liquidite hors bande (1292.12 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-19",
+   "ticker": "APLD",
+   "issuer": "Applied Digital Corp.",
+   "value_usd": 6664686,
+   "insiders": 2,
+   "title": "CEO; Chairman",
+   "adv_usd": 579361175,
+   "decision": "liquidite hors bande (579.36 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-19",
+   "ticker": "BPRE",
+   "issuer": "Bluerock Private Real Estate Fund",
+   "value_usd": 2422335,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 12170737,
+   "decision": "liquidite hors bande (12.17 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-19",
+   "ticker": "CTY",
+   "issuer": "CITY THERAPEUTICS, INC.",
+   "value_usd": 3060000,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": null,
+   "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-10-19",
+   "ticker": "IAM",
+   "issuer": "Iambic Therapeutics, Inc.",
+   "value_usd": 11500000,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": null,
+   "decision": "historique trop court"
   }
  ],
  "counters": {
-  "jours": 4,
-  "evenements": 14,
+  "jours": 5,
+  "evenements": 18,
   "retenus": 3,
   "achetes": 3,
   "complet": 0,
