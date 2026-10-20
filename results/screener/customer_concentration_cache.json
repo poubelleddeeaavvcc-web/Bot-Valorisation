@@ -782,5 +782,13 @@
       "reason": "le texte ne donne aucune indication claire sur les clients principaux ou les contrats gouvernementaux, mais mentionne une large gamme de produits pour différents marchés, tels que télévisions, ordinateurs portables, smartphones et appareils de surveillance",
       "source": "ollama"
     }
+  },
+  "PRY.MI": {
+    "checked_at": "2026-10-20",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "peut s'appuyer sur des contrats gouvernementaux et des fournisseurs uniques, tels que le grand groupe mentionné dans le texte, ce qui suggère une forte concentration de clients.",
+      "source": "ollama"
+    }
   }
 }
