@@ -26,8 +26,10 @@ whatever the hour (simulate_constrained_portfolio.fill_slots):
    yields) would be penalised ~3-4 pts/year, and the trend bot's bond ETFs even more.
 
 Cash lives in named buckets: "pool" for #41/#42, one bucket per ETF for #43 (its sleeves). Fees
-follow the repo rule (simulate_constrained_portfolio.TRADE_FEE_EUR): 1 EUR per sale, nothing on
-buys. No interest is credited on idle cash.
+follow the repo rule (simulate_constrained_portfolio.TRADE_FEE_EUR): 1 EUR per sale; a buy fee is
+opt-in per bot (Book.buy_fee_eur, 0 by default -- set to TRADE_FEE_EUR by #52 Courrier copie, like the
+screener's capital bots since 2026-10-19), recorded in entry_fee_eur and deducted from return_pct at
+the sale. No interest is credited on idle cash.
 """
 import json
 import pathlib
@@ -54,7 +56,7 @@ LEDGER_COLUMNS = [
     "entry_decided_at", "entry_date", "entry_price", "shares", "entry_value_eur", "entry_cost_local",
     "entry_score", "last_check_date", "last_price", "current_value_eur", "unrealized_return_pct",
     "exit_decided_at", "exit_date", "exit_price", "exit_reason", "exit_value_eur", "return_pct",
-    "holding_days",
+    "holding_days", "entry_fee_eur",
 ]
 
 
@@ -120,6 +122,7 @@ class Book:
         self.summary_path = sim / f"{stem}_summary.json"
         self.curve_path = sim / f"{stem}_equity_curve.csv"
         self.label, self.capital = label, capital
+        self.buy_fee_eur = 0.0  # opt-in, see module docstring
         if self.ledger_path.exists():
             df = pd.read_csv(self.ledger_path)
             for c in LEDGER_COLUMNS:
@@ -231,7 +234,7 @@ class Book:
         price_eur = to_eur(float(close_price), order.get("currency"), self.fx)
         if price_eur is None or price_eur <= 0:
             return None  # FX missing this run, retry
-        cash = self.state["cash"].get(bucket, 0.0)
+        cash = self.state["cash"].get(bucket, 0.0) - self.buy_fee_eur  # what's left for shares once the fee is paid
         amount = min(order["amount_eur"], cash)
         if amount < min(min_position_eur, order["amount_eur"]) or amount <= 0:
             if any(o["side"] == "sell" and o["bucket"] == bucket for o in self.state["pending"]):
@@ -263,10 +266,10 @@ class Book:
             "entry_price": float(close_price), "shares": shares, "entry_value_eur": cost,
             "entry_cost_local": cost_local, "entry_score": order.get("score"),
             "last_check_date": day.strftime("%Y-%m-%d"), "last_price": float(close_price),
-            "current_value_eur": cost, "unrealized_return_pct": 0.0,
+            "current_value_eur": cost, "unrealized_return_pct": 0.0, "entry_fee_eur": self.buy_fee_eur,
         })
         self.ledger = pd.concat([self.ledger, pd.DataFrame([row], dtype=object)], ignore_index=True)
-        self.state["cash"][bucket] = cash - cost
+        self.state["cash"][bucket] = cash - cost  # cash already net of the buy fee
         print(f"  ACHAT {ticker} : {cost:.2f} EUR a la cloture du {day.date()} ({float(close_price):g} "
               f"{order.get('currency') or ''}), {order['reason']}")
         return True
@@ -288,12 +291,17 @@ class Book:
             if gross is None:
                 return None
             entry_value = float(self.ledger.at[idx, "entry_value_eur"]) * fraction  # cost of the part sold
+            paid = self.ledger.at[idx, "entry_fee_eur"]
+            entry_fee = (0.0 if paid is None or pd.isna(paid) else float(paid)) * fraction
             target = idx
             if fraction < 1.0:  # split the lot: the sold part becomes its own closed row
                 part = self.ledger.loc[idx].copy()
                 for col in ("shares", "entry_value_eur", "entry_cost_local", "current_value_eur"):
                     self.ledger.at[idx, col] = float(self.ledger.at[idx, col]) * (1 - fraction)
                     part[col] = float(part[col]) * fraction
+                if entry_fee:  # the buy fee splits with the lot, like its cost
+                    self.ledger.at[idx, "entry_fee_eur"] = entry_fee / fraction * (1 - fraction)
+                    part["entry_fee_eur"] = entry_fee
                 new_rows.append(part)
                 target = None
             fee = min(fee_left, gross)
@@ -301,7 +309,7 @@ class Book:
             closed = {
                 "status": "closed", "exit_decided_at": order["decided_at"], "exit_date": day.strftime("%Y-%m-%d"),
                 "exit_price": float(closes.loc[day]), "exit_reason": order["reason"],
-                "exit_value_eur": gross - fee, "return_pct": tr - 1 - fee / entry_value,
+                "exit_value_eur": gross - fee, "return_pct": tr - 1 - (fee + entry_fee) / entry_value,
                 "holding_days": (day - pd.Timestamp(self.ledger.at[idx, "entry_date"])).days,
                 "current_value_eur": gross, "unrealized_return_pct": tr - 1,
             }

@@ -71,6 +71,12 @@ jobs:
           PYTHONUNBUFFERED: "1"  # logs visibles au fil de l'eau (sinon tout arrive a la fin, ou jamais si le job est coupe)
         run: python screener/mail_signal_bot.py
 
+      # Bot #52 (2026-10-20) : copie chaque avis d'achat verifie du journal (100 EUR, 20 seances), pour
+      # mesurer en portefeuille ce que rapporte le fait de suivre les newsletters -- la strategie reelle
+      # ci-dessus reste en cash tant qu'aucune newsletter n'a fait ses preuves. Voir screener/mail_signal_copy.py.
+      - name: "Copie de tous les avis (Bot #52 Courrier)"
+        run: python screener/mail_signal_copy.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"

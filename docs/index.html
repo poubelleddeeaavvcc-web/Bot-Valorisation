@@ -268,6 +268,30 @@ tr:hover td{background:var(--bg3)}
         </table>
       </details>
 
+      <div class="section-title">Test — copie de tous les avis (Bot #52)</div>
+      <div class="muted-note" style="margin-bottom:8px">
+        Pour savoir, en portefeuille, ce que rapporte le fait de <b>suivre les newsletters</b> sans attendre qu'une
+        d'elles soit fiable : chaque avis d'<b>achat</b> vérifié, sur une place accessible depuis un compte français,
+        achète <b>100 €</b> à la clôture de la séance suivante et la ligne est revendue <b>20 séances</b> plus tard (un
+        nouvel avis sur une valeur détenue prolonge sa détention). 1 € de frais à l'achat et à la vente, dividendes
+        compris, pas de stop. Rejoué aux vrais cours depuis le premier avis du journal (04/09), puis en direct.
+        <b>Écart au marché</b> : rendement de chaque ligne clôturée moins celui de l'ETF de son marché (SPY, Stoxx 600)
+        sur les mêmes séances.
+      </div>
+      <div id="copy-status" class="muted-note" style="margin-bottom:10px"></div>
+      <div class="row" id="copy-kpis">
+        <div class="card"><div class="ctit">Valeur</div><div class="kbig" id="copy-kpi-equity">-</div><div class="ksub" id="copy-kpi-return">-</div></div>
+        <div class="card"><div class="ctit">Lignes</div><div class="kbig" id="copy-kpi-open">-</div><div class="ksub" id="copy-kpi-open-sub">-</div></div>
+        <div class="card"><div class="ctit">Lignes clôturées</div><div class="kbig" id="copy-kpi-closed">-</div><div class="ksub" id="copy-kpi-closed-sub">-</div></div>
+        <div class="card"><div class="ctit">Écart moyen au marché</div><div class="kbig" id="copy-kpi-excess">-</div><div class="ksub" id="copy-kpi-excess-sub">-</div></div>
+      </div>
+      <div class="card tbl-wrap" style="margin-bottom:14px">
+        <table>
+          <thead><tr><th>Newsletter à l'origine de la ligne</th><th>Lignes clôturées</th><th>Rendement moyen</th><th>Écart moyen au marché</th></tr></thead>
+          <tbody id="copyPubTbody"></tbody>
+        </table>
+      </div>
+
       <div class="section-title">Performance de chaque site</div>
       <div class="muted-note" style="margin-bottom:8px">
         Pour chaque site (newsletter), ce qu'ont donné en moyenne ses avis <b>5, 20 ou 60 jours de bourse</b> après le mail.
@@ -679,6 +703,7 @@ async function renderEchoTab(){
     echoRenderPerfSlicers(rerender);
     rerender();
     renderRealStrategy(bust);
+    renderCopyBot(bust);
   }catch(e){
     statusEl.textContent='Impossible de charger les donnees du Bot Courrier ('+e.message+').';
     statusEl.style.color='var(--rd)';
@@ -850,6 +875,30 @@ async function renderRealStrategy(bust){
         `<td>${r.n_foule_long||0} / ${r.n_foule_short||0}</td><td>${r.newsletter_principale||''}</td><td>${r.decision||''}</td></tr>`;
     }).join('')||'<tr><td colspan="7" class="neu">aucun avis récent</td></tr>';
   }catch(e){st.textContent='Impossible de charger la stratégie réelle ('+e.message+').';}
+}
+
+async function renderCopyBot(bust){
+  const st=document.getElementById('copy-status');
+  try{
+    const txt=await fetch(`${BV_REPO_RAW_ECHO}/results/simulation/mail_signal_copy_summary.json?_=${bust}`).then(r=>r.ok?r.text():'');
+    if(!txt){st.textContent="Le bot test n'a pas encore tourné.";return;}
+    const s=JSON.parse(txt),c=s.counters||{},v=s.vs_marche||{};
+    st.textContent=`${c.avis||0} avis d'achat lus depuis le ${s.start||'?'} : ${c.achetes||0} lignes achetées, ${c.prolonges||0} détentions prolongées, ${c.complet||0} ignorés faute de cash.`;
+    document.getElementById('copy-kpi-equity').textContent=s.total_equity_eur!=null?s.total_equity_eur.toFixed(0)+' €':'n/a';
+    document.getElementById('copy-kpi-return').textContent=echoPct(s.total_return_pct)+' sur '+(s.capital_eur||0).toLocaleString('fr-FR')+' € ('+(s.investi_eur||0).toFixed(0)+' € investis)';
+    document.getElementById('copy-kpi-open').textContent=s.nb_open;
+    document.getElementById('copy-kpi-open-sub').textContent=(s.cash_eur||0).toFixed(0)+' € en cash, '+(s.pending_orders||0)+' ordre(s) en attente';
+    document.getElementById('copy-kpi-closed').textContent=s.nb_closed;
+    document.getElementById('copy-kpi-closed-sub').textContent='rendement moyen '+echoPct(s.avg_return_closed)+', '+(s.win_rate_closed!=null?(s.win_rate_closed*100).toFixed(0):'?')+' % gagnantes';
+    const ex=document.getElementById('copy-kpi-excess');
+    ex.textContent=v.n?echoPct(v.ecart_moyen_marche):'n/a';
+    ex.className='kbig '+(v.ecart_moyen_marche>0?'pos':(v.ecart_moyen_marche<0?'neg':''));
+    document.getElementById('copy-kpi-excess-sub').textContent=v.n?`${v.n} lignes, ${((v.battent_le_marche||0)*100).toFixed(0)} % battent le marché, t-stat ${v.t_stat_ecart!=null?v.t_stat_ecart:'n/a'}`:'pas encore de ligne clôturée';
+    document.getElementById('copyPubTbody').innerHTML=(v.par_newsletter||[]).map(r=>
+      `<tr><td>${r.publication}</td><td>${r.n}</td><td class="${r.rendement_moyen>=0?'pos':'neg'}">${echoPct(r.rendement_moyen)}</td>`+
+      `<td class="${r.ecart_moyen_marche>=0?'pos':'neg'}">${echoPct(r.ecart_moyen_marche)}</td></tr>`).join('')
+      ||'<tr><td colspan="4" class="neu">pas encore de ligne clôturée</td></tr>';
+  }catch(e){st.textContent='Impossible de charger le bot test ('+e.message+').';}
 }
 
 async function renderPitBacktest(){
