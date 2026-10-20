@@ -36,6 +36,8 @@ tr.bot-row.expanded td{background:var(--bg3)}
 .b-sector{background:#1f3d1f;color:var(--gr);border-color:var(--gr)}
 .b-ollama{background:#3a2e10;color:var(--or);border-color:var(--or)}
 .b-base{background:var(--bg3);color:var(--mu);border-color:var(--bd)}
+.b-frozen{background:var(--bg3);color:var(--mu);border-color:var(--mu);border-style:dashed}
+tr.bot-row.frozen td{opacity:.5}
 .tbl-wrap{overflow-x:auto}
 .section-title{font-size:14px;font-weight:700;color:var(--g);margin:18px 0 10px}
 .muted-note{font-size:11px;color:var(--mu);margin-top:6px;line-height:1.5}
@@ -57,7 +59,9 @@ tr.bot-row.expanded td{background:var(--bg3)}
   <h1>🤖 Suivi des 32 bots de simulation</h1>
   <div class="hdr-sub">4 stratégies de capital (aveugle / capital contraint / large / delta) × 8 variantes de mécanique
     (base, notes Qualité/Perspective, veto sectoriel, filtre actu Ollama, et leurs combinaisons) = 32 bots simulés en parallèle
-    sur le même screener. Données publiques, actualisées automatiquement par
+    sur le même screener. <b>Depuis le 20/10, 13 bots tournent encore</b> (les 8 aveugles, la base de chaque famille, Delta + Notes et
+    Delta + Notes+Secteur) ; les 19 autres sont <b>figés</b> : leur historique reste affiché mais ils ne tradent plus.
+    Données publiques, actualisées automatiquement par
     <a href="https://github.com/poubelleddeeaavvcc-web/Bot-Valorisation" target="_blank">GitHub Actions</a> (~toutes les heures).
     Aucune donnée personnelle — uniquement l'état des simulations.</div>
   <a class="btn-back" href="index.html">← Vue synthétique screener (candidats, Bot #A1/#B1/#C1)</a>
@@ -69,8 +73,8 @@ tr.bot-row.expanded td{background:var(--bg3)}
   <div class="row" id="bt-kpis" style="display:none">
     <div class="card">
       <div class="ctit">Bots suivis</div>
-      <div class="kbig">32</div>
-      <div class="ksub">4 familles de capital × 8 variantes</div>
+      <div class="kbig">13 <span style="font-size:13px;color:var(--mu)">actifs / 32</span></div>
+      <div class="ksub">4 familles de capital × 8 variantes, 19 figés le 20/10</div>
     </div>
     <div class="card">
       <div class="ctit">Meilleur rendement actuel</div>
@@ -195,6 +199,13 @@ const BT_MODIFIERS=[
   {suffix:'_newsgated_notes_sector_outlook',   label:'Ollama+Notes+Secteur',  notes:true, sector:true, ollama:true, color:'#caa84e'},
 ];
 
+// figes le 2026-10-20 (plus d'etape CI, voir update-screener.yml) : historique affiche, plus de trades
+const BT_FROZEN_VARIANTS={
+  'constrained_':['_notes','_sector_outlook','_notes_sector_outlook','_newsgated','_newsgated_notes','_newsgated_sector_outlook','_newsgated_notes_sector_outlook'],
+  'large_':['_notes','_sector_outlook','_notes_sector_outlook','_newsgated','_newsgated_notes','_newsgated_sector_outlook','_newsgated_notes_sector_outlook'],
+  'delta_':['_sector_outlook','_newsgated','_newsgated_notes','_newsgated_sector_outlook','_newsgated_notes_sector_outlook'],
+};
+function btIsFrozen(bot){return (BT_FROZEN_VARIANTS[bot.family.key]||[]).includes(bot.modifier.suffix);}
 let btBots=[];
 let btSortState={col:'return_pct',dir:'desc'};
 let btExpanded=null;
@@ -342,7 +353,7 @@ function btCls(v){
 }
 
 function btRenderAll(){
-  const valid=btBots.filter(b=>!b.error&&b.return_pct!=null);
+  const valid=btBots.filter(b=>!b.error&&b.return_pct!=null&&!btIsFrozen(b));  // meilleur parmi les bots actifs
   const best=valid.reduce((a,b)=>(!a||b.return_pct>a.return_pct)?b:a,null);
   if(best){
     document.getElementById('bt-kpi-best').textContent=btFmtPct(best.return_pct,1);
@@ -445,7 +456,7 @@ function btSortAndRenderTable(){
   tbody.innerHTML='';
   sorted.forEach(bot=>{
     const tr=document.createElement('tr');
-    tr.className='bot-row';
+    tr.className='bot-row'+(btIsFrozen(bot)?' frozen':'');
     if(bot.error){
       tr.innerHTML=`<td>#${bot.num}</td><td>${bot.family_label}</td><td>${bot.variant_label}</td>
         <td colspan="6" class="neu">données indisponibles (${bot.error})</td>`;
@@ -455,7 +466,7 @@ function btSortAndRenderTable(){
     tr.innerHTML=`
       <td class="chip-num">#${bot.num}</td>
       <td>${bot.family_label}</td>
-      <td>${btVariantBadges(bot.modifier)}</td>
+      <td>${btVariantBadges(bot.modifier)}${btIsFrozen(bot)?'<span class="badge b-frozen" title="Ne trade plus depuis le 20/10, historique conserve">Figé</span>':''}</td>
       <td class="${btCls(bot.return_pct)}">${btFmtPct(bot.return_pct,1)}</td>
       <td>${bot.equity_display}</td>
       <td>${bot.nb_open!=null?bot.nb_open:'n/a'}</td>

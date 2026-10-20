@@ -24,6 +24,11 @@ concurrency:
 # results/simulation/*.csv/json -- donc repartis sans risque sur un job par strategie de
 # capital (bots-aveugle/bots-contraint/bots-large/bots-delta, ce dernier ajoute 2026-09-10
 # pour le Bot #25).
+# BOTS FIGES (2026-10-20, demande de l'utilisateur) : 26 variantes du screener ne tournent plus --
+# A9, B2-B10, C2-C10, D3, D5-D10. Leurs scripts et leur historique restent dans le depot (les
+# relancer = remettre leur etape ici). Ils etaient correles a ~0,76 entre eux et ne detenaient
+# que des sous-ensembles du panier de A1 : restent A1-A8 (chaque filtre, sans capital), B1, C1,
+# D1 (un bot executable par famille) et D2/D4 (Delta + notes, a confirmer).
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -118,12 +123,6 @@ jobs:
       - name: Simulation en aveugle + filtre actu Ollama (Bot #4)
         run: python screener/simulate_portfolio_newsgated.py
 
-      - name: Simulation a capital contraint + filtre actu Ollama (Bot #5)
-        run: python screener/simulate_constrained_portfolio_newsgated.py
-
-      - name: Simulation large + filtre actu Ollama (Bot #6)
-        run: python screener/simulate_large_portfolio_newsgated.py
-
       # Bots #13-18/22-24 : combinaisons de mecaniques manquantes qui incluent le filtre actu
       # Ollama (chaque strategie de capital n'avait que 4 des 8 combinaisons possibles de
       # {filtre actu Ollama, notes Qualite/Perspective, veto sectoriel newsletters} -- voir
@@ -132,46 +131,11 @@ jobs:
       - name: Simulation en aveugle + actu Ollama + notes (Bot #13)
         run: python screener/simulate_portfolio_newsgated_notes.py
 
-      - name: Simulation a capital contraint + actu Ollama + notes (Bot #14)
-        run: python screener/simulate_constrained_portfolio_newsgated_notes.py
-
-      - name: Simulation large + actu Ollama + notes (Bot #15)
-        run: python screener/simulate_large_portfolio_newsgated_notes.py
-
       - name: Simulation en aveugle + actu Ollama + veto sectoriel (Bot #16)
         run: python screener/simulate_portfolio_newsgated_sector_outlook.py
 
-      - name: Simulation a capital contraint + actu Ollama + veto sectoriel (Bot #17)
-        run: python screener/simulate_constrained_portfolio_newsgated_sector_outlook.py
-
-      - name: Simulation large + actu Ollama + veto sectoriel (Bot #18)
-        run: python screener/simulate_large_portfolio_newsgated_sector_outlook.py
-
       - name: Simulation en aveugle + actu Ollama + notes + veto sectoriel (Bot #22)
         run: python screener/simulate_portfolio_newsgated_notes_sector_outlook.py
-
-      - name: Simulation a capital contraint + actu Ollama + notes + veto sectoriel (Bot #23)
-        run: python screener/simulate_constrained_portfolio_newsgated_notes_sector_outlook.py
-
-      - name: Simulation large + actu Ollama + notes + veto sectoriel (Bot #24)
-        run: python screener/simulate_large_portfolio_newsgated_notes_sector_outlook.py
-
-      # Bots #29-32 : famille Delta (renfort par conviction, voir simulate_delta_portfolio.py)
-      # avec le filtre actu Ollama -- regroupes ici comme tous les autres bots newsgated plutot
-      # que dans bots-delta, meme raison que le reste de ce job (caches JSON partages). Ajoutes
-      # le 2026-09-10 en meme temps que #25-28 mais oublies du CI jusqu'a cette verification
-      # (2026-09-11).
-      - name: Simulation Delta + actu Ollama (Bot #29)
-        run: python screener/simulate_delta_portfolio_newsgated.py
-
-      - name: Simulation Delta + actu Ollama + notes (Bot #30)
-        run: python screener/simulate_delta_portfolio_newsgated_notes.py
-
-      - name: Simulation Delta + actu Ollama + veto sectoriel (Bot #31)
-        run: python screener/simulate_delta_portfolio_newsgated_sector_outlook.py
-
-      - name: Simulation Delta + actu Ollama + notes + veto sectoriel (Bot #32)
-        run: python screener/simulate_delta_portfolio_newsgated_notes_sector_outlook.py
 
       - name: Commit + push si des resultats ont change
         run: |
@@ -231,11 +195,6 @@ jobs:
       - name: Simulation en aveugle + notes + veto sectoriel (Bot #19)
         run: python screener/simulate_portfolio_notes_sector_outlook.py
 
-      # Bot #34 : meme mecanique que #1, sauf qu'a l'achat le momentum doit battre celui du
-      # secteur d'au moins 10 points (MIN_ENTRY_MOM_MARGIN) -- voir simulate_portfolio_marge.py.
-      - name: Simulation en aveugle + marge momentum a l'entree (Bot #34)
-        run: python screener/simulate_portfolio_marge.py
-
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
@@ -273,34 +232,6 @@ jobs:
       - name: Simulation de portefeuille a capital contraint (restreint, diversifie, reinvesti) (Bot #2)
         run: python screener/simulate_constrained_portfolio.py
 
-      # Bot #8 (renumerote #7 -> #8 le 2026-09-04) : memes mecaniques que #2 (capital
-      # contraint), mais classement des candidats par les notes Qualite/Perspective (moyenne
-      # des 2 notes /20) au lieu du composite_score value+momentum+quality -- comparaison
-      # controlee des deux methodes de selection sur le meme pool de candidats, voir
-      # simulate_constrained_portfolio_notes.py.
-      - name: Simulation a capital contraint + selection par notes (Bot #8)
-        run: python screener/simulate_constrained_portfolio_notes.py
-
-      # Bot #11 : meme mecanique que #2, meme classement composite_score, avec le meme veto
-      # sectoriel que Bot #10 -- voir simulate_constrained_portfolio_sector_outlook.py.
-      - name: Simulation a capital contraint + veto sectoriel newsletters (Bot #11)
-        run: python screener/simulate_constrained_portfolio_sector_outlook.py
-
-      # Bot #20 : meme combinaison que #19 (notes + veto sectoriel, sans Ollama) sur la
-      # strategie a capital contraint -- voir simulate_constrained_portfolio_notes_sector_outlook.py.
-      - name: Simulation a capital contraint + notes + veto sectoriel (Bot #20)
-        run: python screener/simulate_constrained_portfolio_notes_sector_outlook.py
-
-      # Bot #35 : meme mecanique que #2, sauf qu'a l'achat le momentum doit battre celui du
-      # secteur d'au moins 10 points (MIN_ENTRY_MOM_MARGIN) -- voir simulate_constrained_portfolio_marge.py.
-      - name: Simulation a capital contraint + marge momentum a l'entree (Bot #35)
-        run: python screener/simulate_constrained_portfolio_marge.py
-
-      # Bot #38 : meme mecanique que #35 (Beta + marge), avec 8 positions (62,50 EUR) au lieu de 15 -- moins de frais par trade,
-      # retenu apres le backtest point-in-time du 2026-10-04. Voir simulate_constrained_portfolio_concentre_marge.py.
-      - name: Simulation a capital contraint, 8 positions + marge momentum (Bot #38)
-        run: python screener/simulate_constrained_portfolio_concentre_marge.py
-
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
@@ -337,31 +268,6 @@ jobs:
 
       - name: Simulation de portefeuille large (equilibre par secteur, sans plafond) (Bot #3)
         run: python screener/simulate_large_portfolio.py
-
-      # Bot #9 : meme mecanique que #3 (large), classement par notes Qualite/Perspective au
-      # lieu de composite_score -- voir simulate_large_portfolio_notes.py.
-      - name: Simulation large + selection par notes (Bot #9)
-        run: python screener/simulate_large_portfolio_notes.py
-
-      # Bot #12 : meme mecanique que #3, meme classement composite_score, avec le meme veto
-      # sectoriel que Bot #10/#11 -- voir simulate_large_portfolio_sector_outlook.py.
-      - name: Simulation large + veto sectoriel newsletters (Bot #12)
-        run: python screener/simulate_large_portfolio_sector_outlook.py
-
-      # Bot #21 : meme combinaison que #19/#20 (notes + veto sectoriel, sans Ollama) sur la
-      # strategie large -- voir simulate_large_portfolio_notes_sector_outlook.py.
-      - name: Simulation large + notes + veto sectoriel (Bot #21)
-        run: python screener/simulate_large_portfolio_notes_sector_outlook.py
-
-      # Bot #36 : meme mecanique que #3, sauf qu'a l'achat le momentum doit battre celui du
-      # secteur d'au moins 10 points (MIN_ENTRY_MOM_MARGIN) -- voir simulate_large_portfolio_marge.py.
-      - name: Simulation large + marge momentum a l'entree (Bot #36)
-        run: python screener/simulate_large_portfolio_marge.py
-
-      # Bot #39 : meme mecanique que #36 (Charlie + marge), avec 15 positions (33 EUR) au lieu de 30 -- moins de frais par trade,
-      # retenu apres le backtest point-in-time du 2026-10-04. Voir simulate_large_portfolio_concentre_marge.py.
-      - name: Simulation large, 15 positions + marge momentum (Bot #39)
-        run: python screener/simulate_large_portfolio_concentre_marge.py
 
       - name: Commit + push si des resultats ont change
         run: |
@@ -412,22 +318,8 @@ jobs:
       - name: Simulation Delta + selection par notes (Bot #26)
         run: python screener/simulate_delta_portfolio_notes.py
 
-      - name: Simulation Delta + veto sectoriel newsletters (Bot #27)
-        run: python screener/simulate_delta_portfolio_sector_outlook.py
-
       - name: Simulation Delta + notes + veto sectoriel (Bot #28)
         run: python screener/simulate_delta_portfolio_notes_sector_outlook.py
-
-      # Bot #37 : meme mecanique que #25, sauf qu'a l'achat ET au renfort de conviction le momentum
-      # doit battre celui du secteur d'au moins 10 points (MIN_ENTRY_MOM_MARGIN) -- voir
-      # simulate_delta_portfolio_marge.py.
-      - name: Simulation Delta + marge momentum a l'entree (Bot #37)
-        run: python screener/simulate_delta_portfolio_marge.py
-
-      # Bot #40 : meme mecanique que #37 (Delta + marge), avec 6 positions (50 EUR) au lieu de 9 -- moins de frais par trade,
-      # retenu apres le backtest point-in-time du 2026-10-04. Voir simulate_delta_portfolio_concentre_marge.py.
-      - name: Simulation Delta, 6 positions + marge momentum (Bot #40)
-        run: python screener/simulate_delta_portfolio_concentre_marge.py
 
       - name: Commit + push si des resultats ont change
         run: |
