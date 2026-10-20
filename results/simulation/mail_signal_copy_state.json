@@ -1,128 +1,8 @@
 {
  "cash": {
-  "pool": 5430.791693037306
+  "pool": 6379.57298588267
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "CRWD",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-19T22:00:00Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "NNN",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-19T22:00:00Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "NOK",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-19T22:00:00Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "T",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-19T22:00:00Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "VECO",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-19T22:00:00Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "COHR",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-20T10:03:22Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "KIM",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-20T10:03:22Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "PNC",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-20T10:03:22Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "PSX",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-20T10:03:22Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "RLJ",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-20T10:03:22Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "TSEM",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-20T10:03:22Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "VTR",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-20T10:03:22Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "CBOE",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-20T17:02:24Z",
-   "amount_eur": 100.0,
-   "name": "Cboe Global Markets, Inc.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "JPM",
-   "bucket": "pool",
-   "reason": "avis tipranks.com",
-   "decided_at": "2026-10-20T17:02:24Z",
-   "amount_eur": 100.0,
-   "name": "JPMorgan Chase & Co.",
-   "sector": "tipranks.com",
-   "currency": "USD",
-   "fractional": true
-  },
   {
    "side": "buy",
    "ticker": "VIRP.PA",
@@ -145,8 +25,6 @@
   "RKLB": "2026-10-28",
   "ET": "2026-11-04",
   "ORCL": "2026-11-05",
-  "COHR": "2026-10-20",
-  "NOK": "2026-10-19",
   "NBIS": "2026-11-11",
   "PAYX": "2026-10-26",
   "META": "2026-11-02",
@@ -154,16 +32,6 @@
   "INTC": "2026-10-22",
   "AMD": "2026-10-28",
   "GDYN": "2026-10-26",
-  "T": "2026-10-19",
-  "VECO": "2026-10-19",
-  "NNN": "2026-10-19",
-  "KIM": "2026-10-20",
-  "CRWD": "2026-10-19",
-  "VTR": "2026-10-20",
-  "PNC": "2026-10-20",
-  "RLJ": "2026-10-20",
-  "PSX": "2026-10-20",
-  "TSEM": "2026-10-20",
   "IPAR": "2026-11-11",
   "SMCI": "2026-11-09",
   "MSFT": "2026-11-13",
