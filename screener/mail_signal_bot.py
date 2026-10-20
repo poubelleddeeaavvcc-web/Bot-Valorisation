@@ -172,7 +172,7 @@ MAX_TICKERS_PER_EMAIL = 3
 _PLACEHOLDER_TICKERS = {"N/A", "NA", "NONE", "AUCUN", "AUCUNE", "INCONNU", "UNKNOWN", "TBD", "-", "?"}
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "llama3.1:8b"  # same as newsletter_digest.py
+OLLAMA_MODEL = "mistral:7b"  # same as newsletter_digest.py (was llama3.1:8b until 2026-10-20)
 OLLAMA_TIMEOUT = 300
 # SEQUENTIAL calls (was 2 workers): on the CPU-only CI runner two concurrent requests just queue
 # behind each other inside Ollama, so each one's wall time doubled and hit the timeout. Sequential

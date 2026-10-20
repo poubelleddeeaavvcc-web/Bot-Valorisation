@@ -102,7 +102,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.ollama/models
-          key: ollama-models-llama3.2-3b
+          key: ollama-models-mistral-7b
 
       - name: Installer et demarrer Ollama
         env:
@@ -118,7 +118,7 @@ jobs:
             curl -s http://localhost:11434/api/version > /dev/null && break
             sleep 2
           done
-          ollama pull llama3.2:3b
+          ollama pull mistral:7b  # etait llama3.2:3b jusqu'au 2026-10-20
 
       - name: Simulation en aveugle + filtre actu Ollama (Bot #4)
         run: python screener/simulate_portfolio_newsgated.py

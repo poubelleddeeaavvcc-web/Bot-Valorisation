@@ -111,8 +111,8 @@ OLLAMA_URL = "http://localhost:11434/api/generate"
 # Telecommunications...). Slower per call on the CPU-only Actions runner -- see OLLAMA_MAX_WORKERS
 # below for how classify_newsletter()/_classify_extract_sector() overlap these calls rather than
 # waiting on them one at a time.
-OLLAMA_MODEL = "llama3.1:8b"
-OLLAMA_TIMEOUT = 180  # 8b cold-loads and infers slower than the 3b other modules use
+OLLAMA_MODEL = "mistral:7b"  # was llama3.1:8b until 2026-10-20 (switch to Mistral asked by the user)
+OLLAMA_TIMEOUT = 180  # 7b cold-loads and infers slower than a 3b model
 
 # Bounded concurrency for the two email-classification phases below (classify_newsletter over
 # every new message, then classify_newsletters_by_sector over every classified one). Matches

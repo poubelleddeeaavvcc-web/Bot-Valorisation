@@ -113,8 +113,8 @@ NEWS_DB_COLUMNS = [
 ]
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "llama3.2:3b"
-OLLAMA_TIMEOUT = 90  # generous: covers a cold model load (first call after `ollama serve`
+OLLAMA_MODEL = "mistral:7b"  # was llama3.2:3b until 2026-10-20 (user asked to switch every Ollama module to Mistral)
+OLLAMA_TIMEOUT = 180  # raised from 90 with the 7b model -- generous: covers a cold model load (first call after `ollama serve`
 # starts, e.g. in CI) as well as a warm local server
 
 # news_verdict()/customer_concentration_verdict() are each mostly I/O wait (Ollama call(s),

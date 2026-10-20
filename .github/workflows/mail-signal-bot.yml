@@ -39,14 +39,13 @@ jobs:
       - name: Installer les dependances
         run: pip install -r requirements.txt
 
-      # llama3.1:8b, pas le 3b utilise par les autres bots Ollama de ce repo -- voir le
-      # docstring de mail_signal_bot.py. Job separe = cache modele separe, pas de contention
-      # avec le cache llama3.2-3b du job bots-ollama d'update-screener.yml.
+      # mistral:7b depuis le 2026-10-20 (etait llama3.1:8b) : meme modele et meme cle de cache que
+      # le job bots-ollama d'update-screener.yml.
       - name: Cache du modele Ollama
         uses: actions/cache@v4
         with:
           path: ~/.ollama/models
-          key: ollama-models-llama3.1-8b
+          key: ollama-models-mistral-7b
 
       - name: Installer et demarrer Ollama
         env:
@@ -58,7 +57,7 @@ jobs:
             curl -s http://localhost:11434/api/version > /dev/null && break
             sleep 2
           done
-          ollama pull llama3.1:8b
+          ollama pull mistral:7b
 
       - name: Signaux actions dans les mails (Bot #33 Courrier)
         env:
