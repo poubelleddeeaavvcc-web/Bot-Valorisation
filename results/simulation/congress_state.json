@@ -2,11 +2,55 @@
  "cash": {
   "pool": 4500.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "DDOG",
+   "bucket": "pool",
+   "reason": "achat declare par Jonathan Jackson (IL01), >= 50,001 $ le 09/28/2026",
+   "decided_at": "2026-10-20T16:53:00Z",
+   "amount_eur": 100.0,
+   "name": "DDOG",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 50001.0
+  },
+  {
+   "side": "buy",
+   "ticker": "EL",
+   "bucket": "pool",
+   "reason": "achat declare par Jonathan Jackson (IL01), >= 50,001 $ le 09/28/2026",
+   "decided_at": "2026-10-20T16:53:00Z",
+   "amount_eur": 100.0,
+   "name": "EL",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 50001.0
+  },
+  {
+   "side": "buy",
+   "ticker": "GH",
+   "bucket": "pool",
+   "reason": "achat declare par Jonathan Jackson (IL01), >= 15,001 $ le 09/28/2026",
+   "decided_at": "2026-10-20T16:53:00Z",
+   "amount_eur": 100.0,
+   "name": "GH",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 15001.0
+  }
+ ],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20035487",
   "20035490",
+  "20035551",
   "20035588",
   "20035627",
   "20035637",
@@ -14,6 +58,7 @@
   "20035651",
   "20035652",
   "20035660",
+  "20035671",
   "9116378"
  ],
  "hold_until": {
@@ -21,7 +66,10 @@
   "T": "2027-04-02",
   "FITB": "2027-04-02",
   "RPM": "2027-04-02",
-  "NOKBF": "2027-04-05"
+  "NOKBF": "2027-04-05",
+  "DDOG": "2027-04-06",
+  "EL": "2027-04-06",
+  "GH": "2027-04-06"
  },
  "events_log": [
   {
@@ -68,13 +116,40 @@
    "trade_date": "09/18/2026",
    "amount_low": 15001,
    "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-19",
+   "member": "Jonathan Jackson",
+   "district": "IL01",
+   "ticker": "DDOG",
+   "trade_date": "09/28/2026",
+   "amount_low": 50001,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-19",
+   "member": "Jonathan Jackson",
+   "district": "IL01",
+   "ticker": "EL",
+   "trade_date": "09/28/2026",
+   "amount_low": 50001,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-19",
+   "member": "Jonathan Jackson",
+   "district": "IL01",
+   "ticker": "GH",
+   "trade_date": "09/28/2026",
+   "amount_low": 15001,
+   "decision": "achat"
   }
  ],
  "counters": {
-  "rapports": 10,
+  "rapports": 12,
   "illisibles": 0,
-  "achats_declares": 5,
-  "achetes": 5,
+  "achats_declares": 8,
+  "achetes": 8,
   "complet": 0,
   "prolonges": 0,
   "sans_cours": 0
