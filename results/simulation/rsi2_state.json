@@ -1,17 +1,8 @@
 {
  "cash": {
-  "SPY": 0.0
+  "SPY": 990.8154429291828
  },
- "pending": [
-  {
-   "side": "sell",
-   "ticker": "SPY",
-   "bucket": "SPY",
-   "reason": "cours 768.65 > moyenne 5 j 767.95",
-   "decided_at": "2026-10-20T19:52:38Z",
-   "fraction": 1.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-12T14:52:43Z",
  "decision_date": "2026-10-20",
  "signal": {

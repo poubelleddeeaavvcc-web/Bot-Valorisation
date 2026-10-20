@@ -1,51 +1,8 @@
 {
  "cash": {
-  "pool": 4500.0
+  "pool": 4200.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "DDOG",
-   "bucket": "pool",
-   "reason": "achat declare par Jonathan Jackson (IL01), >= 50,001 $ le 09/28/2026",
-   "decided_at": "2026-10-20T16:53:00Z",
-   "amount_eur": 100.0,
-   "name": "DDOG",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 50001.0
-  },
-  {
-   "side": "buy",
-   "ticker": "EL",
-   "bucket": "pool",
-   "reason": "achat declare par Jonathan Jackson (IL01), >= 50,001 $ le 09/28/2026",
-   "decided_at": "2026-10-20T16:53:00Z",
-   "amount_eur": 100.0,
-   "name": "EL",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 50001.0
-  },
-  {
-   "side": "buy",
-   "ticker": "GH",
-   "bucket": "pool",
-   "reason": "achat declare par Jonathan Jackson (IL01), >= 15,001 $ le 09/28/2026",
-   "decided_at": "2026-10-20T16:53:00Z",
-   "amount_eur": 100.0,
-   "name": "GH",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 15001.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20035487",

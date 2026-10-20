@@ -18524,6 +18524,16 @@
    "react": 0.010058,
    "age": 3.085646,
    "tone": -0.00033
+  },
+  {
+   "ticker": "WRB",
+   "date": "2026-10-20",
+   "ret12": 0.052606,
+   "size": 24.024838,
+   "stdret": 0.052012,
+   "react": -0.037697,
+   "age": 3.085771,
+   "tone": 0.0
   }
  ],
  "edgar_days_done": [
@@ -18532,15 +18542,7 @@
   "2026-10-16",
   "2026-10-19"
  ],
- "awaiting": [
-  {
-   "ticker": "WRB",
-   "acc": "0000011544-26-000046",
-   "accepted": "2026-10-19T16:12:46-04:00",
-   "tone": 0.0,
-   "company": "BERKLEY W R CORP"
-  }
- ],
+ "awaiting": [],
  "shadow": [
   {
    "ticker": "FAST",
@@ -18761,6 +18763,15 @@
    "abtone": -0.00355,
    "rang": 0.296,
    "decision": "neutre"
+  },
+  {
+   "ticker": "WRB",
+   "company": "BERKLEY W R CORP",
+   "day0": "2026-10-20",
+   "tone": 0.0,
+   "abtone": -0.00315,
+   "rang": 0.316,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -18771,7 +18782,7 @@
  "counters": {
   "jours": 4,
   "communiques": 23,
-  "evalues": 22,
+  "evalues": 23,
   "achetes": 3,
   "ombre": 4,
   "complet": 0
