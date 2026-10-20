@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 5424.997692888533
+  "pool": 5430.791693037306
  },
  "pending": [
   {
@@ -85,14 +85,6 @@
   },
   {
    "side": "sell",
-   "ticker": "RUI.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-20T10:03:22Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
    "ticker": "TSEM",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
@@ -109,12 +101,36 @@
   },
   {
    "side": "buy",
-   "ticker": "BOL.PA",
+   "ticker": "CBOE",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-20T17:02:24Z",
+   "amount_eur": 100.0,
+   "name": "Cboe Global Markets, Inc.",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "JPM",
+   "bucket": "pool",
+   "reason": "avis tipranks.com",
+   "decided_at": "2026-10-20T17:02:24Z",
+   "amount_eur": 100.0,
+   "name": "JPMorgan Chase & Co.",
+   "sector": "tipranks.com",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "VIRP.PA",
    "bucket": "pool",
    "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-19T19:56:49Z",
+   "decided_at": "2026-10-20T17:02:24Z",
    "amount_eur": 100.0,
-   "name": "Bolloré SE",
+   "name": "Virbac SA",
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
@@ -143,7 +159,6 @@
   "NNN": "2026-10-19",
   "KIM": "2026-10-20",
   "CRWD": "2026-10-19",
-  "RUI.PA": "2026-11-17",
   "VTR": "2026-10-20",
   "PNC": "2026-10-20",
   "RLJ": "2026-10-20",
@@ -259,10 +274,13 @@
   "ASML": "2026-11-13",
   "AYA": "2026-11-13",
   "DMLP": "2026-11-13",
-  "TSLA": "2026-11-13",
+  "TSLA": "2026-11-17",
   "ICAD.PA": "2026-11-16",
   "CRWV": "2026-11-16",
-  "BOL.PA": "2026-11-16"
+  "BOL.PA": "2026-11-16",
+  "CBOE": "2026-11-17",
+  "JPM": "2026-11-17",
+  "VIRP.PA": "2026-11-17"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -596,12 +614,16 @@
   "1a1543c279f18bca:AVGO",
   "1a154eff13e1ec8a:BOL.PA",
   "1a155d67b9a038a9:AMZN",
-  "1a1583a8021ea3f2:RUI.PA"
+  "1a1583a8021ea3f2:RUI.PA",
+  "1a159229791267f3:TSLA",
+  "1a159a63ff5f215a:CBOE",
+  "1a15924a1d47bd68:JPM",
+  "1a15a1b23998955a:VIRP.PA"
  ],
  "counters": {
-  "avis": 332,
-  "achetes": 199,
-  "prolonges": 133,
+  "avis": 336,
+  "achetes": 202,
+  "prolonges": 134,
   "complet": 0
  },
  "dropped": [
