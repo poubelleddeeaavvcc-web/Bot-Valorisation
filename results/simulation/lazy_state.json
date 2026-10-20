@@ -501,7 +501,8 @@
  "edgar_days_done": [
   "2026-10-14",
   "2026-10-15",
-  "2026-10-16"
+  "2026-10-16",
+  "2026-10-19"
  ],
  "queue": [],
  "scores": [
@@ -544,13 +545,21 @@
    "cos": 0.997559,
    "jac": 0.94583,
    "period": "2026-09-30"
+  },
+  {
+   "ticker": "FAST",
+   "form": "10-Q",
+   "date": "2026-10-19",
+   "cos": 0.994059,
+   "jac": 0.82743,
+   "period": "2026-09-30"
   }
  ],
  "shadow": [],
  "hold_until": {},
  "counters": {
-  "rapports": 6,
-  "compares": 5,
+  "rapports": 7,
+  "compares": 6,
   "sans_comparable": 1,
   "achetes": 0
  },
