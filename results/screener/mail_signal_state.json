@@ -1,5 +1,10 @@
 {
   "processed_message_ids": [
+    "1a1584f699c8803e",
+    "1a1583a8021ea3f2",
+    "1a1580a38d86a146",
+    "1a157fc62e9b3477",
+    "1a157ec515cad23c",
     "1a15795320bdc171",
     "1a156b07ab372193",
     "1a155d67b9a038a9",
@@ -45,9 +50,7 @@
     "1a14ed4d731c94c3",
     "1a14ed16df1677c6",
     "1a14eb3f25cb10f9",
-    "1a14e915d3804f9d",
-    "1a14db4f5c3fdd01",
-    "1a14d9fe30fe1f4a"
+    "1a14e915d3804f9d"
   ],
   "last_run_date": "2026-10-20",
   "ollama_attempts": {
@@ -971,6 +974,7 @@
     "American Market News (beehiiv.com)": "observation",
     "Dividend Ideas (sailthru.com)": "observation",
     "Energy Investing (sailthru.com)": "observation",
+    "MoneyRadar (substack.com) (ton)": "observation",
     "Morning Briefing (sailthru.com)": "observation",
     "Must Reads (sailthru.com)": "observation",
     "StockNews.com (beehiiv.com)": "observation",
