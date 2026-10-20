@@ -18514,14 +18514,33 @@
    "react": 0.041167,
    "age": 3.08527,
    "tone": 0.001871
+  },
+  {
+   "ticker": "FITB",
+   "date": "2026-10-19",
+   "ret12": 0.212215,
+   "size": 24.547706,
+   "stdret": 0.098645,
+   "react": 0.010058,
+   "age": 3.085646,
+   "tone": -0.00033
   }
  ],
  "edgar_days_done": [
   "2026-10-14",
   "2026-10-15",
-  "2026-10-16"
+  "2026-10-16",
+  "2026-10-19"
  ],
- "awaiting": [],
+ "awaiting": [
+  {
+   "ticker": "WRB",
+   "acc": "0000011544-26-000046",
+   "accepted": "2026-10-19T16:12:46-04:00",
+   "tone": 0.0,
+   "company": "BERKLEY W R CORP"
+  }
+ ],
  "shadow": [
   {
    "ticker": "FAST",
@@ -18733,6 +18752,15 @@
    "abtone": -0.00209,
    "rang": 0.379,
    "decision": "neutre"
+  },
+  {
+   "ticker": "FITB",
+   "company": "FIFTH THIRD BANCORP",
+   "day0": "2026-10-19",
+   "tone": -0.00033,
+   "abtone": -0.00355,
+   "rang": 0.296,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -18741,9 +18769,9 @@
   "PRU": "2027-01-11"
  },
  "counters": {
-  "jours": 3,
-  "communiques": 21,
-  "evalues": 21,
+  "jours": 4,
+  "communiques": 23,
+  "evalues": 22,
   "achetes": 3,
   "ombre": 4,
   "complet": 0
