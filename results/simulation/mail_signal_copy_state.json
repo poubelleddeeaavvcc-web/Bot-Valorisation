@@ -44,18 +44,6 @@
    "fraction": 1.0
   },
   {
-   "side": "buy",
-   "ticker": "BOL.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-19T19:56:49Z",
-   "amount_eur": 100.0,
-   "name": "Bolloré SE",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
    "side": "sell",
    "ticker": "COHR",
    "bucket": "pool",
@@ -118,6 +106,18 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-10-20T10:03:22Z",
    "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "BOL.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-19T19:56:49Z",
+   "amount_eur": 100.0,
+   "name": "Bolloré SE",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
