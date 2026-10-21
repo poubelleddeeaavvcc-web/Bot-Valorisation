@@ -14,6 +14,38 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "sell",
+   "ticker": "DKS",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-21T00:38:45Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "GPK",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-21T00:38:45Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "LKFT",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-21T00:38:45Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "MGY",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-21T00:38:45Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
