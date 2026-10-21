@@ -1,64 +1,8 @@
 {
  "cash": {
-  "pool": 6281.672990078837
+  "pool": 6371.931177030933
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "DKS",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-21T00:38:45Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "GPK",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-21T00:38:45Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "LKFT",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-21T00:38:45Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "MGY",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-21T00:38:45Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "HAS",
-   "bucket": "pool",
-   "reason": "avis aktionnaire.com (ton)",
-   "decided_at": "2026-10-21T07:35:49Z",
-   "amount_eur": 100.0,
-   "name": "Hasbro, Inc.",
-   "sector": "aktionnaire.com (ton)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "STX",
-   "bucket": "pool",
-   "reason": "avis Zacks Rank (email.zacks.com)",
-   "decided_at": "2026-10-21T13:47:11Z",
-   "amount_eur": 100.0,
-   "name": "Seagate Technology Holdings plc",
-   "sector": "Zacks Rank (email.zacks.com)",
-   "currency": "USD",
-   "fractional": true
-  },
   {
    "side": "buy",
    "ticker": "EL.PA",
@@ -73,18 +17,6 @@
   },
   {
    "side": "buy",
-   "ticker": "AA",
-   "bucket": "pool",
-   "reason": "avis StockNews.com (beehiiv.com)",
-   "decided_at": "2026-10-21T18:37:31Z",
-   "amount_eur": 100.0,
-   "name": "Alcoa Corporation",
-   "sector": "StockNews.com (beehiiv.com)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
    "ticker": "VU.PA",
    "bucket": "pool",
    "reason": "avis news.meilleurtaux.com (ton)",
@@ -94,6 +26,18 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "SKHY",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-21T23:18:08Z",
+   "amount_eur": 100.0,
+   "name": "SK hynix Inc.",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -115,10 +59,6 @@
   "IPAR": "2026-11-11",
   "SMCI": "2026-11-09",
   "MSFT": "2026-11-13",
-  "LKFT": "2026-10-21",
-  "MGY": "2026-10-21",
-  "GPK": "2026-10-21",
-  "DKS": "2026-10-21",
   "BWLP": "2026-10-22",
   "THC": "2026-10-22",
   "WES": "2026-10-22",
@@ -233,7 +173,8 @@
   "STX": "2026-11-18",
   "EL.PA": "2026-11-18",
   "AA": "2026-11-18",
-  "VU.PA": "2026-11-18"
+  "VU.PA": "2026-11-18",
+  "SKHY": "2026-11-18"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -578,11 +519,12 @@
   "1a15e4dc82a3ee91:STX",
   "1a15f3de0507dfe2:EL.PA",
   "1a15f0725a6ed9dc:AA",
-  "1a15f3de0507dfe2:VU.PA"
+  "1a15f3de0507dfe2:VU.PA",
+  "1a160232a6d20b76:SKHY"
  ],
  "counters": {
-  "avis": 343,
-  "achetes": 208,
+  "avis": 344,
+  "achetes": 209,
   "prolonges": 135,
   "complet": 0
  },
