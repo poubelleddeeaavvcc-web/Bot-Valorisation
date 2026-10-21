@@ -1,65 +1,8 @@
 {
  "cash": {
-  "pool": 4700.0
+  "pool": 4300.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "MMM",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 14%)",
-   "decided_at": "2026-10-21T04:53:23Z",
-   "amount_eur": 100.0,
-   "name": "3M CO",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.00714
-  },
-  {
-   "side": "buy",
-   "ticker": "GM",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 3%)",
-   "decided_at": "2026-10-21T04:53:23Z",
-   "amount_eur": 100.0,
-   "name": "General Motors Co",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.013521
-  },
-  {
-   "side": "buy",
-   "ticker": "HAS",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 7%)",
-   "decided_at": "2026-10-21T04:53:23Z",
-   "amount_eur": 100.0,
-   "name": "HASBRO, INC.",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.009537
-  },
-  {
-   "side": "buy",
-   "ticker": "RTX",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 16%)",
-   "decided_at": "2026-10-21T04:53:23Z",
-   "amount_eur": 100.0,
-   "name": "RTX Corp",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.006563
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
@@ -18691,6 +18634,66 @@
    "react": -0.011942,
    "age": 2.581864,
    "tone": 0.011111
+  },
+  {
+   "ticker": "COF",
+   "date": "2026-10-21",
+   "ret12": -0.039765,
+   "size": 25.565766,
+   "stdret": 0.096118,
+   "react": 0.025555,
+   "age": 3.085896,
+   "tone": 0.007463
+  },
+  {
+   "ticker": "CB",
+   "date": "2026-10-21",
+   "ret12": 0.34044,
+   "size": 25.642806,
+   "stdret": 0.047232,
+   "react": -0.012329,
+   "age": 3.085896,
+   "tone": 0.005896
+  },
+  {
+   "ticker": "ISRG",
+   "date": "2026-10-21",
+   "ret12": -0.029027,
+   "size": 25.742169,
+   "stdret": 0.105373,
+   "react": -0.020305,
+   "age": 3.085896,
+   "tone": 0.00375
+  },
+  {
+   "ticker": "NFLX",
+   "date": "2026-10-21",
+   "ret12": -0.417606,
+   "size": 26.32473,
+   "stdret": 0.118121,
+   "react": -0.077486,
+   "age": 3.085896,
+   "tone": 0.014648
+  },
+  {
+   "ticker": "SMCI",
+   "date": "2026-10-21",
+   "ret12": -0.384822,
+   "size": 23.859163,
+   "stdret": 0.229337,
+   "react": 0.099476,
+   "age": 3.023575,
+   "tone": 0.0
+  },
+  {
+   "ticker": "UAL",
+   "date": "2026-10-21",
+   "ret12": -0.035707,
+   "size": 24.219786,
+   "stdret": 0.11963,
+   "react": 0.05487,
+   "age": 3.077479,
+   "tone": 0.006422
   }
  ],
  "edgar_days_done": [
@@ -18700,50 +18703,7 @@
   "2026-10-19",
   "2026-10-20"
  ],
- "awaiting": [
-  {
-   "ticker": "COF",
-   "acc": "0000927628-26-000142",
-   "accepted": "2026-10-20T16:05:46-04:00",
-   "tone": 0.007462686567164179,
-   "company": "CAPITAL ONE FINANCIAL CORP"
-  },
-  {
-   "ticker": "CB",
-   "acc": "0001193125-26-426866",
-   "accepted": "2026-10-20T17:24:57-04:00",
-   "tone": 0.00589622641509434,
-   "company": "Chubb Ltd"
-  },
-  {
-   "ticker": "ISRG",
-   "acc": "0001035267-26-000067",
-   "accepted": "2026-10-20T16:05:16-04:00",
-   "tone": 0.0037502757555702626,
-   "company": "INTUITIVE SURGICAL INC"
-  },
-  {
-   "ticker": "NFLX",
-   "acc": "0001065280-26-000290",
-   "accepted": "2026-10-20T16:01:55-04:00",
-   "tone": 0.0146484375,
-   "company": "NETFLIX INC"
-  },
-  {
-   "ticker": "SMCI",
-   "acc": "0001375365-26-000025",
-   "accepted": "2026-10-20T16:44:26-04:00",
-   "tone": 0.0,
-   "company": "Super Micro Computer, Inc."
-  },
-  {
-   "ticker": "UAL",
-   "acc": "0000100517-26-000184",
-   "accepted": "2026-10-20T16:00:00-04:00",
-   "tone": 0.0064215764970300205,
-   "company": "United Airlines Holdings, Inc."
-  }
- ],
+ "awaiting": [],
  "shadow": [
   {
    "ticker": "FAST",
@@ -18779,6 +18739,11 @@
    "ticker": "SYF",
    "day0": "2026-10-20",
    "rang": 0.908
+  },
+  {
+   "ticker": "NFLX",
+   "day0": "2026-10-21",
+   "rang": 0.927
   }
  ],
  "events_log": [
@@ -19105,6 +19070,60 @@
    "abtone": 0.0089,
    "rang": 0.908,
    "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "COF",
+   "company": "CAPITAL ONE FINANCIAL CORP",
+   "day0": "2026-10-21",
+   "tone": 0.00746,
+   "abtone": 0.00302,
+   "rang": 0.694,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "CB",
+   "company": "Chubb Ltd",
+   "day0": "2026-10-21",
+   "tone": 0.0059,
+   "abtone": 0.00096,
+   "rang": 0.59,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "ISRG",
+   "company": "INTUITIVE SURGICAL INC",
+   "day0": "2026-10-21",
+   "tone": 0.00375,
+   "abtone": -0.00055,
+   "rang": 0.484,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "NFLX",
+   "company": "NETFLIX INC",
+   "day0": "2026-10-21",
+   "tone": 0.01465,
+   "abtone": 0.01007,
+   "rang": 0.927,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "SMCI",
+   "company": "Super Micro Computer, Inc.",
+   "day0": "2026-10-21",
+   "tone": 0.0,
+   "abtone": -0.00121,
+   "rang": 0.437,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "UAL",
+   "company": "United Airlines Holdings, Inc.",
+   "day0": "2026-10-21",
+   "tone": 0.00642,
+   "abtone": 0.00359,
+   "rang": 0.721,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -19119,9 +19138,9 @@
  "counters": {
   "jours": 5,
   "communiques": 42,
-  "evalues": 36,
+  "evalues": 42,
   "achetes": 7,
-  "ombre": 7,
+  "ombre": 8,
   "complet": 0
  }
 }
