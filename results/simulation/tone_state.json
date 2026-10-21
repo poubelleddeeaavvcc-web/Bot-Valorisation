@@ -2,39 +2,66 @@
  "cash": {
   "pool": 4700.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "MMM",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 14%)",
+   "decided_at": "2026-10-21T04:53:23Z",
+   "amount_eur": 100.0,
+   "name": "3M CO",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.00714
+  },
+  {
+   "side": "buy",
+   "ticker": "GM",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 3%)",
+   "decided_at": "2026-10-21T04:53:23Z",
+   "amount_eur": 100.0,
+   "name": "General Motors Co",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.013521
+  },
+  {
+   "side": "buy",
+   "ticker": "HAS",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 7%)",
+   "decided_at": "2026-10-21T04:53:23Z",
+   "amount_eur": 100.0,
+   "name": "HASBRO, INC.",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.009537
+  },
+  {
+   "side": "buy",
+   "ticker": "RTX",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 16%)",
+   "decided_at": "2026-10-21T04:53:23Z",
+   "amount_eur": 100.0,
+   "name": "RTX Corp",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.006563
+  }
+ ],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
-  {
-   "ticker": "HBAN",
-   "date": "2025-10-20",
-   "tone": 0.016822,
-   "ret12": 0.024589,
-   "size": 24.283996,
-   "stdret": 0.079447,
-   "react": 0.014443,
-   "age": 3.037126
-  },
-  {
-   "ticker": "WRB",
-   "date": "2025-10-20",
-   "tone": -0.00135,
-   "ret12": 0.274544,
-   "size": 24.040121,
-   "stdret": 0.046384,
-   "react": 0.002444,
-   "age": 3.037316
-  },
-  {
-   "ticker": "DHR",
-   "date": "2025-10-20",
-   "tone": 0.000553,
-   "ret12": -0.215282,
-   "size": 25.618923,
-   "stdret": 0.071011,
-   "react": 0.045627,
-   "age": 3.037316
-  },
   {
    "ticker": "NOC",
    "date": "2025-10-21",
@@ -18534,15 +18561,189 @@
    "react": -0.037697,
    "age": 3.085771,
    "tone": 0.0
+  },
+  {
+   "ticker": "MMM",
+   "date": "2026-10-20",
+   "ret12": 0.108191,
+   "size": 25.204904,
+   "stdret": 0.073087,
+   "react": 0.032583,
+   "age": 3.085771,
+   "tone": -0.002745
+  },
+  {
+   "ticker": "EFX",
+   "date": "2026-10-20",
+   "ret12": -0.282161,
+   "size": 23.755368,
+   "stdret": 0.11188,
+   "react": 0.087223,
+   "age": 3.085771,
+   "tone": 0.005865
+  },
+  {
+   "ticker": "GE",
+   "date": "2026-10-20",
+   "ret12": 0.052287,
+   "size": 26.463489,
+   "stdret": 0.104246,
+   "react": -0.052082,
+   "age": 3.085771,
+   "tone": -0.000543
+  },
+  {
+   "ticker": "GPC",
+   "date": "2026-10-20",
+   "ret12": 0.037758,
+   "size": 23.558151,
+   "stdret": 0.127676,
+   "react": -0.085533,
+   "age": 3.085771,
+   "tone": 0.001166
+  },
+  {
+   "ticker": "GM",
+   "date": "2026-10-20",
+   "ret12": 0.476881,
+   "size": 24.937506,
+   "stdret": 0.104728,
+   "react": -0.089424,
+   "age": 2.828532,
+   "tone": -0.010556
+  },
+  {
+   "ticker": "HAL",
+   "date": "2026-10-20",
+   "ret12": 0.566375,
+   "size": 24.054929,
+   "stdret": 0.124549,
+   "react": -0.004912,
+   "age": 3.085771,
+   "tone": -0.002488
+  },
+  {
+   "ticker": "HAS",
+   "date": "2026-10-20",
+   "ret12": 0.370243,
+   "size": 23.460693,
+   "stdret": 0.085514,
+   "react": 0.101352,
+   "age": 3.085771,
+   "tone": -0.006926
+  },
+  {
+   "ticker": "KEY",
+   "date": "2026-10-20",
+   "ret12": 0.240303,
+   "size": 23.823671,
+   "stdret": 0.089638,
+   "react": 0.033421,
+   "age": 3.085771,
+   "tone": -0.000285
+  },
+  {
+   "ticker": "MSCI",
+   "date": "2026-10-20",
+   "ret12": 0.082328,
+   "size": 24.484835,
+   "stdret": 0.049301,
+   "react": 0.032132,
+   "age": 2.992201,
+   "tone": 0.011489
+  },
+  {
+   "ticker": "NOC",
+   "date": "2026-10-20",
+   "ret12": -0.117942,
+   "size": 25.052177,
+   "stdret": 0.101607,
+   "react": 0.019601,
+   "age": 3.085771,
+   "tone": 0.004731
+  },
+  {
+   "ticker": "RTX",
+   "date": "2026-10-20",
+   "ret12": 0.253093,
+   "size": 26.286159,
+   "stdret": 0.087744,
+   "react": -0.01059,
+   "age": 3.085771,
+   "tone": -0.001479
+  },
+  {
+   "ticker": "STLD",
+   "date": "2026-10-20",
+   "ret12": 0.704321,
+   "size": 24.27933,
+   "stdret": 0.101782,
+   "react": 0.008323,
+   "age": 3.085771,
+   "tone": 0.01429
+  },
+  {
+   "ticker": "SYF",
+   "date": "2026-10-20",
+   "ret12": 0.066298,
+   "size": 23.895855,
+   "stdret": 0.107583,
+   "react": -0.011942,
+   "age": 2.581864,
+   "tone": 0.011111
   }
  ],
  "edgar_days_done": [
   "2026-10-14",
   "2026-10-15",
   "2026-10-16",
-  "2026-10-19"
+  "2026-10-19",
+  "2026-10-20"
  ],
- "awaiting": [],
+ "awaiting": [
+  {
+   "ticker": "COF",
+   "acc": "0000927628-26-000142",
+   "accepted": "2026-10-20T16:05:46-04:00",
+   "tone": 0.007462686567164179,
+   "company": "CAPITAL ONE FINANCIAL CORP"
+  },
+  {
+   "ticker": "CB",
+   "acc": "0001193125-26-426866",
+   "accepted": "2026-10-20T17:24:57-04:00",
+   "tone": 0.00589622641509434,
+   "company": "Chubb Ltd"
+  },
+  {
+   "ticker": "ISRG",
+   "acc": "0001035267-26-000067",
+   "accepted": "2026-10-20T16:05:16-04:00",
+   "tone": 0.0037502757555702626,
+   "company": "INTUITIVE SURGICAL INC"
+  },
+  {
+   "ticker": "NFLX",
+   "acc": "0001065280-26-000290",
+   "accepted": "2026-10-20T16:01:55-04:00",
+   "tone": 0.0146484375,
+   "company": "NETFLIX INC"
+  },
+  {
+   "ticker": "SMCI",
+   "acc": "0001375365-26-000025",
+   "accepted": "2026-10-20T16:44:26-04:00",
+   "tone": 0.0,
+   "company": "Super Micro Computer, Inc."
+  },
+  {
+   "ticker": "UAL",
+   "acc": "0000100517-26-000184",
+   "accepted": "2026-10-20T16:00:00-04:00",
+   "tone": 0.0064215764970300205,
+   "company": "United Airlines Holdings, Inc."
+  }
+ ],
  "shadow": [
   {
    "ticker": "FAST",
@@ -18563,6 +18764,21 @@
    "ticker": "CFG",
    "day0": "2026-10-16",
    "rang": 0.823
+  },
+  {
+   "ticker": "MSCI",
+   "day0": "2026-10-20",
+   "rang": 0.871
+  },
+  {
+   "ticker": "STLD",
+   "day0": "2026-10-20",
+   "rang": 0.947
+  },
+  {
+   "ticker": "SYF",
+   "day0": "2026-10-20",
+   "rang": 0.908
   }
  ],
  "events_log": [
@@ -18772,19 +18988,140 @@
    "abtone": -0.00315,
    "rang": 0.316,
    "decision": "neutre"
+  },
+  {
+   "ticker": "MMM",
+   "company": "3M CO",
+   "day0": "2026-10-20",
+   "tone": -0.00275,
+   "abtone": -0.00714,
+   "rang": 0.141,
+   "decision": "achat"
+  },
+  {
+   "ticker": "EFX",
+   "company": "EQUIFAX INC",
+   "day0": "2026-10-20",
+   "tone": 0.00587,
+   "abtone": 0.0032,
+   "rang": 0.702,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "GE",
+   "company": "GENERAL ELECTRIC CO",
+   "day0": "2026-10-20",
+   "tone": -0.00054,
+   "abtone": -0.00548,
+   "rang": 0.203,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "GPC",
+   "company": "GENUINE PARTS CO",
+   "day0": "2026-10-20",
+   "tone": 0.00117,
+   "abtone": -0.00024,
+   "rang": 0.504,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "GM",
+   "company": "General Motors Co",
+   "day0": "2026-10-20",
+   "tone": -0.01056,
+   "abtone": -0.01352,
+   "rang": 0.026,
+   "decision": "achat"
+  },
+  {
+   "ticker": "HAL",
+   "company": "HALLIBURTON CO",
+   "day0": "2026-10-20",
+   "tone": -0.00249,
+   "abtone": -0.00465,
+   "rang": 0.246,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "HAS",
+   "company": "HASBRO, INC.",
+   "day0": "2026-10-20",
+   "tone": -0.00693,
+   "abtone": -0.00954,
+   "rang": 0.073,
+   "decision": "achat"
+  },
+  {
+   "ticker": "KEY",
+   "company": "KEYCORP /NEW/",
+   "day0": "2026-10-20",
+   "tone": -0.00029,
+   "abtone": -0.00294,
+   "rang": 0.328,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "MSCI",
+   "company": "MSCI Inc.",
+   "day0": "2026-10-20",
+   "tone": 0.01149,
+   "abtone": 0.00756,
+   "rang": 0.871,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "NOC",
+   "company": "NORTHROP GRUMMAN CORP /DE/",
+   "day0": "2026-10-20",
+   "tone": 0.00473,
+   "abtone": 0.00091,
+   "rang": 0.586,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "RTX",
+   "company": "RTX Corp",
+   "day0": "2026-10-20",
+   "tone": -0.00148,
+   "abtone": -0.00656,
+   "rang": 0.158,
+   "decision": "achat"
+  },
+  {
+   "ticker": "STLD",
+   "company": "STEEL DYNAMICS INC",
+   "day0": "2026-10-20",
+   "tone": 0.01429,
+   "abtone": 0.01157,
+   "rang": 0.947,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "SYF",
+   "company": "Synchrony Financial",
+   "day0": "2026-10-20",
+   "tone": 0.01111,
+   "abtone": 0.0089,
+   "rang": 0.908,
+   "decision": "ombre (ton trop optimiste)"
   }
  ],
  "hold_until": {
   "BAC": "2027-01-07",
   "PGR": "2027-01-07",
-  "PRU": "2027-01-11"
+  "PRU": "2027-01-11",
+  "MMM": "2027-01-13",
+  "GM": "2027-01-13",
+  "HAS": "2027-01-13",
+  "RTX": "2027-01-13"
  },
  "counters": {
-  "jours": 4,
-  "communiques": 23,
-  "evalues": 23,
-  "achetes": 3,
-  "ombre": 4,
+  "jours": 5,
+  "communiques": 42,
+  "evalues": 36,
+  "achetes": 7,
+  "ombre": 7,
   "complet": 0
  }
 }
