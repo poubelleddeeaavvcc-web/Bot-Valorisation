@@ -70,13 +70,25 @@
    "sector": "tradingsat.com",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "STX",
+   "bucket": "pool",
+   "reason": "avis Zacks Rank (email.zacks.com)",
+   "decided_at": "2026-10-21T13:47:11Z",
+   "amount_eur": 100.0,
+   "name": "Seagate Technology Holdings plc",
+   "sector": "Zacks Rank (email.zacks.com)",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-11-11",
   "NVDA": "2026-11-13",
-  "AVGO": "2026-11-16",
+  "AVGO": "2026-11-18",
   "SNDK": "2026-11-11",
   "RKLB": "2026-10-28",
   "ET": "2026-11-04",
@@ -206,7 +218,8 @@
   "JPM": "2026-11-17",
   "VIRP.PA": "2026-11-17",
   "HAS": "2026-11-18",
-  "GET.PA": "2026-11-18"
+  "GET.PA": "2026-11-18",
+  "STX": "2026-11-18"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -546,12 +559,14 @@
   "1a15924a1d47bd68:JPM",
   "1a15a1b23998955a:VIRP.PA",
   "1a15cbad90866e08:HAS",
-  "1a15d60cf4f03966:GET.PA"
+  "1a15d60cf4f03966:GET.PA",
+  "1a15e440100b7f7e:AVGO",
+  "1a15e4dc82a3ee91:STX"
  ],
  "counters": {
-  "avis": 338,
-  "achetes": 204,
-  "prolonges": 134,
+  "avis": 340,
+  "achetes": 205,
+  "prolonges": 135,
   "complet": 0
  },
  "dropped": [
