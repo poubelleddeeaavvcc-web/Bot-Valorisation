@@ -10,7 +10,8 @@
   "2026-10-14",
   "2026-10-15",
   "2026-10-16",
-  "2026-10-19"
+  "2026-10-19",
+  "2026-10-20"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -197,11 +198,31 @@
    "title": "Director",
    "adv_usd": null,
    "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-10-20",
+   "ticker": "DX",
+   "issuer": "DYNEX CAPITAL INC",
+   "value_usd": 116900,
+   "insiders": 2,
+   "title": "Co-CEO and President",
+   "adv_usd": 92495628,
+   "decision": "liquidite hors bande (92.50 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-20",
+   "ticker": "GRF",
+   "issuer": "EAGLE CAPITAL GROWTH FUND, INC.",
+   "value_usd": 108633,
+   "insiders": 1,
+   "title": "CFO, CCO, Secretary, Treasurer",
+   "adv_usd": 25028,
+   "decision": "liquidite hors bande (0.03 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 5,
-  "evenements": 18,
+  "jours": 6,
+  "evenements": 20,
   "retenus": 3,
   "achetes": 3,
   "complet": 0,
