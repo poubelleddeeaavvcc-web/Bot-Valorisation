@@ -4,18 +4,6 @@
  },
  "pending": [
   {
-   "side": "buy",
-   "ticker": "VIRP.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-20T17:02:24Z",
-   "amount_eur": 100.0,
-   "name": "Virbac SA",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
    "side": "sell",
    "ticker": "DKS",
    "bucket": "pool",
@@ -46,6 +34,42 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-10-21T00:38:45Z",
    "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "VIRP.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-20T17:02:24Z",
+   "amount_eur": 100.0,
+   "name": "Virbac SA",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "HAS",
+   "bucket": "pool",
+   "reason": "avis aktionnaire.com (ton)",
+   "decided_at": "2026-10-21T07:35:49Z",
+   "amount_eur": 100.0,
+   "name": "Hasbro, Inc.",
+   "sector": "aktionnaire.com (ton)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "GET.PA",
+   "bucket": "pool",
+   "reason": "avis tradingsat.com",
+   "decided_at": "2026-10-21T07:35:49Z",
+   "amount_eur": 100.0,
+   "name": "Getlink SE",
+   "sector": "tradingsat.com",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -180,7 +204,9 @@
   "BOL.PA": "2026-11-16",
   "CBOE": "2026-11-17",
   "JPM": "2026-11-17",
-  "VIRP.PA": "2026-11-17"
+  "VIRP.PA": "2026-11-17",
+  "HAS": "2026-11-18",
+  "GET.PA": "2026-11-18"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -518,11 +544,13 @@
   "1a159229791267f3:TSLA",
   "1a159a63ff5f215a:CBOE",
   "1a15924a1d47bd68:JPM",
-  "1a15a1b23998955a:VIRP.PA"
+  "1a15a1b23998955a:VIRP.PA",
+  "1a15cbad90866e08:HAS",
+  "1a15d60cf4f03966:GET.PA"
  ],
  "counters": {
-  "avis": 336,
-  "achetes": 202,
+  "avis": 338,
+  "achetes": 204,
   "prolonges": 134,
   "complet": 0
  },
