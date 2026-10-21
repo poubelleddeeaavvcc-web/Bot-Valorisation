@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 6379.57298588267
+  "pool": 6281.672990078837
  },
  "pending": [
   {
@@ -37,18 +37,6 @@
   },
   {
    "side": "buy",
-   "ticker": "VIRP.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-20T17:02:24Z",
-   "amount_eur": 100.0,
-   "name": "Virbac SA",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
    "ticker": "HAS",
    "bucket": "pool",
    "reason": "avis aktionnaire.com (ton)",
@@ -61,18 +49,6 @@
   },
   {
    "side": "buy",
-   "ticker": "GET.PA",
-   "bucket": "pool",
-   "reason": "avis tradingsat.com",
-   "decided_at": "2026-10-21T07:35:49Z",
-   "amount_eur": 100.0,
-   "name": "Getlink SE",
-   "sector": "tradingsat.com",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
    "ticker": "STX",
    "bucket": "pool",
    "reason": "avis Zacks Rank (email.zacks.com)",
@@ -82,6 +58,42 @@
    "sector": "Zacks Rank (email.zacks.com)",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "EL.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-21T18:37:31Z",
+   "amount_eur": 100.0,
+   "name": "EssilorLuxottica Société anonyme",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "AA",
+   "bucket": "pool",
+   "reason": "avis StockNews.com (beehiiv.com)",
+   "decided_at": "2026-10-21T18:37:31Z",
+   "amount_eur": 100.0,
+   "name": "Alcoa Corporation",
+   "sector": "StockNews.com (beehiiv.com)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "VU.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-21T18:37:31Z",
+   "amount_eur": 100.0,
+   "name": "Vusion S.A.",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -216,10 +228,12 @@
   "BOL.PA": "2026-11-16",
   "CBOE": "2026-11-17",
   "JPM": "2026-11-17",
-  "VIRP.PA": "2026-11-17",
   "HAS": "2026-11-18",
   "GET.PA": "2026-11-18",
-  "STX": "2026-11-18"
+  "STX": "2026-11-18",
+  "EL.PA": "2026-11-18",
+  "AA": "2026-11-18",
+  "VU.PA": "2026-11-18"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -561,11 +575,14 @@
   "1a15cbad90866e08:HAS",
   "1a15d60cf4f03966:GET.PA",
   "1a15e440100b7f7e:AVGO",
-  "1a15e4dc82a3ee91:STX"
+  "1a15e4dc82a3ee91:STX",
+  "1a15f3de0507dfe2:EL.PA",
+  "1a15f0725a6ed9dc:AA",
+  "1a15f3de0507dfe2:VU.PA"
  ],
  "counters": {
-  "avis": 340,
-  "achetes": 205,
+  "avis": 343,
+  "achetes": 208,
   "prolonges": 135,
   "complet": 0
  },
@@ -575,6 +592,7 @@
   "0IUV.L",
   "SU.PA",
   "BW9.DE",
-  "SU.PA"
+  "SU.PA",
+  "VIRP.PA"
  ]
 }
