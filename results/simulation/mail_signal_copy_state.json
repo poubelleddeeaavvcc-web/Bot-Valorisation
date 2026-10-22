@@ -4,6 +4,38 @@
  },
  "pending": [
   {
+   "side": "sell",
+   "ticker": "BWLP",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-22T04:46:36Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "INTC",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-22T04:46:36Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "THC",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-22T04:46:36Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "WES",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-22T04:46:36Z",
+   "fraction": 1.0
+  },
+  {
    "side": "buy",
    "ticker": "EL.PA",
    "bucket": "pool",
@@ -40,36 +72,16 @@
    "fractional": true
   },
   {
-   "side": "sell",
-   "ticker": "BWLP",
+   "side": "buy",
+   "ticker": "ALNTG.PA",
    "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-22T04:46:36Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "INTC",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-22T04:46:36Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "THC",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-22T04:46:36Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "WES",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-22T04:46:36Z",
-   "fraction": 1.0
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-22T11:48:47Z",
+   "amount_eur": 100.0,
+   "name": "Netgem SA",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -206,7 +218,8 @@
   "EL.PA": "2026-11-18",
   "AA": "2026-11-18",
   "VU.PA": "2026-11-18",
-  "SKHY": "2026-11-18"
+  "SKHY": "2026-11-18",
+  "ALNTG.PA": "2026-11-19"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -553,11 +566,12 @@
   "1a15f0725a6ed9dc:AA",
   "1a15f3de0507dfe2:VU.PA",
   "1a160232a6d20b76:SKHY",
-  "1a161e3a0ee55307:META"
+  "1a161e3a0ee55307:META",
+  "1a1629f391b37497:ALNTG.PA"
  ],
  "counters": {
-  "avis": 345,
-  "achetes": 209,
+  "avis": 346,
+  "achetes": 210,
   "prolonges": 136,
   "complet": 0
  },
