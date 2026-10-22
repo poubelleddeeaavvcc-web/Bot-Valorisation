@@ -11,7 +11,8 @@
   "2026-10-15",
   "2026-10-16",
   "2026-10-19",
-  "2026-10-20"
+  "2026-10-20",
+  "2026-10-21"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -218,11 +219,91 @@
    "title": "CFO, CCO, Secretary, Treasurer",
    "adv_usd": 25028,
    "decision": "liquidite hors bande (0.03 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-21",
+   "ticker": "BPRE",
+   "issuer": "Bluerock Private Real Estate Fund",
+   "value_usd": 3345006,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 11558436,
+   "decision": "liquidite hors bande (11.56 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-21",
+   "ticker": "CLM",
+   "issuer": "Cornerstone Strategic Investment Fund, Inc.",
+   "value_usd": 97280,
+   "insiders": 1,
+   "title": "Vice Chairman and President",
+   "adv_usd": 12001225,
+   "decision": "liquidite hors bande (12.00 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-21",
+   "ticker": "CRF",
+   "issuer": "CORNERSTONE TOTAL RETURN FUND INC",
+   "value_usd": 117600,
+   "insiders": 1,
+   "title": "Vice Chairman and President",
+   "adv_usd": 7765574,
+   "decision": "liquidite hors bande (7.77 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-21",
+   "ticker": "DX",
+   "issuer": "DYNEX CAPITAL INC",
+   "value_usd": 99970,
+   "insiders": 1,
+   "title": "Co-CEO & Chairman of the Board",
+   "adv_usd": 91630521,
+   "decision": "liquidite hors bande (91.63 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-21",
+   "ticker": "FBK",
+   "issuer": "FB Financial Corp",
+   "value_usd": 1537788,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 28377671,
+   "decision": "liquidite hors bande (28.38 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-21",
+   "ticker": "NONE",
+   "issuer": "WILSON BANK HOLDING CO",
+   "value_usd": 312607,
+   "insiders": 2,
+   "title": "PRESIDENT AND CEO",
+   "adv_usd": null,
+   "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-10-21",
+   "ticker": "RAPP",
+   "issuer": "Rapport Therapeutics, Inc.",
+   "value_usd": 143550,
+   "insiders": 1,
+   "title": "Chief Financial Officer",
+   "adv_usd": 25773161,
+   "decision": "liquidite hors bande (25.77 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-21",
+   "ticker": "YORW",
+   "issuer": "YORK WATER CO",
+   "value_usd": 41000,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 5964090,
+   "decision": "liquidite hors bande (5.96 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 6,
-  "evenements": 20,
+  "jours": 7,
+  "evenements": 28,
   "retenus": 3,
   "achetes": 3,
   "complet": 0,
