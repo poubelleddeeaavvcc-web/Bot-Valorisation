@@ -1,21 +1,21 @@
 {
  "cash": {
-  "pool": 4300.0
+  "pool": 4200.0
  },
  "pending": [
   {
    "side": "buy",
-   "ticker": "NEE",
+   "ticker": "CCI",
    "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 18%)",
-   "decided_at": "2026-10-22T04:52:49Z",
+   "reason": "ton peu optimiste au regard des chiffres (rang 3%)",
+   "decided_at": "2026-10-22T21:51:50Z",
    "amount_eur": 100.0,
-   "name": "NEXTERA ENERGY INC",
+   "name": "CROWN CASTLE INC.",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.006071
+   "score": -0.012922
   }
  ],
  "launched_at": "2026-10-14T10:56:13Z",
@@ -18639,6 +18639,136 @@
    "react": -0.000882,
    "age": 3.085896,
    "tone": 0.004188
+  },
+  {
+   "ticker": "CCI",
+   "date": "2026-10-22",
+   "ret12": -0.137065,
+   "size": 24.235964,
+   "stdret": 0.058549,
+   "react": -0.021851,
+   "age": 3.086021,
+   "tone": -0.009535
+  },
+  {
+   "ticker": "CSX",
+   "date": "2026-10-22",
+   "ret12": 0.328007,
+   "size": 25.284666,
+   "stdret": 0.090025,
+   "react": 0.081286,
+   "age": 3.086021,
+   "tone": 0.006987
+  },
+  {
+   "ticker": "GL",
+   "date": "2026-10-22",
+   "ret12": 0.263422,
+   "size": 23.294056,
+   "stdret": 0.053944,
+   "react": -0.0011,
+   "age": 3.086021,
+   "tone": 0.00753
+  },
+  {
+   "ticker": "IBM",
+   "date": "2026-10-22",
+   "ret12": -0.124946,
+   "size": 26.193524,
+   "stdret": 0.096111,
+   "react": 0.04874,
+   "age": 3.086021,
+   "tone": 0.008481
+  },
+  {
+   "ticker": "KMI",
+   "date": "2026-10-22",
+   "ret12": 0.268878,
+   "size": 25.041924,
+   "stdret": 0.06351,
+   "react": 0.011087,
+   "age": 2.815011,
+   "tone": 0.008381
+  },
+  {
+   "ticker": "LRCX",
+   "date": "2026-10-22",
+   "ret12": 0.837326,
+   "size": 26.386279,
+   "stdret": 0.147365,
+   "react": -0.119781,
+   "age": 3.086021,
+   "tone": 0.006145
+  },
+  {
+   "ticker": "LVS",
+   "date": "2026-10-22",
+   "ret12": -0.21583,
+   "size": 23.887074,
+   "stdret": 0.125605,
+   "react": -0.036347,
+   "age": 3.086021,
+   "tone": -0.001965
+  },
+  {
+   "ticker": "META",
+   "date": "2026-10-22",
+   "ret12": -0.048575,
+   "size": 28.133582,
+   "stdret": 0.148971,
+   "react": -0.058776,
+   "age": 2.736215,
+   "tone": 0.006629
+  },
+  {
+   "ticker": "ROL",
+   "date": "2026-10-22",
+   "ret12": -0.396748,
+   "size": 23.555846,
+   "stdret": 0.07758,
+   "react": 0.065707,
+   "age": 3.086021,
+   "tone": 0.001092
+  },
+  {
+   "ticker": "LUV",
+   "date": "2026-10-22",
+   "ret12": 0.172165,
+   "size": 23.746682,
+   "stdret": 0.154527,
+   "react": 0.066644,
+   "age": 3.086021,
+   "tone": 0.00393
+  },
+  {
+   "ticker": "TXN",
+   "date": "2026-10-22",
+   "ret12": 0.586802,
+   "size": 26.26552,
+   "stdret": 0.140373,
+   "react": 0.01281,
+   "age": 3.086021,
+   "tone": -0.001107
+  },
+  {
+   "ticker": "TSLA",
+   "date": "2026-10-22",
+   "ret12": -0.164763,
+   "size": 28.022672,
+   "stdret": 0.114612,
+   "react": 0.008947,
+   "age": 2.851565,
+   "tone": 0.006897
+  },
+  {
+   "ticker": "URI",
+   "date": "2026-10-22",
+   "ret12": 0.05209,
+   "size": 24.959582,
+   "stdret": 0.130962,
+   "react": 0.070946,
+   "age": 3.086021,
+   "tone": 0.003137
   }
  ],
  "edgar_days_done": [
@@ -18649,99 +18779,7 @@
   "2026-10-20",
   "2026-10-21"
  ],
- "awaiting": [
-  {
-   "ticker": "CCI",
-   "acc": "0001051470-26-000085",
-   "accepted": "2026-10-21T16:17:48-04:00",
-   "tone": -0.009534706331045004,
-   "company": "CROWN CASTLE INC."
-  },
-  {
-   "ticker": "CSX",
-   "acc": "0000277948-26-000039",
-   "accepted": "2026-10-21T16:01:14-04:00",
-   "tone": 0.0069868995633187774,
-   "company": "CSX CORP"
-  },
-  {
-   "ticker": "GL",
-   "acc": "0000320335-26-000224",
-   "accepted": "2026-10-21T16:39:22-04:00",
-   "tone": 0.007529684332464524,
-   "company": "GLOBE LIFE INC."
-  },
-  {
-   "ticker": "IBM",
-   "acc": "0000051143-26-000093",
-   "accepted": "2026-10-21T16:19:17-04:00",
-   "tone": 0.008480565371024734,
-   "company": "INTERNATIONAL BUSINESS MACHINES CORP"
-  },
-  {
-   "ticker": "KMI",
-   "acc": "0001506307-26-000130",
-   "accepted": "2026-10-21T16:10:58-04:00",
-   "tone": 0.008380884450784594,
-   "company": "KINDER MORGAN, INC."
-  },
-  {
-   "ticker": "LRCX",
-   "acc": "0000707549-26-000052",
-   "accepted": "2026-10-21T16:13:03-04:00",
-   "tone": 0.0061450225317492835,
-   "company": "LAM RESEARCH CORP"
-  },
-  {
-   "ticker": "LVS",
-   "acc": "0001300514-26-000099",
-   "accepted": "2026-10-21T16:08:19-04:00",
-   "tone": -0.0019646365422396855,
-   "company": "LAS VEGAS SANDS CORP"
-  },
-  {
-   "ticker": "META",
-   "acc": "0001628280-26-066700",
-   "accepted": "2026-10-21T16:03:35-04:00",
-   "tone": 0.006628787878787879,
-   "company": "Meta Platforms, Inc."
-  },
-  {
-   "ticker": "ROL",
-   "acc": "0000084839-26-000042",
-   "accepted": "2026-10-21T16:07:30-04:00",
-   "tone": 0.001091703056768559,
-   "company": "ROLLINS INC"
-  },
-  {
-   "ticker": "LUV",
-   "acc": "0000092380-26-000104",
-   "accepted": "2026-10-21T16:16:24-04:00",
-   "tone": 0.003929679420889349,
-   "company": "SOUTHWEST AIRLINES CO"
-  },
-  {
-   "ticker": "TXN",
-   "acc": "0000097476-26-000165",
-   "accepted": "2026-10-21T16:04:14-04:00",
-   "tone": -0.0011068068622025456,
-   "company": "TEXAS INSTRUMENTS INC"
-  },
-  {
-   "ticker": "TSLA",
-   "acc": "0001628280-26-066738",
-   "accepted": "2026-10-21T16:41:42-04:00",
-   "tone": 0.006896551724137931,
-   "company": "Tesla, Inc."
-  },
-  {
-   "ticker": "URI",
-   "acc": "0001067701-26-000036",
-   "accepted": "2026-10-21T16:25:20-04:00",
-   "tone": 0.00313686643552914,
-   "company": "UNITED RENTALS, INC."
-  }
- ],
+ "awaiting": [],
  "shadow": [
   {
    "ticker": "FAST",
@@ -19303,6 +19341,123 @@
    "abtone": 0.00057,
    "rang": 0.562,
    "decision": "neutre"
+  },
+  {
+   "ticker": "CCI",
+   "company": "CROWN CASTLE INC.",
+   "day0": "2026-10-22",
+   "tone": -0.00953,
+   "abtone": -0.01292,
+   "rang": 0.031,
+   "decision": "achat"
+  },
+  {
+   "ticker": "CSX",
+   "company": "CSX CORP",
+   "day0": "2026-10-22",
+   "tone": 0.00699,
+   "abtone": 0.0026,
+   "rang": 0.67,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "GL",
+   "company": "GLOBE LIFE INC.",
+   "day0": "2026-10-22",
+   "tone": 0.00753,
+   "abtone": 0.00512,
+   "rang": 0.79,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "IBM",
+   "company": "INTERNATIONAL BUSINESS MACHINES CORP",
+   "day0": "2026-10-22",
+   "tone": 0.00848,
+   "abtone": 0.00322,
+   "rang": 0.705,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "KMI",
+   "company": "KINDER MORGAN, INC.",
+   "day0": "2026-10-22",
+   "tone": 0.00838,
+   "abtone": 0.00425,
+   "rang": 0.754,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "LRCX",
+   "company": "LAM RESEARCH CORP",
+   "day0": "2026-10-22",
+   "tone": 0.00615,
+   "abtone": 0.00239,
+   "rang": 0.661,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "LVS",
+   "company": "LAS VEGAS SANDS CORP",
+   "day0": "2026-10-22",
+   "tone": -0.00196,
+   "abtone": -0.00404,
+   "rang": 0.269,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "META",
+   "company": "Meta Platforms, Inc.",
+   "day0": "2026-10-22",
+   "tone": 0.00663,
+   "abtone": 0.00059,
+   "rang": 0.562,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "ROL",
+   "company": "ROLLINS INC",
+   "day0": "2026-10-22",
+   "tone": 0.00109,
+   "abtone": -0.00177,
+   "rang": 0.399,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "LUV",
+   "company": "SOUTHWEST AIRLINES CO",
+   "day0": "2026-10-22",
+   "tone": 0.00393,
+   "abtone": 0.00206,
+   "rang": 0.649,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "TXN",
+   "company": "TEXAS INSTRUMENTS INC",
+   "day0": "2026-10-22",
+   "tone": -0.00111,
+   "abtone": -0.0055,
+   "rang": 0.201,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "TSLA",
+   "company": "Tesla, Inc.",
+   "day0": "2026-10-22",
+   "tone": 0.0069,
+   "abtone": 0.00017,
+   "rang": 0.533,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "URI",
+   "company": "UNITED RENTALS, INC.",
+   "day0": "2026-10-22",
+   "tone": 0.00314,
+   "abtone": -0.00039,
+   "rang": 0.494,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -19313,13 +19468,14 @@
   "GM": "2027-01-13",
   "HAS": "2027-01-13",
   "RTX": "2027-01-13",
-  "NEE": "2027-01-14"
+  "NEE": "2027-01-14",
+  "CCI": "2027-01-15"
  },
  "counters": {
   "jours": 6,
   "communiques": 69,
-  "evalues": 56,
-  "achetes": 8,
+  "evalues": 69,
+  "achetes": 9,
   "ombre": 11,
   "complet": 0
  }
