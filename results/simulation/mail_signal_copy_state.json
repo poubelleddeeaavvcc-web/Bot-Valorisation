@@ -38,6 +38,38 @@
    "sector": "seekingalpha.com",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "sell",
+   "ticker": "BWLP",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-22T04:46:36Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "INTC",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-22T04:46:36Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "THC",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-22T04:46:36Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "WES",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-22T04:46:36Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -51,7 +83,7 @@
   "ORCL": "2026-11-05",
   "NBIS": "2026-11-11",
   "PAYX": "2026-10-26",
-  "META": "2026-11-02",
+  "META": "2026-11-19",
   "BP": "2026-11-05",
   "INTC": "2026-10-22",
   "AMD": "2026-10-28",
@@ -520,12 +552,13 @@
   "1a15f3de0507dfe2:EL.PA",
   "1a15f0725a6ed9dc:AA",
   "1a15f3de0507dfe2:VU.PA",
-  "1a160232a6d20b76:SKHY"
+  "1a160232a6d20b76:SKHY",
+  "1a161e3a0ee55307:META"
  ],
  "counters": {
-  "avis": 344,
+  "avis": 345,
   "achetes": 209,
-  "prolonges": 135,
+  "prolonges": 136,
   "complet": 0
  },
  "dropped": [
