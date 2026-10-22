@@ -790,5 +790,13 @@
       "reason": "peut s'appuyer sur des contrats gouvernementaux et des fournisseurs uniques, tels que le grand groupe mentionné dans le texte, ce qui suggère une forte concentration de clients.",
       "source": "ollama"
     }
+  },
+  "ING": {
+    "checked_at": "2026-10-22",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "Le texte ne fournit pas suffisamment d'informations pour déterminer si l'entreprise a une clientèle concentrée ou diversifiée.",
+      "source": "ollama"
+    }
   }
 }

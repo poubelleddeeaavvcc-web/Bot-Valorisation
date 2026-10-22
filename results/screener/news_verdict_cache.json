@@ -4072,5 +4072,17 @@
     "sentiment": "positive",
     "reason": "The news highlights recent updates and forecasts about ASM International NV's stock, including ETF investments, stock forecasts, and a share buyback update, suggesting a generally positive outlook for the company's stock.",
     "source": "ollama"
+  },
+  "AMAT_2026-10-22": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "The news shows a mix of positive and negative sentiments towards Applied Materials stock, with some articles suggesting reasons to rethink the stock positively, while others indicate underperformance compared to competitors and a potential slide following a $12 billion services target.",
+    "source": "ollama"
+  },
+  "ING_2026-10-22": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general sentiment is positive as the news highlights an increase in fee income, a rise in fair value estimate, and a significant share buyback at an average price of €29.96.",
+    "source": "ollama"
   }
 }
