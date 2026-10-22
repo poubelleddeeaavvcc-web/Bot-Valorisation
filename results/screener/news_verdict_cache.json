@@ -4066,5 +4066,11 @@
     "sentiment": "positive",
     "reason": "The company has announced an upcoming results date for SCREEN Holdings stock, indicating potential positive news or updates. [verification 'sued' : resolu favorablement (3/3 votes) -- Ce titre d'actualité ne décrit pas de risque actif ou non résolu pour SCREEN Holdings Co., Ltd. (7735.T). Il s'agit d'une déclaration d'un nouveau produit financier qui commencera à être commercialisé, ce qui n'indique pas nécessairement de risque pour l'entreprise.]",
     "source": "ollama"
+  },
+  "ASM.AS_2026-10-22": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The news highlights recent updates and forecasts about ASM International NV's stock, including ETF investments, stock forecasts, and a share buyback update, suggesting a generally positive outlook for the company's stock.",
+    "source": "ollama"
   }
 }
