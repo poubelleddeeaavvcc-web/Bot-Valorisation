@@ -1,65 +1,8 @@
 {
  "cash": {
-  "pool": 5967.541184913051
+  "pool": 6141.015293679469
  },
- "pending": [
-  {
-   "side": "sell",
-   "ticker": "BWLP",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-22T04:46:36Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "INTC",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-22T04:46:36Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "THC",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-22T04:46:36Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "WES",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-22T04:46:36Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "SKHY",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-21T23:18:08Z",
-   "amount_eur": 100.0,
-   "name": "SK hynix Inc.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "HAL",
-   "bucket": "pool",
-   "reason": "avis StockNews.com (beehiiv.com)",
-   "decided_at": "2026-10-22T17:09:22Z",
-   "amount_eur": 100.0,
-   "name": "Halliburton Company",
-   "sector": "StockNews.com (beehiiv.com)",
-   "currency": "USD",
-   "fractional": true
-  }
- ],
+ "pending": [],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-11-11",
@@ -73,15 +16,11 @@
   "PAYX": "2026-10-26",
   "META": "2026-11-19",
   "BP": "2026-11-05",
-  "INTC": "2026-10-22",
   "AMD": "2026-10-28",
   "GDYN": "2026-10-26",
   "IPAR": "2026-11-11",
   "SMCI": "2026-11-09",
   "MSFT": "2026-11-13",
-  "BWLP": "2026-10-22",
-  "THC": "2026-10-22",
-  "WES": "2026-10-22",
   "PLTR": "2026-11-09",
   "CVX": "2026-10-23",
   "AMZN": "2026-11-16",
