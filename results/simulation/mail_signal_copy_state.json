@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 6371.931177030933
+  "pool": 5967.541184913051
  },
  "pending": [
   {
@@ -37,30 +37,6 @@
   },
   {
    "side": "buy",
-   "ticker": "EL.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-21T18:37:31Z",
-   "amount_eur": 100.0,
-   "name": "EssilorLuxottica Société anonyme",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "VU.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-21T18:37:31Z",
-   "amount_eur": 100.0,
-   "name": "Vusion S.A.",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
    "ticker": "SKHY",
    "bucket": "pool",
    "reason": "avis seekingalpha.com",
@@ -73,22 +49,22 @@
   },
   {
    "side": "buy",
-   "ticker": "ALNTG.PA",
+   "ticker": "HAL",
    "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-22T11:48:47Z",
+   "reason": "avis StockNews.com (beehiiv.com)",
+   "decided_at": "2026-10-22T17:09:22Z",
    "amount_eur": 100.0,
-   "name": "Netgem SA",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
+   "name": "Halliburton Company",
+   "sector": "StockNews.com (beehiiv.com)",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-11-11",
   "NVDA": "2026-11-13",
-  "AVGO": "2026-11-18",
+  "AVGO": "2026-11-19",
   "SNDK": "2026-11-11",
   "RKLB": "2026-10-28",
   "ET": "2026-11-04",
@@ -214,12 +190,13 @@
   "JPM": "2026-11-17",
   "HAS": "2026-11-18",
   "GET.PA": "2026-11-18",
-  "STX": "2026-11-18",
+  "STX": "2026-11-19",
   "EL.PA": "2026-11-18",
   "AA": "2026-11-18",
   "VU.PA": "2026-11-18",
   "SKHY": "2026-11-18",
-  "ALNTG.PA": "2026-11-19"
+  "ALNTG.PA": "2026-11-19",
+  "HAL": "2026-11-19"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -567,12 +544,15 @@
   "1a15f3de0507dfe2:VU.PA",
   "1a160232a6d20b76:SKHY",
   "1a161e3a0ee55307:META",
-  "1a1629f391b37497:ALNTG.PA"
+  "1a1629f391b37497:ALNTG.PA",
+  "1a163afae2fead07:AVGO",
+  "1a1637880e4c3e0e:STX",
+  "1a16429bbd24ce8a:HAL"
  ],
  "counters": {
-  "avis": 346,
-  "achetes": 210,
-  "prolonges": 136,
+  "avis": 349,
+  "achetes": 211,
+  "prolonges": 138,
   "complet": 0
  },
  "dropped": [
