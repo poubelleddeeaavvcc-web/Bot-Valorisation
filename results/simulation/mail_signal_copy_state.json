@@ -1,48 +1,8 @@
 {
  "cash": {
-  "pool": 5955.015293679469
+  "pool": 6228.973487064633
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "ACHR",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-23T00:41:30Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "CIEN",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-23T00:41:30Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "CURB",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-23T00:41:30Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "CVX",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-23T00:41:30Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "SBLK",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-23T00:41:30Z",
-   "fraction": 1.0
-  },
   {
    "side": "buy",
    "ticker": "SPOT.VI",
@@ -54,30 +14,6 @@
    "sector": "aktionnaire.com (ton)",
    "currency": "EUR",
    "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "NLY",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-23T13:25:26Z",
-   "amount_eur": 100.0,
-   "name": "Annaly Capital Management, Inc.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "CRM",
-   "bucket": "pool",
-   "reason": "avis StockNews.com (beehiiv.com)",
-   "decided_at": "2026-10-23T18:19:46Z",
-   "amount_eur": 100.0,
-   "name": "Salesforce, Inc.",
-   "sector": "StockNews.com (beehiiv.com)",
-   "currency": "USD",
-   "fractional": true
   },
   {
    "side": "buy",
@@ -111,13 +47,8 @@
   "SMCI": "2026-11-09",
   "MSFT": "2026-11-13",
   "PLTR": "2026-11-09",
-  "CVX": "2026-10-23",
   "AMZN": "2026-11-16",
-  "CIEN": "2026-10-23",
-  "ACHR": "2026-10-23",
   "GOOG": "2026-11-06",
-  "SBLK": "2026-10-23",
-  "CURB": "2026-10-23",
   "BSD.PA": "2026-10-26",
   "IONQ": "2026-10-26",
   "BBY": "2026-10-26",
