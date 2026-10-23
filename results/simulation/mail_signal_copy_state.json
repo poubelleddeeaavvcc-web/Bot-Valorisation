@@ -54,6 +54,30 @@
    "sector": "aktionnaire.com (ton)",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "NLY",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-23T13:25:26Z",
+   "amount_eur": 100.0,
+   "name": "Annaly Capital Management, Inc.",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "SOP.PA",
+   "bucket": "pool",
+   "reason": "avis tradingsat.com",
+   "decided_at": "2026-10-23T13:25:26Z",
+   "amount_eur": 100.0,
+   "name": "Sopra Steria Group SA",
+   "sector": "tradingsat.com",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -62,7 +86,7 @@
   "NVDA": "2026-11-13",
   "AVGO": "2026-11-19",
   "SNDK": "2026-11-11",
-  "RKLB": "2026-10-28",
+  "RKLB": "2026-11-20",
   "ET": "2026-11-04",
   "ORCL": "2026-11-05",
   "NBIS": "2026-11-11",
@@ -98,7 +122,7 @@
   "LADR": "2026-10-29",
   "UTG.ST": "2026-10-29",
   "ALICA.PA": "2026-10-29",
-  "ACN": "2026-10-30",
+  "ACN": "2026-11-20",
   "CAP.PA": "2026-10-29",
   "BA": "2026-10-30",
   "OKE": "2026-10-30",
@@ -189,7 +213,9 @@
   "SKHY": "2026-11-18",
   "ALNTG.PA": "2026-11-19",
   "HAL": "2026-11-19",
-  "SPOT.VI": "2026-11-20"
+  "SPOT.VI": "2026-11-20",
+  "NLY": "2026-11-20",
+  "SOP.PA": "2026-11-20"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -541,12 +567,16 @@
   "1a163afae2fead07:AVGO",
   "1a1637880e4c3e0e:STX",
   "1a16429bbd24ce8a:HAL",
-  "1a16708dd78e6578:SPOT.VI"
+  "1a16708dd78e6578:SPOT.VI",
+  "1a168955d2231def:NLY",
+  "1a168a6b61ea4c6e:ACN",
+  "1a167ad1e8287530:SOP.PA",
+  "1a168d52ebee92df:RKLB"
  ],
  "counters": {
-  "avis": 350,
-  "achetes": 212,
-  "prolonges": 138,
+  "avis": 354,
+  "achetes": 214,
+  "prolonges": 140,
   "complet": 0
  },
  "dropped": [
