@@ -2,7 +2,36 @@
  "cash": {
   "pool": 4200.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "NVDA",
+   "bucket": "pool",
+   "reason": "achat declare par Cleo Fields (LA06), >= 1,001 $ le 10/01/2026",
+   "decided_at": "2026-10-23T14:52:58Z",
+   "amount_eur": 100.0,
+   "name": "NVDA",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1001.0
+  },
+  {
+   "side": "buy",
+   "ticker": "TSM",
+   "bucket": "pool",
+   "reason": "achat declare par Cleo Fields (LA06), >= 1,001 $ le 10/09/2026",
+   "decided_at": "2026-10-23T14:52:58Z",
+   "amount_eur": 100.0,
+   "name": "TSM",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1001.0
+  }
+ ],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20035487",
@@ -15,9 +44,11 @@
   "20035651",
   "20035652",
   "20035660",
+  "20035669",
   "20035671",
   "20035687",
   "20035691",
+  "20035700",
   "9116378"
  ],
  "hold_until": {
@@ -28,7 +59,9 @@
   "NOKBF": "2027-04-05",
   "DDOG": "2027-04-06",
   "EL": "2027-04-06",
-  "GH": "2027-04-06"
+  "GH": "2027-04-06",
+  "NVDA": "2027-04-09",
+  "TSM": "2027-04-09"
  },
  "events_log": [
   {
@@ -102,13 +135,31 @@
    "trade_date": "09/28/2026",
    "amount_low": 15001,
    "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-22",
+   "member": "Cleo Fields",
+   "district": "LA06",
+   "ticker": "NVDA",
+   "trade_date": "10/01/2026",
+   "amount_low": 1001,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-22",
+   "member": "Cleo Fields",
+   "district": "LA06",
+   "ticker": "TSM",
+   "trade_date": "10/09/2026",
+   "amount_low": 1001,
+   "decision": "achat"
   }
  ],
  "counters": {
-  "rapports": 14,
+  "rapports": 16,
   "illisibles": 0,
-  "achats_declares": 8,
-  "achetes": 8,
+  "achats_declares": 10,
+  "achetes": 10,
   "complet": 0,
   "prolonges": 0,
   "sans_cours": 0
