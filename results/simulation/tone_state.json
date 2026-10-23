@@ -1,63 +1,21 @@
 {
  "cash": {
-  "pool": 4200.0
+  "pool": 3800.0
  },
  "pending": [
   {
    "side": "buy",
-   "ticker": "CCI",
+   "ticker": "VRSN",
    "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 3%)",
-   "decided_at": "2026-10-22T21:51:50Z",
+   "reason": "ton peu optimiste au regard des chiffres (rang 15%)",
+   "decided_at": "2026-10-23T21:51:50Z",
    "amount_eur": 100.0,
-   "name": "CROWN CASTLE INC.",
+   "name": "VERISIGN INC/CA",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.012922
-  },
-  {
-   "side": "buy",
-   "ticker": "NVR",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 1%)",
-   "decided_at": "2026-10-23T04:52:46Z",
-   "amount_eur": 100.0,
-   "name": "NVR INC",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.016565
-  },
-  {
-   "side": "buy",
-   "ticker": "PHM",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 16%)",
-   "decided_at": "2026-10-23T04:52:46Z",
-   "amount_eur": 100.0,
-   "name": "PULTEGROUP INC/MI/",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.006591
-  },
-  {
-   "side": "buy",
-   "ticker": "VLO",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 6%)",
-   "decided_at": "2026-10-23T04:52:46Z",
-   "amount_eur": 100.0,
-   "name": "VALERO ENERGY CORP/TX",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.010539
+   "score": -0.006789
   }
  ],
  "launched_at": "2026-10-14T10:56:13Z",
@@ -18781,6 +18739,66 @@
    "react": -0.009855,
    "age": 3.086021,
    "tone": -0.006905
+  },
+  {
+   "ticker": "FIX",
+   "date": "2026-10-23",
+   "ret12": 0.69304,
+   "size": 24.433312,
+   "stdret": 0.116791,
+   "react": -0.154595,
+   "age": 3.086146,
+   "tone": 0.005394
+  },
+  {
+   "ticker": "DECK",
+   "date": "2026-10-23",
+   "ret12": -0.169678,
+   "size": 23.125061,
+   "stdret": 0.125045,
+   "react": -0.034497,
+   "age": 3.086146,
+   "tone": 0.007386
+  },
+  {
+   "ticker": "NEM",
+   "date": "2026-10-23",
+   "ret12": 0.370239,
+   "size": 25.451865,
+   "stdret": 0.170668,
+   "react": -0.053946,
+   "age": 3.086146,
+   "tone": 0.003515
+  },
+  {
+   "ticker": "OMC",
+   "date": "2026-10-23",
+   "ret12": 0.065159,
+   "size": 23.844878,
+   "stdret": 0.082562,
+   "react": 0.044052,
+   "age": 3.086146,
+   "tone": 0.003915
+  },
+  {
+   "ticker": "VRSN",
+   "date": "2026-10-23",
+   "ret12": 0.167449,
+   "size": 24.01683,
+   "stdret": 0.115621,
+   "react": -0.005584,
+   "age": 3.086146,
+   "tone": -0.004383
+  },
+  {
+   "ticker": "WDC",
+   "date": "2026-10-23",
+   "ret12": 2.123434,
+   "size": 25.580312,
+   "stdret": 0.186373,
+   "react": -0.075074,
+   "age": 3.086146,
+   "tone": 0.00445
   }
  ],
  "edgar_days_done": [
@@ -18792,50 +18810,7 @@
   "2026-10-21",
   "2026-10-22"
  ],
- "awaiting": [
-  {
-   "ticker": "FIX",
-   "acc": "0001104659-26-118156",
-   "accepted": "2026-10-22T16:10:19-04:00",
-   "tone": 0.005393743257820928,
-   "company": "COMFORT SYSTEMS USA INC"
-  },
-  {
-   "ticker": "DECK",
-   "acc": "0000910521-26-000028",
-   "accepted": "2026-10-22T16:09:31-04:00",
-   "tone": 0.007385524372230428,
-   "company": "DECKERS OUTDOOR CORP"
-  },
-  {
-   "ticker": "NEM",
-   "acc": "0001164727-26-000041",
-   "accepted": "2026-10-22T16:05:51-04:00",
-   "tone": 0.003515453347004541,
-   "company": "NEWMONT Corp /DE/"
-  },
-  {
-   "ticker": "OMC",
-   "acc": "0000029989-26-000024",
-   "accepted": "2026-10-22T16:06:14-04:00",
-   "tone": 0.0039147455415398,
-   "company": "OMNICOM GROUP INC."
-  },
-  {
-   "ticker": "VRSN",
-   "acc": "0001014473-26-000038",
-   "accepted": "2026-10-22T16:06:20-04:00",
-   "tone": -0.004383218534752661,
-   "company": "VERISIGN INC/CA"
-  },
-  {
-   "ticker": "WDC",
-   "acc": "0001628280-26-066882",
-   "accepted": "2026-10-22T16:04:29-04:00",
-   "tone": 0.004450095359186269,
-   "company": "WESTERN DIGITAL CORP"
-  }
- ],
+ "awaiting": [],
  "shadow": [
   {
    "ticker": "FAST",
@@ -18901,6 +18876,11 @@
    "ticker": "ROP",
    "day0": "2026-10-22",
    "rang": 0.891
+  },
+  {
+   "ticker": "DECK",
+   "day0": "2026-10-23",
+   "rang": 0.832
   }
  ],
  "events_log": [
@@ -19722,6 +19702,60 @@
    "abtone": -0.01054,
    "rang": 0.056,
    "decision": "achat"
+  },
+  {
+   "ticker": "FIX",
+   "company": "COMFORT SYSTEMS USA INC",
+   "day0": "2026-10-23",
+   "tone": 0.00539,
+   "abtone": 0.00345,
+   "rang": 0.716,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "DECK",
+   "company": "DECKERS OUTDOOR CORP",
+   "day0": "2026-10-23",
+   "tone": 0.00739,
+   "abtone": 0.00611,
+   "rang": 0.832,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "NEM",
+   "company": "NEWMONT Corp /DE/",
+   "day0": "2026-10-23",
+   "tone": 0.00352,
+   "abtone": 0.00062,
+   "rang": 0.568,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "OMC",
+   "company": "OMNICOM GROUP INC.",
+   "day0": "2026-10-23",
+   "tone": 0.00391,
+   "abtone": 0.00098,
+   "rang": 0.592,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "VRSN",
+   "company": "VERISIGN INC/CA",
+   "day0": "2026-10-23",
+   "tone": -0.00438,
+   "abtone": -0.00679,
+   "rang": 0.15,
+   "decision": "achat"
+  },
+  {
+   "ticker": "WDC",
+   "company": "WESTERN DIGITAL CORP",
+   "day0": "2026-10-23",
+   "tone": 0.00445,
+   "abtone": 0.00227,
+   "rang": 0.66,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -19736,14 +19770,15 @@
   "CCI": "2027-01-15",
   "NVR": "2027-01-15",
   "PHM": "2027-01-15",
-  "VLO": "2027-01-15"
+  "VLO": "2027-01-15",
+  "VRSN": "2027-01-18"
  },
  "counters": {
   "jours": 7,
   "communiques": 97,
-  "evalues": 91,
-  "achetes": 12,
-  "ombre": 13,
+  "evalues": 97,
+  "achetes": 13,
+  "ombre": 14,
   "complet": 0
  }
 }

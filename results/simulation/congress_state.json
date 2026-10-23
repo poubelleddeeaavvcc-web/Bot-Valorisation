@@ -1,37 +1,8 @@
 {
  "cash": {
-  "pool": 4200.0
+  "pool": 4000.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "NVDA",
-   "bucket": "pool",
-   "reason": "achat declare par Cleo Fields (LA06), >= 1,001 $ le 10/01/2026",
-   "decided_at": "2026-10-23T14:52:58Z",
-   "amount_eur": 100.0,
-   "name": "NVDA",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 1001.0
-  },
-  {
-   "side": "buy",
-   "ticker": "TSM",
-   "bucket": "pool",
-   "reason": "achat declare par Cleo Fields (LA06), >= 1,001 $ le 10/09/2026",
-   "decided_at": "2026-10-23T14:52:58Z",
-   "amount_eur": 100.0,
-   "name": "TSM",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 1001.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20035487",
