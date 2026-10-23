@@ -798,5 +798,21 @@
       "reason": "Le texte ne fournit pas suffisamment d'informations pour déterminer si l'entreprise a une clientèle concentrée ou diversifiée.",
       "source": "ollama"
     }
+  },
+  "6361.T": {
+    "checked_at": "2026-10-23",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "The text does not provide clear information about the concentration of the company's customer base.",
+      "source": "ollama"
+    }
+  },
+  "1942.T": {
+    "checked_at": "2026-10-23",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "The text does not provide enough information to determine whether the company has a concentrated or diversified client base.",
+      "source": "ollama"
+    }
   }
 }

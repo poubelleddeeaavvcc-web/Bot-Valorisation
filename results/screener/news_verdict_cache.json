@@ -3772,5 +3772,17 @@
     "sentiment": "positive",
     "reason": "Recent news indicates a positive sentiment towards PROG Holdings, Inc. (PRG) as evidenced by analysts raising the stock to 'Buy' at Loop Capital and various forecasts predicting a positive outlook.",
     "source": "ollama"
+  },
+  "6361.T_2026-10-23": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "The news shows a mix of positive and neutral sentiments towards Ebara Corporation's stock. Some articles suggest opportunities and a substantial discount, while others discuss a high P/E ratio and a stock price swing.",
+    "source": "ollama"
+  },
+  "1942.T_2026-10-23": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The Nikkei 225 breaching the 65,000 yen mark and Mitsubishi Estate breaking ground on YURAKUCHO PARK could potentially have a positive impact on Kandenko Co., Ltd., as it suggests a growing economy and potential business opportunities.",
+    "source": "ollama"
   }
 }
