@@ -16,260 +16,52 @@
    "currency": "USD",
    "fractional": true,
    "score": -0.012922
+  },
+  {
+   "side": "buy",
+   "ticker": "NVR",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 1%)",
+   "decided_at": "2026-10-23T04:52:46Z",
+   "amount_eur": 100.0,
+   "name": "NVR INC",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.016565
+  },
+  {
+   "side": "buy",
+   "ticker": "PHM",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 16%)",
+   "decided_at": "2026-10-23T04:52:46Z",
+   "amount_eur": 100.0,
+   "name": "PULTEGROUP INC/MI/",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.006591
+  },
+  {
+   "side": "buy",
+   "ticker": "VLO",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 6%)",
+   "decided_at": "2026-10-23T04:52:46Z",
+   "amount_eur": 100.0,
+   "name": "VALERO ENERGY CORP/TX",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.010539
   }
  ],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
-  {
-   "ticker": "TMO",
-   "date": "2025-10-22",
-   "tone": 0.000825,
-   "ret12": -0.089264,
-   "size": 25.900813,
-   "stdret": 0.102435,
-   "react": 0.048168,
-   "age": 3.037506
-  },
-  {
-   "ticker": "LII",
-   "date": "2025-10-22",
-   "tone": -0.00451,
-   "ret12": -0.106143,
-   "size": 23.840883,
-   "stdret": 0.09392,
-   "react": -0.072729,
-   "age": 3.037506
-  },
-  {
-   "ticker": "CME",
-   "date": "2025-10-22",
-   "tone": 0.001639,
-   "ret12": 0.230277,
-   "size": 25.230386,
-   "stdret": 0.039012,
-   "react": 0.005924,
-   "age": 3.037506
-  },
-  {
-   "ticker": "NTRS",
-   "date": "2025-10-22",
-   "tone": 0.005294,
-   "ret12": 0.376499,
-   "size": 23.973886,
-   "stdret": 0.090625,
-   "react": -0.020941,
-   "age": 3.037506
-  },
-  {
-   "ticker": "TDY",
-   "date": "2025-10-22",
-   "tone": -0.003631,
-   "ret12": 0.27433,
-   "size": 24.114346,
-   "stdret": 0.065127,
-   "react": -0.043927,
-   "age": 3.037506
-  },
-  {
-   "ticker": "NVR",
-   "date": "2025-10-22",
-   "tone": -0.01273,
-   "ret12": -0.214098,
-   "size": 23.821518,
-   "stdret": 0.067305,
-   "react": 0.007307,
-   "age": 3.037506
-  },
-  {
-   "ticker": "VRT",
-   "date": "2025-10-22",
-   "tone": 0.001849,
-   "ret12": 0.539792,
-   "size": 25.062905,
-   "stdret": 0.192512,
-   "react": -0.018345,
-   "age": 2.104424
-  },
-  {
-   "ticker": "BSX",
-   "date": "2025-10-22",
-   "tone": -0.017101,
-   "ret12": 0.163272,
-   "size": 25.847777,
-   "stdret": 0.054728,
-   "react": 0.038239,
-   "age": 3.037506
-  },
-  {
-   "ticker": "T",
-   "date": "2025-10-22",
-   "tone": 0.009756,
-   "ret12": 0.25491,
-   "size": 25.976504,
-   "stdret": 0.055194,
-   "react": -0.015859,
-   "age": 3.037506
-  },
-  {
-   "ticker": "MCO",
-   "date": "2025-10-22",
-   "tone": 0.008868,
-   "ret12": -0.016723,
-   "size": 25.151125,
-   "stdret": 0.054403,
-   "react": 0.001694,
-   "age": 3.037506
-  },
-  {
-   "ticker": "WAB",
-   "date": "2025-10-22",
-   "tone": 0.002964,
-   "ret12": 0.037282,
-   "size": 24.257366,
-   "stdret": 0.055779,
-   "react": -0.008502,
-   "age": 3.037506
-  },
-  {
-   "ticker": "AVY",
-   "date": "2025-10-22",
-   "tone": -0.004027,
-   "ret12": -0.251313,
-   "size": 23.256293,
-   "stdret": 0.041287,
-   "react": 0.122468,
-   "age": 3.037506
-  },
-  {
-   "ticker": "APH",
-   "date": "2025-10-22",
-   "tone": 0.008362,
-   "ret12": 0.905341,
-   "size": 25.759722,
-   "stdret": 0.083826,
-   "react": 0.015083,
-   "age": 3.037506
-  },
-  {
-   "ticker": "TSLA",
-   "date": "2025-10-22",
-   "tone": 0.007706,
-   "ret12": 1.005437,
-   "size": 28.009133,
-   "stdret": 0.227941,
-   "react": 0.013715,
-   "age": 2.790776
-  },
-  {
-   "ticker": "LRCX",
-   "date": "2025-10-22",
-   "tone": 0.005819,
-   "ret12": 1.012307,
-   "size": 25.882019,
-   "stdret": 0.107005,
-   "react": 0.016536,
-   "age": 3.037696
-  },
-  {
-   "ticker": "LVS",
-   "date": "2025-10-22",
-   "tone": -0.00265,
-   "ret12": 0.002863,
-   "size": 24.456087,
-   "stdret": 0.104601,
-   "react": 0.123164,
-   "age": 3.037696
-  },
-  {
-   "ticker": "RJF",
-   "date": "2025-10-22",
-   "tone": 0.008177,
-   "ret12": 0.212319,
-   "size": 24.322621,
-   "stdret": 0.090111,
-   "react": -0.004743,
-   "age": 3.037696
-  },
-  {
-   "ticker": "CCI",
-   "date": "2025-10-22",
-   "tone": -0.009536,
-   "ret12": -0.073046,
-   "size": 24.424672,
-   "stdret": 0.068132,
-   "react": -0.004552,
-   "age": 3.037696
-  },
-  {
-   "ticker": "KMI",
-   "date": "2025-10-22",
-   "tone": 0.006155,
-   "ret12": 0.151254,
-   "size": 24.800065,
-   "stdret": 0.086832,
-   "react": -0.046155,
-   "age": 2.751535
-  },
-  {
-   "ticker": "ORLY",
-   "date": "2025-10-22",
-   "tone": 0.010079,
-   "ret12": 0.254913,
-   "size": 25.230576,
-   "stdret": 0.039615,
-   "react": -0.030707,
-   "age": 3.037696
-  },
-  {
-   "ticker": "URI",
-   "date": "2025-10-22",
-   "tone": -0.002844,
-   "ret12": 0.20467,
-   "size": 24.952463,
-   "stdret": 0.105937,
-   "react": -0.088489,
-   "age": 3.037696
-  },
-  {
-   "ticker": "PKG",
-   "date": "2025-10-22",
-   "tone": 0.002425,
-   "ret12": -0.031159,
-   "size": 23.735524,
-   "stdret": 0.064299,
-   "react": 0.023948,
-   "age": 3.037696
-  },
-  {
-   "ticker": "IBM",
-   "date": "2025-10-22",
-   "tone": 0.001705,
-   "ret12": 0.249004,
-   "size": 26.333102,
-   "stdret": 0.099123,
-   "react": 0.009759,
-   "age": 3.037696
-  },
-  {
-   "ticker": "LUV",
-   "date": "2025-10-22",
-   "tone": 0.002969,
-   "ret12": 0.144911,
-   "size": 23.673791,
-   "stdret": 0.103383,
-   "react": -0.088071,
-   "age": 3.037696
-  },
-  {
-   "ticker": "PCG",
-   "date": "2025-10-22",
-   "tone": 0.003215,
-   "ret12": -0.173034,
-   "size": 24.785836,
-   "stdret": 0.081022,
-   "react": -0.027566,
-   "age": 3.037696
-  },
   {
    "ticker": "ALLE",
    "date": "2025-10-23",
@@ -18769,6 +18561,226 @@
    "react": 0.070946,
    "age": 3.086021,
    "tone": 0.003137
+  },
+  {
+   "ticker": "ALLE",
+   "date": "2026-10-22",
+   "ret12": -0.10751,
+   "size": 23.432029,
+   "stdret": 0.087895,
+   "react": 0.130735,
+   "age": 2.633714,
+   "tone": 0.007145
+  },
+  {
+   "ticker": "BX",
+   "date": "2026-10-22",
+   "ret12": -0.284368,
+   "size": 25.213437,
+   "stdret": 0.133077,
+   "react": 0.082838,
+   "age": 3.012329,
+   "tone": 0.006061
+  },
+  {
+   "ticker": "CBRE",
+   "date": "2026-10-22",
+   "ret12": -0.160433,
+   "size": 24.360954,
+   "stdret": 0.097816,
+   "react": -0.015657,
+   "age": 3.086021,
+   "tone": 0.00137
+  },
+  {
+   "ticker": "CMCSA",
+   "date": "2026-10-22",
+   "ret12": -0.149952,
+   "size": 25.118343,
+   "stdret": 0.117539,
+   "react": 0.028085,
+   "age": 3.086021,
+   "tone": 0.002885
+  },
+  {
+   "ticker": "DOV",
+   "date": "2026-10-22",
+   "ret12": 0.179008,
+   "size": 23.993923,
+   "stdret": 0.080062,
+   "react": -0.001751,
+   "age": 3.086021,
+   "tone": 0.001528
+  },
+  {
+   "ticker": "DOW",
+   "date": "2026-10-22",
+   "ret12": 0.488891,
+   "size": 23.857788,
+   "stdret": 0.11785,
+   "react": 0.043112,
+   "age": 2.150839,
+   "tone": 0.000392
+  },
+  {
+   "ticker": "HON",
+   "date": "2026-10-22",
+   "ret12": 0.067979,
+   "size": 24.960139,
+   "stdret": 0.070845,
+   "react": 0.030011,
+   "age": 3.086021,
+   "tone": 0.008011
+  },
+  {
+   "ticker": "HBAN",
+   "date": "2026-10-22",
+   "ret12": 0.018782,
+   "size": 24.177678,
+   "stdret": 0.090288,
+   "react": 0.014341,
+   "age": 3.086021,
+   "tone": 0.007264
+  },
+  {
+   "ticker": "LMT",
+   "date": "2026-10-22",
+   "ret12": 0.112648,
+   "size": 25.636992,
+   "stdret": 0.108419,
+   "react": 0.081704,
+   "age": 3.086021,
+   "tone": 0.008373
+  },
+  {
+   "ticker": "NDAQ",
+   "date": "2026-10-22",
+   "ret12": 0.080927,
+   "size": 24.779257,
+   "stdret": 0.086149,
+   "react": 0.096281,
+   "age": 3.086021,
+   "tone": 0.014194
+  },
+  {
+   "ticker": "NSC",
+   "date": "2026-10-22",
+   "ret12": 0.137931,
+   "size": 25.053595,
+   "stdret": 0.07695,
+   "react": 0.045504,
+   "age": 3.086021,
+   "tone": 0.006686
+  },
+  {
+   "ticker": "NVR",
+   "date": "2026-10-22",
+   "ret12": -0.221767,
+   "size": 23.513447,
+   "stdret": 0.062878,
+   "react": 0.028861,
+   "age": 3.086021,
+   "tone": -0.01374
+  },
+  {
+   "ticker": "PKG",
+   "date": "2026-10-22",
+   "ret12": 0.189879,
+   "size": 23.822382,
+   "stdret": 0.067936,
+   "react": 0.048474,
+   "age": 3.086021,
+   "tone": -0.001474
+  },
+  {
+   "ticker": "PCG",
+   "date": "2026-10-22",
+   "ret12": -0.199495,
+   "size": 24.386076,
+   "stdret": 0.110915,
+   "react": -0.008556,
+   "age": 3.086021,
+   "tone": 0.00357
+  },
+  {
+   "ticker": "PG",
+   "date": "2026-10-22",
+   "ret12": 0.079265,
+   "size": 26.675499,
+   "stdret": 0.052618,
+   "react": 0.045973,
+   "age": 3.086021,
+   "tone": 0.009881
+  },
+  {
+   "ticker": "PHM",
+   "date": "2026-10-22",
+   "ret12": -0.062975,
+   "size": 23.84824,
+   "stdret": 0.084043,
+   "react": 0.049839,
+   "age": 3.086021,
+   "tone": -0.003668
+  },
+  {
+   "ticker": "DGX",
+   "date": "2026-10-22",
+   "ret12": 0.266256,
+   "size": 24.013592,
+   "stdret": 0.069551,
+   "react": 0.032597,
+   "age": 3.086021,
+   "tone": 0.001076
+  },
+  {
+   "ticker": "ROP",
+   "date": "2026-10-22",
+   "ret12": -0.205252,
+   "size": 24.487798,
+   "stdret": 0.104792,
+   "react": 0.102096,
+   "age": 3.086021,
+   "tone": 0.011817
+  },
+  {
+   "ticker": "SNA",
+   "date": "2026-10-22",
+   "ret12": 0.104079,
+   "size": 23.637715,
+   "stdret": 0.05066,
+   "react": -0.020563,
+   "age": 3.086021,
+   "tone": 0.007341
+  },
+  {
+   "ticker": "TSCO",
+   "date": "2026-10-22",
+   "ret12": -0.390445,
+   "size": 23.618941,
+   "stdret": 0.094135,
+   "react": 0.061921,
+   "age": 3.086021,
+   "tone": 0.003066
+  },
+  {
+   "ticker": "UNP",
+   "date": "2026-10-22",
+   "ret12": 0.292,
+   "size": 25.899912,
+   "stdret": 0.092061,
+   "react": 0.043057,
+   "age": 3.086021,
+   "tone": 0.006575
+  },
+  {
+   "ticker": "VLO",
+   "date": "2026-10-22",
+   "ret12": 1.763372,
+   "size": 25.533316,
+   "stdret": 0.106305,
+   "react": -0.009855,
+   "age": 3.086021,
+   "tone": -0.006905
   }
  ],
  "edgar_days_done": [
@@ -18777,9 +18789,53 @@
   "2026-10-16",
   "2026-10-19",
   "2026-10-20",
-  "2026-10-21"
+  "2026-10-21",
+  "2026-10-22"
  ],
- "awaiting": [],
+ "awaiting": [
+  {
+   "ticker": "FIX",
+   "acc": "0001104659-26-118156",
+   "accepted": "2026-10-22T16:10:19-04:00",
+   "tone": 0.005393743257820928,
+   "company": "COMFORT SYSTEMS USA INC"
+  },
+  {
+   "ticker": "DECK",
+   "acc": "0000910521-26-000028",
+   "accepted": "2026-10-22T16:09:31-04:00",
+   "tone": 0.007385524372230428,
+   "company": "DECKERS OUTDOOR CORP"
+  },
+  {
+   "ticker": "NEM",
+   "acc": "0001164727-26-000041",
+   "accepted": "2026-10-22T16:05:51-04:00",
+   "tone": 0.003515453347004541,
+   "company": "NEWMONT Corp /DE/"
+  },
+  {
+   "ticker": "OMC",
+   "acc": "0000029989-26-000024",
+   "accepted": "2026-10-22T16:06:14-04:00",
+   "tone": 0.0039147455415398,
+   "company": "OMNICOM GROUP INC."
+  },
+  {
+   "ticker": "VRSN",
+   "acc": "0001014473-26-000038",
+   "accepted": "2026-10-22T16:06:20-04:00",
+   "tone": -0.004383218534752661,
+   "company": "VERISIGN INC/CA"
+  },
+  {
+   "ticker": "WDC",
+   "acc": "0001628280-26-066882",
+   "accepted": "2026-10-22T16:04:29-04:00",
+   "tone": 0.004450095359186269,
+   "company": "WESTERN DIGITAL CORP"
+  }
+ ],
  "shadow": [
   {
    "ticker": "FAST",
@@ -18835,6 +18891,16 @@
    "ticker": "PM",
    "day0": "2026-10-21",
    "rang": 0.981
+  },
+  {
+   "ticker": "NDAQ",
+   "day0": "2026-10-22",
+   "rang": 0.929
+  },
+  {
+   "ticker": "ROP",
+   "day0": "2026-10-22",
+   "rang": 0.891
   }
  ],
  "events_log": [
@@ -19458,6 +19524,204 @@
    "abtone": -0.00039,
    "rang": 0.494,
    "decision": "neutre"
+  },
+  {
+   "ticker": "ALLE",
+   "company": "Allegion plc",
+   "day0": "2026-10-22",
+   "tone": 0.00714,
+   "abtone": 0.00445,
+   "rang": 0.765,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "BX",
+   "company": "Blackstone Inc.",
+   "day0": "2026-10-22",
+   "tone": 0.00606,
+   "abtone": 0.00216,
+   "rang": 0.652,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "CBRE",
+   "company": "CBRE GROUP, INC.",
+   "day0": "2026-10-22",
+   "tone": 0.00137,
+   "abtone": -0.00165,
+   "rang": 0.41,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "CMCSA",
+   "company": "COMCAST CORP",
+   "day0": "2026-10-22",
+   "tone": 0.00288,
+   "abtone": -0.00086,
+   "rang": 0.461,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "DOV",
+   "company": "DOVER Corp",
+   "day0": "2026-10-22",
+   "tone": 0.00153,
+   "abtone": -0.0013,
+   "rang": 0.429,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "DOW",
+   "company": "DOW INC.",
+   "day0": "2026-10-22",
+   "tone": 0.00039,
+   "abtone": -0.00169,
+   "rang": 0.407,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "HON",
+   "company": "HONEYWELL INTERNATIONAL INC",
+   "day0": "2026-10-22",
+   "tone": 0.00801,
+   "abtone": 0.00385,
+   "rang": 0.737,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "HBAN",
+   "company": "HUNTINGTON BANCSHARES INC /MD/",
+   "day0": "2026-10-22",
+   "tone": 0.00726,
+   "abtone": 0.00426,
+   "rang": 0.756,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "LMT",
+   "company": "LOCKHEED MARTIN CORP",
+   "day0": "2026-10-22",
+   "tone": 0.00837,
+   "abtone": 0.00378,
+   "rang": 0.733,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "NDAQ",
+   "company": "NASDAQ, INC.",
+   "day0": "2026-10-22",
+   "tone": 0.01419,
+   "abtone": 0.01013,
+   "rang": 0.929,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "NSC",
+   "company": "NORFOLK SOUTHERN CORP",
+   "day0": "2026-10-22",
+   "tone": 0.00669,
+   "abtone": 0.00244,
+   "rang": 0.665,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "NVR",
+   "company": "NVR INC",
+   "day0": "2026-10-22",
+   "tone": -0.01374,
+   "abtone": -0.01656,
+   "rang": 0.012,
+   "decision": "achat"
+  },
+  {
+   "ticker": "PKG",
+   "company": "PACKAGING CORP OF AMERICA",
+   "day0": "2026-10-22",
+   "tone": -0.00147,
+   "abtone": -0.00451,
+   "rang": 0.246,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "PCG",
+   "company": "PG&E Corp",
+   "day0": "2026-10-22",
+   "tone": 0.00357,
+   "abtone": 0.00066,
+   "rang": 0.567,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "PG",
+   "company": "PROCTER & GAMBLE Co",
+   "day0": "2026-10-22",
+   "tone": 0.00988,
+   "abtone": 0.00356,
+   "rang": 0.722,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "PHM",
+   "company": "PULTEGROUP INC/MI/",
+   "day0": "2026-10-22",
+   "tone": -0.00367,
+   "abtone": -0.00659,
+   "rang": 0.156,
+   "decision": "achat"
+  },
+  {
+   "ticker": "DGX",
+   "company": "QUEST DIAGNOSTICS INC",
+   "day0": "2026-10-22",
+   "tone": 0.00108,
+   "abtone": -0.00204,
+   "rang": 0.38,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "ROP",
+   "company": "ROPER TECHNOLOGIES INC",
+   "day0": "2026-10-22",
+   "tone": 0.01182,
+   "abtone": 0.00821,
+   "rang": 0.891,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "SNA",
+   "company": "Snap-on Inc",
+   "day0": "2026-10-22",
+   "tone": 0.00734,
+   "abtone": 0.00458,
+   "rang": 0.773,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "TSCO",
+   "company": "TRACTOR SUPPLY CO /DE/",
+   "day0": "2026-10-22",
+   "tone": 0.00307,
+   "abtone": 0.00037,
+   "rang": 0.549,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "UNP",
+   "company": "UNION PACIFIC CORP",
+   "day0": "2026-10-22",
+   "tone": 0.00658,
+   "abtone": 0.00168,
+   "rang": 0.628,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "VLO",
+   "company": "VALERO ENERGY CORP/TX",
+   "day0": "2026-10-22",
+   "tone": -0.00691,
+   "abtone": -0.01054,
+   "rang": 0.056,
+   "decision": "achat"
   }
  ],
  "hold_until": {
@@ -19469,14 +19733,17 @@
   "HAS": "2027-01-13",
   "RTX": "2027-01-13",
   "NEE": "2027-01-14",
-  "CCI": "2027-01-15"
+  "CCI": "2027-01-15",
+  "NVR": "2027-01-15",
+  "PHM": "2027-01-15",
+  "VLO": "2027-01-15"
  },
  "counters": {
-  "jours": 6,
-  "communiques": 69,
-  "evalues": 69,
-  "achetes": 9,
-  "ombre": 11,
+  "jours": 7,
+  "communiques": 97,
+  "evalues": 91,
+  "achetes": 12,
+  "ombre": 13,
   "complet": 0
  }
 }
