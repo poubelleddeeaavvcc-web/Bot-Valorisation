@@ -2,7 +2,48 @@
  "cash": {
   "pool": 6141.015293679469
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "sell",
+   "ticker": "ACHR",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-23T00:41:30Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "CIEN",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-23T00:41:30Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "CURB",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-23T00:41:30Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "CVX",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-23T00:41:30Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "SBLK",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-23T00:41:30Z",
+   "fraction": 1.0
+  }
+ ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-11-11",
