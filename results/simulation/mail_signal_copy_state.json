@@ -42,6 +42,18 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-10-23T00:41:30Z",
    "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "SPOT.VI",
+   "bucket": "pool",
+   "reason": "avis aktionnaire.com (ton)",
+   "decided_at": "2026-10-23T07:28:51Z",
+   "amount_eur": 100.0,
+   "name": "Spotify Technology S.A.",
+   "sector": "aktionnaire.com (ton)",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -176,7 +188,8 @@
   "VU.PA": "2026-11-18",
   "SKHY": "2026-11-18",
   "ALNTG.PA": "2026-11-19",
-  "HAL": "2026-11-19"
+  "HAL": "2026-11-19",
+  "SPOT.VI": "2026-11-20"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -527,11 +540,12 @@
   "1a1629f391b37497:ALNTG.PA",
   "1a163afae2fead07:AVGO",
   "1a1637880e4c3e0e:STX",
-  "1a16429bbd24ce8a:HAL"
+  "1a16429bbd24ce8a:HAL",
+  "1a16708dd78e6578:SPOT.VI"
  ],
  "counters": {
-  "avis": 349,
-  "achetes": 211,
+  "avis": 350,
+  "achetes": 212,
   "prolonges": 138,
   "complet": 0
  },
