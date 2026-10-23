@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 6141.015293679469
+  "pool": 5955.015293679469
  },
  "pending": [
   {
@@ -69,13 +69,25 @@
   },
   {
    "side": "buy",
-   "ticker": "SOP.PA",
+   "ticker": "CRM",
    "bucket": "pool",
-   "reason": "avis tradingsat.com",
-   "decided_at": "2026-10-23T13:25:26Z",
+   "reason": "avis StockNews.com (beehiiv.com)",
+   "decided_at": "2026-10-23T18:19:46Z",
    "amount_eur": 100.0,
-   "name": "Sopra Steria Group SA",
-   "sector": "tradingsat.com",
+   "name": "Salesforce, Inc.",
+   "sector": "StockNews.com (beehiiv.com)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "OR.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-23T18:19:46Z",
+   "amount_eur": 100.0,
+   "name": "L'Oréal S.A.",
+   "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
   }
@@ -215,7 +227,9 @@
   "HAL": "2026-11-19",
   "SPOT.VI": "2026-11-20",
   "NLY": "2026-11-20",
-  "SOP.PA": "2026-11-20"
+  "SOP.PA": "2026-11-20",
+  "CRM": "2026-11-20",
+  "OR.PA": "2026-11-20"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -571,11 +585,13 @@
   "1a168955d2231def:NLY",
   "1a168a6b61ea4c6e:ACN",
   "1a167ad1e8287530:SOP.PA",
-  "1a168d52ebee92df:RKLB"
+  "1a168d52ebee92df:RKLB",
+  "1a1694fe6e7e6933:CRM",
+  "1a16987b26285d41:OR.PA"
  ],
  "counters": {
-  "avis": 354,
-  "achetes": 214,
+  "avis": 356,
+  "achetes": 216,
   "prolonges": 140,
   "complet": 0
  },
