@@ -12,7 +12,8 @@
   "2026-10-16",
   "2026-10-19",
   "2026-10-20",
-  "2026-10-21"
+  "2026-10-21",
+  "2026-10-22"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -299,11 +300,31 @@
    "title": "Director",
    "adv_usd": 5964090,
    "decision": "liquidite hors bande (5.96 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-22",
+   "ticker": "AGMB",
+   "issuer": "AgomAb Therapeutics NV",
+   "value_usd": 88800,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 1276934,
+   "decision": "liquidite hors bande (1.28 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-22",
+   "ticker": "RAPP",
+   "issuer": "Rapport Therapeutics, Inc.",
+   "value_usd": 1422797,
+   "insiders": 4,
+   "title": "Director",
+   "adv_usd": 26272226,
+   "decision": "liquidite hors bande (26.27 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 7,
-  "evenements": 28,
+  "jours": 8,
+  "evenements": 30,
   "retenus": 3,
   "achetes": 3,
   "complet": 0,
