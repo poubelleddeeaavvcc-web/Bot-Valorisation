@@ -13,7 +13,8 @@
   "2026-10-19",
   "2026-10-20",
   "2026-10-21",
-  "2026-10-22"
+  "2026-10-22",
+  "2026-10-23"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -320,11 +321,61 @@
    "title": "Director",
    "adv_usd": 26272226,
    "decision": "liquidite hors bande (26.27 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-23",
+   "ticker": "CHCO",
+   "issuer": "CITY HOLDING CO",
+   "value_usd": 68222,
+   "insiders": 4,
+   "title": "Director",
+   "adv_usd": 15450716,
+   "decision": "liquidite hors bande (15.45 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-23",
+   "ticker": "CLF",
+   "issuer": "CLEVELAND-CLIFFS INC.",
+   "value_usd": 99826,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 321500292,
+   "decision": "liquidite hors bande (321.50 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-23",
+   "ticker": "MSM",
+   "issuer": "MSC INDUSTRIAL DIRECT CO INC",
+   "value_usd": 50129,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 122216117,
+   "decision": "liquidite hors bande (122.22 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-23",
+   "ticker": "NXG",
+   "issuer": "NXG NextGen Infrastructure Income Fund",
+   "value_usd": 479075,
+   "insiders": 2,
+   "title": "See Remarks",
+   "adv_usd": 4713985,
+   "decision": "liquidite hors bande (4.71 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-23",
+   "ticker": "RAPP",
+   "issuer": "Rapport Therapeutics, Inc.",
+   "value_usd": 98478,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 26601721,
+   "decision": "liquidite hors bande (26.60 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 8,
-  "evenements": 30,
+  "jours": 9,
+  "evenements": 35,
   "retenus": 3,
   "achetes": 3,
   "complet": 0,
