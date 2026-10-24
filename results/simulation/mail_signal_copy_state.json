@@ -5,18 +5,6 @@
  "pending": [
   {
    "side": "buy",
-   "ticker": "SPOT.VI",
-   "bucket": "pool",
-   "reason": "avis aktionnaire.com (ton)",
-   "decided_at": "2026-10-23T07:28:51Z",
-   "amount_eur": 100.0,
-   "name": "Spotify Technology S.A.",
-   "sector": "aktionnaire.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
    "ticker": "OR.PA",
    "bucket": "pool",
    "reason": "avis news.meilleurtaux.com (ton)",
@@ -156,7 +144,6 @@
   "SKHY": "2026-11-18",
   "ALNTG.PA": "2026-11-19",
   "HAL": "2026-11-19",
-  "SPOT.VI": "2026-11-20",
   "NLY": "2026-11-20",
   "SOP.PA": "2026-11-20",
   "CRM": "2026-11-20",
@@ -533,6 +520,7 @@
   "SU.PA",
   "BW9.DE",
   "SU.PA",
-  "VIRP.PA"
+  "VIRP.PA",
+  "SPOT.VI"
  ]
 }
