@@ -14,11 +14,35 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "RTO",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-24T15:55:14Z",
+   "amount_eur": 100.0,
+   "name": "Rentokil Initial plc",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "WES",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-24T15:55:14Z",
+   "amount_eur": 100.0,
+   "name": "Western Midstream Partners, LP",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
-  "MU": "2026-11-11",
+  "MU": "2026-11-20",
   "NVDA": "2026-11-13",
   "AVGO": "2026-11-19",
   "SNDK": "2026-11-11",
@@ -27,7 +51,7 @@
   "ORCL": "2026-11-05",
   "NBIS": "2026-11-11",
   "PAYX": "2026-10-26",
-  "META": "2026-11-19",
+  "META": "2026-11-20",
   "BP": "2026-11-05",
   "AMD": "2026-10-28",
   "GDYN": "2026-10-26",
@@ -147,7 +171,9 @@
   "NLY": "2026-11-20",
   "SOP.PA": "2026-11-20",
   "CRM": "2026-11-20",
-  "OR.PA": "2026-11-20"
+  "OR.PA": "2026-11-20",
+  "RTO": "2026-11-20",
+  "WES": "2026-11-20"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -505,12 +531,16 @@
   "1a167ad1e8287530:SOP.PA",
   "1a168d52ebee92df:RKLB",
   "1a1694fe6e7e6933:CRM",
-  "1a16987b26285d41:OR.PA"
+  "1a16987b26285d41:OR.PA",
+  "1a16db81b4589501:META",
+  "1a16dbaf1a11ecef:RTO",
+  "1a16dc415f987c61:WES",
+  "1a16dfad8c105b15:MU"
  ],
  "counters": {
-  "avis": 356,
-  "achetes": 216,
-  "prolonges": 140,
+  "avis": 360,
+  "achetes": 218,
+  "prolonges": 142,
   "complet": 0
  },
  "dropped": [
