@@ -38,6 +38,18 @@
    "sector": "seekingalpha.com",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "AMAT",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-25T16:12:49Z",
+   "amount_eur": 100.0,
+   "name": "Applied Materials, Inc.",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -173,7 +185,8 @@
   "CRM": "2026-11-20",
   "OR.PA": "2026-11-20",
   "RTO": "2026-11-20",
-  "WES": "2026-11-20"
+  "WES": "2026-11-20",
+  "AMAT": "2026-11-20"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -535,11 +548,12 @@
   "1a16db81b4589501:META",
   "1a16dbaf1a11ecef:RTO",
   "1a16dc415f987c61:WES",
-  "1a16dfad8c105b15:MU"
+  "1a16dfad8c105b15:MU",
+  "1a173214879a06aa:AMAT"
  ],
  "counters": {
-  "avis": 360,
-  "achetes": 218,
+  "avis": 361,
+  "achetes": 219,
   "prolonges": 142,
   "complet": 0
  },
