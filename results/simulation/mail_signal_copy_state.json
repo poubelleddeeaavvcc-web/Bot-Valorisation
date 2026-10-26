@@ -1,19 +1,11 @@
 {
  "cash": {
-  "pool": 6228.973487064633
+  "pool": 6111.923483059201
  },
  "pending": [
   {
    "side": "sell",
    "ticker": "BBY",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-26T04:42:46Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "BSD.PA",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-10-26T04:42:46Z",
@@ -42,18 +34,6 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-10-26T04:42:46Z",
    "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "OR.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-23T18:19:46Z",
-   "amount_eur": 100.0,
-   "name": "L'Oréal S.A.",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
   },
   {
    "side": "buy",
@@ -114,30 +94,6 @@
    "sector": "seekingalpha.com",
    "currency": "USD",
    "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "BNP.PA",
-   "bucket": "pool",
-   "reason": "avis tradingsat.com",
-   "decided_at": "2026-10-26T12:58:49Z",
-   "amount_eur": 100.0,
-   "name": "BNP Paribas SA",
-   "sector": "tradingsat.com",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "GLE.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-26T12:58:49Z",
-   "amount_eur": 100.0,
-   "name": "Société Générale Société anonyme",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -161,7 +117,6 @@
   "PLTR": "2026-11-09",
   "AMZN": "2026-11-16",
   "GOOG": "2026-11-06",
-  "BSD.PA": "2026-10-26",
   "IONQ": "2026-10-26",
   "BBY": "2026-10-26",
   "KOF.PA": "2026-10-27",
@@ -271,7 +226,6 @@
   "NLY": "2026-11-20",
   "SOP.PA": "2026-11-20",
   "CRM": "2026-11-20",
-  "OR.PA": "2026-11-20",
   "RTO": "2026-11-20",
   "WES": "2026-11-20",
   "AMAT": "2026-11-23",
@@ -662,6 +616,7 @@
   "BW9.DE",
   "SU.PA",
   "VIRP.PA",
-  "SPOT.VI"
+  "SPOT.VI",
+  "OR.PA"
  ]
 }
