@@ -2908,5 +2908,11 @@
     "sentiment": null,
     "reason": "The news shows a mixed sentiment for Itaú Unibanco Holding S.A. with some reports indicating a potential positive outlook due to market movements (TradingView, TradingKey), while others suggest a negative trend following the election of Lula (TradingView).",
     "source": "ollama"
+  },
+  "FVI.TO_2026-10-26": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "The news shows a mix of positive and neutral sentiments towards Fortuna Mining Corp. The company is reported to be lining up more cash returns for shareholders, and is also identified as a high growth momentum stock. However, there is also news about the company giving up ground in its Latin America",
+    "source": "ollama"
   }
 }

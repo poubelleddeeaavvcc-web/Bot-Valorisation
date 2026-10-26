@@ -822,5 +822,13 @@
       "reason": "Le texte ne fournit pas suffisamment d'informations pour déterminer si l'entreprise dépend d'un petit nombre de clients ou d'une base de clients large et diversifiée.",
       "source": "ollama"
     }
+  },
+  "FVI.TO": {
+    "checked_at": "2026-10-26",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "The text does not provide clear information about the company's client base, as it only mentions the countries where the company operates, and not the specific clients or markets it serves.",
+      "source": "ollama"
+    }
   }
 }
