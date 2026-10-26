@@ -333,7 +333,7 @@ LYFT,"Lyft, Inc.",Technology,Software - Application,4.2,19.9,16.5,12.5,12.7,13.2
 LYV,"Live Nation Entertainment, Inc.",Communication Services,Entertainment,3.7,13.7,9.4,5.2,0.3,6.5,5,False,,12.7,12.7,1,True
 LZB,La-Z-Boy Incorporated,Consumer Cyclical,"Furnishings, Fixtures & Appliances",11.8,8.2,13.9,6.0,15.6,11.1,5,False,9.6,8.6,9.1,2,False
 M,"Macy's, Inc.",Consumer Cyclical,Department Stores,4.6,12.1,11.1,5.2,11.7,8.9,5,False,17.7,16.8,17.2,2,False
-MA,Mastercard Incorporated,Financial Services,Credit Services,3.8,20.0,,17.3,6.4,11.9,4,False,0.0,6.6,3.3,2,False
+MA,Mastercard Incorporated,Financial Services,Credit Services,3.8,20.0,,17.3,6.3,11.8,4,False,0.0,6.6,3.3,2,False
 MAN,ManpowerGroup Inc.,Industrials,Staffing & Employment Services,8.9,4.4,9.1,2.9,18.6,8.8,5,False,0.0,18.7,9.4,2,False
 MANU,Manchester United plc,Communication Services,Entertainment,1.3,2.6,,7.1,,3.7,3,False,,17.9,17.9,1,True
 MAR,"Marriott International, Inc.",Consumer Cyclical,Lodging,4.3,,8.8,19.8,11.8,11.2,4,False,0.0,17.7,8.8,2,False
@@ -635,8 +635,6 @@ ADEA,Adeia Inc.,Technology,Software - Application,10.8,16.8,11.4,18.1,9.5,13.3,5
 DPC,DPC Holdings PLC,Industrials,Aerospace & Defense,9.4,,15.5,0.5,,8.5,3,False,,,,0,True
 CCZ,Comcast Holdings ZONES,,,,,,,,,0,True,,,,0,True
 LBRDK,Liberty Broadband Corporation,Communication Services,Telecom Services,6.6,0.6,,3.8,,3.7,3,False,,,,0,True
-ASK.AX,,,,,,,,,,0,True,,,,0,True
-ZIP.AX,Zip Co Limited,Financial Services,Credit Services,8.6,13.9,,7.6,5.4,8.9,4,False,0.0,0.2,0.1,2,False
 003090.KS,"Daewoong Co., Ltd.",Healthcare,Drug Manufacturers - Specialty & Generic,4.6,14.1,0.6,13.0,13.7,9.2,5,False,,2.3,2.3,1,True
 352820.KS,"HYBE Co., Ltd.",Communication Services,Entertainment,14.8,2.5,11.2,5.2,1.7,7.1,5,False,,1.0,1.0,1,True
 005380.KS,Hyundai Motor Company,Consumer Cyclical,Auto Manufacturers,8.8,7.7,2.9,7.9,11.1,7.7,5,False,,16.2,16.2,1,True
@@ -663,7 +661,7 @@ VCX.AX,Vicinity Centres,Real Estate,REIT - Retail,11.8,15.7,11.4,18.0,9.3,13.2,5
 6141.T,"DMG Mori Co., Ltd.",Industrials,Specialty Industrial Machinery,7.0,3.4,6.3,5.4,18.8,8.2,5,False,0.0,14.0,7.0,2,False
 7003.T,"MITSUI E&S Co., Ltd.",Industrials,Aerospace & Defense,9.2,15.1,11.7,12.1,5.2,10.7,5,False,20.0,1.4,10.7,2,False
 7270.T,Subaru Corporation,Consumer Cyclical,Auto Manufacturers,16.8,4.5,11.8,5.0,14.9,10.6,5,False,4.5,4.9,4.7,2,False
-8377.T,"Hokuhoku Financial Group, Inc.",Financial Services,Banks - Regional,,6.7,,12.8,7.1,8.9,3,False,8.8,20.0,14.4,2,False
+8377.T,"Hokuhoku Financial Group, Inc.",Financial Services,Banks - Regional,,6.7,,12.8,7.0,8.8,3,False,8.8,20.0,14.4,2,False
 8473.T,"SBI Holdings, Inc.",Financial Services,Financial Conglomerates,10.3,17.0,,12.4,8.8,12.1,4,False,20.0,4.0,12.0,2,False
 8795.T,"T&D Holdings, Inc.",Financial Services,Insurance - Life,15.4,6.0,,3.8,13.3,9.6,4,False,10.8,17.5,14.2,2,False
 8830.T,"Sumitomo Realty & Development Co., Ltd.",Real Estate,Real Estate Services,3.0,13.1,4.6,8.0,1.5,6.0,5,False,14.7,9.0,11.8,2,False
@@ -868,9 +866,9 @@ M&M.BO,Mahindra & Mahindra Limited,Consumer Cyclical,Auto Manufacturers,4.8,13.6
 2548.TW,"Huaku Development Co., Ltd.",Real Estate,Real Estate - Development,5.8,18.1,14.3,8.7,14.1,12.2,5,False,12.0,9.7,10.8,2,False
 2731.TW,"Lion Travel Service Co., Ltd.",Consumer Cyclical,Travel Services,13.2,17.5,12.5,7.0,12.6,12.6,5,False,20.0,10.3,15.2,2,False
 2834.TW,"Taiwan Business Bank, Ltd.",Financial Services,Banks - Regional,,5.8,,15.2,1.7,7.6,3,False,6.7,12.6,9.6,2,False
-2891.TW,"CTBC Financial Holding Co., Ltd.",Financial Services,Banks - Regional,4.2,15.0,,11.8,6.1,9.3,4,False,2.0,18.5,10.2,2,False
+2891.TW,"CTBC Financial Holding Co., Ltd.",Financial Services,Banks - Regional,4.2,15.0,,11.8,6.0,9.2,4,False,2.0,18.5,10.2,2,False
 2904.TW,Prime Oil Chemical Service Corporation,Energy,Oil & Gas Equipment & Services,12.4,4.3,15.1,9.3,15.5,11.3,5,False,10.4,1.1,5.8,2,False
-2905.TW,"Mercuries & Associates Holding, Ltd.",Financial Services,Insurance - Life,11.1,6.4,,6.6,7.0,7.8,4,False,0.4,13.7,7.0,2,False
+2905.TW,"Mercuries & Associates Holding, Ltd.",Financial Services,Insurance - Life,11.1,6.4,,6.6,6.9,7.8,4,False,0.4,13.7,7.0,2,False
 2912.TW,President Chain Store Corporation,Consumer Defensive,Grocery Stores,3.2,17.8,9.0,6.3,13.7,10.0,5,False,9.3,6.7,8.0,2,False
 3023.TW,"SINBON Electronics Co., Ltd.",Technology,Electronic Components,8.6,14.9,9.4,11.2,13.4,11.5,5,False,13.4,13.4,13.4,2,False
 3036.TW,"WT Microelectronics Co., Ltd.",Technology,Electronic Components,4.0,15.9,10.1,5.2,8.9,8.8,5,False,20.0,13.2,16.6,2,False
@@ -1286,7 +1284,7 @@ BULL,Webull Corporation,Technology,Software - Application,11.7,6.2,19.5,12.7,1.3
 CALM,"Cal-Maine Foods, Inc.",Consumer Defensive,Farm Products,19.9,3.0,10.3,3.3,18.8,11.1,5,False,0.0,2.6,1.3,2,False
 CASH,"Pathward Financial, Inc.",Financial Services,Banks - Regional,,16.3,,7.2,17.9,13.8,3,False,15.4,6.8,11.1,2,False
 CBU,"Community Financial System, Inc.",Financial Services,Banks - Regional,,8.9,,10.4,10.8,10.0,3,False,7.5,8.8,8.2,2,False
-CINF,Cincinnati Financial Corporation,Financial Services,Insurance - Property & Casualty,13.0,16.4,,9.2,5.8,11.1,4,False,17.2,7.0,12.1,2,False
+CINF,Cincinnati Financial Corporation,Financial Services,Insurance - Property & Casualty,13.0,16.4,,9.2,5.7,11.1,4,False,17.2,7.0,12.1,2,False
 CLDX,"Celldex Therapeutics, Inc.",Healthcare,Biotechnology,18.3,3.3,10.5,3.4,,8.9,4,False,,12.3,12.3,1,True
 CPT,Camden Property Trust,Real Estate,REIT - Residential,3.6,11.6,8.4,8.8,12.7,9.0,5,False,8.3,10.8,9.6,2,False
 CVE,Cenovus Energy Inc.,Energy,Oil & Gas Integrated,12.0,15.1,,11.4,,12.8,3,False,10.1,17.5,13.8,2,False
@@ -1361,8 +1359,8 @@ FCPT,"Four Corners Property Trust, Inc.",Real Estate,REIT - Retail,8.0,11.0,12.9
 FG,"F&G Annuities & Life, Inc.",Financial Services,Insurance - Life,5.4,5.8,,2.1,13.7,6.8,4,False,20.0,1.4,10.7,2,False
 FRHC,Freedom Holdings Corp.,Financial Services,Financial Conglomerates,6.6,7.9,,2.8,,5.8,3,False,0.0,8.2,4.1,2,False
 GBCI,"Glacier Bancorp, Inc.",Financial Services,Banks - Regional,,4.3,,11.4,6.6,7.4,3,False,1.1,7.9,4.5,2,False
-HBT,"HBT Financial, Inc.",Financial Services,Banks - Regional,,9.0,,12.9,5.7,9.2,3,False,6.0,17.3,11.6,2,False
-HLI,"Houlihan Lokey, Inc.",Financial Services,Capital Markets,13.3,14.6,,5.8,6.9,10.1,4,False,0.5,0.9,0.7,2,False
+HBT,"HBT Financial, Inc.",Financial Services,Banks - Regional,,9.0,,12.9,5.6,9.2,3,False,6.0,17.3,11.6,2,False
+HLI,"Houlihan Lokey, Inc.",Financial Services,Capital Markets,13.3,14.6,,5.8,6.8,10.1,4,False,0.5,0.9,0.7,2,False
 HST,"Host Hotels & Resorts, Inc.",Real Estate,REIT - Hotel & Motel,13.8,17.3,16.2,8.6,9.9,13.2,5,False,16.3,19.2,17.8,2,False
 ICHR,"Ichor Holdings, Ltd.",Technology,Semiconductor Equipment & Materials,13.4,2.9,10.9,4.4,,7.9,4,False,,18.3,18.3,1,True
 IQV,IQVIA Holdings Inc.,Healthcare,Diagnostics & Research,1.4,17.2,9.0,12.8,12.8,10.6,5,False,10.0,13.0,11.5,2,False
@@ -1600,7 +1598,7 @@ ACHR,Archer Aviation Inc.,Industrials,Aerospace & Defense,18.9,0.4,10.5,1.3,,7.8
 ADMA,"ADMA Biologics, Inc.",Healthcare,Biotechnology,11.0,19.0,9.8,19.0,7.8,13.3,5,False,15.0,1.9,8.4,2,False
 ASB,Associated Banc-Corp,Financial Services,Banks - Regional,,6.7,,12.0,8.4,9.0,3,False,14.0,11.0,12.5,2,False
 ASND,Ascendis Pharma A/S,Healthcare,Biotechnology,10.6,19.8,,19.8,,16.7,3,False,13.2,10.7,12.0,2,False
-BBT,Beacon Financial Corporation,Financial Services,Banks - Regional,,5.0,,10.4,5.6,7.0,3,False,18.1,11.2,14.6,2,False
+BBT,Beacon Financial Corporation,Financial Services,Banks - Regional,,5.0,,10.4,5.5,7.0,3,False,18.1,11.2,14.6,2,False
 BEN,Franklin Templeton Inc.,Financial Services,Asset Management,11.7,4.2,,3.6,14.8,8.6,4,False,0.0,17.1,8.6,2,False
 BETA,"BETA Technologies, Inc.",Industrials,Aerospace & Defense,18.4,0.1,10.8,1.3,,7.6,4,False,,,,0,True
 BHC,Bausch Health Companies Inc.,Healthcare,Drug Manufacturers - Specialty & Generic,4.1,,10.0,10.2,,8.1,3,False,,4.4,4.4,1,True
@@ -2200,7 +2198,7 @@ MAP.MC,"Mapfre, S.A.",Financial Services,Insurance - Diversified,15.8,14.4,,2.6,
 AIZ,"Assurant, Inc.",Financial Services,Insurance - Property & Casualty,6.6,14.8,,3.2,8.1,8.2,4,False,8.6,12.7,10.6,2,False
 ALVO,Alvotech,Healthcare,Drug Manufacturers - Specialty & Generic,3.3,,1.6,2.9,,2.6,3,False,,3.0,3.0,1,True
 AME,"AMETEK, Inc.",Industrials,Specialty Industrial Machinery,9.6,12.0,11.4,18.1,3.5,10.9,5,False,3.4,13.6,8.5,2,False
-AMTB,Amerant Bancorp Inc.,Financial Services,Banks - Regional,,2.9,,7.2,6.2,5.4,3,False,0.0,18.8,9.4,2,False
+AMTB,Amerant Bancorp Inc.,Financial Services,Banks - Regional,,2.9,,7.2,6.1,5.4,3,False,0.0,18.8,9.4,2,False
 ANIP,"ANI Pharmaceuticals, Inc.",Healthcare,Drug Manufacturers - Specialty & Generic,7.2,16.6,11.6,14.2,5.4,11.0,5,False,14.7,3.8,9.2,2,False
 ARES,Ares Management Corporation,Financial Services,Asset Management,4.6,12.4,,3.8,9.3,7.5,4,False,0.0,1.9,1.0,2,False
 AUGO,Aura Minerals Inc.,Basic Materials,Gold,3.9,19.9,14.1,17.3,3.9,11.8,5,False,0.0,19.4,9.7,2,False
@@ -2593,7 +2591,7 @@ FRNM,"Freenome, Inc.",Healthcare,Diagnostics & Research,4.9,,5.7,3.8,,4.8,3,Fals
 GDS,GDS Holdings Limited,Technology,Information Technology Services,6.2,11.2,,15.6,,11.0,3,False,18.2,5.2,11.7,2,False
 GPRE,Green Plains Inc.,Basic Materials,Chemicals,8.6,14.0,9.1,10.9,7.2,10.0,5,False,20.0,15.4,17.7,2,False
 HGTY,"Hagerty, Inc.",Financial Services,Insurance - Property & Casualty,10.8,5.5,,3.3,0.2,5.0,4,False,0.0,11.1,5.6,2,False
-HLNE,Hamilton Lane Incorporated,Financial Services,Asset Management,15.2,18.8,,13.0,6.0,13.2,4,False,11.5,1.7,6.6,2,False
+HLNE,Hamilton Lane Incorporated,Financial Services,Asset Management,15.2,18.8,,13.0,5.9,13.2,4,False,11.5,1.7,6.6,2,False
 HONA,Honeywell Aerospace Inc.,Industrials,Aerospace & Defense,5.5,,5.7,13.5,,8.2,3,False,1.7,,1.7,1,True
 HR,Healthcare Realty Trust Incorporated,Real Estate,REIT - Healthcare Facilities,4.8,2.1,11.1,3.8,18.3,8.0,5,False,,12.6,12.6,1,True
 ICUI,"ICU Medical, Inc.",Healthcare,Medical Instruments & Supplies,6.2,8.4,9.0,9.6,,8.3,4,False,0.0,14.1,7.0,2,False
@@ -2920,7 +2918,7 @@ TITAN.BO,Titan Company Limited,Consumer Cyclical,Luxury Goods,1.6,17.9,8.4,10.8,
 6525.T,Kokusai Electric Corporation,Technology,Semiconductor Equipment & Materials,8.8,,10.2,9.8,5.4,8.6,4,False,9.3,14.6,12.0,2,False
 6952.T,"Casio Computer Co.,Ltd.",Technology,Consumer Electronics,13.5,9.6,17.0,12.4,13.9,13.3,5,False,3.8,15.5,9.6,2,False
 7731.T,Nikon Corporation,Consumer Cyclical,Leisure,11.6,1.2,7.0,1.5,14.4,7.1,5,False,,13.0,13.0,1,True
-8331.T,"The Chiba Bank, Ltd.",Financial Services,Banks - Regional,,4.9,,10.0,5.5,6.8,3,False,3.2,19.5,11.4,2,False
+8331.T,"The Chiba Bank, Ltd.",Financial Services,Banks - Regional,,4.9,,10.0,5.4,6.8,3,False,3.2,19.5,11.4,2,False
 8593.T,Mitsubishi HC Capital Inc.,Financial Services,Credit Services,4.8,3.6,,2.8,7.8,4.8,4,False,8.7,9.9,9.3,2,False
 8595.T,"JAFCO Co., Ltd.",Financial Services,Asset Management,18.2,2.3,,10.8,16.6,12.0,4,False,0.0,4.9,2.4,2,False
 9502.T,"Chubu Electric Power Company, Incorporated",Utilities,Utilities - Diversified,10.7,4.2,3.1,2.6,4.6,5.0,5,False,16.8,18.4,17.6,2,False
@@ -3382,7 +3380,7 @@ CAR.UN.TO,,,,,,,,,,0,True,,,,0,True
 GSY.TO,goeasy Ltd.,Financial Services,Credit Services,9.8,0.4,,1.5,19.7,7.8,4,False,,0.1,0.1,1,True
 SJ.TO,Stella-Jones Inc.,Basic Materials,Lumber & Wood Production,8.2,12.2,11.3,10.1,14.5,11.3,5,False,15.2,2.3,8.8,2,False
 AEM,Agnico Eagle Mines Limited,Basic Materials,Gold,16.8,16.8,14.9,19.0,4.4,14.4,5,False,4.9,8.6,6.8,2,False
-ALL,The Allstate Corporation,Financial Services,Insurance - Property & Casualty,8.6,19.4,,6.7,7.3,10.5,4,False,20.0,10.6,15.3,2,False
+ALL,The Allstate Corporation,Financial Services,Insurance - Property & Casualty,8.6,19.4,,6.7,7.2,10.5,4,False,20.0,10.6,15.3,2,False
 ARCB,ArcBest Corporation,Industrials,Trucking,10.0,2.6,12.7,4.0,11.9,8.2,5,False,0.0,18.6,9.3,2,False
 ATEC,"Alphatec Holdings, Inc.",Healthcare,Medical Devices,2.5,0.3,7.6,3.8,1.7,3.2,5,False,,1.1,1.1,1,True
 BIIB,Biogen Inc.,Healthcare,Drug Manufacturers - General,6.7,9.4,8.9,14.8,,10.0,4,False,0.0,15.6,7.8,2,False
@@ -3577,7 +3575,7 @@ CARG,"CarGurus, Inc.",Communication Services,Internet Content & Information,11.4
 CCC,CCC Intelligent Solutions Holdings Inc.,Technology,Software - Application,6.9,4.8,10.0,10.6,18.4,10.1,5,False,0.0,3.2,1.6,2,False
 CF,"CF Industries Holdings, Inc.",Basic Materials,Agricultural Inputs,14.1,18.1,14.0,17.4,18.5,16.4,5,False,17.6,14.7,16.2,2,False
 CIFR,Cipher Digital Inc.,Technology,Information Technology Services,1.1,0.1,0.2,2.2,7.0,2.1,5,False,,4.6,4.6,1,True
-CNOB,"ConnectOne Bancorp, Inc.",Financial Services,Banks - Regional,,7.4,,15.4,6.7,9.8,3,False,13.2,13.1,13.2,2,False
+CNOB,"ConnectOne Bancorp, Inc.",Financial Services,Banks - Regional,,7.4,,15.4,6.6,9.8,3,False,13.2,13.1,13.2,2,False
 CR,Crane Company,Industrials,Specialty Industrial Machinery,13.5,13.3,11.4,17.1,2.3,11.5,5,False,5.8,10.1,8.0,2,False
 CRCL,Circle Internet Group,Financial Services,Capital Markets,9.8,12.7,,4.0,0.1,6.6,4,False,0.0,0.6,0.3,2,False
 CUBI,"Customers Bancorp, Inc.",Financial Services,Banks - Regional,,12.0,,13.8,8.2,11.3,3,False,14.9,8.6,11.8,2,False
@@ -3612,7 +3610,7 @@ TEM,"Tempus AI, Inc.",Healthcare,Health Information Services,6.8,2.2,7.3,3.2,1.6
 TFSL,TFS Financial Corporation,Financial Services,Banks - Regional,,2.5,,12.3,2.7,5.8,3,False,0.0,14.0,7.0,2,False
 UI,Ubiquiti Inc.,Technology,Communication Equipment,13.4,19.6,10.6,18.6,3.1,13.1,5,False,6.8,2.6,4.7,2,False
 UMBF,UMB Financial Corporation,Financial Services,Banks - Regional,,9.7,,14.2,2.9,8.9,3,False,12.2,12.0,12.1,2,False
-UWMC,UWM Holdings Corporation,Financial Services,Mortgage Finance,0.8,0.7,,0.6,7.4,2.4,4,False,,0.1,0.1,1,True
+UWMC,UWM Holdings Corporation,Financial Services,Mortgage Finance,0.8,0.7,,0.6,7.3,2.4,4,False,,0.1,0.1,1,True
 VFC,V.F. Corporation,Consumer Cyclical,Apparel Manufacturing,4.6,14.0,8.4,4.2,6.4,7.5,5,False,9.3,11.1,10.2,2,False
 VSNT,"Versant Media Group, Inc.",Communication Services,Entertainment,14.7,9.0,12.8,13.9,,12.6,4,False,20.0,,20.0,1,True
 WVE,"Wave Life Sciences, Inc.",Healthcare,Biotechnology,15.6,2.2,10.0,3.8,,7.9,4,False,,0.4,0.4,1,True
@@ -3651,7 +3649,7 @@ SOL.AX,Washington H. Soul Pattinson and Company Limited,Financial Services,Capit
 6361.T,Ebara Corporation,Industrials,Specialty Industrial Machinery,9.8,12.9,7.8,10.2,7.5,9.6,5,False,14.0,12.2,13.1,2,False
 6472.T,NTN Corporation,Industrials,Tools & Accessories,5.3,4.5,10.3,3.8,9.6,6.7,5,False,15.4,11.9,13.6,2,False
 6503.T,Mitsubishi Electric Corporation,Industrials,Electrical Equipment & Parts,15.0,8.5,12.2,9.6,7.1,10.5,5,False,11.7,13.3,12.5,2,False
-8359.T,"Hachijuni Nagano Bank, Ltd.",Financial Services,Banks - Regional,,3.1,,12.0,7.2,7.4,3,False,6.2,19.5,12.8,2,False
+8359.T,"Hachijuni Nagano Bank, Ltd.",Financial Services,Banks - Regional,,3.1,,12.0,7.1,7.4,3,False,6.2,19.5,12.8,2,False
 8630.T,"Sompo Holdings, Inc.",Financial Services,Insurance - Property & Casualty,16.4,12.1,,4.2,11.9,11.2,4,False,0.0,16.9,8.4,2,False
 8725.T,"MS&AD Insurance Group Holdings, Inc.",Financial Services,Insurance - Property & Casualty,13.8,13.2,,5.6,13.0,11.4,4,False,16.6,18.2,17.4,2,False
 9064.T,"Yamato Holdings Co., Ltd.",Industrials,Trucking,13.3,3.1,15.4,2.4,17.9,10.4,5,False,1.7,5.4,3.6,2,False
@@ -4316,7 +4314,7 @@ DEI,"Douglas Emmett, Inc.",Real Estate,REIT - Office,6.8,2.0,10.0,5.2,17.4,8.3,5
 DELL,Dell Technologies Inc.,Technology,Computer Hardware,1.5,,8.4,11.0,9.4,7.6,4,False,0.5,19.0,9.8,2,False
 DYN,"Dyne Therapeutics, Inc.",Healthcare,Biotechnology,13.8,1.6,9.2,6.4,,7.8,4,False,,2.6,2.6,1,True
 ECVT,Ecovyst Inc.,Basic Materials,Specialty Chemicals,7.2,6.7,11.6,4.4,12.9,8.6,5,False,0.0,10.0,5.0,2,False
-EFSC,Enterprise Financial Services Corp,Financial Services,Banks - Regional,,6.6,,9.2,6.8,7.5,3,False,10.5,9.9,10.2,2,False
+EFSC,Enterprise Financial Services Corp,Financial Services,Banks - Regional,,6.6,,9.2,6.7,7.5,3,False,10.5,9.9,10.2,2,False
 EPRT,"Essential Properties Realty Trust, Inc.",Real Estate,REIT - Retail,15.9,9.2,12.2,16.4,6.4,12.0,5,False,8.2,6.1,7.2,2,False
 F,Ford Motor Company,Consumer Cyclical,Auto Manufacturers,5.8,1.0,1.0,2.6,16.8,5.4,5,False,,9.2,9.2,1,True
 FR,"First Industrial Realty Trust, Inc.",Real Estate,REIT - Industrial,9.9,,15.4,15.1,4.1,11.1,4,False,13.0,14.6,13.8,2,False
@@ -4419,7 +4417,7 @@ CPFE3.SA,CPFL Energia S.A.,Utilities,Utilities - Regulated Electric,10.2,19.2,14
 LWSA3.SA,Locaweb Serviços de Internet S.A.,Technology,Software - Infrastructure,11.9,2.5,8.9,6.6,14.6,8.9,5,False,,8.9,8.9,1,True
 MRFG3.SA,,,,,,,,,,0,True,,,,0,True
 AMXB.MX,"América Móvil, S.A.B. de C.V.",Communication Services,Telecom Services,5.3,15.6,5.7,13.4,9.5,9.9,5,False,9.9,8.2,9.0,2,False
-GFINBURO.MX,"Grupo Financiero Inbursa, S.A.B. de C.V.",Financial Services,Banks - Regional,,7.2,,18.0,6.5,10.6,3,False,10.5,3.8,7.2,2,False
+GFINBURO.MX,"Grupo Financiero Inbursa, S.A.B. de C.V.",Financial Services,Banks - Regional,,7.2,,18.0,6.4,10.5,3,False,10.5,3.8,7.2,2,False
 GRUMAB.MX,"Gruma, S.A.B. de C.V.",Consumer Defensive,Packaged Foods,11.3,16.4,,13.0,,13.6,3,False,19.4,2.0,10.7,2,False
 DSG.TO,The Descartes Systems Group Inc.,Technology,Software - Application,16.8,10.4,,18.0,,15.1,3,False,2.7,5.9,4.3,2,False
 ENB.TO,Enbridge Inc.,Energy,Oil & Gas Midstream,2.4,7.6,3.6,6.7,14.1,6.9,5,False,2.7,4.2,3.4,2,False
@@ -4467,7 +4465,7 @@ STAA,STAAR Surgical Company,Healthcare,Medical Instruments & Supplies,14.0,8.3,1
 STVN,Stevanato Group S.p.A.,Healthcare,Medical Instruments & Supplies,8.3,11.7,,14.7,,11.6,3,False,9.1,4.4,6.8,2,False
 TNDM,"Tandem Diabetes Care, Inc.",Healthcare,Medical Devices,5.8,3.0,3.8,4.1,,4.2,4,False,,11.4,11.4,1,True
 TNGX,"Tango Therapeutics, Inc.",Healthcare,Biotechnology,18.3,5.5,11.6,1.1,,9.1,4,False,,19.4,19.4,1,True
-WAL,Western Alliance Bancorporation,Financial Services,Banks - Regional,,10.6,,10.7,5.9,9.1,3,False,16.6,5.2,10.9,2,False
+WAL,Western Alliance Bancorporation,Financial Services,Banks - Regional,,10.6,,10.7,5.8,9.0,3,False,16.6,5.2,10.9,2,False
 WFC,Wells Fargo & Company,Financial Services,Banks - Diversified,,10.5,,9.7,18.6,12.9,3,False,12.8,3.8,8.3,2,False
 CSAN3.SA,Cosan S.A.,Energy,Oil & Gas Refining & Marketing,7.5,0.5,1.2,6.4,19.9,7.1,5,False,,0.6,0.6,1,True
 GOAU4.SA,Metalurgica Gerdau S.A.,Basic Materials,Steel,11.4,6.9,11.5,7.6,19.8,11.4,5,False,8.4,13.9,11.2,2,False
@@ -4657,7 +4655,7 @@ AAI.AX,Alcoa Corporation,Basic Materials,Aluminum,9.8,15.8,,12.3,,12.6,3,False,1
 AIA.AX,Auckland International Airport Limited,Industrials,Airports & Air Services,7.8,3.5,,19.6,,10.3,3,False,0.0,6.7,3.4,2,False
 BFL.AX,BSP Financial Group Limited,Financial Services,Banks - Regional,,17.2,,7.5,,12.4,2,True,16.3,7.2,11.8,2,False
 CWY.AX,Cleanaway Waste Management Limited,Industrials,Waste Management,5.9,3.5,9.2,6.4,7.2,6.4,5,False,0.0,9.0,4.5,2,False
-MFF.AX,MFF Capital Investments Limited,Financial Services,Asset Management,19.8,3.0,,19.2,6.6,12.2,4,False,1.9,10.4,6.2,2,False
+MFF.AX,MFF Capital Investments Limited,Financial Services,Asset Management,19.8,3.0,,19.2,6.5,12.1,4,False,1.9,10.4,6.2,2,False
 NIC.AX,Nickel Industries Limited,Basic Materials,Other Industrial Metals & Mining,11.6,4.2,,7.3,,7.7,3,False,,6.9,6.9,1,True
 S32.AX,South32 Limited,Basic Materials,Other Industrial Metals & Mining,13.8,11.5,,14.0,,13.1,3,False,14.4,17.2,15.8,2,False
 2002.T,Nisshin Seifun Group Inc.,Consumer Defensive,Packaged Foods,15.6,6.0,14.6,7.2,12.3,11.1,5,False,9.0,14.2,11.6,2,False
@@ -5576,7 +5574,7 @@ CGNX,Cognex Corporation,Technology,Scientific & Technical Instruments,16.6,9.9,1
 CNO,"CNO Financial Group, Inc.",Financial Services,Insurance - Life,4.8,8.2,,3.8,15.9,8.2,4,False,7.7,14.6,11.2,2,False
 CRGY,Crescent Energy Company,Energy,Oil & Gas E&P,6.0,3.5,9.6,10.6,3.7,6.7,5,False,0.0,14.5,7.2,2,False
 CSGP,"CoStar Group, Inc.",Real Estate,Real Estate Services,18.4,3.6,12.3,3.9,2.0,8.0,5,False,0.0,0.2,0.1,2,False
-EBC,"Eastern Bankshares, Inc.",Financial Services,Banks - Regional,,6.5,,14.2,6.3,9.0,3,False,10.0,11.9,11.0,2,False
+EBC,"Eastern Bankshares, Inc.",Financial Services,Banks - Regional,,6.5,,14.2,6.2,9.0,3,False,10.0,11.9,11.0,2,False
 EQIX,"Equinix, Inc.",Real Estate,REIT - Specialty,7.5,14.9,12.0,10.0,2.4,9.4,5,False,0.0,17.5,8.8,2,False
 FBIN,"Fortune Brands Innovations, Inc.",Industrials,Building Products & Equipment,5.0,5.3,9.7,8.0,17.0,9.0,5,False,6.2,2.2,4.2,2,False
 FTK,"Flotek Industries, Inc.",Energy,Oil & Gas Equipment & Services,12.4,19.1,9.6,10.2,,12.8,4,False,9.6,15.4,12.5,2,False
@@ -5616,3 +5614,5 @@ WMK,"Weis Markets, Inc.",Consumer Defensive,Grocery Stores,14.4,7.0,,4.2,,8.5,3,
 XENE,Xenon Pharmaceuticals Inc.,Healthcare,Biotechnology,19.2,3.4,10.2,6.4,,9.8,4,False,,5.6,5.6,1,True
 BIMBOA.MX,"Grupo Bimbo, S.A.B. de C.V.",Consumer Defensive,Packaged Foods,4.7,10.5,9.8,9.0,7.1,8.2,5,False,7.0,5.4,6.2,2,False
 RA.MX,Regional S.A.B. de C.V.,Financial Services,Banks - Regional,,14.5,,14.8,15.3,14.9,3,False,18.7,6.9,12.8,2,False
+ASK.AX,,,,,,,,,,0,True,,,,0,True
+ZIP.AX,Zip Co Limited,Financial Services,Credit Services,8.6,13.9,,7.6,7.4,9.4,4,False,3.7,0.2,2.0,2,False
