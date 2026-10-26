@@ -814,5 +814,13 @@
       "reason": "The text does not provide enough information to determine whether the company has a concentrated or diversified client base.",
       "source": "ollama"
     }
+  },
+  "SAND.ST": {
+    "checked_at": "2026-10-26",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "Le texte ne fournit pas suffisamment d'informations pour déterminer si l'entreprise dépend d'un petit nombre de clients ou d'une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
   }
 }

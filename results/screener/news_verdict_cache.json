@@ -2884,5 +2884,17 @@
     "sentiment": "positive",
     "reason": "Recent news indicates a positive sentiment towards PROG Holdings, Inc. (PRG) as the stock was raised to 'Buy' by Loop Capital, and the company surged pre-market after Q1 earnings beat and raised 2026 outlook.",
     "source": "ollama"
+  },
+  "SAND.ST_2026-10-26": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Recent news about Sandvik AB (publ) indicates a positive sentiment, with reports of earnings call presentations and stock price updates.",
+    "source": "ollama"
+  },
+  "AMN_2026-10-26": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general tone of the recent news about AMN Healthcare Services, Inc. is positive, with mentions of a 8.9% jump in the stock price, hitting a 52-week high, and a recommendation to retain the stock in one's portfolio.",
+    "source": "ollama"
   }
 }
