@@ -4,6 +4,46 @@
  },
  "pending": [
   {
+   "side": "sell",
+   "ticker": "BBY",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-26T04:42:46Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "BSD.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-26T04:42:46Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "GDYN",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-26T04:42:46Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "IONQ",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-26T04:42:46Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "PAYX",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-26T04:42:46Z",
+   "fraction": 1.0
+  },
+  {
    "side": "buy",
    "ticker": "OR.PA",
    "bucket": "pool",
@@ -52,44 +92,52 @@
    "fractional": true
   },
   {
-   "side": "sell",
-   "ticker": "BBY",
+   "side": "buy",
+   "ticker": "BTU",
    "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-26T04:42:46Z",
-   "fraction": 1.0
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-26T12:58:49Z",
+   "amount_eur": 100.0,
+   "name": "Peabody Energy Corporation",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   },
   {
-   "side": "sell",
-   "ticker": "BSD.PA",
+   "side": "buy",
+   "ticker": "AXTI",
    "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-26T04:42:46Z",
-   "fraction": 1.0
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-26T12:58:49Z",
+   "amount_eur": 100.0,
+   "name": "AXT, Inc.",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   },
   {
-   "side": "sell",
-   "ticker": "GDYN",
+   "side": "buy",
+   "ticker": "BNP.PA",
    "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-26T04:42:46Z",
-   "fraction": 1.0
+   "reason": "avis tradingsat.com",
+   "decided_at": "2026-10-26T12:58:49Z",
+   "amount_eur": 100.0,
+   "name": "BNP Paribas SA",
+   "sector": "tradingsat.com",
+   "currency": "EUR",
+   "fractional": false
   },
   {
-   "side": "sell",
-   "ticker": "IONQ",
+   "side": "buy",
+   "ticker": "GLE.PA",
    "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-26T04:42:46Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "PAYX",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-26T04:42:46Z",
-   "fraction": 1.0
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-26T12:58:49Z",
+   "amount_eur": 100.0,
+   "name": "Société Générale Société anonyme",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -226,7 +274,11 @@
   "OR.PA": "2026-11-20",
   "RTO": "2026-11-20",
   "WES": "2026-11-20",
-  "AMAT": "2026-11-20"
+  "AMAT": "2026-11-23",
+  "BTU": "2026-11-23",
+  "AXTI": "2026-11-23",
+  "BNP.PA": "2026-11-23",
+  "GLE.PA": "2026-11-23"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -589,12 +641,17 @@
   "1a16dbaf1a11ecef:RTO",
   "1a16dc415f987c61:WES",
   "1a16dfad8c105b15:MU",
-  "1a173214879a06aa:AMAT"
+  "1a173214879a06aa:AMAT",
+  "1a17810ac327525e:BTU",
+  "1a1781ad37367461:AXTI",
+  "1a17751a71dcee40:BNP.PA",
+  "1a17767eb28f2f32:GLE.PA",
+  "1a17847c9e5901e2:AMAT"
  ],
  "counters": {
-  "avis": 361,
-  "achetes": 219,
-  "prolonges": 142,
+  "avis": 366,
+  "achetes": 223,
+  "prolonges": 143,
   "complet": 0
  },
  "dropped": [
