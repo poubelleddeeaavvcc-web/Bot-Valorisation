@@ -830,5 +830,13 @@
       "reason": "The text does not provide clear information about the company's client base, as it only mentions the countries where the company operates, and not the specific clients or markets it serves.",
       "source": "ollama"
     }
+  },
+  "HCSG": {
+    "checked_at": "2026-10-26",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "10-K SEC (2026-02-13) : No single customer or customer group represented more than 10% of consolidated revenue [https://www.sec.gov/Archives/edgar/data/731012/000073101226000009/hcsg-20251231.htm]",
+      "source": "sec_10k"
+    }
   }
 }

@@ -2914,5 +2914,11 @@
     "sentiment": null,
     "reason": "The news shows a mix of positive and neutral sentiments towards Fortuna Mining Corp. The company is reported to be lining up more cash returns for shareholders, and is also identified as a high growth momentum stock. However, there is also news about the company giving up ground in its Latin America",
     "source": "ollama"
+  },
+  "HCSG_2026-10-26": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Healthcare Services Group has been outperforming its peers, crushing Q3 2026 profit estimates, and posting upbeat Q3 earnings, causing the stock to be in focus.",
+    "source": "ollama"
   }
 }
