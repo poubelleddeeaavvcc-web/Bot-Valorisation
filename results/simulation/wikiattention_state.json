@@ -1,17 +1,8 @@
 {
  "cash": {
-  "pool": 0.0
+  "pool": 991.5064873592415
  },
- "pending": [
-  {
-   "side": "sell",
-   "ticker": "SPY",
-   "bucket": "pool",
-   "reason": "vues des pages du Dow +4.8% vs 3 semaines : cash",
-   "decided_at": "2026-10-26T04:53:00Z",
-   "fraction": 1.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:01Z",
  "signals": [
   {

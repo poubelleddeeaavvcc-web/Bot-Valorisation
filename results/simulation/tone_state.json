@@ -1,23 +1,8 @@
 {
  "cash": {
-  "pool": 3800.0
+  "pool": 3700.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "VRSN",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 15%)",
-   "decided_at": "2026-10-23T21:51:50Z",
-   "amount_eur": 100.0,
-   "name": "VERISIGN INC/CA",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.006789
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
