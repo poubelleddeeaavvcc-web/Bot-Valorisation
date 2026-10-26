@@ -2896,5 +2896,17 @@
     "sentiment": "positive",
     "reason": "The general tone of the recent news about AMN Healthcare Services, Inc. is positive, with mentions of a 8.9% jump in the stock price, hitting a 52-week high, and a recommendation to retain the stock in one's portfolio.",
     "source": "ollama"
+  },
+  "B3SA3.SA_2026-10-26": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "The news articles provide a mix of updates and analysis about B3 S.A., but do not indicate a clear positive, negative, or neutral sentiment overall.",
+    "source": "ollama"
+  },
+  "ITUB4.SA_2026-10-26": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "The news shows a mixed sentiment for Itaú Unibanco Holding S.A. with some reports indicating a potential positive outlook due to market movements (TradingView, TradingKey), while others suggest a negative trend following the election of Lula (TradingView).",
+    "source": "ollama"
   }
 }
