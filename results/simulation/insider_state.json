@@ -14,7 +14,8 @@
   "2026-10-20",
   "2026-10-21",
   "2026-10-22",
-  "2026-10-23"
+  "2026-10-23",
+  "2026-10-26"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -371,11 +372,81 @@
    "title": "Director",
    "adv_usd": 26601721,
    "decision": "liquidite hors bande (26.60 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-26",
+   "ticker": "BBT",
+   "issuer": "Beacon Financial Corp",
+   "value_usd": 104984,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 31001846,
+   "decision": "liquidite hors bande (31.00 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-26",
+   "ticker": "BPRE",
+   "issuer": "Bluerock Private Real Estate Fund",
+   "value_usd": 2126091,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 11419862,
+   "decision": "liquidite hors bande (11.42 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-26",
+   "ticker": "BY",
+   "issuer": "BYLINE BANCORP, INC.",
+   "value_usd": 44785,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 9012044,
+   "decision": "liquidite hors bande (9.01 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-26",
+   "ticker": "RVII",
+   "issuer": "Robinhood Ventures Fund II",
+   "value_usd": 26625,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 2683051,
+   "decision": "liquidite hors bande (2.68 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-26",
+   "ticker": "STC",
+   "issuer": "STEWART INFORMATION SERVICES CORP",
+   "value_usd": 283710,
+   "insiders": 3,
+   "title": "Director",
+   "adv_usd": 21536293,
+   "decision": "liquidite hors bande (21.54 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-26",
+   "ticker": "TCBX",
+   "issuer": "Third Coast Bancshares, Inc.",
+   "value_usd": 40340,
+   "insiders": 1,
+   "title": "See Remarks",
+   "adv_usd": 4650159,
+   "decision": "liquidite hors bande (4.65 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-26",
+   "ticker": "THRM",
+   "issuer": "Gentherm Inc",
+   "value_usd": 662600,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 83200303,
+   "decision": "liquidite hors bande (83.20 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 9,
-  "evenements": 35,
+  "jours": 10,
+  "evenements": 42,
   "retenus": 3,
   "achetes": 3,
   "complet": 0,
