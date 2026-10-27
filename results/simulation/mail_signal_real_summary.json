@@ -13,9 +13,9 @@
   "nb_newsletters_fiables": 0,
   "foule": {
     "statut": "observation",
-    "edge_estime": -0.0589066342286343,
-    "n_evenements": 5,
-    "t_stat": -3.5186210965530065
+    "edge_estime": -0.050668088210755774,
+    "n_evenements": 8,
+    "t_stat": -2.7962041008542715
   },
   "statut": "en attente : aucune newsletter n'est encore fiable (il faut au moins 15 avis evalues a 20 jours et un t-stat >= 1.5) -- le capital reste en cash",
   "config": {
@@ -30,5 +30,5 @@
     "detention_min_jours": 3,
     "detention_max_jours": 30
   },
-  "derniere_maj_utc": "2026-10-26T23:52:54Z"
+  "derniere_maj_utc": "2026-10-27T05:00:12Z"
 }

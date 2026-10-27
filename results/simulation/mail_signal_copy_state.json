@@ -2,7 +2,48 @@
  "cash": {
   "pool": 5993.789988580022
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "sell",
+   "ticker": "BE",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-27T05:00:21Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "FTNT",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-27T05:00:21Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "KOF.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-27T05:00:21Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "NMM",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-27T05:00:21Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "PANW",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-27T05:00:21Z",
+   "fraction": 1.0
+  }
+ ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-11-20",
