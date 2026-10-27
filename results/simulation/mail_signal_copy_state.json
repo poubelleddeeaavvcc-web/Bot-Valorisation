@@ -1,76 +1,8 @@
 {
  "cash": {
-  "pool": 5897.429993691716
+  "pool": 5978.945704296646
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "BE",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-27T05:00:21Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "FTNT",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-27T05:00:21Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "NMM",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-27T05:00:21Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "PANW",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-27T05:00:21Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "NEM",
-   "bucket": "pool",
-   "reason": "avis American Market News (beehiiv.com)",
-   "decided_at": "2026-10-27T12:07:43Z",
-   "amount_eur": 100.0,
-   "name": "Newmont Corporation",
-   "sector": "American Market News (beehiiv.com)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "HESM",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-27T12:07:43Z",
-   "amount_eur": 100.0,
-   "name": "Hess Midstream LP",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "PLNT",
-   "bucket": "pool",
-   "reason": "avis StockNews.com (beehiiv.com)",
-   "decided_at": "2026-10-27T18:00:05Z",
-   "amount_eur": 100.0,
-   "name": "Planet Fitness, Inc.",
-   "sector": "StockNews.com (beehiiv.com)",
-   "currency": "USD",
-   "fractional": true
-  },
   {
    "side": "buy",
    "ticker": "EXENS.PA",
@@ -82,6 +14,18 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "CRDO",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-27T22:11:57Z",
+   "amount_eur": 100.0,
+   "name": "Credo Technology Group Holding Ltd",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -104,10 +48,6 @@
   "AMZN": "2026-11-16",
   "GOOG": "2026-11-06",
   "EPD": "2026-10-29",
-  "PANW": "2026-10-27",
-  "FTNT": "2026-10-27",
-  "NMM": "2026-10-27",
-  "BE": "2026-10-27",
   "RXL.PA": "2026-10-28",
   "ICHR": "2026-10-28",
   "PSQL": "2026-10-28",
@@ -221,7 +161,8 @@
   "SPIE.PA": "2026-11-24",
   "HESM": "2026-11-24",
   "PLNT": "2026-11-24",
-  "EXENS.PA": "2026-11-24"
+  "EXENS.PA": "2026-11-24",
+  "CRDO": "2026-11-24"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -599,11 +540,12 @@
   "1a17d37135de0c53:HESM",
   "1a17df4baa7e8ebb:PLNT",
   "1a17d9e122306b8d:O",
-  "1a17e59c7d1a2e65:EXENS.PA"
+  "1a17e59c7d1a2e65:EXENS.PA",
+  "1a17efb2e92b3e9b:CRDO"
  ],
  "counters": {
-  "avis": 376,
-  "achetes": 230,
+  "avis": 377,
+  "achetes": 231,
   "prolonges": 146,
   "complet": 0
  },
