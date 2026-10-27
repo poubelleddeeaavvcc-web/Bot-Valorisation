@@ -18554,6 +18554,16 @@
    "react": 0.055327,
    "age": 3.086146,
    "tone": 0.023082
+  },
+  {
+   "ticker": "VZ",
+   "date": "2026-10-26",
+   "ret12": 0.211254,
+   "size": 25.911047,
+   "stdret": 0.090226,
+   "react": -0.048306,
+   "age": 3.086521,
+   "tone": 0.009533
   }
  ],
  "edgar_days_done": [
@@ -18564,9 +18574,74 @@
   "2026-10-20",
   "2026-10-21",
   "2026-10-22",
-  "2026-10-23"
+  "2026-10-23",
+  "2026-10-26"
  ],
- "awaiting": [],
+ "awaiting": [
+  {
+   "ticker": "ARE",
+   "acc": "0001035443-26-000077",
+   "accepted": "2026-10-26T16:08:30-04:00",
+   "tone": 0.001412248042110669,
+   "company": "ALEXANDRIA REAL ESTATE EQUITIES, INC."
+  },
+  {
+   "ticker": "BRO",
+   "acc": "0001193125-26-432142",
+   "accepted": "2026-10-26T17:03:30-04:00",
+   "tone": 0.004454342984409799,
+   "company": "BROWN & BROWN, INC."
+  },
+  {
+   "ticker": "CDNS",
+   "acc": "0000813672-26-000116",
+   "accepted": "2026-10-26T16:03:09-04:00",
+   "tone": 0.010484927916120577,
+   "company": "CADENCE DESIGN SYSTEMS INC"
+  },
+  {
+   "ticker": "CINF",
+   "acc": "0000020286-26-000059",
+   "accepted": "2026-10-26T16:07:55-04:00",
+   "tone": 0.0016666666666666668,
+   "company": "CINCINNATI FINANCIAL CORP"
+  },
+  {
+   "ticker": "HIG",
+   "acc": "0000874766-26-000079",
+   "accepted": "2026-10-26T16:07:35-04:00",
+   "tone": -0.005699417668194771,
+   "company": "HARTFORD INSURANCE GROUP, INC."
+  },
+  {
+   "ticker": "NUE",
+   "acc": "0001193125-26-432117",
+   "accepted": "2026-10-26T16:54:01-04:00",
+   "tone": 0.0,
+   "company": "NUCOR CORP"
+  },
+  {
+   "ticker": "PFG",
+   "acc": "0001104659-26-118774",
+   "accepted": "2026-10-26T16:01:58-04:00",
+   "tone": -0.00031776294884016526,
+   "company": "PRINCIPAL FINANCIAL GROUP INC"
+  },
+  {
+   "ticker": "PSA",
+   "acc": "0001628280-26-067283",
+   "accepted": "2026-10-26T16:11:58-04:00",
+   "tone": 0.005615640599001664,
+   "company": "Public Storage"
+  },
+  {
+   "ticker": "WELL",
+   "acc": "0000766704-26-000043",
+   "accepted": "2026-10-26T16:33:01-04:00",
+   "tone": -0.002854006586169045,
+   "company": "WELLTOWER INC."
+  }
+ ],
  "shadow": [
   {
    "ticker": "FAST",
@@ -19535,6 +19610,15 @@
    "abtone": 0.01936,
    "rang": 0.989,
    "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "VZ",
+   "company": "VERIZON COMMUNICATIONS INC",
+   "day0": "2026-10-26",
+   "tone": 0.00953,
+   "abtone": 0.005,
+   "rang": 0.788,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -19553,9 +19637,9 @@
   "VRSN": "2027-01-18"
  },
  "counters": {
-  "jours": 8,
-  "communiques": 99,
-  "evalues": 99,
+  "jours": 9,
+  "communiques": 109,
+  "evalues": 100,
   "achetes": 13,
   "ombre": 15,
   "complet": 0
