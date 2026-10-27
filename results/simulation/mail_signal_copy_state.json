@@ -42,11 +42,71 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-10-27T05:00:21Z",
    "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "NEM",
+   "bucket": "pool",
+   "reason": "avis American Market News (beehiiv.com)",
+   "decided_at": "2026-10-27T12:07:43Z",
+   "amount_eur": 100.0,
+   "name": "Newmont Corporation",
+   "sector": "American Market News (beehiiv.com)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "AFX.DE",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-27T12:07:43Z",
+   "amount_eur": 100.0,
+   "name": "Carl Zeiss Meditec AG",
+   "sector": "seekingalpha.com",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "OR.PA",
+   "bucket": "pool",
+   "reason": "avis MoneyRadar (substack.com) (ton)",
+   "decided_at": "2026-10-27T12:07:43Z",
+   "amount_eur": 100.0,
+   "name": "L'Oréal S.A.",
+   "sector": "MoneyRadar (substack.com) (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "SPIE.PA",
+   "bucket": "pool",
+   "reason": "avis tradingsat.com",
+   "decided_at": "2026-10-27T12:07:43Z",
+   "amount_eur": 100.0,
+   "name": "SPIE SA",
+   "sector": "tradingsat.com",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "HESM",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-27T12:07:43Z",
+   "amount_eur": 100.0,
+   "name": "Hess Midstream LP",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
-  "MU": "2026-11-20",
+  "MU": "2026-11-24",
   "NVDA": "2026-11-13",
   "AVGO": "2026-11-19",
   "SNDK": "2026-11-11",
@@ -152,7 +212,7 @@
   "ASML": "2026-11-13",
   "AYA": "2026-11-13",
   "DMLP": "2026-11-13",
-  "TSLA": "2026-11-17",
+  "TSLA": "2026-11-24",
   "ICAD.PA": "2026-11-16",
   "CRWV": "2026-11-16",
   "BOL.PA": "2026-11-16",
@@ -176,7 +236,12 @@
   "BTU": "2026-11-23",
   "AXTI": "2026-11-23",
   "BNP.PA": "2026-11-23",
-  "GLE.PA": "2026-11-23"
+  "GLE.PA": "2026-11-23",
+  "NEM": "2026-11-24",
+  "AFX.DE": "2026-11-24",
+  "OR.PA": "2026-11-24",
+  "SPIE.PA": "2026-11-24",
+  "HESM": "2026-11-24"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -544,12 +609,19 @@
   "1a1781ad37367461:AXTI",
   "1a17751a71dcee40:BNP.PA",
   "1a17767eb28f2f32:GLE.PA",
-  "1a17847c9e5901e2:AMAT"
+  "1a17847c9e5901e2:AMAT",
+  "1a17d29e507e6b65:MU",
+  "1a17d0ff2b64011d:NEM",
+  "1a17d2df566bd405:AFX.DE",
+  "1a17c7f6699a1570:OR.PA",
+  "1a17c78f227edf12:SPIE.PA",
+  "1a17c7f6699a1570:TSLA",
+  "1a17d37135de0c53:HESM"
  ],
  "counters": {
-  "avis": 366,
-  "achetes": 223,
-  "prolonges": 143,
+  "avis": 373,
+  "achetes": 228,
+  "prolonges": 145,
   "complet": 0
  },
  "dropped": [
