@@ -635,10 +635,6 @@ ADEA,Adeia Inc.,Technology,Software - Application,10.8,16.7,11.4,18.1,9.5,13.3,5
 DPC,DPC Holdings PLC,Industrials,Aerospace & Defense,9.4,,15.5,0.5,,8.5,3,False,,,,0,True
 CCZ,Comcast Holdings ZONES,,,,,,,,,0,True,,,,0,True
 LBRDK,Liberty Broadband Corporation,Communication Services,Telecom Services,6.6,0.6,,3.8,,3.7,3,False,,,,0,True
-0388.HK,Hong Kong Exchanges and Clearing Limited,Financial Services,Financial Data & Stock Exchanges,11.6,18.9,,18.4,6.0,13.7,4,False,11.8,4.0,7.9,2,False
-1810.HK,Xiaomi Corporation,Technology,Consumer Electronics,8.5,11.1,,8.4,,9.3,3,False,11.5,1.2,6.4,2,False
-2359.HK,"WuXi AppTec Co., Ltd.",Healthcare,Diagnostics & Research,11.4,18.1,,19.4,,16.3,3,False,15.8,18.3,17.0,2,False
-ASIANPAINT.NS,Asian Paints Limited,Basic Materials,Specialty Chemicals,14.0,,14.9,13.0,4.8,11.7,4,False,0.0,4.3,2.2,2,False
 FGR.PA,Eiffage SA,Industrials,Engineering & Construction,3.2,14.1,10.5,7.0,19.5,10.9,5,False,19.6,7.0,13.3,2,False
 PRY.MI,Prysmian S.p.A.,Industrials,Electrical Equipment & Parts,6.8,15.9,8.8,8.8,4.3,8.9,5,False,13.6,16.0,14.8,2,False
 LGEN.L,Legal & General Group Plc,Financial Services,Asset Management,1.9,17.9,,5.2,,8.3,3,False,0.0,11.9,6.0,2,False
@@ -1651,7 +1647,7 @@ SUNPHARMA.BO,Sun Pharmaceutical Industries Limited,Healthcare,Drug Manufacturers
 0883.HK,CNOOC Limited,Energy,Oil & Gas E&P,18.0,13.2,,17.0,,16.1,3,False,20.0,8.5,14.2,2,False
 COALINDIA.NS,Coal India Limited,Energy,Thermal Coal,18.0,,19.1,11.9,15.7,16.2,4,False,20.0,5.9,13.0,2,False
 EICHERMOT.NS,Eicher Motors Limited,Consumer Cyclical,Auto Manufacturers,19.1,,15.5,18.1,1.7,13.6,4,False,0.0,11.4,5.7,2,False
-ASIANPAINT.BO,Asian Paints Limited,Basic Materials,Specialty Chemicals,14.1,,14.5,12.4,4.9,11.5,4,False,0.0,,0.0,1,True
+ASIANPAINT.BO,Asian Paints Limited,Basic Materials,Specialty Chemicals,14.1,,14.5,12.4,4.8,11.4,4,False,0.0,,0.0,1,True
 G.MI,Assicurazioni Generali S.p.A.,Financial Services,Insurance - Diversified,9.4,12.6,,3.6,8.3,8.5,4,False,9.7,14.5,12.1,2,False
 HO.PA,Thales S.A.,Industrials,Aerospace & Defense,5.6,15.1,15.4,9.7,8.5,10.9,5,False,12.0,5.4,8.7,2,False
 GAW.L,Games Workshop Group PLC,Consumer Cyclical,Leisure,17.6,19.2,,19.5,,18.8,3,False,0.0,14.2,7.1,2,False
@@ -1942,7 +1938,7 @@ LLY,Eli Lilly and Company,Healthcare,Drug Manufacturers - General,2.2,19.8,8.4,1
 MBWM,Mercantile Bank Corporation,Financial Services,Banks - Regional,,11.4,,13.8,5.2,10.1,3,False,13.6,15.5,14.6,2,False
 MMI,"Marcus & Millichap, Inc.",Real Estate,Real Estate Services,18.8,5.5,15.8,2.8,8.0,10.2,5,False,0.0,10.0,5.0,2,False
 MO,"Altria Group, Inc.",Consumer Defensive,Tobacco,2.3,,11.9,19.9,17.3,12.8,4,False,10.6,16.4,13.5,2,False
-MP,MP Materials Corp.,Basic Materials,Other Industrial Metals & Mining,14.6,3.2,9.8,0.7,5.0,6.7,5,False,,1.0,1.0,1,True
+MP,MP Materials Corp.,Basic Materials,Other Industrial Metals & Mining,14.6,3.2,9.8,0.7,4.9,6.6,5,False,,1.0,1.0,1,True
 NPKI,NPK International Inc.,Industrials,Building Products & Equipment,15.6,9.4,11.0,16.0,8.8,12.2,5,False,13.4,5.5,9.4,2,False
 OUST,"Ouster, Inc.",Technology,Electronic Components,17.0,1.4,9.9,1.1,,7.4,4,False,,10.4,10.4,1,True
 PAHC,Phibro Animal Health Corporation,Healthcare,Drug Manufacturers - Specialty & Generic,3.4,18.2,4.0,11.8,7.6,9.0,5,False,14.6,5.0,9.8,2,False
@@ -5616,3 +5612,7 @@ AXISBANK.NS,Axis Bank Limited,Financial Services,Banks - Regional,,11.5,,14.3,0.
 9935.TW,"Ching Feng Home Fashions Co.,Ltd",Consumer Cyclical,"Furnishings, Fixtures & Appliances",6.4,13.9,6.0,13.4,13.2,10.6,5,False,20.0,10.0,15.0,2,False
 9941.TW,Taiwan Acceptance Corporation,Financial Services,Credit Services,4.8,9.2,,4.6,15.9,8.6,4,False,14.1,2.5,8.3,2,False
 9945.TW,"Ruentex Development Co.,Ltd.",Industrials,Engineering & Construction,7.2,17.5,3.1,18.4,16.9,12.6,5,False,20.0,8.6,14.3,2,False
+0388.HK,Hong Kong Exchanges and Clearing Limited,Financial Services,Financial Data & Stock Exchanges,11.6,18.9,,18.4,6.0,13.7,4,False,11.9,4.0,8.0,2,False
+1810.HK,Xiaomi Corporation,Technology,Consumer Electronics,8.5,11.1,,8.4,,9.3,3,False,12.6,1.2,6.9,2,False
+2359.HK,"WuXi AppTec Co., Ltd.",Healthcare,Diagnostics & Research,11.4,18.1,,19.4,,16.3,3,False,16.5,18.3,17.4,2,False
+ASIANPAINT.NS,Asian Paints Limited,Basic Materials,Specialty Chemicals,14.0,,14.9,13.0,5.0,11.7,4,False,0.0,4.3,2.2,2,False
