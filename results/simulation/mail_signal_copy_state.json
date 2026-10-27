@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 5993.789988580022
+  "pool": 5897.429993691716
  },
  "pending": [
   {
@@ -14,14 +14,6 @@
   {
    "side": "sell",
    "ticker": "FTNT",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-27T05:00:21Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "KOF.PA",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-10-27T05:00:21Z",
@@ -57,42 +49,6 @@
   },
   {
    "side": "buy",
-   "ticker": "AFX.DE",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-27T12:07:43Z",
-   "amount_eur": 100.0,
-   "name": "Carl Zeiss Meditec AG",
-   "sector": "seekingalpha.com",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "OR.PA",
-   "bucket": "pool",
-   "reason": "avis MoneyRadar (substack.com) (ton)",
-   "decided_at": "2026-10-27T12:07:43Z",
-   "amount_eur": 100.0,
-   "name": "L'Oréal S.A.",
-   "sector": "MoneyRadar (substack.com) (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "SPIE.PA",
-   "bucket": "pool",
-   "reason": "avis tradingsat.com",
-   "decided_at": "2026-10-27T12:07:43Z",
-   "amount_eur": 100.0,
-   "name": "SPIE SA",
-   "sector": "tradingsat.com",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
    "ticker": "HESM",
    "bucket": "pool",
    "reason": "avis seekingalpha.com",
@@ -102,6 +58,30 @@
    "sector": "seekingalpha.com",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "PLNT",
+   "bucket": "pool",
+   "reason": "avis StockNews.com (beehiiv.com)",
+   "decided_at": "2026-10-27T18:00:05Z",
+   "amount_eur": 100.0,
+   "name": "Planet Fitness, Inc.",
+   "sector": "StockNews.com (beehiiv.com)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "EXENS.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-27T18:00:05Z",
+   "amount_eur": 100.0,
+   "name": "Exosens",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -123,7 +103,6 @@
   "PLTR": "2026-11-09",
   "AMZN": "2026-11-16",
   "GOOG": "2026-11-06",
-  "KOF.PA": "2026-10-27",
   "EPD": "2026-10-29",
   "PANW": "2026-10-27",
   "FTNT": "2026-10-27",
@@ -193,7 +172,7 @@
   "FUL": "2026-11-11",
   "OI": "2026-11-11",
   "STRL": "2026-11-11",
-  "O": "2026-11-11",
+  "O": "2026-11-24",
   "AMT": "2026-11-11",
   "PSA": "2026-11-11",
   "BRK-B": "2026-11-12",
@@ -239,9 +218,10 @@
   "GLE.PA": "2026-11-23",
   "NEM": "2026-11-24",
   "AFX.DE": "2026-11-24",
-  "OR.PA": "2026-11-24",
   "SPIE.PA": "2026-11-24",
-  "HESM": "2026-11-24"
+  "HESM": "2026-11-24",
+  "PLNT": "2026-11-24",
+  "EXENS.PA": "2026-11-24"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -616,12 +596,15 @@
   "1a17c7f6699a1570:OR.PA",
   "1a17c78f227edf12:SPIE.PA",
   "1a17c7f6699a1570:TSLA",
-  "1a17d37135de0c53:HESM"
+  "1a17d37135de0c53:HESM",
+  "1a17df4baa7e8ebb:PLNT",
+  "1a17d9e122306b8d:O",
+  "1a17e59c7d1a2e65:EXENS.PA"
  ],
  "counters": {
-  "avis": 373,
-  "achetes": 228,
-  "prolonges": 145,
+  "avis": 376,
+  "achetes": 230,
+  "prolonges": 146,
   "complet": 0
  },
  "dropped": [
@@ -633,6 +616,7 @@
   "SU.PA",
   "VIRP.PA",
   "SPOT.VI",
+  "OR.PA",
   "OR.PA"
  ]
 }
