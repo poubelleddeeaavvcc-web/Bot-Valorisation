@@ -2,7 +2,36 @@
  "cash": {
   "pool": 3700.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "HIG",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 8%)",
+   "decided_at": "2026-10-27T21:28:52Z",
+   "amount_eur": 100.0,
+   "name": "HARTFORD INSURANCE GROUP, INC.",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.00899
+  },
+  {
+   "side": "buy",
+   "ticker": "WELL",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 13%)",
+   "decided_at": "2026-10-27T21:28:52Z",
+   "amount_eur": 100.0,
+   "name": "WELLTOWER INC.",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.007421
+  }
+ ],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
@@ -18564,6 +18593,96 @@
    "react": -0.048306,
    "age": 3.086521,
    "tone": 0.009533
+  },
+  {
+   "ticker": "ARE",
+   "date": "2026-10-27",
+   "ret12": -0.407041,
+   "size": 22.67371,
+   "stdret": 0.139424,
+   "react": -0.06296,
+   "age": 3.086646,
+   "tone": 0.001412
+  },
+  {
+   "ticker": "BRO",
+   "date": "2026-10-27",
+   "ret12": -0.170037,
+   "size": 23.841345,
+   "stdret": 0.10193,
+   "react": -0.087028,
+   "age": 3.086646,
+   "tone": 0.004454
+  },
+  {
+   "ticker": "CDNS",
+   "date": "2026-10-27",
+   "ret12": -0.061612,
+   "size": 25.271673,
+   "stdret": 0.092232,
+   "react": 0.071265,
+   "age": 3.086646,
+   "tone": 0.010485
+  },
+  {
+   "ticker": "CINF",
+   "date": "2026-10-27",
+   "ret12": 0.157633,
+   "size": 24.049828,
+   "stdret": 0.059674,
+   "react": 0.016234,
+   "age": 3.086646,
+   "tone": 0.001667
+  },
+  {
+   "ticker": "HIG",
+   "date": "2026-10-27",
+   "ret12": 0.111468,
+   "size": 24.311333,
+   "stdret": 0.062603,
+   "react": -0.036515,
+   "age": 3.086646,
+   "tone": -0.005699
+  },
+  {
+   "ticker": "NUE",
+   "date": "2026-10-27",
+   "ret12": 0.886101,
+   "size": 24.841256,
+   "stdret": 0.106913,
+   "react": 0.036376,
+   "age": 3.086646,
+   "tone": 0.0
+  },
+  {
+   "ticker": "PFG",
+   "date": "2026-10-27",
+   "ret12": 0.413801,
+   "size": 23.900296,
+   "stdret": 0.045552,
+   "react": 0.018658,
+   "age": 3.086646,
+   "tone": -0.000318
+  },
+  {
+   "ticker": "PSA",
+   "date": "2026-10-27",
+   "ret12": 0.05366,
+   "size": 24.790337,
+   "stdret": 0.082585,
+   "react": -0.004425,
+   "age": 3.086646,
+   "tone": 0.005616
+  },
+  {
+   "ticker": "WELL",
+   "date": "2026-10-27",
+   "ret12": 0.367795,
+   "size": 25.819272,
+   "stdret": 0.073815,
+   "react": -0.057416,
+   "age": 3.086646,
+   "tone": -0.002854
   }
  ],
  "edgar_days_done": [
@@ -18577,71 +18696,7 @@
   "2026-10-23",
   "2026-10-26"
  ],
- "awaiting": [
-  {
-   "ticker": "ARE",
-   "acc": "0001035443-26-000077",
-   "accepted": "2026-10-26T16:08:30-04:00",
-   "tone": 0.001412248042110669,
-   "company": "ALEXANDRIA REAL ESTATE EQUITIES, INC."
-  },
-  {
-   "ticker": "BRO",
-   "acc": "0001193125-26-432142",
-   "accepted": "2026-10-26T17:03:30-04:00",
-   "tone": 0.004454342984409799,
-   "company": "BROWN & BROWN, INC."
-  },
-  {
-   "ticker": "CDNS",
-   "acc": "0000813672-26-000116",
-   "accepted": "2026-10-26T16:03:09-04:00",
-   "tone": 0.010484927916120577,
-   "company": "CADENCE DESIGN SYSTEMS INC"
-  },
-  {
-   "ticker": "CINF",
-   "acc": "0000020286-26-000059",
-   "accepted": "2026-10-26T16:07:55-04:00",
-   "tone": 0.0016666666666666668,
-   "company": "CINCINNATI FINANCIAL CORP"
-  },
-  {
-   "ticker": "HIG",
-   "acc": "0000874766-26-000079",
-   "accepted": "2026-10-26T16:07:35-04:00",
-   "tone": -0.005699417668194771,
-   "company": "HARTFORD INSURANCE GROUP, INC."
-  },
-  {
-   "ticker": "NUE",
-   "acc": "0001193125-26-432117",
-   "accepted": "2026-10-26T16:54:01-04:00",
-   "tone": 0.0,
-   "company": "NUCOR CORP"
-  },
-  {
-   "ticker": "PFG",
-   "acc": "0001104659-26-118774",
-   "accepted": "2026-10-26T16:01:58-04:00",
-   "tone": -0.00031776294884016526,
-   "company": "PRINCIPAL FINANCIAL GROUP INC"
-  },
-  {
-   "ticker": "PSA",
-   "acc": "0001628280-26-067283",
-   "accepted": "2026-10-26T16:11:58-04:00",
-   "tone": 0.005615640599001664,
-   "company": "Public Storage"
-  },
-  {
-   "ticker": "WELL",
-   "acc": "0000766704-26-000043",
-   "accepted": "2026-10-26T16:33:01-04:00",
-   "tone": -0.002854006586169045,
-   "company": "WELLTOWER INC."
-  }
- ],
+ "awaiting": [],
  "shadow": [
   {
    "ticker": "FAST",
@@ -18717,6 +18772,11 @@
    "ticker": "SLB",
    "day0": "2026-10-23",
    "rang": 0.989
+  },
+  {
+   "ticker": "CDNS",
+   "day0": "2026-10-27",
+   "rang": 0.829
   }
  ],
  "events_log": [
@@ -19619,6 +19679,87 @@
    "abtone": 0.005,
    "rang": 0.788,
    "decision": "neutre"
+  },
+  {
+   "ticker": "ARE",
+   "company": "ALEXANDRIA REAL ESTATE EQUITIES, INC.",
+   "day0": "2026-10-27",
+   "tone": 0.00141,
+   "abtone": 0.00089,
+   "rang": 0.586,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "BRO",
+   "company": "BROWN & BROWN, INC.",
+   "day0": "2026-10-27",
+   "tone": 0.00445,
+   "abtone": 0.00237,
+   "rang": 0.663,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "CDNS",
+   "company": "CADENCE DESIGN SYSTEMS INC",
+   "day0": "2026-10-27",
+   "tone": 0.01048,
+   "abtone": 0.00597,
+   "rang": 0.829,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "CINF",
+   "company": "CINCINNATI FINANCIAL CORP",
+   "day0": "2026-10-27",
+   "tone": 0.00167,
+   "abtone": -0.00164,
+   "rang": 0.413,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "HIG",
+   "company": "HARTFORD INSURANCE GROUP, INC.",
+   "day0": "2026-10-27",
+   "tone": -0.0057,
+   "abtone": -0.00899,
+   "rang": 0.082,
+   "decision": "achat"
+  },
+  {
+   "ticker": "NUE",
+   "company": "NUCOR CORP",
+   "day0": "2026-10-27",
+   "tone": 0.0,
+   "abtone": -0.0034,
+   "rang": 0.301,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "PFG",
+   "company": "PRINCIPAL FINANCIAL GROUP INC",
+   "day0": "2026-10-27",
+   "tone": -0.00032,
+   "abtone": -0.00357,
+   "rang": 0.293,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "PSA",
+   "company": "Public Storage",
+   "day0": "2026-10-27",
+   "tone": 0.00562,
+   "abtone": 0.00191,
+   "rang": 0.642,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "WELL",
+   "company": "WELLTOWER INC.",
+   "day0": "2026-10-27",
+   "tone": -0.00285,
+   "abtone": -0.00742,
+   "rang": 0.129,
+   "decision": "achat"
   }
  ],
  "hold_until": {
@@ -19634,14 +19775,16 @@
   "NVR": "2027-01-15",
   "PHM": "2027-01-15",
   "VLO": "2027-01-15",
-  "VRSN": "2027-01-18"
+  "VRSN": "2027-01-18",
+  "HIG": "2027-01-20",
+  "WELL": "2027-01-20"
  },
  "counters": {
   "jours": 9,
   "communiques": 109,
-  "evalues": 100,
-  "achetes": 13,
-  "ombre": 15,
+  "evalues": 109,
+  "achetes": 15,
+  "ombre": 16,
   "complet": 0
  }
 }
