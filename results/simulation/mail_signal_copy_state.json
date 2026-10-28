@@ -1,120 +1,48 @@
 {
  "cash": {
-  "pool": 5965.715700939712
+  "pool": 5526.28603771039
  },
  "pending": [
   {
-   "side": "sell",
-   "ticker": "AMD",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-28T01:20:07Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "ICHR",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-28T01:20:07Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "PSQL",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-28T01:20:07Z",
-   "fraction": 1.0
-  },
-  {
    "side": "buy",
-   "ticker": "CRDO",
+   "ticker": "STLA",
    "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-27T22:11:57Z",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-28T22:33:04Z",
    "amount_eur": 100.0,
-   "name": "Credo Technology Group Holding Ltd",
-   "sector": "seekingalpha.com",
+   "name": "Stellantis N.V.",
+   "sector": "news.meilleurtaux.com (ton)",
    "currency": "USD",
    "fractional": true
   },
   {
    "side": "buy",
-   "ticker": "GT",
+   "ticker": "WLN.PA",
    "bucket": "pool",
-   "reason": "avis zonebourse.com (ton)",
-   "decided_at": "2026-10-21T16:05:37Z",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-28T22:33:04Z",
    "amount_eur": 100.0,
-   "name": "The Goodyear Tire & Rubber Company",
-   "sector": "zonebourse.com (ton)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "RAND.AS",
-   "bucket": "pool",
-   "reason": "avis zonebourse.com (ton)",
-   "decided_at": "2026-10-22T06:17:55Z",
-   "amount_eur": 100.0,
-   "name": "Randstad N.V.",
-   "sector": "zonebourse.com (ton)",
+   "name": "Worldline SA",
+   "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
   },
   {
    "side": "buy",
-   "ticker": "REGN",
+   "ticker": "CVX",
    "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-28T16:38:11Z",
+   "reason": "avis zonebourse.com (ton)",
+   "decided_at": "2026-10-28T22:33:04Z",
    "amount_eur": 100.0,
-   "name": "Regeneron Pharmaceuticals, Inc.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "BXMT",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-28T16:38:11Z",
-   "amount_eur": 100.0,
-   "name": "Blackstone Mortgage Trust, Inc.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "APH",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-28T16:38:11Z",
-   "amount_eur": 100.0,
-   "name": "Amphenol Corporation",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "T",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-28T16:38:11Z",
-   "amount_eur": 100.0,
-   "name": "AT&T Inc.",
-   "sector": "seekingalpha.com",
+   "name": "Chevron Corporation",
+   "sector": "zonebourse.com (ton)",
    "currency": "USD",
    "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
-  "MU": "2026-11-24",
+  "MU": "2026-11-25",
   "NVDA": "2026-11-25",
   "AVGO": "2026-11-19",
   "SNDK": "2026-11-11",
@@ -124,7 +52,6 @@
   "NBIS": "2026-11-11",
   "META": "2026-11-20",
   "BP": "2026-11-05",
-  "AMD": "2026-10-28",
   "IPAR": "2026-11-11",
   "SMCI": "2026-11-09",
   "MSFT": "2026-11-13",
@@ -132,8 +59,6 @@
   "AMZN": "2026-11-16",
   "GOOG": "2026-11-06",
   "EPD": "2026-10-29",
-  "ICHR": "2026-10-28",
-  "PSQL": "2026-10-28",
   "SNY": "2026-10-29",
   "LADR": "2026-10-29",
   "UTG.ST": "2026-10-29",
@@ -251,7 +176,10 @@
   "REGN": "2026-11-25",
   "BXMT": "2026-11-25",
   "APH": "2026-11-25",
-  "T": "2026-11-25"
+  "T": "2026-11-25",
+  "STLA": "2026-11-25",
+  "WLN.PA": "2026-11-25",
+  "CVX": "2026-11-25"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -638,12 +566,17 @@
   "1a18255c4bbf2e5f:BXMT",
   "1a18262aaa53ea3b:NVDA",
   "1a18266f58c060be:APH",
-  "1a18294644293340:T"
+  "1a18294644293340:T",
+  "1a183ba112235c39:MU",
+  "1a183ba112235c39:NVDA",
+  "1a1837ad9f48c52b:STLA",
+  "1a1837ad9f48c52b:WLN.PA",
+  "1a183ba112235c39:CVX"
  ],
  "counters": {
-  "avis": 385,
-  "achetes": 237,
-  "prolonges": 148,
+  "avis": 390,
+  "achetes": 240,
+  "prolonges": 150,
   "complet": 0
  },
  "dropped": [
