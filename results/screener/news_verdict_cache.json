@@ -2332,5 +2332,11 @@
     "sentiment": "positive",
     "reason": "Articles mentionnent la croissance de PROG Holdings qui dépasse sa valeur, ainsi que la déclaration d'un dividende.",
     "source": "ollama"
+  },
+  "AMN_2026-10-28": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The news highlights AMN Healthcare Services' stock reaching a 52-week high, outperforming other business services stocks this year, and a recent 8.9% jump, suggesting a generally positive sentiment towards the stock.",
+    "source": "ollama"
   }
 }
