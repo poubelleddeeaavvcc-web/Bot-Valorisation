@@ -15,7 +15,7 @@
     "statut": "observation",
     "edge_estime": -0.05598599454739574,
     "n_evenements": 9,
-    "t_stat": -3.086148064401994
+    "t_stat": -3.0962382060720426
   },
   "statut": "en attente : aucune newsletter n'est encore fiable (il faut au moins 15 avis evalues a 20 jours et un t-stat >= 1.5) -- le capital reste en cash",
   "config": {
@@ -30,5 +30,5 @@
     "detention_min_jours": 3,
     "detention_max_jours": 30
   },
-  "derniere_maj_utc": "2026-10-28T08:26:37Z"
+  "derniere_maj_utc": "2026-10-28T16:38:11Z"
 }

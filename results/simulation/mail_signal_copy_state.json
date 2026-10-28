@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 5978.945704296646
+  "pool": 5965.715700939712
  },
  "pending": [
   {
@@ -28,26 +28,6 @@
    "fraction": 1.0
   },
   {
-   "side": "sell",
-   "ticker": "RXL.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-28T01:20:07Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "EXENS.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-27T18:00:05Z",
-   "amount_eur": 100.0,
-   "name": "Exosens",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
    "side": "buy",
    "ticker": "CRDO",
    "bucket": "pool",
@@ -58,12 +38,84 @@
    "sector": "seekingalpha.com",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "GT",
+   "bucket": "pool",
+   "reason": "avis zonebourse.com (ton)",
+   "decided_at": "2026-10-21T16:05:37Z",
+   "amount_eur": 100.0,
+   "name": "The Goodyear Tire & Rubber Company",
+   "sector": "zonebourse.com (ton)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "RAND.AS",
+   "bucket": "pool",
+   "reason": "avis zonebourse.com (ton)",
+   "decided_at": "2026-10-22T06:17:55Z",
+   "amount_eur": 100.0,
+   "name": "Randstad N.V.",
+   "sector": "zonebourse.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "REGN",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-28T16:38:11Z",
+   "amount_eur": 100.0,
+   "name": "Regeneron Pharmaceuticals, Inc.",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "BXMT",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-28T16:38:11Z",
+   "amount_eur": 100.0,
+   "name": "Blackstone Mortgage Trust, Inc.",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "APH",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-28T16:38:11Z",
+   "amount_eur": 100.0,
+   "name": "Amphenol Corporation",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "T",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-28T16:38:11Z",
+   "amount_eur": 100.0,
+   "name": "AT&T Inc.",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-11-24",
-  "NVDA": "2026-11-13",
+  "NVDA": "2026-11-25",
   "AVGO": "2026-11-19",
   "SNDK": "2026-11-11",
   "RKLB": "2026-11-20",
@@ -80,7 +132,6 @@
   "AMZN": "2026-11-16",
   "GOOG": "2026-11-06",
   "EPD": "2026-10-29",
-  "RXL.PA": "2026-10-28",
   "ICHR": "2026-10-28",
   "PSQL": "2026-10-28",
   "SNY": "2026-10-29",
@@ -172,7 +223,7 @@
   "HAS": "2026-11-18",
   "GET.PA": "2026-11-18",
   "STX": "2026-11-19",
-  "EL.PA": "2026-11-18",
+  "EL.PA": "2026-11-19",
   "AA": "2026-11-18",
   "VU.PA": "2026-11-18",
   "SKHY": "2026-11-18",
@@ -194,7 +245,13 @@
   "HESM": "2026-11-24",
   "PLNT": "2026-11-24",
   "EXENS.PA": "2026-11-24",
-  "CRDO": "2026-11-24"
+  "CRDO": "2026-11-24",
+  "GT": "2026-11-18",
+  "RAND.AS": "2026-11-19",
+  "REGN": "2026-11-25",
+  "BXMT": "2026-11-25",
+  "APH": "2026-11-25",
+  "T": "2026-11-25"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -573,12 +630,20 @@
   "1a17df4baa7e8ebb:PLNT",
   "1a17d9e122306b8d:O",
   "1a17e59c7d1a2e65:EXENS.PA",
-  "1a17efb2e92b3e9b:CRDO"
+  "1a17efb2e92b3e9b:CRDO",
+  "1a15f36057efc3ef:GT",
+  "1a16242513997869:EL.PA",
+  "1a16242513997869:RAND.AS",
+  "1a18254ac335fe20:REGN",
+  "1a18255c4bbf2e5f:BXMT",
+  "1a18262aaa53ea3b:NVDA",
+  "1a18266f58c060be:APH",
+  "1a18294644293340:T"
  ],
  "counters": {
-  "avis": 377,
-  "achetes": 231,
-  "prolonges": 146,
+  "avis": 385,
+  "achetes": 237,
+  "prolonges": 148,
   "complet": 0
  },
  "dropped": [
