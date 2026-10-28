@@ -863,15 +863,23 @@ def _parse_broker_changes(article: str) -> list[dict]:
 #     "<name> (ton)" -- the journal then measures whether that tone carries information, without
 #     mixing it with the explicit recommendations.
 #   - PROMOTION / market wrap emails of the senders above (webinars, Premium offers, Zacks "Market
-#     Moves", zonebourse's weekly recap) -> MODE_SKIP: done without any Ollama call.
+#     Moves") -> MODE_SKIP: done without any Ollama call.
+#   - ZONEBOURSE WITHOUT ITS SITE (2026-10-28): zonebourse.com answers HTTP 403 to GitHub's runners,
+#     so the Morning Meeting's broker list (MODE_BROKERS, article only) was never read and zonebourse
+#     had no line in the journal. The user: "extrais ce qui est exploitable du mail lui-meme, y compris
+#     le recap hebdo". A Morning Meeting whose article can't be fetched is read as a news letter
+#     (MODE_NEWS) from its own teaser, as is the Wednesday "La Big Picture" (its "Ce qu'en pense
+#     Zonebourse" takes). The Friday "Le point hebdo de l'investisseur" lists the week's Tops/Flops
+#     with their move and reason -- read without Ollama (MODE_MOVERS, _parse_weekly_movers) and scored
+#     as its own publication: it measures whether the week's big movers keep going, not an opinion.
 # A featured headline or a news paragraph is a thesis, not a formal rating: both go through
 # STANCE_PROMPT / STANCE_VERIFY_PROMPT (direction of the conclusion), not the "explicit opinion"
 # prompts -- which rejected "Why We're Buying VICI Properties At An 8% Yield" (local test, 2026-10-14).
 # Any other sender keeps the generic pipeline (MODE_GENERIC) -- the log names it, so a new
 # newsletter can be given its profile once its layout is known.
-MODE_SKIP, MODE_TITLE, MODE_ARTICLE, MODE_BROKERS, MODE_ZACKS, MODE_NEWS, MODE_GENERIC = (
+MODE_SKIP, MODE_TITLE, MODE_ARTICLE, MODE_BROKERS, MODE_ZACKS, MODE_NEWS, MODE_MOVERS, MODE_GENERIC = (
     "ignoree", "article mis en avant", "article du site", "recos courtiers", "zacks rank", "actualite (ton)",
-    "generique")
+    "tops/flops hebdo", "generique")
 NEWS_MAX_BLOCKS = 3
 NEWS_BLOCK_CHARS = 900
 NEWS_PUBLICATION_SUFFIX = " (ton)"
@@ -906,7 +914,11 @@ def _source_profile(m: dict) -> str:
     if on(*NEWS_ONLY_DOMAINS) or any(p in pub for p in NEWS_ONLY_PUBLICATIONS):
         return MODE_NEWS
     if on("zonebourse.com"):
-        return MODE_BROKERS if subj.startswith("morning meeting") else MODE_SKIP
+        if subj.startswith("morning meeting"):
+            return MODE_BROKERS  # -> MODE_NEWS when its article can't be fetched (process_messages)
+        if subj.startswith("le point hebdo"):
+            return MODE_MOVERS
+        return MODE_NEWS if subj.startswith("la big picture") else MODE_SKIP
     if on("tradingsat.com"):
         return MODE_ARTICLE if "valeur du jour" in subj else MODE_SKIP
     if on("zacks.com"):
@@ -1009,6 +1021,24 @@ def _parse_zacks_rank_changes(text: str) -> list[dict]:
             continue
         tips.append({"company": sym, "ticker": sym, "sentiment": sens, "citation": re.sub(r"\s+", " ", row.group(0)).strip(),
                      "author": "Zacks Rank", "trusted_ticker": True})
+    return tips
+
+
+MOVERS_PUBLICATION = "Tops/Flops hebdo (zonebourse.com)"
+# "UCB :\n/cours/action/UCB-5963/\n+33,28 % : le groupe biopharmaceutique ..." (2026-10-23 email)
+_MOVER_ROW_RE = re.compile(r"^([^\n:/]{2,60}?) :\n/cours/action/[^\n]+\n([+\-−]\d[\d,.]*) % : ([^\n]+)", re.MULTILINE)
+
+
+def _parse_weekly_movers(text: str) -> list[dict]:
+    """Tops/Flops of zonebourse's "Le point hebdo de l'investisseur": each stock with its weekly move
+    and the reason -- a top = haussier, a flop = baissier (see MODE_MOVERS). The citation is the
+    move + the reason's first sentence, as written in the email."""
+    tips = []
+    for row in _MOVER_ROW_RE.finditer(text):
+        company, move, reason = row.group(1).strip(), row.group(2), row.group(3).strip()
+        first = re.split(r"(?<=[.!?])\s", reason, maxsplit=1)[0]
+        tips.append({"company": company, "ticker": "", "sentiment": "baissier" if move[0] in "-−" else "haussier",
+                     "citation": f"{move} % : {first}"[:300], "author": ""})
     return tips
 
 
@@ -1252,6 +1282,10 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
                                        to_fetch)))
         for m in classified:
             m["article"] = fetched.get(m["id"]) or ""
+            if m["profile"] == MODE_BROKERS and not m["article"]:
+                # the broker list is only in the article, and zonebourse.com answers HTTP 403 to
+                # GitHub's runners (2026-10-14, every link): the teaser is read as news instead
+                m["profile"] = MODE_NEWS
             if m["profile"] == MODE_TITLE:
                 m["extract_text"] = _featured_block(m)
             elif m["profile"] == MODE_NEWS:
@@ -1262,15 +1296,8 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
 
         extracted = []
         for m in classified:
-            if m["profile"] in (MODE_BROKERS, MODE_ZACKS):
-                if m["profile"] == MODE_BROKERS and not m["article"]:
-                    # the list is only in the article, and zonebourse.com answers HTTP 403 to GitHub's
-                    # runners (2026-10-14, every link) while a home connection reads it -- a permanent
-                    # refusal, not something to retry or work around. The user chose to leave it so
-                    # for now (a relay from their PC was offered).
-                    done.add(m["id"])
-                else:
-                    extracted.append((m, []))  # read by its parser below, no Ollama call
+            if m["profile"] in (MODE_BROKERS, MODE_ZACKS, MODE_MOVERS):
+                extracted.append((m, []))  # read by its parser below, no Ollama call
                 continue
             if out_of_time():
                 break
@@ -1335,6 +1362,8 @@ def process_messages(token: str, ids: list[str], deadline: float, backfill: bool
                 raws, ref, pub = _parse_broker_changes(m["article"]), m["article"], BROKER_PUBLICATION
             elif m["profile"] == MODE_ZACKS:
                 raws, ref, pub = _parse_zacks_rank_changes(m["text"]), m["text"], ZACKS_PUBLICATION
+            elif m["profile"] == MODE_MOVERS:
+                raws, ref, pub = _parse_weekly_movers(m["text"]), m["text"], MOVERS_PUBLICATION
             else:
                 raws, ref, pub = [], "", None
             for raw in raws:

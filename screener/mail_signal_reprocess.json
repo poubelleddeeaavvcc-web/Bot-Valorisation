@@ -20,6 +20,11 @@
       "id": "zacks-rank-portefeuille-2026-10-14",
       "query": "from:email.zacks.com subject:\"Daily portfolio update\" after:2026/09/03 before:2026/10/15",
       "reason": "Le tableau 'Portfolio Summary' (changements de Zacks Rank) n'etait jamais lu : le CSS de la page remplissait l'extrait. Lu desormais par _parse_zacks_rank_changes (sans Ollama)."
+    },
+    {
+      "id": "zonebourse-mail-seul-2026-10-28",
+      "query": "from:zonebourse.com after:2026/09/03 before:2026/10/29",
+      "reason": "zonebourse.com refuse la CI (HTTP 403) : les Morning Meetings etaient marques traites sans avis, le point hebdo et La Big Picture ignores. Lus desormais depuis le mail seul : Morning Meeting et Big Picture en 'actualite (ton)', Tops/Flops du point hebdo par _parse_weekly_movers (sans Ollama)."
     }
   ]
 }
