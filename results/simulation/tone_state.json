@@ -1,77 +1,49 @@
 {
  "cash": {
-  "pool": 3700.0
+  "pool": 3200.0
  },
  "pending": [
   {
    "side": "buy",
-   "ticker": "HIG",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 8%)",
-   "decided_at": "2026-10-27T21:28:52Z",
-   "amount_eur": 100.0,
-   "name": "HARTFORD INSURANCE GROUP, INC.",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.00899
-  },
-  {
-   "side": "buy",
-   "ticker": "WELL",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 13%)",
-   "decided_at": "2026-10-27T21:28:52Z",
-   "amount_eur": 100.0,
-   "name": "WELLTOWER INC.",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.007421
-  },
-  {
-   "side": "buy",
-   "ticker": "BA",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 2%)",
-   "decided_at": "2026-10-28T04:52:57Z",
-   "amount_eur": 100.0,
-   "name": "BOEING CO",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.015538
-  },
-  {
-   "side": "buy",
-   "ticker": "CMS",
+   "ticker": "ACGL",
    "bucket": "pool",
    "reason": "ton peu optimiste au regard des chiffres (rang 1%)",
-   "decided_at": "2026-10-28T04:52:57Z",
+   "decided_at": "2026-10-28T21:51:36Z",
    "amount_eur": 100.0,
-   "name": "CMS ENERGY CORP",
+   "name": "ARCH CAPITAL GROUP LTD.",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.015847
+   "score": -0.015802
   },
   {
    "side": "buy",
-   "ticker": "HLT",
+   "ticker": "CSGP",
    "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 19%)",
-   "decided_at": "2026-10-28T04:52:57Z",
+   "reason": "ton peu optimiste au regard des chiffres (rang 15%)",
+   "decided_at": "2026-10-28T21:51:36Z",
    "amount_eur": 100.0,
-   "name": "Hilton Worldwide Holdings Inc.",
+   "name": "COSTAR GROUP, INC.",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.005672
+   "score": -0.006965
+  },
+  {
+   "side": "buy",
+   "ticker": "NXPI",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 6%)",
+   "decided_at": "2026-10-28T21:51:36Z",
+   "amount_eur": 100.0,
+   "name": "NXP Semiconductors N.V.",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.009841
   }
  ],
  "launched_at": "2026-10-14T10:56:13Z",
@@ -18835,6 +18807,196 @@
    "react": -0.158787,
    "age": 2.775024,
    "tone": 0.0
+  },
+  {
+   "ticker": "ACGL",
+   "date": "2026-10-28",
+   "ret12": 0.174297,
+   "size": 24.277928,
+   "stdret": 0.059249,
+   "react": -0.007504,
+   "age": 3.086771,
+   "tone": -0.012318
+  },
+  {
+   "ticker": "BXP",
+   "date": "2026-10-28",
+   "ret12": -0.121482,
+   "size": 23.007279,
+   "stdret": 0.098046,
+   "react": -0.021596,
+   "age": 3.086771,
+   "tone": -0.000278
+  },
+  {
+   "ticker": "BKR",
+   "date": "2026-10-28",
+   "ret12": 0.20266,
+   "size": 24.717045,
+   "stdret": 0.111126,
+   "react": -0.03317,
+   "age": 3.086771,
+   "tone": 0.012261
+  },
+  {
+   "ticker": "CSGP",
+   "date": "2026-10-28",
+   "ret12": -0.567339,
+   "size": 23.135525,
+   "stdret": 0.101032,
+   "react": -0.191857,
+   "age": 3.086771,
+   "tone": -0.006
+  },
+  {
+   "ticker": "EQT",
+   "date": "2026-10-28",
+   "ret12": 0.033456,
+   "size": 24.283413,
+   "stdret": 0.083413,
+   "react": 0.01591,
+   "age": 3.086771,
+   "tone": 0.001199
+  },
+  {
+   "ticker": "ESS",
+   "date": "2026-10-28",
+   "ret12": 0.081456,
+   "size": 23.544708,
+   "stdret": 0.060673,
+   "react": -0.059485,
+   "age": 3.086771,
+   "tone": 0.000982
+  },
+  {
+   "ticker": "EXE",
+   "date": "2026-10-28",
+   "ret12": -0.073535,
+   "size": 23.777211,
+   "stdret": 0.086871,
+   "react": -0.035126,
+   "age": 1.903771,
+   "tone": 0.007716
+  },
+  {
+   "ticker": "EXR",
+   "date": "2026-10-28",
+   "ret12": -0.000789,
+   "size": 24.143654,
+   "stdret": 0.07741,
+   "react": 0.000558,
+   "age": 3.086771,
+   "tone": 0.000627
+  },
+  {
+   "ticker": "FFIV",
+   "date": "2026-10-28",
+   "ret12": 0.547228,
+   "size": 23.753348,
+   "stdret": 0.113882,
+   "react": -0.217191,
+   "age": 3.086771,
+   "tone": 0.000542
+  },
+  {
+   "ticker": "FE",
+   "date": "2026-10-28",
+   "ret12": 0.029917,
+   "size": 24.01349,
+   "stdret": 0.050728,
+   "react": -0.004304,
+   "age": 3.086771,
+   "tone": 0.008597
+  },
+  {
+   "ticker": "NXPI",
+   "date": "2026-10-28",
+   "ret12": 0.141504,
+   "size": 24.873789,
+   "stdret": 0.187004,
+   "react": 0.01477,
+   "age": 2.846492,
+   "tone": -0.007469
+  },
+  {
+   "ticker": "OKE",
+   "date": "2026-10-28",
+   "ret12": 0.480699,
+   "size": 24.810903,
+   "stdret": 0.056383,
+   "react": -0.027955,
+   "age": 3.086771,
+   "tone": 0.010021
+  },
+  {
+   "ticker": "PPG",
+   "date": "2026-10-28",
+   "ret12": 0.089624,
+   "size": 23.993945,
+   "stdret": 0.084101,
+   "react": 0.06864,
+   "age": 3.086771,
+   "tone": 0.015625
+  },
+  {
+   "ticker": "HOOD",
+   "date": "2026-10-28",
+   "ret12": -0.335861,
+   "size": 25.132459,
+   "stdret": 0.174748,
+   "react": -0.024255,
+   "age": 1.832335,
+   "tone": 0.000316
+  },
+  {
+   "ticker": "STX",
+   "date": "2026-10-28",
+   "ret12": 1.767842,
+   "size": 25.790366,
+   "stdret": 0.222411,
+   "react": 0.074383,
+   "age": 3.086771,
+   "tone": 0.000294
+  },
+  {
+   "ticker": "UHS",
+   "date": "2026-10-28",
+   "ret12": -0.114682,
+   "size": 23.040512,
+   "stdret": 0.088994,
+   "react": -0.081923,
+   "age": 3.086771,
+   "tone": 0.006813
+  },
+  {
+   "ticker": "V",
+   "date": "2026-10-28",
+   "ret12": 0.172757,
+   "size": 27.346093,
+   "stdret": 0.060044,
+   "react": -0.017876,
+   "age": 2.975997,
+   "tone": 0.006311
+  },
+  {
+   "ticker": "VTR",
+   "date": "2026-10-28",
+   "ret12": 0.272536,
+   "size": 24.450995,
+   "stdret": 0.074885,
+   "react": -0.081705,
+   "age": 3.086771,
+   "tone": 0.007215
+  },
+  {
+   "ticker": "WM",
+   "date": "2026-10-28",
+   "ret12": 0.141549,
+   "size": 25.22303,
+   "stdret": 0.048477,
+   "react": -0.074913,
+   "age": 3.086771,
+   "tone": 0.007141
   }
  ],
  "edgar_days_done": [
@@ -18849,141 +19011,7 @@
   "2026-10-26",
   "2026-10-27"
  ],
- "awaiting": [
-  {
-   "ticker": "ACGL",
-   "acc": "0000947484-26-000128",
-   "accepted": "2026-10-27T16:06:38-04:00",
-   "tone": -0.012318029115341545,
-   "company": "ARCH CAPITAL GROUP LTD."
-  },
-  {
-   "ticker": "BXP",
-   "acc": "0001037540-26-000041",
-   "accepted": "2026-10-27T16:10:19-04:00",
-   "tone": -0.00027831895352073476,
-   "company": "BXP, Inc."
-  },
-  {
-   "ticker": "BKR",
-   "acc": "0001701605-26-000033",
-   "accepted": "2026-10-27T17:05:54-04:00",
-   "tone": 0.012261014131338321,
-   "company": "Baker Hughes Co"
-  },
-  {
-   "ticker": "CSGP",
-   "acc": "0001057352-26-000078",
-   "accepted": "2026-10-27T16:05:41-04:00",
-   "tone": -0.005999520038396928,
-   "company": "COSTAR GROUP, INC."
-  },
-  {
-   "ticker": "EQT",
-   "acc": "0000033213-26-000054",
-   "accepted": "2026-10-27T16:31:45-04:00",
-   "tone": 0.001198681450404555,
-   "company": "EQT Corp"
-  },
-  {
-   "ticker": "ESS",
-   "acc": "0001140361-26-040903",
-   "accepted": "2026-10-27T16:34:17-04:00",
-   "tone": 0.0009824561403508772,
-   "company": "ESSEX PROPERTY TRUST, INC."
-  },
-  {
-   "ticker": "EXE",
-   "acc": "0000895126-26-000067",
-   "accepted": "2026-10-27T16:03:12-04:00",
-   "tone": 0.007715688566752397,
-   "company": "EXPAND ENERGY Corp"
-  },
-  {
-   "ticker": "EXR",
-   "acc": "0001289490-26-000061",
-   "accepted": "2026-10-27T16:17:52-04:00",
-   "tone": 0.0006274837900020916,
-   "company": "Extra Space Storage Inc."
-  },
-  {
-   "ticker": "FFIV",
-   "acc": "0001048695-26-000074",
-   "accepted": "2026-10-27T16:09:27-04:00",
-   "tone": 0.0005422993492407809,
-   "company": "F5, INC."
-  },
-  {
-   "ticker": "FE",
-   "acc": "0001031296-26-000142",
-   "accepted": "2026-10-27T16:31:41-04:00",
-   "tone": 0.008597108245408363,
-   "company": "FIRSTENERGY CORP"
-  },
-  {
-   "ticker": "NXPI",
-   "acc": "0001413447-26-000057",
-   "accepted": "2026-10-27T16:23:37-04:00",
-   "tone": -0.007469118069520253,
-   "company": "NXP Semiconductors N.V."
-  },
-  {
-   "ticker": "OKE",
-   "acc": "0001039684-26-000036",
-   "accepted": "2026-10-27T16:27:53-04:00",
-   "tone": 0.010021321961620469,
-   "company": "ONEOK INC /NEW/"
-  },
-  {
-   "ticker": "PPG",
-   "acc": "0000079879-26-000315",
-   "accepted": "2026-10-27T16:22:56-04:00",
-   "tone": 0.015625,
-   "company": "PPG INDUSTRIES INC"
-  },
-  {
-   "ticker": "HOOD",
-   "acc": "0001783879-26-000164",
-   "accepted": "2026-10-27T16:06:05-04:00",
-   "tone": 0.000316105579263474,
-   "company": "Robinhood Markets, Inc."
-  },
-  {
-   "ticker": "STX",
-   "acc": "0001137789-26-000300",
-   "accepted": "2026-10-27T16:12:44-04:00",
-   "tone": 0.0002935995302407516,
-   "company": "Seagate Technology Holdings plc"
-  },
-  {
-   "ticker": "UHS",
-   "acc": "0001193125-26-434414",
-   "accepted": "2026-10-27T17:03:44-04:00",
-   "tone": 0.006812741668201068,
-   "company": "UNIVERSAL HEALTH SERVICES INC"
-  },
-  {
-   "ticker": "V",
-   "acc": "0001403161-26-000126",
-   "accepted": "2026-10-27T16:05:22-04:00",
-   "tone": 0.006310570205093531,
-   "company": "VISA INC."
-  },
-  {
-   "ticker": "VTR",
-   "acc": "0000740260-26-000026",
-   "accepted": "2026-10-27T16:32:09-04:00",
-   "tone": 0.007214554579673777,
-   "company": "Ventas, Inc."
-  },
-  {
-   "ticker": "WM",
-   "acc": "0001104659-26-119188",
-   "accepted": "2026-10-27T16:38:40-04:00",
-   "tone": 0.00714131140445791,
-   "company": "WASTE MANAGEMENT INC"
-  }
- ],
+ "awaiting": [],
  "shadow": [
   {
    "ticker": "FAST",
@@ -19089,6 +19117,31 @@
    "ticker": "PCAR",
    "day0": "2026-10-27",
    "rang": 0.889
+  },
+  {
+   "ticker": "BKR",
+   "day0": "2026-10-28",
+   "rang": 0.912
+  },
+  {
+   "ticker": "EXE",
+   "day0": "2026-10-28",
+   "rang": 0.812
+  },
+  {
+   "ticker": "OKE",
+   "day0": "2026-10-28",
+   "rang": 0.835
+  },
+  {
+   "ticker": "PPG",
+   "day0": "2026-10-28",
+   "rang": 0.953
+  },
+  {
+   "ticker": "UHS",
+   "day0": "2026-10-28",
+   "rang": 0.804
   }
  ],
  "events_log": [
@@ -20288,6 +20341,177 @@
    "abtone": -0.00201,
    "rang": 0.383,
    "decision": "neutre"
+  },
+  {
+   "ticker": "ACGL",
+   "company": "ARCH CAPITAL GROUP LTD.",
+   "day0": "2026-10-28",
+   "tone": -0.01232,
+   "abtone": -0.0158,
+   "rang": 0.014,
+   "decision": "achat"
+  },
+  {
+   "ticker": "BXP",
+   "company": "BXP, Inc.",
+   "day0": "2026-10-28",
+   "tone": -0.00028,
+   "abtone": -0.00187,
+   "rang": 0.395,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "BKR",
+   "company": "Baker Hughes Co",
+   "day0": "2026-10-28",
+   "tone": 0.01226,
+   "abtone": 0.00919,
+   "rang": 0.912,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "CSGP",
+   "company": "COSTAR GROUP, INC.",
+   "day0": "2026-10-28",
+   "tone": -0.006,
+   "abtone": -0.00696,
+   "rang": 0.145,
+   "decision": "achat"
+  },
+  {
+   "ticker": "EQT",
+   "company": "EQT Corp",
+   "day0": "2026-10-28",
+   "tone": 0.0012,
+   "abtone": -0.0021,
+   "rang": 0.38,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "ESS",
+   "company": "ESSEX PROPERTY TRUST, INC.",
+   "day0": "2026-10-28",
+   "tone": 0.00098,
+   "abtone": -0.00144,
+   "rang": 0.427,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "EXE",
+   "company": "EXPAND ENERGY Corp",
+   "day0": "2026-10-28",
+   "tone": 0.00772,
+   "abtone": 0.00555,
+   "rang": 0.812,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "EXR",
+   "company": "Extra Space Storage Inc.",
+   "day0": "2026-10-28",
+   "tone": 0.00063,
+   "abtone": -0.00253,
+   "rang": 0.352,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "FFIV",
+   "company": "F5, INC.",
+   "day0": "2026-10-28",
+   "tone": 0.00054,
+   "abtone": -0.0004,
+   "rang": 0.497,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "FE",
+   "company": "FIRSTENERGY CORP",
+   "day0": "2026-10-28",
+   "tone": 0.0086,
+   "abtone": 0.00524,
+   "rang": 0.799,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "NXPI",
+   "company": "NXP Semiconductors N.V.",
+   "day0": "2026-10-28",
+   "tone": -0.00747,
+   "abtone": -0.00984,
+   "rang": 0.065,
+   "decision": "achat"
+  },
+  {
+   "ticker": "OKE",
+   "company": "ONEOK INC /NEW/",
+   "day0": "2026-10-28",
+   "tone": 0.01002,
+   "abtone": 0.00613,
+   "rang": 0.835,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "PPG",
+   "company": "PPG INDUSTRIES INC",
+   "day0": "2026-10-28",
+   "tone": 0.01562,
+   "abtone": 0.0124,
+   "rang": 0.953,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "HOOD",
+   "company": "Robinhood Markets, Inc.",
+   "day0": "2026-10-28",
+   "tone": 0.00032,
+   "abtone": -0.00218,
+   "rang": 0.375,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "STX",
+   "company": "Seagate Technology Holdings plc",
+   "day0": "2026-10-28",
+   "tone": 0.00029,
+   "abtone": -0.00239,
+   "rang": 0.359,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "UHS",
+   "company": "UNIVERSAL HEALTH SERVICES INC",
+   "day0": "2026-10-28",
+   "tone": 0.00681,
+   "abtone": 0.00538,
+   "rang": 0.804,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "V",
+   "company": "VISA INC.",
+   "day0": "2026-10-28",
+   "tone": 0.00631,
+   "abtone": -0.00034,
+   "rang": 0.499,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "VTR",
+   "company": "Ventas, Inc.",
+   "day0": "2026-10-28",
+   "tone": 0.00721,
+   "abtone": 0.00418,
+   "rang": 0.755,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "WM",
+   "company": "WASTE MANAGEMENT INC",
+   "day0": "2026-10-28",
+   "tone": 0.00714,
+   "abtone": 0.00282,
+   "rang": 0.687,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -20308,14 +20532,17 @@
   "WELL": "2027-01-20",
   "BA": "2027-01-20",
   "CMS": "2027-01-20",
-  "HLT": "2027-01-20"
+  "HLT": "2027-01-20",
+  "ACGL": "2027-01-21",
+  "CSGP": "2027-01-21",
+  "NXPI": "2027-01-21"
  },
  "counters": {
   "jours": 10,
   "communiques": 152,
-  "evalues": 133,
-  "achetes": 18,
-  "ombre": 21,
+  "evalues": 152,
+  "achetes": 21,
+  "ombre": 26,
   "complet": 0
  }
 }
