@@ -15,7 +15,8 @@
   "2026-10-21",
   "2026-10-22",
   "2026-10-23",
-  "2026-10-26"
+  "2026-10-26",
+  "2026-10-27"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -442,11 +443,101 @@
    "title": "Director",
    "adv_usd": 83200303,
    "decision": "liquidite hors bande (83.20 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-27",
+   "ticker": "AIOK",
+   "issuer": "AI OKTO Corp.",
+   "value_usd": 1059604,
+   "insiders": 1,
+   "title": "Chief Executive Officer",
+   "adv_usd": null,
+   "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-10-27",
+   "ticker": "KIO",
+   "issuer": "KKR Income Opportunities Fund",
+   "value_usd": 78398,
+   "insiders": 1,
+   "title": "Treasurer, CAO & CFO",
+   "adv_usd": 3298033,
+   "decision": "liquidite hors bande (3.30 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-27",
+   "ticker": "LRN",
+   "issuer": "Stride, Inc.",
+   "value_usd": 12178122,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 73112194,
+   "decision": "liquidite hors bande (73.11 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-27",
+   "ticker": "MSM",
+   "issuer": "MSC INDUSTRIAL DIRECT CO INC",
+   "value_usd": 28984170,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 130243323,
+   "decision": "liquidite hors bande (130.24 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-27",
+   "ticker": "NPB",
+   "issuer": "NORTHPOINTE BANCSHARES INC",
+   "value_usd": 1771951,
+   "insiders": 3,
+   "title": "CHAIRMAN & CEO",
+   "adv_usd": 4804628,
+   "decision": "liquidite hors bande (4.80 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-27",
+   "ticker": "PDI",
+   "issuer": "PIMCO Dynamic Income Fund",
+   "value_usd": 81624,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 53386183,
+   "decision": "liquidite hors bande (53.39 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-27",
+   "ticker": "SRRK",
+   "issuer": "Scholar Rock Holding Corp",
+   "value_usd": 11999922,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 77548391,
+   "decision": "liquidite hors bande (77.55 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-27",
+   "ticker": "STC",
+   "issuer": "STEWART INFORMATION SERVICES CORP",
+   "value_usd": 177260,
+   "insiders": 2,
+   "title": "Chief Executive Officer",
+   "adv_usd": 22929602,
+   "decision": "liquidite hors bande (22.93 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-27",
+   "ticker": "TIPT",
+   "issuer": "TIPTREE INC.",
+   "value_usd": 502303,
+   "insiders": 1,
+   "title": "Chairman and CEO",
+   "adv_usd": 4252866,
+   "decision": "liquidite hors bande (4.25 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 10,
-  "evenements": 42,
+  "jours": 11,
+  "evenements": 51,
   "retenus": 3,
   "achetes": 3,
   "complet": 0,
