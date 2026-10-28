@@ -30,140 +30,52 @@
    "currency": "USD",
    "fractional": true,
    "score": -0.007421
+  },
+  {
+   "side": "buy",
+   "ticker": "BA",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 2%)",
+   "decided_at": "2026-10-28T04:52:57Z",
+   "amount_eur": 100.0,
+   "name": "BOEING CO",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.015538
+  },
+  {
+   "side": "buy",
+   "ticker": "CMS",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 1%)",
+   "decided_at": "2026-10-28T04:52:57Z",
+   "amount_eur": 100.0,
+   "name": "CMS ENERGY CORP",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.015847
+  },
+  {
+   "side": "buy",
+   "ticker": "HLT",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 19%)",
+   "decided_at": "2026-10-28T04:52:57Z",
+   "amount_eur": 100.0,
+   "name": "Hilton Worldwide Holdings Inc.",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.005672
   }
  ],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
-  {
-   "ticker": "KDP",
-   "date": "2025-10-27",
-   "tone": 0.001111,
-   "ret12": -0.231096,
-   "size": 24.302412,
-   "stdret": 0.0644,
-   "react": 0.040913,
-   "age": 2.914763
-  },
-  {
-   "ticker": "RVTY",
-   "date": "2025-10-27",
-   "tone": 0.000456,
-   "ret12": -0.176254,
-   "size": 22.810822,
-   "stdret": 0.062546,
-   "react": -0.024269,
-   "age": 3.038077
-  },
-  {
-   "ticker": "ACGL",
-   "date": "2025-10-27",
-   "tone": -0.013433,
-   "ret12": -0.143456,
-   "size": 24.153881,
-   "stdret": 0.039738,
-   "react": -0.042368,
-   "age": 3.038267
-  },
-  {
-   "ticker": "WELL",
-   "date": "2025-10-27",
-   "tone": -0.000757,
-   "ret12": 0.375507,
-   "size": 25.622887,
-   "stdret": 0.051148,
-   "react": -0.004594,
-   "age": 3.038267
-  },
-  {
-   "ticker": "CINF",
-   "date": "2025-10-27",
-   "tone": 0.003054,
-   "ret12": 0.154645,
-   "size": 23.994679,
-   "stdret": 0.052765,
-   "react": -0.045889,
-   "age": 3.038267
-  },
-  {
-   "ticker": "ARE",
-   "date": "2025-10-27",
-   "tone": -0.002439,
-   "ret12": -0.31349,
-   "size": 23.388323,
-   "stdret": 0.082393,
-   "react": -0.201412,
-   "age": 3.038267
-  },
-  {
-   "ticker": "FFIV",
-   "date": "2025-10-27",
-   "tone": 0.001819,
-   "ret12": 0.384987,
-   "size": 23.39674,
-   "stdret": 0.05854,
-   "react": -0.117589,
-   "age": 3.038267
-  },
-  {
-   "ticker": "PFG",
-   "date": "2025-10-27",
-   "tone": 0.005643,
-   "ret12": -0.077601,
-   "size": 23.632662,
-   "stdret": 0.057916,
-   "react": 0.017919,
-   "age": 3.038267
-  },
-  {
-   "ticker": "WM",
-   "date": "2025-10-27",
-   "tone": 0.008843,
-   "ret12": 0.028067,
-   "size": 25.267563,
-   "stdret": 0.046123,
-   "react": -0.063074,
-   "age": 3.038267
-  },
-  {
-   "ticker": "NUE",
-   "date": "2025-10-27",
-   "tone": -0.008167,
-   "ret12": -0.003588,
-   "size": 24.259055,
-   "stdret": 0.114227,
-   "react": 0.081333,
-   "age": 3.038267
-  },
-  {
-   "ticker": "BRO",
-   "date": "2025-10-27",
-   "tone": 0.004323,
-   "ret12": -0.165186,
-   "size": 24.229798,
-   "stdret": 0.079361,
-   "react": -0.078349,
-   "age": 3.038267
-  },
-  {
-   "ticker": "CDNS",
-   "date": "2025-10-27",
-   "tone": 0.004798,
-   "ret12": 0.385443,
-   "size": 25.235817,
-   "stdret": 0.120442,
-   "react": -0.025496,
-   "age": 3.038267
-  },
-  {
-   "ticker": "EG",
-   "date": "2025-10-27",
-   "tone": -0.020221,
-   "ret12": -0.080067,
-   "size": 23.322336,
-   "stdret": 0.03209,
-   "react": -0.140667,
-   "age": 3.038267
-  },
   {
    "ticker": "UPS",
    "date": "2025-10-28",
@@ -18683,6 +18595,246 @@
    "react": -0.057416,
    "age": 3.086646,
    "tone": -0.002854
+  },
+  {
+   "ticker": "AMT",
+   "date": "2026-10-27",
+   "ret12": 0.033412,
+   "size": 25.173622,
+   "stdret": 0.045166,
+   "react": -0.039951,
+   "age": 3.086646,
+   "tone": 0.008361
+  },
+  {
+   "ticker": "BA",
+   "date": "2026-10-27",
+   "ret12": -0.135097,
+   "size": 25.613047,
+   "stdret": 0.129958,
+   "react": -0.119838,
+   "age": 3.086646,
+   "tone": -0.012112
+  },
+  {
+   "ticker": "CNC",
+   "date": "2026-10-27",
+   "ret12": 1.0422,
+   "size": 24.247931,
+   "stdret": 0.165142,
+   "react": -0.033557,
+   "age": 3.086646,
+   "tone": -0.001712
+  },
+  {
+   "ticker": "CNP",
+   "date": "2026-10-27",
+   "ret12": 0.060709,
+   "size": 24.042765,
+   "stdret": 0.055439,
+   "react": 0.009163,
+   "age": 3.086646,
+   "tone": 0.006132
+  },
+  {
+   "ticker": "CMS",
+   "date": "2026-10-27",
+   "ret12": -0.037637,
+   "size": 23.797662,
+   "stdret": 0.052479,
+   "react": -0.021086,
+   "age": 3.086646,
+   "tone": -0.012862
+  },
+  {
+   "ticker": "KO",
+   "date": "2026-10-27",
+   "ret12": 0.360803,
+   "size": 26.695309,
+   "stdret": 0.051735,
+   "react": -0.029254,
+   "age": 3.086646,
+   "tone": 0.004161
+  },
+  {
+   "ticker": "GLW",
+   "date": "2026-10-27",
+   "ret12": 0.453503,
+   "size": 25.412716,
+   "stdret": 0.276878,
+   "react": 0.008351,
+   "age": 3.086646,
+   "tone": -0.001137
+  },
+  {
+   "ticker": "ECL",
+   "date": "2026-10-27",
+   "ret12": 0.06057,
+   "size": 25.125724,
+   "stdret": 0.063381,
+   "react": -0.003254,
+   "age": 3.086646,
+   "tone": 0.031706
+  },
+  {
+   "ticker": "FCX",
+   "date": "2026-10-27",
+   "ret12": 0.59561,
+   "size": 25.274036,
+   "stdret": 0.151628,
+   "react": -0.000937,
+   "age": 3.086646,
+   "tone": 0.010264
+  },
+  {
+   "ticker": "HCA",
+   "date": "2026-10-27",
+   "ret12": 0.072879,
+   "size": 25.302267,
+   "stdret": 0.085132,
+   "react": -0.053409,
+   "age": 2.811396,
+   "tone": -0.000267
+  },
+  {
+   "ticker": "HUBB",
+   "date": "2026-10-27",
+   "ret12": 0.046847,
+   "size": 23.856328,
+   "stdret": 0.086583,
+   "react": -0.043592,
+   "age": 3.086646,
+   "tone": 0.00167
+  },
+  {
+   "ticker": "HLT",
+   "date": "2026-10-27",
+   "ret12": 0.308956,
+   "size": 25.074429,
+   "stdret": 0.047198,
+   "react": -0.026994,
+   "age": 2.629971,
+   "tone": -0.001473
+  },
+  {
+   "ticker": "ITW",
+   "date": "2026-10-27",
+   "ret12": 0.098505,
+   "size": 25.087445,
+   "stdret": 0.071747,
+   "react": -0.012098,
+   "age": 3.086646,
+   "tone": 0.020912
+  },
+  {
+   "ticker": "IQV",
+   "date": "2026-10-27",
+   "ret12": 0.270338,
+   "size": 24.523175,
+   "stdret": 0.144008,
+   "react": -0.040707,
+   "age": 2.671904,
+   "tone": 0.003495
+  },
+  {
+   "ticker": "IVZ",
+   "date": "2026-10-27",
+   "ret12": 0.27653,
+   "size": 23.253133,
+   "stdret": 0.090676,
+   "react": 0.000436,
+   "age": 3.086646,
+   "tone": 0.003751
+  },
+  {
+   "ticker": "JCI",
+   "date": "2026-10-27",
+   "ret12": 0.313512,
+   "size": 25.27105,
+   "stdret": 0.09016,
+   "react": 0.07005,
+   "age": 3.086646,
+   "tone": 0.011541
+  },
+  {
+   "ticker": "PCAR",
+   "date": "2026-10-27",
+   "ret12": 0.102806,
+   "size": 24.723297,
+   "stdret": 0.098188,
+   "react": -0.042949,
+   "age": 3.086646,
+   "tone": 0.011328
+  },
+  {
+   "ticker": "PNR",
+   "date": "2026-10-27",
+   "ret12": -0.491862,
+   "size": 23.019982,
+   "stdret": 0.093282,
+   "react": 0.113651,
+   "age": 3.086646,
+   "tone": 0.000386
+  },
+  {
+   "ticker": "PYPL",
+   "date": "2026-10-27",
+   "ret12": -0.172325,
+   "size": 24.594108,
+   "stdret": 0.136589,
+   "react": -0.029061,
+   "age": 2.510417,
+   "tone": -0.000585
+  },
+  {
+   "ticker": "RCL",
+   "date": "2026-10-27",
+   "ret12": -0.110031,
+   "size": 25.09454,
+   "stdret": 0.111281,
+   "react": 0.057562,
+   "age": 3.086646,
+   "tone": 0.002423
+  },
+  {
+   "ticker": "SPGI",
+   "date": "2026-10-27",
+   "ret12": -0.005157,
+   "size": 25.608675,
+   "stdret": 0.084212,
+   "react": -0.015815,
+   "age": 3.086646,
+   "tone": 0.008066
+  },
+  {
+   "ticker": "SHW",
+   "date": "2026-10-27",
+   "ret12": 0.025644,
+   "size": 25.094504,
+   "stdret": 0.065912,
+   "react": -0.045534,
+   "age": 3.086646,
+   "tone": 0.002577
+  },
+  {
+   "ticker": "UPS",
+   "date": "2026-10-27",
+   "ret12": 0.237483,
+   "size": 25.225954,
+   "stdret": 0.083795,
+   "react": 0.037022,
+   "age": 3.086646,
+   "tone": 0.000504
+  },
+  {
+   "ticker": "XYL",
+   "date": "2026-10-27",
+   "ret12": -0.253407,
+   "size": 23.799729,
+   "stdret": 0.069698,
+   "react": -0.158787,
+   "age": 2.775024,
+   "tone": 0.0
   }
  ],
  "edgar_days_done": [
@@ -18694,9 +18846,144 @@
   "2026-10-21",
   "2026-10-22",
   "2026-10-23",
-  "2026-10-26"
+  "2026-10-26",
+  "2026-10-27"
  ],
- "awaiting": [],
+ "awaiting": [
+  {
+   "ticker": "ACGL",
+   "acc": "0000947484-26-000128",
+   "accepted": "2026-10-27T16:06:38-04:00",
+   "tone": -0.012318029115341545,
+   "company": "ARCH CAPITAL GROUP LTD."
+  },
+  {
+   "ticker": "BXP",
+   "acc": "0001037540-26-000041",
+   "accepted": "2026-10-27T16:10:19-04:00",
+   "tone": -0.00027831895352073476,
+   "company": "BXP, Inc."
+  },
+  {
+   "ticker": "BKR",
+   "acc": "0001701605-26-000033",
+   "accepted": "2026-10-27T17:05:54-04:00",
+   "tone": 0.012261014131338321,
+   "company": "Baker Hughes Co"
+  },
+  {
+   "ticker": "CSGP",
+   "acc": "0001057352-26-000078",
+   "accepted": "2026-10-27T16:05:41-04:00",
+   "tone": -0.005999520038396928,
+   "company": "COSTAR GROUP, INC."
+  },
+  {
+   "ticker": "EQT",
+   "acc": "0000033213-26-000054",
+   "accepted": "2026-10-27T16:31:45-04:00",
+   "tone": 0.001198681450404555,
+   "company": "EQT Corp"
+  },
+  {
+   "ticker": "ESS",
+   "acc": "0001140361-26-040903",
+   "accepted": "2026-10-27T16:34:17-04:00",
+   "tone": 0.0009824561403508772,
+   "company": "ESSEX PROPERTY TRUST, INC."
+  },
+  {
+   "ticker": "EXE",
+   "acc": "0000895126-26-000067",
+   "accepted": "2026-10-27T16:03:12-04:00",
+   "tone": 0.007715688566752397,
+   "company": "EXPAND ENERGY Corp"
+  },
+  {
+   "ticker": "EXR",
+   "acc": "0001289490-26-000061",
+   "accepted": "2026-10-27T16:17:52-04:00",
+   "tone": 0.0006274837900020916,
+   "company": "Extra Space Storage Inc."
+  },
+  {
+   "ticker": "FFIV",
+   "acc": "0001048695-26-000074",
+   "accepted": "2026-10-27T16:09:27-04:00",
+   "tone": 0.0005422993492407809,
+   "company": "F5, INC."
+  },
+  {
+   "ticker": "FE",
+   "acc": "0001031296-26-000142",
+   "accepted": "2026-10-27T16:31:41-04:00",
+   "tone": 0.008597108245408363,
+   "company": "FIRSTENERGY CORP"
+  },
+  {
+   "ticker": "NXPI",
+   "acc": "0001413447-26-000057",
+   "accepted": "2026-10-27T16:23:37-04:00",
+   "tone": -0.007469118069520253,
+   "company": "NXP Semiconductors N.V."
+  },
+  {
+   "ticker": "OKE",
+   "acc": "0001039684-26-000036",
+   "accepted": "2026-10-27T16:27:53-04:00",
+   "tone": 0.010021321961620469,
+   "company": "ONEOK INC /NEW/"
+  },
+  {
+   "ticker": "PPG",
+   "acc": "0000079879-26-000315",
+   "accepted": "2026-10-27T16:22:56-04:00",
+   "tone": 0.015625,
+   "company": "PPG INDUSTRIES INC"
+  },
+  {
+   "ticker": "HOOD",
+   "acc": "0001783879-26-000164",
+   "accepted": "2026-10-27T16:06:05-04:00",
+   "tone": 0.000316105579263474,
+   "company": "Robinhood Markets, Inc."
+  },
+  {
+   "ticker": "STX",
+   "acc": "0001137789-26-000300",
+   "accepted": "2026-10-27T16:12:44-04:00",
+   "tone": 0.0002935995302407516,
+   "company": "Seagate Technology Holdings plc"
+  },
+  {
+   "ticker": "UHS",
+   "acc": "0001193125-26-434414",
+   "accepted": "2026-10-27T17:03:44-04:00",
+   "tone": 0.006812741668201068,
+   "company": "UNIVERSAL HEALTH SERVICES INC"
+  },
+  {
+   "ticker": "V",
+   "acc": "0001403161-26-000126",
+   "accepted": "2026-10-27T16:05:22-04:00",
+   "tone": 0.006310570205093531,
+   "company": "VISA INC."
+  },
+  {
+   "ticker": "VTR",
+   "acc": "0000740260-26-000026",
+   "accepted": "2026-10-27T16:32:09-04:00",
+   "tone": 0.007214554579673777,
+   "company": "Ventas, Inc."
+  },
+  {
+   "ticker": "WM",
+   "acc": "0001104659-26-119188",
+   "accepted": "2026-10-27T16:38:40-04:00",
+   "tone": 0.00714131140445791,
+   "company": "WASTE MANAGEMENT INC"
+  }
+ ],
  "shadow": [
   {
    "ticker": "FAST",
@@ -18777,6 +19064,31 @@
    "ticker": "CDNS",
    "day0": "2026-10-27",
    "rang": 0.829
+  },
+  {
+   "ticker": "ECL",
+   "day0": "2026-10-27",
+   "rang": 0.997
+  },
+  {
+   "ticker": "FCX",
+   "day0": "2026-10-27",
+   "rang": 0.863
+  },
+  {
+   "ticker": "ITW",
+   "day0": "2026-10-27",
+   "rang": 0.981
+  },
+  {
+   "ticker": "JCI",
+   "day0": "2026-10-27",
+   "rang": 0.861
+  },
+  {
+   "ticker": "PCAR",
+   "day0": "2026-10-27",
+   "rang": 0.889
   }
  ],
  "events_log": [
@@ -19760,6 +20072,222 @@
    "abtone": -0.00742,
    "rang": 0.129,
    "decision": "achat"
+  },
+  {
+   "ticker": "AMT",
+   "company": "AMERICAN TOWER CORP /MA/",
+   "day0": "2026-10-27",
+   "tone": 0.00836,
+   "abtone": 0.00393,
+   "rang": 0.745,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "BA",
+   "company": "BOEING CO",
+   "day0": "2026-10-27",
+   "tone": -0.01211,
+   "abtone": -0.01554,
+   "rang": 0.016,
+   "decision": "achat"
+  },
+  {
+   "ticker": "CNC",
+   "company": "CENTENE CORP",
+   "day0": "2026-10-27",
+   "tone": -0.00171,
+   "abtone": -0.00325,
+   "rang": 0.308,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "CNP",
+   "company": "CENTERPOINT ENERGY INC",
+   "day0": "2026-10-27",
+   "tone": 0.00613,
+   "abtone": 0.0028,
+   "rang": 0.686,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "CMS",
+   "company": "CMS ENERGY CORP",
+   "day0": "2026-10-27",
+   "tone": -0.01286,
+   "abtone": -0.01585,
+   "rang": 0.014,
+   "decision": "achat"
+  },
+  {
+   "ticker": "KO",
+   "company": "COCA COLA CO",
+   "day0": "2026-10-27",
+   "tone": 0.00416,
+   "abtone": -0.00176,
+   "rang": 0.4,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "GLW",
+   "company": "CORNING INC /NY",
+   "day0": "2026-10-27",
+   "tone": -0.00114,
+   "abtone": -0.0028,
+   "rang": 0.332,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "ECL",
+   "company": "ECOLAB INC.",
+   "day0": "2026-10-27",
+   "tone": 0.03171,
+   "abtone": 0.0274,
+   "rang": 0.997,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "FCX",
+   "company": "FREEPORT-MCMORAN INC",
+   "day0": "2026-10-27",
+   "tone": 0.01026,
+   "abtone": 0.00715,
+   "rang": 0.863,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "HCA",
+   "company": "HCA Healthcare, Inc.",
+   "day0": "2026-10-27",
+   "tone": -0.00027,
+   "abtone": -0.00416,
+   "rang": 0.261,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "HUBB",
+   "company": "HUBBELL INC",
+   "day0": "2026-10-27",
+   "tone": 0.00167,
+   "abtone": -0.00076,
+   "rang": 0.47,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "HLT",
+   "company": "Hilton Worldwide Holdings Inc.",
+   "day0": "2026-10-27",
+   "tone": -0.00147,
+   "abtone": -0.00567,
+   "rang": 0.191,
+   "decision": "achat"
+  },
+  {
+   "ticker": "ITW",
+   "company": "ILLINOIS TOOL WORKS INC",
+   "day0": "2026-10-27",
+   "tone": 0.02091,
+   "abtone": 0.0168,
+   "rang": 0.981,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "IQV",
+   "company": "IQVIA HOLDINGS INC.",
+   "day0": "2026-10-27",
+   "tone": 0.0035,
+   "abtone": 0.00127,
+   "rang": 0.605,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "IVZ",
+   "company": "Invesco Ltd.",
+   "day0": "2026-10-27",
+   "tone": 0.00375,
+   "abtone": 0.00185,
+   "rang": 0.639,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "JCI",
+   "company": "Johnson Controls International plc",
+   "day0": "2026-10-27",
+   "tone": 0.01154,
+   "abtone": 0.00709,
+   "rang": 0.861,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "PCAR",
+   "company": "PACCAR INC",
+   "day0": "2026-10-27",
+   "tone": 0.01133,
+   "abtone": 0.00812,
+   "rang": 0.889,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "PNR",
+   "company": "PENTAIR plc",
+   "day0": "2026-10-27",
+   "tone": 0.00039,
+   "abtone": -0.00208,
+   "rang": 0.38,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "PYPL",
+   "company": "PayPal Holdings, Inc.",
+   "day0": "2026-10-27",
+   "tone": -0.00058,
+   "abtone": -0.00315,
+   "rang": 0.315,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "RCL",
+   "company": "ROYAL CARIBBEAN CRUISES LTD",
+   "day0": "2026-10-27",
+   "tone": 0.00242,
+   "abtone": -0.00162,
+   "rang": 0.416,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "SPGI",
+   "company": "S&P Global Inc.",
+   "day0": "2026-10-27",
+   "tone": 0.00807,
+   "abtone": 0.00353,
+   "rang": 0.723,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "SHW",
+   "company": "SHERWIN WILLIAMS CO",
+   "day0": "2026-10-27",
+   "tone": 0.00258,
+   "abtone": -0.00149,
+   "rang": 0.422,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "UPS",
+   "company": "UNITED PARCEL SERVICE INC",
+   "day0": "2026-10-27",
+   "tone": 0.0005,
+   "abtone": -0.00384,
+   "rang": 0.279,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "XYL",
+   "company": "Xylem Inc.",
+   "day0": "2026-10-27",
+   "tone": 0.0,
+   "abtone": -0.00201,
+   "rang": 0.383,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -19777,14 +20305,17 @@
   "VLO": "2027-01-15",
   "VRSN": "2027-01-18",
   "HIG": "2027-01-20",
-  "WELL": "2027-01-20"
+  "WELL": "2027-01-20",
+  "BA": "2027-01-20",
+  "CMS": "2027-01-20",
+  "HLT": "2027-01-20"
  },
  "counters": {
-  "jours": 9,
-  "communiques": 109,
-  "evalues": 109,
-  "achetes": 15,
-  "ombre": 16,
+  "jours": 10,
+  "communiques": 152,
+  "evalues": 133,
+  "achetes": 18,
+  "ombre": 21,
   "complet": 0
  }
 }
