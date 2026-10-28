@@ -4,30 +4,6 @@
  },
  "pending": [
   {
-   "side": "buy",
-   "ticker": "EXENS.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-27T18:00:05Z",
-   "amount_eur": 100.0,
-   "name": "Exosens",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "CRDO",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-27T22:11:57Z",
-   "amount_eur": 100.0,
-   "name": "Credo Technology Group Holding Ltd",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
    "side": "sell",
    "ticker": "AMD",
    "bucket": "pool",
@@ -58,6 +34,30 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-10-28T01:20:07Z",
    "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "EXENS.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-27T18:00:05Z",
+   "amount_eur": 100.0,
+   "name": "Exosens",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "CRDO",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-27T22:11:57Z",
+   "amount_eur": 100.0,
+   "name": "Credo Technology Group Holding Ltd",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
