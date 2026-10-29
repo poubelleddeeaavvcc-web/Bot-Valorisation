@@ -16,7 +16,8 @@
   "2026-10-22",
   "2026-10-23",
   "2026-10-26",
-  "2026-10-27"
+  "2026-10-27",
+  "2026-10-28"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -533,11 +534,81 @@
    "title": "Chairman and CEO",
    "adv_usd": 4252866,
    "decision": "liquidite hors bande (4.25 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-28",
+   "ticker": "ACN",
+   "issuer": "Accenture plc",
+   "value_usd": 3200889,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 1775323899,
+   "decision": "liquidite hors bande (1775.32 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-28",
+   "ticker": "BBT",
+   "issuer": "Beacon Financial Corp",
+   "value_usd": 61971,
+   "insiders": 3,
+   "title": "Director",
+   "adv_usd": 29364732,
+   "decision": "liquidite hors bande (29.36 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-28",
+   "ticker": "BPRE",
+   "issuer": "Bluerock Private Real Estate Fund",
+   "value_usd": 2229725,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 10960662,
+   "decision": "liquidite hors bande (10.96 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-28",
+   "ticker": "HXL",
+   "issuer": "HEXCEL CORP /DE/",
+   "value_usd": 242010,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 116646105,
+   "decision": "liquidite hors bande (116.65 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-28",
+   "ticker": "HYMC",
+   "issuer": "HYCROFT MINING HOLDING CORP",
+   "value_usd": 50075,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 33564093,
+   "decision": "liquidite hors bande (33.56 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-28",
+   "ticker": "LBRT",
+   "issuer": "Liberty Energy Inc.",
+   "value_usd": 223300,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 80213225,
+   "decision": "liquidite hors bande (80.21 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-28",
+   "ticker": "TTMI",
+   "issuer": "TTM TECHNOLOGIES INC",
+   "value_usd": 1342810,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 439570016,
+   "decision": "liquidite hors bande (439.57 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 11,
-  "evenements": 51,
+  "jours": 12,
+  "evenements": 58,
   "retenus": 3,
   "achetes": 3,
   "complet": 0,
