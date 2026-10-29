@@ -1,24 +1,8 @@
 {
  "cash": {
-  "pool": 5526.28603771039
+  "pool": 5745.028856538349
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "ALICA.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-29T05:45:47Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "CAP.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-29T05:45:47Z",
-   "fraction": 1.0
-  },
   {
    "side": "sell",
    "ticker": "EPD",
@@ -44,14 +28,6 @@
    "fraction": 1.0
   },
   {
-   "side": "sell",
-   "ticker": "UTG.ST",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-29T05:45:47Z",
-   "fraction": 1.0
-  },
-  {
    "side": "buy",
    "ticker": "STLA",
    "bucket": "pool",
@@ -62,18 +38,6 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "USD",
    "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "WLN.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-28T22:33:04Z",
-   "amount_eur": 100.0,
-   "name": "Worldline SA",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
   },
   {
    "side": "buy",
@@ -96,6 +60,54 @@
    "amount_eur": 100.0,
    "name": "Pitney Bowes Inc.",
    "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "RNO.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-29T19:39:06Z",
+   "amount_eur": 100.0,
+   "name": "Renault SA",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "DSY.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-29T19:39:06Z",
+   "amount_eur": 100.0,
+   "name": "Dassault Systèmes SE",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "SPXC",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-29T19:39:06Z",
+   "amount_eur": 100.0,
+   "name": "SPX Technologies, Inc.",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "TTE",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-29T19:39:06Z",
+   "amount_eur": 100.0,
+   "name": "TotalEnergies SE",
+   "sector": "news.meilleurtaux.com (ton)",
    "currency": "USD",
    "fractional": true
   }
@@ -121,10 +133,7 @@
   "EPD": "2026-10-29",
   "SNY": "2026-10-29",
   "LADR": "2026-10-29",
-  "UTG.ST": "2026-10-29",
-  "ALICA.PA": "2026-10-29",
   "ACN": "2026-11-20",
-  "CAP.PA": "2026-10-29",
   "BA": "2026-10-30",
   "OKE": "2026-10-30",
   "STM": "2026-10-30",
@@ -240,7 +249,11 @@
   "STLA": "2026-11-26",
   "WLN.PA": "2026-11-25",
   "CVX": "2026-11-26",
-  "PBI": "2026-11-26"
+  "PBI": "2026-11-26",
+  "RNO.PA": "2026-11-26",
+  "DSY.PA": "2026-11-26",
+  "SPXC": "2026-11-26",
+  "TTE": "2026-11-26"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -638,11 +651,15 @@
   "1a186c4d6f5187e9:STLA",
   "1a186e09956b41ad:MSFT",
   "1a1877b92035949e:PBI",
-  "1a1878f190f34b2e:MSFT"
+  "1a1878f190f34b2e:MSFT",
+  "1a1889cbeb8b6fac:RNO.PA",
+  "1a1889cbeb8b6fac:DSY.PA",
+  "1a187ff4a14ed6a0:SPXC",
+  "1a1889cbeb8b6fac:TTE"
  ],
  "counters": {
-  "avis": 396,
-  "achetes": 241,
+  "avis": 400,
+  "achetes": 245,
   "prolonges": 155,
   "complet": 0
  },
