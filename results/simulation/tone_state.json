@@ -1,119 +1,63 @@
 {
  "cash": {
-  "pool": 3200.0
+  "pool": 2400.0
  },
  "pending": [
   {
    "side": "buy",
-   "ticker": "ACGL",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 1%)",
-   "decided_at": "2026-10-28T21:51:36Z",
-   "amount_eur": 100.0,
-   "name": "ARCH CAPITAL GROUP LTD.",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.015802
-  },
-  {
-   "side": "buy",
-   "ticker": "CSGP",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 15%)",
-   "decided_at": "2026-10-28T21:51:36Z",
-   "amount_eur": 100.0,
-   "name": "COSTAR GROUP, INC.",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.006965
-  },
-  {
-   "side": "buy",
-   "ticker": "NXPI",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 6%)",
-   "decided_at": "2026-10-28T21:51:36Z",
-   "amount_eur": 100.0,
-   "name": "NXP Semiconductors N.V.",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.009841
-  },
-  {
-   "side": "buy",
-   "ticker": "BSX",
+   "ticker": "EG",
    "bucket": "pool",
    "reason": "ton peu optimiste au regard des chiffres (rang 0%)",
-   "decided_at": "2026-10-29T04:53:16Z",
+   "decided_at": "2026-10-29T21:51:51Z",
    "amount_eur": 100.0,
-   "name": "BOSTON SCIENTIFIC CORP",
+   "name": "EVEREST GROUP, LTD.",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.023039
+   "score": -0.02652
   },
   {
    "side": "buy",
-   "ticker": "FLEX",
+   "ticker": "FDX",
    "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 9%)",
-   "decided_at": "2026-10-29T04:53:16Z",
+   "reason": "ton peu optimiste au regard des chiffres (rang 14%)",
+   "decided_at": "2026-10-29T21:51:51Z",
    "amount_eur": 100.0,
-   "name": "FLEX LTD.",
+   "name": "FEDEX CORP",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.008842
+   "score": -0.007085
   },
   {
    "side": "buy",
-   "ticker": "IP",
+   "ticker": "F",
    "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 4%)",
-   "decided_at": "2026-10-29T04:53:16Z",
+   "reason": "ton peu optimiste au regard des chiffres (rang 2%)",
+   "decided_at": "2026-10-29T21:51:51Z",
    "amount_eur": 100.0,
-   "name": "INTERNATIONAL PAPER CO /NEW/",
+   "name": "FORD MOTOR CO",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.011684
+   "score": -0.015127
   },
   {
    "side": "buy",
-   "ticker": "LII",
+   "ticker": "GEN",
    "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 18%)",
-   "decided_at": "2026-10-29T04:53:16Z",
+   "reason": "ton peu optimiste au regard des chiffres (rang 15%)",
+   "decided_at": "2026-10-29T21:51:51Z",
    "amount_eur": 100.0,
-   "name": "LENNOX INTERNATIONAL INC",
+   "name": "Gen Digital Inc.",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.00593
-  },
-  {
-   "side": "buy",
-   "ticker": "PSX",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 3%)",
-   "decided_at": "2026-10-29T04:53:16Z",
-   "amount_eur": 100.0,
-   "name": "Phillips 66",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.012493
+   "score": -0.006959
   }
  ],
  "launched_at": "2026-10-14T10:56:13Z",
@@ -18947,6 +18891,246 @@
    "react": 0.20697,
    "age": 2.223346,
    "tone": 0.001526
+  },
+  {
+   "ticker": "ALGN",
+   "date": "2026-10-29",
+   "ret12": 0.120162,
+   "size": 23.113819,
+   "stdret": 0.08745,
+   "react": 0.011973,
+   "age": 3.086896,
+   "tone": 0.000655
+  },
+  {
+   "ticker": "GOOG",
+   "date": "2026-10-29",
+   "ret12": 0.176813,
+   "size": 28.870194,
+   "stdret": 0.120798,
+   "react": -0.108533,
+   "age": 3.086896,
+   "tone": 0.006636
+  },
+  {
+   "ticker": "AWK",
+   "date": "2026-10-29",
+   "ret12": 0.050434,
+   "size": 24.064757,
+   "stdret": 0.050727,
+   "react": 0.008257,
+   "age": 2.971239,
+   "tone": 0.004699
+  },
+  {
+   "ticker": "CVNA",
+   "date": "2026-10-29",
+   "ret12": -0.166127,
+   "size": 24.618702,
+   "stdret": 0.182099,
+   "react": 0.15369,
+   "age": 2.351669,
+   "tone": 0.013165
+  },
+  {
+   "ticker": "CMG",
+   "date": "2026-10-29",
+   "ret12": -0.318558,
+   "size": 24.401647,
+   "stdret": 0.115159,
+   "react": 0.118331,
+   "age": 3.079873,
+   "tone": 0.006542
+  },
+  {
+   "ticker": "EBAY",
+   "date": "2026-10-29",
+   "ret12": 0.217545,
+   "size": 24.710944,
+   "stdret": 0.089885,
+   "react": 0.028905,
+   "age": 3.086896,
+   "tone": 0.003163
+  },
+  {
+   "ticker": "EQIX",
+   "date": "2026-10-29",
+   "ret12": 0.211203,
+   "size": 25.351078,
+   "stdret": 0.083608,
+   "react": 0.037703,
+   "age": 3.086896,
+   "tone": 0.005183
+  },
+  {
+   "ticker": "EG",
+   "date": "2026-10-29",
+   "ret12": 0.157157,
+   "size": 23.455014,
+   "stdret": 0.061487,
+   "react": 0.024681,
+   "age": 3.086896,
+   "tone": -0.023728
+  },
+  {
+   "ticker": "FDX",
+   "date": "2026-10-29",
+   "ret12": 0.566981,
+   "size": 25.011694,
+   "stdret": 0.108358,
+   "react": 0.002734,
+   "age": 3.086896,
+   "tone": -0.003577
+  },
+  {
+   "ticker": "FDX",
+   "date": "2026-10-29",
+   "ret12": 0.566981,
+   "size": 25.011694,
+   "stdret": 0.108358,
+   "react": 0.002734,
+   "age": 3.086896,
+   "tone": 0.004534
+  },
+  {
+   "ticker": "F",
+   "date": "2026-10-29",
+   "ret12": -0.075719,
+   "size": 24.62092,
+   "stdret": 0.175999,
+   "react": 0.055898,
+   "age": 3.086896,
+   "tone": -0.012537
+  },
+  {
+   "ticker": "FTNT",
+   "date": "2026-10-29",
+   "ret12": 1.16907,
+   "size": 25.348823,
+   "stdret": 0.181139,
+   "react": -0.247718,
+   "age": 2.887287,
+   "tone": 0.005231
+  },
+  {
+   "ticker": "GEN",
+   "date": "2026-10-29",
+   "ret12": -0.078469,
+   "size": 23.549404,
+   "stdret": 0.179245,
+   "react": 0.163276,
+   "age": 3.086896,
+   "tone": -0.005068
+  },
+  {
+   "ticker": "INVH",
+   "date": "2026-10-29",
+   "ret12": -0.015641,
+   "size": 23.479103,
+   "stdret": 0.058127,
+   "react": -0.019838,
+   "age": 2.373839,
+   "tone": 0.008034
+  },
+  {
+   "ticker": "KLAC",
+   "date": "2026-10-29",
+   "ret12": 0.271378,
+   "size": 26.110039,
+   "stdret": 0.254268,
+   "react": 0.090003,
+   "age": 3.086896,
+   "tone": -0.001739
+  },
+  {
+   "ticker": "MGM",
+   "date": "2026-10-29",
+   "ret12": -0.149499,
+   "size": 22.721523,
+   "stdret": 0.122609,
+   "react": 0.0304,
+   "age": 3.086896,
+   "tone": -0.003963
+  },
+  {
+   "ticker": "MSFT",
+   "date": "2026-10-29",
+   "ret12": 0.007867,
+   "size": 29.001333,
+   "stdret": 0.134786,
+   "react": -0.00185,
+   "age": 3.086896,
+   "tone": 0.006908
+  },
+  {
+   "ticker": "MAA",
+   "date": "2026-10-29",
+   "ret12": -0.063022,
+   "size": 23.342176,
+   "stdret": 0.055239,
+   "react": -0.003737,
+   "age": 3.086896,
+   "tone": 0.005826
+  },
+  {
+   "ticker": "ORLY",
+   "date": "2026-10-29",
+   "ret12": -0.062324,
+   "size": 24.989393,
+   "stdret": 0.06027,
+   "react": -0.019094,
+   "age": 3.086896,
+   "tone": 0.012635
+  },
+  {
+   "ticker": "RJF",
+   "date": "2026-10-29",
+   "ret12": -0.008391,
+   "size": 24.158092,
+   "stdret": 0.089247,
+   "react": 0.020438,
+   "age": 3.086896,
+   "tone": 0.010505
+  },
+  {
+   "ticker": "NOW",
+   "date": "2026-10-29",
+   "ret12": -0.182175,
+   "size": 25.454043,
+   "stdret": 0.203987,
+   "react": -0.291056,
+   "age": 2.729984,
+   "tone": 0.007814
+  },
+  {
+   "ticker": "TMUS",
+   "date": "2026-10-29",
+   "ret12": -0.320592,
+   "size": 25.776619,
+   "stdret": 0.08181,
+   "react": 0.003523,
+   "age": 3.021843,
+   "tone": 0.010109
+  },
+  {
+   "ticker": "TYL",
+   "date": "2026-10-29",
+   "ret12": -0.256237,
+   "size": 23.451986,
+   "stdret": 0.105463,
+   "react": -0.011997,
+   "age": 3.086896,
+   "tone": 0.010805
+  },
+  {
+   "ticker": "VICI",
+   "date": "2026-10-29",
+   "ret12": -0.181091,
+   "size": 24.019044,
+   "stdret": 0.053816,
+   "react": 0.034989,
+   "age": 2.284559,
+   "tone": 0.000385
   }
  ],
  "edgar_days_done": [
@@ -18964,179 +19148,11 @@
  ],
  "awaiting": [
   {
-   "ticker": "ALGN",
-   "acc": "0001097149-26-000077",
-   "accepted": "2026-10-28T16:02:16-04:00",
-   "tone": 0.0006549860815457672,
-   "company": "ALIGN TECHNOLOGY INC"
-  },
-  {
-   "ticker": "GOOG",
-   "acc": "0001652044-26-000080",
-   "accepted": "2026-10-28T16:01:33-04:00",
-   "tone": 0.006635700066357001,
-   "company": "Alphabet Inc."
-  },
-  {
-   "ticker": "AWK",
-   "acc": "0001410636-26-000150",
-   "accepted": "2026-10-28T16:31:43-04:00",
-   "tone": 0.004699037816066234,
-   "company": "American Water Works Company, Inc."
-  },
-  {
-   "ticker": "CVNA",
-   "acc": "0001690820-26-000066",
-   "accepted": "2026-10-28T16:05:55-04:00",
-   "tone": 0.01316542644533486,
-   "company": "CARVANA CO."
-  },
-  {
-   "ticker": "CMG",
-   "acc": "0001058090-26-000103",
-   "accepted": "2026-10-28T16:10:53-04:00",
-   "tone": 0.006541524459613196,
-   "company": "CHIPOTLE MEXICAN GRILL INC"
-  },
-  {
-   "ticker": "EBAY",
-   "acc": "0001065088-26-000209",
-   "accepted": "2026-10-28T16:07:46-04:00",
-   "tone": 0.0031633792333457386,
-   "company": "EBAY INC"
-  },
-  {
-   "ticker": "EQIX",
-   "acc": "0001101239-26-000178",
-   "accepted": "2026-10-28T16:12:08-04:00",
-   "tone": 0.005182567726737338,
-   "company": "EQUINIX INC"
-  },
-  {
-   "ticker": "EG",
-   "acc": "0001095073-26-000041",
-   "accepted": "2026-10-28T16:17:55-04:00",
-   "tone": -0.023728234892454764,
-   "company": "EVEREST GROUP, LTD."
-  },
-  {
-   "ticker": "FDX",
-   "acc": "0001048911-26-000126",
-   "accepted": "2026-10-28T16:05:46-04:00",
-   "tone": -0.0035772357723577236,
-   "company": "FEDEX CORP"
-  },
-  {
-   "ticker": "FDX",
-   "acc": "0001048911-26-000128",
-   "accepted": "2026-10-28T16:12:47-04:00",
-   "tone": 0.004533524218563589,
-   "company": "FEDEX CORP"
-  },
-  {
-   "ticker": "F",
-   "acc": "0000037996-26-000190",
-   "accepted": "2026-10-28T16:07:18-04:00",
-   "tone": -0.012537425149700599,
-   "company": "FORD MOTOR CO"
-  },
-  {
-   "ticker": "FTNT",
-   "acc": "0001262039-26-000024",
-   "accepted": "2026-10-28T16:09:06-04:00",
-   "tone": 0.005230622919638612,
-   "company": "Fortinet, Inc."
-  },
-  {
-   "ticker": "GEN",
-   "acc": "0000849399-26-000081",
-   "accepted": "2026-10-28T16:06:05-04:00",
-   "tone": -0.00506842372022301,
-   "company": "Gen Digital Inc."
-  },
-  {
    "ticker": "HONA",
    "acc": "0002089271-26-000031",
    "accepted": "2026-10-28T16:07:35-04:00",
    "tone": 0.005207041904289611,
    "company": "Honeywell Aerospace Inc."
-  },
-  {
-   "ticker": "INVH",
-   "acc": "0001687229-26-000053",
-   "accepted": "2026-10-28T16:10:53-04:00",
-   "tone": 0.008033531260915125,
-   "company": "Invitation Homes Inc."
-  },
-  {
-   "ticker": "KLAC",
-   "acc": "0000319201-26-000032",
-   "accepted": "2026-10-28T16:07:50-04:00",
-   "tone": -0.0017391304347826088,
-   "company": "KLA CORP"
-  },
-  {
-   "ticker": "MGM",
-   "acc": "0000789570-26-000106",
-   "accepted": "2026-10-28T16:15:44-04:00",
-   "tone": -0.003962637984715539,
-   "company": "MGM Resorts International"
-  },
-  {
-   "ticker": "MSFT",
-   "acc": "0001193125-26-436122",
-   "accepted": "2026-10-28T16:04:44-04:00",
-   "tone": 0.00690776107273466,
-   "company": "MICROSOFT CORP"
-  },
-  {
-   "ticker": "MAA",
-   "acc": "0001193125-26-436173",
-   "accepted": "2026-10-28T16:15:21-04:00",
-   "tone": 0.005825565912117177,
-   "company": "MID AMERICA APARTMENT COMMUNITIES INC."
-  },
-  {
-   "ticker": "ORLY",
-   "acc": "0000898173-26-000050",
-   "accepted": "2026-10-28T16:32:51-04:00",
-   "tone": 0.01263537906137184,
-   "company": "O REILLY AUTOMOTIVE INC"
-  },
-  {
-   "ticker": "RJF",
-   "acc": "0000720005-26-000080",
-   "accepted": "2026-10-28T16:17:12-04:00",
-   "tone": 0.010505481120584652,
-   "company": "RAYMOND JAMES FINANCIAL INC"
-  },
-  {
-   "ticker": "NOW",
-   "acc": "0001373715-26-000092",
-   "accepted": "2026-10-28T16:14:14-04:00",
-   "tone": 0.00781391968017445,
-   "company": "ServiceNow, Inc."
-  },
-  {
-   "ticker": "TMUS",
-   "acc": "0001283699-26-000128",
-   "accepted": "2026-10-28T16:02:56-04:00",
-   "tone": 0.010108668182966895,
-   "company": "T-Mobile US, Inc."
-  },
-  {
-   "ticker": "TYL",
-   "acc": "0000860731-26-000056",
-   "accepted": "2026-10-28T16:25:26-04:00",
-   "tone": 0.010805158591843849,
-   "company": "TYLER TECHNOLOGIES INC"
-  },
-  {
-   "ticker": "VICI",
-   "acc": "0001705696-26-000119",
-   "accepted": "2026-10-28T16:16:17-04:00",
-   "tone": 0.0003853564547206166,
-   "company": "VICI PROPERTIES INC."
   }
  ],
  "shadow": [
@@ -19309,6 +19325,36 @@
    "ticker": "NI",
    "day0": "2026-10-28",
    "rang": 0.852
+  },
+  {
+   "ticker": "CVNA",
+   "day0": "2026-10-29",
+   "rang": 0.931
+  },
+  {
+   "ticker": "INVH",
+   "day0": "2026-10-29",
+   "rang": 0.807
+  },
+  {
+   "ticker": "ORLY",
+   "day0": "2026-10-29",
+   "rang": 0.894
+  },
+  {
+   "ticker": "RJF",
+   "day0": "2026-10-29",
+   "rang": 0.87
+  },
+  {
+   "ticker": "NOW",
+   "day0": "2026-10-29",
+   "rang": 0.849
+  },
+  {
+   "ticker": "TYL",
+   "day0": "2026-10-29",
+   "rang": 0.906
   }
  ],
  "events_log": [
@@ -20913,6 +20959,222 @@
    "abtone": -0.0022,
    "rang": 0.371,
    "decision": "neutre"
+  },
+  {
+   "ticker": "ALGN",
+   "company": "ALIGN TECHNOLOGY INC",
+   "day0": "2026-10-29",
+   "tone": 0.00065,
+   "abtone": -0.00134,
+   "rang": 0.429,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "GOOG",
+   "company": "Alphabet Inc.",
+   "day0": "2026-10-29",
+   "tone": 0.00664,
+   "abtone": -0.0003,
+   "rang": 0.499,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "AWK",
+   "company": "American Water Works Company, Inc.",
+   "day0": "2026-10-29",
+   "tone": 0.0047,
+   "abtone": 0.00118,
+   "rang": 0.602,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "CVNA",
+   "company": "CARVANA CO.",
+   "day0": "2026-10-29",
+   "tone": 0.01317,
+   "abtone": 0.01032,
+   "rang": 0.931,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "CMG",
+   "company": "CHIPOTLE MEXICAN GRILL INC",
+   "day0": "2026-10-29",
+   "tone": 0.00654,
+   "abtone": 0.00289,
+   "rang": 0.689,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "EBAY",
+   "company": "EBAY INC",
+   "day0": "2026-10-29",
+   "tone": 0.00316,
+   "abtone": -0.00055,
+   "rang": 0.485,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "EQIX",
+   "company": "EQUINIX INC",
+   "day0": "2026-10-29",
+   "tone": 0.00518,
+   "abtone": 0.00066,
+   "rang": 0.57,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "EG",
+   "company": "EVEREST GROUP, LTD.",
+   "day0": "2026-10-29",
+   "tone": -0.02373,
+   "abtone": -0.02652,
+   "rang": 0.0,
+   "decision": "achat"
+  },
+  {
+   "ticker": "FDX",
+   "company": "FEDEX CORP",
+   "day0": "2026-10-29",
+   "tone": -0.00358,
+   "abtone": -0.00709,
+   "rang": 0.143,
+   "decision": "achat"
+  },
+  {
+   "ticker": "FDX",
+   "company": "FEDEX CORP",
+   "day0": "2026-10-29",
+   "tone": 0.00453,
+   "abtone": 0.00103,
+   "rang": 0.593,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "F",
+   "company": "FORD MOTOR CO",
+   "day0": "2026-10-29",
+   "tone": -0.01254,
+   "abtone": -0.01513,
+   "rang": 0.02,
+   "decision": "achat"
+  },
+  {
+   "ticker": "FTNT",
+   "company": "Fortinet, Inc.",
+   "day0": "2026-10-29",
+   "tone": 0.00523,
+   "abtone": 0.00398,
+   "rang": 0.746,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "GEN",
+   "company": "Gen Digital Inc.",
+   "day0": "2026-10-29",
+   "tone": -0.00507,
+   "abtone": -0.00696,
+   "rang": 0.146,
+   "decision": "achat"
+  },
+  {
+   "ticker": "INVH",
+   "company": "Invitation Homes Inc.",
+   "day0": "2026-10-29",
+   "tone": 0.00803,
+   "abtone": 0.00547,
+   "rang": 0.807,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "KLAC",
+   "company": "KLA CORP",
+   "day0": "2026-10-29",
+   "tone": -0.00174,
+   "abtone": -0.00471,
+   "rang": 0.235,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "MGM",
+   "company": "MGM Resorts International",
+   "day0": "2026-10-29",
+   "tone": -0.00396,
+   "abtone": -0.00511,
+   "rang": 0.217,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "MSFT",
+   "company": "MICROSOFT CORP",
+   "day0": "2026-10-29",
+   "tone": 0.00691,
+   "abtone": -0.00056,
+   "rang": 0.484,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "MAA",
+   "company": "MID AMERICA APARTMENT COMMUNITIES INC.",
+   "day0": "2026-10-29",
+   "tone": 0.00583,
+   "abtone": 0.00318,
+   "rang": 0.702,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "ORLY",
+   "company": "O REILLY AUTOMOTIVE INC",
+   "day0": "2026-10-29",
+   "tone": 0.01264,
+   "abtone": 0.00838,
+   "rang": 0.894,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "RJF",
+   "company": "RAYMOND JAMES FINANCIAL INC",
+   "day0": "2026-10-29",
+   "tone": 0.01051,
+   "abtone": 0.0074,
+   "rang": 0.87,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "NOW",
+   "company": "ServiceNow, Inc.",
+   "day0": "2026-10-29",
+   "tone": 0.00781,
+   "abtone": 0.00663,
+   "rang": 0.849,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "TMUS",
+   "company": "T-Mobile US, Inc.",
+   "day0": "2026-10-29",
+   "tone": 0.01011,
+   "abtone": 0.00515,
+   "rang": 0.79,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "TYL",
+   "company": "TYLER TECHNOLOGIES INC",
+   "day0": "2026-10-29",
+   "tone": 0.01081,
+   "abtone": 0.00878,
+   "rang": 0.906,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "VICI",
+   "company": "VICI PROPERTIES INC.",
+   "day0": "2026-10-29",
+   "tone": 0.00039,
+   "abtone": -0.00317,
+   "rang": 0.311,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -20941,14 +21203,18 @@
   "FLEX": "2027-01-21",
   "IP": "2027-01-21",
   "LII": "2027-01-21",
-  "PSX": "2027-01-21"
+  "PSX": "2027-01-21",
+  "EG": "2027-01-22",
+  "FDX": "2027-01-22",
+  "F": "2027-01-22",
+  "GEN": "2027-01-22"
  },
  "counters": {
   "jours": 11,
   "communiques": 203,
-  "evalues": 178,
-  "achetes": 26,
-  "ombre": 34,
+  "evalues": 202,
+  "achetes": 30,
+  "ombre": 40,
   "complet": 0
  }
 }
