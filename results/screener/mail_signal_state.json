@@ -1,5 +1,6 @@
 {
   "processed_message_ids": [
+    "1a18629e2e40d68d",
     "1a1841fb19fecb6a",
     "1a183fc27664ab0f",
     "1a183ba112235c39",
@@ -57,11 +58,9 @@
     "1a17c7f6699a1570",
     "1a17c78f227edf12",
     "1a17c40079b39d4b",
-    "1a17c30300d4e1a1",
-    "1a17bd9e62794bf9",
-    "1a17ab9cea292096"
+    "1a17c30300d4e1a1"
   ],
-  "last_run_date": "2026-10-28",
+  "last_run_date": "2026-10-29",
   "ollama_attempts": {
     "1a06c3dc17d92321": 1,
     "1a080d744fee4403": 2,
@@ -1031,7 +1030,8 @@
       "tradingsat-valeur-du-jour-2026-10-09",
       "zonebourse-recos-courtiers-2026-10-14",
       "beehiiv-texte-vide-2026-10-14",
-      "zacks-rank-portefeuille-2026-10-14"
+      "zacks-rank-portefeuille-2026-10-14",
+      "zonebourse-mail-seul-2026-10-28"
     ],
     "processed_ids": [
       "1a09f3240842e01c",

@@ -38,6 +38,54 @@
    "sector": "zonebourse.com (ton)",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "sell",
+   "ticker": "ALICA.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-29T05:45:47Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "CAP.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-29T05:45:47Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "EPD",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-29T05:45:47Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "LADR",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-29T05:45:47Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "SNY",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-29T05:45:47Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "UTG.ST",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-29T05:45:47Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -48,7 +96,7 @@
   "SNDK": "2026-11-11",
   "RKLB": "2026-11-20",
   "ET": "2026-11-04",
-  "ORCL": "2026-11-05",
+  "ORCL": "2026-11-26",
   "NBIS": "2026-11-11",
   "META": "2026-11-20",
   "BP": "2026-11-05",
@@ -571,12 +619,13 @@
   "1a183ba112235c39:NVDA",
   "1a1837ad9f48c52b:STLA",
   "1a1837ad9f48c52b:WLN.PA",
-  "1a183ba112235c39:CVX"
+  "1a183ba112235c39:CVX",
+  "1a18629e2e40d68d:ORCL"
  ],
  "counters": {
-  "avis": 390,
+  "avis": 391,
   "achetes": 240,
-  "prolonges": 150,
+  "prolonges": 151,
   "complet": 0
  },
  "dropped": [
