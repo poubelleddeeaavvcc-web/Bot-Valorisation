@@ -2044,5 +2044,17 @@
     "sentiment": "positive",
     "reason": "The Cigna Group has declared a quarterly dividend, and there is a focus on client retention and profitability, as well as a new focus on 'Lead To One' at the center of its next chapter.",
     "source": "ollama"
+  },
+  "HBNC_2026-10-29": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general tone of the news is positive, highlighting strong third quarter results, continued peer-leading profitability metrics, and positive balance sheet momentum for Horizon Bancorp, Inc.",
+    "source": "ollama"
+  },
+  "7735.T_2026-10-29": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "The news articles do not provide a consistent sentiment, with some indicating no change (DRs issued by INVX) and others not providing a clear sentiment (stock estimates, price, and chart). The Goldman Sachs rating for SCREEN Holdings stock remains sell, which suggests a negative sentiment. [verification 'sued' : resolu favorablement (3/3 votes) -- Ce titre d'actualité décrit une procédure en cours de mise en place plutôt qu'un risque actif non résolu.]",
+    "source": "ollama"
   }
 }

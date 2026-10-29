@@ -846,5 +846,13 @@
       "reason": "The description mentions the company's products and services are distributed through various channels, including brokers and consultants, directly to employers, unions, and other groups, or individuals, and private and public exchanges. This suggests a large and diverse client base.",
       "source": "ollama"
     }
+  },
+  "HBNC": {
+    "checked_at": "2026-10-29",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "Le texte ne fournit aucune indication claire sur la concentration de ses clients, car il n'est pas indiqué qu'elle dépende d'un client principal, d'un contrat gouvernemental unique, ou qu'elle est quasi-exclusivement fournisseur d'un seul grand groupe, ni qu'elle s'adresse à un grand public, à de no",
+      "source": "ollama"
+    }
   }
 }
