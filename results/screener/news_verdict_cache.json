@@ -2038,5 +2038,11 @@
     "sentiment": "negative",
     "reason": "The stock has hit a 52-week low, missed Q3 earnings, and cut guidance, indicating a negative sentiment for the PROG Holdings, Inc. action",
     "source": "ollama"
+  },
+  "CI_2026-10-29": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The Cigna Group has declared a quarterly dividend, and there is a focus on client retention and profitability, as well as a new focus on 'Lead To One' at the center of its next chapter.",
+    "source": "ollama"
   }
 }

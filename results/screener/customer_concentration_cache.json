@@ -838,5 +838,13 @@
       "reason": "10-K SEC (2026-02-13) : No single customer or customer group represented more than 10% of consolidated revenue [https://www.sec.gov/Archives/edgar/data/731012/000073101226000009/hcsg-20251231.htm]",
       "source": "sec_10k"
     }
+  },
+  "CI": {
+    "checked_at": "2026-10-29",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "The description mentions the company's products and services are distributed through various channels, including brokers and consultants, directly to employers, unions, and other groups, or individuals, and private and public exchanges. This suggests a large and diverse client base.",
+      "source": "ollama"
+    }
   }
 }
