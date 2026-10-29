@@ -1,68 +1,8 @@
 {
  "cash": {
-  "pool": 5745.028856538349
+  "pool": 5559.803822826292
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "EPD",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-29T05:45:47Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "LADR",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-29T05:45:47Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "SNY",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-29T05:45:47Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "STLA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-28T22:33:04Z",
-   "amount_eur": 100.0,
-   "name": "Stellantis N.V.",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "CVX",
-   "bucket": "pool",
-   "reason": "avis zonebourse.com (ton)",
-   "decided_at": "2026-10-28T22:33:04Z",
-   "amount_eur": 100.0,
-   "name": "Chevron Corporation",
-   "sector": "zonebourse.com (ton)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "PBI",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-29T12:57:03Z",
-   "amount_eur": 100.0,
-   "name": "Pitney Bowes Inc.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
   {
    "side": "buy",
    "ticker": "RNO.PA",
@@ -86,30 +26,6 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "SPXC",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-29T19:39:06Z",
-   "amount_eur": 100.0,
-   "name": "SPX Technologies, Inc.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "TTE",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-29T19:39:06Z",
-   "amount_eur": 100.0,
-   "name": "TotalEnergies SE",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "USD",
-   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -130,9 +46,6 @@
   "PLTR": "2026-11-09",
   "AMZN": "2026-11-16",
   "GOOG": "2026-11-06",
-  "EPD": "2026-10-29",
-  "SNY": "2026-10-29",
-  "LADR": "2026-10-29",
   "ACN": "2026-11-20",
   "BA": "2026-10-30",
   "OKE": "2026-10-30",
@@ -171,7 +84,7 @@
   "CSGP": "2026-11-06",
   "RSG": "2026-11-06",
   "FRT": "2026-11-06",
-  "GOOGL": "2026-11-06",
+  "GOOGL": "2026-11-26",
   "OGG": "2026-11-06",
   "SMTI": "2026-11-06",
   "ALB": "2026-11-06",
@@ -655,12 +568,13 @@
   "1a1889cbeb8b6fac:RNO.PA",
   "1a1889cbeb8b6fac:DSY.PA",
   "1a187ff4a14ed6a0:SPXC",
-  "1a1889cbeb8b6fac:TTE"
+  "1a1889cbeb8b6fac:TTE",
+  "1a189458d79a032b:GOOGL"
  ],
  "counters": {
-  "avis": 400,
+  "avis": 401,
   "achetes": 245,
-  "prolonges": 155,
+  "prolonges": 156,
   "complet": 0
  },
  "dropped": [
