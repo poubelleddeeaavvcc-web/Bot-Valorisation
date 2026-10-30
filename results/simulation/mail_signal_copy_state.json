@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 5559.803822826292
+  "pool": 5476.163823436644
  },
  "pending": [
   {
@@ -38,14 +38,6 @@
   {
    "side": "sell",
    "ticker": "GEV",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-30T05:45:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "LR.PA",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-10-30T05:45:17Z",
@@ -101,30 +93,6 @@
   },
   {
    "side": "buy",
-   "ticker": "RNO.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-29T19:39:06Z",
-   "amount_eur": 100.0,
-   "name": "Renault SA",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "DSY.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-29T19:39:06Z",
-   "amount_eur": 100.0,
-   "name": "Dassault Systèmes SE",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
    "ticker": "CSWC",
    "bucket": "pool",
    "reason": "avis seekingalpha.com",
@@ -146,11 +114,23 @@
    "sector": "seekingalpha.com",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "SNY",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-30T19:20:43Z",
+   "amount_eur": 100.0,
+   "name": "Sanofi",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
-  "MU": "2026-11-25",
+  "MU": "2026-11-27",
   "NVDA": "2026-11-25",
   "AVGO": "2026-11-19",
   "SNDK": "2026-11-11",
@@ -170,7 +150,6 @@
   "BA": "2026-10-30",
   "OKE": "2026-10-30",
   "STM": "2026-10-30",
-  "LR.PA": "2026-10-30",
   "REPX": "2026-10-30",
   "SAP": "2026-10-30",
   "APP": "2026-10-30",
@@ -250,7 +229,7 @@
   "HAS": "2026-11-18",
   "GET.PA": "2026-11-18",
   "STX": "2026-11-19",
-  "EL.PA": "2026-11-19",
+  "EL.PA": "2026-11-27",
   "AA": "2026-11-18",
   "VU.PA": "2026-11-18",
   "SKHY": "2026-11-18",
@@ -288,7 +267,8 @@
   "SPXC": "2026-11-26",
   "TTE": "2026-11-26",
   "CSWC": "2026-11-27",
-  "AR": "2026-11-27"
+  "AR": "2026-11-27",
+  "SNY": "2026-11-27"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -693,12 +673,15 @@
   "1a1889cbeb8b6fac:TTE",
   "1a189458d79a032b:GOOGL",
   "1a18ca201f18ae78:CSWC",
-  "1a18caa1b57f570e:AR"
+  "1a18caa1b57f570e:AR",
+  "1a18dcf0a605f988:SNY",
+  "1a18ce1ffc0db2f0:MU",
+  "1a18dcf0a605f988:EL.PA"
  ],
  "counters": {
-  "avis": 403,
-  "achetes": 247,
-  "prolonges": 156,
+  "avis": 406,
+  "achetes": 248,
+  "prolonges": 158,
   "complet": 0
  },
  "dropped": [
