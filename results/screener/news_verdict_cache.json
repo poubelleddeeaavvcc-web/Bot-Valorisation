@@ -1750,5 +1750,11 @@
     "sentiment": "neutral",
     "reason": "The news articles do not provide a consistent sentiment, with some indicating no change (e.g., stock price and chart, quote and history) and others not providing a sentiment (e.g., the link to ad-hoc-news.de does not specify a sentiment). Goldman Sachs' rating of Sell for SCREEN Holdings stock sugge",
     "source": "ollama"
+  },
+  "HBNC_2026-10-30": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general sentiment from the recent news about Horizon Bancorp, Inc. (HBNC) is positive, with optimism remaining, Vanguard updating its stake, and positive earnings call transcript.",
+    "source": "ollama"
   }
 }
