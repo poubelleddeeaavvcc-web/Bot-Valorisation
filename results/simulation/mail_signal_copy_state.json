@@ -1,129 +1,17 @@
 {
  "cash": {
-  "pool": 5476.163823436644
+  "pool": 6236.740548230709
  },
  "pending": [
   {
-   "side": "sell",
-   "ticker": "AI",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-30T05:45:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "APP",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-30T05:45:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "ARM",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-30T05:45:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "BA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-30T05:45:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "GEV",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-30T05:45:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "OKE",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-30T05:45:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "PDI",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-30T05:45:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "REPX",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-30T05:45:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "RF",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-30T05:45:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "SAP",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-30T05:45:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "STM",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-10-30T05:45:17Z",
-   "fraction": 1.0
-  },
-  {
    "side": "buy",
-   "ticker": "CSWC",
+   "ticker": "CAT",
    "bucket": "pool",
    "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-30T12:50:36Z",
+   "decided_at": "2026-10-30T23:45:18Z",
    "amount_eur": 100.0,
-   "name": "Capital Southwest Corporation",
+   "name": "Caterpillar Inc.",
    "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "AR",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-30T12:50:36Z",
-   "amount_eur": 100.0,
-   "name": "Antero Resources Corporation",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "SNY",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-30T19:20:43Z",
-   "amount_eur": 100.0,
-   "name": "Sanofi",
-   "sector": "news.meilleurtaux.com (ton)",
    "currency": "USD",
    "fractional": true
   }
@@ -147,17 +35,6 @@
   "AMZN": "2026-11-16",
   "GOOG": "2026-11-06",
   "ACN": "2026-11-20",
-  "BA": "2026-10-30",
-  "OKE": "2026-10-30",
-  "STM": "2026-10-30",
-  "REPX": "2026-10-30",
-  "SAP": "2026-10-30",
-  "APP": "2026-10-30",
-  "AI": "2026-10-30",
-  "PDI": "2026-10-30",
-  "GEV": "2026-10-30",
-  "ARM": "2026-10-30",
-  "RF": "2026-10-30",
   "MRN.PA": "2026-11-02",
   "MRVL": "2026-11-13",
   "NTAP": "2026-11-02",
@@ -268,7 +145,8 @@
   "TTE": "2026-11-26",
   "CSWC": "2026-11-27",
   "AR": "2026-11-27",
-  "SNY": "2026-11-27"
+  "SNY": "2026-11-27",
+  "CAT": "2026-11-27"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -676,11 +554,12 @@
   "1a18caa1b57f570e:AR",
   "1a18dcf0a605f988:SNY",
   "1a18ce1ffc0db2f0:MU",
-  "1a18dcf0a605f988:EL.PA"
+  "1a18dcf0a605f988:EL.PA",
+  "1a18e6edfd0a2e6b:CAT"
  ],
  "counters": {
-  "avis": 406,
-  "achetes": 248,
+  "avis": 407,
+  "achetes": 249,
   "prolonges": 158,
   "complet": 0
  },
