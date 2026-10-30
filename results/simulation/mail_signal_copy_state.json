@@ -4,30 +4,6 @@
  },
  "pending": [
   {
-   "side": "buy",
-   "ticker": "RNO.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-29T19:39:06Z",
-   "amount_eur": 100.0,
-   "name": "Renault SA",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "DSY.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-10-29T19:39:06Z",
-   "amount_eur": 100.0,
-   "name": "Dassault Systèmes SE",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
    "side": "sell",
    "ticker": "AI",
    "bucket": "pool",
@@ -122,6 +98,54 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-10-30T05:45:17Z",
    "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "RNO.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-29T19:39:06Z",
+   "amount_eur": 100.0,
+   "name": "Renault SA",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "DSY.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-10-29T19:39:06Z",
+   "amount_eur": 100.0,
+   "name": "Dassault Systèmes SE",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "CSWC",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-30T12:50:36Z",
+   "amount_eur": 100.0,
+   "name": "Capital Southwest Corporation",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "AR",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-30T12:50:36Z",
+   "amount_eur": 100.0,
+   "name": "Antero Resources Corporation",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -262,7 +286,9 @@
   "RNO.PA": "2026-11-26",
   "DSY.PA": "2026-11-26",
   "SPXC": "2026-11-26",
-  "TTE": "2026-11-26"
+  "TTE": "2026-11-26",
+  "CSWC": "2026-11-27",
+  "AR": "2026-11-27"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -665,11 +691,13 @@
   "1a1889cbeb8b6fac:DSY.PA",
   "1a187ff4a14ed6a0:SPXC",
   "1a1889cbeb8b6fac:TTE",
-  "1a189458d79a032b:GOOGL"
+  "1a189458d79a032b:GOOGL",
+  "1a18ca201f18ae78:CSWC",
+  "1a18caa1b57f570e:AR"
  ],
  "counters": {
-  "avis": 401,
-  "achetes": 245,
+  "avis": 403,
+  "achetes": 247,
   "prolonges": 156,
   "complet": 0
  },
