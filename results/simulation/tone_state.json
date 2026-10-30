@@ -1,133 +1,63 @@
 {
  "cash": {
-  "pool": 2400.0
+  "pool": 1500.0
  },
  "pending": [
   {
    "side": "buy",
-   "ticker": "EG",
+   "ticker": "DVA",
    "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 0%)",
-   "decided_at": "2026-10-29T21:51:51Z",
+   "reason": "ton peu optimiste au regard des chiffres (rang 13%)",
+   "decided_at": "2026-10-30T21:51:48Z",
    "amount_eur": 100.0,
-   "name": "EVEREST GROUP, LTD.",
+   "name": "DAVITA INC.",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.02652
+   "score": -0.007479
   },
   {
    "side": "buy",
-   "ticker": "FDX",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 14%)",
-   "decided_at": "2026-10-29T21:51:51Z",
-   "amount_eur": 100.0,
-   "name": "FEDEX CORP",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.007085
-  },
-  {
-   "side": "buy",
-   "ticker": "F",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 2%)",
-   "decided_at": "2026-10-29T21:51:51Z",
-   "amount_eur": 100.0,
-   "name": "FORD MOTOR CO",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.015127
-  },
-  {
-   "side": "buy",
-   "ticker": "GEN",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 15%)",
-   "decided_at": "2026-10-29T21:51:51Z",
-   "amount_eur": 100.0,
-   "name": "Gen Digital Inc.",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.006959
-  },
-  {
-   "side": "buy",
-   "ticker": "MO",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 3%)",
-   "decided_at": "2026-10-30T04:52:55Z",
-   "amount_eur": 100.0,
-   "name": "ALTRIA GROUP, INC.",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.012701
-  },
-  {
-   "side": "buy",
-   "ticker": "AVY",
+   "ticker": "EIX",
    "bucket": "pool",
    "reason": "ton peu optimiste au regard des chiffres (rang 12%)",
-   "decided_at": "2026-10-30T04:52:55Z",
+   "decided_at": "2026-10-30T21:51:48Z",
    "amount_eur": 100.0,
-   "name": "Avery Dennison Corp",
+   "name": "EDISON INTERNATIONAL",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.007654
+   "score": -0.007775
   },
   {
    "side": "buy",
-   "ticker": "CARR",
+   "ticker": "GILD",
    "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 19%)",
-   "decided_at": "2026-10-30T04:52:55Z",
+   "reason": "ton peu optimiste au regard des chiffres (rang 3%)",
+   "decided_at": "2026-10-30T21:51:48Z",
    "amount_eur": 100.0,
-   "name": "CARRIER GLOBAL Corp",
+   "name": "GILEAD SCIENCES, INC.",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.00566
+   "score": -0.012543
   },
   {
    "side": "buy",
-   "ticker": "TROW",
+   "ticker": "SBUX",
    "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 4%)",
-   "decided_at": "2026-10-30T04:52:55Z",
+   "reason": "ton peu optimiste au regard des chiffres (rang 9%)",
+   "decided_at": "2026-10-30T21:51:48Z",
    "amount_eur": 100.0,
-   "name": "PRICE T ROWE GROUP INC",
+   "name": "STARBUCKS CORP",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.011636
-  },
-  {
-   "side": "buy",
-   "ticker": "TT",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 17%)",
-   "decided_at": "2026-10-30T04:52:55Z",
-   "amount_eur": 100.0,
-   "name": "Trane Technologies plc",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.006131
+   "score": -0.008569
   }
  ],
  "launched_at": "2026-10-14T10:56:13Z",
@@ -19101,6 +19031,236 @@
    "react": 0.011908,
    "age": 3.086896,
    "tone": 0.007031
+  },
+  {
+   "ticker": "AMZN",
+   "date": "2026-10-30",
+   "ret12": 0.110578,
+   "size": 28.585926,
+   "stdret": 0.108715,
+   "react": -0.034489,
+   "age": 3.087021,
+   "tone": 0.011078
+  },
+  {
+   "ticker": "AJG",
+   "date": "2026-10-30",
+   "ret12": -0.015014,
+   "size": 24.982674,
+   "stdret": 0.083572,
+   "react": 0.081576,
+   "age": 3.087021,
+   "tone": 0.001135
+  },
+  {
+   "ticker": "COIN",
+   "date": "2026-10-30",
+   "ret12": -0.543044,
+   "size": 24.357455,
+   "stdret": 0.139376,
+   "react": -0.094216,
+   "age": 1.878571,
+   "tone": -0.001099
+  },
+  {
+   "ticker": "DVA",
+   "date": "2026-10-30",
+   "ret12": 0.419103,
+   "size": 23.205043,
+   "stdret": 0.186129,
+   "react": 0.040891,
+   "age": 3.087021,
+   "tone": -0.006629
+  },
+  {
+   "ticker": "DXCM",
+   "date": "2026-10-30",
+   "ret12": 0.135635,
+   "size": 24.158962,
+   "stdret": 0.130398,
+   "react": 0.068161,
+   "age": 3.087021,
+   "tone": 0.0
+  },
+  {
+   "ticker": "DLR",
+   "date": "2026-10-30",
+   "ret12": 0.062384,
+   "size": 24.928547,
+   "stdret": 0.068101,
+   "react": 0.026654,
+   "age": 3.087021,
+   "tone": 0.00349
+  },
+  {
+   "ticker": "EIX",
+   "date": "2026-10-30",
+   "ret12": 0.108652,
+   "size": 23.842242,
+   "stdret": 0.109579,
+   "react": 0.020801,
+   "age": 3.087021,
+   "tone": -0.00525
+  },
+  {
+   "ticker": "ERIE",
+   "date": "2026-10-30",
+   "ret12": -0.212703,
+   "size": 23.338327,
+   "stdret": 0.087443,
+   "react": 0.08236,
+   "age": 3.087021,
+   "tone": 0.002222
+  },
+  {
+   "ticker": "FSLR",
+   "date": "2026-10-30",
+   "ret12": -0.26419,
+   "size": 23.654072,
+   "stdret": 0.197415,
+   "react": 0.010704,
+   "age": 3.042173,
+   "tone": -0.001436
+  },
+  {
+   "ticker": "GILD",
+   "date": "2026-10-30",
+   "ret12": 0.383902,
+   "size": 26.078974,
+   "stdret": 0.067178,
+   "react": 0.093592,
+   "age": 3.087021,
+   "tone": -0.006743
+  },
+  {
+   "ticker": "GDDY",
+   "date": "2026-10-30",
+   "ret12": -0.185785,
+   "size": 23.421143,
+   "stdret": 0.1029,
+   "react": 0.121913,
+   "age": 2.532414,
+   "tone": 0.002647
+  },
+  {
+   "ticker": "INTC",
+   "date": "2026-10-30",
+   "ret12": 1.300265,
+   "size": 26.578869,
+   "stdret": 0.379562,
+   "react": -0.290149,
+   "age": 3.087021,
+   "tone": -0.002449
+  },
+  {
+   "ticker": "IR",
+   "date": "2026-10-30",
+   "ret12": -0.04217,
+   "size": 24.159166,
+   "stdret": 0.086124,
+   "react": 0.082449,
+   "age": 2.348274,
+   "tone": -0.001236
+  },
+  {
+   "ticker": "JKHY",
+   "date": "2026-10-30",
+   "ret12": 0.040259,
+   "size": 23.149118,
+   "stdret": 0.086317,
+   "react": 0.04191,
+   "age": 3.087021,
+   "tone": -0.002985
+  },
+  {
+   "ticker": "MPWR",
+   "date": "2026-10-30",
+   "ret12": 0.122416,
+   "size": 24.809967,
+   "stdret": 0.188731,
+   "react": 0.02182,
+   "age": 3.087021,
+   "tone": 0.006567
+  },
+  {
+   "ticker": "MDLZ",
+   "date": "2026-10-30",
+   "ret12": 0.064105,
+   "size": 25.146437,
+   "stdret": 0.046733,
+   "react": 0.071101,
+   "age": 3.087021,
+   "tone": 0.003659
+  },
+  {
+   "ticker": "RSG",
+   "date": "2026-10-30",
+   "ret12": 0.084854,
+   "size": 25.037124,
+   "stdret": 0.046079,
+   "react": 0.067068,
+   "age": 3.087021,
+   "tone": 0.003142
+  },
+  {
+   "ticker": "RMD",
+   "date": "2026-10-30",
+   "ret12": -0.014629,
+   "size": 24.199527,
+   "stdret": 0.086164,
+   "react": -0.059384,
+   "age": 3.087021,
+   "tone": 0.003195
+  },
+  {
+   "ticker": "SBUX",
+   "date": "2026-10-30",
+   "ret12": 0.238834,
+   "size": 25.495507,
+   "stdret": 0.084143,
+   "react": 0.026035,
+   "age": 3.087021,
+   "tone": -0.003951
+  },
+  {
+   "ticker": "SYK",
+   "date": "2026-10-30",
+   "ret12": -0.18238,
+   "size": 25.441315,
+   "stdret": 0.075417,
+   "react": -0.018453,
+   "age": 3.087021,
+   "tone": 0.002442
+  },
+  {
+   "ticker": "SNDK",
+   "date": "2026-10-30",
+   "ret12": 7.00302,
+   "size": 25.837272,
+   "stdret": 0.421937,
+   "react": -0.159246,
+   "age": 0.996365,
+   "tone": 0.000578
+  },
+  {
+   "ticker": "VLTO",
+   "date": "2026-10-30",
+   "ret12": 0.008279,
+   "size": 24.022262,
+   "stdret": 0.048838,
+   "react": 0.10222,
+   "age": 1.404102,
+   "tone": 0.010779
+  },
+  {
+   "ticker": "WY",
+   "date": "2026-10-30",
+   "ret12": -0.162197,
+   "size": 23.408864,
+   "stdret": 0.07714,
+   "react": 0.081929,
+   "age": 3.087021,
+   "tone": 0.002753
   }
  ],
  "edgar_days_done": [
@@ -19126,172 +19286,11 @@
    "company": "Honeywell Aerospace Inc."
   },
   {
-   "ticker": "AMZN",
-   "acc": "0001018724-26-000038",
-   "accepted": "2026-10-29T16:05:27-04:00",
-   "tone": 0.011078453538322406,
-   "company": "AMAZON COM INC"
-  },
-  {
-   "ticker": "AJG",
-   "acc": "0001628280-26-068263",
-   "accepted": "2026-10-29T16:19:19-04:00",
-   "tone": 0.0011347057869995137,
-   "company": "Arthur J. Gallagher & Co."
-  },
-  {
-   "ticker": "COIN",
-   "acc": "0001679788-26-000121",
-   "accepted": "2026-10-29T16:09:03-04:00",
-   "tone": -0.0010990736379337415,
-   "company": "Coinbase Global, Inc."
-  },
-  {
-   "ticker": "DVA",
-   "acc": "0000927066-26-000132",
-   "accepted": "2026-10-29T16:06:43-04:00",
-   "tone": -0.006628940986257073,
-   "company": "DAVITA INC."
-  },
-  {
-   "ticker": "DXCM",
-   "acc": "0001093557-26-000193",
-   "accepted": "2026-10-29T16:03:50-04:00",
-   "tone": 0.0,
-   "company": "DEXCOM INC"
-  },
-  {
-   "ticker": "DLR",
-   "acc": "0001104659-26-120212",
-   "accepted": "2026-10-29T16:17:20-04:00",
-   "tone": 0.003489792357354737,
-   "company": "DIGITAL REALTY TRUST, INC."
-  },
-  {
-   "ticker": "EIX",
-   "acc": "0000827052-26-000072",
-   "accepted": "2026-10-29T16:06:59-04:00",
-   "tone": -0.005250154416306362,
-   "company": "EDISON INTERNATIONAL"
-  },
-  {
-   "ticker": "ERIE",
-   "acc": "0001628280-26-068265",
-   "accepted": "2026-10-29T16:20:10-04:00",
-   "tone": 0.0022222222222222222,
-   "company": "ERIE INDEMNITY CO"
-  },
-  {
-   "ticker": "FSLR",
-   "acc": "0001274494-26-000211",
-   "accepted": "2026-10-29T16:03:20-04:00",
-   "tone": -0.0014359563469270534,
-   "company": "FIRST SOLAR, INC."
-  },
-  {
    "ticker": "FDXF",
    "acc": "0001628280-26-068228",
    "accepted": "2026-10-29T16:08:03-04:00",
    "tone": 0.0037766387914755866,
    "company": "FedEx Freight Holding Company, Inc."
-  },
-  {
-   "ticker": "GILD",
-   "acc": "0000882095-26-000037",
-   "accepted": "2026-10-29T16:03:48-04:00",
-   "tone": -0.006742950551695954,
-   "company": "GILEAD SCIENCES, INC."
-  },
-  {
-   "ticker": "GDDY",
-   "acc": "0001609711-26-000117",
-   "accepted": "2026-10-29T16:11:41-04:00",
-   "tone": 0.0026470588235294116,
-   "company": "GoDaddy Inc."
-  },
-  {
-   "ticker": "INTC",
-   "acc": "0000050863-26-000188",
-   "accepted": "2026-10-29T16:08:53-04:00",
-   "tone": -0.002449479485609308,
-   "company": "INTEL CORP"
-  },
-  {
-   "ticker": "IR",
-   "acc": "0001628280-26-068260",
-   "accepted": "2026-10-29T16:19:02-04:00",
-   "tone": -0.0012363996043521265,
-   "company": "Ingersoll Rand Inc."
-  },
-  {
-   "ticker": "JKHY",
-   "acc": "0000779152-26-000092",
-   "accepted": "2026-10-29T16:39:02-04:00",
-   "tone": -0.0029850746268656717,
-   "company": "JACK HENRY & ASSOCIATES INC"
-  },
-  {
-   "ticker": "MPWR",
-   "acc": "0001628280-26-068202",
-   "accepted": "2026-10-29T16:01:11-04:00",
-   "tone": 0.006566850538481744,
-   "company": "MONOLITHIC POWER SYSTEMS, INC."
-  },
-  {
-   "ticker": "MDLZ",
-   "acc": "0001628280-26-068233",
-   "accepted": "2026-10-29T16:09:58-04:00",
-   "tone": 0.003658536585365854,
-   "company": "Mondelez International, Inc."
-  },
-  {
-   "ticker": "RSG",
-   "acc": "0001060391-26-000326",
-   "accepted": "2026-10-29T16:10:27-04:00",
-   "tone": 0.0031423737007493352,
-   "company": "REPUBLIC SERVICES, INC."
-  },
-  {
-   "ticker": "RMD",
-   "acc": "0001193125-26-437783",
-   "accepted": "2026-10-29T16:05:45-04:00",
-   "tone": 0.003194888178913738,
-   "company": "RESMED INC"
-  },
-  {
-   "ticker": "SBUX",
-   "acc": "0000829224-26-000154",
-   "accepted": "2026-10-29T16:07:14-04:00",
-   "tone": -0.003951211132107885,
-   "company": "STARBUCKS CORP"
-  },
-  {
-   "ticker": "SYK",
-   "acc": "0000310764-26-000059",
-   "accepted": "2026-10-29T16:11:16-04:00",
-   "tone": 0.0024416711882799783,
-   "company": "STRYKER CORP"
-  },
-  {
-   "ticker": "SNDK",
-   "acc": "0001628280-26-068243",
-   "accepted": "2026-10-29T16:13:53-04:00",
-   "tone": 0.000578368999421631,
-   "company": "Sandisk Corp"
-  },
-  {
-   "ticker": "VLTO",
-   "acc": "0001967680-26-000047",
-   "accepted": "2026-10-29T16:31:44-04:00",
-   "tone": 0.010779180782260549,
-   "company": "Veralto Corp"
-  },
-  {
-   "ticker": "WY",
-   "acc": "0001193125-26-437799",
-   "accepted": "2026-10-29T16:09:01-04:00",
-   "tone": 0.0027531355154481493,
-   "company": "WEYERHAEUSER CO"
   }
  ],
  "shadow": [
@@ -19514,6 +19513,11 @@
    "ticker": "HWM",
    "day0": "2026-10-29",
    "rang": 0.812
+  },
+  {
+   "ticker": "VLTO",
+   "day0": "2026-10-30",
+   "rang": 0.861
   }
  ],
  "events_log": [
@@ -21667,6 +21671,213 @@
    "abtone": 0.00288,
    "rang": 0.686,
    "decision": "neutre"
+  },
+  {
+   "ticker": "AMZN",
+   "company": "AMAZON COM INC",
+   "day0": "2026-10-30",
+   "tone": 0.01108,
+   "abtone": 0.00373,
+   "rang": 0.731,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "AJG",
+   "company": "Arthur J. Gallagher & Co.",
+   "day0": "2026-10-30",
+   "tone": 0.00113,
+   "abtone": -0.00334,
+   "rang": 0.3,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "COIN",
+   "company": "Coinbase Global, Inc.",
+   "day0": "2026-10-30",
+   "tone": -0.0011,
+   "abtone": -0.00324,
+   "rang": 0.307,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "DVA",
+   "company": "DAVITA INC.",
+   "day0": "2026-10-30",
+   "tone": -0.00663,
+   "abtone": -0.00748,
+   "rang": 0.126,
+   "decision": "achat"
+  },
+  {
+   "ticker": "DXCM",
+   "company": "DEXCOM INC",
+   "day0": "2026-10-30",
+   "tone": 0.0,
+   "abtone": -0.00282,
+   "rang": 0.333,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "DLR",
+   "company": "DIGITAL REALTY TRUST, INC.",
+   "day0": "2026-10-30",
+   "tone": 0.00349,
+   "abtone": -0.00082,
+   "rang": 0.467,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "EIX",
+   "company": "EDISON INTERNATIONAL",
+   "day0": "2026-10-30",
+   "tone": -0.00525,
+   "abtone": -0.00778,
+   "rang": 0.117,
+   "decision": "achat"
+  },
+  {
+   "ticker": "ERIE",
+   "company": "ERIE INDEMNITY CO",
+   "day0": "2026-10-30",
+   "tone": 0.00222,
+   "abtone": -0.00046,
+   "rang": 0.492,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "FSLR",
+   "company": "FIRST SOLAR, INC.",
+   "day0": "2026-10-30",
+   "tone": -0.00144,
+   "abtone": -0.00261,
+   "rang": 0.345,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "GILD",
+   "company": "GILEAD SCIENCES, INC.",
+   "day0": "2026-10-30",
+   "tone": -0.00674,
+   "abtone": -0.01254,
+   "rang": 0.034,
+   "decision": "achat"
+  },
+  {
+   "ticker": "GDDY",
+   "company": "GoDaddy Inc.",
+   "day0": "2026-10-30",
+   "tone": 0.00265,
+   "abtone": -2e-05,
+   "rang": 0.524,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "INTC",
+   "company": "INTEL CORP",
+   "day0": "2026-10-30",
+   "tone": -0.00245,
+   "abtone": -0.0023,
+   "rang": 0.366,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "IR",
+   "company": "Ingersoll Rand Inc.",
+   "day0": "2026-10-30",
+   "tone": -0.00124,
+   "abtone": -0.00467,
+   "rang": 0.237,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "JKHY",
+   "company": "JACK HENRY & ASSOCIATES INC",
+   "day0": "2026-10-30",
+   "tone": -0.00299,
+   "abtone": -0.00519,
+   "rang": 0.211,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "MPWR",
+   "company": "MONOLITHIC POWER SYSTEMS, INC.",
+   "day0": "2026-10-30",
+   "tone": 0.00657,
+   "abtone": 0.00412,
+   "rang": 0.75,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "MDLZ",
+   "company": "Mondelez International, Inc.",
+   "day0": "2026-10-30",
+   "tone": 0.00366,
+   "abtone": -0.00138,
+   "rang": 0.429,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "RSG",
+   "company": "REPUBLIC SERVICES, INC.",
+   "day0": "2026-10-30",
+   "tone": 0.00314,
+   "abtone": -0.00176,
+   "rang": 0.407,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "RMD",
+   "company": "RESMED INC",
+   "day0": "2026-10-30",
+   "tone": 0.00319,
+   "abtone": 0.00035,
+   "rang": 0.554,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "SBUX",
+   "company": "STARBUCKS CORP",
+   "day0": "2026-10-30",
+   "tone": -0.00395,
+   "abtone": -0.00857,
+   "rang": 0.091,
+   "decision": "achat"
+  },
+  {
+   "ticker": "SYK",
+   "company": "STRYKER CORP",
+   "day0": "2026-10-30",
+   "tone": 0.00244,
+   "abtone": -0.00214,
+   "rang": 0.376,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "SNDK",
+   "company": "Sandisk Corp",
+   "day0": "2026-10-30",
+   "tone": 0.00058,
+   "abtone": 0.00357,
+   "rang": 0.722,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "VLTO",
+   "company": "Veralto Corp",
+   "day0": "2026-10-30",
+   "tone": 0.01078,
+   "abtone": 0.00702,
+   "rang": 0.861,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "WY",
+   "company": "WEYERHAEUSER CO",
+   "day0": "2026-10-30",
+   "tone": 0.00275,
+   "abtone": -0.0001,
+   "rang": 0.515,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -21704,14 +21915,18 @@
   "AVY": "2027-01-22",
   "CARR": "2027-01-22",
   "TROW": "2027-01-22",
-  "TT": "2027-01-22"
+  "TT": "2027-01-22",
+  "DVA": "2027-01-25",
+  "EIX": "2027-01-25",
+  "GILD": "2027-01-25",
+  "SBUX": "2027-01-25"
  },
  "counters": {
   "jours": 12,
   "communiques": 264,
-  "evalues": 239,
-  "achetes": 35,
-  "ombre": 44,
+  "evalues": 262,
+  "achetes": 39,
+  "ombre": 45,
   "complet": 0
  }
 }

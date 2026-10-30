@@ -1,23 +1,8 @@
 {
  "cash": {
-  "SPY": 990.8154429291828
+  "SPY": 0.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "SPY",
-   "bucket": "SPY",
-   "reason": "RSI2 7.5 < 10 et cours > moyenne 200 j",
-   "decided_at": "2026-10-30T19:52:49Z",
-   "amount_eur": 990.8154429291828,
-   "name": "SPDR S&P 500 ETF",
-   "sector": "Actions US",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 7.48
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-12T14:52:43Z",
  "decision_date": "2026-10-30",
  "signal": {

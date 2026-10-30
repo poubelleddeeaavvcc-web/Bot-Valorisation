@@ -1,37 +1,8 @@
 {
  "cash": {
-  "pool": 4000.0
+  "pool": 3800.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "LRCX",
-   "bucket": "pool",
-   "reason": "achat declare par David J. Taylor (OH02), >= 1,001 $ le 10/15/2026",
-   "decided_at": "2026-10-30T16:52:47Z",
-   "amount_eur": 100.0,
-   "name": "LRCX",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 1001.0
-  },
-  {
-   "side": "buy",
-   "ticker": "PLD",
-   "bucket": "pool",
-   "reason": "achat declare par David J. Taylor (OH02), >= 1,001 $ le 10/15/2026",
-   "decided_at": "2026-10-30T16:52:47Z",
-   "amount_eur": 100.0,
-   "name": "PLD",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 1001.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20035487",
