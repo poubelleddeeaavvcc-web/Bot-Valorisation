@@ -854,5 +854,13 @@
       "reason": "Le texte ne fournit aucune indication claire sur la concentration de ses clients, car il n'est pas indiqué qu'elle dépende d'un client principal, d'un contrat gouvernemental unique, ou qu'elle est quasi-exclusivement fournisseur d'un seul grand groupe, ni qu'elle s'adresse à un grand public, à de no",
       "source": "ollama"
     }
+  },
+  "DGX": {
+    "checked_at": "2026-10-30",
+    "verdict": {
+      "concentration": "diversified",
+      "reason": "The text mentions physicians, hospitals, patients, consumers, health plans, government agencies, employers, retailers, pharmaceutical companies, insurers, accountable care organizations, and a wide range of industries in the health and wellness sector as clients, suggesting a large and diverse clien",
+      "source": "ollama"
+    }
   }
 }

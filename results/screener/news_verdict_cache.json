@@ -1756,5 +1756,11 @@
     "sentiment": "positive",
     "reason": "The general sentiment from the recent news about Horizon Bancorp, Inc. (HBNC) is positive, with optimism remaining, Vanguard updating its stake, and positive earnings call transcript.",
     "source": "ollama"
+  },
+  "DGX_2026-10-30": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The news highlights an upgraded rating, a raised 12-month price target, and the announcement of a new test for Alzheimer's, all of which suggest a positive outlook for Quest Diagnostics Incorporated's stock.",
+    "source": "ollama"
   }
 }
