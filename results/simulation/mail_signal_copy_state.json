@@ -26,6 +26,102 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "sell",
+   "ticker": "AI",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-30T05:45:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "APP",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-30T05:45:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "ARM",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-30T05:45:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "BA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-30T05:45:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "GEV",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-30T05:45:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "LR.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-30T05:45:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "OKE",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-30T05:45:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "PDI",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-30T05:45:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "REPX",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-30T05:45:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "RF",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-30T05:45:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "SAP",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-30T05:45:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "STM",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-10-30T05:45:17Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
