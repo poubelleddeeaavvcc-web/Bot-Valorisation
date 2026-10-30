@@ -2,7 +2,36 @@
  "cash": {
   "pool": 4000.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "LRCX",
+   "bucket": "pool",
+   "reason": "achat declare par David J. Taylor (OH02), >= 1,001 $ le 10/15/2026",
+   "decided_at": "2026-10-30T16:52:47Z",
+   "amount_eur": 100.0,
+   "name": "LRCX",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1001.0
+  },
+  {
+   "side": "buy",
+   "ticker": "PLD",
+   "bucket": "pool",
+   "reason": "achat declare par David J. Taylor (OH02), >= 1,001 $ le 10/15/2026",
+   "decided_at": "2026-10-30T16:52:47Z",
+   "amount_eur": 100.0,
+   "name": "PLD",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1001.0
+  }
+ ],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20035487",
@@ -26,6 +55,7 @@
   "20035710",
   "20035714",
   "20035715",
+  "20035727",
   "9116378",
   "9116389",
   "9116390",
@@ -33,15 +63,17 @@
  ],
  "hold_until": {
   "BRK-B": "2027-04-01",
-  "T": "2027-04-02",
+  "T": "2027-04-16",
   "FITB": "2027-04-02",
-  "RPM": "2027-04-02",
+  "RPM": "2027-04-16",
   "NOKBF": "2027-04-05",
   "DDOG": "2027-04-06",
   "EL": "2027-04-06",
   "GH": "2027-04-06",
   "NVDA": "2027-04-09",
-  "TSM": "2027-04-09"
+  "TSM": "2027-04-09",
+  "LRCX": "2027-04-16",
+  "PLD": "2027-04-16"
  },
  "events_log": [
   {
@@ -133,15 +165,51 @@
    "trade_date": "10/09/2026",
    "amount_low": 1001,
    "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-29",
+   "member": "David J. Taylor",
+   "district": "OH02",
+   "ticker": "T",
+   "trade_date": "10/15/2026",
+   "amount_low": 1001,
+   "decision": "deja detenu : detention prolongee"
+  },
+  {
+   "filing_date": "2026-10-29",
+   "member": "David J. Taylor",
+   "district": "OH02",
+   "ticker": "LRCX",
+   "trade_date": "10/15/2026",
+   "amount_low": 1001,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-29",
+   "member": "David J. Taylor",
+   "district": "OH02",
+   "ticker": "PLD",
+   "trade_date": "10/15/2026",
+   "amount_low": 1001,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-10-29",
+   "member": "David J. Taylor",
+   "district": "OH02",
+   "ticker": "RPM",
+   "trade_date": "10/15/2026",
+   "amount_low": 1001,
+   "decision": "deja detenu : detention prolongee"
   }
  ],
  "counters": {
-  "rapports": 25,
+  "rapports": 26,
   "illisibles": 0,
-  "achats_declares": 10,
-  "achetes": 10,
+  "achats_declares": 14,
+  "achetes": 12,
   "complet": 0,
-  "prolonges": 0,
+  "prolonges": 2,
   "sans_cours": 0
  }
 }
