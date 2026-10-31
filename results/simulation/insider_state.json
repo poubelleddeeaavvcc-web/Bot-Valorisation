@@ -18,7 +18,8 @@
   "2026-10-26",
   "2026-10-27",
   "2026-10-28",
-  "2026-10-29"
+  "2026-10-29",
+  "2026-10-30"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -745,11 +746,81 @@
    "title": "Director",
    "adv_usd": 311153151,
    "decision": "liquidite hors bande (311.15 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-30",
+   "ticker": "BHRB",
+   "issuer": "Burke & Herbert Financial Services Corp.",
+   "value_usd": 35500,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 10631763,
+   "decision": "liquidite hors bande (10.63 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-30",
+   "ticker": "FFIN",
+   "issuer": "FIRST FINANCIAL BANKSHARES INC",
+   "value_usd": 99816,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 34814432,
+   "decision": "liquidite hors bande (34.81 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-30",
+   "ticker": "MED",
+   "issuer": "MEDIFAST INC",
+   "value_usd": 68027,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 1585390,
+   "decision": "liquidite hors bande (1.59 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-30",
+   "ticker": "OCFC",
+   "issuer": "OCEANFIRST FINANCIAL CORP",
+   "value_usd": 89500,
+   "insiders": 1,
+   "title": "Senior EVP & CFO",
+   "adv_usd": 21409098,
+   "decision": "liquidite hors bande (21.41 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-30",
+   "ticker": "PEO",
+   "issuer": "ADAMS NATURAL RESOURCES FUND, INC.",
+   "value_usd": 30229,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 1638713,
+   "decision": "liquidite hors bande (1.64 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-30",
+   "ticker": "PKBK",
+   "issuer": "PARKE BANCORP, INC.",
+   "value_usd": 42718,
+   "insiders": 1,
+   "title": "President & CEO",
+   "adv_usd": 1274147,
+   "decision": "liquidite hors bande (1.27 M$/jour)"
+  },
+  {
+   "filing_date": "2026-10-30",
+   "ticker": "RAPP",
+   "issuer": "Rapport Therapeutics, Inc.",
+   "value_usd": 20359080,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 36582971,
+   "decision": "liquidite hors bande (36.58 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 13,
-  "evenements": 72,
+  "jours": 14,
+  "evenements": 79,
   "retenus": 3,
   "achetes": 3,
   "complet": 0,
