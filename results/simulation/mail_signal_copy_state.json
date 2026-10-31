@@ -14,6 +14,18 @@
    "sector": "seekingalpha.com",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "AM",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-10-31T12:21:56Z",
+   "amount_eur": 100.0,
+   "name": "Antero Midstream Corporation",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -146,7 +158,8 @@
   "CSWC": "2026-11-27",
   "AR": "2026-11-27",
   "SNY": "2026-11-27",
-  "CAT": "2026-11-27"
+  "CAT": "2026-11-27",
+  "AM": "2026-11-27"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -555,11 +568,12 @@
   "1a18dcf0a605f988:SNY",
   "1a18ce1ffc0db2f0:MU",
   "1a18dcf0a605f988:EL.PA",
-  "1a18e6edfd0a2e6b:CAT"
+  "1a18e6edfd0a2e6b:CAT",
+  "1a191c767a4b312e:AM"
  ],
  "counters": {
-  "avis": 407,
-  "achetes": 249,
+  "avis": 408,
+  "achetes": 250,
   "prolonges": 158,
   "complet": 0
  },
