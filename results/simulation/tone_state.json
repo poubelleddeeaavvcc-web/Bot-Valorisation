@@ -58,490 +58,52 @@
    "currency": "USD",
    "fractional": true,
    "score": -0.008569
+  },
+  {
+   "side": "buy",
+   "ticker": "CVX",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 9%)",
+   "decided_at": "2026-10-31T04:51:53Z",
+   "amount_eur": 100.0,
+   "name": "CHEVRON CORP",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.008826
+  },
+  {
+   "side": "buy",
+   "ticker": "D",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 7%)",
+   "decided_at": "2026-10-31T04:51:53Z",
+   "amount_eur": 100.0,
+   "name": "DOMINION ENERGY, INC",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.009346
+  },
+  {
+   "side": "buy",
+   "ticker": "XOM",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 13%)",
+   "decided_at": "2026-10-31T04:51:53Z",
+   "amount_eur": 100.0,
+   "name": "ExxonMobil Holdings Corp",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.007273
   }
  ],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
-  {
-   "ticker": "KMB",
-   "date": "2025-10-30",
-   "tone": 0.005577,
-   "ret12": -0.076169,
-   "size": 24.522814,
-   "stdret": 0.055453,
-   "react": 0.006794,
-   "age": 3.038647
-  },
-  {
-   "ticker": "MRK",
-   "date": "2025-10-30",
-   "tone": 0.001325,
-   "ret12": -0.132013,
-   "size": 25.967719,
-   "stdret": 0.057055,
-   "react": 0.001905,
-   "age": 3.038647
-  },
-  {
-   "ticker": "CMS",
-   "date": "2025-10-30",
-   "tone": 0.000906,
-   "ret12": 0.069716,
-   "size": 23.94362,
-   "stdret": 0.048388,
-   "react": 0.007391,
-   "age": 3.038647
-  },
-  {
-   "ticker": "APTV",
-   "date": "2025-10-30",
-   "tone": -0.006358,
-   "ret12": 0.250036,
-   "size": 23.668554,
-   "stdret": 0.115553,
-   "react": -0.041647,
-   "age": 2.702479
-  },
-  {
-   "ticker": "DTE",
-   "date": "2025-10-30",
-   "tone": 0.002697,
-   "ret12": 0.140518,
-   "size": 24.190568,
-   "stdret": 0.04717,
-   "react": -0.000792,
-   "age": 3.038647
-  },
-  {
-   "ticker": "CAH",
-   "date": "2025-10-30",
-   "tone": 0.002539,
-   "ret12": 0.489137,
-   "size": 24.364551,
-   "stdret": 0.048538,
-   "react": 0.176688,
-   "age": 3.038647
-  },
-  {
-   "ticker": "LHX",
-   "date": "2025-10-30",
-   "tone": 0.008173,
-   "ret12": 0.159159,
-   "size": 24.903541,
-   "stdret": 0.066512,
-   "react": 0.04017,
-   "age": 3.038647
-  },
-  {
-   "ticker": "KIM",
-   "date": "2025-10-30",
-   "tone": 0.008973,
-   "ret12": -0.032385,
-   "size": 23.50294,
-   "stdret": 0.042308,
-   "react": -0.026191,
-   "age": 3.038647
-  },
-  {
-   "ticker": "PWR",
-   "date": "2025-10-30",
-   "tone": 0.001761,
-   "ret12": 0.428101,
-   "size": 24.858748,
-   "stdret": 0.111515,
-   "react": 0.042964,
-   "age": 3.038647
-  },
-  {
-   "ticker": "VMC",
-   "date": "2025-10-30",
-   "tone": 0.014159,
-   "ret12": 0.14898,
-   "size": 24.499623,
-   "stdret": 0.072591,
-   "react": 0.001671,
-   "age": 3.038647
-  },
-  {
-   "ticker": "HII",
-   "date": "2025-10-30",
-   "tone": 0.004044,
-   "ret12": 0.208993,
-   "size": 23.385136,
-   "stdret": 0.108724,
-   "react": 0.077147,
-   "age": 2.746202
-  },
-  {
-   "ticker": "CMCSA",
-   "date": "2025-10-30",
-   "tone": 0.002688,
-   "ret12": -0.270615,
-   "size": 25.499336,
-   "stdret": 0.070255,
-   "react": -0.056417,
-   "age": 3.038647
-  },
-  {
-   "ticker": "BAX",
-   "date": "2025-10-30",
-   "tone": -0.000973,
-   "ret12": -0.349998,
-   "size": 23.29661,
-   "stdret": 0.114655,
-   "react": -0.151332,
-   "age": 3.038647
-  },
-  {
-   "ticker": "ICE",
-   "date": "2025-10-30",
-   "tone": 0.00146,
-   "ret12": -0.037938,
-   "size": 25.161793,
-   "stdret": 0.049485,
-   "react": -0.045114,
-   "age": 3.038647
-  },
-  {
-   "ticker": "AMP",
-   "date": "2025-10-30",
-   "tone": 0.008546,
-   "ret12": -0.027758,
-   "size": 24.609364,
-   "stdret": 0.066707,
-   "react": -0.052279,
-   "age": 3.038647
-  },
-  {
-   "ticker": "EL",
-   "date": "2025-10-30",
-   "tone": -0.001268,
-   "ret12": 0.153037,
-   "size": 24.162203,
-   "stdret": 0.145009,
-   "react": -0.001121,
-   "age": 3.038647
-  },
-  {
-   "ticker": "EME",
-   "date": "2025-10-30",
-   "tone": 0.007533,
-   "ret12": 0.756786,
-   "size": 24.247944,
-   "stdret": 0.106009,
-   "react": -0.127133,
-   "age": 3.038647
-  },
-  {
-   "ticker": "TT",
-   "date": "2025-10-30",
-   "tone": 0.000796,
-   "ret12": 0.096158,
-   "size": 25.268043,
-   "stdret": 0.071074,
-   "react": 0.057455,
-   "age": 3.038647
-  },
-  {
-   "ticker": "WTW",
-   "date": "2025-10-30",
-   "tone": -0.008324,
-   "ret12": 0.115507,
-   "size": 24.253946,
-   "stdret": 0.046564,
-   "react": 4e-06,
-   "age": 3.038647
-  },
-  {
-   "ticker": "BIIB",
-   "date": "2025-10-30",
-   "tone": 0.00509,
-   "ret12": -0.179206,
-   "size": 23.725861,
-   "stdret": 0.071945,
-   "react": 0.013742,
-   "age": 3.038647
-  },
-  {
-   "ticker": "CI",
-   "date": "2025-10-30",
-   "tone": 0.003352,
-   "ret12": -0.008033,
-   "size": 25.098049,
-   "stdret": 0.097952,
-   "react": -0.188271,
-   "age": 3.038647
-  },
-  {
-   "ticker": "AME",
-   "date": "2025-10-30",
-   "tone": 0.028416,
-   "ret12": 0.115986,
-   "size": 24.48247,
-   "stdret": 0.063831,
-   "react": 0.081944,
-   "age": 3.038647
-  },
-  {
-   "ticker": "BLDR",
-   "date": "2025-10-30",
-   "tone": -0.004336,
-   "ret12": -0.339878,
-   "size": 23.592225,
-   "stdret": 0.134625,
-   "react": -0.053658,
-   "age": 3.038647
-  },
-  {
-   "ticker": "MO",
-   "date": "2025-10-30",
-   "tone": -0.00634,
-   "ret12": 0.365756,
-   "size": 25.327118,
-   "stdret": 0.059478,
-   "react": -0.086664,
-   "age": 3.038647
-  },
-  {
-   "ticker": "LLY",
-   "date": "2025-10-30",
-   "tone": 0.007105,
-   "ret12": -0.074301,
-   "size": 27.383354,
-   "stdret": 0.081706,
-   "react": 0.040276,
-   "age": 3.038647
-  },
-  {
-   "ticker": "HWM",
-   "date": "2025-10-30",
-   "tone": 0.004064,
-   "ret12": 0.988381,
-   "size": 25.362407,
-   "stdret": 0.077631,
-   "react": 0.014154,
-   "age": 2.299803
-  },
-  {
-   "ticker": "BMY",
-   "date": "2025-10-30",
-   "tone": 0.004455,
-   "ret12": -0.134275,
-   "size": 25.276206,
-   "stdret": 0.067108,
-   "react": 0.075913,
-   "age": 3.038647
-  },
-  {
-   "ticker": "SPGI",
-   "date": "2025-10-30",
-   "tone": 0.009032,
-   "ret12": 0.01348,
-   "size": 25.641914,
-   "stdret": 0.047908,
-   "react": 0.006249,
-   "age": 3.038647
-  },
-  {
-   "ticker": "WEC",
-   "date": "2025-10-30",
-   "tone": -0.001451,
-   "ret12": 0.226572,
-   "size": 24.388755,
-   "stdret": 0.048904,
-   "react": -0.012216,
-   "age": 3.038647
-  },
-  {
-   "ticker": "IP",
-   "date": "2025-10-30",
-   "tone": -0.013115,
-   "ret12": 0.005763,
-   "size": 24.172949,
-   "stdret": 0.104411,
-   "react": -0.169829,
-   "age": 3.038647
-  },
-  {
-   "ticker": "MA",
-   "date": "2025-10-30",
-   "tone": 0.009623,
-   "ret12": 0.121849,
-   "size": 26.906715,
-   "stdret": 0.038081,
-   "react": -0.011123,
-   "age": 3.015574
-  },
-  {
-   "ticker": "SO",
-   "date": "2025-10-30",
-   "tone": -0.004564,
-   "ret12": 0.056328,
-   "size": 25.480882,
-   "stdret": 0.036785,
-   "react": 0.022875,
-   "age": 3.038647
-  },
-  {
-   "ticker": "MPWR",
-   "date": "2025-10-30",
-   "tone": -0.000548,
-   "ret12": 0.239342,
-   "size": 24.687826,
-   "stdret": 0.142055,
-   "react": -0.073666,
-   "age": 3.038837
-  },
-  {
-   "ticker": "DXCM",
-   "date": "2025-10-30",
-   "tone": 0.000651,
-   "ret12": -0.054369,
-   "size": 23.95782,
-   "stdret": 0.108633,
-   "react": -0.13833,
-   "age": 3.038837
-  },
-  {
-   "ticker": "WY",
-   "date": "2025-10-30",
-   "tone": -0.0006,
-   "ret12": -0.252202,
-   "size": 23.826963,
-   "stdret": 0.062957,
-   "react": -0.000867,
-   "age": 3.038837
-  },
-  {
-   "ticker": "RSG",
-   "date": "2025-10-30",
-   "tone": -0.001353,
-   "ret12": 0.061271,
-   "size": 24.859814,
-   "stdret": 0.054864,
-   "react": -0.002982,
-   "age": 3.038837
-  },
-  {
-   "ticker": "ERIE",
-   "date": "2025-10-30",
-   "tone": 0.003577,
-   "ret12": -0.319505,
-   "size": 23.492963,
-   "stdret": 0.053987,
-   "react": -0.022822,
-   "age": 3.038837
-  },
-  {
-   "ticker": "IR",
-   "date": "2025-10-30",
-   "tone": -0.004853,
-   "ret12": -0.178521,
-   "size": 24.268566,
-   "stdret": 0.079085,
-   "react": -0.03453,
-   "age": 2.246267
-  },
-  {
-   "ticker": "RMD",
-   "date": "2025-10-30",
-   "tone": 0.010967,
-   "ret12": 0.03644,
-   "size": 24.298421,
-   "stdret": 0.060223,
-   "react": -0.018821,
-   "age": 3.038837
-  },
-  {
-   "ticker": "COIN",
-   "date": "2025-10-30",
-   "tone": 0.013359,
-   "ret12": 0.613188,
-   "size": 25.034791,
-   "stdret": 0.223443,
-   "react": -0.006101,
-   "age": 1.711937
-  },
-  {
-   "ticker": "WDC",
-   "date": "2025-10-30",
-   "tone": -0.000519,
-   "ret12": 1.691327,
-   "size": 24.737563,
-   "stdret": 0.179628,
-   "react": 0.07021,
-   "age": 3.038837
-  },
-  {
-   "ticker": "MSI",
-   "date": "2025-10-30",
-   "tone": 0.003041,
-   "ret12": -0.045749,
-   "size": 25.061439,
-   "stdret": 0.061378,
-   "react": -0.05118,
-   "age": 3.038837
-  },
-  {
-   "ticker": "AMZN",
-   "date": "2025-10-30",
-   "tone": 0.013374,
-   "ret12": 0.222464,
-   "size": 28.5777,
-   "stdret": 0.073119,
-   "react": 0.068197,
-   "age": 3.038837
-  },
-  {
-   "ticker": "SYK",
-   "date": "2025-10-30",
-   "tone": 0.005203,
-   "ret12": 0.047571,
-   "size": 25.873585,
-   "stdret": 0.047484,
-   "react": -0.028367,
-   "age": 3.038837
-  },
-  {
-   "ticker": "VICI",
-   "date": "2025-10-30",
-   "tone": 0.00194,
-   "ret12": -0.030357,
-   "size": 24.359092,
-   "stdret": 0.044465,
-   "react": 0.017518,
-   "age": 2.176284
-  },
-  {
-   "ticker": "EW",
-   "date": "2025-10-30",
-   "tone": 0.008676,
-   "ret12": 0.206801,
-   "size": 24.634518,
-   "stdret": 0.031469,
-   "react": 0.004851,
-   "age": 3.038837
-  },
-  {
-   "ticker": "AAPL",
-   "date": "2025-10-30",
-   "tone": 0.000606,
-   "ret12": 0.160905,
-   "size": 28.926501,
-   "stdret": 0.073144,
-   "react": 0.010238,
-   "age": 3.038837
-  },
-  {
-   "ticker": "AJG",
-   "date": "2025-10-30",
-   "tone": 0.002893,
-   "ret12": -0.076415,
-   "size": 25.011265,
-   "stdret": 0.075107,
-   "react": -0.040067,
-   "age": 3.038837
-  },
   {
    "ticker": "AON",
    "date": "2025-10-31",
@@ -19261,6 +18823,146 @@
    "react": 0.081929,
    "age": 3.087021,
    "tone": 0.002753
+  },
+  {
+   "ticker": "LNT",
+   "date": "2026-10-30",
+   "ret12": 0.052181,
+   "size": 23.64523,
+   "stdret": 0.0593,
+   "react": 0.062226,
+   "age": 3.087021,
+   "tone": 0.00383
+  },
+  {
+   "ticker": "ABBV",
+   "date": "2026-10-30",
+   "ret12": 0.294495,
+   "size": 26.979218,
+   "stdret": 0.064085,
+   "react": 0.052601,
+   "age": 2.696208,
+   "tone": 0.005785
+  },
+  {
+   "ticker": "CVX",
+   "date": "2026-10-30",
+   "ret12": 0.545653,
+   "size": 26.858824,
+   "stdret": 0.091719,
+   "react": 0.049055,
+   "age": 3.087021,
+   "tone": -0.002848
+  },
+  {
+   "ticker": "CHD",
+   "date": "2026-10-30",
+   "ret12": 0.259276,
+   "size": 23.959407,
+   "stdret": 0.061978,
+   "react": 0.045156,
+   "age": 3.087021,
+   "tone": 0.023277
+  },
+  {
+   "ticker": "CL",
+   "date": "2026-10-30",
+   "ret12": 0.217135,
+   "size": 25.053507,
+   "stdret": 0.068853,
+   "react": 0.060744,
+   "age": 3.087021,
+   "tone": 0.010536
+  },
+  {
+   "ticker": "CBOE",
+   "date": "2026-10-30",
+   "ret12": 0.353199,
+   "size": 24.279749,
+   "stdret": 0.113823,
+   "react": 0.068638,
+   "age": 2.855037,
+   "tone": 0.006788
+  },
+  {
+   "ticker": "D",
+   "date": "2026-10-30",
+   "ret12": 0.124231,
+   "size": 24.793898,
+   "stdret": 0.044164,
+   "react": 0.057884,
+   "age": 3.087021,
+   "tone": -0.004739
+  },
+  {
+   "ticker": "EXC",
+   "date": "2026-10-30",
+   "ret12": -0.026966,
+   "size": 24.585185,
+   "stdret": 0.054979,
+   "react": 0.052529,
+   "age": 3.087021,
+   "tone": -0.000156
+  },
+  {
+   "ticker": "XOM",
+   "date": "2026-10-30",
+   "ret12": 0.628231,
+   "size": 27.369599,
+   "stdret": 0.085656,
+   "react": 0.050214,
+   "age": 3.087021,
+   "tone": -0.000716
+  },
+  {
+   "ticker": "FRT",
+   "date": "2026-10-30",
+   "ret12": 0.151793,
+   "size": 22.98235,
+   "stdret": 0.053292,
+   "react": 0.039497,
+   "age": 3.087021,
+   "tone": 0.011044
+  },
+  {
+   "ticker": "GD",
+   "date": "2026-10-30",
+   "ret12": 0.04062,
+   "size": 25.336473,
+   "stdret": 0.052801,
+   "react": 0.072956,
+   "age": 3.087021,
+   "tone": 0.003016
+  },
+  {
+   "ticker": "KVUE",
+   "date": "2026-10-30",
+   "ret12": 0.412951,
+   "size": 24.336617,
+   "stdret": 0.083172,
+   "react": 0.020446,
+   "age": 1.502022,
+   "tone": 0.004878
+  },
+  {
+   "ticker": "LYB",
+   "date": "2026-10-30",
+   "ret12": 0.498848,
+   "size": 23.822156,
+   "stdret": 0.175572,
+   "react": 0.043975,
+   "age": 2.862572,
+   "tone": 0.004207
+  },
+  {
+   "ticker": "REGN",
+   "date": "2026-10-30",
+   "ret12": 0.248992,
+   "size": 25.282716,
+   "stdret": 0.11231,
+   "react": 0.162418,
+   "age": 3.087021,
+   "tone": 0.006003
   }
  ],
  "edgar_days_done": [
@@ -19275,7 +18977,8 @@
   "2026-10-26",
   "2026-10-27",
   "2026-10-28",
-  "2026-10-29"
+  "2026-10-29",
+  "2026-10-30"
  ],
  "awaiting": [
   {
@@ -19518,6 +19221,21 @@
    "ticker": "VLTO",
    "day0": "2026-10-30",
    "rang": 0.861
+  },
+  {
+   "ticker": "CHD",
+   "day0": "2026-10-30",
+   "rang": 0.991
+  },
+  {
+   "ticker": "CL",
+   "day0": "2026-10-30",
+   "rang": 0.831
+  },
+  {
+   "ticker": "FRT",
+   "day0": "2026-10-30",
+   "rang": 0.901
   }
  ],
  "events_log": [
@@ -21878,6 +21596,132 @@
    "abtone": -0.0001,
    "rang": 0.515,
    "decision": "neutre"
+  },
+  {
+   "ticker": "LNT",
+   "company": "ALLIANT ENERGY CORP",
+   "day0": "2026-10-30",
+   "tone": 0.00383,
+   "abtone": 0.00064,
+   "rang": 0.571,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "ABBV",
+   "company": "AbbVie Inc.",
+   "day0": "2026-10-30",
+   "tone": 0.00579,
+   "abtone": -0.00078,
+   "rang": 0.467,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "CVX",
+   "company": "CHEVRON CORP",
+   "day0": "2026-10-30",
+   "tone": -0.00285,
+   "abtone": -0.00883,
+   "rang": 0.086,
+   "decision": "achat"
+  },
+  {
+   "ticker": "CHD",
+   "company": "CHURCH & DWIGHT CO INC /DE/",
+   "day0": "2026-10-30",
+   "tone": 0.02328,
+   "abtone": 0.01994,
+   "rang": 0.991,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "CL",
+   "company": "COLGATE PALMOLIVE CO",
+   "day0": "2026-10-30",
+   "tone": 0.01054,
+   "abtone": 0.00602,
+   "rang": 0.831,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "CBOE",
+   "company": "Cboe Global Markets, Inc.",
+   "day0": "2026-10-30",
+   "tone": 0.00679,
+   "abtone": 0.00372,
+   "rang": 0.73,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "D",
+   "company": "DOMINION ENERGY, INC",
+   "day0": "2026-10-30",
+   "tone": -0.00474,
+   "abtone": -0.00935,
+   "rang": 0.07,
+   "decision": "achat"
+  },
+  {
+   "ticker": "EXC",
+   "company": "EXELON CORP",
+   "day0": "2026-10-30",
+   "tone": -0.00016,
+   "abtone": -0.0044,
+   "rang": 0.246,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "XOM",
+   "company": "ExxonMobil Holdings Corp",
+   "day0": "2026-10-30",
+   "tone": -0.00072,
+   "abtone": -0.00727,
+   "rang": 0.134,
+   "decision": "achat"
+  },
+  {
+   "ticker": "FRT",
+   "company": "FEDERAL REALTY INVESTMENT TRUST",
+   "day0": "2026-10-30",
+   "tone": 0.01104,
+   "abtone": 0.00859,
+   "rang": 0.901,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "GD",
+   "company": "GENERAL DYNAMICS CORP",
+   "day0": "2026-10-30",
+   "tone": 0.00302,
+   "abtone": -0.00212,
+   "rang": 0.378,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "KVUE",
+   "company": "Kenvue Inc.",
+   "day0": "2026-10-30",
+   "tone": 0.00488,
+   "abtone": 0.00165,
+   "rang": 0.629,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "LYB",
+   "company": "LyondellBasell Industries N.V.",
+   "day0": "2026-10-30",
+   "tone": 0.00421,
+   "abtone": 0.00263,
+   "rang": 0.673,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "REGN",
+   "company": "REGENERON PHARMACEUTICALS, INC.",
+   "day0": "2026-10-30",
+   "tone": 0.006,
+   "abtone": 0.00136,
+   "rang": 0.615,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -21919,14 +21763,17 @@
   "DVA": "2027-01-25",
   "EIX": "2027-01-25",
   "GILD": "2027-01-25",
-  "SBUX": "2027-01-25"
+  "SBUX": "2027-01-25",
+  "CVX": "2027-01-25",
+  "D": "2027-01-25",
+  "XOM": "2027-01-25"
  },
  "counters": {
-  "jours": 12,
-  "communiques": 264,
-  "evalues": 262,
-  "achetes": 39,
-  "ombre": 45,
+  "jours": 13,
+  "communiques": 278,
+  "evalues": 276,
+  "achetes": 42,
+  "ombre": 48,
   "complet": 0
  }
 }
