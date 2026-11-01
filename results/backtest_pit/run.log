@@ -37461,7 +37461,7 @@ Telechargement FX historique (3 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 Fenetre : 2026-08-21 02:19:35 -> 2026-10-30 19:52:12 (1100 points, univers 3441->3655 tickers)
 
-FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD', 'BRL', 'INR', 'SEK']
+FX obtenu pour : ['BRL', 'HKD', 'INR', 'USD', 'AUD', 'GBP', 'CAD', 'SEK', 'JPY', 'CHF', 'MXN', 'TWD']
 
 --- Bot #1 (blind, PIT reel) ---
   Clotures : n=46  win_rate=+39.1%  retour_moyen=-6.1%
@@ -37477,7 +37477,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=4  win_rate=+50.0%  retour_moyen=-0.6%
   Motifs de sortie : {'momentum_perdu': 1, 'trailing_stop': 1, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 2000) : 2045.96 EUR (+2.3%)  cash_final=41.04 EUR
+  Equity EUR (depart 2000) : 2047.25 EUR (+2.4%)  cash_final=41.04 EUR
   Frais payes : 23.00 EUR | perte max depuis un sommet (drawdown) : -3.2%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -37485,7 +37485,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=9  win_rate=+33.3%  retour_moyen=-3.0%
   Motifs de sortie : {'momentum_perdu': 7, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=30
-  Equity EUR (depart 4000) : 4062.67 EUR (+1.6%)  cash_final=41.04 EUR
+  Equity EUR (depart 4000) : 4065.89 EUR (+1.6%)  cash_final=41.04 EUR
   Frais payes : 48.00 EUR | perte max depuis un sommet (drawdown) : -1.8%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -37501,7 +37501,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=11  win_rate=+27.3%  retour_moyen=-4.4%
   Motifs de sortie : {'stop_loss': 5, 'trailing_stop': 4, 'momentum_perdu': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 2000) : 1973.79 EUR (-1.3%)  cash_final=41.04 EUR
+  Equity EUR (depart 2000) : 1974.36 EUR (-1.3%)  cash_final=41.04 EUR
   Frais payes : 37.00 EUR | perte max depuis un sommet (drawdown) : -8.5%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -37509,7 +37509,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=4  win_rate=+50.0%  retour_moyen=-0.6%
   Motifs de sortie : {'momentum_perdu': 1, 'trailing_stop': 1, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 2000) : 2045.96 EUR (+2.3%)  cash_final=41.04 EUR
+  Equity EUR (depart 2000) : 2047.25 EUR (+2.4%)  cash_final=41.04 EUR
   Frais payes : 23.00 EUR | perte max depuis un sommet (drawdown) : -3.2%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -37517,7 +37517,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=3  win_rate=+66.7%  retour_moyen=+1.7%
   Motifs de sortie : {'trailing_stop': 1, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 2000) : 2055.32 EUR (+2.8%)  cash_final=41.04 EUR
+  Equity EUR (depart 2000) : 2056.61 EUR (+2.8%)  cash_final=41.04 EUR
   Frais payes : 21.00 EUR | perte max depuis un sommet (drawdown) : -2.7%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -37525,7 +37525,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=3  win_rate=+33.3%  retour_moyen=-9.1%
   Motifs de sortie : {'momentum_perdu': 1, 'trailing_stop': 1, 'stop_loss': 1}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 2000) : 2047.96 EUR (+2.4%)  cash_final=0.00 EUR
+  Equity EUR (depart 2000) : 2049.25 EUR (+2.5%)  cash_final=0.00 EUR
   Frais payes : 21.00 EUR | perte max depuis un sommet (drawdown) : -3.2%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -37533,15 +37533,15 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=7  win_rate=+42.9%  retour_moyen=-1.5%
   Motifs de sortie : {'momentum_perdu': 3, 'trailing_stop': 2, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 2000) : 2042.49 EUR (+2.1%)  cash_final=41.04 EUR
-  Frais payes : 29.00 EUR | perte max depuis un sommet (drawdown) : -5.2%
+  Equity EUR (depart 2000) : 2044.47 EUR (+2.2%)  cash_final=41.04 EUR
+  Frais payes : 29.00 EUR | perte max depuis un sommet (drawdown) : -5.1%
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Variante b2_momentum_fort (base bot2_constrained, PIT reel) ---
   Clotures : n=3  win_rate=+66.7%  retour_moyen=+1.7%
   Motifs de sortie : {'trailing_stop': 1, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 2000) : 2059.09 EUR (+3.0%)  cash_final=41.04 EUR
+  Equity EUR (depart 2000) : 2061.04 EUR (+3.1%)  cash_final=41.04 EUR
   Frais payes : 21.00 EUR | perte max depuis un sommet (drawdown) : -3.3%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -37549,7 +37549,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=7  win_rate=+42.9%  retour_moyen=-4.2%
   Motifs de sortie : {'momentum_perdu': 4, 'trailing_stop': 2, 'stop_loss': 1}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 2000) : 1957.91 EUR (-2.1%)  cash_final=4.83 EUR
+  Equity EUR (depart 2000) : 1958.62 EUR (-2.1%)  cash_final=4.83 EUR
   Frais payes : 29.00 EUR | perte max depuis un sommet (drawdown) : -7.5%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -37565,7 +37565,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=17  win_rate=+35.3%  retour_moyen=-1.5%
   Motifs de sortie : {'momentum_perdu': 11, 'trailing_stop': 4, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=30
-  Equity EUR (depart 4000) : 4042.34 EUR (+1.1%)  cash_final=41.04 EUR
+  Equity EUR (depart 4000) : 4045.38 EUR (+1.1%)  cash_final=41.04 EUR
   Frais payes : 64.00 EUR | perte max depuis un sommet (drawdown) : -4.2%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -37589,7 +37589,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=9  win_rate=+33.3%  retour_moyen=-2.5%
   Motifs de sortie : {'momentum_perdu': 7, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=26
-  Equity EUR (depart 4000) : 4070.44 EUR (+1.8%)  cash_final=0.00 EUR
+  Equity EUR (depart 4000) : 4073.06 EUR (+1.8%)  cash_final=0.00 EUR
   Frais payes : 49.00 EUR | perte max depuis un sommet (drawdown) : -1.7%
   Renforts de conviction reels declenches : 5 position(s)
 
@@ -37597,7 +37597,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=9  win_rate=+33.3%  retour_moyen=-2.0%
   Motifs de sortie : {'momentum_perdu': 7, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=23
-  Equity EUR (depart 4000) : 4031.05 EUR (+0.8%)  cash_final=97.93 EUR
+  Equity EUR (depart 4000) : 4034.28 EUR (+0.9%)  cash_final=97.93 EUR
   Frais payes : 50.00 EUR | perte max depuis un sommet (drawdown) : -2.2%
   Renforts de conviction reels declenches : 6 position(s)
 
@@ -79501,7 +79501,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=9  win_rate=+33.3%  retour_moyen=-2.2%
   Motifs de sortie : {'momentum_perdu': 7, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=29
-  Equity EUR (depart 4000) : 4812.26 EUR (+0.3%)  cash_final=74.35 EUR
+  Equity EUR (depart 4000) : 4816.13 EUR (+0.3%)  cash_final=74.35 EUR
   Frais payes : 53.00 EUR | perte max depuis un sommet (drawdown) : -2.4%
   Renforts de conviction reels declenches : 6 position(s)
 
@@ -79509,7 +79509,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=9  win_rate=+33.3%  retour_moyen=-2.2%
   Motifs de sortie : {'momentum_perdu': 7, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=29
-  Equity EUR (depart 4000) : 4812.07 EUR (+0.3%)  cash_final=74.35 EUR
+  Equity EUR (depart 4000) : 4815.94 EUR (+0.3%)  cash_final=74.35 EUR
   Frais payes : 53.00 EUR | perte max depuis un sommet (drawdown) : -2.4%
   Renforts de conviction reels declenches : 6 position(s)
 
@@ -79517,7 +79517,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=9  win_rate=+33.3%  retour_moyen=-2.5%
   Motifs de sortie : {'momentum_perdu': 7, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=26
-  Equity EUR (depart 4000) : 4070.44 EUR (+1.8%)  cash_final=0.00 EUR
+  Equity EUR (depart 4000) : 4073.06 EUR (+1.8%)  cash_final=0.00 EUR
   Frais payes : 49.00 EUR | perte max depuis un sommet (drawdown) : -1.7%
   Renforts de conviction reels declenches : 5 position(s)
 
@@ -79525,7 +79525,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=4  win_rate=+50.0%  retour_moyen=-0.1%
   Motifs de sortie : {'momentum_perdu': 1, 'trailing_stop': 1, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=10
-  Equity EUR (depart 2000) : 2015.15 EUR (+0.8%)  cash_final=62.56 EUR
+  Equity EUR (depart 2000) : 2016.09 EUR (+0.8%)  cash_final=62.56 EUR
   Frais payes : 18.00 EUR | perte max depuis un sommet (drawdown) : -6.0%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -79541,15 +79541,15 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=7  win_rate=+28.6%  retour_moyen=-2.6%
   Motifs de sortie : {'momentum_perdu': 5, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=20
-  Equity EUR (depart 4000) : 4064.09 EUR (+1.6%)  cash_final=62.56 EUR
-  Frais payes : 34.00 EUR | perte max depuis un sommet (drawdown) : -2.4%
+  Equity EUR (depart 4000) : 4067.03 EUR (+1.7%)  cash_final=62.56 EUR
+  Frais payes : 34.00 EUR | perte max depuis un sommet (drawdown) : -2.3%
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Charlie, 15 positions (267 EUR) ---
   Clotures : n=4  win_rate=+50.0%  retour_moyen=+4.6%
   Motifs de sortie : {'momentum_perdu': 3, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 4000) : 4140.98 EUR (+3.5%)  cash_final=87.55 EUR
+  Equity EUR (depart 4000) : 4143.55 EUR (+3.6%)  cash_final=87.55 EUR
   Frais payes : 23.00 EUR | perte max depuis un sommet (drawdown) : -2.1%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -79557,7 +79557,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=2  win_rate=+50.0%  retour_moyen=+11.8%
   Motifs de sortie : {'momentum_perdu': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=11
-  Equity EUR (depart 4000) : 4229.32 EUR (+5.7%)  cash_final=0.00 EUR
+  Equity EUR (depart 4000) : 4231.18 EUR (+5.8%)  cash_final=0.00 EUR
   Frais payes : 15.00 EUR | perte max depuis un sommet (drawdown) : -3.0%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -79581,7 +79581,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=3  win_rate=+66.7%  retour_moyen=+1.7%
   Motifs de sortie : {'trailing_stop': 1, 'stop_loss': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 2000) : 2036.37 EUR (+1.8%)  cash_final=41.04 EUR
+  Equity EUR (depart 2000) : 2038.32 EUR (+1.9%)  cash_final=41.04 EUR
   Frais payes : 21.00 EUR | perte max depuis un sommet (drawdown) : -3.5%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -79589,7 +79589,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=6  win_rate=+33.3%  retour_moyen=-4.1%
   Motifs de sortie : {'momentum_perdu': 2, 'stop_loss': 2, 'trailing_stop': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=30
-  Equity EUR (depart 4000) : 4077.86 EUR (+1.9%)  cash_final=41.04 EUR
+  Equity EUR (depart 4000) : 4081.21 EUR (+2.0%)  cash_final=41.04 EUR
   Frais payes : 42.00 EUR | perte max depuis un sommet (drawdown) : -1.6%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -79613,7 +79613,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=2  win_rate=+100.0%  retour_moyen=+17.5%
   Motifs de sortie : {'trailing_stop': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=16
-  Equity EUR (depart 4000) : 4264.31 EUR (+6.6%)  cash_final=0.00 EUR
+  Equity EUR (depart 4000) : 4265.54 EUR (+6.6%)  cash_final=0.00 EUR
   Frais payes : 20.00 EUR | perte max depuis un sommet (drawdown) : -2.1%
   Renforts de conviction reels declenches : 0 position(s)
 
@@ -79637,8 +79637,8 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=10  win_rate=+50.0%  retour_moyen=-5.0%
   Motifs de sortie : {'trailing_stop': 4, 'stop_loss': 4, 'momentum_perdu': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=29
-  Equity EUR (depart 4000) : 3950.13 EUR (-1.2%)  cash_final=82.96 EUR
-  Frais payes : 49.00 EUR | perte max depuis un sommet (drawdown) : -7.1%
+  Equity EUR (depart 4000) : 3952.80 EUR (-1.2%)  cash_final=82.96 EUR
+  Frais payes : 49.00 EUR | perte max depuis un sommet (drawdown) : -7.0%
   Renforts de conviction reels declenches : 0 position(s)
 
 --- Delta, pool qualifie ---
@@ -86266,7 +86266,7 @@ FX obtenu pour : ['USD', 'AUD', 'HKD', 'CAD', 'MXN', 'GBP', 'CHF', 'JPY', 'TWD',
   Clotures : n=3  win_rate=+33.3%  retour_moyen=-8.4%
   Motifs de sortie : {'momentum_perdu': 1, 'trailing_stop': 1, 'stop_loss': 1}
   Positions ouvertes en fin de periode : n=15
-  Equity EUR (depart 4000) : 3995.75 EUR (-0.1%)  cash_final=0.00 EUR
+  Equity EUR (depart 4000) : 3997.02 EUR (-0.1%)  cash_final=0.00 EUR
   Frais payes : 21.00 EUR | perte max depuis un sommet (drawdown) : -4.6%
   Renforts de conviction reels declenches : 0 position(s)
 
