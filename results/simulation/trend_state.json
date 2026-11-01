@@ -9,57 +9,80 @@
   "DBC": 0.0,
   "VNQ": 125.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "sell",
+   "ticker": "EEM",
+   "bucket": "EEM",
+   "reason": "sous sa moyenne (cloture 61.04 <= moyenne 10 mois 63.68)",
+   "decided_at": "2026-11-01T00:51:26Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "VNQ",
+   "bucket": "VNQ",
+   "reason": "au-dessus de sa moyenne (cloture 93.94 > moyenne 10 mois 93.01)",
+   "decided_at": "2026-11-01T00:51:26Z",
+   "amount_eur": 125.0,
+   "name": "Vanguard Real Estate ETF",
+   "sector": "Immobilier US",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": null
+  }
+ ],
  "launched_at": "2026-10-12T07:24:37Z",
  "signals": {
   "SPY": {
-   "month_end": "2026-09-30",
-   "close": 762.6300048828125,
-   "sma": 717.6562377929688,
+   "month_end": "2026-10-31",
+   "close": 755.719970703125,
+   "sma": 725.5647277832031,
    "above": true
   },
   "EFA": {
-   "month_end": "2026-09-30",
-   "close": 103.88999938964844,
-   "sma": 101.77534942626953,
+   "month_end": "2026-10-31",
+   "close": 103.37000274658203,
+   "sma": 102.6589454650879,
    "above": true
   },
   "EEM": {
-   "month_end": "2026-09-30",
-   "close": 66.79000091552734,
-   "sma": 63.0188648223877,
-   "above": true
+   "month_end": "2026-10-31",
+   "close": 61.040000915527344,
+   "sma": 63.68015480041504,
+   "above": false
   },
   "IEF": {
-   "month_end": "2026-09-30",
-   "close": 89.00299835205078,
-   "sma": 92.75273971557617,
+   "month_end": "2026-10-31",
+   "close": 91.76000213623047,
+   "sma": 92.59574356079102,
    "above": false
   },
   "TLT": {
-   "month_end": "2026-09-30",
-   "close": 77.4679946899414,
-   "sma": 83.4353126525879,
+   "month_end": "2026-10-31",
+   "close": 81.83999633789062,
+   "sma": 83.1970947265625,
    "above": false
   },
   "GLD": {
-   "month_end": "2026-09-30",
-   "close": 380.8399963378906,
-   "sma": 412.5260040283203,
+   "month_end": "2026-10-31",
+   "close": 355.7799987792969,
+   "sma": 408.47300415039064,
    "above": false
   },
   "DBC": {
-   "month_end": "2026-09-30",
-   "close": 32.31999969482422,
-   "sma": 28.11500015258789,
+   "month_end": "2026-10-31",
+   "close": 33.61000061035156,
+   "sma": 29.24000015258789,
    "above": true
   },
   "VNQ": {
-   "month_end": "2026-09-30",
-   "close": 89.62999725341797,
-   "sma": 92.22007522583007,
-   "above": false
+   "month_end": "2026-10-31",
+   "close": 93.94000244140625,
+   "sma": 93.00979232788086,
+   "above": true
   }
  },
- "decision_month": "2026-10"
+ "decision_month": "2026-11"
 }
