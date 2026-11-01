@@ -2,7 +2,88 @@
  "cash": {
   "pool": 1.8189894035458565e-12
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "sell",
+   "ticker": "GD",
+   "bucket": "pool",
+   "reason": "surprise du carnet de commandes publiques retombee (rang 41%)",
+   "decided_at": "2026-11-01T02:51:33Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "KBR",
+   "bucket": "pool",
+   "reason": "surprise du carnet de commandes publiques retombee (rang 46%)",
+   "decided_at": "2026-11-01T02:51:33Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "LMT",
+   "bucket": "pool",
+   "reason": "surprise du carnet de commandes publiques retombee (rang 35%)",
+   "decided_at": "2026-11-01T02:51:33Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "OSIS",
+   "bucket": "pool",
+   "reason": "carnet public en hausse inattendue (UGR +3.37, rang 93%)",
+   "decided_at": "2026-11-01T02:51:33Z",
+   "amount_eur": 251.1923471874458,
+   "name": "OSIS",
+   "sector": "Sous-traitants de l'Etat federal",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 3.37
+  },
+  {
+   "side": "buy",
+   "ticker": "BWXT",
+   "bucket": "pool",
+   "reason": "carnet public en hausse inattendue (UGR +3.01, rang 91%)",
+   "decided_at": "2026-11-01T02:51:33Z",
+   "amount_eur": 251.1923471874458,
+   "name": "BWXT",
+   "sector": "Sous-traitants de l'Etat federal",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 3.011
+  },
+  {
+   "side": "buy",
+   "ticker": "LUNR",
+   "bucket": "pool",
+   "reason": "carnet public en hausse inattendue (UGR +2.22, rang 83%)",
+   "decided_at": "2026-11-01T02:51:33Z",
+   "amount_eur": 251.1923471874458,
+   "name": "LUNR",
+   "sector": "Sous-traitants de l'Etat federal",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 2.217
+  },
+  {
+   "side": "buy",
+   "ticker": "MRCY",
+   "bucket": "pool",
+   "reason": "carnet public en hausse inattendue (UGR +1.98, rang 80%)",
+   "decided_at": "2026-11-01T02:51:33Z",
+   "amount_eur": 147.36581333224362,
+   "name": "MRCY",
+   "sector": "Sous-traitants de l'Etat federal",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1.977
+  }
+ ],
  "launched_at": "2026-10-14T10:55:34Z",
  "obligations": {
   "LMT|LOCKHEED MARTIN": {
@@ -4006,7 +4087,6 @@
    "2026-10": 0.0
   },
   "TPC|TUTOR PERINI": {
-   "2022-10": 26077777.0,
    "2022-11": 254160.0,
    "2022-12": 2376590.0,
    "2023-01": 3622.73,
@@ -4051,12 +4131,12 @@
    "2026-04": 41449463.71,
    "2026-05": 143670172.0,
    "2026-06": 654584183.84,
-   "2026-07": 69862426.77,
+   "2026-07": 75374878.77,
    "2026-08": 60785433.0,
-   "2026-09": 360261915.81
+   "2026-09": 360261915.81,
+   "2026-10": 0.0
   },
   "TPC|PERINI MANAGEMENT": {
-   "2022-10": 0.0,
    "2022-11": -11752.0,
    "2022-12": 2192668.0,
    "2023-01": 0.0,
@@ -4101,12 +4181,12 @@
    "2026-04": 306315.0,
    "2026-05": 0.0,
    "2026-06": 0.0,
-   "2026-07": 69535671.0,
+   "2026-07": 69578462.0,
    "2026-08": 64848.0,
-   "2026-09": 1101769.81
+   "2026-09": 1101769.81,
+   "2026-10": 0.0
   },
   "ORN|ORION MARINE": {
-   "2022-10": 0.0,
    "2022-11": 351122.75,
    "2022-12": 1407493.42,
    "2023-01": 580098.58,
@@ -4153,10 +4233,10 @@
    "2026-06": 40000.0,
    "2026-07": 270000.0,
    "2026-08": 0.0,
-   "2026-09": 0.0
+   "2026-09": 0.0,
+   "2026-10": 0.0
   },
   "HUM|HUMANA GOVERNMENT": {
-   "2022-10": 1316130623.54,
    "2022-11": 294084447.61,
    "2022-12": 988890559.83,
    "2023-01": 243683.2,
@@ -4203,10 +4283,10 @@
    "2026-06": 114410576.32,
    "2026-07": 617429.47,
    "2026-08": 0.0,
-   "2026-09": 0.0
+   "2026-09": 0.0,
+   "2026-10": 0.0
   },
   "CNC|HEALTH NET FEDERAL": {
-   "2022-10": 561913006.62,
    "2022-11": 117645979.31,
    "2022-12": 470621760.02,
    "2023-01": 394306207.81,
@@ -4253,10 +4333,10 @@
    "2026-06": 1643294.0,
    "2026-07": 0.0,
    "2026-08": 0.0,
-   "2026-09": 0.0
+   "2026-09": 0.0,
+   "2026-10": 0.0
   },
   "NNI|NELNET": {
-   "2022-10": -815283.5,
    "2022-11": 3215189.62,
    "2022-12": 68528763.72,
    "2023-01": 20525757.34,
@@ -4302,11 +4382,11 @@
    "2026-05": -7941712.23,
    "2026-06": 3548075.51,
    "2026-07": 29190.53,
-   "2026-08": 575343.05,
-   "2026-09": 11068357.25
+   "2026-08": 575343.0499999998,
+   "2026-09": 11068357.25,
+   "2026-10": -333441.17
   },
   "NAVI|NAVIENT": {
-   "2022-10": 1200000.0,
    "2022-11": 0.0,
    "2022-12": 2800000.0,
    "2023-01": -34429305.95,
@@ -4353,10 +4433,10 @@
    "2026-06": 0.0,
    "2026-07": 0.0,
    "2026-08": 0.0,
-   "2026-09": 0.0
+   "2026-09": 0.0,
+   "2026-10": 0.0
   },
   "CNDT|CONDUENT": {
-   "2022-10": 1476964.87,
    "2022-11": -757979.61,
    "2022-12": 0.0,
    "2023-01": 5164610.09,
@@ -4403,10 +4483,10 @@
    "2026-06": 1812600.77,
    "2026-07": 9379371.07,
    "2026-08": 4740178.72,
-   "2026-09": 0.0
+   "2026-09": 0.0,
+   "2026-10": -1355499.5
   },
   "ATRO|ASTRONICS": {
-   "2022-10": -407004.32,
    "2022-11": 30415.0,
    "2022-12": 1539842.42,
    "2023-01": 322122.52,
@@ -4453,10 +4533,10 @@
    "2026-06": 1935833.52,
    "2026-07": -6816.0,
    "2026-08": 0.0,
-   "2026-09": 196230.0
+   "2026-09": 196230.0,
+   "2026-10": 0.0
   },
   "ESP|ESPEY": {
-   "2022-10": 1500.0,
    "2022-11": 1500.0,
    "2022-12": 0.0,
    "2023-01": 577857.0,
@@ -4503,10 +4583,10 @@
    "2026-06": 0.0,
    "2026-07": 0.0,
    "2026-08": 0.0,
-   "2026-09": 0.0
+   "2026-09": 0.0,
+   "2026-10": 0.0
   },
   "BKTI|BK TECHNOLOGIES": {
-   "2022-10": 0.0,
    "2022-11": 37627.8,
    "2022-12": 0.0,
    "2023-01": 55231.2,
@@ -4553,10 +4633,10 @@
    "2026-06": 0.0,
    "2026-07": 19029.0,
    "2026-08": 1220119.65,
-   "2026-09": 13257940.04
+   "2026-09": 13257940.04,
+   "2026-10": 20753.980000000003
   },
   "FEIM|FREQUENCY ELECTRONICS": {
-   "2022-10": -219853.09,
    "2022-11": 1000000.0,
    "2022-12": 1500000.0,
    "2023-01": 0.0,
@@ -4601,12 +4681,12 @@
    "2026-04": 314325.76,
    "2026-05": 0.0,
    "2026-06": 86097.9,
-   "2026-07": 622071.0,
+   "2026-07": 644978.0,
    "2026-08": 0.0,
-   "2026-09": 0.0
+   "2026-09": 0.0,
+   "2026-10": 0.0
   },
   "KVHI|KVH INDUSTRIES": {
-   "2022-10": 0.0,
    "2022-11": 0.0,
    "2022-12": 0.0,
    "2023-01": 0.0,
@@ -4653,10 +4733,10 @@
    "2026-06": 0.0,
    "2026-07": 0.0,
    "2026-08": 0.0,
-   "2026-09": 900920.03
+   "2026-09": 900920.03,
+   "2026-10": 0.0
   },
   "ISSC|INNOVATIVE SOLUTIONS & SUPPORT": {
-   "2022-10": 38000.0,
    "2022-11": 355770.71,
    "2022-12": 0.0,
    "2023-01": 0.0,
@@ -4703,7 +4783,8 @@
    "2026-06": 0.0,
    "2026-07": 65702.25,
    "2026-08": 0.0,
-   "2026-09": 0.0
+   "2026-09": 0.0,
+   "2026-10": 0.0
   }
  },
  "fetch_key": "2026-11",
@@ -4787,495 +4868,508 @@
   "NPK|AMTEC CORPORATION",
   "OSIS|OSI SYSTEMS",
   "OSIS|RAPISCAN",
-  "GVA|GRANITE CONSTRUCTION"
+  "GVA|GRANITE CONSTRUCTION",
+  "TPC|TUTOR PERINI",
+  "TPC|PERINI MANAGEMENT",
+  "ORN|ORION MARINE",
+  "HUM|HUMANA GOVERNMENT",
+  "CNC|HEALTH NET FEDERAL",
+  "NNI|NELNET",
+  "NAVI|NAVIENT",
+  "CNDT|CONDUENT",
+  "ATRO|ASTRONICS",
+  "ESP|ESPEY",
+  "BKTI|BK TECHNOLOGIES",
+  "FEIM|FREQUENCY ELECTRONICS",
+  "KVHI|KVH INDUSTRIES",
+  "ISSC|INNOVATIVE SOLUTIONS & SUPPORT"
  ],
  "last_ranking": {
-  "for_month": "2026-10",
+  "for_month": "2026-11",
   "haut": [
-   "TPC",
-   "RDW",
-   "BA",
-   "ATRO",
-   "TDY",
-   "ACM",
-   "LHX",
    "RKLB",
    "AXON",
-   "NOC",
+   "TPC",
+   "RDW",
+   "OSIS",
+   "BWXT",
+   "BA",
+   "ATRO",
+   "AVAV",
+   "LUNR",
    "KTOS",
-   "GD",
-   "LMT",
-   "GVA",
-   "EBS",
-   "TXT",
-   "KBR",
+   "MRCY",
+   "ACM",
+   "CW",
    "ORN",
-   "AVAV"
+   "TDY",
+   "GVA",
+   "TXT"
   ],
   "bas": [
-   "ICFI",
-   "DLHC",
-   "CACI",
-   "OSK",
-   "AMRC",
-   "WYY",
+   "PSN",
    "FEIM",
    "IRDM",
-   "ESP",
-   "CNC",
-   "TTEK",
    "DCO",
+   "AMRC",
    "CXW",
    "GEO",
+   "OSK",
+   "CNC",
+   "ICFI",
    "BKTI",
-   "SAIC",
+   "TLS",
+   "VVX",
+   "CACI",
+   "BAH",
+   "TTEK",
    "HUM",
-   "CNDT"
+   "SAIC"
   ],
   "univers": [
-   "TPC",
-   "RDW",
-   "BA",
-   "ATRO",
-   "TDY",
-   "ACM",
-   "LHX",
    "RKLB",
    "AXON",
-   "NOC",
-   "KTOS",
-   "GD",
-   "LMT",
-   "GVA",
-   "EBS",
-   "TXT",
-   "KBR",
-   "ORN",
-   "AVAV",
-   "MRCY",
-   "PSN",
-   "NNI",
-   "BAH",
+   "TPC",
+   "RDW",
    "OSIS",
-   "LDOS",
-   "MMS",
-   "HII",
-   "VSEC",
-   "FLR",
-   "CW",
-   "PLTR",
+   "BWXT",
+   "BA",
+   "ATRO",
+   "AVAV",
    "LUNR",
+   "KTOS",
+   "MRCY",
+   "ACM",
+   "CW",
+   "ORN",
+   "TDY",
+   "GVA",
+   "TXT",
+   "NOC",
+   "EBS",
+   "LHX",
+   "FLR",
+   "PLTR",
+   "CNDT",
+   "NNI",
+   "VSEC",
+   "LDOS",
+   "WYY",
+   "DLHC",
+   "KBR",
    "AIR",
    "VSAT",
-   "BWXT",
-   "VVX",
-   "TLS",
-   "ICFI",
-   "DLHC",
-   "CACI",
-   "OSK",
-   "AMRC",
-   "WYY",
+   "GD",
+   "MMS",
+   "HII",
+   "LMT",
+   "PSN",
    "FEIM",
    "IRDM",
-   "ESP",
-   "CNC",
-   "TTEK",
    "DCO",
+   "AMRC",
    "CXW",
    "GEO",
+   "OSK",
+   "CNC",
+   "ICFI",
    "BKTI",
-   "SAIC",
+   "TLS",
+   "VVX",
+   "CACI",
+   "BAH",
+   "TTEK",
    "HUM",
-   "CNDT"
+   "SAIC"
   ]
  },
  "ranking": [
   {
-   "ticker": "TPC",
-   "ugr": 8.564,
-   "rang": 1.0,
-   "contrats_12m_musd": 1209.3,
-   "dependance_pct": 27.85
-  },
-  {
-   "ticker": "RDW",
-   "ugr": 4.556,
-   "rang": 0.982,
-   "contrats_12m_musd": 23.9,
-   "dependance_pct": 0.91
-  },
-  {
-   "ticker": "BA",
-   "ugr": 3.489,
-   "rang": 0.964,
-   "contrats_12m_musd": 36663.4,
-   "dependance_pct": 24.93
-  },
-  {
-   "ticker": "ATRO",
-   "ugr": 3.049,
-   "rang": 0.945,
-   "contrats_12m_musd": 71.2,
-   "dependance_pct": 2.46
-  },
-  {
-   "ticker": "TDY",
-   "ugr": 2.973,
-   "rang": 0.927,
-   "contrats_12m_musd": 596.1,
-   "dependance_pct": 2.12
-  },
-  {
-   "ticker": "ACM",
-   "ugr": 2.91,
-   "rang": 0.909,
-   "contrats_12m_musd": 651.4,
-   "dependance_pct": 8.59
-  },
-  {
-   "ticker": "LHX",
-   "ugr": 2.666,
-   "rang": 0.891,
-   "contrats_12m_musd": 10906.2,
-   "dependance_pct": 24.74
-  },
-  {
    "ticker": "RKLB",
-   "ugr": 2.666,
-   "rang": 0.873,
-   "contrats_12m_musd": 26.7,
-   "dependance_pct": 0.06
+   "ugr": 30.086,
+   "rang": 1.0,
+   "contrats_12m_musd": 137.4,
+   "dependance_pct": 0.39
   },
   {
    "ticker": "AXON",
-   "ugr": 2.558,
-   "rang": 0.855,
-   "contrats_12m_musd": 80.2,
-   "dependance_pct": 0.23
+   "ugr": 5.121,
+   "rang": 0.981,
+   "contrats_12m_musd": 111.6,
+   "dependance_pct": 0.32
   },
   {
-   "ticker": "NOC",
-   "ugr": 2.372,
-   "rang": 0.836,
-   "contrats_12m_musd": 16312.5,
-   "dependance_pct": 23.75
+   "ticker": "TPC",
+   "ugr": 3.804,
+   "rang": 0.963,
+   "contrats_12m_musd": 1353.2,
+   "dependance_pct": 32.22
   },
   {
-   "ticker": "KTOS",
-   "ugr": 2.304,
-   "rang": 0.818,
-   "contrats_12m_musd": 326.9,
-   "dependance_pct": 4.08
-  },
-  {
-   "ticker": "GD",
-   "ugr": 2.283,
-   "rang": 0.8,
-   "contrats_12m_musd": 42319.4,
-   "dependance_pct": 47.14
-  },
-  {
-   "ticker": "LMT",
-   "ugr": 2.196,
-   "rang": 0.782,
-   "contrats_12m_musd": 90117.9,
-   "dependance_pct": 76.68
-  },
-  {
-   "ticker": "GVA",
-   "ugr": 2.108,
-   "rang": 0.764,
-   "contrats_12m_musd": 694.9,
-   "dependance_pct": 13.49
-  },
-  {
-   "ticker": "EBS",
-   "ugr": 2.098,
-   "rang": 0.745,
-   "contrats_12m_musd": 346.6,
-   "dependance_pct": 102.42
-  },
-  {
-   "ticker": "TXT",
-   "ugr": 2.055,
-   "rang": 0.727,
-   "contrats_12m_musd": 5567.6,
-   "dependance_pct": 42.48
-  },
-  {
-   "ticker": "KBR",
-   "ugr": 2.044,
-   "rang": 0.709,
-   "contrats_12m_musd": 5468.8,
-   "dependance_pct": 123.38
-  },
-  {
-   "ticker": "ORN",
-   "ugr": 1.918,
-   "rang": 0.691,
-   "contrats_12m_musd": 122.6,
-   "dependance_pct": 35.42
-  },
-  {
-   "ticker": "AVAV",
-   "ugr": 1.913,
-   "rang": 0.673,
-   "contrats_12m_musd": 670.7,
-   "dependance_pct": 9.28
-  },
-  {
-   "ticker": "MRCY",
-   "ugr": 1.773,
-   "rang": 0.655,
-   "contrats_12m_musd": 64.0,
-   "dependance_pct": 1.27
-  },
-  {
-   "ticker": "PSN",
-   "ugr": 1.497,
-   "rang": 0.636,
-   "contrats_12m_musd": 2493.3,
-   "dependance_pct": 56.98
-  },
-  {
-   "ticker": "NNI",
-   "ugr": 1.398,
-   "rang": 0.618,
-   "contrats_12m_musd": 454.3,
-   "dependance_pct": 10.32
-  },
-  {
-   "ticker": "BAH",
-   "ugr": 1.36,
-   "rang": 0.6,
-   "contrats_12m_musd": 7615.9,
-   "dependance_pct": 91.21
+   "ticker": "RDW",
+   "ugr": 3.449,
+   "rang": 0.944,
+   "contrats_12m_musd": 23.2,
+   "dependance_pct": 1.11
   },
   {
    "ticker": "OSIS",
-   "ugr": 1.334,
-   "rang": 0.582,
-   "contrats_12m_musd": 240.5,
-   "dependance_pct": 7.76
-  },
-  {
-   "ticker": "LDOS",
-   "ugr": 1.332,
-   "rang": 0.564,
-   "contrats_12m_musd": 12588.3,
-   "dependance_pct": 82.15
-  },
-  {
-   "ticker": "MMS",
-   "ugr": 1.211,
-   "rang": 0.545,
-   "contrats_12m_musd": 1586.5,
-   "dependance_pct": 56.97
-  },
-  {
-   "ticker": "HII",
-   "ugr": 1.182,
-   "rang": 0.527,
-   "contrats_12m_musd": 11016.6,
-   "dependance_pct": 104.68
-  },
-  {
-   "ticker": "VSEC",
-   "ugr": 1.055,
-   "rang": 0.509,
-   "contrats_12m_musd": 37.7,
-   "dependance_pct": 0.82
-  },
-  {
-   "ticker": "FLR",
-   "ugr": 0.879,
-   "rang": 0.491,
-   "contrats_12m_musd": 8388.1,
-   "dependance_pct": 130.99
-  },
-  {
-   "ticker": "CW",
-   "ugr": 0.761,
-   "rang": 0.473,
-   "contrats_12m_musd": 144.1,
-   "dependance_pct": 0.72
-  },
-  {
-   "ticker": "PLTR",
-   "ugr": 0.711,
-   "rang": 0.455,
-   "contrats_12m_musd": 2121.0,
-   "dependance_pct": 0.47
-  },
-  {
-   "ticker": "LUNR",
-   "ugr": 0.615,
-   "rang": 0.436,
-   "contrats_12m_musd": 92.5,
-   "dependance_pct": 4.02
-  },
-  {
-   "ticker": "AIR",
-   "ugr": 0.235,
-   "rang": 0.418,
-   "contrats_12m_musd": 510.3,
-   "dependance_pct": 12.51
-  },
-  {
-   "ticker": "VSAT",
-   "ugr": 0.163,
-   "rang": 0.4,
-   "contrats_12m_musd": 484.0,
-   "dependance_pct": 4.99
+   "ugr": 3.37,
+   "rang": 0.926,
+   "contrats_12m_musd": 316.0,
+   "dependance_pct": 10.07
   },
   {
    "ticker": "BWXT",
-   "ugr": 0.149,
-   "rang": 0.382,
-   "contrats_12m_musd": 401.5,
-   "dependance_pct": 3.2
+   "ugr": 3.011,
+   "rang": 0.907,
+   "contrats_12m_musd": 555.8,
+   "dependance_pct": 4.64
   },
   {
-   "ticker": "VVX",
-   "ugr": 0.067,
-   "rang": 0.364,
-   "contrats_12m_musd": 3766.6,
-   "dependance_pct": 169.79
+   "ticker": "BA",
+   "ugr": 2.685,
+   "rang": 0.889,
+   "contrats_12m_musd": 35912.1,
+   "dependance_pct": 26.42
   },
   {
-   "ticker": "TLS",
-   "ugr": -0.09,
-   "rang": 0.345,
-   "contrats_12m_musd": 13.2,
-   "dependance_pct": 4.33
+   "ticker": "ATRO",
+   "ugr": 2.575,
+   "rang": 0.87,
+   "contrats_12m_musd": 70.0,
+   "dependance_pct": 2.74
   },
   {
-   "ticker": "ICFI",
-   "ugr": -0.106,
-   "rang": 0.327,
-   "contrats_12m_musd": 717.0,
-   "dependance_pct": 48.09
+   "ticker": "AVAV",
+   "ugr": 2.555,
+   "rang": 0.852,
+   "contrats_12m_musd": 751.5,
+   "dependance_pct": 11.73
   },
   {
-   "ticker": "DLHC",
-   "ugr": -0.241,
-   "rang": 0.309,
-   "contrats_12m_musd": 136.7,
-   "dependance_pct": 254.93
+   "ticker": "LUNR",
+   "ugr": 2.217,
+   "rang": 0.833,
+   "contrats_12m_musd": 114.8,
+   "dependance_pct": 6.66
   },
   {
-   "ticker": "CACI",
-   "ugr": -0.287,
-   "rang": 0.291,
-   "contrats_12m_musd": 5771.8,
-   "dependance_pct": 42.88
+   "ticker": "KTOS",
+   "ugr": 2.074,
+   "rang": 0.815,
+   "contrats_12m_musd": 329.9,
+   "dependance_pct": 4.26
   },
   {
-   "ticker": "OSK",
-   "ugr": -0.306,
-   "rang": 0.273,
-   "contrats_12m_musd": 1194.2,
-   "dependance_pct": 15.02
+   "ticker": "MRCY",
+   "ugr": 1.977,
+   "rang": 0.796,
+   "contrats_12m_musd": 63.7,
+   "dependance_pct": 1.35
   },
   {
-   "ticker": "AMRC",
-   "ugr": -0.359,
-   "rang": 0.255,
-   "contrats_12m_musd": 225.1,
-   "dependance_pct": 20.48
+   "ticker": "ACM",
+   "ugr": 1.754,
+   "rang": 0.778,
+   "contrats_12m_musd": 672.9,
+   "dependance_pct": 8.25
   },
   {
-   "ticker": "WYY",
-   "ugr": -0.511,
-   "rang": 0.236,
-   "contrats_12m_musd": 105.8,
-   "dependance_pct": 134.24
+   "ticker": "CW",
+   "ugr": 1.751,
+   "rang": 0.759,
+   "contrats_12m_musd": 146.0,
+   "dependance_pct": 0.83
   },
   {
-   "ticker": "FEIM",
-   "ugr": -0.594,
-   "rang": 0.218,
-   "contrats_12m_musd": 5.8,
-   "dependance_pct": 0.61
+   "ticker": "ORN",
+   "ugr": 1.576,
+   "rang": 0.741,
+   "contrats_12m_musd": 122.7,
+   "dependance_pct": 35.83
   },
   {
-   "ticker": "IRDM",
-   "ugr": -0.751,
-   "rang": 0.2,
-   "contrats_12m_musd": 141.2,
-   "dependance_pct": 2.78
+   "ticker": "TDY",
+   "ugr": 1.549,
+   "rang": 0.722,
+   "contrats_12m_musd": 613.2,
+   "dependance_pct": 2.01
   },
   {
-   "ticker": "ESP",
-   "ugr": -0.795,
-   "rang": 0.182,
-   "contrats_12m_musd": 0.0,
-   "dependance_pct": 0.01
+   "ticker": "GVA",
+   "ugr": 1.196,
+   "rang": 0.704,
+   "contrats_12m_musd": 645.6,
+   "dependance_pct": 11.83
   },
   {
-   "ticker": "CNC",
-   "ugr": -0.921,
-   "rang": 0.164,
-   "contrats_12m_musd": 36.2,
-   "dependance_pct": 0.12
+   "ticker": "TXT",
+   "ugr": 0.899,
+   "rang": 0.685,
+   "contrats_12m_musd": 5666.9,
+   "dependance_pct": 39.03
   },
   {
-   "ticker": "TTEK",
-   "ugr": -0.937,
-   "rang": 0.145,
-   "contrats_12m_musd": 612.3,
-   "dependance_pct": 7.26
+   "ticker": "NOC",
+   "ugr": 0.877,
+   "rang": 0.667,
+   "contrats_12m_musd": 16200.8,
+   "dependance_pct": 20.45
   },
   {
-   "ticker": "DCO",
-   "ugr": -0.97,
-   "rang": 0.127,
-   "contrats_12m_musd": 3.2,
-   "dependance_pct": 0.12
+   "ticker": "EBS",
+   "ugr": 0.838,
+   "rang": 0.648,
+   "contrats_12m_musd": 297.0,
+   "dependance_pct": 85.07
   },
   {
-   "ticker": "CXW",
-   "ugr": -1.098,
-   "rang": 0.109,
-   "contrats_12m_musd": 427.5,
-   "dependance_pct": 13.4
+   "ticker": "LHX",
+   "ugr": 0.747,
+   "rang": 0.63,
+   "contrats_12m_musd": 10943.2,
+   "dependance_pct": 21.17
   },
   {
-   "ticker": "GEO",
-   "ugr": -1.49,
-   "rang": 0.091,
-   "contrats_12m_musd": 1222.6,
-   "dependance_pct": 30.48
+   "ticker": "FLR",
+   "ugr": 0.689,
+   "rang": 0.611,
+   "contrats_12m_musd": 8097.7,
+   "dependance_pct": 129.21
   },
   {
-   "ticker": "BKTI",
-   "ugr": -1.499,
-   "rang": 0.073,
-   "contrats_12m_musd": 0.1,
-   "dependance_pct": 0.02
-  },
-  {
-   "ticker": "SAIC",
-   "ugr": -1.521,
-   "rang": 0.055,
-   "contrats_12m_musd": 4805.9,
-   "dependance_pct": 89.12
-  },
-  {
-   "ticker": "HUM",
-   "ugr": -1.749,
-   "rang": 0.036,
-   "contrats_12m_musd": 6170.8,
-   "dependance_pct": 13.47
+   "ticker": "PLTR",
+   "ugr": 0.572,
+   "rang": 0.593,
+   "contrats_12m_musd": 2078.4,
+   "dependance_pct": 0.47
   },
   {
    "ticker": "CNDT",
-   "ugr": -1.965,
-   "rang": 0.018,
-   "contrats_12m_musd": 8.2,
-   "dependance_pct": 3.38
+   "ugr": 0.535,
+   "rang": 0.574,
+   "contrats_12m_musd": 17.2,
+   "dependance_pct": 7.17
+  },
+  {
+   "ticker": "NNI",
+   "ugr": 0.516,
+   "rang": 0.556,
+   "contrats_12m_musd": 399.2,
+   "dependance_pct": 9.11
+  },
+  {
+   "ticker": "VSEC",
+   "ugr": 0.42,
+   "rang": 0.537,
+   "contrats_12m_musd": 23.7,
+   "dependance_pct": 0.57
+  },
+  {
+   "ticker": "LDOS",
+   "ugr": 0.33,
+   "rang": 0.519,
+   "contrats_12m_musd": 12243.7,
+   "dependance_pct": 68.24
+  },
+  {
+   "ticker": "WYY",
+   "ugr": 0.301,
+   "rang": 0.5,
+   "contrats_12m_musd": 137.5,
+   "dependance_pct": 178.8
+  },
+  {
+   "ticker": "DLHC",
+   "ugr": 0.227,
+   "rang": 0.481,
+   "contrats_12m_musd": 140.0,
+   "dependance_pct": 266.03
+  },
+  {
+   "ticker": "KBR",
+   "ugr": 0.125,
+   "rang": 0.463,
+   "contrats_12m_musd": 5260.2,
+   "dependance_pct": 107.78
+  },
+  {
+   "ticker": "AIR",
+   "ugr": -0.015,
+   "rang": 0.444,
+   "contrats_12m_musd": 483.2,
+   "dependance_pct": 11.99
+  },
+  {
+   "ticker": "VSAT",
+   "ugr": -0.081,
+   "rang": 0.426,
+   "contrats_12m_musd": 458.7,
+   "dependance_pct": 4.32
+  },
+  {
+   "ticker": "GD",
+   "ugr": -0.09,
+   "rang": 0.407,
+   "contrats_12m_musd": 40977.2,
+   "dependance_pct": 40.7
+  },
+  {
+   "ticker": "MMS",
+   "ugr": -0.236,
+   "rang": 0.389,
+   "contrats_12m_musd": 1517.4,
+   "dependance_pct": 45.48
+  },
+  {
+   "ticker": "HII",
+   "ugr": -0.262,
+   "rang": 0.37,
+   "contrats_12m_musd": 10291.3,
+   "dependance_pct": 82.42
+  },
+  {
+   "ticker": "LMT",
+   "ugr": -0.269,
+   "rang": 0.352,
+   "contrats_12m_musd": 89478.4,
+   "dependance_pct": 60.81
+  },
+  {
+   "ticker": "PSN",
+   "ugr": -0.298,
+   "rang": 0.333,
+   "contrats_12m_musd": 2526.6,
+   "dependance_pct": 47.23
+  },
+  {
+   "ticker": "FEIM",
+   "ugr": -0.303,
+   "rang": 0.315,
+   "contrats_12m_musd": 6.5,
+   "dependance_pct": 0.86
+  },
+  {
+   "ticker": "IRDM",
+   "ugr": -0.332,
+   "rang": 0.296,
+   "contrats_12m_musd": 163.9,
+   "dependance_pct": 3.44
+  },
+  {
+   "ticker": "DCO",
+   "ugr": -0.45,
+   "rang": 0.278,
+   "contrats_12m_musd": 3.7,
+   "dependance_pct": 0.15
+  },
+  {
+   "ticker": "AMRC",
+   "ugr": -0.496,
+   "rang": 0.259,
+   "contrats_12m_musd": 200.3,
+   "dependance_pct": 18.59
+  },
+  {
+   "ticker": "CXW",
+   "ugr": -0.549,
+   "rang": 0.241,
+   "contrats_12m_musd": 456.7,
+   "dependance_pct": 14.96
+  },
+  {
+   "ticker": "GEO",
+   "ugr": -0.664,
+   "rang": 0.222,
+   "contrats_12m_musd": 1333.2,
+   "dependance_pct": 35.52
+  },
+  {
+   "ticker": "OSK",
+   "ugr": -0.688,
+   "rang": 0.204,
+   "contrats_12m_musd": 1173.4,
+   "dependance_pct": 13.75
+  },
+  {
+   "ticker": "CNC",
+   "ugr": -0.838,
+   "rang": 0.185,
+   "contrats_12m_musd": 21.1,
+   "dependance_pct": 0.06
+  },
+  {
+   "ticker": "ICFI",
+   "ugr": -0.861,
+   "rang": 0.167,
+   "contrats_12m_musd": 732.8,
+   "dependance_pct": 42.79
+  },
+  {
+   "ticker": "BKTI",
+   "ugr": -0.921,
+   "rang": 0.148,
+   "contrats_12m_musd": 0.1,
+   "dependance_pct": 0.03
+  },
+  {
+   "ticker": "TLS",
+   "ugr": -0.999,
+   "rang": 0.13,
+   "contrats_12m_musd": 13.4,
+   "dependance_pct": 3.3
+  },
+  {
+   "ticker": "VVX",
+   "ugr": -1.181,
+   "rang": 0.111,
+   "contrats_12m_musd": 3646.8,
+   "dependance_pct": 144.76
+  },
+  {
+   "ticker": "CACI",
+   "ugr": -1.218,
+   "rang": 0.093,
+   "contrats_12m_musd": 5616.3,
+   "dependance_pct": 37.62
+  },
+  {
+   "ticker": "BAH",
+   "ugr": -1.329,
+   "rang": 0.074,
+   "contrats_12m_musd": 7372.8,
+   "dependance_pct": 69.96
+  },
+  {
+   "ticker": "TTEK",
+   "ugr": -1.354,
+   "rang": 0.056,
+   "contrats_12m_musd": 631.3,
+   "dependance_pct": 6.38
+  },
+  {
+   "ticker": "HUM",
+   "ugr": -1.632,
+   "rang": 0.037,
+   "contrats_12m_musd": 6183.2,
+   "dependance_pct": 12.42
+  },
+  {
+   "ticker": "SAIC",
+   "ugr": -2.515,
+   "rang": 0.019,
+   "contrats_12m_musd": 4720.9,
+   "dependance_pct": 74.2
   }
  ],
- "rebalance_key": "2026-10"
+ "rebalance_key": "2026-11",
+ "shadow": [
+  {
+   "month": "2026-10",
+   "haut": 0.02099907758604767,
+   "bas": 0.00964698698371765,
+   "univers": 0.028863735288444027
+  }
+ ]
 }
