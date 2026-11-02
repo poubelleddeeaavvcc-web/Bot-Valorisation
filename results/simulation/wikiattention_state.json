@@ -1,23 +1,8 @@
 {
  "cash": {
-  "pool": 991.5064873592415
+  "pool": 0.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "SPY",
-   "bucket": "pool",
-   "reason": "vues des pages du Dow -4.1% vs 3 semaines : investi",
-   "decided_at": "2026-11-02T05:52:52Z",
-   "amount_eur": 991.5064873592415,
-   "name": "SPDR S&P 500 ETF",
-   "sector": "ETF actions US",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.0409
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:01Z",
  "signals": [
   {

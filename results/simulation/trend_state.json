@@ -2,37 +2,14 @@
  "cash": {
   "SPY": 0.0,
   "EFA": 0.0,
-  "EEM": 0.0,
+  "EEM": 114.14113087407561,
   "IEF": 125.0,
   "TLT": 125.0,
   "GLD": 125.0,
   "DBC": 0.0,
-  "VNQ": 125.0
+  "VNQ": 0.0
  },
- "pending": [
-  {
-   "side": "sell",
-   "ticker": "EEM",
-   "bucket": "EEM",
-   "reason": "sous sa moyenne (cloture 61.04 <= moyenne 10 mois 63.68)",
-   "decided_at": "2026-11-01T00:51:26Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "VNQ",
-   "bucket": "VNQ",
-   "reason": "au-dessus de sa moyenne (cloture 93.94 > moyenne 10 mois 93.01)",
-   "decided_at": "2026-11-01T00:51:26Z",
-   "amount_eur": 125.0,
-   "name": "Vanguard Real Estate ETF",
-   "sector": "Immobilier US",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": null
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-12T07:24:37Z",
  "signals": {
   "SPY": {
