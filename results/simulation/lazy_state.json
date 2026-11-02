@@ -2,7 +2,148 @@
  "cash": {
   "pool": 5000.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "EXC",
+   "bucket": "pool",
+   "reason": "10-Q quasi inchange (similarite 0.99989)",
+   "decided_at": "2026-11-02T00:52:26Z",
+   "amount_eur": 166.66666666666666,
+   "name": "EXC",
+   "sector": "Rapports inchanges",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 0.999889
+  },
+  {
+   "side": "buy",
+   "ticker": "PEBO",
+   "bucket": "pool",
+   "reason": "10-Q quasi inchange (similarite 0.99930)",
+   "decided_at": "2026-11-02T00:52:26Z",
+   "amount_eur": 166.66666666666666,
+   "name": "PEBO",
+   "sector": "Rapports inchanges",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 0.999299
+  },
+  {
+   "side": "buy",
+   "ticker": "SCCO",
+   "bucket": "pool",
+   "reason": "10-Q quasi inchange (similarite 0.99918)",
+   "decided_at": "2026-11-02T00:52:26Z",
+   "amount_eur": 166.66666666666666,
+   "name": "SCCO",
+   "sector": "Rapports inchanges",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 0.99918
+  },
+  {
+   "side": "buy",
+   "ticker": "PFG",
+   "bucket": "pool",
+   "reason": "10-Q quasi inchange (similarite 0.99913)",
+   "decided_at": "2026-11-02T00:52:26Z",
+   "amount_eur": 166.66666666666666,
+   "name": "PFG",
+   "sector": "Rapports inchanges",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 0.999135
+  },
+  {
+   "side": "buy",
+   "ticker": "CACC",
+   "bucket": "pool",
+   "reason": "10-Q quasi inchange (similarite 0.99904)",
+   "decided_at": "2026-11-02T00:52:26Z",
+   "amount_eur": 166.66666666666666,
+   "name": "CACC",
+   "sector": "Rapports inchanges",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 0.999041
+  },
+  {
+   "side": "buy",
+   "ticker": "DASH",
+   "bucket": "pool",
+   "reason": "10-Q quasi inchange (similarite 0.99896)",
+   "decided_at": "2026-11-02T00:52:26Z",
+   "amount_eur": 166.66666666666666,
+   "name": "DASH",
+   "sector": "Rapports inchanges",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 0.998958
+  },
+  {
+   "side": "buy",
+   "ticker": "RHI",
+   "bucket": "pool",
+   "reason": "10-Q quasi inchange (similarite 0.99894)",
+   "decided_at": "2026-11-02T00:52:26Z",
+   "amount_eur": 166.66666666666666,
+   "name": "RHI",
+   "sector": "Rapports inchanges",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 0.998942
+  },
+  {
+   "side": "buy",
+   "ticker": "LPLA",
+   "bucket": "pool",
+   "reason": "10-Q quasi inchange (similarite 0.99894)",
+   "decided_at": "2026-11-02T00:52:26Z",
+   "amount_eur": 166.66666666666666,
+   "name": "LPLA",
+   "sector": "Rapports inchanges",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 0.99894
+  },
+  {
+   "side": "buy",
+   "ticker": "OMF",
+   "bucket": "pool",
+   "reason": "10-Q quasi inchange (similarite 0.99891)",
+   "decided_at": "2026-11-02T00:52:26Z",
+   "amount_eur": 166.66666666666666,
+   "name": "OMF",
+   "sector": "Rapports inchanges",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 0.998913
+  },
+  {
+   "side": "buy",
+   "ticker": "RIVN",
+   "bucket": "pool",
+   "reason": "10-Q quasi inchange (similarite 0.99883)",
+   "decided_at": "2026-11-02T00:52:26Z",
+   "amount_eur": 166.66666666666666,
+   "name": "RIVN",
+   "sector": "Rapports inchanges",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 0.998833
+  }
+ ],
  "launched_at": "2026-10-14T10:56:15Z",
  "seed_10k": [
   0.99903,
@@ -5556,13 +5697,85 @@
    "period": "2026-09-30"
   }
  ],
- "shadow": [],
- "hold_until": {},
+ "shadow": [
+  {
+   "ticker": "ECL",
+   "form": "10-Q",
+   "month": "2026-11",
+   "cos": 0.899252
+  },
+  {
+   "ticker": "COIN",
+   "form": "10-Q",
+   "month": "2026-11",
+   "cos": 0.910044
+  },
+  {
+   "ticker": "MYE",
+   "form": "10-Q",
+   "month": "2026-11",
+   "cos": 0.936676
+  },
+  {
+   "ticker": "AA",
+   "form": "10-Q",
+   "month": "2026-11",
+   "cos": 0.938318
+  },
+  {
+   "ticker": "SSB",
+   "form": "10-Q",
+   "month": "2026-11",
+   "cos": 0.942869
+  },
+  {
+   "ticker": "HAPN",
+   "form": "10-Q",
+   "month": "2026-11",
+   "cos": 0.948164
+  },
+  {
+   "ticker": "BBIO",
+   "form": "10-Q",
+   "month": "2026-11",
+   "cos": 0.950063
+  },
+  {
+   "ticker": "WSBC",
+   "form": "10-Q",
+   "month": "2026-11",
+   "cos": 0.951388
+  },
+  {
+   "ticker": "HGV",
+   "form": "10-Q",
+   "month": "2026-11",
+   "cos": 0.95337
+  },
+  {
+   "ticker": "SYK",
+   "form": "10-Q",
+   "month": "2026-11",
+   "cos": 0.958682
+  }
+ ],
+ "hold_until": {
+  "EXC": "2027-02-01",
+  "PEBO": "2027-02-01",
+  "SCCO": "2027-02-01",
+  "PFG": "2027-02-01",
+  "CACC": "2027-02-01",
+  "DASH": "2027-02-01",
+  "RHI": "2027-02-01",
+  "LPLA": "2027-02-01",
+  "OMF": "2027-02-01",
+  "RIVN": "2027-02-01"
+ },
  "counters": {
   "rapports": 640,
   "compares": 630,
   "sans_comparable": 10,
-  "achetes": 0
+  "achetes": 10
  },
- "entry_key": "2026-10"
+ "entry_key": "2026-11"
 }
