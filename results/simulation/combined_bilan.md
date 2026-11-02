@@ -1,4 +1,4 @@
-# Bilan annexe — portefeuilles combinés (02/11/2026 09:51 UTC)
+# Bilan annexe — portefeuilles combinés (02/11/2026 10:59 UTC)
 
 **Pas de classement pour l'instant :** 0 jour(s) de suivi officiel sur les 365 prévus. À si court terme, les écarts relèvent surtout du hasard.
 
@@ -8,7 +8,7 @@ Portefeuilles virtuels, base 1 000 €. Le S&P 500 est hors dividendes, les bots
 
 | Portefeuille | Départ | Valeur | Depuis le départ | 7 jours | S&P 500 même période | Pire baisse |
 |---|---|---:|---:|---:|---:|---:|
-| M1 Risque égal | 12/10/2026 | 989,40 € | -1,06 % | -0,44 % | -2,96 % | -1,16 % |
+| M1 Risque égal | 12/10/2026 | 990,16 € | -0,98 % | -0,37 % | -2,96 % | -1,16 % |
 | M2 Tous les bots | pas encore de relevé | | | | | |
 | M3 Sans cash | pas encore de relevé | | | | | |
 | M4 Preuves seules | pas encore de relevé | | | | | |
@@ -20,25 +20,25 @@ Calculée après coup avec les poids d'aujourd'hui : indicative, elle ne prouve 
 
 | Portefeuille | Performance | Pire baisse | Cash actuel |
 |---|---:|---:|---:|
-| M1 Risque égal | -1,15 % | -1,15 % | 39 % |
-| M2 Tous les bots | -0,43 % | -1,15 % | 38 % |
-| M3 Sans cash | -1,92 % | -1,92 % | 0 % (redistribué) |
-| M4 Preuves seules | -0,55 % | -1,23 % | 43 % |
-| M5 Facteurs | -1,03 % | -1,18 % | 17 % |
+| M1 Risque égal | -1,07 % | -1,15 % | 39 % |
+| M2 Tous les bots | -0,35 % | -1,15 % | 38 % |
+| M3 Sans cash | -1,79 % | -1,92 % | 0 % (redistribué) |
+| M4 Preuves seules | -0,47 % | -1,23 % | 43 % |
+| M5 Facteurs | -0,92 % | -1,18 % | 17 % |
 
 ## Composantes sur la même période
 
 | Composante | Performance | Part investie | M1 | M2 | M3 | M4 | M5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Sous-evaluation | -5,93 % | 96 % | 11 % | 8 % | 11 % | – | – |
-| R1 | -1,43 % | 100 % | 29 % | 8 % | 29 % | 33 % | 38 % |
-| T1 | -1,55 % | 49 % | 25 % | 8 % | 25 % | 28 % | 33 % |
-| I1 | +0,39 % | 6 % | 10 % | 8 % | 10 % | 12 % | – |
-| G1 | +5,12 % | 100 % | 8 % | 8 % | 8 % | 9 % | – |
+| Sous-evaluation | -5,88 % | 96 % | 11 % | 8 % | 11 % | – | – |
+| R1 | -1,29 % | 100 % | 29 % | 8 % | 29 % | 33 % | 38 % |
+| T1 | -1,47 % | 49 % | 25 % | 8 % | 25 % | 28 % | 33 % |
+| I1 | +0,40 % | 6 % | 10 % | 8 % | 10 % | 12 % | – |
+| G1 | +5,26 % | 100 % | 8 % | 8 % | 8 % | 9 % | – |
 | W1 | -0,85 % | 0 % | 16 % | 8 % | 16 % | 18 % | – |
-| Q1 | +2,06 % | 99 % | – | 8 % | – | – | 15 % |
-| V1 | -1,98 % | 99 % | – | 8 % | – | – | 15 % |
-| H1 | -0,09 % | 24 % | – | 8 % | – | – | – |
-| E1 | +0,73 % | 70 % | – | 8 % | – | – | – |
+| Q1 | +2,19 % | 99 % | – | 8 % | – | – | 15 % |
+| V1 | -1,87 % | 99 % | – | 8 % | – | – | 15 % |
+| H1 | -0,06 % | 24 % | – | 8 % | – | – | – |
+| E1 | +0,82 % | 70 % | – | 8 % | – | – | – |
 | L1 | +0,00 % | 0 % | – | 8 % | – | – | – |
-| F1 | -1,62 % | 100 % | – | 8 % | – | – | – |
+| F1 | -1,49 % | 100 % | – | 8 % | – | – | – |
