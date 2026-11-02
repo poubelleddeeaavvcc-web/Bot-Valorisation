@@ -892,5 +892,23 @@
     "sentiment": null,
     "reason": "The news shows a mix of positive and neutral sentiments towards Ebara Corporation's stock. Some articles predict a positive outlook for 2027, while others discuss opportunities and a substantial discount, but also a stock fall.",
     "source": "ollama"
+  },
+  "LCII_2026-11-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general sentiment is positive due to an unsolicited bid from Monomoy at $101/share in cash, causing LCI Industries' stock to pop.",
+    "source": "ollama"
+  },
+  "YUMC_2026-11-02": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "The news articles show a mix of positive and negative sentiments towards Yum China Holdings, Inc. (YUMC). Some articles discuss the potential for the stock to be a good investment, while others question its performance and suggest whether to buy the dip.",
+    "source": "ollama"
+  },
+  "9939.TW_2026-11-02": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "The news articles show a mix of financial data, stock price updates, and technical analysis, indicating a neutral sentiment overall. However, the absence of negative news suggests a generally positive outlook for Taiwan Hon Chuan Enterprise Co., Ltd.",
+    "source": "ollama"
   }
 }
