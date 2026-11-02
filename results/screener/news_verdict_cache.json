@@ -922,5 +922,35 @@
     "sentiment": "positive",
     "reason": "Recent news indicates a positive sentiment towards Wowprime Corp., with reports of rapid recovery of earnings, bonus for Taiwan employees, and expansion abroad.",
     "source": "ollama"
+  },
+  "BTO.TO_2026-11-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The news highlights several positive sentiments such as B2Gold being considered one of the most undervalued stocks under $5 to buy, and the stock pulling back as charts flash key support.",
+    "source": "ollama"
+  },
+  "FVI.TO_2026-11-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general sentiment from the recent news about Fortuna Mining Corp is positive, with articles highlighting potential cash returns for shareholders, high-growth leadership, relative strength momentum, and undervaluation with high growth potential.",
+    "source": "ollama"
+  },
+  "SNA_2026-11-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general tone from the recent news about Snap-on Incorporated's stock is positive, with articles suggesting potential growth and good choices for investors.",
+    "source": "ollama"
+  },
+  "BBVA_2026-11-02": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "The news shows a mix of positive and neutral sentiments towards BBVA's stock. Some articles indicate a positive outlook with BBVA being listed among 4-star stocks, while others report a 3.84% decrease in the stock price.",
+    "source": "ollama"
+  },
+  "BRC_2026-11-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The recent news about Brady Corporation indicates a generally positive sentiment, with forecasts suggesting potential for buying BRC, recognition as a quality stock with high ROIC and low leverage, and ongoing discussion and analysis of the stock.",
+    "source": "ollama"
   }
 }
