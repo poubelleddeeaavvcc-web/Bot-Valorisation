@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 6236.740548230709
+  "pool": 5908.138749346867
  },
  "pending": [
   {
@@ -10,82 +10,6 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-02T06:00:07Z",
    "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "NTAP",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-02T06:00:07Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "XYL",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-02T06:00:07Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "CAT",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-30T23:45:18Z",
-   "amount_eur": 100.0,
-   "name": "Caterpillar Inc.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "AM",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-10-31T12:21:56Z",
-   "amount_eur": 100.0,
-   "name": "Antero Midstream Corporation",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "BEN",
-   "bucket": "pool",
-   "reason": "avis etf.thedailyupside.com (ton)",
-   "decided_at": "2026-11-02T15:44:26Z",
-   "amount_eur": 100.0,
-   "name": "Franklin Templeton Inc.",
-   "sector": "etf.thedailyupside.com (ton)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "SIRI",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-11-02T15:44:26Z",
-   "amount_eur": 100.0,
-   "name": "Sirius XM Holdings Inc.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "EPD",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-11-02T15:44:26Z",
-   "amount_eur": 100.0,
-   "name": "Enterprise Products Partners L.P.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -109,8 +33,6 @@
   "ACN": "2026-11-20",
   "MRN.PA": "2026-11-02",
   "MRVL": "2026-11-13",
-  "NTAP": "2026-11-02",
-  "XYL": "2026-11-02",
   "VAC.PA": "2026-11-03",
   "BAC": "2026-11-12",
   "AXP": "2026-11-03",
