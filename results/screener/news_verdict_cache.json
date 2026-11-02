@@ -916,5 +916,11 @@
     "sentiment": "positive",
     "reason": "The general tone of the news is positive, with articles discussing Safran SA's stock price increase over the past year, forecasts for 2027, and its performance compared to other aerospace stocks in 2026.",
     "source": "ollama"
+  },
+  "2727.TW_2026-11-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Recent news indicates a positive sentiment towards Wowprime Corp., with reports of rapid recovery of earnings, bonus for Taiwan employees, and expansion abroad.",
+    "source": "ollama"
   }
 }

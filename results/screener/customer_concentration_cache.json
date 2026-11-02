@@ -862,5 +862,13 @@
       "reason": "The text mentions physicians, hospitals, patients, consumers, health plans, government agencies, employers, retailers, pharmaceutical companies, insurers, accountable care organizations, and a wide range of industries in the health and wellness sector as clients, suggesting a large and diverse clien",
       "source": "ollama"
     }
+  },
+  "2727.TW": {
+    "checked_at": "2026-11-02",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "Le texte ne fournit pas suffisamment d'informations pour déterminer si l'entreprise est dépendante d'un petit nombre de clients ou d'une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
   }
 }
