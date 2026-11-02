@@ -910,5 +910,11 @@
     "sentiment": null,
     "reason": "The news articles show a mix of financial data, stock price updates, and technical analysis, indicating a neutral sentiment overall. However, the absence of negative news suggests a generally positive outlook for Taiwan Hon Chuan Enterprise Co., Ltd.",
     "source": "ollama"
+  },
+  "SAF.PA_2026-11-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general tone of the news is positive, with articles discussing Safran SA's stock price increase over the past year, forecasts for 2027, and its performance compared to other aerospace stocks in 2026.",
+    "source": "ollama"
   }
 }
