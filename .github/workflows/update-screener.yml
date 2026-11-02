@@ -465,7 +465,7 @@ jobs:
           git config user.name "screener-bot"
           git config user.email "actions@users.noreply.github.com"
           git add results/simulation/equity_curves_summary.json
-          git add results/simulation/combined_equity_curve.csv results/simulation/combined_summary.json results/simulation/combined_m?_* results/simulation/combined_bilan.md 2>/dev/null || true
+          git add results/simulation/combined_* 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Rien de nouveau ce cycle."
             exit 0
