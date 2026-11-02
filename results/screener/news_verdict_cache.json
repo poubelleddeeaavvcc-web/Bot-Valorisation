@@ -952,5 +952,11 @@
     "sentiment": "positive",
     "reason": "The recent news about Brady Corporation indicates a generally positive sentiment, with forecasts suggesting potential for buying BRC, recognition as a quality stock with high ROIC and low leverage, and ongoing discussion and analysis of the stock.",
     "source": "ollama"
+  },
+  "PRG_2026-11-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Bank of America's buyback of about 2.59M shares in PROG Holdings (PRG) and the company's Q3 earnings call presentation suggesting positive results",
+    "source": "ollama"
   }
 }
