@@ -868,5 +868,29 @@
     "sentiment": "positive",
     "reason": "The general tone from the recent news about Horizon Bancorp, Inc. is positive, with reports of optimism, a yearly high, and an increase in Vanguard's stake.",
     "source": "ollama"
+  },
+  "1802.T_2026-11-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The company has recently announced an acquisition of Multiplex Global Limited and entering toll road concession business in Jakarta, Indonesia",
+    "source": "ollama"
+  },
+  "8035.T_2026-11-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Tokyo Electron Limited announced an Equity Buyback for 25,000,000 shares, representing 1.1% for ¥150,000 million.",
+    "source": "ollama"
+  },
+  "1942.T_2026-11-02": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Recent news indicates a positive sentiment towards Kandenko Co., Ltd., with reports of double-digit profit growth, higher dividends, and strong cash flow marking a robust fiscal year.",
+    "source": "ollama"
+  },
+  "6361.T_2026-11-02": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "The news shows a mix of positive and neutral sentiments towards Ebara Corporation's stock. Some articles predict a positive outlook for 2027, while others discuss opportunities and a substantial discount, but also a stock fall.",
+    "source": "ollama"
   }
 }
