@@ -1,21 +1,49 @@
 {
  "cash": {
-  "pool": 800.0
+  "pool": 700.0
  },
  "pending": [
   {
    "side": "buy",
-   "ticker": "L",
+   "ticker": "FANG",
    "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 2%)",
-   "decided_at": "2026-11-03T05:53:02Z",
+   "reason": "ton peu optimiste au regard des chiffres (rang 5%)",
+   "decided_at": "2026-11-03T22:51:39Z",
    "amount_eur": 100.0,
-   "name": "LOEWS CORP",
+   "name": "Diamondback Energy, Inc.",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.015624
+   "score": -0.011159
+  },
+  {
+   "side": "buy",
+   "ticker": "DOC",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 9%)",
+   "decided_at": "2026-11-03T22:51:39Z",
+   "amount_eur": 100.0,
+   "name": "HEALTHPEAK PROPERTIES, INC.",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.008555
+  },
+  {
+   "side": "buy",
+   "ticker": "ON",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 19%)",
+   "decided_at": "2026-11-03T22:51:39Z",
+   "amount_eur": 100.0,
+   "name": "ON SEMICONDUCTOR CORP",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.00566
   }
  ],
  "launched_at": "2026-10-14T10:56:13Z",
@@ -18819,6 +18847,116 @@
    "react": 0.03262,
    "age": 3.087396,
    "tone": -0.000931
+  },
+  {
+   "ticker": "AAPL",
+   "date": "2026-11-03",
+   "ret12": 0.274514,
+   "size": 29.208722,
+   "stdret": 0.050366,
+   "react": -0.035125,
+   "age": 3.087521,
+   "tone": 0.005389
+  },
+  {
+   "ticker": "CLX",
+   "date": "2026-11-03",
+   "ret12": -0.177735,
+   "size": 23.151955,
+   "stdret": 0.101445,
+   "react": 0.067722,
+   "age": 3.087521,
+   "tone": 0.008065
+  },
+  {
+   "ticker": "FANG",
+   "date": "2026-11-03",
+   "ret12": 0.527882,
+   "size": 24.709635,
+   "stdret": 0.096916,
+   "react": -0.091265,
+   "age": 2.711967,
+   "tone": -0.008208
+  },
+  {
+   "ticker": "DOC",
+   "date": "2026-11-03",
+   "ret12": 0.157165,
+   "size": 23.325003,
+   "stdret": 0.087971,
+   "react": 0.029664,
+   "age": 3.087521,
+   "tone": -0.006216
+  },
+  {
+   "ticker": "ON",
+   "date": "2026-11-03",
+   "ret12": 0.40944,
+   "size": 24.064874,
+   "stdret": 0.249724,
+   "react": 0.014789,
+   "age": 3.087521,
+   "tone": -0.004774
+  },
+  {
+   "ticker": "PLTR",
+   "date": "2026-11-03",
+   "ret12": -0.053662,
+   "size": 26.767077,
+   "stdret": 0.112115,
+   "react": -0.045496,
+   "age": 1.958928,
+   "tone": 0.007516
+  },
+  {
+   "ticker": "O",
+   "date": "2026-11-03",
+   "ret12": 0.042221,
+   "size": 24.719769,
+   "stdret": 0.062727,
+   "react": 0.011825,
+   "age": 3.087521,
+   "tone": 0.000413
+  },
+  {
+   "ticker": "SBAC",
+   "date": "2026-11-03",
+   "ret12": 0.004124,
+   "size": 23.698459,
+   "stdret": 0.075038,
+   "react": -0.011332,
+   "age": 3.087521,
+   "tone": -0.000787
+  },
+  {
+   "ticker": "UDR",
+   "date": "2026-11-03",
+   "ret12": 0.099271,
+   "size": 23.169347,
+   "stdret": 0.062519,
+   "react": 0.013356,
+   "age": 3.087521,
+   "tone": 0.00875
+  },
+  {
+   "ticker": "VRTX",
+   "date": "2026-11-03",
+   "ret12": 0.331015,
+   "size": 25.62503,
+   "stdret": 0.104283,
+   "react": -0.048502,
+   "age": 3.087521,
+   "tone": 0.006477
+  },
+  {
+   "ticker": "WMB",
+   "date": "2026-11-03",
+   "ret12": 0.329649,
+   "size": 25.207882,
+   "stdret": 0.065295,
+   "react": -0.023473,
+   "age": 3.087521,
+   "tone": 0.006168
   }
  ],
  "edgar_days_done": [
@@ -18851,83 +18989,6 @@
    "accepted": "2026-10-29T16:08:03-04:00",
    "tone": 0.0037766387914755866,
    "company": "FedEx Freight Holding Company, Inc."
-  },
-  {
-   "ticker": "AAPL",
-   "acc": "0000320193-26-000024",
-   "accepted": "2026-11-02T16:30:23-05:00",
-   "tone": 0.005388760585065435,
-   "company": "Apple Inc."
-  },
-  {
-   "ticker": "CLX",
-   "acc": "0000021076-26-000044",
-   "accepted": "2026-11-02T16:11:53-05:00",
-   "tone": 0.008064516129032258,
-   "company": "CLOROX CO /DE/"
-  },
-  {
-   "ticker": "FANG",
-   "acc": "0001539838-26-000180",
-   "accepted": "2026-11-02T16:06:31-05:00",
-   "tone": -0.008207934336525308,
-   "company": "Diamondback Energy, Inc."
-  },
-  {
-   "ticker": "DOC",
-   "acc": "0001628280-26-068878",
-   "accepted": "2026-11-02T16:10:07-05:00",
-   "tone": -0.006216006216006216,
-   "company": "HEALTHPEAK PROPERTIES, INC."
-  },
-  {
-   "ticker": "ON",
-   "acc": "0001140361-26-041580",
-   "accepted": "2026-11-02T16:15:56-05:00",
-   "tone": -0.004774409166865601,
-   "company": "ON SEMICONDUCTOR CORP"
-  },
-  {
-   "ticker": "PLTR",
-   "acc": "0001321655-26-000045",
-   "accepted": "2026-11-02T16:06:48-05:00",
-   "tone": 0.007516339869281046,
-   "company": "Palantir Technologies Inc."
-  },
-  {
-   "ticker": "O",
-   "acc": "0000726728-26-000056",
-   "accepted": "2026-11-02T16:07:03-05:00",
-   "tone": 0.0004131093362709997,
-   "company": "REALTY INCOME CORP"
-  },
-  {
-   "ticker": "SBAC",
-   "acc": "0001193125-26-443666",
-   "accepted": "2026-11-02T16:10:33-05:00",
-   "tone": -0.0007871536523929471,
-   "company": "SBA COMMUNICATIONS CORP"
-  },
-  {
-   "ticker": "UDR",
-   "acc": "0000074208-26-000084",
-   "accepted": "2026-11-02T16:19:29-05:00",
-   "tone": 0.008749544294567991,
-   "company": "UDR, Inc."
-  },
-  {
-   "ticker": "VRTX",
-   "acc": "0000875320-26-000287",
-   "accepted": "2026-11-02T16:05:46-05:00",
-   "tone": 0.006477424271289769,
-   "company": "VERTEX PHARMACEUTICALS INC / MA"
-  },
-  {
-   "ticker": "WMB",
-   "acc": "0000107263-26-000035",
-   "accepted": "2026-11-02T16:06:17-05:00",
-   "tone": 0.006168487839266831,
-   "company": "WILLIAMS COMPANIES, INC."
   }
  ],
  "shadow": [
@@ -19185,6 +19246,16 @@
    "ticker": "MRVL",
    "day0": "2026-11-02",
    "rang": 0.856
+  },
+  {
+   "ticker": "CLX",
+   "day0": "2026-11-03",
+   "rang": 0.822
+  },
+  {
+   "ticker": "UDR",
+   "day0": "2026-11-03",
+   "rang": 0.845
   }
  ],
  "events_log": [
@@ -21752,6 +21823,105 @@
    "abtone": -0.00504,
    "rang": 0.22,
    "decision": "neutre"
+  },
+  {
+   "ticker": "AAPL",
+   "company": "Apple Inc.",
+   "day0": "2026-11-03",
+   "tone": 0.00539,
+   "abtone": -0.00331,
+   "rang": 0.304,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "CLX",
+   "company": "CLOROX CO /DE/",
+   "day0": "2026-11-03",
+   "tone": 0.00806,
+   "abtone": 0.00581,
+   "rang": 0.822,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "FANG",
+   "company": "Diamondback Energy, Inc.",
+   "day0": "2026-11-03",
+   "tone": -0.00821,
+   "abtone": -0.01116,
+   "rang": 0.046,
+   "decision": "achat"
+  },
+  {
+   "ticker": "DOC",
+   "company": "HEALTHPEAK PROPERTIES, INC.",
+   "day0": "2026-11-03",
+   "tone": -0.00622,
+   "abtone": -0.00856,
+   "rang": 0.093,
+   "decision": "achat"
+  },
+  {
+   "ticker": "ON",
+   "company": "ON SEMICONDUCTOR CORP",
+   "day0": "2026-11-03",
+   "tone": -0.00477,
+   "abtone": -0.00566,
+   "rang": 0.193,
+   "decision": "achat"
+  },
+  {
+   "ticker": "PLTR",
+   "company": "Palantir Technologies Inc.",
+   "day0": "2026-11-03",
+   "tone": 0.00752,
+   "abtone": 0.00231,
+   "rang": 0.658,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "O",
+   "company": "REALTY INCOME CORP",
+   "day0": "2026-11-03",
+   "tone": 0.00041,
+   "abtone": -0.00366,
+   "rang": 0.287,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "SBAC",
+   "company": "SBA COMMUNICATIONS CORP",
+   "day0": "2026-11-03",
+   "tone": -0.00079,
+   "abtone": -0.00352,
+   "rang": 0.291,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "UDR",
+   "company": "UDR, Inc.",
+   "day0": "2026-11-03",
+   "tone": 0.00875,
+   "abtone": 0.00633,
+   "rang": 0.845,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "VRTX",
+   "company": "VERTEX PHARMACEUTICALS INC / MA",
+   "day0": "2026-11-03",
+   "tone": 0.00648,
+   "abtone": 0.00237,
+   "rang": 0.661,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "WMB",
+   "company": "WILLIAMS COMPANIES, INC.",
+   "day0": "2026-11-03",
+   "tone": 0.00617,
+   "abtone": 0.00187,
+   "rang": 0.641,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -21797,14 +21967,17 @@
   "CVX": "2027-01-25",
   "D": "2027-01-25",
   "XOM": "2027-01-25",
-  "L": "2027-01-26"
+  "L": "2027-01-26",
+  "FANG": "2027-01-27",
+  "DOC": "2027-01-27",
+  "ON": "2027-01-27"
  },
  "counters": {
   "jours": 14,
   "communiques": 298,
-  "evalues": 285,
-  "achetes": 43,
-  "ombre": 51,
+  "evalues": 296,
+  "achetes": 46,
+  "ombre": 53,
   "complet": 0
  }
 }
