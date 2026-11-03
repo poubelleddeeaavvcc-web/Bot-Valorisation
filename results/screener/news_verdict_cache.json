@@ -680,7 +680,7 @@
   "SNA_2026-11-03": {
     "relevant": true,
     "sentiment": "positive",
-    "reason": "The recent news about Snap-on Incorporated (SNA) indicates a positive sentiment, with focus on earnings call presentations, stock forecasts, and positive financial results in Q3.",
+    "reason": "The general tone from the recent news about Snap-on Incorporated is positive, with articles discussing stock forecasts, potential growth through M&A, and the company declaring a quarterly dividend, as well as an article suggesting Snap-on could be a great choice.",
     "source": "ollama"
   },
   "BBVA_2026-11-03": {
@@ -735,6 +735,24 @@
     "relevant": true,
     "sentiment": null,
     "reason": "The news shows a mixed sentiment for Itaú Unibanco Holding S.A. stock. The stock opened down by 22.13% on October 26, but moved up by 17.40% on October 5. The focus is on ITUB, NON, and CLS in relation to a rise in stock market futures after Trump rules out an Iran strike.",
+    "source": "ollama"
+  },
+  "JAZZ_2026-11-03": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Recent news about Jazz Pharmaceuticals plc indicates a positive sentiment, with mentions of Q3 earnings, an undervalued biopharma value stock, and a Form 144 filing, suggesting potential positive developments for the company.",
+    "source": "ollama"
+  },
+  "ADEA_2026-11-03": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "The news shows a mix of positive and negative sentiments. The stock is forecasted to have accelerating earnings growth and is up 3.1%, but it is also overvalued according to GuruFocus, and it posted downbeat Q3 earnings.",
+    "source": "ollama"
+  },
+  "BVS_2026-11-03": {
+    "relevant": true,
+    "sentiment": "negative",
+    "reason": "The general sentiment is negative as the news mentions a price target cut, downbeat earnings, and the stock being overvalued according to GF Value.",
     "source": "ollama"
   }
 }
