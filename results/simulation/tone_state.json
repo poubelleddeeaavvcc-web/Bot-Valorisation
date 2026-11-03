@@ -2,7 +2,22 @@
  "cash": {
   "pool": 800.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "L",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 2%)",
+   "decided_at": "2026-11-03T05:53:02Z",
+   "amount_eur": 100.0,
+   "name": "LOEWS CORP",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.015624
+  }
+ ],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
@@ -18714,6 +18729,96 @@
    "react": 0.162418,
    "age": 3.087021,
    "tone": 0.006003
+  },
+  {
+   "ticker": "ETR",
+   "date": "2026-11-02",
+   "ret12": 0.180692,
+   "size": 24.683954,
+   "stdret": 0.062716,
+   "react": 0.021525,
+   "age": 3.087396,
+   "tone": -0.00028
+  },
+  {
+   "ticker": "EL",
+   "date": "2026-11-02",
+   "ret12": 0.133503,
+   "size": 24.359813,
+   "stdret": 0.136599,
+   "react": -0.014695,
+   "age": 3.087396,
+   "tone": 0.021038
+  },
+  {
+   "ticker": "FOX",
+   "date": "2026-11-02",
+   "ret12": 0.064247,
+   "size": 23.884379,
+   "stdret": 0.103364,
+   "react": -9.9e-05,
+   "age": 2.156558,
+   "tone": 0.004468
+  },
+  {
+   "ticker": "IDXX",
+   "date": "2026-11-02",
+   "ret12": -0.082338,
+   "size": 24.691906,
+   "stdret": 0.081993,
+   "react": 0.188516,
+   "age": 3.087396,
+   "tone": 0.032967
+  },
+  {
+   "ticker": "L",
+   "date": "2026-11-02",
+   "ret12": 0.144652,
+   "size": 23.848314,
+   "stdret": 0.0622,
+   "react": 0.019301,
+   "age": 3.087396,
+   "tone": -0.012425
+  },
+  {
+   "ticker": "LITE",
+   "date": "2026-11-02",
+   "ret12": 3.291255,
+   "size": 24.850318,
+   "stdret": 0.272174,
+   "react": -0.233272,
+   "age": 2.507967,
+   "tone": -0.001328
+  },
+  {
+   "ticker": "MAR",
+   "date": "2026-11-02",
+   "ret12": 0.531537,
+   "size": 25.410541,
+   "stdret": 0.06201,
+   "react": 0.064096,
+   "age": 3.087396,
+   "tone": 0.002447
+  },
+  {
+   "ticker": "MRVL",
+   "date": "2026-11-02",
+   "ret12": 1.426047,
+   "size": 25.760523,
+   "stdret": 0.311282,
+   "react": -0.192506,
+   "age": 3.087396,
+   "tone": 0.007202
+  },
+  {
+   "ticker": "PEG",
+   "date": "2026-11-02",
+   "ret12": -0.051519,
+   "size": 24.336141,
+   "stdret": 0.039215,
+   "react": 0.03262,
+   "age": 3.087396,
+   "tone": -0.000931
   }
  ],
  "edgar_days_done": [
@@ -18729,7 +18834,8 @@
   "2026-10-27",
   "2026-10-28",
   "2026-10-29",
-  "2026-10-30"
+  "2026-10-30",
+  "2026-11-02"
  ],
  "awaiting": [
   {
@@ -18745,6 +18851,83 @@
    "accepted": "2026-10-29T16:08:03-04:00",
    "tone": 0.0037766387914755866,
    "company": "FedEx Freight Holding Company, Inc."
+  },
+  {
+   "ticker": "AAPL",
+   "acc": "0000320193-26-000024",
+   "accepted": "2026-11-02T16:30:23-05:00",
+   "tone": 0.005388760585065435,
+   "company": "Apple Inc."
+  },
+  {
+   "ticker": "CLX",
+   "acc": "0000021076-26-000044",
+   "accepted": "2026-11-02T16:11:53-05:00",
+   "tone": 0.008064516129032258,
+   "company": "CLOROX CO /DE/"
+  },
+  {
+   "ticker": "FANG",
+   "acc": "0001539838-26-000180",
+   "accepted": "2026-11-02T16:06:31-05:00",
+   "tone": -0.008207934336525308,
+   "company": "Diamondback Energy, Inc."
+  },
+  {
+   "ticker": "DOC",
+   "acc": "0001628280-26-068878",
+   "accepted": "2026-11-02T16:10:07-05:00",
+   "tone": -0.006216006216006216,
+   "company": "HEALTHPEAK PROPERTIES, INC."
+  },
+  {
+   "ticker": "ON",
+   "acc": "0001140361-26-041580",
+   "accepted": "2026-11-02T16:15:56-05:00",
+   "tone": -0.004774409166865601,
+   "company": "ON SEMICONDUCTOR CORP"
+  },
+  {
+   "ticker": "PLTR",
+   "acc": "0001321655-26-000045",
+   "accepted": "2026-11-02T16:06:48-05:00",
+   "tone": 0.007516339869281046,
+   "company": "Palantir Technologies Inc."
+  },
+  {
+   "ticker": "O",
+   "acc": "0000726728-26-000056",
+   "accepted": "2026-11-02T16:07:03-05:00",
+   "tone": 0.0004131093362709997,
+   "company": "REALTY INCOME CORP"
+  },
+  {
+   "ticker": "SBAC",
+   "acc": "0001193125-26-443666",
+   "accepted": "2026-11-02T16:10:33-05:00",
+   "tone": -0.0007871536523929471,
+   "company": "SBA COMMUNICATIONS CORP"
+  },
+  {
+   "ticker": "UDR",
+   "acc": "0000074208-26-000084",
+   "accepted": "2026-11-02T16:19:29-05:00",
+   "tone": 0.008749544294567991,
+   "company": "UDR, Inc."
+  },
+  {
+   "ticker": "VRTX",
+   "acc": "0000875320-26-000287",
+   "accepted": "2026-11-02T16:05:46-05:00",
+   "tone": 0.006477424271289769,
+   "company": "VERTEX PHARMACEUTICALS INC / MA"
+  },
+  {
+   "ticker": "WMB",
+   "acc": "0000107263-26-000035",
+   "accepted": "2026-11-02T16:06:17-05:00",
+   "tone": 0.006168487839266831,
+   "company": "WILLIAMS COMPANIES, INC."
   }
  ],
  "shadow": [
@@ -18987,6 +19170,21 @@
    "ticker": "FRT",
    "day0": "2026-10-30",
    "rang": 0.901
+  },
+  {
+   "ticker": "EL",
+   "day0": "2026-11-02",
+   "rang": 0.988
+  },
+  {
+   "ticker": "IDXX",
+   "day0": "2026-11-02",
+   "rang": 0.998
+  },
+  {
+   "ticker": "MRVL",
+   "day0": "2026-11-02",
+   "rang": 0.856
   }
  ],
  "events_log": [
@@ -21473,6 +21671,87 @@
    "abtone": 0.00136,
    "rang": 0.615,
    "decision": "neutre"
+  },
+  {
+   "ticker": "ETR",
+   "company": "ENTERGY CORP /DE/",
+   "day0": "2026-11-02",
+   "tone": -0.00028,
+   "abtone": -0.00432,
+   "rang": 0.252,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "EL",
+   "company": "ESTEE LAUDER COMPANIES INC",
+   "day0": "2026-11-02",
+   "tone": 0.02104,
+   "abtone": 0.0185,
+   "rang": 0.988,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "FOX",
+   "company": "Fox Corp",
+   "day0": "2026-11-02",
+   "tone": 0.00447,
+   "abtone": 0.00197,
+   "rang": 0.644,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "IDXX",
+   "company": "IDEXX LABORATORIES INC /DE",
+   "day0": "2026-11-02",
+   "tone": 0.03297,
+   "abtone": 0.02839,
+   "rang": 0.998,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "L",
+   "company": "LOEWS CORP",
+   "day0": "2026-11-02",
+   "tone": -0.01242,
+   "abtone": -0.01562,
+   "rang": 0.015,
+   "decision": "achat"
+  },
+  {
+   "ticker": "LITE",
+   "company": "Lumentum Holdings Inc.",
+   "day0": "2026-11-02",
+   "tone": -0.00133,
+   "abtone": -0.0005,
+   "rang": 0.488,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "MAR",
+   "company": "MARRIOTT INTERNATIONAL INC /MD/",
+   "day0": "2026-11-02",
+   "tone": 0.00245,
+   "abtone": -0.00247,
+   "rang": 0.353,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "MRVL",
+   "company": "Marvell Technology, Inc.",
+   "day0": "2026-11-02",
+   "tone": 0.0072,
+   "abtone": 0.00674,
+   "rang": 0.856,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "PEG",
+   "company": "PUBLIC SERVICE ENTERPRISE GROUP INC",
+   "day0": "2026-11-02",
+   "tone": -0.00093,
+   "abtone": -0.00504,
+   "rang": 0.22,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -21517,14 +21796,15 @@
   "SBUX": "2027-01-25",
   "CVX": "2027-01-25",
   "D": "2027-01-25",
-  "XOM": "2027-01-25"
+  "XOM": "2027-01-25",
+  "L": "2027-01-26"
  },
  "counters": {
-  "jours": 13,
-  "communiques": 278,
-  "evalues": 276,
-  "achetes": 42,
-  "ombre": 48,
+  "jours": 14,
+  "communiques": 298,
+  "evalues": 285,
+  "achetes": 43,
+  "ombre": 51,
   "complet": 0
  }
 }
