@@ -1,19 +1,11 @@
 {
  "cash": {
-  "pool": 5987.058747515813
+  "pool": 6085.3807450391205
  },
  "pending": [
   {
    "side": "sell",
    "ticker": "AXP",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-03T06:47:24Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "VAC.PA",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-03T06:47:24Z",
@@ -42,6 +34,30 @@
    "sector": "seekingalpha.com",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "BIM.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-03T21:48:30Z",
+   "amount_eur": 100.0,
+   "name": "bioMérieux S.A.",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "RUI.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-03T21:48:30Z",
+   "amount_eur": 100.0,
+   "name": "Rubis",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -64,7 +80,6 @@
   "GOOG": "2026-11-06",
   "ACN": "2026-11-20",
   "MRVL": "2026-12-01",
-  "VAC.PA": "2026-11-03",
   "BAC": "2026-11-12",
   "AXP": "2026-11-03",
   "KRP": "2026-11-06",
@@ -177,7 +192,9 @@
   "SIRI": "2026-11-30",
   "EPD": "2026-11-30",
   "FII.PA": "2026-12-01",
-  "LITE": "2026-12-01"
+  "LITE": "2026-12-01",
+  "BIM.PA": "2026-12-01",
+  "RUI.PA": "2026-12-01"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -598,11 +615,13 @@
   "1a1a08e6fc983bc3:FII.PA",
   "1a1a1532fcafb9bf:MRVL",
   "1a1a17a92a78ffe2:MRVL",
-  "1a1a17a92a78ffe2:LITE"
+  "1a1a17a92a78ffe2:LITE",
+  "1a1a2600f274a49a:BIM.PA",
+  "1a1a2600f274a49a:RUI.PA"
  ],
  "counters": {
-  "avis": 419,
-  "achetes": 255,
+  "avis": 421,
+  "achetes": 257,
   "prolonges": 164,
   "complet": 0
  },
