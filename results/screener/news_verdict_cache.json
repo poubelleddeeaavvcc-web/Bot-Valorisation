@@ -754,5 +754,17 @@
     "sentiment": "negative",
     "reason": "The general sentiment is negative as the news mentions a price target cut, downbeat earnings, and the stock being overvalued according to GF Value.",
     "source": "ollama"
+  },
+  "5020.T_2026-11-03": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "ENEOS to Cancel 39.6 Million Treasury Shares After Buyback indicates a positive sentiment as it suggests a buyback of shares, which can be seen as a sign of confidence in the company's future performance.",
+    "source": "ollama"
+  },
+  "URBN_2026-11-03": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general sentiment from the recent news is positive, with several articles highlighting a strengthening bull case and a Zacks Buy rating for Urban Outfitters stock.",
+    "source": "ollama"
   }
 }
