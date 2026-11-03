@@ -712,5 +712,11 @@
     "sentiment": "positive",
     "reason": "The general sentiment is positive as the news highlights double-digit profit growth, higher dividends, and strong cash flow marking a robust fiscal year for Kandenko Co., Ltd.",
     "source": "ollama"
+  },
+  "2303.TW_2026-11-03": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "The news shows a mix of positive and negative sentiments, with some articles discussing stock price forecasts and potential investment opportunities, while others report on the company's stock falling.",
+    "source": "ollama"
   }
 }
