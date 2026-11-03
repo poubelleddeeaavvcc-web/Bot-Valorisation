@@ -19,7 +19,8 @@
   "2026-10-27",
   "2026-10-28",
   "2026-10-29",
-  "2026-10-30"
+  "2026-10-30",
+  "2026-11-02"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -816,11 +817,151 @@
    "title": "Director",
    "adv_usd": 36582971,
    "decision": "liquidite hors bande (36.58 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "AEYE",
+   "issuer": "AUDIOEYE INC",
+   "value_usd": 52600,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 3429290,
+   "decision": "liquidite hors bande (3.43 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "ATEC",
+   "issuer": "Alphatec Holdings, Inc.",
+   "value_usd": 408600,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 42880133,
+   "decision": "liquidite hors bande (42.88 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "BANC",
+   "issuer": "BANC OF CALIFORNIA, INC.",
+   "value_usd": 99754,
+   "insiders": 1,
+   "title": "CHAIRMAN AND CEO",
+   "adv_usd": 39798492,
+   "decision": "liquidite hors bande (39.80 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "BBTX",
+   "issuer": "Bambusa Therapeutics, Inc.",
+   "value_usd": 6000000,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": null,
+   "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "BLX",
+   "issuer": "BLADEX, INC.",
+   "value_usd": 93883,
+   "insiders": 1,
+   "title": "Chief Audit Officer",
+   "adv_usd": 9467891,
+   "decision": "liquidite hors bande (9.47 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "CLH",
+   "issuer": "CLEAN HARBORS INC",
+   "value_usd": 39354,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 156325997,
+   "decision": "liquidite hors bande (156.33 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "ENPH",
+   "issuer": "Enphase Energy, Inc.",
+   "value_usd": 267514,
+   "insiders": 1,
+   "title": "President & CEO",
+   "adv_usd": 203527707,
+   "decision": "liquidite hors bande (203.53 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "FCPT",
+   "issuer": "Four Corners Property Trust, Inc.",
+   "value_usd": 226072,
+   "insiders": 1,
+   "title": "President and CEO",
+   "adv_usd": 25307950,
+   "decision": "liquidite hors bande (25.31 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "LSTR",
+   "issuer": "LANDSTAR SYSTEM INC",
+   "value_usd": 714619,
+   "insiders": 1,
+   "title": "President & CEO",
+   "adv_usd": 67905540,
+   "decision": "liquidite hors bande (67.91 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "NONE",
+   "issuer": "Blackstone Real Estate Income Trust, Inc.",
+   "value_usd": 35000,
+   "insiders": 1,
+   "title": "CFO and Treasurer",
+   "adv_usd": null,
+   "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "NTRS",
+   "issuer": "NORTHERN TRUST CORP",
+   "value_usd": 39901,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 217436421,
+   "decision": "liquidite hors bande (217.44 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "OCFC",
+   "issuer": "OCEANFIRST FINANCIAL CORP",
+   "value_usd": 178277,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 22112301,
+   "decision": "liquidite hors bande (22.11 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "RSI",
+   "issuer": "Rush Street Interactive, Inc.",
+   "value_usd": 118310,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 67251067,
+   "decision": "liquidite hors bande (67.25 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-02",
+   "ticker": "SEVN",
+   "issuer": "Seven Hills Realty Trust",
+   "value_usd": 98550,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 1303182,
+   "decision": "liquidite hors bande (1.30 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 14,
-  "evenements": 79,
+  "jours": 15,
+  "evenements": 93,
   "retenus": 3,
   "achetes": 3,
   "complet": 0,
