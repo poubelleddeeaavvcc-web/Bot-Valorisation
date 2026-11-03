@@ -718,5 +718,11 @@
     "sentiment": null,
     "reason": "The news shows a mix of positive and negative sentiments, with some articles discussing stock price forecasts and potential investment opportunities, while others report on the company's stock falling.",
     "source": "ollama"
+  },
+  "1878.T_2026-11-03": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The company has posted higher fiscal H1 attributable profit and revenue, and there have been earnings outlook upgrades, indicating a positive outlook for the stock.",
+    "source": "ollama"
   }
 }
