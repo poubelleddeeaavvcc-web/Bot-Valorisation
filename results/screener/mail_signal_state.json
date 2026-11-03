@@ -1,5 +1,6 @@
 {
   "processed_message_ids": [
+    "1a19fea08be37ed3",
     "1a19e25931f8a088",
     "1a19e192937c2ff2",
     "1a19d5d7d908d8fb",
@@ -53,7 +54,7 @@
     "1a19604bff3c871d",
     "1a195ef6fd5cefdd"
   ],
-  "last_run_date": "2026-11-02",
+  "last_run_date": "2026-11-03",
   "ollama_attempts": {
     "1a06c3dc17d92321": 1,
     "1a080d744fee4403": 2,
@@ -994,7 +995,7 @@
     "tipranks.com": "observation",
     "tradingsat.com": "observation",
     "zonebourse.com (ton)": "observation",
-    "(consensus des newsletters non fiables)": "observation"
+    "(consensus des newsletters non fiables)": "bruit"
   },
   "known_domains": [
     "advisor.thedailyupside.com",

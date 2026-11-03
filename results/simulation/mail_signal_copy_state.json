@@ -10,6 +10,22 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-02T06:00:07Z",
    "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "AXP",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-03T06:47:24Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "VAC.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-03T06:47:24Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
