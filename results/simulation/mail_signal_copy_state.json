@@ -1,16 +1,8 @@
 {
  "cash": {
-  "pool": 5908.138749346867
+  "pool": 5987.058747515813
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "MRN.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-02T06:00:07Z",
-   "fraction": 1.0
-  },
   {
    "side": "sell",
    "ticker": "AXP",
@@ -26,6 +18,30 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-03T06:47:24Z",
    "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "FII.PA",
+   "bucket": "pool",
+   "reason": "avis tradingsat.com",
+   "decided_at": "2026-11-03T16:14:47Z",
+   "amount_eur": 100.0,
+   "name": "Lisi S.A.",
+   "sector": "tradingsat.com",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "LITE",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-11-03T16:14:47Z",
+   "amount_eur": 100.0,
+   "name": "Lumentum Holdings Inc.",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -47,8 +63,7 @@
   "AMZN": "2026-11-16",
   "GOOG": "2026-11-06",
   "ACN": "2026-11-20",
-  "MRN.PA": "2026-11-02",
-  "MRVL": "2026-11-13",
+  "MRVL": "2026-12-01",
   "VAC.PA": "2026-11-03",
   "BAC": "2026-11-12",
   "AXP": "2026-11-03",
@@ -160,7 +175,9 @@
   "AM": "2026-11-27",
   "BEN": "2026-11-30",
   "SIRI": "2026-11-30",
-  "EPD": "2026-11-30"
+  "EPD": "2026-11-30",
+  "FII.PA": "2026-12-01",
+  "LITE": "2026-12-01"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -577,12 +594,16 @@
   "1a19b6d4aa25ef69:SOP.PA",
   "1a19c48eaf3b82a0:BEN",
   "1a19c4aeb615413d:SIRI",
-  "1a19c54fc60c9aec:EPD"
+  "1a19c54fc60c9aec:EPD",
+  "1a1a08e6fc983bc3:FII.PA",
+  "1a1a1532fcafb9bf:MRVL",
+  "1a1a17a92a78ffe2:MRVL",
+  "1a1a17a92a78ffe2:LITE"
  ],
  "counters": {
-  "avis": 415,
-  "achetes": 253,
-  "prolonges": 162,
+  "avis": 419,
+  "achetes": 255,
+  "prolonges": 164,
   "complet": 0
  },
  "dropped": [
