@@ -724,5 +724,17 @@
     "sentiment": "positive",
     "reason": "The company has posted higher fiscal H1 attributable profit and revenue, and there have been earnings outlook upgrades, indicating a positive outlook for the stock.",
     "source": "ollama"
+  },
+  "LRN_2026-11-03": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Recent news indicates a positive sentiment towards Stride, Inc. (LRN) with articles suggesting it is a decent value stock trading at a discount and a director buying company stock.",
+    "source": "ollama"
+  },
+  "ITUB4.SA_2026-11-03": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "The news shows a mixed sentiment for Itaú Unibanco Holding S.A. stock. The stock opened down by 22.13% on October 26, but moved up by 17.40% on October 5. The focus is on ITUB, NON, and CLS in relation to a rise in stock market futures after Trump rules out an Iran strike.",
+    "source": "ollama"
   }
 }
