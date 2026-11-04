@@ -1,16 +1,8 @@
 {
  "cash": {
-  "pool": 6090.337729031936
+  "pool": 5890.207724149123
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "BAIN.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-04T02:23:17Z",
-   "fraction": 1.0
-  },
   {
    "side": "sell",
    "ticker": "ET",
@@ -37,42 +29,6 @@
   },
   {
    "side": "buy",
-   "ticker": "FII.PA",
-   "bucket": "pool",
-   "reason": "avis tradingsat.com",
-   "decided_at": "2026-11-03T16:14:47Z",
-   "amount_eur": 100.0,
-   "name": "Lisi S.A.",
-   "sector": "tradingsat.com",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "BIM.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-03T21:48:30Z",
-   "amount_eur": 100.0,
-   "name": "bioMérieux S.A.",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "RUI.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-03T21:48:30Z",
-   "amount_eur": 100.0,
-   "name": "Rubis",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
    "ticker": "COIN",
    "bucket": "pool",
    "reason": "avis aktionnaire.com (ton)",
@@ -82,11 +38,35 @@
    "sector": "aktionnaire.com (ton)",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "GDYN",
+   "bucket": "pool",
+   "reason": "avis Zacks Rank (email.zacks.com)",
+   "decided_at": "2026-11-04T19:44:49Z",
+   "amount_eur": 100.0,
+   "name": "Grid Dynamics Holdings, Inc.",
+   "sector": "Zacks Rank (email.zacks.com)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "AMD",
+   "bucket": "pool",
+   "reason": "avis thedailyupside.com (ton)",
+   "decided_at": "2026-11-04T19:44:49Z",
+   "amount_eur": 100.0,
+   "name": "Advanced Micro Devices, Inc.",
+   "sector": "thedailyupside.com (ton)",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
-  "MU": "2026-11-27",
+  "MU": "2026-12-02",
   "NVDA": "2026-11-30",
   "AVGO": "2026-11-19",
   "SNDK": "2026-11-11",
@@ -106,7 +86,6 @@
   "MRVL": "2026-12-01",
   "BAC": "2026-11-12",
   "KRP": "2026-11-06",
-  "BAIN.PA": "2026-11-04",
   "IRWD": "2026-11-04",
   "ENB": "2026-11-11",
   "WEC": "2026-11-04",
@@ -213,12 +192,14 @@
   "AM": "2026-11-27",
   "BEN": "2026-11-30",
   "SIRI": "2026-11-30",
-  "EPD": "2026-11-30",
+  "EPD": "2026-12-02",
   "FII.PA": "2026-12-01",
   "LITE": "2026-12-01",
   "BIM.PA": "2026-12-01",
   "RUI.PA": "2026-12-01",
-  "COIN": "2026-12-02"
+  "COIN": "2026-12-02",
+  "GDYN": "2026-12-02",
+  "AMD": "2026-12-02"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -642,12 +623,16 @@
   "1a1a17a92a78ffe2:LITE",
   "1a1a2600f274a49a:BIM.PA",
   "1a1a2600f274a49a:RUI.PA",
-  "1a1a50dbd2c520c1:COIN"
+  "1a1a50dbd2c520c1:COIN",
+  "1a1a6984782b307a:GDYN",
+  "1a1a6a112b4d5a6a:EPD",
+  "1a1a693442d300e5:MU",
+  "1a1a6a62f5bab5b1:AMD"
  ],
  "counters": {
-  "avis": 422,
-  "achetes": 258,
-  "prolonges": 164,
+  "avis": 426,
+  "achetes": 260,
+  "prolonges": 166,
   "complet": 0
  },
  "dropped": [
