@@ -2,15 +2,24 @@
  "cash": {
   "SPY": 0.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "sell",
+   "ticker": "SPY",
+   "bucket": "SPY",
+   "reason": "cours 766.48 > moyenne 5 j 759.60",
+   "decided_at": "2026-11-04T20:52:37Z",
+   "fraction": 1.0
+  }
+ ],
  "launched_at": "2026-10-12T14:52:43Z",
- "decision_date": "2026-11-03",
+ "decision_date": "2026-11-04",
  "signal": {
-  "date": "2026-11-03",
-  "price": 753.97998046875,
-  "rsi2": 28.69,
-  "sma200": 729.46,
-  "sma5": 760.69,
+  "date": "2026-11-04",
+  "price": 766.47998046875,
+  "rsi2": 82.62,
+  "sma200": 729.91,
+  "sma5": 759.6,
   "held": true
  }
 }
