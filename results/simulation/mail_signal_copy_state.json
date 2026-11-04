@@ -4,6 +4,38 @@
  },
  "pending": [
   {
+   "side": "sell",
+   "ticker": "BAIN.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-04T02:23:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "ET",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-04T02:23:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "IRWD",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-04T02:23:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "WEC",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-04T02:23:17Z",
+   "fraction": 1.0
+  },
+  {
    "side": "buy",
    "ticker": "FII.PA",
    "bucket": "pool",
@@ -40,36 +72,16 @@
    "fractional": false
   },
   {
-   "side": "sell",
-   "ticker": "BAIN.PA",
+   "side": "buy",
+   "ticker": "COIN",
    "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-04T02:23:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "ET",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-04T02:23:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "IRWD",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-04T02:23:17Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "WEC",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-04T02:23:17Z",
-   "fraction": 1.0
+   "reason": "avis aktionnaire.com (ton)",
+   "decided_at": "2026-11-04T12:07:18Z",
+   "amount_eur": 100.0,
+   "name": "Coinbase Global, Inc.",
+   "sector": "aktionnaire.com (ton)",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -205,7 +217,8 @@
   "FII.PA": "2026-12-01",
   "LITE": "2026-12-01",
   "BIM.PA": "2026-12-01",
-  "RUI.PA": "2026-12-01"
+  "RUI.PA": "2026-12-01",
+  "COIN": "2026-12-02"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -628,11 +641,12 @@
   "1a1a17a92a78ffe2:MRVL",
   "1a1a17a92a78ffe2:LITE",
   "1a1a2600f274a49a:BIM.PA",
-  "1a1a2600f274a49a:RUI.PA"
+  "1a1a2600f274a49a:RUI.PA",
+  "1a1a50dbd2c520c1:COIN"
  ],
  "counters": {
-  "avis": 421,
-  "achetes": 257,
+  "avis": 422,
+  "achetes": 258,
   "prolonges": 164,
   "complet": 0
  },
