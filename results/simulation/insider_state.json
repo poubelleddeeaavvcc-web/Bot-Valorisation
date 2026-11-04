@@ -1,23 +1,8 @@
 {
  "cash": {
-  "pool": 4700.0
+  "pool": 4600.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "FINW",
-   "bucket": "pool",
-   "reason": "1 initie(s), 53 k$ le 2026-10-30",
-   "decided_at": "2026-11-04T11:51:51Z",
-   "amount_eur": 100.0,
-   "name": "Finwise Bancorp",
-   "sector": "Inities (petites cap.)",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 53440.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",

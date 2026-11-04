@@ -1,91 +1,21 @@
 {
  "cash": {
-  "pool": 700.0
+  "pool": 100.0
  },
  "pending": [
   {
    "side": "buy",
-   "ticker": "FANG",
+   "ticker": "AIG",
    "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 5%)",
-   "decided_at": "2026-11-03T22:51:39Z",
+   "reason": "ton peu optimiste au regard des chiffres (rang 6%)",
+   "decided_at": "2026-11-04T22:07:35Z",
    "amount_eur": 100.0,
-   "name": "Diamondback Energy, Inc.",
+   "name": "AMERICAN INTERNATIONAL GROUP, INC.",
    "sector": "Communiques de resultats",
    "country": "United States",
    "currency": "USD",
    "fractional": true,
-   "score": -0.011159
-  },
-  {
-   "side": "buy",
-   "ticker": "DOC",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 9%)",
-   "decided_at": "2026-11-03T22:51:39Z",
-   "amount_eur": 100.0,
-   "name": "HEALTHPEAK PROPERTIES, INC.",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.008555
-  },
-  {
-   "side": "buy",
-   "ticker": "ON",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 19%)",
-   "decided_at": "2026-11-03T22:51:39Z",
-   "amount_eur": 100.0,
-   "name": "ON SEMICONDUCTOR CORP",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.00566
-  },
-  {
-   "side": "buy",
-   "ticker": "APTV",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 10%)",
-   "decided_at": "2026-11-04T05:52:48Z",
-   "amount_eur": 100.0,
-   "name": "Aptiv PLC",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.008334
-  },
-  {
-   "side": "buy",
-   "ticker": "FISV",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 4%)",
-   "decided_at": "2026-11-04T05:52:48Z",
-   "amount_eur": 100.0,
-   "name": "FISERV INC",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.011321
-  },
-  {
-   "side": "buy",
-   "ticker": "LDOS",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 18%)",
-   "decided_at": "2026-11-04T05:52:48Z",
-   "amount_eur": 100.0,
-   "name": "Leidos Holdings, Inc.",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.005869
+   "score": -0.009862
   }
  ],
  "launched_at": "2026-10-14T10:56:13Z",
@@ -19069,6 +18999,136 @@
    "react": -0.086102,
    "age": 3.087521,
    "tone": 0.008029
+  },
+  {
+   "ticker": "AMD",
+   "date": "2026-11-04",
+   "ret12": 0.822739,
+   "size": 27.405276,
+   "stdret": 0.263472,
+   "react": 0.027438,
+   "age": 3.087645,
+   "tone": 0.001746
+  },
+  {
+   "ticker": "AIG",
+   "date": "2026-11-04",
+   "ret12": 0.069273,
+   "size": 24.478064,
+   "stdret": 0.072484,
+   "react": -0.027932,
+   "age": 3.087645,
+   "tone": -0.0063
+  },
+  {
+   "ticker": "AMGN",
+   "date": "2026-11-04",
+   "ret12": 0.602928,
+   "size": 26.278864,
+   "stdret": 0.078599,
+   "react": 0.008436,
+   "age": 3.087645,
+   "tone": 0.004226
+  },
+  {
+   "ticker": "AIZ",
+   "date": "2026-11-04",
+   "ret12": 0.424287,
+   "size": 23.445703,
+   "stdret": 0.066697,
+   "react": 0.018425,
+   "age": 3.087645,
+   "tone": 0.012636
+  },
+  {
+   "ticker": "ANET",
+   "date": "2026-11-04",
+   "ret12": 0.040903,
+   "size": 26.139826,
+   "stdret": 0.142108,
+   "react": 0.067806,
+   "age": 2.596255,
+   "tone": 0.006452
+  },
+  {
+   "ticker": "XYZ",
+   "date": "2026-11-04",
+   "ret12": 0.015012,
+   "size": 24.686888,
+   "stdret": 0.128412,
+   "react": 0.117312,
+   "age": 2.481536,
+   "tone": 0.017697
+  },
+  {
+   "ticker": "BKNG",
+   "date": "2026-11-04",
+   "ret12": -0.23609,
+   "size": 25.578911,
+   "stdret": 0.091517,
+   "react": 0.092441,
+   "age": 3.087645,
+   "tone": 0.005011
+  },
+  {
+   "ticker": "IFF",
+   "date": "2026-11-04",
+   "ret12": 0.536234,
+   "size": 23.830942,
+   "stdret": 0.055057,
+   "react": -0.093108,
+   "age": 3.087645,
+   "tone": 0.000788
+  },
+  {
+   "ticker": "JKHY",
+   "date": "2026-11-04",
+   "ret12": 0.113889,
+   "size": 23.253884,
+   "stdret": 0.098479,
+   "react": 0.076758,
+   "age": 3.087645,
+   "tone": 0.016599
+  },
+  {
+   "ticker": "MOS",
+   "date": "2026-11-04",
+   "ret12": -0.281277,
+   "size": 22.650853,
+   "stdret": 0.099823,
+   "react": 0.116542,
+   "age": 3.087645,
+   "tone": -0.00548
+  },
+  {
+   "ticker": "PRU",
+   "date": "2026-11-04",
+   "ret12": 0.197756,
+   "size": 24.500324,
+   "stdret": 0.060529,
+   "react": 0.050856,
+   "age": 3.087645,
+   "tone": 0.000693
+  },
+  {
+   "ticker": "SWKS",
+   "date": "2026-11-04",
+   "ret12": 0.131384,
+   "size": 23.693677,
+   "stdret": 0.155543,
+   "react": -0.045976,
+   "age": 3.087645,
+   "tone": -0.007889
+  },
+  {
+   "ticker": "SMCI",
+   "date": "2026-11-04",
+   "ret12": -0.414165,
+   "size": 23.690916,
+   "stdret": 0.327633,
+   "react": -0.047154,
+   "age": 3.025437,
+   "tone": -0.000368
   }
  ],
  "edgar_days_done": [
@@ -19102,97 +19162,6 @@
    "accepted": "2026-10-29T16:08:03-04:00",
    "tone": 0.0037766387914755866,
    "company": "FedEx Freight Holding Company, Inc."
-  },
-  {
-   "ticker": "AMD",
-   "acc": "0000002488-26-000188",
-   "accepted": "2026-11-03T16:16:27-05:00",
-   "tone": 0.001746071339486156,
-   "company": "ADVANCED MICRO DEVICES INC"
-  },
-  {
-   "ticker": "AIG",
-   "acc": "0000005272-26-000101",
-   "accepted": "2026-11-03T16:24:18-05:00",
-   "tone": -0.006299938537185003,
-   "company": "AMERICAN INTERNATIONAL GROUP, INC."
-  },
-  {
-   "ticker": "AMGN",
-   "acc": "0000318154-26-000153",
-   "accepted": "2026-11-03T16:05:44-05:00",
-   "tone": 0.0042258932001536685,
-   "company": "AMGEN INC"
-  },
-  {
-   "ticker": "AIZ",
-   "acc": "0001267238-26-000043",
-   "accepted": "2026-11-03T16:20:34-05:00",
-   "tone": 0.012635835228708618,
-   "company": "ASSURANT, INC."
-  },
-  {
-   "ticker": "ANET",
-   "acc": "0001596532-26-000252",
-   "accepted": "2026-11-03T16:10:17-05:00",
-   "tone": 0.0064516129032258064,
-   "company": "Arista Networks, Inc."
-  },
-  {
-   "ticker": "XYZ",
-   "acc": "0001628280-26-069513",
-   "accepted": "2026-11-03T16:12:52-05:00",
-   "tone": 0.017697132616487456,
-   "company": "Block, Inc."
-  },
-  {
-   "ticker": "BKNG",
-   "acc": "0001075531-26-000044",
-   "accepted": "2026-11-03T16:03:57-05:00",
-   "tone": 0.005010737294201861,
-   "company": "Booking Holdings Inc."
-  },
-  {
-   "ticker": "IFF",
-   "acc": "0000051253-26-000039",
-   "accepted": "2026-11-03T16:19:41-05:00",
-   "tone": 0.0007882705344474224,
-   "company": "INTERNATIONAL FLAVORS & FRAGRANCES INC"
-  },
-  {
-   "ticker": "JKHY",
-   "acc": "0000779152-26-000095",
-   "accepted": "2026-11-03T16:25:44-05:00",
-   "tone": 0.016598508539812366,
-   "company": "JACK HENRY & ASSOCIATES INC"
-  },
-  {
-   "ticker": "MOS",
-   "acc": "0001285785-26-000139",
-   "accepted": "2026-11-03T16:33:53-05:00",
-   "tone": -0.005480008118530546,
-   "company": "MOSAIC CO"
-  },
-  {
-   "ticker": "PRU",
-   "acc": "0001137774-26-000219",
-   "accepted": "2026-11-03T16:20:37-05:00",
-   "tone": 0.000693000693000693,
-   "company": "PRUDENTIAL FINANCIAL INC"
-  },
-  {
-   "ticker": "SWKS",
-   "acc": "0000004127-26-000052",
-   "accepted": "2026-11-03T16:04:38-05:00",
-   "tone": -0.00788912579957356,
-   "company": "SKYWORKS SOLUTIONS, INC."
-  },
-  {
-   "ticker": "SMCI",
-   "acc": "0001375365-26-000026",
-   "accepted": "2026-11-03T16:31:04-05:00",
-   "tone": -0.0003679175864606328,
-   "company": "Super Micro Computer, Inc."
   }
  ],
  "shadow": [
@@ -19505,6 +19474,21 @@
    "ticker": "ZBRA",
    "day0": "2026-11-03",
    "rang": 0.854
+  },
+  {
+   "ticker": "AIZ",
+   "day0": "2026-11-04",
+   "rang": 0.928
+  },
+  {
+   "ticker": "XYZ",
+   "day0": "2026-11-04",
+   "rang": 0.964
+  },
+  {
+   "ticker": "JKHY",
+   "day0": "2026-11-04",
+   "rang": 0.966
   }
  ],
  "events_log": [
@@ -22369,6 +22353,123 @@
    "abtone": 0.0067,
    "rang": 0.854,
    "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "AMD",
+   "company": "ADVANCED MICRO DEVICES INC",
+   "day0": "2026-11-04",
+   "tone": 0.00175,
+   "abtone": -0.00221,
+   "rang": 0.374,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "AIG",
+   "company": "AMERICAN INTERNATIONAL GROUP, INC.",
+   "day0": "2026-11-04",
+   "tone": -0.0063,
+   "abtone": -0.00986,
+   "rang": 0.064,
+   "decision": "achat"
+  },
+  {
+   "ticker": "AMGN",
+   "company": "AMGEN INC",
+   "day0": "2026-11-04",
+   "tone": 0.00423,
+   "abtone": -0.00111,
+   "rang": 0.449,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "AIZ",
+   "company": "ASSURANT, INC.",
+   "day0": "2026-11-04",
+   "tone": 0.01264,
+   "abtone": 0.00999,
+   "rang": 0.928,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "ANET",
+   "company": "Arista Networks, Inc.",
+   "day0": "2026-11-04",
+   "tone": 0.00645,
+   "abtone": 0.0017,
+   "rang": 0.631,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "XYZ",
+   "company": "Block, Inc.",
+   "day0": "2026-11-04",
+   "tone": 0.0177,
+   "abtone": 0.01403,
+   "rang": 0.964,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "BKNG",
+   "company": "Booking Holdings Inc.",
+   "day0": "2026-11-04",
+   "tone": 0.00501,
+   "abtone": -8e-05,
+   "rang": 0.519,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "IFF",
+   "company": "INTERNATIONAL FLAVORS & FRAGRANCES INC",
+   "day0": "2026-11-04",
+   "tone": 0.00079,
+   "abtone": -0.00189,
+   "rang": 0.401,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "JKHY",
+   "company": "JACK HENRY & ASSOCIATES INC",
+   "day0": "2026-11-04",
+   "tone": 0.0166,
+   "abtone": 0.01421,
+   "rang": 0.966,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "MOS",
+   "company": "MOSAIC CO",
+   "day0": "2026-11-04",
+   "tone": -0.00548,
+   "abtone": -0.00757,
+   "rang": 0.122,
+   "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "PRU",
+   "company": "PRUDENTIAL FINANCIAL INC",
+   "day0": "2026-11-04",
+   "tone": 0.00069,
+   "abtone": -0.00338,
+   "rang": 0.3,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "SWKS",
+   "company": "SKYWORKS SOLUTIONS, INC.",
+   "day0": "2026-11-04",
+   "tone": -0.00789,
+   "abtone": -0.00938,
+   "rang": 0.07,
+   "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "SMCI",
+   "company": "Super Micro Computer, Inc.",
+   "day0": "2026-11-04",
+   "tone": -0.00037,
+   "abtone": 0.00041,
+   "rang": 0.555,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -22420,14 +22521,15 @@
   "ON": "2027-01-27",
   "APTV": "2027-01-27",
   "FISV": "2027-01-27",
-  "LDOS": "2027-01-27"
+  "LDOS": "2027-01-27",
+  "AIG": "2027-01-28"
  },
  "counters": {
   "jours": 15,
   "communiques": 333,
-  "evalues": 318,
-  "achetes": 49,
-  "ombre": 62,
-  "complet": 0
+  "evalues": 331,
+  "achetes": 50,
+  "ombre": 65,
+  "complet": 2
  }
 }
