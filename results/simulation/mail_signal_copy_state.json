@@ -1,16 +1,8 @@
 {
  "cash": {
-  "pool": 6085.3807450391205
+  "pool": 6090.337729031936
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "AXP",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-03T06:47:24Z",
-   "fraction": 1.0
-  },
   {
    "side": "buy",
    "ticker": "FII.PA",
@@ -22,18 +14,6 @@
    "sector": "tradingsat.com",
    "currency": "EUR",
    "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "LITE",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-11-03T16:14:47Z",
-   "amount_eur": 100.0,
-   "name": "Lumentum Holdings Inc.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
   },
   {
    "side": "buy",
@@ -58,6 +38,38 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "sell",
+   "ticker": "BAIN.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-04T02:23:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "ET",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-04T02:23:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "IRWD",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-04T02:23:17Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "WEC",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-04T02:23:17Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -81,7 +93,6 @@
   "ACN": "2026-11-20",
   "MRVL": "2026-12-01",
   "BAC": "2026-11-12",
-  "AXP": "2026-11-03",
   "KRP": "2026-11-06",
   "BAIN.PA": "2026-11-04",
   "IRWD": "2026-11-04",
