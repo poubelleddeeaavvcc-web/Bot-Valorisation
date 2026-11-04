@@ -894,5 +894,13 @@
       "reason": "The text does not provide clear information about the concentration or diversification of TotalEnergies SE's client base.",
       "source": "ollama"
     }
+  },
+  "TER": {
+    "checked_at": "2026-11-04",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2026-02-19) : customers in aggregate accounted for 44%, 36%, and 32% of our consolidated revenue [https://www.sec.gov/Archives/edgar/data/97210/000119312526059002/ter-20251231.htm]",
+      "source": "sec_10k"
+    }
   }
 }
