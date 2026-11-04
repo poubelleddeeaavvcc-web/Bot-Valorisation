@@ -157,6 +157,9 @@ Identifie de 2 a 4 THEMES de la semaine : des sujets sur lesquels PLUSIEURS extr
 court, un paragraphe de 2 a 4 phrases qui resume ce que disent les extraits, et la liste des numeros
 d'extraits utilises (au moins 2). Ne recopie pas les extraits, donne seulement leurs numeros.
 
+Ecris les titres et les paragraphes EN FRANCAIS, meme quand les extraits sont en anglais. Ne range
+une societe dans un theme que si son extrait parle vraiment de ce theme.
+
 Reponds uniquement en JSON :
 {{"themes": [{{"titre": "...", "texte": "...", "refs": [1, 4, 7]}}]}}
 

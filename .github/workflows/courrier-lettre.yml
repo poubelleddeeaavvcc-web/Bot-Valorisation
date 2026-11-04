@@ -5,7 +5,12 @@ on:
     # Samedi 06:00 UTC, + 18:00 en filet si le premier run a echoue : le script ne fait rien si la
     # lettre de la semaine (samedi -> vendredi) existe deja. Voir screener/mail_signal_lettre.py.
     - cron: "0 6,18 * * 6"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Reecrire la lettre de la semaine si elle existe deja"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -49,7 +54,7 @@ jobs:
       - name: Ecrire la lettre de la semaine
         env:
           PYTHONUNBUFFERED: "1"
-        run: python screener/mail_signal_lettre.py
+        run: python screener/mail_signal_lettre.py ${{ inputs.force && '--force' || '' }}
 
       - name: Commit + push
         run: |
