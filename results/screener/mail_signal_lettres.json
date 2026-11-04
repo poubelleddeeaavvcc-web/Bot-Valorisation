@@ -2,7 +2,7 @@
  {
   "semaine_fin": "2026-10-30",
   "semaine_debut": "2026-10-24",
-  "genere_le": "2026-11-04T12:46:23+00:00",
+  "genere_le": "2026-11-04T12:53:19+00:00",
   "modele": "mistral:7b",
   "stats": {
    "n_avis": 61,
@@ -11,128 +11,8 @@
    "n_newsletters": 0,
    "n_publications": 12
   },
-  "themes": [
-   {
-    "titre": "Tech Companies",
-    "texte": "Several newsletters discuss the performance of tech companies such as Meta, Tesla, Micron, and Nvidia.",
-    "sources": [
-     {
-      "id": 2,
-      "publication": "tipranks.com",
-      "texte": "[avis achat META] Meta climbed about 2.5%"
-     },
-     {
-      "id": 1,
-      "publication": "tipranks.com",
-      "texte": "[avis vente TSLA] Tesla shares fell nearly 3% in Wednesday’s after-hours trading,"
-     },
-     {
-      "id": 5,
-      "publication": "seekingalpha.com",
-      "texte": "[avis achat MU] Micron Technology retains a Strong Buy rating, supported by robust guidance and a compelling valuation at 5.6x earnings."
-     },
-     {
-      "id": 17,
-      "publication": "MoneyRadar (substack.com) (ton)",
-      "texte": "[avis achat TSLA] bénéfice par action ajusté de 0,48 USD, au-dessus du consensus"
-     },
-     {
-      "id": 29,
-      "publication": "thedailyupside.com (ton)",
-      "texte": "[avis achat NVDA] Nvidia sprinted to $5 trillion, reaching the pinnacle for the first time (well, any company’s first time) last fall following a meteoric two-year stock surge of"
-     },
-     {
-      "id": 23,
-      "publication": "tipranks.com",
-      "texte": "[avis achat O] RBC analysts have selected two dividend stocks offering yields as high as 11%."
-     },
-     {
-      "id": 18,
-      "publication": "American Market News (beehiiv.com)",
-      "texte": "[avis achat NEM] If gold’s resilient $4,000 floor holds, NEM shares could have meaningful support."
-     },
-     {
-      "id": 19,
-      "publication": "seekingalpha.com",
-      "texte": "[avis achat MU] Micron: I Was Bearish Before, But This Call May Be Even More Controversial (Upgrade)"
-     },
-     {
-      "id": 30,
-      "publication": "seekingalpha.com",
-      "texte": "[avis achat APH] Non-GAAP EPS of $0.80 beats by $0.07"
-     }
-    ]
-   },
-   {
-    "titre": "Earnings Previews",
-    "texte": "Several newsletters provide previews of upcoming earnings for companies like Applied Materials, Regeneron, and Stellantis.",
-    "sources": [
-     {
-      "id": 7,
-      "publication": "seekingalpha.com",
-      "texte": "[avis achat AMAT] Applied Materials: It's Time To Double Down (Earnings Preview)"
-     },
-     {
-      "id": 27,
-      "publication": "seekingalpha.com",
-      "texte": "[avis achat REGN] Regeneron Earnings Preview: Dupixent Is Booming"
-     },
-     {
-      "id": 4,
-      "publication": "seekingalpha.com",
-      "texte": "[avis achat WES] This Growing Midstream Empire Pays 8.3%"
-     },
-     {
-      "id": 36,
-      "publication": "zonebourse.com (ton)",
-      "texte": "[avis achat MU] Le tiers de la croissance des bénéfices provient de Micron"
-     },
-     {
-      "id": 40,
-      "publication": "tradingsat.com",
-      "texte": "[avis achat STLA] Le conseil BFM Bourse STELLANTIS Positif 4.200 € Objectif : 5.200 € Potentiel : +23.81 % Stop : 3.760 €"
-     }
-    ]
-   },
-   {
-    "titre": "Dividend Stocks",
-    "texte": "Newsletters discuss dividend stocks offering high yields, such as Oracle and certain unspecified stocks recommended by RBC analysts.",
-    "sources": [
-     {
-      "id": 39,
-      "publication": "aktionnaire.com (ton)",
-      "texte": "[avis achat ORCL] Oracle a repris des couleurs après avoir annoncé un objectif de chiffre d’affaires de 225 milliards en 2030, ce qui correspond à une croissance annuelle moyenne"
-     },
-     {
-      "id": 24,
-      "publication": "StockNews.com (beehiiv.com)",
-      "texte": "[avis achat PLNT] With analysts still seeing more than 30% upside, upcoming earnings could determine whether this is a turnaround opportunity—or a deeper decline."
-     },
-     {
-      "id": 33,
-      "publication": "news.meilleurtaux.com (ton)",
-      "texte": "[avis vente DSY.PA] Dassault Systemes abandonne 4,5%"
-     }
-    ]
-   },
-   {
-    "titre": "Energy Sector",
-    "texte": "Newsletters discuss the impact of oil prices on companies like Chevron and Western Digital.",
-    "sources": [
-     {
-      "id": 38,
-      "publication": "zonebourse.com (ton)",
-      "texte": "[avis achat CVX] L’envolée des prix du pétrole depuis le début de la guerre en Iran et les tensions sur l’approvisionnement en diesel ont fait exploser les bénéfices des product"
-     },
-     {
-      "id": 6,
-      "publication": "seekingalpha.com",
-      "texte": "[avis vente WDC] Western Digital: Cracks In Its AI Supercycle Are Worsening (Rating Downgrade)"
-     }
-    ]
-   }
-  ],
-  "note_themes": "",
+  "themes": [],
+  "note_themes": "redaction Ollama indisponible",
   "tickers": [
    {
     "ticker": "MU",
