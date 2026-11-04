@@ -42,7 +42,7 @@ OLLAMA_URL = "http://localhost:11434/api/generate"
 OLLAMA_MODEL = os.environ.get("LETTRE_OLLAMA_MODEL", "mistral:7b")  # meme modele que mail_signal_bot.py
 OLLAMA_TIMEOUT = int(os.environ.get("LETTRE_OLLAMA_TIMEOUT", "1500"))
 # contexte plus large que le bot (2048) : ici un seul appel lit toute la semaine
-OLLAMA_OPTIONS = {"temperature": 0.2, "num_ctx": 6144, "num_predict": 1200}
+OLLAMA_OPTIONS = {"temperature": 0.2, "num_ctx": 6144, "num_predict": 2000}  # 1200 coupait la reponse en francais (2026-11-04)
 MAX_ITEMS = 45        # elements numerotes envoyes a Ollama (citations d'abord, puis objets)
 CITATION_CHARS = 160
 TOP_TICKERS = 8
@@ -240,6 +240,10 @@ def main():
         print(f"Lettre du {friday} deja ecrite.")
         return
     letter = make_letter(friday)
+    old = next((l for l in letters if l["semaine_fin"] == friday.isoformat()), None)
+    if old and old.get("themes") and not letter["themes"]:
+        print("Redaction ratee : la lettre existante est conservee.")
+        return
     letters = [l for l in letters if l["semaine_fin"] != friday.isoformat()] + [letter]
     letters.sort(key=lambda l: l["semaine_fin"], reverse=True)
     OUT.write_text(json.dumps(letters, ensure_ascii=False, indent=1), encoding="utf-8")
