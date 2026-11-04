@@ -2,7 +2,22 @@
  "cash": {
   "pool": 3500.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "FMAO",
+   "bucket": "pool",
+   "reason": "achat declare par Robert E. Latta (OH05), >= 1,001 $ le 10/20/2026",
+   "decided_at": "2026-11-04T14:53:00Z",
+   "amount_eur": 100.0,
+   "name": "FMAO",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1001.0
+  }
+ ],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20035484",
@@ -32,6 +47,7 @@
   "20035734",
   "20035743",
   "20035751",
+  "20035763",
   "9116378",
   "9116389",
   "9116390",
@@ -52,7 +68,8 @@
   "PLD": "2027-04-16",
   "ESAB": "2027-04-19",
   "TXN": "2027-04-19",
-  "MU": "2027-04-19"
+  "MU": "2027-04-19",
+  "FMAO": "2027-04-21"
  },
  "events_log": [
   {
@@ -207,13 +224,22 @@
    "trade_date": "09/24/2026",
    "amount_low": 1001,
    "decision": "achat"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "member": "Robert E. Latta",
+   "district": "OH05",
+   "ticker": "FMAO",
+   "trade_date": "10/20/2026",
+   "amount_low": 1001,
+   "decision": "achat"
   }
  ],
  "counters": {
-  "rapports": 31,
+  "rapports": 32,
   "illisibles": 0,
-  "achats_declares": 17,
-  "achetes": 15,
+  "achats_declares": 18,
+  "achetes": 16,
   "complet": 0,
   "prolonges": 2,
   "sans_cours": 0
