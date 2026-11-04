@@ -44,160 +44,52 @@
    "currency": "USD",
    "fractional": true,
    "score": -0.00566
+  },
+  {
+   "side": "buy",
+   "ticker": "APTV",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 10%)",
+   "decided_at": "2026-11-04T05:52:48Z",
+   "amount_eur": 100.0,
+   "name": "Aptiv PLC",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.008334
+  },
+  {
+   "side": "buy",
+   "ticker": "FISV",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 4%)",
+   "decided_at": "2026-11-04T05:52:48Z",
+   "amount_eur": 100.0,
+   "name": "FISERV INC",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.011321
+  },
+  {
+   "side": "buy",
+   "ticker": "LDOS",
+   "bucket": "pool",
+   "reason": "ton peu optimiste au regard des chiffres (rang 18%)",
+   "decided_at": "2026-11-04T05:52:48Z",
+   "amount_eur": 100.0,
+   "name": "Leidos Holdings, Inc.",
+   "sector": "Communiques de resultats",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": -0.005869
   }
  ],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
-  {
-   "ticker": "L",
-   "date": "2025-11-03",
-   "tone": -0.004213,
-   "ret12": 0.25141,
-   "size": 23.819674,
-   "stdret": 0.036401,
-   "react": -0.006268,
-   "age": 3.039027
-  },
-  {
-   "ticker": "IDXX",
-   "date": "2025-11-03",
-   "tone": 0.035126,
-   "ret12": 0.403524,
-   "size": 24.755731,
-   "stdret": 0.088508,
-   "react": 0.145026,
-   "age": 3.039027
-  },
-  {
-   "ticker": "PNW",
-   "date": "2025-11-03",
-   "tone": 0.018098,
-   "ret12": 0.066233,
-   "size": 23.126752,
-   "stdret": 0.048115,
-   "react": 0.004096,
-   "age": 3.039027
-  },
-  {
-   "ticker": "PEG",
-   "date": "2025-11-03",
-   "tone": 0.005215,
-   "ret12": -0.055571,
-   "size": 24.455786,
-   "stdret": 0.050876,
-   "react": 0.002391,
-   "age": 3.039027
-  },
-  {
-   "ticker": "KVUE",
-   "date": "2025-11-03",
-   "tone": -0.012335,
-   "ret12": -0.351456,
-   "size": 24.111954,
-   "stdret": 0.0864,
-   "react": 0.128264,
-   "age": 1.249356
-  },
-  {
-   "ticker": "ON",
-   "date": "2025-11-03",
-   "tone": -0.009751,
-   "ret12": -0.319277,
-   "size": 23.719037,
-   "stdret": 0.14696,
-   "react": -0.012833,
-   "age": 3.039027
-  },
-  {
-   "ticker": "VRTX",
-   "date": "2025-11-03",
-   "tone": 0.004377,
-   "ret12": -0.104214,
-   "size": 25.351729,
-   "stdret": 0.089587,
-   "react": 0.000835,
-   "age": 3.039217
-  },
-  {
-   "ticker": "SPG",
-   "date": "2025-11-03",
-   "tone": 0.002642,
-   "ret12": 0.072385,
-   "size": 24.872766,
-   "stdret": 0.065197,
-   "react": 0.048859,
-   "age": 3.039217
-  },
-  {
-   "ticker": "O",
-   "date": "2025-11-03",
-   "tone": 0.000875,
-   "ret12": 0.018763,
-   "size": 24.854082,
-   "stdret": 0.039178,
-   "react": -0.021736,
-   "age": 3.039217
-  },
-  {
-   "ticker": "WMB",
-   "date": "2025-11-03",
-   "tone": 0.006984,
-   "ret12": 0.141086,
-   "size": 24.970307,
-   "stdret": 0.047658,
-   "react": -0.013502,
-   "age": 3.039217
-  },
-  {
-   "ticker": "SBAC",
-   "date": "2025-11-03",
-   "tone": 0.00188,
-   "ret12": -0.158045,
-   "size": 23.73493,
-   "stdret": 0.067015,
-   "react": 0.034649,
-   "age": 3.039217
-  },
-  {
-   "ticker": "BRK-B",
-   "date": "2025-11-03",
-   "tone": -0.001185,
-   "ret12": 0.049631,
-   "size": 27.700521,
-   "stdret": 0.042255,
-   "react": 0.031191,
-   "age": 3.039217
-  },
-  {
-   "ticker": "PLTR",
-   "date": "2025-11-03",
-   "tone": 0.007373,
-   "ret12": 3.588464,
-   "size": 26.607024,
-   "stdret": 0.244273,
-   "react": -0.038537,
-   "age": 1.8049
-  },
-  {
-   "ticker": "FANG",
-   "date": "2025-11-03",
-   "tone": -0.007438,
-   "ret12": -0.167994,
-   "size": 24.406055,
-   "stdret": 0.070578,
-   "react": -0.01633,
-   "age": 2.641039
-  },
-  {
-   "ticker": "CLX",
-   "date": "2025-11-03",
-   "tone": -0.005176,
-   "ret12": -0.25448,
-   "size": 23.564474,
-   "stdret": 0.037537,
-   "react": -0.008141,
-   "age": 3.039217
-  },
   {
    "ticker": "LDOS",
    "date": "2025-11-04",
@@ -18957,6 +18849,226 @@
    "react": -0.023473,
    "age": 3.087521,
    "tone": 0.006168
+  },
+  {
+   "ticker": "AME",
+   "date": "2026-11-03",
+   "ret12": 0.223249,
+   "size": 24.766137,
+   "stdret": 0.061069,
+   "react": 0.032752,
+   "age": 3.087521,
+   "tone": 0.024499
+  },
+  {
+   "ticker": "APO",
+   "date": "2026-11-03",
+   "ret12": -0.046117,
+   "size": 24.928797,
+   "stdret": 0.111009,
+   "react": -0.017956,
+   "age": 2.809254,
+   "tone": 0.019763
+  },
+  {
+   "ticker": "APTV",
+   "date": "2026-11-03",
+   "ret12": -0.465051,
+   "size": 22.873115,
+   "stdret": 0.138177,
+   "react": -0.057145,
+   "age": 2.770233,
+   "tone": -0.007376
+  },
+  {
+   "ticker": "ADM",
+   "date": "2026-11-03",
+   "ret12": 0.304286,
+   "size": 24.250401,
+   "stdret": 0.079761,
+   "react": -0.080231,
+   "age": 3.087521,
+   "tone": 0.003402
+  },
+  {
+   "ticker": "BALL",
+   "date": "2026-11-03",
+   "ret12": 0.425222,
+   "size": 23.540583,
+   "stdret": 0.10031,
+   "react": -0.047232,
+   "age": 3.087521,
+   "tone": 0.006425
+  },
+  {
+   "ticker": "BR",
+   "date": "2026-11-03",
+   "ret12": -0.172367,
+   "size": 23.755644,
+   "stdret": 0.086946,
+   "react": 0.029438,
+   "age": 3.026234,
+   "tone": 0.012764
+  },
+  {
+   "ticker": "DD",
+   "date": "2026-11-03",
+   "ret12": 0.393592,
+   "size": 23.754544,
+   "stdret": 0.073764,
+   "react": 0.097564,
+   "age": 3.087521,
+   "tone": 0.000984
+  },
+  {
+   "ticker": "EXPD",
+   "date": "2026-11-03",
+   "ret12": 0.671753,
+   "size": 24.002611,
+   "stdret": 0.089474,
+   "react": 0.029271,
+   "age": 3.087521,
+   "tone": 0.019687
+  },
+  {
+   "ticker": "ETN",
+   "date": "2026-11-03",
+   "ret12": -0.02348,
+   "size": 25.748043,
+   "stdret": 0.096283,
+   "react": 0.060547,
+   "age": 3.087521,
+   "tone": 0.014517
+  },
+  {
+   "ticker": "FISV",
+   "date": "2026-11-03",
+   "ret12": -0.232704,
+   "size": 24.159031,
+   "stdret": 0.086886,
+   "react": 0.169346,
+   "age": 3.087521,
+   "tone": -0.00727
+  },
+  {
+   "ticker": "IT",
+   "date": "2026-11-03",
+   "ret12": -0.078945,
+   "size": 23.280205,
+   "stdret": 0.16574,
+   "react": -0.105578,
+   "age": 3.087521,
+   "tone": -0.004174
+  },
+  {
+   "ticker": "HSIC",
+   "date": "2026-11-03",
+   "ret12": 0.349443,
+   "size": 22.941854,
+   "stdret": 0.076105,
+   "react": -0.026227,
+   "age": 3.087521,
+   "tone": 0.01195
+  },
+  {
+   "ticker": "KDP",
+   "date": "2026-11-03",
+   "ret12": 0.336048,
+   "size": 24.57925,
+   "stdret": 0.068019,
+   "react": -0.028879,
+   "age": 2.969976,
+   "tone": 0.000525
+  },
+  {
+   "ticker": "LDOS",
+   "date": "2026-11-03",
+   "ret12": -0.242427,
+   "size": 23.550953,
+   "stdret": 0.101204,
+   "react": -0.055957,
+   "age": 3.046736,
+   "tone": -0.003733
+  },
+  {
+   "ticker": "MPC",
+   "date": "2026-11-03",
+   "ret12": 1.311293,
+   "size": 25.510821,
+   "stdret": 0.117744,
+   "react": -0.03729,
+   "age": 2.794967,
+   "tone": 0.005348
+  },
+  {
+   "ticker": "PFE",
+   "date": "2026-11-03",
+   "ret12": 0.344604,
+   "size": 25.864872,
+   "stdret": 0.071038,
+   "react": -0.015225,
+   "age": 3.087521,
+   "tone": 0.001679
+  },
+  {
+   "ticker": "PNW",
+   "date": "2026-11-03",
+   "ret12": 0.232774,
+   "size": 23.292651,
+   "stdret": 0.050832,
+   "react": 0.024451,
+   "age": 3.087521,
+   "tone": 0.02381
+  },
+  {
+   "ticker": "RVTY",
+   "date": "2026-11-03",
+   "ret12": 0.729146,
+   "size": 23.627,
+   "stdret": 0.106902,
+   "react": 0.043087,
+   "age": 3.087521,
+   "tone": -0.001842
+  },
+  {
+   "ticker": "SYY",
+   "date": "2026-11-03",
+   "ret12": 0.141935,
+   "size": 24.319365,
+   "stdret": 0.086336,
+   "react": -0.104219,
+   "age": 3.087521,
+   "tone": 0.005771
+  },
+  {
+   "ticker": "WAT",
+   "date": "2026-11-03",
+   "ret12": 0.349431,
+   "size": 24.533382,
+   "stdret": 0.10936,
+   "react": -0.004282,
+   "age": 3.087521,
+   "tone": 0.010955
+  },
+  {
+   "ticker": "YUM",
+   "date": "2026-11-03",
+   "ret12": 0.139205,
+   "size": 24.480929,
+   "stdret": 0.067835,
+   "react": 0.012173,
+   "age": 3.087521,
+   "tone": 0.005388
+  },
+  {
+   "ticker": "ZBRA",
+   "date": "2026-11-03",
+   "ret12": 0.382179,
+   "size": 23.469823,
+   "stdret": 0.131414,
+   "react": -0.086102,
+   "age": 3.087521,
+   "tone": 0.008029
   }
  ],
  "edgar_days_done": [
@@ -18973,7 +19085,8 @@
   "2026-10-28",
   "2026-10-29",
   "2026-10-30",
-  "2026-11-02"
+  "2026-11-02",
+  "2026-11-03"
  ],
  "awaiting": [
   {
@@ -18989,6 +19102,97 @@
    "accepted": "2026-10-29T16:08:03-04:00",
    "tone": 0.0037766387914755866,
    "company": "FedEx Freight Holding Company, Inc."
+  },
+  {
+   "ticker": "AMD",
+   "acc": "0000002488-26-000188",
+   "accepted": "2026-11-03T16:16:27-05:00",
+   "tone": 0.001746071339486156,
+   "company": "ADVANCED MICRO DEVICES INC"
+  },
+  {
+   "ticker": "AIG",
+   "acc": "0000005272-26-000101",
+   "accepted": "2026-11-03T16:24:18-05:00",
+   "tone": -0.006299938537185003,
+   "company": "AMERICAN INTERNATIONAL GROUP, INC."
+  },
+  {
+   "ticker": "AMGN",
+   "acc": "0000318154-26-000153",
+   "accepted": "2026-11-03T16:05:44-05:00",
+   "tone": 0.0042258932001536685,
+   "company": "AMGEN INC"
+  },
+  {
+   "ticker": "AIZ",
+   "acc": "0001267238-26-000043",
+   "accepted": "2026-11-03T16:20:34-05:00",
+   "tone": 0.012635835228708618,
+   "company": "ASSURANT, INC."
+  },
+  {
+   "ticker": "ANET",
+   "acc": "0001596532-26-000252",
+   "accepted": "2026-11-03T16:10:17-05:00",
+   "tone": 0.0064516129032258064,
+   "company": "Arista Networks, Inc."
+  },
+  {
+   "ticker": "XYZ",
+   "acc": "0001628280-26-069513",
+   "accepted": "2026-11-03T16:12:52-05:00",
+   "tone": 0.017697132616487456,
+   "company": "Block, Inc."
+  },
+  {
+   "ticker": "BKNG",
+   "acc": "0001075531-26-000044",
+   "accepted": "2026-11-03T16:03:57-05:00",
+   "tone": 0.005010737294201861,
+   "company": "Booking Holdings Inc."
+  },
+  {
+   "ticker": "IFF",
+   "acc": "0000051253-26-000039",
+   "accepted": "2026-11-03T16:19:41-05:00",
+   "tone": 0.0007882705344474224,
+   "company": "INTERNATIONAL FLAVORS & FRAGRANCES INC"
+  },
+  {
+   "ticker": "JKHY",
+   "acc": "0000779152-26-000095",
+   "accepted": "2026-11-03T16:25:44-05:00",
+   "tone": 0.016598508539812366,
+   "company": "JACK HENRY & ASSOCIATES INC"
+  },
+  {
+   "ticker": "MOS",
+   "acc": "0001285785-26-000139",
+   "accepted": "2026-11-03T16:33:53-05:00",
+   "tone": -0.005480008118530546,
+   "company": "MOSAIC CO"
+  },
+  {
+   "ticker": "PRU",
+   "acc": "0001137774-26-000219",
+   "accepted": "2026-11-03T16:20:37-05:00",
+   "tone": 0.000693000693000693,
+   "company": "PRUDENTIAL FINANCIAL INC"
+  },
+  {
+   "ticker": "SWKS",
+   "acc": "0000004127-26-000052",
+   "accepted": "2026-11-03T16:04:38-05:00",
+   "tone": -0.00788912579957356,
+   "company": "SKYWORKS SOLUTIONS, INC."
+  },
+  {
+   "ticker": "SMCI",
+   "acc": "0001375365-26-000026",
+   "accepted": "2026-11-03T16:31:04-05:00",
+   "tone": -0.0003679175864606328,
+   "company": "Super Micro Computer, Inc."
   }
  ],
  "shadow": [
@@ -19256,6 +19460,51 @@
    "ticker": "UDR",
    "day0": "2026-11-03",
    "rang": 0.845
+  },
+  {
+   "ticker": "AME",
+   "day0": "2026-11-03",
+   "rang": 0.991
+  },
+  {
+   "ticker": "APO",
+   "day0": "2026-11-03",
+   "rang": 0.978
+  },
+  {
+   "ticker": "BR",
+   "day0": "2026-11-03",
+   "rang": 0.925
+  },
+  {
+   "ticker": "EXPD",
+   "day0": "2026-11-03",
+   "rang": 0.981
+  },
+  {
+   "ticker": "ETN",
+   "day0": "2026-11-03",
+   "rang": 0.917
+  },
+  {
+   "ticker": "HSIC",
+   "day0": "2026-11-03",
+   "rang": 0.93
+  },
+  {
+   "ticker": "PNW",
+   "day0": "2026-11-03",
+   "rang": 0.993
+  },
+  {
+   "ticker": "WAT",
+   "day0": "2026-11-03",
+   "rang": 0.881
+  },
+  {
+   "ticker": "ZBRA",
+   "day0": "2026-11-03",
+   "rang": 0.854
   }
  ],
  "events_log": [
@@ -21922,6 +22171,204 @@
    "abtone": 0.00187,
    "rang": 0.641,
    "decision": "neutre"
+  },
+  {
+   "ticker": "AME",
+   "company": "AMETEK INC/",
+   "day0": "2026-11-03",
+   "tone": 0.0245,
+   "abtone": 0.02031,
+   "rang": 0.991,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "APO",
+   "company": "Apollo Global Management, Inc.",
+   "day0": "2026-11-03",
+   "tone": 0.01976,
+   "abtone": 0.01624,
+   "rang": 0.978,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "APTV",
+   "company": "Aptiv PLC",
+   "day0": "2026-11-03",
+   "tone": -0.00738,
+   "abtone": -0.00833,
+   "rang": 0.102,
+   "decision": "achat"
+  },
+  {
+   "ticker": "ADM",
+   "company": "Archer-Daniels-Midland Co",
+   "day0": "2026-11-03",
+   "tone": 0.0034,
+   "abtone": 0.00055,
+   "rang": 0.565,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "BALL",
+   "company": "BALL Corp",
+   "day0": "2026-11-03",
+   "tone": 0.00643,
+   "abtone": 0.00448,
+   "rang": 0.77,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "BR",
+   "company": "BROADRIDGE FINANCIAL SOLUTIONS, INC.",
+   "day0": "2026-11-03",
+   "tone": 0.01276,
+   "abtone": 0.00987,
+   "rang": 0.925,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "DD",
+   "company": "DuPont de Nemours, Inc.",
+   "day0": "2026-11-03",
+   "tone": 0.00098,
+   "abtone": -0.00225,
+   "rang": 0.37,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "EXPD",
+   "company": "EXPEDITORS INTERNATIONAL OF WASHINGTON INC",
+   "day0": "2026-11-03",
+   "tone": 0.01969,
+   "abtone": 0.01682,
+   "rang": 0.981,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "ETN",
+   "company": "Eaton Corp plc",
+   "day0": "2026-11-03",
+   "tone": 0.01452,
+   "abtone": 0.00951,
+   "rang": 0.917,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "FISV",
+   "company": "FISERV INC",
+   "day0": "2026-11-03",
+   "tone": -0.00727,
+   "abtone": -0.01132,
+   "rang": 0.044,
+   "decision": "achat"
+  },
+  {
+   "ticker": "IT",
+   "company": "GARTNER INC",
+   "day0": "2026-11-03",
+   "tone": -0.00417,
+   "abtone": -0.00489,
+   "rang": 0.229,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "HSIC",
+   "company": "HENRY SCHEIN INC",
+   "day0": "2026-11-03",
+   "tone": 0.01195,
+   "abtone": 0.01018,
+   "rang": 0.93,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "KDP",
+   "company": "Keurig Dr Pepper Inc.",
+   "day0": "2026-11-03",
+   "tone": 0.00052,
+   "abtone": -0.00308,
+   "rang": 0.319,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "LDOS",
+   "company": "Leidos Holdings, Inc.",
+   "day0": "2026-11-03",
+   "tone": -0.00373,
+   "abtone": -0.00587,
+   "rang": 0.182,
+   "decision": "achat"
+  },
+  {
+   "ticker": "MPC",
+   "company": "Marathon Petroleum Corp",
+   "day0": "2026-11-03",
+   "tone": 0.00535,
+   "abtone": 0.0018,
+   "rang": 0.637,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "PFE",
+   "company": "PFIZER INC",
+   "day0": "2026-11-03",
+   "tone": 0.00168,
+   "abtone": -0.00332,
+   "rang": 0.306,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "PNW",
+   "company": "PINNACLE WEST CAPITAL CORP",
+   "day0": "2026-11-03",
+   "tone": 0.02381,
+   "abtone": 0.02105,
+   "rang": 0.993,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "RVTY",
+   "company": "REVVITY, INC.",
+   "day0": "2026-11-03",
+   "tone": -0.00184,
+   "abtone": -0.00416,
+   "rang": 0.263,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "SYY",
+   "company": "SYSCO CORP",
+   "day0": "2026-11-03",
+   "tone": 0.00577,
+   "abtone": 0.00296,
+   "rang": 0.693,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "WAT",
+   "company": "WATERS CORP /DE/",
+   "day0": "2026-11-03",
+   "tone": 0.01095,
+   "abtone": 0.00783,
+   "rang": 0.881,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "YUM",
+   "company": "YUM BRANDS INC",
+   "day0": "2026-11-03",
+   "tone": 0.00539,
+   "abtone": 0.0016,
+   "rang": 0.625,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "ZBRA",
+   "company": "ZEBRA TECHNOLOGIES CORP",
+   "day0": "2026-11-03",
+   "tone": 0.00803,
+   "abtone": 0.0067,
+   "rang": 0.854,
+   "decision": "ombre (ton trop optimiste)"
   }
  ],
  "hold_until": {
@@ -21970,14 +22417,17 @@
   "L": "2027-01-26",
   "FANG": "2027-01-27",
   "DOC": "2027-01-27",
-  "ON": "2027-01-27"
+  "ON": "2027-01-27",
+  "APTV": "2027-01-27",
+  "FISV": "2027-01-27",
+  "LDOS": "2027-01-27"
  },
  "counters": {
-  "jours": 14,
-  "communiques": 298,
-  "evalues": 296,
-  "achetes": 46,
-  "ombre": 53,
+  "jours": 15,
+  "communiques": 333,
+  "evalues": 318,
+  "achetes": 49,
+  "ombre": 62,
   "complet": 0
  }
 }
