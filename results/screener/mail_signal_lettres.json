@@ -1,0 +1,539 @@
+[
+ {
+  "semaine_fin": "2026-10-30",
+  "semaine_debut": "2026-10-24",
+  "genere_le": "2026-11-04T12:46:23+00:00",
+  "modele": "mistral:7b",
+  "stats": {
+   "n_avis": 61,
+   "n_achat": 49,
+   "n_vente": 12,
+   "n_newsletters": 0,
+   "n_publications": 12
+  },
+  "themes": [
+   {
+    "titre": "Tech Companies",
+    "texte": "Several newsletters discuss the performance of tech companies such as Meta, Tesla, Micron, and Nvidia.",
+    "sources": [
+     {
+      "id": 2,
+      "publication": "tipranks.com",
+      "texte": "[avis achat META] Meta climbed about 2.5%"
+     },
+     {
+      "id": 1,
+      "publication": "tipranks.com",
+      "texte": "[avis vente TSLA] Tesla shares fell nearly 3% in Wednesday’s after-hours trading,"
+     },
+     {
+      "id": 5,
+      "publication": "seekingalpha.com",
+      "texte": "[avis achat MU] Micron Technology retains a Strong Buy rating, supported by robust guidance and a compelling valuation at 5.6x earnings."
+     },
+     {
+      "id": 17,
+      "publication": "MoneyRadar (substack.com) (ton)",
+      "texte": "[avis achat TSLA] bénéfice par action ajusté de 0,48 USD, au-dessus du consensus"
+     },
+     {
+      "id": 29,
+      "publication": "thedailyupside.com (ton)",
+      "texte": "[avis achat NVDA] Nvidia sprinted to $5 trillion, reaching the pinnacle for the first time (well, any company’s first time) last fall following a meteoric two-year stock surge of"
+     },
+     {
+      "id": 23,
+      "publication": "tipranks.com",
+      "texte": "[avis achat O] RBC analysts have selected two dividend stocks offering yields as high as 11%."
+     },
+     {
+      "id": 18,
+      "publication": "American Market News (beehiiv.com)",
+      "texte": "[avis achat NEM] If gold’s resilient $4,000 floor holds, NEM shares could have meaningful support."
+     },
+     {
+      "id": 19,
+      "publication": "seekingalpha.com",
+      "texte": "[avis achat MU] Micron: I Was Bearish Before, But This Call May Be Even More Controversial (Upgrade)"
+     },
+     {
+      "id": 30,
+      "publication": "seekingalpha.com",
+      "texte": "[avis achat APH] Non-GAAP EPS of $0.80 beats by $0.07"
+     }
+    ]
+   },
+   {
+    "titre": "Earnings Previews",
+    "texte": "Several newsletters provide previews of upcoming earnings for companies like Applied Materials, Regeneron, and Stellantis.",
+    "sources": [
+     {
+      "id": 7,
+      "publication": "seekingalpha.com",
+      "texte": "[avis achat AMAT] Applied Materials: It's Time To Double Down (Earnings Preview)"
+     },
+     {
+      "id": 27,
+      "publication": "seekingalpha.com",
+      "texte": "[avis achat REGN] Regeneron Earnings Preview: Dupixent Is Booming"
+     },
+     {
+      "id": 4,
+      "publication": "seekingalpha.com",
+      "texte": "[avis achat WES] This Growing Midstream Empire Pays 8.3%"
+     },
+     {
+      "id": 36,
+      "publication": "zonebourse.com (ton)",
+      "texte": "[avis achat MU] Le tiers de la croissance des bénéfices provient de Micron"
+     },
+     {
+      "id": 40,
+      "publication": "tradingsat.com",
+      "texte": "[avis achat STLA] Le conseil BFM Bourse STELLANTIS Positif 4.200 € Objectif : 5.200 € Potentiel : +23.81 % Stop : 3.760 €"
+     }
+    ]
+   },
+   {
+    "titre": "Dividend Stocks",
+    "texte": "Newsletters discuss dividend stocks offering high yields, such as Oracle and certain unspecified stocks recommended by RBC analysts.",
+    "sources": [
+     {
+      "id": 39,
+      "publication": "aktionnaire.com (ton)",
+      "texte": "[avis achat ORCL] Oracle a repris des couleurs après avoir annoncé un objectif de chiffre d’affaires de 225 milliards en 2030, ce qui correspond à une croissance annuelle moyenne"
+     },
+     {
+      "id": 24,
+      "publication": "StockNews.com (beehiiv.com)",
+      "texte": "[avis achat PLNT] With analysts still seeing more than 30% upside, upcoming earnings could determine whether this is a turnaround opportunity—or a deeper decline."
+     },
+     {
+      "id": 33,
+      "publication": "news.meilleurtaux.com (ton)",
+      "texte": "[avis vente DSY.PA] Dassault Systemes abandonne 4,5%"
+     }
+    ]
+   },
+   {
+    "titre": "Energy Sector",
+    "texte": "Newsletters discuss the impact of oil prices on companies like Chevron and Western Digital.",
+    "sources": [
+     {
+      "id": 38,
+      "publication": "zonebourse.com (ton)",
+      "texte": "[avis achat CVX] L’envolée des prix du pétrole depuis le début de la guerre en Iran et les tensions sur l’approvisionnement en diesel ont fait exploser les bénéfices des product"
+     },
+     {
+      "id": 6,
+      "publication": "seekingalpha.com",
+      "texte": "[avis vente WDC] Western Digital: Cracks In Its AI Supercycle Are Worsening (Rating Downgrade)"
+     }
+    ]
+   }
+  ],
+  "note_themes": "",
+  "tickers": [
+   {
+    "ticker": "MU",
+    "nom": "Micron Technology, Inc.",
+    "n_avis": 4,
+    "n_achat": 4,
+    "n_vente": 0,
+    "publications": [
+     "Stock Ideas (sailthru.com)",
+     "seekingalpha.com",
+     "zonebourse.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "Stock Ideas (sailthru.com)",
+      "statut": "observation",
+      "n_evalues_20j": 0,
+      "excess_moy_20j": null
+     },
+     {
+      "publication": "seekingalpha.com",
+      "statut": "bruit",
+      "n_evalues_20j": 119,
+      "excess_moy_20j": -0.035333700600509
+     },
+     {
+      "publication": "zonebourse.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 0,
+      "excess_moy_20j": null
+     }
+    ]
+   },
+   {
+    "ticker": "GOOG",
+    "nom": "Alphabet Inc.",
+    "n_avis": 3,
+    "n_achat": 0,
+    "n_vente": 3,
+    "publications": [
+     "aktionnaire.com (ton)",
+     "seekingalpha.com"
+    ],
+    "sources": [
+     {
+      "publication": "aktionnaire.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 1,
+      "excess_moy_20j": 0.3268427439726735
+     },
+     {
+      "publication": "seekingalpha.com",
+      "statut": "bruit",
+      "n_evalues_20j": 119,
+      "excess_moy_20j": -0.035333700600509
+     }
+    ]
+   },
+   {
+    "ticker": "CVX",
+    "nom": "Chevron Corporation",
+    "n_avis": 2,
+    "n_achat": 2,
+    "n_vente": 0,
+    "publications": [
+     "seekingalpha.com",
+     "zonebourse.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "seekingalpha.com",
+      "statut": "bruit",
+      "n_evalues_20j": 119,
+      "excess_moy_20j": -0.035333700600509
+     },
+     {
+      "publication": "zonebourse.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 0,
+      "excess_moy_20j": null
+     }
+    ]
+   },
+   {
+    "ticker": "META",
+    "nom": "Meta Platforms, Inc.",
+    "n_avis": 2,
+    "n_achat": 1,
+    "n_vente": 1,
+    "publications": [
+     "thedailyupside.com (ton)",
+     "tipranks.com"
+    ],
+    "sources": [
+     {
+      "publication": "thedailyupside.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 1,
+      "excess_moy_20j": 0.1091196086146789
+     },
+     {
+      "publication": "tipranks.com",
+      "statut": "observation",
+      "n_evalues_20j": 9,
+      "excess_moy_20j": -0.0622913549490427
+     }
+    ]
+   },
+   {
+    "ticker": "MSFT",
+    "nom": "Microsoft Corporation",
+    "n_avis": 2,
+    "n_achat": 2,
+    "n_vente": 0,
+    "publications": [
+     "news.meilleurtaux.com (ton)",
+     "thedailyupside.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 9,
+      "excess_moy_20j": -0.0382161262037506
+     },
+     {
+      "publication": "thedailyupside.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 1,
+      "excess_moy_20j": 0.1091196086146789
+     }
+    ]
+   },
+   {
+    "ticker": "NVDA",
+    "nom": "NVIDIA Corporation",
+    "n_avis": 2,
+    "n_achat": 2,
+    "n_vente": 0,
+    "publications": [
+     "thedailyupside.com (ton)",
+     "zonebourse.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "thedailyupside.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 1,
+      "excess_moy_20j": 0.1091196086146789
+     },
+     {
+      "publication": "zonebourse.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 0,
+      "excess_moy_20j": null
+     }
+    ]
+   },
+   {
+    "ticker": "STLA",
+    "nom": "Stellantis N.V.",
+    "n_avis": 2,
+    "n_achat": 2,
+    "n_vente": 0,
+    "publications": [
+     "news.meilleurtaux.com (ton)",
+     "tradingsat.com"
+    ],
+    "sources": [
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 9,
+      "excess_moy_20j": -0.0382161262037506
+     },
+     {
+      "publication": "tradingsat.com",
+      "statut": "observation",
+      "n_evalues_20j": 14,
+      "excess_moy_20j": -0.0607944998728468
+     }
+    ]
+   },
+   {
+    "ticker": "TSLA",
+    "nom": "Tesla, Inc.",
+    "n_avis": 2,
+    "n_achat": 1,
+    "n_vente": 1,
+    "publications": [
+     "MoneyRadar (substack.com) (ton)",
+     "tipranks.com"
+    ],
+    "sources": [
+     {
+      "publication": "MoneyRadar (substack.com) (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 0,
+      "excess_moy_20j": null
+     },
+     {
+      "publication": "tipranks.com",
+      "statut": "observation",
+      "n_evalues_20j": 9,
+      "excess_moy_20j": -0.0622913549490427
+     }
+    ]
+   }
+  ],
+  "desaccords": [
+   {
+    "ticker": "DSY.PA",
+    "nom": "Dassault Systèmes SE",
+    "n_avis": 2,
+    "n_achat": 1,
+    "n_vente": 1,
+    "publications": [
+     "news.meilleurtaux.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 9,
+      "excess_moy_20j": -0.0382161262037506
+     }
+    ],
+    "citations": [
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "sens": "short",
+      "citation": "Dassault Systemes abandonne 4,5%"
+     },
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "sens": "long",
+      "citation": "Dassault Systemes (+6,3%)"
+     }
+    ]
+   },
+   {
+    "ticker": "META",
+    "nom": "Meta Platforms, Inc.",
+    "n_avis": 2,
+    "n_achat": 1,
+    "n_vente": 1,
+    "publications": [
+     "thedailyupside.com (ton)",
+     "tipranks.com"
+    ],
+    "sources": [
+     {
+      "publication": "thedailyupside.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 1,
+      "excess_moy_20j": 0.1091196086146789
+     },
+     {
+      "publication": "tipranks.com",
+      "statut": "observation",
+      "n_evalues_20j": 9,
+      "excess_moy_20j": -0.0622913549490427
+     }
+    ],
+    "citations": [
+     {
+      "publication": "tipranks.com",
+      "sens": "long",
+      "citation": "Meta climbed about 2.5%"
+     },
+     {
+      "publication": "thedailyupside.com (ton)",
+      "sens": "short",
+      "citation": "Stock data as of market close on October 26, 2026. $128.42 ▼-3.22%"
+     }
+    ]
+   },
+   {
+    "ticker": "TSLA",
+    "nom": "Tesla, Inc.",
+    "n_avis": 2,
+    "n_achat": 1,
+    "n_vente": 1,
+    "publications": [
+     "MoneyRadar (substack.com) (ton)",
+     "tipranks.com"
+    ],
+    "sources": [
+     {
+      "publication": "MoneyRadar (substack.com) (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 0,
+      "excess_moy_20j": null
+     },
+     {
+      "publication": "tipranks.com",
+      "statut": "observation",
+      "n_evalues_20j": 9,
+      "excess_moy_20j": -0.0622913549490427
+     }
+    ],
+    "citations": [
+     {
+      "publication": "tipranks.com",
+      "sens": "short",
+      "citation": "Tesla shares fell nearly 3% in Wednesday’s after-hours trading,"
+     },
+     {
+      "publication": "MoneyRadar (substack.com) (ton)",
+      "sens": "long",
+      "citation": "bénéfice par action ajusté de 0,48 USD, au-dessus du consensus"
+     }
+    ]
+   }
+  ],
+  "publications": [
+   {
+    "publication": "seekingalpha.com",
+    "n_avis": 26,
+    "statut": "bruit",
+    "n_evalues_20j": 119,
+    "excess_moy_20j": -0.035333700600509
+   },
+   {
+    "publication": "news.meilleurtaux.com (ton)",
+    "n_avis": 12,
+    "statut": "observation",
+    "n_evalues_20j": 9,
+    "excess_moy_20j": -0.0382161262037506
+   },
+   {
+    "publication": "thedailyupside.com (ton)",
+    "n_avis": 4,
+    "statut": "observation",
+    "n_evalues_20j": 1,
+    "excess_moy_20j": 0.1091196086146789
+   },
+   {
+    "publication": "tipranks.com",
+    "n_avis": 3,
+    "statut": "observation",
+    "n_evalues_20j": 9,
+    "excess_moy_20j": -0.0622913549490427
+   },
+   {
+    "publication": "tradingsat.com",
+    "n_avis": 3,
+    "statut": "observation",
+    "n_evalues_20j": 14,
+    "excess_moy_20j": -0.0607944998728468
+   },
+   {
+    "publication": "aktionnaire.com (ton)",
+    "n_avis": 3,
+    "statut": "observation",
+    "n_evalues_20j": 1,
+    "excess_moy_20j": 0.3268427439726735
+   },
+   {
+    "publication": "MoneyRadar (substack.com) (ton)",
+    "n_avis": 3,
+    "statut": "observation",
+    "n_evalues_20j": 0,
+    "excess_moy_20j": null
+   },
+   {
+    "publication": "zonebourse.com (ton)",
+    "n_avis": 3,
+    "statut": "observation",
+    "n_evalues_20j": 0,
+    "excess_moy_20j": null
+   },
+   {
+    "publication": "American Market News (beehiiv.com)",
+    "n_avis": 1,
+    "statut": "observation",
+    "n_evalues_20j": 0,
+    "excess_moy_20j": null
+   },
+   {
+    "publication": "StockNews.com (beehiiv.com)",
+    "n_avis": 1,
+    "statut": "observation",
+    "n_evalues_20j": 0,
+    "excess_moy_20j": null
+   },
+   {
+    "publication": "Must Reads (sailthru.com)",
+    "n_avis": 1,
+    "statut": "observation",
+    "n_evalues_20j": 3,
+    "excess_moy_20j": -0.2497012712233572
+   },
+   {
+    "publication": "Stock Ideas (sailthru.com)",
+    "n_avis": 1,
+    "statut": "observation",
+    "n_evalues_20j": 0,
+    "excess_moy_20j": null
+   }
+  ],
+  "actions_bot": []
+ }
+]
