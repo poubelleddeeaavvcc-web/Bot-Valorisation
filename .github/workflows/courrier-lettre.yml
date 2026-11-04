@@ -1,0 +1,69 @@
+name: Lettre hebdomadaire du Courrier
+
+on:
+  schedule:
+    # Samedi 06:00 UTC, + 18:00 en filet si le premier run a echoue : le script ne fait rien si la
+    # lettre de la semaine (samedi -> vendredi) existe deja. Voir screener/mail_signal_lettre.py.
+    - cron: "0 6,18 * * 6"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mail-signal-bot  # meme verrou que le bot Courrier : les deux poussent dans results/screener/
+  cancel-in-progress: false
+
+jobs:
+  lettre:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances
+        run: pip install -r requirements.txt
+
+      - name: Cache du modele Ollama
+        uses: actions/cache@v4
+        with:
+          path: ~/.ollama/models
+          key: ollama-models-mistral-7b  # meme cache que le bot Courrier
+
+      - name: Installer et demarrer Ollama
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          nohup ollama serve > /tmp/ollama.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -s http://localhost:11434/api/version > /dev/null && break
+            sleep 2
+          done
+          ollama pull mistral:7b
+
+      - name: Ecrire la lettre de la semaine
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python screener/mail_signal_lettre.py
+
+      - name: Commit + push
+        run: |
+          git config user.name "screener-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add results/screener/mail_signal_lettres.json
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau."
+            exit 0
+          fi
+          git commit -m "Lettre hebdomadaire du Courrier ($(date -u +'%Y-%m-%d'))"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
+            sleep 10
+          done
+          exit 1
