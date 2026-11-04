@@ -556,5 +556,17 @@
     "sentiment": "positive",
     "reason": "The general sentiment is positive as the news highlights Teradyne's partnership with Sereact for physical AI systems, a third quarter that beat estimates, and growth potential.",
     "source": "ollama"
+  },
+  "LRCX_2026-11-04": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "While some articles express optimism about Lam Research's financial performance and potential growth, others highlight concerns about supply constraints and negative market sentiment towards AI spending.",
+    "source": "ollama"
+  },
+  "GIC_2026-11-04": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general sentiment is positive as the company reported increased sales and net income, and announced a special dividend in Q3 2026, leading to a rise in the company's shares.",
+    "source": "ollama"
   }
 }

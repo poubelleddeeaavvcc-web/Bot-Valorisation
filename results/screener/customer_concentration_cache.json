@@ -902,5 +902,13 @@
       "reason": "10-K SEC (2026-02-19) : customers in aggregate accounted for 44%, 36%, and 32% of our consolidated revenue [https://www.sec.gov/Archives/edgar/data/97210/000119312526059002/ter-20251231.htm]",
       "source": "sec_10k"
     }
+  },
+  "LRCX": {
+    "checked_at": "2026-11-04",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2026-08-07) : customers with manufacturing facilities in China, represented approximately 34%, 34%, and 42% of our total revenue [https://www.sec.gov/Archives/edgar/data/707549/000070754926000037/lrcx-20260628.htm]",
+      "source": "sec_10k"
+    }
   }
 }
