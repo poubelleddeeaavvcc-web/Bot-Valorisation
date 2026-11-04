@@ -886,5 +886,13 @@
       "reason": "Le texte ne fournit pas assez d'informations pour déterminer si l'entreprise dépend d'un nombre limité ou large de clients",
       "source": "ollama"
     }
+  },
+  "TTE": {
+    "checked_at": "2026-11-04",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "The text does not provide clear information about the concentration or diversification of TotalEnergies SE's client base.",
+      "source": "ollama"
+    }
   }
 }
