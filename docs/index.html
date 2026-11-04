@@ -238,14 +238,14 @@ tr:hover td{background:var(--bg3)}
         newsletter pour les plateformes partagées (beehiiv, substack…).
       </div>
 
-      <div class="section-title">📰 La Lettre du Courrier — synthèse de la semaine</div>
-      <div class="card" style="margin-bottom:14px">
+      <details id="lettre-details" class="card" style="margin-bottom:14px" open>
+        <summary class="section-title" style="cursor:pointer;margin:0 0 8px">📰 La Lettre du Courrier — synthèse de la semaine</summary>
         <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px">
           <label class="muted-note" style="margin:0">Semaine :</label>
           <select id="lettre-select" style="background:var(--bg3);color:var(--tx);border:1px solid var(--bd);border-radius:6px;padding:4px 8px;font-family:inherit"></select>
         </div>
         <div id="lettre-body" class="muted-note">Pas encore de lettre : la première sera écrite le samedi suivant la fin de semaine.</div>
-      </div>
+      </details>
 
       <div class="section-title">Stratégie réelle — capital limité, newsletters fiables uniquement</div>
       <div class="muted-note" style="margin-bottom:8px">
@@ -732,6 +732,9 @@ function lettreRecord(s){
 }
 async function renderLettre(bust){
   const sel=document.getElementById('lettre-select');
+  const det=document.getElementById('lettre-details');  // ouvert/ferme memorise d'une visite a l'autre
+  try{if(localStorage.getItem('lettreFermee')==='1')det.open=false;}catch(e){}
+  det.ontoggle=()=>{try{localStorage.setItem('lettreFermee',det.open?'0':'1');}catch(e){}};
   try{
     const r=await fetch(`${BV_REPO_RAW_ECHO}/results/screener/mail_signal_lettres.json?_=${bust}`);
     lettresData=r.ok?await r.json():[];
