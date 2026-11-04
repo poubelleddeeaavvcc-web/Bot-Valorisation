@@ -2,7 +2,22 @@
  "cash": {
   "pool": 4700.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "FINW",
+   "bucket": "pool",
+   "reason": "1 initie(s), 53 k$ le 2026-10-30",
+   "decided_at": "2026-11-04T11:51:51Z",
+   "amount_eur": 100.0,
+   "name": "Finwise Bancorp",
+   "sector": "Inities (petites cap.)",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 53440.0
+  }
+ ],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",
@@ -20,12 +35,14 @@
   "2026-10-28",
   "2026-10-29",
   "2026-10-30",
-  "2026-11-02"
+  "2026-11-02",
+  "2026-11-03"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
   "PED": "2027-04-08",
-  "SWZ": "2027-04-08"
+  "SWZ": "2027-04-08",
+  "FINW": "2027-04-29"
  },
  "events_log": [
   {
@@ -957,13 +974,193 @@
    "title": "Director",
    "adv_usd": 1303182,
    "decision": "liquidite hors bande (1.30 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "BA",
+   "issuer": "BOEING CO",
+   "value_usd": 1508848,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 1782968459,
+   "decision": "liquidite hors bande (1782.97 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "BBTX",
+   "issuer": "Bambusa Therapeutics, Inc.",
+   "value_usd": 46639957,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": null,
+   "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "CAT",
+   "issuer": "CATERPILLAR INC",
+   "value_usd": 620390,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 2372654185,
+   "decision": "liquidite hors bande (2372.65 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "CSTM",
+   "issuer": "CONSTELLIUM SE",
+   "value_usd": 42138,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 39582646,
+   "decision": "liquidite hors bande (39.58 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "ENPH",
+   "issuer": "Enphase Energy, Inc.",
+   "value_usd": 30590,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 209530940,
+   "decision": "liquidite hors bande (209.53 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "FINW",
+   "issuer": "Finwise Bancorp",
+   "value_usd": 53440,
+   "insiders": 1,
+   "title": "CHIEF EXECUTIVE OFFICER",
+   "adv_usd": 556506,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "FISI",
+   "issuer": "FINANCIAL INSTITUTIONS INC",
+   "value_usd": 63173,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 4364321,
+   "decision": "liquidite hors bande (4.36 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "LKQ",
+   "issuer": "LKQ CORP",
+   "value_usd": 591530,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 118856418,
+   "decision": "liquidite hors bande (118.86 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "LRN",
+   "issuer": "Stride, Inc.",
+   "value_usd": 17573121,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 77811637,
+   "decision": "liquidite hors bande (77.81 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "MAA",
+   "issuer": "MID AMERICA APARTMENT COMMUNITIES INC.",
+   "value_usd": 99887,
+   "insiders": 1,
+   "title": "EVP, Chief Investment Officer",
+   "adv_usd": 113493876,
+   "decision": "liquidite hors bande (113.49 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "MGM",
+   "issuer": "MGM Resorts International",
+   "value_usd": 51740827,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 171301963,
+   "decision": "liquidite hors bande (171.30 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "NONE",
+   "issuer": "BlackRock Monticello Debt Real Estate Investment Trust",
+   "value_usd": 200000,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": null,
+   "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "NPKI",
+   "issuer": "NPK International Inc.",
+   "value_usd": 138600,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 9960730,
+   "decision": "liquidite hors bande (9.96 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "RNST",
+   "issuer": "RENASANT CORP",
+   "value_usd": 82120,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 28884422,
+   "decision": "liquidite hors bande (28.88 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "SITE",
+   "issuer": "SiteOne Landscape Supply, Inc.",
+   "value_usd": 1003684,
+   "insiders": 1,
+   "title": "CEO",
+   "adv_usd": 101138107,
+   "decision": "liquidite hors bande (101.14 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "STRZ",
+   "issuer": "STARZ ENTERTAINMENT CORP /CN/",
+   "value_usd": 176706,
+   "insiders": 3,
+   "title": "CFO and Treasurer",
+   "adv_usd": 7558427,
+   "decision": "liquidite hors bande (7.56 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "TRTX",
+   "issuer": "TPG RE Finance Trust, Inc.",
+   "value_usd": 298699,
+   "insiders": 3,
+   "title": "Director",
+   "adv_usd": 11310171,
+   "decision": "liquidite hors bande (11.31 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-03",
+   "ticker": "TSM",
+   "issuer": "TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD",
+   "value_usd": 71490,
+   "insiders": 1,
+   "title": "VP",
+   "adv_usd": 5175725246,
+   "decision": "liquidite hors bande (5175.73 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 15,
-  "evenements": 93,
-  "retenus": 3,
-  "achetes": 3,
+  "jours": 16,
+  "evenements": 111,
+  "retenus": 4,
+  "achetes": 4,
   "complet": 0,
   "prolonges": 0
  }
