@@ -2,7 +2,7 @@
  {
   "semaine_fin": "2026-10-30",
   "semaine_debut": "2026-10-24",
-  "genere_le": "2026-11-04T12:53:19+00:00",
+  "genere_le": "2026-11-04T13:01:22+00:00",
   "modele": "mistral:7b",
   "stats": {
    "n_avis": 61,
@@ -11,8 +11,128 @@
    "n_newsletters": 0,
    "n_publications": 12
   },
-  "themes": [],
-  "note_themes": "redaction Ollama indisponible",
+  "themes": [
+   {
+    "titre": "Tech et AI",
+    "texte": "Les extraits convergent autour de la croissance de l'industrie tech et de l'AI. Des entreprises comme Meta, Micron, Nvidia, Applied Materials et Credo Technology sont mentionnées pour leur croissance et leur potentiel.",
+    "sources": [
+     {
+      "id": 2,
+      "publication": "tipranks.com",
+      "texte": "[avis achat META] Meta climbed about 2.5%"
+     },
+     {
+      "id": 5,
+      "publication": "seekingalpha.com",
+      "texte": "[avis achat MU] Micron Technology retains a Strong Buy rating, supported by robust guidance and a compelling valuation at 5.6x earnings."
+     },
+     {
+      "id": 19,
+      "publication": "seekingalpha.com",
+      "texte": "[avis achat MU] Micron: I Was Bearish Before, But This Call May Be Even More Controversial (Upgrade)"
+     },
+     {
+      "id": 29,
+      "publication": "thedailyupside.com (ton)",
+      "texte": "[avis achat NVDA] Nvidia sprinted to $5 trillion, reaching the pinnacle for the first time (well, any company’s first time) last fall following a meteoric two-year stock surge of"
+     },
+     {
+      "id": 31,
+      "publication": "seekingalpha.com",
+      "texte": "[avis achat T] AT&T is rated a Strong Buy with a $24 price target and a 5.3% dividend yield"
+     },
+     {
+      "id": 36,
+      "publication": "zonebourse.com (ton)",
+      "texte": "[avis achat MU] Le tiers de la croissance des bénéfices provient de Micron"
+     },
+     {
+      "id": 37,
+      "publication": "zonebourse.com (ton)",
+      "texte": "[avis achat NVDA] Le tiers de la croissance des bénéfices provient de Micron et Nvidia"
+     }
+    ]
+   },
+   {
+    "titre": "Secteur de l'énergie",
+    "texte": "Les extraits convergent autour de la hausse des prix du pétrole et de la croissance des bénéfices des entreprises du secteur de l'énergie. Des entreprises comme Western Digital, Chevron et ExxonMobil sont mentionnées pour leur croissance.",
+    "sources": [
+     {
+      "id": 6,
+      "publication": "seekingalpha.com",
+      "texte": "[avis vente WDC] Western Digital: Cracks In Its AI Supercycle Are Worsening (Rating Downgrade)"
+     },
+     {
+      "id": 33,
+      "publication": "news.meilleurtaux.com (ton)",
+      "texte": "[avis vente DSY.PA] Dassault Systemes abandonne 4,5%"
+     },
+     {
+      "id": 38,
+      "publication": "zonebourse.com (ton)",
+      "texte": "[avis achat CVX] L’envolée des prix du pétrole depuis le début de la guerre en Iran et les tensions sur l’approvisionnement en diesel ont fait exploser les bénéfices des product"
+     },
+     {
+      "id": 39,
+      "publication": "aktionnaire.com (ton)",
+      "texte": "[avis achat ORCL] Oracle a repris des couleurs après avoir annoncé un objectif de chiffre d’affaires de 225 milliards en 2030, ce qui correspond à une croissance annuelle moyenne"
+     }
+    ]
+   },
+   {
+    "titre": "Marchés boursiers",
+    "texte": "Les extraits convergent autour de la croissance des actions de plusieurs entreprises. Des entreprises comme Tesla, Oracle, Stellantis, Microsoft, Pitney Bowes et Worldline sont mentionnées pour leur croissance.",
+    "sources": [
+     {
+      "id": 1,
+      "publication": "tipranks.com",
+      "texte": "[avis vente TSLA] Tesla shares fell nearly 3% in Wednesday’s after-hours trading,"
+     },
+     {
+      "id": 34,
+      "publication": "news.meilleurtaux.com (ton)",
+      "texte": "[avis achat WLN.PA] Worldline s'envole de 4,2%"
+     },
+     {
+      "id": 35,
+      "publication": "news.meilleurtaux.com (ton)",
+      "texte": "[avis vente RCO.PA] RÉMY COINTREAU Des resultats solides, mais des investisseurs decus… Le specialiste francais des spiritueux recule de 2,49% a 49,44€, malgre des ventes trimestri"
+     },
+     {
+      "id": 41,
+      "publication": "news.meilleurtaux.com (ton)",
+      "texte": "[avis achat MSFT] Microsoft gagne pres de 3% apres cloture"
+     },
+     {
+      "id": 42,
+      "publication": "seekingalpha.com",
+      "texte": "[avis achat PBI] Pitney Bowes: Stronger Cash Flow, Still Cheap"
+     },
+     {
+      "id": 44,
+      "publication": "thedailyupside.com (ton)",
+      "texte": "[avis achat MSFT] Microsoft has a message to Wall Street: Rest Azure-d, our AI plans are paying off."
+     }
+    ]
+   },
+   {
+    "titre": "Dividendes",
+    "texte": "Les extraits convergent autour de la recherche de dividendes élevés. Des entreprises comme Carl Zeiss Meditec et Oracle sont mentionnées pour leur rendement en dividendes.",
+    "sources": [
+     {
+      "id": 23,
+      "publication": "tipranks.com",
+      "texte": "[avis achat O] RBC analysts have selected two dividend stocks offering yields as high as 11%."
+     },
+     {
+      "id": 40,
+      "publication": "tradingsat.com",
+      "texte": "[avis achat STLA] Le conseil BFM Bourse STELLANTIS Positif 4.200 € Objectif : 5.200 € Potentiel : +23.81 % Stop : 3.760 €"
+     }
+    ]
+   }
+  ],
+  "note_themes": "",
   "tickers": [
    {
     "ticker": "MU",
