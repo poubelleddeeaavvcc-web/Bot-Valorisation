@@ -21,7 +21,8 @@
   "2026-10-29",
   "2026-10-30",
   "2026-11-02",
-  "2026-11-03"
+  "2026-11-03",
+  "2026-11-04"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -1139,11 +1140,151 @@
    "title": "VP",
    "adv_usd": 5175725246,
    "decision": "liquidite hors bande (5175.73 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "AEYE",
+   "issuer": "AUDIOEYE INC",
+   "value_usd": 38300,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 3880442,
+   "decision": "liquidite hors bande (3.88 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "AN",
+   "issuer": "AUTONATION, INC.",
+   "value_usd": 1431864,
+   "insiders": 3,
+   "title": "EVP & CFO",
+   "adv_usd": 103528844,
+   "decision": "liquidite hors bande (103.53 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "ASPE",
+   "issuer": "Aspen Neuroscience, Inc.",
+   "value_usd": 15000000,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": null,
+   "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "CACC",
+   "issuer": "CREDIT ACCEPTANCE CORP",
+   "value_usd": 1455600,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 57839315,
+   "decision": "liquidite hors bande (57.84 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "HGV",
+   "issuer": "Hilton Grand Vacations Inc.",
+   "value_usd": 603099,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 46996871,
+   "decision": "liquidite hors bande (47.00 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "INTC",
+   "issuer": "INTEL CORP",
+   "value_usd": 9709680,
+   "insiders": 1,
+   "title": "CEO",
+   "adv_usd": 10797801517,
+   "decision": "liquidite hors bande (10797.80 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "LRN",
+   "issuer": "Stride, Inc.",
+   "value_usd": 1669737,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 81211889,
+   "decision": "liquidite hors bande (81.21 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "LSCC",
+   "issuer": "LATTICE SEMICONDUCTOR CORP",
+   "value_usd": 1003689,
+   "insiders": 1,
+   "title": "President & CEO",
+   "adv_usd": 268883583,
+   "decision": "liquidite hors bande (268.88 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "PAM",
+   "issuer": "Pampa Energy Inc.",
+   "value_usd": 207321,
+   "insiders": 1,
+   "title": "Chief Financial Officer",
+   "adv_usd": 12721813,
+   "decision": "liquidite hors bande (12.72 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "PRLB",
+   "issuer": "Proto Labs Inc",
+   "value_usd": 101230,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 19751824,
+   "decision": "liquidite hors bande (19.75 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "SPTX",
+   "issuer": "Seaport Therapeutics, Inc.",
+   "value_usd": 99325,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 4625518,
+   "decision": "liquidite hors bande (4.63 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "TBBK",
+   "issuer": "Bancorp, Inc.",
+   "value_usd": 45540,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 26780074,
+   "decision": "liquidite hors bande (26.78 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "UMBF",
+   "issuer": "UMB FINANCIAL CORP",
+   "value_usd": 67500,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 88255076,
+   "decision": "liquidite hors bande (88.26 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-04",
+   "ticker": "UPBD",
+   "issuer": "UPBOUND GROUP, INC.",
+   "value_usd": 1243656,
+   "insiders": 6,
+   "title": "Director",
+   "adv_usd": 25424893,
+   "decision": "liquidite hors bande (25.42 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 16,
-  "evenements": 111,
+  "jours": 17,
+  "evenements": 125,
   "retenus": 4,
   "achetes": 4,
   "complet": 0,
