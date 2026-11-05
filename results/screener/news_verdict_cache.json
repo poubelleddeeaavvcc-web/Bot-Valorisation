@@ -628,5 +628,11 @@
     "sentiment": "positive",
     "reason": "The earnings report shows a 12.61% earnings surprise and a 13% net premium growth, despite a 10% quarterly profit fall.",
     "source": "ollama"
+  },
+  "NXPI_2026-11-05": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "NXP Semiconductors stock outperforms competitors on strong trading day, NXP Semiconductors added $5 billion to buyback capacity, JPMorgan Global Select Equity ETF added NXP Semiconductors, and 31,003 Shares in NXP Semiconductors were purchased by Oregon Public Employees Retirement Fund",
+    "source": "ollama"
   }
 }

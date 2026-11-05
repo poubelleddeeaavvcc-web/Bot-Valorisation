@@ -926,5 +926,13 @@
       "reason": "Le texte ne fournit pas de renseignements suffisants pour déterminer si l'entreprise dépend d'un petit nombre de clients ou d'une base de clients large et diversifiée.",
       "source": "ollama"
     }
+  },
+  "NXPI": {
+    "checked_at": "2026-11-05",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "The text does not provide clear information about the concentration of the client base. There is no mention of a single dominant client, but the presence of strategic partnership with Volkswagen AG implies a significant client might exist. However, the text also mentions that the products are used i",
+      "source": "ollama"
+    }
   }
 }
