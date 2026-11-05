@@ -1,45 +1,8 @@
 {
  "cash": {
-  "pool": 5844.484452787406
+  "pool": 6037.014073811888
  },
- "pending": [
-  {
-   "side": "sell",
-   "ticker": "BP",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-05T00:55:45Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "CEG",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-05T00:55:45Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "HSY",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-05T00:55:45Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "INTC",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-11-05T18:02:15Z",
-   "amount_eur": 100.0,
-   "name": "Intel Corporation",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  }
- ],
+ "pending": [],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-12-02",
@@ -50,7 +13,6 @@
   "ORCL": "2026-11-26",
   "NBIS": "2026-11-11",
   "META": "2026-11-20",
-  "BP": "2026-11-05",
   "IPAR": "2026-11-11",
   "SMCI": "2026-11-09",
   "MSFT": "2026-11-26",
@@ -62,8 +24,6 @@
   "BAC": "2026-11-12",
   "KRP": "2026-11-06",
   "ENB": "2026-11-11",
-  "CEG": "2026-11-05",
-  "HSY": "2026-11-05",
   "VICI": "2026-11-09",
   "TRI.PA": "2026-11-06",
   "PENG": "2026-11-06",
