@@ -604,5 +604,17 @@
     "sentiment": "positive",
     "reason": "The news indicates that Tripod Technology has won factory tenders worth TWD 215 million and 215 million yuan, suggesting positive business developments.",
     "source": "ollama"
+  },
+  "ESTC_2026-11-05": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualites sur Elastic N.V. montrent un ton neutre, avec des articles qui rapportent des performances financières diverses, mais sans un ton généralement positif ou négatif.",
+    "source": "ollama"
+  },
+  "AMAT_2026-11-05": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "While there are positive reports about Applied Materials' earnings and growth, there are also negative reports about its stock performance and the overall chip market.",
+    "source": "ollama"
   }
 }

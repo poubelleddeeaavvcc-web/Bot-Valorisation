@@ -918,5 +918,13 @@
       "reason": "Le texte ne donne pas clairement d'indications sur la concentration ou la diversification de clients de l'entreprise.",
       "source": "ollama"
     }
+  },
+  "ESTC": {
+    "checked_at": "2026-11-05",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "Le texte ne fournit pas de renseignements suffisants pour déterminer si l'entreprise dépend d'un petit nombre de clients ou d'une base de clients large et diversifiée.",
+      "source": "ollama"
+    }
   }
 }
