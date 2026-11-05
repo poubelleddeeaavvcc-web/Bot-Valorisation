@@ -622,5 +622,11 @@
     "sentiment": null,
     "reason": "While some news suggests positive momentum and growth prospects for GE Vernova, other news indicates a plunge in its stock price due to election results, potentially affecting its future performance.",
     "source": "ollama"
+  },
+  "UFCS_2026-11-05": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The earnings report shows a 12.61% earnings surprise and a 13% net premium growth, despite a 10% quarterly profit fall.",
+    "source": "ollama"
   }
 }
