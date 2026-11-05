@@ -1,23 +1,8 @@
 {
  "cash": {
-  "pool": 100.0
+  "pool": 0.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "AIG",
-   "bucket": "pool",
-   "reason": "ton peu optimiste au regard des chiffres (rang 6%)",
-   "decided_at": "2026-11-04T22:07:35Z",
-   "amount_eur": 100.0,
-   "name": "AMERICAN INTERNATIONAL GROUP, INC.",
-   "sector": "Communiques de resultats",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": -0.009862
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
@@ -18919,6 +18904,256 @@
    "react": 0.111926,
    "age": 3.087645,
    "tone": -0.00821
+  },
+  {
+   "ticker": "AFL",
+   "date": "2026-11-05",
+   "ret12": 0.18382,
+   "size": 24.870986,
+   "stdret": 0.035474,
+   "react": 0.046039,
+   "age": 3.08777,
+   "tone": -0.00033
+  },
+  {
+   "ticker": "ALB",
+   "date": "2026-11-05",
+   "ret12": -0.054966,
+   "size": 23.174974,
+   "stdret": 0.157741,
+   "react": 0.119,
+   "age": 3.08777,
+   "tone": -0.002202
+  },
+  {
+   "ticker": "ALL",
+   "date": "2026-11-05",
+   "ret12": 0.393772,
+   "size": 24.934538,
+   "stdret": 0.075559,
+   "react": 0.048264,
+   "age": 3.08777,
+   "tone": 0.006636
+  },
+  {
+   "ticker": "APA",
+   "date": "2026-11-05",
+   "ret12": 1.184804,
+   "size": 23.446749,
+   "stdret": 0.137383,
+   "react": -0.061503,
+   "age": 3.08777,
+   "tone": 0.007998
+  },
+  {
+   "ticker": "ATO",
+   "date": "2026-11-05",
+   "ret12": 0.029522,
+   "size": 24.110128,
+   "stdret": 0.044076,
+   "react": 0.035381,
+   "age": 3.08777,
+   "tone": -0.005411
+  },
+  {
+   "ticker": "AMCR",
+   "date": "2026-11-05",
+   "ret12": 0.267558,
+   "size": 23.776115,
+   "stdret": 0.089769,
+   "react": 0.004452,
+   "age": 2.739227,
+   "tone": -0.00068
+  },
+  {
+   "ticker": "APP",
+   "date": "2026-11-05",
+   "ret12": -0.611621,
+   "size": 25.507653,
+   "stdret": 0.213586,
+   "react": 0.478753,
+   "age": 1.880661,
+   "tone": -0.003192
+  },
+  {
+   "ticker": "CF",
+   "date": "2026-11-05",
+   "ret12": 0.41248,
+   "size": 23.610531,
+   "stdret": 0.122358,
+   "react": 0.04337,
+   "age": 3.08777,
+   "tone": -0.000477
+  },
+  {
+   "ticker": "CF",
+   "date": "2026-11-05",
+   "ret12": 0.41248,
+   "size": 23.610531,
+   "stdret": 0.122358,
+   "react": 0.04337,
+   "age": 3.08777,
+   "tone": 0.000416
+  },
+  {
+   "ticker": "COHR",
+   "date": "2026-11-05",
+   "ret12": 0.571894,
+   "size": 24.23275,
+   "stdret": 0.157505,
+   "react": -0.153538,
+   "age": 3.08777,
+   "tone": 0.003666
+  },
+  {
+   "ticker": "CPAY",
+   "date": "2026-11-05",
+   "ret12": 0.543818,
+   "size": 24.102553,
+   "stdret": 0.07202,
+   "react": 0.127717,
+   "age": 2.826751,
+   "tone": 0.001889
+  },
+  {
+   "ticker": "ES",
+   "date": "2026-11-05",
+   "ret12": -0.028779,
+   "size": 24.022447,
+   "stdret": 0.061757,
+   "react": 0.070168,
+   "age": 3.08777,
+   "tone": 0.000407
+  },
+  {
+   "ticker": "EW",
+   "date": "2026-11-05",
+   "ret12": 0.145901,
+   "size": 24.785649,
+   "stdret": 0.041038,
+   "react": 0.087447,
+   "age": 3.08777,
+   "tone": 0.011321
+  },
+  {
+   "ticker": "EXPE",
+   "date": "2026-11-05",
+   "ret12": 0.335242,
+   "size": 24.210752,
+   "stdret": 0.133078,
+   "react": -0.018203,
+   "age": 3.08777,
+   "tone": -0.001803
+  },
+  {
+   "ticker": "FICO",
+   "date": "2026-11-05",
+   "ret12": -0.561117,
+   "size": 23.449691,
+   "stdret": 0.136734,
+   "react": 0.004862,
+   "age": 3.08777,
+   "tone": 0.0
+  },
+  {
+   "ticker": "HST",
+   "date": "2026-11-05",
+   "ret12": 0.725322,
+   "size": 23.549076,
+   "stdret": 0.064334,
+   "react": -0.016306,
+   "age": 3.08777,
+   "tone": 0.011273
+  },
+  {
+   "ticker": "MCK",
+   "date": "2026-11-05",
+   "ret12": 0.223416,
+   "size": 25.551459,
+   "stdret": 0.06819,
+   "react": 0.10071,
+   "age": 3.08777,
+   "tone": -0.004569
+  },
+  {
+   "ticker": "MET",
+   "date": "2026-11-05",
+   "ret12": 0.314931,
+   "size": 24.872553,
+   "stdret": 0.065823,
+   "react": 0.019164,
+   "age": 3.08777,
+   "tone": 0.00254
+  },
+  {
+   "ticker": "MSI",
+   "date": "2026-11-05",
+   "ret12": 0.268704,
+   "size": 25.172506,
+   "stdret": 0.063595,
+   "react": 0.081276,
+   "age": 3.08777,
+   "tone": 0.004012
+  },
+  {
+   "ticker": "NWS",
+   "date": "2026-11-05",
+   "ret12": 0.073687,
+   "size": 23.469661,
+   "stdret": 0.058396,
+   "react": -0.068079,
+   "age": 2.66583,
+   "tone": 0.007517
+  },
+  {
+   "ticker": "PTC",
+   "date": "2026-11-05",
+   "ret12": -0.011713,
+   "size": 23.774425,
+   "stdret": 0.153998,
+   "react": 0.031085,
+   "age": 3.08777,
+   "tone": 0.0
+  },
+  {
+   "ticker": "QCOM",
+   "date": "2026-11-05",
+   "ret12": -0.071192,
+   "size": 25.843555,
+   "stdret": 0.200915,
+   "react": -0.018404,
+   "age": 3.08777,
+   "tone": -0.000527
+  },
+  {
+   "ticker": "STE",
+   "date": "2026-11-05",
+   "ret12": -0.016778,
+   "size": 23.933171,
+   "stdret": 0.06689,
+   "react": 0.126725,
+   "age": 3.08777,
+   "tone": 0.009075
+  },
+  {
+   "ticker": "TKO",
+   "date": "2026-11-05",
+   "ret12": 0.01311,
+   "size": 23.349978,
+   "stdret": 0.040663,
+   "react": 0.038666,
+   "age": 3.08777,
+   "tone": 0.007826
+  },
+  {
+   "ticker": "TPL",
+   "date": "2026-11-05",
+   "ret12": 0.083776,
+   "size": 23.655714,
+   "stdret": 0.181231,
+   "react": -0.151878,
+   "age": 3.08777,
+   "tone": 0.014889
   }
  ],
  "edgar_days_done": [
@@ -18955,186 +19190,11 @@
    "company": "FedEx Freight Holding Company, Inc."
   },
   {
-   "ticker": "AFL",
-   "acc": "0001628280-26-070181",
-   "accepted": "2026-11-04T16:20:48-05:00",
-   "tone": -0.00033025099075297226,
-   "company": "AFLAC INC"
-  },
-  {
-   "ticker": "ALB",
-   "acc": "0000915913-26-000128",
-   "accepted": "2026-11-04T16:19:27-05:00",
-   "tone": -0.0022018348623853213,
-   "company": "ALBEMARLE CORP"
-  },
-  {
-   "ticker": "ALL",
-   "acc": "0000899051-26-000156",
-   "accepted": "2026-11-04T16:16:26-05:00",
-   "tone": 0.006636155606407322,
-   "company": "ALLSTATE CORP"
-  },
-  {
-   "ticker": "APA",
-   "acc": "0001841666-26-000063",
-   "accepted": "2026-11-04T16:34:43-05:00",
-   "tone": 0.007997936016511867,
-   "company": "APA Corp"
-  },
-  {
-   "ticker": "ATO",
-   "acc": "0000731802-26-000129",
-   "accepted": "2026-11-04T16:43:13-05:00",
-   "tone": -0.005411255411255411,
-   "company": "ATMOS ENERGY CORP"
-  },
-  {
-   "ticker": "AMCR",
-   "acc": "0001748790-26-000029",
-   "accepted": "2026-11-04T16:17:35-05:00",
-   "tone": -0.0006801178871004307,
-   "company": "Amcor plc"
-  },
-  {
-   "ticker": "APP",
-   "acc": "0001751008-26-000068",
-   "accepted": "2026-11-04T16:08:17-05:00",
-   "tone": -0.0031919744642042863,
-   "company": "AppLovin Corp"
-  },
-  {
-   "ticker": "CF",
-   "acc": "0001104659-26-122757",
-   "accepted": "2026-11-04T16:59:05-05:00",
-   "tone": -0.00047732696897374703,
-   "company": "CF Industries Holdings, Inc."
-  },
-  {
-   "ticker": "CF",
-   "acc": "0001324404-26-000023",
-   "accepted": "2026-11-04T16:47:47-05:00",
-   "tone": 0.00041597337770382697,
-   "company": "CF Industries Holdings, Inc."
-  },
-  {
-   "ticker": "COHR",
-   "acc": "0001193125-26-447200",
-   "accepted": "2026-11-04T16:05:07-05:00",
-   "tone": 0.0036663611365719525,
-   "company": "COHERENT CORP."
-  },
-  {
-   "ticker": "CPAY",
-   "acc": "0001175454-26-000054",
-   "accepted": "2026-11-04T16:16:02-05:00",
-   "tone": 0.0018885741265344666,
-   "company": "CORPAY, INC."
-  },
-  {
-   "ticker": "ES",
-   "acc": "0001104659-26-122703",
-   "accepted": "2026-11-04T16:21:22-05:00",
-   "tone": 0.00040716612377850165,
-   "company": "EVERSOURCE ENERGY"
-  },
-  {
-   "ticker": "EW",
-   "acc": "0001099800-26-000053",
-   "accepted": "2026-11-04T16:21:25-05:00",
-   "tone": 0.011320754716981131,
-   "company": "Edwards Lifesciences Corp"
-  },
-  {
-   "ticker": "EXPE",
-   "acc": "0001324424-26-000059",
-   "accepted": "2026-11-04T16:00:23-05:00",
-   "tone": -0.0018032458425165298,
-   "company": "Expedia Group, Inc."
-  },
-  {
-   "ticker": "FICO",
-   "acc": "0000814547-26-000037",
-   "accepted": "2026-11-04T16:15:39-05:00",
-   "tone": 0.0,
-   "company": "FAIR ISAAC CORP"
-  },
-  {
-   "ticker": "HST",
-   "acc": "0001070750-26-000152",
-   "accepted": "2026-11-04T16:33:28-05:00",
-   "tone": 0.01127310987524425,
-   "company": "HOST HOTELS & RESORTS, INC."
-  },
-  {
-   "ticker": "MCK",
-   "acc": "0000927653-26-000279",
-   "accepted": "2026-11-04T16:06:32-05:00",
-   "tone": -0.0045694200351493845,
-   "company": "MCKESSON CORP"
-  },
-  {
-   "ticker": "MET",
-   "acc": "0001099219-26-000058",
-   "accepted": "2026-11-04T16:22:26-05:00",
-   "tone": 0.0025396825396825397,
-   "company": "METLIFE INC"
-  },
-  {
-   "ticker": "MSI",
-   "acc": "0000068505-26-000041",
-   "accepted": "2026-11-04T16:13:15-05:00",
-   "tone": 0.004012401969724603,
-   "company": "Motorola Solutions, Inc."
-  },
-  {
-   "ticker": "NWS",
-   "acc": "0001564708-26-000248",
-   "accepted": "2026-11-04T16:17:19-05:00",
-   "tone": 0.007517182130584193,
-   "company": "NEWS CORP"
-  },
-  {
-   "ticker": "PTC",
-   "acc": "0001193125-26-447186",
-   "accepted": "2026-11-04T16:03:52-05:00",
-   "tone": 0.0,
-   "company": "PTC INC."
-  },
-  {
-   "ticker": "QCOM",
-   "acc": "0000804328-26-000127",
-   "accepted": "2026-11-04T16:03:36-05:00",
-   "tone": -0.000526592943654555,
-   "company": "QUALCOMM INC/DE"
-  },
-  {
    "ticker": "Q",
    "acc": "0002058873-26-000039",
    "accepted": "2026-11-04T06:05:23-05:00",
    "tone": 0.0022713194301053068,
    "company": "Qnity Electronics, Inc."
-  },
-  {
-   "ticker": "STE",
-   "acc": "0001628280-26-070220",
-   "accepted": "2026-11-04T16:38:50-05:00",
-   "tone": 0.009074867658179985,
-   "company": "STERIS plc"
-  },
-  {
-   "ticker": "TKO",
-   "acc": "0001193125-26-447231",
-   "accepted": "2026-11-04T16:08:20-05:00",
-   "tone": 0.007825920977285742,
-   "company": "TKO Group Holdings, Inc."
-  },
-  {
-   "ticker": "TPL",
-   "acc": "0001811074-26-000075",
-   "accepted": "2026-11-04T16:15:54-05:00",
-   "tone": 0.014889196675900277,
-   "company": "Texas Pacific Land Corp"
   }
  ],
  "shadow": [
@@ -19477,6 +19537,31 @@
    "ticker": "SWK",
    "day0": "2026-11-04",
    "rang": 0.933
+  },
+  {
+   "ticker": "APA",
+   "day0": "2026-11-05",
+   "rang": 0.859
+  },
+  {
+   "ticker": "EW",
+   "day0": "2026-11-05",
+   "rang": 0.849
+  },
+  {
+   "ticker": "HST",
+   "day0": "2026-11-05",
+   "rang": 0.906
+  },
+  {
+   "ticker": "STE",
+   "day0": "2026-11-05",
+   "rang": 0.803
+  },
+  {
+   "ticker": "TPL",
+   "day0": "2026-11-05",
+   "rang": 0.966
   }
  ],
  "events_log": [
@@ -22602,6 +22687,231 @@
    "abtone": -0.01186,
    "rang": 0.04,
    "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "AFL",
+   "company": "AFLAC INC",
+   "day0": "2026-11-05",
+   "tone": -0.00033,
+   "abtone": -0.00509,
+   "rang": 0.215,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "ALB",
+   "company": "ALBEMARLE CORP",
+   "day0": "2026-11-05",
+   "tone": -0.0022,
+   "abtone": -0.004,
+   "rang": 0.27,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "ALL",
+   "company": "ALLSTATE CORP",
+   "day0": "2026-11-05",
+   "tone": 0.00664,
+   "abtone": 0.00241,
+   "rang": 0.664,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "APA",
+   "company": "APA Corp",
+   "day0": "2026-11-05",
+   "tone": 0.008,
+   "abtone": 0.00694,
+   "rang": 0.859,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "ATO",
+   "company": "ATMOS ENERGY CORP",
+   "day0": "2026-11-05",
+   "tone": -0.00541,
+   "abtone": -0.00926,
+   "rang": 0.076,
+   "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "AMCR",
+   "company": "Amcor plc",
+   "day0": "2026-11-05",
+   "tone": -0.00068,
+   "abtone": -0.00331,
+   "rang": 0.307,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "APP",
+   "company": "AppLovin Corp",
+   "day0": "2026-11-05",
+   "tone": -0.00319,
+   "abtone": -0.00847,
+   "rang": 0.097,
+   "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "CF",
+   "company": "CF Industries Holdings, Inc.",
+   "day0": "2026-11-05",
+   "tone": -0.00048,
+   "abtone": -0.00265,
+   "rang": 0.346,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "CF",
+   "company": "CF Industries Holdings, Inc.",
+   "day0": "2026-11-05",
+   "tone": 0.00042,
+   "abtone": -0.00175,
+   "rang": 0.409,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "COHR",
+   "company": "COHERENT CORP.",
+   "day0": "2026-11-05",
+   "tone": 0.00367,
+   "abtone": 0.00226,
+   "rang": 0.657,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "CPAY",
+   "company": "CORPAY, INC.",
+   "day0": "2026-11-05",
+   "tone": 0.00189,
+   "abtone": -0.00177,
+   "rang": 0.407,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "ES",
+   "company": "EVERSOURCE ENERGY",
+   "day0": "2026-11-05",
+   "tone": 0.00041,
+   "abtone": -0.00326,
+   "rang": 0.308,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "EW",
+   "company": "Edwards Lifesciences Corp",
+   "day0": "2026-11-05",
+   "tone": 0.01132,
+   "abtone": 0.00656,
+   "rang": 0.849,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "EXPE",
+   "company": "Expedia Group, Inc.",
+   "day0": "2026-11-05",
+   "tone": -0.0018,
+   "abtone": -0.0042,
+   "rang": 0.258,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "FICO",
+   "company": "FAIR ISAAC CORP",
+   "day0": "2026-11-05",
+   "tone": 0.0,
+   "abtone": -0.00192,
+   "rang": 0.395,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "HST",
+   "company": "HOST HOTELS & RESORTS, INC.",
+   "day0": "2026-11-05",
+   "tone": 0.01127,
+   "abtone": 0.00874,
+   "rang": 0.906,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "MCK",
+   "company": "MCKESSON CORP",
+   "day0": "2026-11-05",
+   "tone": -0.00457,
+   "abtone": -0.0098,
+   "rang": 0.066,
+   "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "MET",
+   "company": "METLIFE INC",
+   "day0": "2026-11-05",
+   "tone": 0.00254,
+   "abtone": -0.00162,
+   "rang": 0.418,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "MSI",
+   "company": "Motorola Solutions, Inc.",
+   "day0": "2026-11-05",
+   "tone": 0.00401,
+   "abtone": -0.00077,
+   "rang": 0.468,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "NWS",
+   "company": "NEWS CORP",
+   "day0": "2026-11-05",
+   "tone": 0.00752,
+   "abtone": 0.00506,
+   "rang": 0.79,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "PTC",
+   "company": "PTC INC.",
+   "day0": "2026-11-05",
+   "tone": 0.0,
+   "abtone": -0.00197,
+   "rang": 0.393,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "QCOM",
+   "company": "QUALCOMM INC/DE",
+   "day0": "2026-11-05",
+   "tone": -0.00053,
+   "abtone": -0.00377,
+   "rang": 0.278,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "STE",
+   "company": "STERIS plc",
+   "day0": "2026-11-05",
+   "tone": 0.00907,
+   "abtone": 0.00533,
+   "rang": 0.803,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "TKO",
+   "company": "TKO Group Holdings, Inc.",
+   "day0": "2026-11-05",
+   "tone": 0.00783,
+   "abtone": 0.00469,
+   "rang": 0.776,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "TPL",
+   "company": "Texas Pacific Land Corp",
+   "day0": "2026-11-05",
+   "tone": 0.01489,
+   "abtone": 0.01426,
+   "rang": 0.966,
+   "decision": "ombre (ton trop optimiste)"
   }
  ],
  "hold_until": {
@@ -22659,9 +22969,9 @@
  "counters": {
   "jours": 16,
   "communiques": 375,
-  "evalues": 347,
+  "evalues": 372,
   "achetes": 50,
-  "ombre": 68,
-  "complet": 8
+  "ombre": 73,
+  "complet": 11
  }
 }
