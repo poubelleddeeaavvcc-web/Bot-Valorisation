@@ -1,16 +1,4 @@
 {
-  "PRG_2026-10-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Analysts have raised the rating of PROG Holdings to Buy, and the company is set to release its third quarter 2026 financial results on October 28, 2026.",
-    "source": "ollama"
-  },
-  "2404.TW_2026-10-21": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "The news articles mention stock prices and histories of various companies in the same sector, indicating a focus on market activity and potential investment opportunities, suggesting a positive sentiment.",
-    "source": "ollama"
-  },
   "PRG_2026-10-22": {
     "relevant": true,
     "sentiment": "positive",
@@ -568,5 +556,41 @@
     "sentiment": "positive",
     "reason": "The general sentiment is positive as the company reported increased sales and net income, and announced a special dividend in Q3 2026, leading to a rise in the company's shares.",
     "source": "ollama"
+  },
+  "JAZZ_2026-11-05": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general sentiment is positive as Jazz Pharmaceuticals reported Q3 earnings that beat estimates, posted 10% revenue growth, and added a differentiated rare epilepsy asset through the Actio Biosciences acquisition, causing the stock to jump.",
+    "source": "ollama"
+  },
+  "ITUB4.SA_2026-11-05": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "The news shows a mix of positive developments such as increased Q3 recurring result, full ownership of AI startup NeoSpace, and institutional buying, but also negative events like a downgrade by Itaú BBA and a significant stock drop on October 26.",
+    "source": "ollama"
+  },
+  "SNA_2026-11-05": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general sentiment from the recent news about Snap-on Incorporated is positive, with articles discussing the company's stock potentially trading below fair value, a dividend announcement, and a share repurchase authorization.",
+    "source": "ollama"
+  },
+  "6361.T_2026-11-05": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The articles suggest that Ebara has been a strong performer and its future cash flows may be reasonably valued, despite recent share price fluctuations.",
+    "source": "ollama"
+  },
+  "BRC_2026-11-05": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The articles generally discuss positive developments such as the acquisition of Honeywell's Productivity Solutions and Services business, the company's strategy following the acquisition, the company's high ROIC and low leverage, and the increase in dividend for the 41st consecutive year.",
+    "source": "ollama"
+  },
+  "SAF.PA_2026-11-05": {
+    "relevant": false,
+    "sentiment": null,
+    "reason": "'subsidy' dependance etatique active (3/3 votes) : Le titre suggère que la situation de Safran SA peut être influencée significativement par des tensions de subventions gouvernementales entre les États-Unis et l'Union européenne dans le secteur aéronautique. Cela peut être un facteur de risque pour l (titre: 3 Aerospace Stocks Facing New Pressure From US EU Aircraft Subsidy Tensions)",
+    "source": "state_dependency_veto"
   }
 }
