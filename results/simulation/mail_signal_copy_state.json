@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 5887.944451871878
+  "pool": 5844.484452787406
  },
  "pending": [
   {
@@ -21,14 +21,6 @@
   },
   {
    "side": "sell",
-   "ticker": "ERF.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-05T00:55:45Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
    "ticker": "HSY",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
@@ -37,15 +29,15 @@
   },
   {
    "side": "buy",
-   "ticker": "CAP.PA",
+   "ticker": "INTC",
    "bucket": "pool",
-   "reason": "avis tradingsat.com",
-   "decided_at": "2026-11-05T09:27:22Z",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-11-05T18:02:15Z",
    "amount_eur": 100.0,
-   "name": "Capgemini SE",
-   "sector": "tradingsat.com",
-   "currency": "EUR",
-   "fractional": false
+   "name": "Intel Corporation",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -64,13 +56,12 @@
   "MSFT": "2026-11-26",
   "PLTR": "2026-11-09",
   "AMZN": "2026-11-16",
-  "GOOG": "2026-11-06",
+  "GOOG": "2026-12-03",
   "ACN": "2026-11-20",
   "MRVL": "2026-12-01",
   "BAC": "2026-11-12",
   "KRP": "2026-11-06",
   "ENB": "2026-11-11",
-  "ERF.PA": "2026-11-05",
   "CEG": "2026-11-05",
   "HSY": "2026-11-05",
   "VICI": "2026-11-09",
@@ -159,7 +150,7 @@
   "APH": "2026-11-25",
   "T": "2026-11-25",
   "STLA": "2026-11-26",
-  "WLN.PA": "2026-11-25",
+  "WLN.PA": "2026-12-03",
   "CVX": "2026-11-26",
   "PBI": "2026-11-26",
   "RNO.PA": "2026-11-26",
@@ -181,7 +172,8 @@
   "COIN": "2026-12-02",
   "GDYN": "2026-12-02",
   "AMD": "2026-12-02",
-  "CAP.PA": "2026-12-03"
+  "CAP.PA": "2026-12-03",
+  "INTC": "2026-12-03"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -610,12 +602,15 @@
   "1a1a6a112b4d5a6a:EPD",
   "1a1a693442d300e5:MU",
   "1a1a6a62f5bab5b1:AMD",
-  "1a1aae355a00e162:CAP.PA"
+  "1a1aae355a00e162:CAP.PA",
+  "1a1abd2195ce4d95:INTC",
+  "1a1abc75d66d63e6:GOOG",
+  "1a1acaad8f069dc9:WLN.PA"
  ],
  "counters": {
-  "avis": 427,
-  "achetes": 261,
-  "prolonges": 166,
+  "avis": 430,
+  "achetes": 262,
+  "prolonges": 168,
   "complet": 0
  },
  "dropped": [
