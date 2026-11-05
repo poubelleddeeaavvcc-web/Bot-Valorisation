@@ -592,5 +592,11 @@
     "sentiment": null,
     "reason": "'subsidy' dependance etatique active (3/3 votes) : Le titre suggère que la situation de Safran SA peut être influencée significativement par des tensions de subventions gouvernementales entre les États-Unis et l'Union européenne dans le secteur aéronautique. Cela peut être un facteur de risque pour l (titre: 3 Aerospace Stocks Facing New Pressure From US EU Aircraft Subsidy Tensions)",
     "source": "state_dependency_veto"
+  },
+  "9917.TW_2026-11-05": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Flashlight Capital is urging Secom to raise its stake in Korea’s S-1, indicating potential growth opportunities",
+    "source": "ollama"
   }
 }

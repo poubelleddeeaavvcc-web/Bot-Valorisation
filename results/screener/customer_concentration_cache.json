@@ -910,5 +910,13 @@
       "reason": "10-K SEC (2026-08-07) : customers with manufacturing facilities in China, represented approximately 34%, 34%, and 42% of our total revenue [https://www.sec.gov/Archives/edgar/data/707549/000070754926000037/lrcx-20260628.htm]",
       "source": "sec_10k"
     }
+  },
+  "9917.TW": {
+    "checked_at": "2026-11-05",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "Le texte ne donne pas clairement d'indications sur la concentration ou la diversification de clients de l'entreprise.",
+      "source": "ollama"
+    }
   }
 }
