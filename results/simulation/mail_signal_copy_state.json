@@ -1,67 +1,39 @@
 {
  "cash": {
-  "pool": 5890.207724149123
+  "pool": 5887.944451871878
  },
  "pending": [
   {
    "side": "sell",
-   "ticker": "ET",
+   "ticker": "BP",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-04T02:23:17Z",
+   "decided_at": "2026-11-05T00:55:45Z",
    "fraction": 1.0
   },
   {
    "side": "sell",
-   "ticker": "IRWD",
+   "ticker": "CEG",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-04T02:23:17Z",
+   "decided_at": "2026-11-05T00:55:45Z",
    "fraction": 1.0
   },
   {
    "side": "sell",
-   "ticker": "WEC",
+   "ticker": "ERF.PA",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-04T02:23:17Z",
+   "decided_at": "2026-11-05T00:55:45Z",
    "fraction": 1.0
   },
   {
-   "side": "buy",
-   "ticker": "COIN",
+   "side": "sell",
+   "ticker": "HSY",
    "bucket": "pool",
-   "reason": "avis aktionnaire.com (ton)",
-   "decided_at": "2026-11-04T12:07:18Z",
-   "amount_eur": 100.0,
-   "name": "Coinbase Global, Inc.",
-   "sector": "aktionnaire.com (ton)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "GDYN",
-   "bucket": "pool",
-   "reason": "avis Zacks Rank (email.zacks.com)",
-   "decided_at": "2026-11-04T19:44:49Z",
-   "amount_eur": 100.0,
-   "name": "Grid Dynamics Holdings, Inc.",
-   "sector": "Zacks Rank (email.zacks.com)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "AMD",
-   "bucket": "pool",
-   "reason": "avis thedailyupside.com (ton)",
-   "decided_at": "2026-11-04T19:44:49Z",
-   "amount_eur": 100.0,
-   "name": "Advanced Micro Devices, Inc.",
-   "sector": "thedailyupside.com (ton)",
-   "currency": "USD",
-   "fractional": true
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-05T00:55:45Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -71,7 +43,6 @@
   "AVGO": "2026-11-19",
   "SNDK": "2026-11-11",
   "RKLB": "2026-11-20",
-  "ET": "2026-11-04",
   "ORCL": "2026-11-26",
   "NBIS": "2026-11-11",
   "META": "2026-11-20",
@@ -86,9 +57,7 @@
   "MRVL": "2026-12-01",
   "BAC": "2026-11-12",
   "KRP": "2026-11-06",
-  "IRWD": "2026-11-04",
   "ENB": "2026-11-11",
-  "WEC": "2026-11-04",
   "ERF.PA": "2026-11-05",
   "CEG": "2026-11-05",
   "HSY": "2026-11-05",
