@@ -1,5 +1,10 @@
 {
   "processed_message_ids": [
+    "1a1aaefbac8103bf",
+    "1a1aae355a00e162",
+    "1a1aa898f6c1474c",
+    "1a1aa36f359c4243",
+    "1a1a9496f246f329",
     "1a1a8641c2e17966",
     "1a1a7aa29abd4cc9",
     "1a1a79c6ec377cf1",
@@ -55,12 +60,7 @@
     "1a1a1641b7e04807",
     "1a1a15f9f1cd244b",
     "1a1a1532fcafb9bf",
-    "1a1a131cdd6578c2",
-    "1a1a0a9a7ad16db6",
-    "1a1a08e6fc983bc3",
-    "1a1a04891363fa8a",
-    "1a1a03c0dea0c4dd",
-    "1a19fea08be37ed3"
+    "1a1a131cdd6578c2"
   ],
   "last_run_date": "2026-11-05",
   "ollama_attempts": {
@@ -1001,7 +1001,7 @@
     "seekingalpha.com": "bruit",
     "thedailyupside.com (ton)": "observation",
     "tipranks.com": "observation",
-    "tradingsat.com": "observation",
+    "tradingsat.com": "bruit",
     "zonebourse.com (ton)": "observation",
     "(consensus des newsletters non fiables)": "bruit"
   },
