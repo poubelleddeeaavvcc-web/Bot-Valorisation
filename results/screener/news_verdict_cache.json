@@ -616,5 +616,11 @@
     "sentiment": "neutral",
     "reason": "While there are positive reports about Applied Materials' earnings and growth, there are also negative reports about its stock performance and the overall chip market.",
     "source": "ollama"
+  },
+  "GEV_2026-11-05": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "While some news suggests positive momentum and growth prospects for GE Vernova, other news indicates a plunge in its stock price due to election results, potentially affecting its future performance.",
+    "source": "ollama"
   }
 }
