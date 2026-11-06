@@ -682,5 +682,11 @@
     "sentiment": "positive",
     "reason": "The general sentiment is positive as the recent news about Perdoceo Education Corporation (PRDO) highlights strong Q3 2026 results, earnings and revenue surprises, and an acquisition agreement.",
     "source": "ollama"
+  },
+  "MDLZ_2026-11-06": {
+    "relevant": false,
+    "sentiment": null,
+    "reason": "'sues' actif (3/3 votes) : The title suggests that Mondelez has taken legal action against Joyride over a trademark dispute, indicating an active legal risk.; The title suggests that Mondelez International, Inc. (MDLZ) is involved in a legal dispute over the trademark of Sour  (titre: Mondelez sues Joyride over Sour Patch Kids trademark)",
+    "source": "keyword_veto"
   }
 }
