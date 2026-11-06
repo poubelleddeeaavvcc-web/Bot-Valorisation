@@ -640,5 +640,17 @@
     "sentiment": "positive",
     "reason": "The news highlights Astellas Pharma's efforts to strengthen its immuno-oncology pipeline, offset patent expiry of key portfolio medicine, and recent dividend announcement.",
     "source": "ollama"
+  },
+  "2404.TW_2026-11-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The news highlights increased revenue, profit, and improved margins for United Integrated Services Co., Ltd., indicating a positive outlook for the company.",
+    "source": "ollama"
+  },
+  "3034.TW_2026-11-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The news highlights Novatek Microelectronics Corp.'s revenue surpassing TWD 30 billion, stock price gains due to AI chip, and a valuation test that could potentially lift margins.",
+    "source": "ollama"
   }
 }
