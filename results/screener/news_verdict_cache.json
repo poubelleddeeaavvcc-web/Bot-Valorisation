@@ -664,5 +664,11 @@
     "sentiment": "positive",
     "reason": "The general sentiment is positive as the company has reported strong revenue growth, strategic acquisitions, and expansion, despite facing pricing pressures and increased expenses.",
     "source": "ollama"
+  },
+  "AMN_2026-11-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The overall tone is positive as the company reported better-than-expected revenue in Q3 2026, with a 13% year-on-year increase to $717.3 million. Additionally, there is optimistic sales guidance for the next quarter.",
+    "source": "ollama"
   }
 }
