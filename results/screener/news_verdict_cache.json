@@ -634,5 +634,11 @@
     "sentiment": null,
     "reason": "'subsidy' dependance etatique active (3/3 votes) : Le titre suggère que la situation de Safran SA peut être influencée significativement par des tensions liées aux subventions gouvernementales dans le secteur de l'aéronautique, ce qui peut être un facteur de risque pour les investisseurs aujourd'hui. (titre: 3 Aerospace Stocks Facing New Pressure From US EU Aircraft Subsidy Tensions)",
     "source": "state_dependency_veto"
+  },
+  "4503.T_2026-11-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The news highlights Astellas Pharma's efforts to strengthen its immuno-oncology pipeline, offset patent expiry of key portfolio medicine, and recent dividend announcement.",
+    "source": "ollama"
   }
 }
