@@ -1,4 +1,4 @@
-# Bilan annexe — portefeuilles combinés (06/11/2026 06:51 UTC)
+# Bilan annexe — portefeuilles combinés (06/11/2026 07:18 UTC)
 
 **Pas de classement pour l'instant :** 3 jour(s) de suivi officiel sur les 365 prévus. À si court terme, les écarts relèvent surtout du hasard.
 
@@ -8,11 +8,11 @@ Portefeuilles virtuels, base 1 000 €. Le S&P 500 est hors dividendes, les bots
 
 | Portefeuille | Départ | Valeur | Depuis le départ | 7 jours | S&P 500 même période | Pire baisse |
 |---|---|---:|---:|---:|---:|---:|
-| M1 Risque égal | 12/10/2026 | 972,56 € | -2,74 % | -2,51 % | -5,86 % | -2,85 % |
-| M2 Tous les bots | 02/11/2026 | 978,60 € | -2,14 % | n/a | -2,99 % | -2,65 % |
-| M3 Sans cash | 02/11/2026 | 963,56 € | -3,64 % | n/a | -2,99 % | -4,40 % |
-| M4 Preuves seules | 02/11/2026 | 987,41 € | -1,26 % | n/a | -2,99 % | -1,88 % |
-| M5 Facteurs | 02/11/2026 | 998,68 € | -0,13 % | n/a | -2,99 % | -1,16 % |
+| M1 Risque égal | 12/10/2026 | 972,99 € | -2,70 % | -2,46 % | -5,86 % | -2,85 % |
+| M2 Tous les bots | 02/11/2026 | 979,14 € | -2,09 % | n/a | -2,99 % | -2,65 % |
+| M3 Sans cash | 02/11/2026 | 964,43 € | -3,56 % | n/a | -2,99 % | -4,40 % |
+| M4 Preuves seules | 02/11/2026 | 987,73 € | -1,23 % | n/a | -2,99 % | -1,88 % |
+| M5 Facteurs | 02/11/2026 | 998,88 € | -0,11 % | n/a | -2,99 % | -1,16 % |
 
 ## Reconstitution depuis le 14/10/2026
 
@@ -20,25 +20,25 @@ Calculée après coup avec les poids d'aujourd'hui : indicative, elle ne prouve 
 
 | Portefeuille | Performance | Pire baisse | Cash actuel |
 |---|---:|---:|---:|
-| M1 Risque égal | -2,83 % | -2,84 % | 53 % |
-| M2 Tous les bots | -2,51 % | -3,24 % | 33 % |
-| M3 Sans cash | -5,42 % | -5,44 % | 0 % (redistribué) |
-| M4 Preuves seules | -1,74 % | -2,09 % | 58 % |
-| M5 Facteurs | -1,10 % | -1,77 % | 55 % |
+| M1 Risque égal | -2,79 % | -2,84 % | 53 % |
+| M2 Tous les bots | -2,46 % | -3,24 % | 33 % |
+| M3 Sans cash | -5,33 % | -5,44 % | 0 % (redistribué) |
+| M4 Preuves seules | -1,71 % | -2,09 % | 58 % |
+| M5 Facteurs | -1,08 % | -1,77 % | 55 % |
 
 ## Composantes sur la même période
 
 | Composante | Performance | Part investie | M1 | M2 | M3 | M4 | M5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Sous-evaluation | -11,29 % | 88 % | 11 % | 8 % | 11 % | – | – |
+| Sous-evaluation | -11,16 % | 88 % | 11 % | 8 % | 11 % | – | – |
 | R1 | -0,16 % | 0 % | 29 % | 8 % | 29 % | 33 % | 38 % |
-| T1 | -2,57 % | 50 % | 25 % | 8 % | 25 % | 28 % | 33 % |
+| T1 | -2,55 % | 50 % | 25 % | 8 % | 25 % | 28 % | 33 % |
 | I1 | +0,04 % | 8 % | 10 % | 8 % | 10 % | 12 % | – |
-| G1 | -4,37 % | 100 % | 8 % | 8 % | 8 % | 9 % | – |
-| W1 | -3,43 % | 100 % | 16 % | 8 % | 16 % | 18 % | – |
-| Q1 | -0,68 % | 99 % | – | 8 % | – | – | 15 % |
-| V1 | -0,77 % | 99 % | – | 8 % | – | – | 15 % |
-| H1 | -2,40 % | 30 % | – | 8 % | – | – | – |
-| E1 | +0,98 % | 100 % | – | 8 % | – | – | – |
-| L1 | -0,34 % | 33 % | – | 8 % | – | – | – |
-| F1 | -5,40 % | 100 % | – | 8 % | – | – | – |
+| G1 | -4,29 % | 100 % | 8 % | 8 % | 8 % | 9 % | – |
+| W1 | -3,35 % | 100 % | 16 % | 8 % | 16 % | 18 % | – |
+| Q1 | -0,65 % | 99 % | – | 8 % | – | – | 15 % |
+| V1 | -0,72 % | 99 % | – | 8 % | – | – | 15 % |
+| H1 | -2,37 % | 30 % | – | 8 % | – | – | – |
+| E1 | +1,07 % | 100 % | – | 8 % | – | – | – |
+| L1 | -0,31 % | 33 % | – | 8 % | – | – | – |
+| F1 | -5,32 % | 100 % | – | 8 % | – | – | – |
