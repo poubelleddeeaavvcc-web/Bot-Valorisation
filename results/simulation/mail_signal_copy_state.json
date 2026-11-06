@@ -2,7 +2,120 @@
  "cash": {
   "pool": 6037.014073811888
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "sell",
+   "ticker": "ALB",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "ANET",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "CBRE",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "CSGP",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "CTVA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "FRT",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "KRP",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "MPLX",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "OGG",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "OII",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "PENG",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "RSG",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "SMTI",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "TRI.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-06T06:43:44Z",
+   "fraction": 1.0
+  }
+ ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-12-02",
