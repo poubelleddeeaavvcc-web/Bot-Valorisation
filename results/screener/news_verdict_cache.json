@@ -652,5 +652,17 @@
     "sentiment": "positive",
     "reason": "The news highlights Novatek Microelectronics Corp.'s revenue surpassing TWD 30 billion, stock price gains due to AI chip, and a valuation test that could potentially lift margins.",
     "source": "ollama"
+  },
+  "ERIC-B.ST_2026-11-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The news highlights collaborations and advancements, such as Verizon adopting Ericsson's AI platform for network automation, AST SpaceMobile's successful handoff test with AT&T, and Ericsson's 5G-based drone detection system.",
+    "source": "ollama"
+  },
+  "ROVI.MC_2026-11-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general sentiment is positive as the company has reported strong revenue growth, strategic acquisitions, and expansion, despite facing pricing pressures and increased expenses.",
+    "source": "ollama"
   }
 }

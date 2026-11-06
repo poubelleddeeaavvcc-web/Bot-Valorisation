@@ -934,5 +934,21 @@
       "reason": "The text does not provide clear information about the concentration of the client base. There is no mention of a single dominant client, but the presence of strategic partnership with Volkswagen AG implies a significant client might exist. However, the text also mentions that the products are used i",
       "source": "ollama"
     }
+  },
+  "ERIC-B.ST": {
+    "checked_at": "2026-11-06",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "The text does not provide enough information to determine whether the company's client base is concentrated or diversified.",
+      "source": "ollama"
+    }
+  },
+  "ROVI.MC": {
+    "checked_at": "2026-11-06",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "The provided text does not offer clear indications about the concentration of clients, as it mentions a few specific products and a few clients, but it does not specify the number of clients or the extent of their distribution.",
+      "source": "ollama"
+    }
   }
 }
