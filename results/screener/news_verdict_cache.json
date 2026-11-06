@@ -688,5 +688,11 @@
     "sentiment": null,
     "reason": "'sues' actif (3/3 votes) : The title suggests that Mondelez has taken legal action against Joyride over a trademark dispute, indicating an active legal risk.; The title suggests that Mondelez International, Inc. (MDLZ) is involved in a legal dispute over the trademark of Sour  (titre: Mondelez sues Joyride over Sour Patch Kids trademark)",
     "source": "keyword_veto"
+  },
+  "DINO_2026-11-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The overall sentiment is positive as several news articles report on HF Sinclair Corporation's stock performance, earnings beat, and potential growth opportunities.",
+    "source": "ollama"
   }
 }
