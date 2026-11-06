@@ -2,7 +2,22 @@
  "cash": {
   "pool": 4600.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "AOMR",
+   "bucket": "pool",
+   "reason": "1 initie(s), 46 k$ le 2026-11-05",
+   "decided_at": "2026-11-06T11:51:43Z",
+   "amount_eur": 100.0,
+   "name": "Angel Oak Mortgage REIT, Inc.",
+   "sector": "Inities (petites cap.)",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 46472.0
+  }
+ ],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",
@@ -22,13 +37,15 @@
   "2026-10-30",
   "2026-11-02",
   "2026-11-03",
-  "2026-11-04"
+  "2026-11-04",
+  "2026-11-05"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
   "PED": "2027-04-08",
   "SWZ": "2027-04-08",
-  "FINW": "2027-04-29"
+  "FINW": "2027-04-29",
+  "AOMR": "2027-05-03"
  },
  "events_log": [
   {
@@ -1280,13 +1297,223 @@
    "title": "Director",
    "adv_usd": 25424893,
    "decision": "liquidite hors bande (25.42 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "AOMR",
+   "issuer": "Angel Oak Mortgage REIT, Inc.",
+   "value_usd": 46472,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 862233,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "BB",
+   "issuer": "BLACKBERRY Ltd",
+   "value_usd": 40900,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 112800736,
+   "decision": "liquidite hors bande (112.80 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "BKR",
+   "issuer": "Baker Hughes Co",
+   "value_usd": 531000,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 462280760,
+   "decision": "liquidite hors bande (462.28 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "BXMT",
+   "issuer": "BLACKSTONE MORTGAGE TRUST, INC.",
+   "value_usd": 1149642,
+   "insiders": 2,
+   "title": "Chief Executive Officer",
+   "adv_usd": 40875514,
+   "decision": "liquidite hors bande (40.88 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "CBAN",
+   "issuer": "COLONY BANKCORP INC",
+   "value_usd": 60645,
+   "insiders": 1,
+   "title": "CHIEF BANKING OFFICER",
+   "adv_usd": 2553856,
+   "decision": "liquidite hors bande (2.55 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "CLX",
+   "issuer": "CLOROX CO /DE/",
+   "value_usd": 400251,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 239177950,
+   "decision": "liquidite hors bande (239.18 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "CRH",
+   "issuer": "CRH PUBLIC LTD CO",
+   "value_usd": 189260,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 496802103,
+   "decision": "liquidite hors bande (496.80 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "ETRA",
+   "issuer": "Electra Therapeutics, Inc.",
+   "value_usd": 3605116,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 3326286,
+   "decision": "liquidite hors bande (3.33 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "FBRT",
+   "issuer": "Franklin BSP Realty Trust, Inc.",
+   "value_usd": 998364,
+   "insiders": 1,
+   "title": "Chairman and CEO",
+   "adv_usd": 7342120,
+   "decision": "liquidite hors bande (7.34 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "FLOC",
+   "issuer": "Flowco Holdings Inc.",
+   "value_usd": 292924,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 11164919,
+   "decision": "liquidite hors bande (11.16 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "GLXY",
+   "issuer": "Galaxy Digital Inc.",
+   "value_usd": 9864346,
+   "insiders": 1,
+   "title": "Chief Executive Officer",
+   "adv_usd": 147482268,
+   "decision": "liquidite hors bande (147.48 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "LBRT",
+   "issuer": "Liberty Energy Inc.",
+   "value_usd": 422335,
+   "insiders": 2,
+   "title": "Chief Accounting Officer",
+   "adv_usd": 79038598,
+   "decision": "liquidite hors bande (79.04 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "LBTY",
+   "issuer": "Liberty Global Ltd.",
+   "value_usd": 3026150,
+   "insiders": 2,
+   "title": "President & CEO",
+   "adv_usd": null,
+   "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "MTDR",
+   "issuer": "Matador Resources Co",
+   "value_usd": 130900,
+   "insiders": 2,
+   "title": "EVP and CFO",
+   "adv_usd": 88822591,
+   "decision": "liquidite hors bande (88.82 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "MTUS",
+   "issuer": "Metallus Inc.",
+   "value_usd": 166100,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 7327642,
+   "decision": "liquidite hors bande (7.33 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "NONE",
+   "issuer": "Carlyle Credit Solutions",
+   "value_usd": 380943,
+   "insiders": 1,
+   "title": "CFO and President",
+   "adv_usd": null,
+   "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "RRBI",
+   "issuer": "RED RIVER BANCSHARES INC",
+   "value_usd": 112606,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 6270321,
+   "decision": "liquidite hors bande (6.27 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "SPXC",
+   "issuer": "SPX Technologies, Inc.",
+   "value_usd": 493020,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 121017938,
+   "decision": "liquidite hors bande (121.02 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "SYY",
+   "issuer": "SYSCO CORP",
+   "value_usd": 191550,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 263714548,
+   "decision": "liquidite hors bande (263.71 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "TTMI",
+   "issuer": "TTM TECHNOLOGIES INC",
+   "value_usd": 631541,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 490455631,
+   "decision": "liquidite hors bande (490.46 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "ticker": "UPBD",
+   "issuer": "UPBOUND GROUP, INC.",
+   "value_usd": 100083,
+   "insiders": 1,
+   "title": "Chief Executive Officer",
+   "adv_usd": 26120154,
+   "decision": "liquidite hors bande (26.12 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 17,
-  "evenements": 125,
-  "retenus": 4,
-  "achetes": 4,
+  "jours": 18,
+  "evenements": 146,
+  "retenus": 5,
+  "achetes": 5,
   "complet": 0,
   "prolonges": 0
  }
