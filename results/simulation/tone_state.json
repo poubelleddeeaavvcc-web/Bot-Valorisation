@@ -19014,6 +19014,166 @@
    "react": 0.009998,
    "age": 0.7037,
    "tone": 0.002271
+  },
+  {
+   "ticker": "AKAM",
+   "date": "2026-11-06",
+   "ret12": 0.19397,
+   "size": 23.203278,
+   "stdret": 0.116011,
+   "react": 0.008055,
+   "age": 3.087895,
+   "tone": 0.002196
+  },
+  {
+   "ticker": "AEE",
+   "date": "2026-11-06",
+   "ret12": 0.141157,
+   "size": 24.165022,
+   "stdret": 0.03668,
+   "react": 0.039071,
+   "age": 3.087895,
+   "tone": 0.003992
+  },
+  {
+   "ticker": "AXON",
+   "date": "2026-11-06",
+   "ret12": -0.399289,
+   "size": 23.95909,
+   "stdret": 0.238486,
+   "react": -0.221,
+   "age": 3.087895,
+   "tone": 0.00571
+  },
+  {
+   "ticker": "ABNB",
+   "date": "2026-11-06",
+   "ret12": 0.44152,
+   "size": 25.441902,
+   "stdret": 0.101962,
+   "react": 0.118329,
+   "age": 1.932325,
+   "tone": 0.01405
+  },
+  {
+   "ticker": "CPT",
+   "date": "2026-11-06",
+   "ret12": 0.073337,
+   "size": 23.166347,
+   "stdret": 0.049633,
+   "react": -0.007134,
+   "age": 3.087895,
+   "tone": -0.001134
+  },
+  {
+   "ticker": "ED",
+   "date": "2026-11-06",
+   "ret12": 0.268783,
+   "size": 24.503969,
+   "stdret": 0.04454,
+   "react": 0.026641,
+   "age": 3.087895,
+   "tone": 0.005332
+  },
+  {
+   "ticker": "DVN",
+   "date": "2026-11-06",
+   "ret12": 0.390002,
+   "size": 24.561233,
+   "stdret": 0.089066,
+   "react": -0.002186,
+   "age": 3.087895,
+   "tone": 0.003779
+  },
+  {
+   "ticker": "EOG",
+   "date": "2026-11-06",
+   "ret12": 0.441564,
+   "size": 25.084651,
+   "stdret": 0.071586,
+   "react": 0.041581,
+   "age": 3.087895,
+   "tone": -0.004015
+  },
+  {
+   "ticker": "LYV",
+   "date": "2026-11-06",
+   "ret12": 0.215124,
+   "size": 24.432589,
+   "stdret": 0.085387,
+   "react": -0.002185,
+   "age": 3.085395,
+   "tone": 0.007986
+  },
+  {
+   "ticker": "MTD",
+   "date": "2026-11-06",
+   "ret12": 0.21325,
+   "size": 24.264398,
+   "stdret": 0.09799,
+   "react": 0.040473,
+   "age": 3.087895,
+   "tone": 0.022565
+  },
+  {
+   "ticker": "MCHP",
+   "date": "2026-11-06",
+   "ret12": 0.299384,
+   "size": 24.179095,
+   "stdret": 0.166256,
+   "react": -0.184406,
+   "age": 3.087895,
+   "tone": 0.003744
+  },
+  {
+   "ticker": "MNST",
+   "date": "2026-11-06",
+   "ret12": 0.458053,
+   "size": 25.218262,
+   "stdret": 0.075309,
+   "react": -0.021048,
+   "age": 3.087895,
+   "tone": 0.007086
+  },
+  {
+   "ticker": "REG",
+   "date": "2026-11-06",
+   "ret12": 0.157508,
+   "size": 23.341008,
+   "stdret": 0.03739,
+   "react": 0.015077,
+   "age": 3.087895,
+   "tone": -0.000792
+  },
+  {
+   "ticker": "SPG",
+   "date": "2026-11-06",
+   "ret12": 0.309415,
+   "size": 25.02608,
+   "stdret": 0.041062,
+   "react": 0.040755,
+   "age": 3.087895,
+   "tone": 0.005036
+  },
+  {
+   "ticker": "SOLV",
+   "date": "2026-11-06",
+   "ret12": 0.302668,
+   "size": 23.456647,
+   "stdret": 0.105445,
+   "react": 0.052633,
+   "age": 1.284994,
+   "tone": -0.003161
+  },
+  {
+   "ticker": "WYNN",
+   "date": "2026-11-06",
+   "ret12": -0.314724,
+   "size": 22.870151,
+   "stdret": 0.071442,
+   "react": 0.049967,
+   "age": 3.087895,
+   "tone": -0.010927
   }
  ],
  "edgar_days_done": [
@@ -19049,118 +19209,6 @@
    "accepted": "2026-10-29T16:08:03-04:00",
    "tone": 0.0037766387914755866,
    "company": "FedEx Freight Holding Company, Inc."
-  },
-  {
-   "ticker": "AKAM",
-   "acc": "0001086222-26-000097",
-   "accepted": "2026-11-05T16:08:34-05:00",
-   "tone": 0.002196047115192653,
-   "company": "AKAMAI TECHNOLOGIES INC"
-  },
-  {
-   "ticker": "AEE",
-   "acc": "0001002910-26-000030",
-   "accepted": "2026-11-05T16:34:53-05:00",
-   "tone": 0.003992484734617191,
-   "company": "AMEREN CORP"
-  },
-  {
-   "ticker": "AXON",
-   "acc": "0001628280-26-071086",
-   "accepted": "2026-11-05T16:18:30-05:00",
-   "tone": 0.005709733103173549,
-   "company": "AXON ENTERPRISE, INC."
-  },
-  {
-   "ticker": "ABNB",
-   "acc": "0001193125-26-449727",
-   "accepted": "2026-11-05T16:02:09-05:00",
-   "tone": 0.01405025668738179,
-   "company": "Airbnb, Inc."
-  },
-  {
-   "ticker": "CPT",
-   "acc": "0001628280-26-071117",
-   "accepted": "2026-11-05T16:27:31-05:00",
-   "tone": -0.0011337868480725624,
-   "company": "CAMDEN PROPERTY TRUST"
-  },
-  {
-   "ticker": "ED",
-   "acc": "0001047862-26-000157",
-   "accepted": "2026-11-05T16:44:27-05:00",
-   "tone": 0.005332239540607055,
-   "company": "CONSOLIDATED EDISON INC"
-  },
-  {
-   "ticker": "DVN",
-   "acc": "0001193125-26-449884",
-   "accepted": "2026-11-05T16:16:00-05:00",
-   "tone": 0.003778932451582428,
-   "company": "DEVON ENERGY CORP/DE"
-  },
-  {
-   "ticker": "EOG",
-   "acc": "0000821189-26-000226",
-   "accepted": "2026-11-05T16:18:27-05:00",
-   "tone": -0.004014774369680424,
-   "company": "EOG RESOURCES INC"
-  },
-  {
-   "ticker": "LYV",
-   "acc": "0001335258-26-000052",
-   "accepted": "2026-11-05T16:17:18-05:00",
-   "tone": 0.007985574446161773,
-   "company": "Live Nation Entertainment, Inc."
-  },
-  {
-   "ticker": "MTD",
-   "acc": "0001037646-26-000072",
-   "accepted": "2026-11-05T16:33:59-05:00",
-   "tone": 0.022565320665083134,
-   "company": "METTLER TOLEDO INTERNATIONAL INC/"
-  },
-  {
-   "ticker": "MCHP",
-   "acc": "0000827054-26-000061",
-   "accepted": "2026-11-05T16:18:06-05:00",
-   "tone": 0.003743668795419511,
-   "company": "MICROCHIP TECHNOLOGY INC"
-  },
-  {
-   "ticker": "MNST",
-   "acc": "0001104659-26-123387",
-   "accepted": "2026-11-05T16:32:56-05:00",
-   "tone": 0.007086399563913873,
-   "company": "Monster Beverage Corp"
-  },
-  {
-   "ticker": "REG",
-   "acc": "0001193125-26-450159",
-   "accepted": "2026-11-05T17:15:06-05:00",
-   "tone": -0.000791765637371338,
-   "company": "REGENCY CENTERS CORP"
-  },
-  {
-   "ticker": "SPG",
-   "acc": "0001104659-26-123325",
-   "accepted": "2026-11-05T16:08:24-05:00",
-   "tone": 0.0050355964577183535,
-   "company": "SIMON PROPERTY GROUP INC."
-  },
-  {
-   "ticker": "SOLV",
-   "acc": "0001964738-26-000055",
-   "accepted": "2026-11-05T16:07:29-05:00",
-   "tone": -0.0031614305473226635,
-   "company": "Solventum Corp"
-  },
-  {
-   "ticker": "WYNN",
-   "acc": "0001174922-26-000078",
-   "accepted": "2026-11-05T16:04:28-05:00",
-   "tone": -0.010927347903130538,
-   "company": "WYNN RESORTS LTD"
   }
  ],
  "shadow": [
@@ -19558,117 +19606,24 @@
    "ticker": "TRGP",
    "day0": "2026-11-05",
    "rang": 0.859
+  },
+  {
+   "ticker": "AXON",
+   "day0": "2026-11-06",
+   "rang": 0.805
+  },
+  {
+   "ticker": "ABNB",
+   "day0": "2026-11-06",
+   "rang": 0.92
+  },
+  {
+   "ticker": "MTD",
+   "day0": "2026-11-06",
+   "rang": 0.988
   }
  ],
  "events_log": [
-  {
-   "ticker": "BAC",
-   "company": "BANK OF AMERICA CORP /DE/",
-   "day0": "2026-10-14",
-   "tone": -0.00385,
-   "abtone": -0.00915,
-   "rang": 0.078,
-   "decision": "achat"
-  },
-  {
-   "ticker": "BLK",
-   "company": "BlackRock, Inc.",
-   "day0": "2026-10-14",
-   "tone": 0.00764,
-   "abtone": 0.0028,
-   "rang": 0.686,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "FAST",
-   "company": "FASTENAL CO",
-   "day0": "2026-10-14",
-   "tone": 0.01673,
-   "abtone": 0.0128,
-   "rang": 0.957,
-   "decision": "ombre (ton trop optimiste)"
-  },
-  {
-   "ticker": "MS",
-   "company": "MORGAN STANLEY",
-   "day0": "2026-10-14",
-   "tone": 0.01035,
-   "abtone": 0.0053,
-   "rang": 0.798,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "PGR",
-   "company": "PROGRESSIVE CORP/OH/",
-   "day0": "2026-10-14",
-   "tone": -0.01287,
-   "abtone": -0.01785,
-   "rang": 0.008,
-   "decision": "achat"
-  },
-  {
-   "ticker": "STT",
-   "company": "STATE STREET CORP",
-   "day0": "2026-10-14",
-   "tone": 0.00218,
-   "abtone": -0.00113,
-   "rang": 0.445,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "BNY",
-   "company": "Bank of New York Mellon Corp",
-   "day0": "2026-10-15",
-   "tone": 0.0023,
-   "abtone": -0.00218,
-   "rang": 0.375,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "KMB",
-   "company": "KIMBERLY CLARK CORP",
-   "day0": "2026-10-15",
-   "tone": -0.00118,
-   "abtone": -0.00481,
-   "rang": 0.233,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "MRSH",
-   "company": "MARSH & MCLENNAN COMPANIES, INC.",
-   "day0": "2026-10-15",
-   "tone": 0.00807,
-   "abtone": 0.00329,
-   "rang": 0.706,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "PNC",
-   "company": "PNC FINANCIAL SERVICES GROUP, INC.",
-   "day0": "2026-10-15",
-   "tone": 0.00948,
-   "abtone": 0.00546,
-   "rang": 0.805,
-   "decision": "ombre (ton trop optimiste)"
-  },
-  {
-   "ticker": "PLD",
-   "company": "Prologis, Inc.",
-   "day0": "2026-10-15",
-   "tone": 0.00484,
-   "abtone": 0.00013,
-   "rang": 0.53,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "USB",
-   "company": "US BANCORP \\DE\\",
-   "day0": "2026-10-15",
-   "tone": 0.00866,
-   "abtone": 0.00445,
-   "rang": 0.763,
-   "decision": "neutre"
-  },
   {
    "ticker": "JBHT",
    "company": "HUNT J B TRANSPORT SERVICES INC",
@@ -23124,6 +23079,150 @@
    "abtone": 0.00049,
    "rang": 0.563,
    "decision": "neutre"
+  },
+  {
+   "ticker": "AKAM",
+   "company": "AKAMAI TECHNOLOGIES INC",
+   "day0": "2026-11-06",
+   "tone": 0.0022,
+   "abtone": 0.00036,
+   "rang": 0.55,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "AEE",
+   "company": "AMEREN CORP",
+   "day0": "2026-11-06",
+   "tone": 0.00399,
+   "abtone": 3e-05,
+   "rang": 0.528,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "AXON",
+   "company": "AXON ENTERPRISE, INC.",
+   "day0": "2026-11-06",
+   "tone": 0.00571,
+   "abtone": 0.00538,
+   "rang": 0.805,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "ABNB",
+   "company": "Airbnb, Inc.",
+   "day0": "2026-11-06",
+   "tone": 0.01405,
+   "abtone": 0.00973,
+   "rang": 0.92,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "CPT",
+   "company": "CAMDEN PROPERTY TRUST",
+   "day0": "2026-11-06",
+   "tone": -0.00113,
+   "abtone": -0.00376,
+   "rang": 0.277,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "ED",
+   "company": "CONSOLIDATED EDISON INC",
+   "day0": "2026-11-06",
+   "tone": 0.00533,
+   "abtone": 0.00123,
+   "rang": 0.607,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "DVN",
+   "company": "DEVON ENERGY CORP/DE",
+   "day0": "2026-11-06",
+   "tone": 0.00378,
+   "abtone": 0.00033,
+   "rang": 0.549,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "EOG",
+   "company": "EOG RESOURCES INC",
+   "day0": "2026-11-06",
+   "tone": -0.00401,
+   "abtone": -0.00836,
+   "rang": 0.101,
+   "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "LYV",
+   "company": "Live Nation Entertainment, Inc.",
+   "day0": "2026-11-06",
+   "tone": 0.00799,
+   "abtone": 0.00457,
+   "rang": 0.772,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "MTD",
+   "company": "METTLER TOLEDO INTERNATIONAL INC/",
+   "day0": "2026-11-06",
+   "tone": 0.02257,
+   "abtone": 0.01931,
+   "rang": 0.988,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "MCHP",
+   "company": "MICROCHIP TECHNOLOGY INC",
+   "day0": "2026-11-06",
+   "tone": 0.00374,
+   "abtone": 0.00231,
+   "rang": 0.66,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "MNST",
+   "company": "Monster Beverage Corp",
+   "day0": "2026-11-06",
+   "tone": 0.00709,
+   "abtone": 0.00289,
+   "rang": 0.69,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "REG",
+   "company": "REGENCY CENTERS CORP",
+   "day0": "2026-11-06",
+   "tone": -0.00079,
+   "abtone": -0.00381,
+   "rang": 0.273,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "SPG",
+   "company": "SIMON PROPERTY GROUP INC.",
+   "day0": "2026-11-06",
+   "tone": 0.00504,
+   "abtone": 0.00032,
+   "rang": 0.549,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "SOLV",
+   "company": "Solventum Corp",
+   "day0": "2026-11-06",
+   "tone": -0.00316,
+   "abtone": -0.00516,
+   "rang": 0.212,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "WYNN",
+   "company": "WYNN RESORTS LTD",
+   "day0": "2026-11-06",
+   "tone": -0.01093,
+   "abtone": -0.01333,
+   "rang": 0.027,
+   "decision": "portefeuille complet"
   }
  ],
  "hold_until": {
@@ -23181,9 +23280,9 @@
  "counters": {
   "jours": 17,
   "communiques": 414,
-  "evalues": 396,
+  "evalues": 412,
   "achetes": 50,
-  "ombre": 79,
-  "complet": 16
+  "ombre": 82,
+  "complet": 18
  }
 }

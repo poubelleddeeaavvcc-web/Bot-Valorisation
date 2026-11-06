@@ -1,51 +1,8 @@
 {
  "cash": {
-  "pool": 3400.0
+  "pool": 3100.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "PG",
-   "bucket": "pool",
-   "reason": "achat declare par Maria Elvira Salazar (FL27), >= 1,001 $ le 10/23/2026",
-   "decided_at": "2026-11-06T00:32:56Z",
-   "amount_eur": 100.0,
-   "name": "PG",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 1001.0
-  },
-  {
-   "side": "buy",
-   "ticker": "AMAT",
-   "bucket": "pool",
-   "reason": "achat declare par Josh Gottheimer (NJ05), >= 1,001 $ le 10/26/2026",
-   "decided_at": "2026-11-06T15:52:58Z",
-   "amount_eur": 100.0,
-   "name": "AMAT",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 1001.0
-  },
-  {
-   "side": "buy",
-   "ticker": "BHE",
-   "bucket": "pool",
-   "reason": "achat declare par Josh Gottheimer (NJ05), >= 1,001 $ le 10/12/2026",
-   "decided_at": "2026-11-06T15:52:58Z",
-   "amount_eur": 100.0,
-   "name": "BHE",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 1001.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20035484",

@@ -1,23 +1,8 @@
 {
  "cash": {
-  "pool": 4600.0
+  "pool": 4500.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "AOMR",
-   "bucket": "pool",
-   "reason": "1 initie(s), 46 k$ le 2026-11-05",
-   "decided_at": "2026-11-06T11:51:43Z",
-   "amount_eur": 100.0,
-   "name": "Angel Oak Mortgage REIT, Inc.",
-   "sector": "Inities (petites cap.)",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 46472.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",
