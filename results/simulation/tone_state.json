@@ -19004,6 +19004,16 @@
    "react": 0.017699,
    "age": 2.691765,
    "tone": -0.004563
+  },
+  {
+   "ticker": "Q",
+   "date": "2026-11-04",
+   "ret12": 0.217543,
+   "size": 23.898365,
+   "stdret": 0.12907,
+   "react": 0.009998,
+   "age": 0.7037,
+   "tone": 0.002271
   }
  ],
  "edgar_days_done": [
@@ -19039,13 +19049,6 @@
    "accepted": "2026-10-29T16:08:03-04:00",
    "tone": 0.0037766387914755866,
    "company": "FedEx Freight Holding Company, Inc."
-  },
-  {
-   "ticker": "Q",
-   "acc": "0002058873-26-000039",
-   "accepted": "2026-11-04T06:05:23-05:00",
-   "tone": 0.0022713194301053068,
-   "company": "Qnity Electronics, Inc."
   },
   {
    "ticker": "AKAM",
@@ -23112,6 +23115,15 @@
    "abtone": -0.00789,
    "rang": 0.115,
    "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "Q",
+   "company": "Qnity Electronics, Inc.",
+   "day0": "2026-11-04",
+   "tone": 0.00227,
+   "abtone": 0.00049,
+   "rang": 0.563,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -23169,7 +23181,7 @@
  "counters": {
   "jours": 17,
   "communiques": 414,
-  "evalues": 395,
+  "evalues": 396,
   "achetes": 50,
   "ombre": 79,
   "complet": 16
