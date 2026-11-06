@@ -16,6 +16,34 @@
    "currency": "USD",
    "fractional": true,
    "score": 1001.0
+  },
+  {
+   "side": "buy",
+   "ticker": "AMAT",
+   "bucket": "pool",
+   "reason": "achat declare par Josh Gottheimer (NJ05), >= 1,001 $ le 10/26/2026",
+   "decided_at": "2026-11-06T15:52:58Z",
+   "amount_eur": 100.0,
+   "name": "AMAT",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1001.0
+  },
+  {
+   "side": "buy",
+   "ticker": "BHE",
+   "bucket": "pool",
+   "reason": "achat declare par Josh Gottheimer (NJ05), >= 1,001 $ le 10/12/2026",
+   "decided_at": "2026-11-06T15:52:58Z",
+   "amount_eur": 100.0,
+   "name": "BHE",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1001.0
   }
  ],
  "launched_at": "2026-10-14T10:56:11Z",
@@ -50,6 +78,7 @@
   "20035751",
   "20035763",
   "20035765",
+  "20035770",
   "20035778",
   "9116378",
   "9116389",
@@ -73,7 +102,9 @@
   "TXN": "2027-04-19",
   "MU": "2027-04-19",
   "FMAO": "2027-04-21",
-  "PG": "2027-04-23"
+  "PG": "2027-04-23",
+  "AMAT": "2027-04-23",
+  "BHE": "2027-04-23"
  },
  "events_log": [
   {
@@ -255,13 +286,31 @@
    "trade_date": "10/23/2026",
    "amount_low": 1001,
    "decision": "achat"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "member": "Josh Gottheimer",
+   "district": "NJ05",
+   "ticker": "AMAT",
+   "trade_date": "10/26/2026",
+   "amount_low": 1001,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-11-05",
+   "member": "Josh Gottheimer",
+   "district": "NJ05",
+   "ticker": "BHE",
+   "trade_date": "10/12/2026",
+   "amount_low": 1001,
+   "decision": "achat"
   }
  ],
  "counters": {
-  "rapports": 35,
+  "rapports": 36,
   "illisibles": 0,
-  "achats_declares": 20,
-  "achetes": 17,
+  "achats_declares": 22,
+  "achetes": 19,
   "complet": 0,
   "prolonges": 3,
   "sans_cours": 0
