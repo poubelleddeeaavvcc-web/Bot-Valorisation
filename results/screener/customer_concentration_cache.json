@@ -966,5 +966,13 @@
       "reason": "10-K SEC (2026-02-04) : No single customer accounted for 10% or more of our net revenue [https://www.sec.gov/Archives/edgar/data/1103982/000162828026005345/mdlz-20251231.htm]",
       "source": "sec_10k"
     }
+  },
+  "GFNORTEO.MX": {
+    "checked_at": "2026-11-06",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "Le texte ne donne pas clairement d'indication sur la concentration de la base de clients de l'entreprise.",
+      "source": "ollama"
+    }
   }
 }

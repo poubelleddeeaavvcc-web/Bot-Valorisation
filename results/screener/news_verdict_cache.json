@@ -694,5 +694,11 @@
     "sentiment": "positive",
     "reason": "The overall sentiment is positive as several news articles report on HF Sinclair Corporation's stock performance, earnings beat, and potential growth opportunities.",
     "source": "ollama"
+  },
+  "GFNORTEO.MX_2026-11-06": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The overall sentiment is positive as the company reported a 9% year-over-year net income growth, a 20% extraordinary dividend, and robust performance in consumer lending.",
+    "source": "ollama"
   }
 }
