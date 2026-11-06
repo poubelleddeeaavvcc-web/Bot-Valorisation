@@ -670,5 +670,11 @@
     "sentiment": "positive",
     "reason": "The overall tone is positive as the company reported better-than-expected revenue in Q3 2026, with a 13% year-on-year increase to $717.3 million. Additionally, there is optimistic sales guidance for the next quarter.",
     "source": "ollama"
+  },
+  "TER_2026-11-06": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "While there are negative sentiments towards Teradyne due to the overall tech selloff and the company's underperformance compared to competitors, there are also positive sentiments as the tech selloff presents buying opportunities and Teradyne is benefiting from booming demand for AI infrastructure a",
+    "source": "ollama"
   }
 }
