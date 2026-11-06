@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 6037.014073811888
+  "pool": 6171.614079915404
  },
  "pending": [
   {
@@ -108,14 +108,6 @@
    "fraction": 1.0
   },
   {
-   "side": "sell",
-   "ticker": "TRI.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
-  {
    "side": "buy",
    "ticker": "ACMR",
    "bucket": "pool",
@@ -150,7 +142,6 @@
   "KRP": "2026-11-06",
   "ENB": "2026-11-11",
   "VICI": "2026-11-09",
-  "TRI.PA": "2026-11-06",
   "PENG": "2026-11-06",
   "CTVA": "2026-11-06",
   "OII": "2026-11-06",
