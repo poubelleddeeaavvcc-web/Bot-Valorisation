@@ -950,5 +950,13 @@
       "reason": "The provided text does not offer clear indications about the concentration of clients, as it mentions a few specific products and a few clients, but it does not specify the number of clients or the extent of their distribution.",
       "source": "ollama"
     }
+  },
+  "PRDO": {
+    "checked_at": "2026-11-06",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "Le texte ne donne pas d'indication claire sur la concentration ou la diversification de la base de clients de l'entreprise.",
+      "source": "ollama"
+    }
   }
 }
