@@ -1,28 +1,4 @@
 {
-  "PRG_2026-10-23": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Recent news indicates a positive sentiment towards PROG Holdings, Inc. (PRG) as evidenced by analysts raising the stock to 'Buy' at Loop Capital and various forecasts predicting a positive outlook.",
-    "source": "ollama"
-  },
-  "6361.T_2026-10-23": {
-    "relevant": true,
-    "sentiment": null,
-    "reason": "The news shows a mix of positive and neutral sentiments towards Ebara Corporation's stock. Some articles suggest opportunities and a substantial discount, while others discuss a high P/E ratio and a stock price swing.",
-    "source": "ollama"
-  },
-  "1942.T_2026-10-23": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "The Nikkei 225 breaching the 65,000 yen mark and Mitsubishi Estate breaking ground on YURAKUCHO PARK could potentially have a positive impact on Kandenko Co., Ltd., as it suggests a growing economy and potential business opportunities.",
-    "source": "ollama"
-  },
-  "UCG.MI_2026-10-23": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Analysts are bullish on UniCredit SpA, as indicated by recent articles in The Globe and Mail and other financial news sources.",
-    "source": "ollama"
-  },
   "PRG_2026-10-24": {
     "relevant": true,
     "sentiment": "positive",
@@ -700,5 +676,23 @@
     "sentiment": "positive",
     "reason": "The overall sentiment is positive as the company reported a 9% year-over-year net income growth, a 20% extraordinary dividend, and robust performance in consumer lending.",
     "source": "ollama"
+  },
+  "SNA_2026-11-07": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "The news highlights both positive aspects, such as Snap-on's consistent dividend increases, and negative aspects, like missed earnings and increased credit delinquencies.",
+    "source": "ollama"
+  },
+  "BRC_2026-11-07": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The articles generally highlight Brady Corporation's strong performance, potential for growth, and positive financial indicators such as high ROIC and consistent dividend increases.",
+    "source": "ollama"
+  },
+  "MDLZ_2026-11-07": {
+    "relevant": false,
+    "sentiment": null,
+    "reason": "'sues' actif (3/3 votes) : Ce titre décrit un procès en cours entre Mondelez International et Joyride au sujet de la marque déposée Sour Patch Kids. Cela signifie qu'il y a un risque actif pour l'entreprise, ce qui peut justifier d'éviter un achat maintenant.; Ce titre décrit  (titre: Mondelez sues Joyride over Sour Patch Kids trademark)",
+    "source": "keyword_veto"
   }
 }
