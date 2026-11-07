@@ -1,16 +1,8 @@
 {
  "cash": {
-  "pool": 6171.614079915404
+  "pool": 6857.3785179038705
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "ALB",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
   {
    "side": "sell",
    "ticker": "ANET",
@@ -21,31 +13,7 @@
   },
   {
    "side": "sell",
-   "ticker": "CBRE",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "CSGP",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
    "ticker": "CTVA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "FRT",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-06T06:43:44Z",
@@ -77,31 +45,7 @@
   },
   {
    "side": "sell",
-   "ticker": "OII",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
    "ticker": "PENG",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "RSG",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "SMTI",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-06T06:43:44Z",
@@ -144,16 +88,9 @@
   "VICI": "2026-11-09",
   "PENG": "2026-11-06",
   "CTVA": "2026-11-06",
-  "OII": "2026-11-06",
   "MPLX": "2026-11-06",
-  "CBRE": "2026-11-06",
-  "CSGP": "2026-11-06",
-  "RSG": "2026-11-06",
-  "FRT": "2026-11-06",
   "GOOGL": "2026-11-26",
   "OGG": "2026-11-06",
-  "SMTI": "2026-11-06",
-  "ALB": "2026-11-06",
   "ANET": "2026-11-06",
   "DAL": "2026-11-09",
   "COV.PA": "2026-11-09",
