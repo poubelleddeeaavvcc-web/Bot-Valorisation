@@ -2,11 +2,36 @@
  "cash": {
   "pool": 7267.552674243901
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "UCG.MI",
+   "bucket": "pool",
+   "reason": "avis Adam Tooze from Chartbook (substack.com) (ton)",
+   "decided_at": "2026-11-07T16:25:36Z",
+   "amount_eur": 100.0,
+   "name": "UniCredit S.p.A.",
+   "sector": "Adam Tooze from Chartbook (substack.com) (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "BAM",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-11-07T16:25:36Z",
+   "amount_eur": 100.0,
+   "name": "Brookfield Asset Management Ltd.",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
+  }
+ ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-12-04",
-  "NVDA": "2026-11-30",
+  "NVDA": "2026-12-04",
   "AVGO": "2026-11-19",
   "SNDK": "2026-12-04",
   "RKLB": "2026-11-20",
@@ -120,7 +145,9 @@
   "AMD": "2026-12-02",
   "CAP.PA": "2026-12-03",
   "INTC": "2026-12-03",
-  "ACMR": "2026-12-04"
+  "ACMR": "2026-12-04",
+  "UCG.MI": "2026-12-04",
+  "BAM": "2026-12-04"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -555,12 +582,18 @@
   "1a1acaad8f069dc9:WLN.PA",
   "1a1b0ea374ac96b2:SNDK",
   "1a1b0ea374ac96b2:MU",
-  "1a1b0f832286ee9a:ACMR"
+  "1a1b0f832286ee9a:ACMR",
+  "1a1b6109d51d9b45:SNDK",
+  "1a1b6109d51d9b45:MU",
+  "1a1b6109d51d9b45:NVDA",
+  "1a1b5d5ca4d72123:UCG.MI",
+  "1a1b60b66e390766:BAM",
+  "1a1b61d548cccb98:SNDK"
  ],
  "counters": {
-  "avis": 433,
-  "achetes": 263,
-  "prolonges": 170,
+  "avis": 439,
+  "achetes": 265,
+  "prolonges": 174,
   "complet": 0
  },
  "dropped": [
