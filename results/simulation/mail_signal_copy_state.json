@@ -1,69 +1,8 @@
 {
  "cash": {
-  "pool": 6857.3785179038705
+  "pool": 7267.552674243901
  },
- "pending": [
-  {
-   "side": "sell",
-   "ticker": "ANET",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "CTVA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "KRP",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "MPLX",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "OGG",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "PENG",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-06T06:43:44Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "ACMR",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-11-06T15:56:09Z",
-   "amount_eur": 100.0,
-   "name": "ACM Research, Inc.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  }
- ],
+ "pending": [],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-12-04",
@@ -83,15 +22,9 @@
   "ACN": "2026-11-20",
   "MRVL": "2026-12-01",
   "BAC": "2026-11-12",
-  "KRP": "2026-11-06",
   "ENB": "2026-11-11",
   "VICI": "2026-11-09",
-  "PENG": "2026-11-06",
-  "CTVA": "2026-11-06",
-  "MPLX": "2026-11-06",
   "GOOGL": "2026-11-26",
-  "OGG": "2026-11-06",
-  "ANET": "2026-11-06",
   "DAL": "2026-11-09",
   "COV.PA": "2026-11-09",
   "SO": "2026-11-10",
