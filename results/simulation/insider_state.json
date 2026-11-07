@@ -23,7 +23,8 @@
   "2026-11-02",
   "2026-11-03",
   "2026-11-04",
-  "2026-11-05"
+  "2026-11-05",
+  "2026-11-06"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -1492,11 +1493,141 @@
    "title": "Chief Executive Officer",
    "adv_usd": 26120154,
    "decision": "liquidite hors bande (26.12 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-06",
+   "ticker": "AGMB",
+   "issuer": "AgomAb Therapeutics NV",
+   "value_usd": 103500,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 1085831,
+   "decision": "liquidite hors bande (1.09 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-06",
+   "ticker": "CLST",
+   "issuer": "Catalyst Bancorp, Inc.",
+   "value_usd": 30255,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 67645,
+   "decision": "liquidite hors bande (0.07 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-06",
+   "ticker": "CVS",
+   "issuer": "CVS HEALTH Corp",
+   "value_usd": 2001315,
+   "insiders": 1,
+   "title": "EVP and Group President",
+   "adv_usd": 948600614,
+   "decision": "liquidite hors bande (948.60 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-06",
+   "ticker": "GFS",
+   "issuer": "GLOBALFOUNDRIES Inc.",
+   "value_usd": 93688,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 290041968,
+   "decision": "liquidite hors bande (290.04 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-06",
+   "ticker": "KMI",
+   "issuer": "KINDER MORGAN, INC.",
+   "value_usd": 14994200,
+   "insiders": 1,
+   "title": "Executive Chairman",
+   "adv_usd": 516813737,
+   "decision": "liquidite hors bande (516.81 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-06",
+   "ticker": "KMT",
+   "issuer": "KENNAMETAL INC",
+   "value_usd": 165368,
+   "insiders": 1,
+   "title": "President and CEO",
+   "adv_usd": 48108808,
+   "decision": "liquidite hors bande (48.11 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-06",
+   "ticker": "KOD",
+   "issuer": "Kodiak Sciences Inc.",
+   "value_usd": 24340836,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 96364358,
+   "decision": "liquidite hors bande (96.36 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-06",
+   "ticker": "KYN",
+   "issuer": "Kayne Anderson Energy Infrastructure Fund, Inc.",
+   "value_usd": 382624,
+   "insiders": 2,
+   "title": "President",
+   "adv_usd": 4993753,
+   "decision": "liquidite hors bande (4.99 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-06",
+   "ticker": "LKQ",
+   "issuer": "LKQ CORP",
+   "value_usd": 201085,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 124523259,
+   "decision": "liquidite hors bande (124.52 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-06",
+   "ticker": "MDGL",
+   "issuer": "MADRIGAL PHARMACEUTICALS, INC.",
+   "value_usd": 35023032,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 236383415,
+   "decision": "liquidite hors bande (236.38 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-06",
+   "ticker": "MTDR",
+   "issuer": "Matador Resources Co",
+   "value_usd": 92805,
+   "insiders": 2,
+   "title": "EVP, Reservoir Engineering",
+   "adv_usd": 92839513,
+   "decision": "liquidite hors bande (92.84 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-06",
+   "ticker": "TBBK",
+   "issuer": "Bancorp, Inc.",
+   "value_usd": 47495,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 26466871,
+   "decision": "liquidite hors bande (26.47 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-06",
+   "ticker": "TRNS",
+   "issuer": "TRANSCAT INC",
+   "value_usd": 230366,
+   "insiders": 1,
+   "title": "President and CEO",
+   "adv_usd": 17698293,
+   "decision": "liquidite hors bande (17.70 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 18,
-  "evenements": 146,
+  "jours": 19,
+  "evenements": 159,
   "retenus": 5,
   "achetes": 5,
   "complet": 0,
