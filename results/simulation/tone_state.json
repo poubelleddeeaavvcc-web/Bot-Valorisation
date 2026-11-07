@@ -6,336 +6,6 @@
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
-   "ticker": "DD",
-   "date": "2025-11-06",
-   "tone": 0.002716,
-   "ret12": 0.116913,
-   "size": 23.553592,
-   "stdret": 0.11973,
-   "react": 0.044113,
-   "age": 3.039597
-  },
-  {
-   "ticker": "BDX",
-   "date": "2025-11-06",
-   "tone": 0.004207,
-   "ret12": -0.222976,
-   "size": 24.344233,
-   "stdret": 0.070551,
-   "react": -0.001915,
-   "age": 3.039597
-  },
-  {
-   "ticker": "TPR",
-   "date": "2025-11-06",
-   "tone": 0.009267,
-   "ret12": 1.306321,
-   "size": 24.123051,
-   "stdret": 0.150083,
-   "react": -0.063946,
-   "age": 3.039597
-  },
-  {
-   "ticker": "NRG",
-   "date": "2025-11-06",
-   "tone": 0.000419,
-   "ret12": 0.963535,
-   "size": 24.385215,
-   "stdret": 0.153527,
-   "react": 0.019861,
-   "age": 3.039597
-  },
-  {
-   "ticker": "COP",
-   "date": "2025-11-06",
-   "tone": 0.00093,
-   "ret12": -0.158525,
-   "size": 25.258566,
-   "stdret": 0.053488,
-   "react": -0.018293,
-   "age": 3.039597
-  },
-  {
-   "ticker": "CMI",
-   "date": "2025-11-06",
-   "tone": -0.000215,
-   "ret12": 0.33207,
-   "size": 25.008521,
-   "stdret": 0.107133,
-   "react": 0.086743,
-   "age": 3.039597
-  },
-  {
-   "ticker": "APD",
-   "date": "2025-11-06",
-   "tone": -0.002385,
-   "ret12": -0.201498,
-   "size": 24.76935,
-   "stdret": 0.09483,
-   "react": 0.082144,
-   "age": 3.039597
-  },
-  {
-   "ticker": "PH",
-   "date": "2025-11-06",
-   "tone": 0.02936,
-   "ret12": 0.223009,
-   "size": 25.403186,
-   "stdret": 0.098396,
-   "react": 0.092036,
-   "age": 3.039597
-  },
-  {
-   "ticker": "RL",
-   "date": "2025-11-06",
-   "tone": 0.009024,
-   "ret12": 0.586162,
-   "size": 23.700069,
-   "stdret": 0.147478,
-   "react": 0.025892,
-   "age": 3.039597
-  },
-  {
-   "ticker": "VST",
-   "date": "2025-11-06",
-   "tone": 0.0,
-   "ret12": 0.563046,
-   "size": 24.727553,
-   "stdret": 0.201066,
-   "react": 0.001271,
-   "age": 2.309308
-  },
-  {
-   "ticker": "EVRG",
-   "date": "2025-11-06",
-   "tone": -0.006265,
-   "ret12": 0.345919,
-   "size": 23.625269,
-   "stdret": 0.041615,
-   "react": -0.01191,
-   "age": 3.039597
-  },
-  {
-   "ticker": "ROK",
-   "date": "2025-11-06",
-   "tone": 0.003206,
-   "ret12": 0.362264,
-   "size": 24.43426,
-   "stdret": 0.124348,
-   "react": 0.042455,
-   "age": 3.039597
-  },
-  {
-   "ticker": "MRNA",
-   "date": "2025-11-06",
-   "tone": -0.007901,
-   "ret12": -0.565257,
-   "size": 21.542933,
-   "stdret": 0.173628,
-   "react": 0.031722,
-   "age": 2.066461
-  },
-  {
-   "ticker": "DDOG",
-   "date": "2025-11-06",
-   "tone": -0.001095,
-   "ret12": 0.277868,
-   "size": 24.503746,
-   "stdret": 0.175968,
-   "react": 0.21878,
-   "age": 1.962774
-  },
-  {
-   "ticker": "PODD",
-   "date": "2025-11-06",
-   "tone": 0.000367,
-   "ret12": 0.359323,
-   "size": 23.851893,
-   "stdret": 0.103336,
-   "react": 0.017074,
-   "age": 2.968173
-  },
-  {
-   "ticker": "VTRS",
-   "date": "2025-11-06",
-   "tone": -0.004432,
-   "ret12": -0.053692,
-   "size": 23.146408,
-   "stdret": 0.125066,
-   "react": -0.028924,
-   "age": 3.039597
-  },
-  {
-   "ticker": "ABNB",
-   "date": "2025-11-06",
-   "tone": 0.012035,
-   "ret12": -0.10499,
-   "size": 24.935354,
-   "stdret": 0.057602,
-   "react": -0.003469,
-   "age": 1.773741
-  },
-  {
-   "ticker": "AKAM",
-   "date": "2025-11-06",
-   "tone": 0.002082,
-   "ret12": -0.270492,
-   "size": 23.188058,
-   "stdret": 0.073343,
-   "react": 0.157193,
-   "age": 3.039787
-  },
-  {
-   "ticker": "WYNN",
-   "date": "2025-11-06",
-   "tone": -0.010607,
-   "ret12": 0.322373,
-   "size": 23.588254,
-   "stdret": 0.119117,
-   "react": 0.017344,
-   "age": 3.039787
-  },
-  {
-   "ticker": "SOLV",
-   "date": "2025-11-06",
-   "tone": 0.002549,
-   "ret12": -0.062076,
-   "size": 23.133873,
-   "stdret": 0.046534,
-   "react": 0.066337,
-   "age": 0.961294
-  },
-  {
-   "ticker": "CPT",
-   "date": "2025-11-06",
-   "tone": -0.003813,
-   "ret12": -0.088884,
-   "size": 23.175779,
-   "stdret": 0.055731,
-   "react": 0.009362,
-   "age": 3.039787
-  },
-  {
-   "ticker": "MTD",
-   "date": "2025-11-06",
-   "tone": 0.016556,
-   "ret12": 0.055505,
-   "size": 23.998561,
-   "stdret": 0.081277,
-   "react": 0.009491,
-   "age": 3.039787
-  },
-  {
-   "ticker": "ED",
-   "date": "2025-11-06",
-   "tone": 0.002872,
-   "ret12": 0.003088,
-   "size": 24.317032,
-   "stdret": 0.055183,
-   "react": 0.034831,
-   "age": 3.039787
-  },
-  {
-   "ticker": "LNT",
-   "date": "2025-11-06",
-   "tone": 0.00735,
-   "ret12": 0.200404,
-   "size": 23.630124,
-   "stdret": 0.042013,
-   "react": 0.017085,
-   "age": 3.039787
-  },
-  {
-   "ticker": "EXPE",
-   "date": "2025-11-06",
-   "tone": -0.002632,
-   "ret12": 0.335588,
-   "size": 24.079789,
-   "stdret": 0.094857,
-   "react": 0.217603,
-   "age": 3.039787
-  },
-  {
-   "ticker": "TTD",
-   "date": "2025-11-06",
-   "tone": 0.003346,
-   "ret12": -0.596686,
-   "size": 24.213722,
-   "stdret": 0.213342,
-   "react": -0.088777,
-   "age": 2.313635
-  },
-  {
-   "ticker": "TTWO",
-   "date": "2025-11-06",
-   "tone": -0.003262,
-   "ret12": 0.563616,
-   "size": 24.665191,
-   "stdret": 0.069052,
-   "react": -0.079584,
-   "age": 3.039787
-  },
-  {
-   "ticker": "NWSA",
-   "date": "2025-11-06",
-   "tone": 0.00504,
-   "ret12": -0.058231,
-   "size": 23.383641,
-   "stdret": 0.05474,
-   "react": 0.051877,
-   "age": 2.592942
-  },
-  {
-   "ticker": "MCHP",
-   "date": "2025-11-06",
-   "tone": 0.004625,
-   "ret12": -0.159575,
-   "size": 24.204349,
-   "stdret": 0.149695,
-   "react": -0.064587,
-   "age": 3.039787
-  },
-  {
-   "ticker": "EOG",
-   "date": "2025-11-06",
-   "tone": -0.003688,
-   "ret12": -0.114718,
-   "size": 24.649611,
-   "stdret": 0.047662,
-   "react": 0.011847,
-   "age": 3.039787
-  },
-  {
-   "ticker": "MNST",
-   "date": "2025-11-06",
-   "tone": 0.011694,
-   "ret12": 0.255457,
-   "size": 24.994497,
-   "stdret": 0.077191,
-   "react": 0.037161,
-   "age": 3.039787
-  },
-  {
-   "ticker": "XYZ",
-   "date": "2025-11-06",
-   "tone": 0.012186,
-   "ret12": 0.013207,
-   "size": 24.526787,
-   "stdret": 0.176481,
-   "react": -0.101582,
-   "age": 2.392832
-  },
-  {
-   "ticker": "DUK",
-   "date": "2025-11-06",
-   "tone": -0.003522,
-   "ret12": 0.140715,
-   "size": 25.353144,
-   "stdret": 0.039946,
-   "react": 0.008866,
-   "age": 3.039787
-  },
-  {
    "ticker": "KKR",
    "date": "2025-11-07",
    "tone": 0.008568,
@@ -19174,6 +18844,66 @@
    "react": 0.049967,
    "age": 3.087895,
    "tone": -0.010927
+  },
+  {
+   "ticker": "CHTR",
+   "date": "2026-11-06",
+   "ret12": -0.455661,
+   "size": 23.326993,
+   "stdret": 0.134802,
+   "react": 0.022976,
+   "age": 2.881165,
+   "tone": -0.002087
+  },
+  {
+   "ticker": "BEN",
+   "date": "2026-11-06",
+   "ret12": 0.573493,
+   "size": 23.564531,
+   "stdret": 0.079017,
+   "react": 0.036972,
+   "age": 3.087895,
+   "tone": 0.000864
+  },
+  {
+   "ticker": "HUM",
+   "date": "2026-11-06",
+   "ret12": 0.500218,
+   "size": 24.676117,
+   "stdret": 0.195646,
+   "react": 0.080203,
+   "age": 3.087895,
+   "tone": -0.008415
+  },
+  {
+   "ticker": "MRNA",
+   "date": "2026-11-06",
+   "ret12": 9.879158,
+   "size": 25.343145,
+   "stdret": 0.445233,
+   "react": 0.024889,
+   "age": 2.187749,
+   "tone": 0.00473
+  },
+  {
+   "ticker": "PPL",
+   "date": "2026-11-06",
+   "ret12": 0.017283,
+   "size": 24.016919,
+   "stdret": 0.041477,
+   "react": 0.043345,
+   "age": 3.087895,
+   "tone": 0.011646
+  },
+  {
+   "ticker": "VST",
+   "date": "2026-11-06",
+   "ret12": -0.348612,
+   "size": 24.458248,
+   "stdret": 0.09353,
+   "react": 0.078598,
+   "age": 2.405705,
+   "tone": 0.001312
   }
  ],
  "edgar_days_done": [
@@ -19193,7 +18923,8 @@
   "2026-11-02",
   "2026-11-03",
   "2026-11-04",
-  "2026-11-05"
+  "2026-11-05",
+  "2026-11-06"
  ],
  "awaiting": [
   {
@@ -19209,6 +18940,13 @@
    "accepted": "2026-10-29T16:08:03-04:00",
    "tone": 0.0037766387914755866,
    "company": "FedEx Freight Holding Company, Inc."
+  },
+  {
+   "ticker": "DTE",
+   "acc": "0000936340-26-000172",
+   "accepted": "2026-11-06T16:18:18-05:00",
+   "tone": -0.0008741258741258741,
+   "company": "DTE ENERGY CO"
   }
  ],
  "shadow": [
@@ -19621,63 +19359,19 @@
    "ticker": "MTD",
    "day0": "2026-11-06",
    "rang": 0.988
+  },
+  {
+   "ticker": "MRNA",
+   "day0": "2026-11-06",
+   "rang": 0.889
+  },
+  {
+   "ticker": "PPL",
+   "day0": "2026-11-06",
+   "rang": 0.882
   }
  ],
  "events_log": [
-  {
-   "ticker": "JBHT",
-   "company": "HUNT J B TRANSPORT SERVICES INC",
-   "day0": "2026-10-16",
-   "tone": 0.01687,
-   "abtone": 0.01493,
-   "rang": 0.972,
-   "decision": "ombre (ton trop optimiste)"
-  },
-  {
-   "ticker": "IBKR",
-   "company": "Interactive Brokers Group, Inc.",
-   "day0": "2026-10-16",
-   "tone": 0.00328,
-   "abtone": 0.00021,
-   "rang": 0.54,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "PRU",
-   "company": "PRUDENTIAL FINANCIAL INC",
-   "day0": "2026-10-16",
-   "tone": -0.00445,
-   "abtone": -0.00803,
-   "rang": 0.11,
-   "decision": "achat"
-  },
-  {
-   "ticker": "SCHW",
-   "company": "SCHWAB CHARLES CORP",
-   "day0": "2026-10-16",
-   "tone": 0.00687,
-   "abtone": 0.00186,
-   "rang": 0.639,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "CFG",
-   "company": "CITIZENS FINANCIAL GROUP INC/RI",
-   "day0": "2026-10-16",
-   "tone": 0.00863,
-   "abtone": 0.0059,
-   "rang": 0.823,
-   "decision": "ombre (ton trop optimiste)"
-  },
-  {
-   "ticker": "MTB",
-   "company": "M&T BANK CORP",
-   "day0": "2026-10-16",
-   "tone": -0.00072,
-   "abtone": -0.00375,
-   "rang": 0.286,
-   "decision": "neutre"
-  },
   {
    "ticker": "RF",
    "company": "REGIONS FINANCIAL CORP",
@@ -23223,6 +22917,60 @@
    "abtone": -0.01333,
    "rang": 0.027,
    "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "CHTR",
+   "company": "CHARTER COMMUNICATIONS, INC. /MO/",
+   "day0": "2026-11-06",
+   "tone": -0.00209,
+   "abtone": -0.00403,
+   "rang": 0.264,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "BEN",
+   "company": "FRANKLIN TEMPLETON INC",
+   "day0": "2026-11-06",
+   "tone": 0.00086,
+   "abtone": -0.00179,
+   "rang": 0.407,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "HUM",
+   "company": "HUMANA INC",
+   "day0": "2026-11-06",
+   "tone": -0.00841,
+   "abtone": -0.01094,
+   "rang": 0.052,
+   "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "MRNA",
+   "company": "Moderna, Inc.",
+   "day0": "2026-11-06",
+   "tone": 0.00473,
+   "abtone": 0.00814,
+   "rang": 0.889,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "PPL",
+   "company": "PPL Corp",
+   "day0": "2026-11-06",
+   "tone": 0.01165,
+   "abtone": 0.00789,
+   "rang": 0.882,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "VST",
+   "company": "Vistra Corp.",
+   "day0": "2026-11-06",
+   "tone": 0.00131,
+   "abtone": -0.00234,
+   "rang": 0.365,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -23278,11 +23026,11 @@
   "AIG": "2027-01-28"
  },
  "counters": {
-  "jours": 17,
-  "communiques": 414,
-  "evalues": 412,
+  "jours": 18,
+  "communiques": 421,
+  "evalues": 418,
   "achetes": 50,
-  "ombre": 82,
-  "complet": 18
+  "ombre": 84,
+  "complet": 19
  }
 }
