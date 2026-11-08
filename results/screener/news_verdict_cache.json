@@ -1,10 +1,4 @@
 {
-  "PRG_2026-10-24": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "The overall sentiment is positive as indicated by Loop Capital raising the rating for PROG Holdings to Buy, and various forecasts and predictions suggesting potential growth for the stock.",
-    "source": "ollama"
-  },
   "PRG_2026-10-25": {
     "relevant": true,
     "sentiment": "positive",
@@ -693,6 +687,24 @@
     "relevant": false,
     "sentiment": null,
     "reason": "'sues' actif (3/3 votes) : Ce titre décrit un procès en cours entre Mondelez International et Joyride au sujet de la marque déposée Sour Patch Kids. Cela signifie qu'il y a un risque actif pour l'entreprise, ce qui peut justifier d'éviter un achat maintenant.; Ce titre décrit  (titre: Mondelez sues Joyride over Sour Patch Kids trademark)",
+    "source": "keyword_veto"
+  },
+  "SNA_2026-11-08": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "The news articles do not provide a consistent sentiment and contain a mix of neutral and informative content about Snap-on Incorporated's performance and other related topics.",
+    "source": "ollama"
+  },
+  "BRC_2026-11-08": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general sentiment is positive as several articles highlight potential growth opportunities for Brady Corporation, its integration of PSS business targeting $25 million in annual synergies, and its strong Superscore of 80.",
+    "source": "ollama"
+  },
+  "MDLZ_2026-11-08": {
+    "relevant": false,
+    "sentiment": null,
+    "reason": "'sues' actif (3/3 votes) : Le titre décrit un risque actif en cours, car il fait mention d'un procès en cours entre Mondelez International et Joyride sur la marque déposée Sour Patch Kids; Il y a une procédure de litige en cours concernant la marque déposée des Sour Patch Kids (titre: Mondelez sues Joyride over Sour Patch Kids trademark)",
     "source": "keyword_veto"
   }
 }
