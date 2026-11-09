@@ -18874,6 +18874,16 @@
    "react": 0.078598,
    "age": 2.405705,
    "tone": 0.001312
+  },
+  {
+   "ticker": "DTE",
+   "date": "2026-11-09",
+   "ret12": 0.041164,
+   "size": 24.083619,
+   "stdret": 0.056839,
+   "react": -0.00106,
+   "age": 3.08827,
+   "tone": -0.000874
   }
  ],
  "edgar_days_done": [
@@ -18896,15 +18906,7 @@
   "2026-11-05",
   "2026-11-06"
  ],
- "awaiting": [
-  {
-   "ticker": "DTE",
-   "acc": "0000936340-26-000172",
-   "accepted": "2026-11-06T16:18:18-05:00",
-   "tone": -0.0008741258741258741,
-   "company": "DTE ENERGY CO"
-  }
- ],
+ "awaiting": [],
  "shadow": [
   {
    "ticker": "FAST",
@@ -19328,15 +19330,6 @@
   }
  ],
  "events_log": [
-  {
-   "ticker": "RF",
-   "company": "REGIONS FINANCIAL CORP",
-   "day0": "2026-10-16",
-   "tone": 0.0015,
-   "abtone": -0.00138,
-   "rang": 0.426,
-   "decision": "neutre"
-  },
   {
    "ticker": "TRV",
    "company": "TRAVELERS COMPANIES, INC.",
@@ -22927,6 +22920,15 @@
    "abtone": -0.00234,
    "rang": 0.365,
    "decision": "neutre"
+  },
+  {
+   "ticker": "DTE",
+   "company": "DTE ENERGY CO",
+   "day0": "2026-11-09",
+   "tone": -0.00087,
+   "abtone": -0.00437,
+   "rang": 0.245,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -22984,7 +22986,7 @@
  "counters": {
   "jours": 18,
   "communiques": 421,
-  "evalues": 418,
+  "evalues": 419,
   "achetes": 50,
   "ombre": 84,
   "complet": 19
