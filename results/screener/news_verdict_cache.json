@@ -1,10 +1,4 @@
 {
-  "PRG_2026-10-25": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Recent news indicates a positive sentiment towards PROG Holdings, Inc. (PRG) as the stock was raised to 'Buy' by Loop Capital, and the company surged pre-market after Q1 earnings beat and raised 2026 outlook.",
-    "source": "ollama"
-  },
   "PRG_2026-10-26": {
     "relevant": true,
     "sentiment": "positive",
@@ -706,5 +700,23 @@
     "sentiment": null,
     "reason": "'sues' actif (3/3 votes) : Le titre décrit un risque actif en cours, car il fait mention d'un procès en cours entre Mondelez International et Joyride sur la marque déposée Sour Patch Kids; Il y a une procédure de litige en cours concernant la marque déposée des Sour Patch Kids (titre: Mondelez sues Joyride over Sour Patch Kids trademark)",
     "source": "keyword_veto"
+  },
+  "MDLZ_2026-11-09": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The articles highlight collaborations, partnerships, and a 52-week high stock price, suggesting a positive outlook for Mondelez International's business and stock performance.",
+    "source": "ollama"
+  },
+  "SNA_2026-11-09": {
+    "relevant": true,
+    "sentiment": null,
+    "reason": "ollama indisponible (HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=180))",
+    "source": "ollama_error"
+  },
+  "BRC_2026-11-09": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The articles generally highlight Brady Corporation's strong performance, growth potential, and positive outlook, with mentions of its high ROIC, low leverage, and potential for synergies from the integration of PSS Business.",
+    "source": "ollama"
   }
 }
