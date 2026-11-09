@@ -1,16 +1,8 @@
 {
  "cash": {
-  "pool": 7267.552674243901
+  "pool": 7274.932671497319
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "COV.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-09T01:44:11Z",
-   "fraction": 1.0
-  },
   {
    "side": "sell",
    "ticker": "DAL",
@@ -45,18 +37,6 @@
   },
   {
    "side": "buy",
-   "ticker": "UCG.MI",
-   "bucket": "pool",
-   "reason": "avis Adam Tooze from Chartbook (substack.com) (ton)",
-   "decided_at": "2026-11-07T16:25:36Z",
-   "amount_eur": 100.0,
-   "name": "UniCredit S.p.A.",
-   "sector": "Adam Tooze from Chartbook (substack.com) (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
    "ticker": "BAM",
    "bucket": "pool",
    "reason": "avis seekingalpha.com",
@@ -66,6 +46,30 @@
    "sector": "seekingalpha.com",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "BAMI.MI",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-09T20:43:20Z",
+   "amount_eur": 100.0,
+   "name": "Banco BPM S.p.A.",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "LR.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-09T20:43:20Z",
+   "amount_eur": 100.0,
+   "name": "Legrand SA",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -91,7 +95,6 @@
   "VICI": "2026-11-09",
   "GOOGL": "2026-11-26",
   "DAL": "2026-11-09",
-  "COV.PA": "2026-11-09",
   "SO": "2026-11-10",
   "NEE": "2026-11-10",
   "ECO": "2026-11-11",
@@ -110,7 +113,7 @@
   "BSP": "2026-11-12",
   "VETO.PA": "2026-11-12",
   "BLK": "2026-11-12",
-  "QMLS": "2026-11-12",
+  "QMLS": "2026-12-07",
   "WDS": "2026-11-12",
   "MS": "2026-11-12",
   "CNC": "2026-11-12",
@@ -187,7 +190,9 @@
   "INTC": "2026-12-03",
   "ACMR": "2026-12-04",
   "UCG.MI": "2026-12-04",
-  "BAM": "2026-12-04"
+  "BAM": "2026-12-04",
+  "BAMI.MI": "2026-12-07",
+  "LR.PA": "2026-12-07"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -631,12 +636,15 @@
   "1a1b61d548cccb98:SNDK",
   "1a1bb3e841fce139:BAC",
   "1a1bb3a368523071:WES",
-  "1a1bf71c3fb3472e:IPAR"
+  "1a1bf71c3fb3472e:IPAR",
+  "1a1c15b2411bacb2:BAMI.MI",
+  "1a1c06b0193c0b37:QMLS",
+  "1a1c15b2411bacb2:LR.PA"
  ],
  "counters": {
-  "avis": 442,
-  "achetes": 265,
-  "prolonges": 177,
+  "avis": 445,
+  "achetes": 267,
+  "prolonges": 178,
   "complet": 0
  },
  "dropped": [
