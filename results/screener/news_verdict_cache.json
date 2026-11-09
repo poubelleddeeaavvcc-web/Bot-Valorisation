@@ -748,5 +748,11 @@
     "sentiment": "positive",
     "reason": "The news highlights record revenue and adjusted EBITDA for Q3, increased earnings outlook, new contracts, and a major debt cut and bigger buyback program.",
     "source": "ollama"
+  },
+  "ODFL_2026-11-09": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The articles mention Old Dominion Freight Line's Q3 revenue exceeding expectations, potential gains from trucking rule changes, and the options market indicating a possible spike in the stock.",
+    "source": "ollama"
   }
 }

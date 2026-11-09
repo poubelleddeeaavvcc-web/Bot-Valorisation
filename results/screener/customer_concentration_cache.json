@@ -990,5 +990,13 @@
       "reason": "10-K SEC (2026-02-13) : Customers We serve thousands of customers, none of which accounted for more than 10% of our consolidated revenue [https://www.sec.gov/Archives/edgar/data/29905/000002990526000009/dov-20251231.htm]",
       "source": "sec_10k"
     }
+  },
+  "ODFL": {
+    "checked_at": "2026-11-09",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "The text does not provide clear indications about the number of clients. It mentions services for various regions, inter-regional, and national less-than-truckload services, which suggest a wide range of clients. However, the absence of explicit mention of a diverse client base or serving the genera",
+      "source": "ollama"
+    }
   }
 }
