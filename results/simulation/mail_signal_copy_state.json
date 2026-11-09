@@ -26,6 +26,46 @@
    "sector": "seekingalpha.com",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "sell",
+   "ticker": "COV.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-09T01:44:11Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "DAL",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-09T01:44:11Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "PLTR",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-09T01:44:11Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "SMCI",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-09T01:44:11Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "VICI",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-09T01:44:11Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
