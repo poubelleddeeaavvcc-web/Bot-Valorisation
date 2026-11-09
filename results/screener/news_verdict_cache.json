@@ -742,5 +742,11 @@
     "sentiment": "positive",
     "reason": "The general tone is positive as the news highlights ASM International's record revenue and new chipmaking technology, despite a recent pullback in the share price.",
     "source": "ollama"
+  },
+  "GEO_2026-11-09": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The news highlights record revenue and adjusted EBITDA for Q3, increased earnings outlook, new contracts, and a major debt cut and bigger buyback program.",
+    "source": "ollama"
   }
 }
