@@ -736,5 +736,11 @@
     "sentiment": "neutral",
     "reason": "Les actualités ne fournissent pas suffisamment d'informations pour déterminer un ton général positif, négatif ou neutre pour l'action de Tung Ho Steel Enterprise Corporation. Elles ne mentionnent pas de nouvelles significatives sur l'entreprise ou son action.",
     "source": "ollama"
+  },
+  "ASM.AS_2026-11-09": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general tone is positive as the news highlights ASM International's record revenue and new chipmaking technology, despite a recent pullback in the share price.",
+    "source": "ollama"
   }
 }
