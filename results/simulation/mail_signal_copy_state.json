@@ -4,30 +4,6 @@
  },
  "pending": [
   {
-   "side": "buy",
-   "ticker": "UCG.MI",
-   "bucket": "pool",
-   "reason": "avis Adam Tooze from Chartbook (substack.com) (ton)",
-   "decided_at": "2026-11-07T16:25:36Z",
-   "amount_eur": 100.0,
-   "name": "UniCredit S.p.A.",
-   "sector": "Adam Tooze from Chartbook (substack.com) (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "BAM",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-11-07T16:25:36Z",
-   "amount_eur": 100.0,
-   "name": "Brookfield Asset Management Ltd.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
    "side": "sell",
    "ticker": "COV.PA",
    "bucket": "pool",
@@ -66,6 +42,30 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-09T01:44:11Z",
    "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "UCG.MI",
+   "bucket": "pool",
+   "reason": "avis Adam Tooze from Chartbook (substack.com) (ton)",
+   "decided_at": "2026-11-07T16:25:36Z",
+   "amount_eur": 100.0,
+   "name": "UniCredit S.p.A.",
+   "sector": "Adam Tooze from Chartbook (substack.com) (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "BAM",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-11-07T16:25:36Z",
+   "amount_eur": 100.0,
+   "name": "Brookfield Asset Management Ltd.",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -78,7 +78,7 @@
   "ORCL": "2026-11-26",
   "NBIS": "2026-11-11",
   "META": "2026-11-20",
-  "IPAR": "2026-11-11",
+  "IPAR": "2026-12-07",
   "SMCI": "2026-11-09",
   "MSFT": "2026-11-26",
   "PLTR": "2026-11-09",
@@ -630,12 +630,13 @@
   "1a1b60b66e390766:BAM",
   "1a1b61d548cccb98:SNDK",
   "1a1bb3e841fce139:BAC",
-  "1a1bb3a368523071:WES"
+  "1a1bb3a368523071:WES",
+  "1a1bf71c3fb3472e:IPAR"
  ],
  "counters": {
-  "avis": 441,
+  "avis": 442,
   "achetes": 265,
-  "prolonges": 176,
+  "prolonges": 177,
   "complet": 0
  },
  "dropped": [
