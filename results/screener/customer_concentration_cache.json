@@ -974,5 +974,21 @@
       "reason": "Le texte ne donne pas clairement d'indication sur la concentration de la base de clients de l'entreprise.",
       "source": "ollama"
     }
+  },
+  "5801.T": {
+    "checked_at": "2026-11-09",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "Le texte ne donne pas d'indication claire sur la concentration ou la diversification de la base de clients de l'entreprise Furukawa Electric Co., Ltd. La diversité de leurs produits et leurs marchés peuvent indiquer une base de clients diversifiée, mais aucune information claire sur les clients prin",
+      "source": "ollama"
+    }
+  },
+  "DOV": {
+    "checked_at": "2026-11-09",
+    "verdict": {
+      "concentration": "concentrated",
+      "reason": "10-K SEC (2026-02-13) : Customers We serve thousands of customers, none of which accounted for more than 10% of our consolidated revenue [https://www.sec.gov/Archives/edgar/data/29905/000002990526000009/dov-20251231.htm]",
+      "source": "sec_10k"
+    }
   }
 }

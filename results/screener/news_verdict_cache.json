@@ -718,5 +718,23 @@
     "sentiment": "positive",
     "reason": "The articles generally highlight Brady Corporation's strong performance, growth potential, and positive outlook, with mentions of its high ROIC, low leverage, and potential for synergies from the integration of PSS Business.",
     "source": "ollama"
+  },
+  "5801.T_2026-11-09": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "The news articles do not show a consistent positive, negative, or neutral sentiment towards Furukawa Electric Co., Ltd. (5801.T). They mainly report on market trends and events that could potentially impact the stock, such as US elections, oil prices, bond yields, and economic data, but do not speci",
+    "source": "ollama"
+  },
+  "DOV_2026-11-09": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The news highlights Dover Corporation's recent acquisitions, earnings beats, and growth in sectors like clean energy and aerospace, indicating a positive outlook.",
+    "source": "ollama"
+  },
+  "2006.TW_2026-11-09": {
+    "relevant": true,
+    "sentiment": "neutral",
+    "reason": "Les actualités ne fournissent pas suffisamment d'informations pour déterminer un ton général positif, négatif ou neutre pour l'action de Tung Ho Steel Enterprise Corporation. Elles ne mentionnent pas de nouvelles significatives sur l'entreprise ou son action.",
+    "source": "ollama"
   }
 }
