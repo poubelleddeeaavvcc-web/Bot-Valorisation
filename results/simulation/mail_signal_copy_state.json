@@ -4,30 +4,6 @@
  },
  "pending": [
   {
-   "side": "buy",
-   "ticker": "BAMI.MI",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-09T20:43:20Z",
-   "amount_eur": 100.0,
-   "name": "Banco BPM S.p.A.",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "LR.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-09T20:43:20Z",
-   "amount_eur": 100.0,
-   "name": "Legrand SA",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
    "side": "sell",
    "ticker": "CA.PA",
    "bucket": "pool",
@@ -66,6 +42,42 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-10T04:08:23Z",
    "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "BAMI.MI",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-09T20:43:20Z",
+   "amount_eur": 100.0,
+   "name": "Banco BPM S.p.A.",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "LR.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-09T20:43:20Z",
+   "amount_eur": 100.0,
+   "name": "Legrand SA",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "AIR.PA",
+   "bucket": "pool",
+   "reason": "avis tradingsat.com",
+   "decided_at": "2026-11-10T12:36:07Z",
+   "amount_eur": 100.0,
+   "name": "Airbus SE",
+   "sector": "tradingsat.com",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -184,7 +196,8 @@
   "UCG.MI": "2026-12-04",
   "BAM": "2026-12-04",
   "BAMI.MI": "2026-12-07",
-  "LR.PA": "2026-12-07"
+  "LR.PA": "2026-12-07",
+  "AIR.PA": "2026-12-08"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -632,11 +645,12 @@
   "1a1c15b2411bacb2:BAMI.MI",
   "1a1c06b0193c0b37:QMLS",
   "1a1c15b2411bacb2:LR.PA",
-  "1a1c224434f95150:NVDA"
+  "1a1c224434f95150:NVDA",
+  "1a1c49c3b568c614:AIR.PA"
  ],
  "counters": {
-  "avis": 446,
-  "achetes": 267,
+  "avis": 447,
+  "achetes": 268,
   "prolonges": 179,
   "complet": 0
  },
