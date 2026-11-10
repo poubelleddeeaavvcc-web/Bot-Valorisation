@@ -18884,6 +18884,56 @@
    "react": -0.00106,
    "age": 3.08827,
    "tone": -0.000874
+  },
+  {
+   "ticker": "BRK-B",
+   "date": "2026-11-09",
+   "ret12": 0.17096,
+   "size": 27.839208,
+   "stdret": 0.03315,
+   "react": -0.02176,
+   "age": 3.08827,
+   "tone": 0.0
+  },
+  {
+   "ticker": "CEG",
+   "date": "2026-11-09",
+   "ret12": -0.336574,
+   "size": 25.306402,
+   "stdret": 0.127797,
+   "react": 0.125193,
+   "age": 1.758707,
+   "tone": -0.003701
+  },
+  {
+   "ticker": "FERG",
+   "date": "2026-11-09",
+   "ret12": -0.039032,
+   "size": 24.640956,
+   "stdret": 0.112592,
+   "react": 0.076172,
+   "age": 2.881626,
+   "tone": 0.001782
+  },
+  {
+   "ticker": "KKR",
+   "date": "2026-11-09",
+   "ret12": -0.167192,
+   "size": 25.20116,
+   "stdret": 0.102742,
+   "react": -0.028999,
+   "age": 2.851881,
+   "tone": 0.009276
+  },
+  {
+   "ticker": "NRG",
+   "date": "2026-11-09",
+   "ret12": -0.528028,
+   "size": 23.742446,
+   "stdret": 0.075306,
+   "react": 0.182325,
+   "age": 3.08827,
+   "tone": 0.000274
   }
  ],
  "edgar_days_done": [
@@ -18904,9 +18954,39 @@
   "2026-11-03",
   "2026-11-04",
   "2026-11-05",
-  "2026-11-06"
+  "2026-11-06",
+  "2026-11-09"
  ],
- "awaiting": [],
+ "awaiting": [
+  {
+   "ticker": "OXY",
+   "acc": "0001628280-26-072193",
+   "accepted": "2026-11-09T16:13:54-05:00",
+   "tone": -0.004379242391066345,
+   "company": "OCCIDENTAL PETROLEUM CORP /DE/"
+  },
+  {
+   "ticker": "PSKY",
+   "acc": "0002041610-26-000062",
+   "accepted": "2026-11-09T16:04:26-05:00",
+   "tone": 0.005873187102960566,
+   "company": "Skydance Corp"
+  },
+  {
+   "ticker": "TTWO",
+   "acc": "0001628280-26-072175",
+   "accepted": "2026-11-09T16:10:58-05:00",
+   "tone": -0.003898635477582846,
+   "company": "TAKE TWO INTERACTIVE SOFTWARE INC"
+  },
+  {
+   "ticker": "TTD",
+   "acc": "0001671933-26-000115",
+   "accepted": "2026-11-09T16:09:41-05:00",
+   "tone": 0.0007883326763894363,
+   "company": "Trade Desk, Inc."
+  }
+ ],
  "shadow": [
   {
    "ticker": "FAST",
@@ -19327,54 +19407,14 @@
    "ticker": "PPL",
    "day0": "2026-11-06",
    "rang": 0.882
+  },
+  {
+   "ticker": "KKR",
+   "day0": "2026-11-09",
+   "rang": 0.804
   }
  ],
  "events_log": [
-  {
-   "ticker": "TRV",
-   "company": "TRAVELERS COMPANIES, INC.",
-   "day0": "2026-10-16",
-   "tone": 0.00748,
-   "abtone": 0.0031,
-   "rang": 0.698,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "TFC",
-   "company": "TRUIST FINANCIAL CORP",
-   "day0": "2026-10-16",
-   "tone": 0.00187,
-   "abtone": -0.00209,
-   "rang": 0.379,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "FITB",
-   "company": "FIFTH THIRD BANCORP",
-   "day0": "2026-10-19",
-   "tone": -0.00033,
-   "abtone": -0.00355,
-   "rang": 0.296,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "WRB",
-   "company": "BERKLEY W R CORP",
-   "day0": "2026-10-20",
-   "tone": 0.0,
-   "abtone": -0.00315,
-   "rang": 0.316,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "MMM",
-   "company": "3M CO",
-   "day0": "2026-10-20",
-   "tone": -0.00275,
-   "abtone": -0.00714,
-   "rang": 0.141,
-   "decision": "achat"
-  },
   {
    "ticker": "EFX",
    "company": "EQUIFAX INC",
@@ -22929,6 +22969,51 @@
    "abtone": -0.00437,
    "rang": 0.245,
    "decision": "neutre"
+  },
+  {
+   "ticker": "BRK-B",
+   "company": "BERKSHIRE HATHAWAY INC",
+   "day0": "2026-11-09",
+   "tone": 0.0,
+   "abtone": -0.00741,
+   "rang": 0.13,
+   "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "CEG",
+   "company": "Constellation Energy Corp",
+   "day0": "2026-11-09",
+   "tone": -0.0037,
+   "abtone": -0.00783,
+   "rang": 0.117,
+   "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "FERG",
+   "company": "Ferguson Enterprises Inc. /DE/",
+   "day0": "2026-11-09",
+   "tone": 0.00178,
+   "abtone": -0.00182,
+   "rang": 0.404,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "KKR",
+   "company": "KKR & Co. Inc.",
+   "day0": "2026-11-09",
+   "tone": 0.00928,
+   "abtone": 0.00537,
+   "rang": 0.804,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "NRG",
+   "company": "NRG ENERGY, INC.",
+   "day0": "2026-11-09",
+   "tone": 0.00027,
+   "abtone": -0.00351,
+   "rang": 0.289,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -22984,11 +23069,11 @@
   "AIG": "2027-01-28"
  },
  "counters": {
-  "jours": 18,
-  "communiques": 421,
-  "evalues": 419,
+  "jours": 19,
+  "communiques": 430,
+  "evalues": 424,
   "achetes": 50,
-  "ombre": 84,
-  "complet": 19
+  "ombre": 85,
+  "complet": 21
  }
 }
