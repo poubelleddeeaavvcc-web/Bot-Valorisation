@@ -998,5 +998,13 @@
       "reason": "The text does not provide clear indications about the number of clients. It mentions services for various regions, inter-regional, and national less-than-truckload services, which suggest a wide range of clients. However, the absence of explicit mention of a diverse client base or serving the genera",
       "source": "ollama"
     }
+  },
+  "PAYC": {
+    "checked_at": "2026-11-10",
+    "verdict": {
+      "concentration": "unknown",
+      "reason": "Le texte ne fournit pas de renseignements clairs sur la concentration ou la diversité de la base de clients de l'entreprise Paycom Software, Inc. (PAYC). Il est possible que cette information soit disponible ailleurs dans des documents ou des rapports financiers.",
+      "source": "ollama"
+    }
   }
 }
