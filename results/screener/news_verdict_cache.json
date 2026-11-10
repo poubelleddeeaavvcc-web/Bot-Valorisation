@@ -1,46 +1,4 @@
 {
-  "PRG_2026-10-26": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Recent news indicates a positive sentiment towards PROG Holdings, Inc. (PRG) as the stock was raised to 'Buy' by Loop Capital, and the company surged pre-market after Q1 earnings beat and raised 2026 outlook.",
-    "source": "ollama"
-  },
-  "SAND.ST_2026-10-26": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Recent news about Sandvik AB (publ) indicates a positive sentiment, with reports of earnings call presentations and stock price updates.",
-    "source": "ollama"
-  },
-  "AMN_2026-10-26": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "The general tone of the recent news about AMN Healthcare Services, Inc. is positive, with mentions of a 8.9% jump in the stock price, hitting a 52-week high, and a recommendation to retain the stock in one's portfolio.",
-    "source": "ollama"
-  },
-  "B3SA3.SA_2026-10-26": {
-    "relevant": true,
-    "sentiment": "neutral",
-    "reason": "The news articles provide a mix of updates and analysis about B3 S.A., but do not indicate a clear positive, negative, or neutral sentiment overall.",
-    "source": "ollama"
-  },
-  "ITUB4.SA_2026-10-26": {
-    "relevant": true,
-    "sentiment": null,
-    "reason": "The news shows a mixed sentiment for Itaú Unibanco Holding S.A. with some reports indicating a potential positive outlook due to market movements (TradingView, TradingKey), while others suggest a negative trend following the election of Lula (TradingView).",
-    "source": "ollama"
-  },
-  "FVI.TO_2026-10-26": {
-    "relevant": true,
-    "sentiment": null,
-    "reason": "The news shows a mix of positive and neutral sentiments towards Fortuna Mining Corp. The company is reported to be lining up more cash returns for shareholders, and is also identified as a high growth momentum stock. However, there is also news about the company giving up ground in its Latin America",
-    "source": "ollama"
-  },
-  "HCSG_2026-10-26": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Healthcare Services Group has been outperforming its peers, crushing Q3 2026 profit estimates, and posting upbeat Q3 earnings, causing the stock to be in focus.",
-    "source": "ollama"
-  },
   "AMN_2026-10-27": {
     "relevant": true,
     "sentiment": "positive",
@@ -753,6 +711,24 @@
     "relevant": true,
     "sentiment": "positive",
     "reason": "The articles mention Old Dominion Freight Line's Q3 revenue exceeding expectations, potential gains from trucking rule changes, and the options market indicating a possible spike in the stock.",
+    "source": "ollama"
+  },
+  "SNA_2026-11-10": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The news highlights Snap-on's continuous dividend increases, including a recent significant hike, and the introduction of a high-torque cordless wrench, which could drive premium sales.",
+    "source": "ollama"
+  },
+  "GEO_2026-11-10": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The news highlights increased revenue, record third-quarter revenue and adjusted EBITDA, new ICE contracts, and a larger buyback program, which suggest a positive outlook for GEO Group's stock.",
+    "source": "ollama"
+  },
+  "BRC_2026-11-10": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The articles generally discuss Brady Corporation's potential for growth, strong cash flow, and positive outlook, as well as its high ROIC and quality status.",
     "source": "ollama"
   }
 }
