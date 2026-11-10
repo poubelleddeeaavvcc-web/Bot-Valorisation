@@ -1,16 +1,8 @@
 {
  "cash": {
-  "pool": 7551.945713728578
+  "pool": 7184.320707052858
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "CA.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-10T04:08:23Z",
-   "fraction": 1.0
-  },
   {
    "side": "sell",
    "ticker": "GLPI",
@@ -45,37 +37,49 @@
   },
   {
    "side": "buy",
-   "ticker": "BAMI.MI",
+   "ticker": "AMBQ",
    "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-09T20:43:20Z",
+   "reason": "avis Tech Daily (sailthru.com)",
+   "decided_at": "2026-11-10T20:49:37Z",
    "amount_eur": 100.0,
-   "name": "Banco BPM S.p.A.",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
+   "name": "Ambiq Micro, Inc.",
+   "sector": "Tech Daily (sailthru.com)",
+   "currency": "USD",
+   "fractional": true
   },
   {
    "side": "buy",
-   "ticker": "LR.PA",
+   "ticker": "XOM",
    "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-09T20:43:20Z",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-11-10T20:49:37Z",
    "amount_eur": 100.0,
-   "name": "Legrand SA",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
+   "name": "ExxonMobil Holdings Corporation",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
   },
   {
    "side": "buy",
-   "ticker": "AIR.PA",
+   "ticker": "SMCI",
    "bucket": "pool",
-   "reason": "avis tradingsat.com",
-   "decided_at": "2026-11-10T12:36:07Z",
+   "reason": "avis Zacks Rank (email.zacks.com)",
+   "decided_at": "2026-11-10T20:49:37Z",
    "amount_eur": 100.0,
-   "name": "Airbus SE",
-   "sector": "tradingsat.com",
+   "name": "Super Micro Computer, Inc.",
+   "sector": "Zacks Rank (email.zacks.com)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "SAF.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-10T20:49:37Z",
+   "amount_eur": 100.0,
+   "name": "Safran SA",
+   "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
   }
@@ -104,7 +108,6 @@
   "ECO": "2026-11-11",
   "WYNN": "2026-11-10",
   "GLPI": "2026-11-10",
-  "CA.PA": "2026-11-10",
   "CDNL": "2026-11-11",
   "EDA.F": "2026-11-11",
   "FUL": "2026-11-11",
@@ -137,7 +140,7 @@
   "JPM": "2026-11-17",
   "HAS": "2026-11-18",
   "GET.PA": "2026-11-18",
-  "STX": "2026-11-19",
+  "STX": "2026-12-08",
   "EL.PA": "2026-11-27",
   "AA": "2026-11-18",
   "VU.PA": "2026-11-18",
@@ -171,7 +174,7 @@
   "WLN.PA": "2026-12-03",
   "CVX": "2026-11-26",
   "PBI": "2026-11-26",
-  "RNO.PA": "2026-11-26",
+  "RNO.PA": "2026-12-08",
   "DSY.PA": "2026-11-26",
   "SPXC": "2026-11-26",
   "TTE": "2026-11-26",
@@ -197,7 +200,11 @@
   "BAM": "2026-12-04",
   "BAMI.MI": "2026-12-07",
   "LR.PA": "2026-12-07",
-  "AIR.PA": "2026-12-08"
+  "AIR.PA": "2026-12-08",
+  "AMBQ": "2026-12-08",
+  "XOM": "2026-12-08",
+  "SMCI": "2026-12-08",
+  "SAF.PA": "2026-12-08"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -646,12 +653,18 @@
   "1a1c06b0193c0b37:QMLS",
   "1a1c15b2411bacb2:LR.PA",
   "1a1c224434f95150:NVDA",
-  "1a1c49c3b568c614:AIR.PA"
+  "1a1c49c3b568c614:AIR.PA",
+  "1a1c5904da6aeccf:AMBQ",
+  "1a1c5871a057dc71:XOM",
+  "1a1c6693704be779:RNO.PA",
+  "1a1c57b2b0872bff:SMCI",
+  "1a1c57b2b0872bff:STX",
+  "1a1c6693704be779:SAF.PA"
  ],
  "counters": {
-  "avis": 447,
-  "achetes": 268,
-  "prolonges": 179,
+  "avis": 453,
+  "achetes": 272,
+  "prolonges": 181,
   "complet": 0
  },
  "dropped": [
