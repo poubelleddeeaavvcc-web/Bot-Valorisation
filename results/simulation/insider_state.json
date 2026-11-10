@@ -1,23 +1,8 @@
 {
  "cash": {
-  "pool": 4500.0
+  "pool": 4400.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "FGBI",
-   "bucket": "pool",
-   "reason": "1 initie(s), 59 k$ le 2026-11-06",
-   "decided_at": "2026-11-10T11:40:27Z",
-   "amount_eur": 100.0,
-   "name": "First Guaranty Bancshares, Inc.",
-   "sector": "Inities (petites cap.)",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 59000.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",

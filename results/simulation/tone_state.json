@@ -18934,6 +18934,36 @@
    "react": 0.182325,
    "age": 3.08827,
    "tone": 0.000274
+  },
+  {
+   "ticker": "OXY",
+   "date": "2026-11-10",
+   "ret12": 0.426864,
+   "size": 24.764199,
+   "stdret": 0.067411,
+   "react": -0.010674,
+   "age": 3.088394,
+   "tone": -0.004379
+  },
+  {
+   "ticker": "TTWO",
+   "date": "2026-11-10",
+   "ret12": -0.148693,
+   "size": 24.461014,
+   "stdret": 0.101176,
+   "react": 0.025572,
+   "age": 3.088394,
+   "tone": -0.003899
+  },
+  {
+   "ticker": "TTD",
+   "date": "2026-11-10",
+   "ret12": -0.718301,
+   "size": 22.709838,
+   "stdret": 0.135151,
+   "react": 0.172678,
+   "age": 2.41014,
+   "tone": 0.000788
   }
  ],
  "edgar_days_done": [
@@ -18959,32 +18989,11 @@
  ],
  "awaiting": [
   {
-   "ticker": "OXY",
-   "acc": "0001628280-26-072193",
-   "accepted": "2026-11-09T16:13:54-05:00",
-   "tone": -0.004379242391066345,
-   "company": "OCCIDENTAL PETROLEUM CORP /DE/"
-  },
-  {
    "ticker": "PSKY",
    "acc": "0002041610-26-000062",
    "accepted": "2026-11-09T16:04:26-05:00",
    "tone": 0.005873187102960566,
    "company": "Skydance Corp"
-  },
-  {
-   "ticker": "TTWO",
-   "acc": "0001628280-26-072175",
-   "accepted": "2026-11-09T16:10:58-05:00",
-   "tone": -0.003898635477582846,
-   "company": "TAKE TWO INTERACTIVE SOFTWARE INC"
-  },
-  {
-   "ticker": "TTD",
-   "acc": "0001671933-26-000115",
-   "accepted": "2026-11-09T16:09:41-05:00",
-   "tone": 0.0007883326763894363,
-   "company": "Trade Desk, Inc."
   }
  ],
  "shadow": [
@@ -19415,33 +19424,6 @@
   }
  ],
  "events_log": [
-  {
-   "ticker": "EFX",
-   "company": "EQUIFAX INC",
-   "day0": "2026-10-20",
-   "tone": 0.00587,
-   "abtone": 0.0032,
-   "rang": 0.702,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "GE",
-   "company": "GENERAL ELECTRIC CO",
-   "day0": "2026-10-20",
-   "tone": -0.00054,
-   "abtone": -0.00548,
-   "rang": 0.203,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "GPC",
-   "company": "GENUINE PARTS CO",
-   "day0": "2026-10-20",
-   "tone": 0.00117,
-   "abtone": -0.00024,
-   "rang": 0.504,
-   "decision": "neutre"
-  },
   {
    "ticker": "GM",
    "company": "General Motors Co",
@@ -23014,6 +22996,33 @@
    "abtone": -0.00351,
    "rang": 0.289,
    "decision": "neutre"
+  },
+  {
+   "ticker": "OXY",
+   "company": "OCCIDENTAL PETROLEUM CORP /DE/",
+   "day0": "2026-11-10",
+   "tone": -0.00438,
+   "abtone": -0.00826,
+   "rang": 0.104,
+   "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "TTWO",
+   "company": "TAKE TWO INTERACTIVE SOFTWARE INC",
+   "day0": "2026-11-10",
+   "tone": -0.0039,
+   "abtone": -0.00736,
+   "rang": 0.131,
+   "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "TTD",
+   "company": "Trade Desk, Inc.",
+   "day0": "2026-11-10",
+   "tone": 0.00079,
+   "abtone": -0.00106,
+   "rang": 0.451,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -23071,9 +23080,9 @@
  "counters": {
   "jours": 19,
   "communiques": 430,
-  "evalues": 424,
+  "evalues": 427,
   "achetes": 50,
   "ombre": 85,
-  "complet": 21
+  "complet": 23
  }
 }
