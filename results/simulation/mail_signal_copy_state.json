@@ -1,52 +1,8 @@
 {
  "cash": {
-  "pool": 7274.932671497319
+  "pool": 7551.945713728578
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "DAL",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-09T01:44:11Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "PLTR",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-09T01:44:11Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "SMCI",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-09T01:44:11Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "VICI",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-09T01:44:11Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "BAM",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-11-07T16:25:36Z",
-   "amount_eur": 100.0,
-   "name": "Brookfield Asset Management Ltd.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
   {
    "side": "buy",
    "ticker": "BAMI.MI",
@@ -70,12 +26,52 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "sell",
+   "ticker": "CA.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-10T04:08:23Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "GLPI",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-10T04:08:23Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "NEE",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-10T04:08:23Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "SO",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-10T04:08:23Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "WYNN",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-10T04:08:23Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-12-04",
-  "NVDA": "2026-12-04",
+  "NVDA": "2026-12-08",
   "AVGO": "2026-11-19",
   "SNDK": "2026-12-04",
   "RKLB": "2026-11-20",
@@ -83,18 +79,14 @@
   "NBIS": "2026-11-11",
   "META": "2026-11-20",
   "IPAR": "2026-12-07",
-  "SMCI": "2026-11-09",
   "MSFT": "2026-11-26",
-  "PLTR": "2026-11-09",
   "AMZN": "2026-11-16",
   "GOOG": "2026-12-03",
   "ACN": "2026-11-20",
   "MRVL": "2026-12-01",
   "BAC": "2026-12-04",
   "ENB": "2026-11-11",
-  "VICI": "2026-11-09",
   "GOOGL": "2026-11-26",
-  "DAL": "2026-11-09",
   "SO": "2026-11-10",
   "NEE": "2026-11-10",
   "ECO": "2026-11-11",
@@ -639,12 +631,13 @@
   "1a1bf71c3fb3472e:IPAR",
   "1a1c15b2411bacb2:BAMI.MI",
   "1a1c06b0193c0b37:QMLS",
-  "1a1c15b2411bacb2:LR.PA"
+  "1a1c15b2411bacb2:LR.PA",
+  "1a1c224434f95150:NVDA"
  ],
  "counters": {
-  "avis": 445,
+  "avis": 446,
   "achetes": 267,
-  "prolonges": 178,
+  "prolonges": 179,
   "complet": 0
  },
  "dropped": [
