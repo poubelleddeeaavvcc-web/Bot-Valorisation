@@ -730,5 +730,11 @@
     "sentiment": "positive",
     "reason": "The articles generally discuss Brady Corporation's potential for growth, strong cash flow, and positive outlook, as well as its high ROIC and quality status.",
     "source": "ollama"
+  },
+  "LRN_2026-11-10": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Recent news highlights strong Q3 results and raised guidance for Legrand SA, accelerating revenue growth and net income for Chime Financial, and positive stock recommendations for Marathon Petroleum, Amgen, and Chevron. However, Stride Inc.'s stock price has slid due to squeezed margins in Q1.",
+    "source": "ollama"
   }
 }
