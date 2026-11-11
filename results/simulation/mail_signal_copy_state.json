@@ -1,40 +1,8 @@
 {
  "cash": {
-  "pool": 7312.638496129367
+  "pool": 7313.682474028365
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "GLPI",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-10T04:08:23Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "AMBQ",
-   "bucket": "pool",
-   "reason": "avis Tech Daily (sailthru.com)",
-   "decided_at": "2026-11-10T20:49:37Z",
-   "amount_eur": 100.0,
-   "name": "Ambiq Micro, Inc.",
-   "sector": "Tech Daily (sailthru.com)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "SAF.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-10T20:49:37Z",
-   "amount_eur": 100.0,
-   "name": "Safran SA",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
   {
    "side": "sell",
    "ticker": "AMT",
@@ -114,6 +82,30 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-11T01:58:34Z",
    "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "SAF.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-10T20:49:37Z",
+   "amount_eur": 100.0,
+   "name": "Safran SA",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "TTWO",
+   "bucket": "pool",
+   "reason": "avis aktionnaire.com (ton)",
+   "decided_at": "2026-11-11T09:20:53Z",
+   "amount_eur": 100.0,
+   "name": "Take-Two Interactive Software, Inc.",
+   "sector": "aktionnaire.com (ton)",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -136,7 +128,6 @@
   "ENB": "2026-11-11",
   "GOOGL": "2026-11-26",
   "ECO": "2026-11-11",
-  "GLPI": "2026-11-10",
   "CDNL": "2026-11-11",
   "EDA.F": "2026-11-11",
   "FUL": "2026-11-11",
@@ -188,7 +179,7 @@
   "GLE.PA": "2026-11-23",
   "NEM": "2026-11-24",
   "AFX.DE": "2026-11-24",
-  "SPIE.PA": "2026-11-24",
+  "SPIE.PA": "2026-12-09",
   "HESM": "2026-11-24",
   "PLNT": "2026-11-24",
   "EXENS.PA": "2026-11-24",
@@ -233,7 +224,8 @@
   "AMBQ": "2026-12-08",
   "XOM": "2026-12-08",
   "SMCI": "2026-12-08",
-  "SAF.PA": "2026-12-08"
+  "SAF.PA": "2026-12-08",
+  "TTWO": "2026-12-09"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -688,12 +680,14 @@
   "1a1c6693704be779:RNO.PA",
   "1a1c57b2b0872bff:SMCI",
   "1a1c57b2b0872bff:STX",
-  "1a1c6693704be779:SAF.PA"
+  "1a1c6693704be779:SAF.PA",
+  "1a1c917505f98c5b:TTWO",
+  "1a1c9c0947a53144:SPIE.PA"
  ],
  "counters": {
-  "avis": 453,
-  "achetes": 272,
-  "prolonges": 181,
+  "avis": 455,
+  "achetes": 273,
+  "prolonges": 182,
   "complet": 0
  },
  "dropped": [
