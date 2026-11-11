@@ -1,22 +1,4 @@
 {
-  "AMN_2026-10-27": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Recent news about AMN Healthcare Services, Inc. (AMN) indicates a generally positive sentiment, with articles discussing its stock reaching a 52-week high, strength seen in the stock, and strong secular growth propelling earnings.",
-    "source": "ollama"
-  },
-  "PRG_2026-10-27": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Recent news indicates a positive sentiment towards PROG Holdings' stock, with analysts raising the company to 'Buy' at Loop Capital and the stock surging pre-market after Q1 earnings beat and raised 2026 outlook.",
-    "source": "ollama"
-  },
-  "3044.TW_2026-10-27": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Simply Wall St raises target for Tripod Technology stock to TWD 349.00",
-    "source": "ollama"
-  },
   "PRG_2026-10-28": {
     "relevant": true,
     "sentiment": "positive",
@@ -741,6 +723,24 @@
     "relevant": true,
     "sentiment": "positive",
     "reason": "The overall sentiment is positive as most news articles highlight strong earnings, revenue growth, and bullish analyst opinions for Paycom Software, Inc.",
+    "source": "ollama"
+  },
+  "GEO_2026-11-11": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The GEO Group has delivered strong Q3 results, S&P has upgraded its rating, and the company has increased its revenue and earnings outlook, among other positive developments.",
+    "source": "ollama"
+  },
+  "SNA_2026-11-11": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The news highlights Snap-on's continuous dividend increases, recent dividend hike being the biggest yet, and the introduction of a high-torque cordless wrench that could drive premium sales.",
+    "source": "ollama"
+  },
+  "BRC_2026-11-11": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The articles generally highlight Brady Corporation's strong performance, potential growth, and positive outlook, such as the integration of PSS Business targeting $25 million in annual synergies, and the stock's high ROIC and low leverage.",
     "source": "ollama"
   }
 }
