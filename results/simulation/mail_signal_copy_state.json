@@ -85,18 +85,6 @@
   },
   {
    "side": "buy",
-   "ticker": "SAF.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-10T20:49:37Z",
-   "amount_eur": 100.0,
-   "name": "Safran SA",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
    "ticker": "TTWO",
    "bucket": "pool",
    "reason": "avis aktionnaire.com (ton)",
@@ -104,6 +92,42 @@
    "amount_eur": 100.0,
    "name": "Take-Two Interactive Software, Inc.",
    "sector": "aktionnaire.com (ton)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "FWRD",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-11-11T17:54:45Z",
+   "amount_eur": 100.0,
+   "name": "Forward Air Corporation",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "GHU.F",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-11-11T17:54:45Z",
+   "amount_eur": 100.0,
+   "name": "ADX Energy Ltd",
+   "sector": "seekingalpha.com",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "BILL",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-11-11T17:54:45Z",
+   "amount_eur": 100.0,
+   "name": "BILL Holdings, Inc.",
+   "sector": "seekingalpha.com",
    "currency": "USD",
    "fractional": true
   }
@@ -212,7 +236,7 @@
   "RUI.PA": "2026-12-01",
   "COIN": "2026-12-02",
   "GDYN": "2026-12-02",
-  "AMD": "2026-12-02",
+  "AMD": "2026-12-09",
   "CAP.PA": "2026-12-03",
   "INTC": "2026-12-03",
   "ACMR": "2026-12-04",
@@ -224,8 +248,10 @@
   "AMBQ": "2026-12-08",
   "XOM": "2026-12-08",
   "SMCI": "2026-12-08",
-  "SAF.PA": "2026-12-08",
-  "TTWO": "2026-12-09"
+  "TTWO": "2026-12-09",
+  "FWRD": "2026-12-09",
+  "GHU.F": "2026-12-09",
+  "BILL": "2026-12-09"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -682,12 +708,16 @@
   "1a1c57b2b0872bff:STX",
   "1a1c6693704be779:SAF.PA",
   "1a1c917505f98c5b:TTWO",
-  "1a1c9c0947a53144:SPIE.PA"
+  "1a1c9c0947a53144:SPIE.PA",
+  "1a1caa4fdee6a1a7:FWRD",
+  "1a1caad8aef8c57d:GHU.F",
+  "1a1ca9fc566c7b81:AMD",
+  "1a1cab7c8e52c17a:BILL"
  ],
  "counters": {
-  "avis": 455,
-  "achetes": 273,
-  "prolonges": 182,
+  "avis": 459,
+  "achetes": 276,
+  "prolonges": 183,
   "complet": 0
  },
  "dropped": [
@@ -700,6 +730,7 @@
   "VIRP.PA",
   "SPOT.VI",
   "OR.PA",
-  "OR.PA"
+  "OR.PA",
+  "SAF.PA"
  ]
 }
