@@ -1,23 +1,8 @@
 {
  "cash": {
-  "pool": 4400.0
+  "pool": 4300.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "OESX",
-   "bucket": "pool",
-   "reason": "1 initie(s), 26 k$ le 2026-11-10",
-   "decided_at": "2026-11-11T11:51:50Z",
-   "amount_eur": 100.0,
-   "name": "ORION ENERGY SYSTEMS, INC.",
-   "sector": "Inities (petites cap.)",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 25520.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",
