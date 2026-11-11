@@ -2,7 +2,22 @@
  "cash": {
   "pool": 4400.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "OESX",
+   "bucket": "pool",
+   "reason": "1 initie(s), 26 k$ le 2026-11-10",
+   "decided_at": "2026-11-11T11:51:50Z",
+   "amount_eur": 100.0,
+   "name": "ORION ENERGY SYSTEMS, INC.",
+   "sector": "Inities (petites cap.)",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 25520.0
+  }
+ ],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",
@@ -25,7 +40,8 @@
   "2026-11-04",
   "2026-11-05",
   "2026-11-06",
-  "2026-11-09"
+  "2026-11-09",
+  "2026-11-10"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -33,7 +49,8 @@
   "SWZ": "2027-04-08",
   "FINW": "2027-04-29",
   "AOMR": "2027-05-03",
-  "FGBI": "2027-05-05"
+  "FGBI": "2027-05-05",
+  "OESX": "2027-05-06"
  },
  "events_log": [
   {
@@ -1925,13 +1942,303 @@
    "title": "EVP & CHRO",
    "adv_usd": 269298573,
    "decision": "liquidite hors bande (269.30 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "ARLO",
+   "issuer": "Arlo Technologies, Inc.",
+   "value_usd": 100402,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 31260555,
+   "decision": "liquidite hors bande (31.26 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "ATEC",
+   "issuer": "Alphatec Holdings, Inc.",
+   "value_usd": 242550,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 46695057,
+   "decision": "liquidite hors bande (46.70 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "BSM",
+   "issuer": "Black Stone Minerals, L.P.",
+   "value_usd": 686290,
+   "insiders": 1,
+   "title": "Executive Chairman",
+   "adv_usd": 9088502,
+   "decision": "liquidite hors bande (9.09 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "CNXN",
+   "issuer": "PC CONNECTION INC",
+   "value_usd": 199698,
+   "insiders": 1,
+   "title": "President & COO",
+   "adv_usd": 16531742,
+   "decision": "liquidite hors bande (16.53 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "CRH",
+   "issuer": "CRH PUBLIC LTD CO",
+   "value_usd": 569700,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 538565794,
+   "decision": "liquidite hors bande (538.57 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "EGBN",
+   "issuer": "EAGLE BANCORP INC",
+   "value_usd": 49848,
+   "insiders": 1,
+   "title": "Senior EVP, CFO",
+   "adv_usd": 16700585,
+   "decision": "liquidite hors bande (16.70 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "EMN",
+   "issuer": "EASTMAN CHEMICAL CO",
+   "value_usd": 159989,
+   "insiders": 1,
+   "title": "SVP, Regions & Chf SupChn Ofcr",
+   "adv_usd": 97689211,
+   "decision": "liquidite hors bande (97.69 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "ENOV",
+   "issuer": "Enovis CORP",
+   "value_usd": 49917,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 43957620,
+   "decision": "liquidite hors bande (43.96 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "ETRA",
+   "issuer": "Electra Therapeutics, Inc.",
+   "value_usd": 744531,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 3026746,
+   "decision": "liquidite hors bande (3.03 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "FIS",
+   "issuer": "Fidelity National Information Services, Inc.",
+   "value_usd": 52200,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 297125338,
+   "decision": "liquidite hors bande (297.13 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "FLOC",
+   "issuer": "Flowco Holdings Inc.",
+   "value_usd": 389732,
+   "insiders": 1,
+   "title": "President and CEO",
+   "adv_usd": 12047260,
+   "decision": "liquidite hors bande (12.05 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "FUN",
+   "issuer": "Six Flags Entertainment Corporation/NEW",
+   "value_usd": 15019720,
+   "insiders": 2,
+   "title": "Executive Chair",
+   "adv_usd": 58801233,
+   "decision": "liquidite hors bande (58.80 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "GLXY",
+   "issuer": "Galaxy Digital Inc.",
+   "value_usd": 69900,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 154719466,
+   "decision": "liquidite hors bande (154.72 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "GOOD",
+   "issuer": "GLADSTONE COMMERCIAL CORP",
+   "value_usd": 86264,
+   "insiders": 1,
+   "title": "Chief Financial Officer",
+   "adv_usd": 7733339,
+   "decision": "liquidite hors bande (7.73 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "MCY",
+   "issuer": "MERCURY GENERAL CORP",
+   "value_usd": 49990,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 32098793,
+   "decision": "liquidite hors bande (32.10 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "NVT",
+   "issuer": "nVent Electric plc",
+   "value_usd": 339435,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 448830481,
+   "decision": "liquidite hors bande (448.83 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "OBK",
+   "issuer": "Origin Bancorp, Inc.",
+   "value_usd": 107160,
+   "insiders": 1,
+   "title": "Chief Risk Officer",
+   "adv_usd": 7878776,
+   "decision": "liquidite hors bande (7.88 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "OESX",
+   "issuer": "ORION ENERGY SYSTEMS, INC.",
+   "value_usd": 25520,
+   "insiders": 1,
+   "title": "EVP, CFO, CAO & Treasurer",
+   "adv_usd": 764621,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "SMCI",
+   "issuer": "Super Micro Computer, Inc.",
+   "value_usd": 49941,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 1393126567,
+   "decision": "liquidite hors bande (1393.13 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "SPXC",
+   "issuer": "SPX Technologies, Inc.",
+   "value_usd": 140750,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 128250722,
+   "decision": "liquidite hors bande (128.25 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "STRA",
+   "issuer": "Strategic Education, Inc.",
+   "value_usd": 163118,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 26104620,
+   "decision": "liquidite hors bande (26.10 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "STVN",
+   "issuer": "Stevanato Group S.p.A.",
+   "value_usd": 326750,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 17170155,
+   "decision": "liquidite hors bande (17.17 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "SUN",
+   "issuer": "Sunoco LP",
+   "value_usd": 92290,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 31175701,
+   "decision": "liquidite hors bande (31.18 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "SUNC",
+   "issuer": "SunocoCorp LLC",
+   "value_usd": 94132,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 23384722,
+   "decision": "liquidite hors bande (23.38 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "TSM",
+   "issuer": "TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD",
+   "value_usd": 80229,
+   "insiders": 20,
+   "title": "VP",
+   "adv_usd": 6183619182,
+   "decision": "liquidite hors bande (6183.62 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "TXO",
+   "issuer": "TXO Partners, L.P.",
+   "value_usd": 3078749,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 1729776,
+   "decision": "liquidite hors bande (1.73 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "UPBD",
+   "issuer": "UPBOUND GROUP, INC.",
+   "value_usd": 150074,
+   "insiders": 1,
+   "title": "EVP, Chief Operating Officer",
+   "adv_usd": 29504142,
+   "decision": "liquidite hors bande (29.50 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "WD",
+   "issuer": "Walker & Dunlop, Inc.",
+   "value_usd": 200526,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 20496013,
+   "decision": "liquidite hors bande (20.50 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-10",
+   "ticker": "WW",
+   "issuer": "WW INTERNATIONAL, INC.",
+   "value_usd": 192750,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 2727293,
+   "decision": "liquidite hors bande (2.73 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 20,
-  "evenements": 189,
-  "retenus": 6,
-  "achetes": 6,
+  "jours": 21,
+  "evenements": 218,
+  "retenus": 7,
+  "achetes": 7,
   "complet": 0,
   "prolonges": 0
  }
