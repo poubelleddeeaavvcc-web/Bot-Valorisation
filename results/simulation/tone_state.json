@@ -6,36 +6,6 @@
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
-   "ticker": "TSN",
-   "date": "2025-11-10",
-   "tone": -0.010169,
-   "ret12": -0.097649,
-   "size": 23.71518,
-   "stdret": 0.05478,
-   "react": 0.026151,
-   "age": 3.039977
-  },
-  {
-   "ticker": "PSKY",
-   "date": "2025-11-10",
-   "tone": 0.009602,
-   "ret12": 0.347793,
-   "size": 23.542048,
-   "stdret": 0.10421,
-   "react": 0.09068,
-   "age": 3.039787
-  },
-  {
-   "ticker": "OXY",
-   "date": "2025-11-10",
-   "tone": -0.005305,
-   "ret12": -0.179485,
-   "size": 24.36888,
-   "stdret": 0.086429,
-   "react": -0.004857,
-   "age": 3.040167
-  },
-  {
    "ticker": "TDG",
    "date": "2025-11-12",
    "tone": 0.007104,
@@ -18964,6 +18934,16 @@
    "react": 0.172678,
    "age": 2.41014,
    "tone": 0.000788
+  },
+  {
+   "ticker": "TDG",
+   "date": "2026-11-10",
+   "ret12": -0.058658,
+   "size": 24.938996,
+   "stdret": 0.042222,
+   "react": 0.003937,
+   "age": 3.075333,
+   "tone": 0.006828
   }
  ],
  "edgar_days_done": [
@@ -18985,7 +18965,8 @@
   "2026-11-04",
   "2026-11-05",
   "2026-11-06",
-  "2026-11-09"
+  "2026-11-09",
+  "2026-11-10"
  ],
  "awaiting": [
   {
@@ -19424,15 +19405,6 @@
   }
  ],
  "events_log": [
-  {
-   "ticker": "GM",
-   "company": "General Motors Co",
-   "day0": "2026-10-20",
-   "tone": -0.01056,
-   "abtone": -0.01352,
-   "rang": 0.026,
-   "decision": "achat"
-  },
   {
    "ticker": "HAL",
    "company": "HALLIBURTON CO",
@@ -23023,6 +22995,15 @@
    "abtone": -0.00106,
    "rang": 0.451,
    "decision": "neutre"
+  },
+  {
+   "ticker": "TDG",
+   "company": "TransDigm Group INC",
+   "day0": "2026-11-10",
+   "tone": 0.00683,
+   "abtone": 0.00228,
+   "rang": 0.658,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -23078,9 +23059,9 @@
   "AIG": "2027-01-28"
  },
  "counters": {
-  "jours": 19,
-  "communiques": 430,
-  "evalues": 427,
+  "jours": 20,
+  "communiques": 431,
+  "evalues": 428,
   "achetes": 50,
   "ombre": 85,
   "complet": 23
