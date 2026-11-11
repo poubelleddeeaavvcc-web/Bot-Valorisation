@@ -545,7 +545,7 @@ VSAT,"Viasat, Inc.",Technology,Communication Equipment,6.0,3.9,6.8,5.2,0.7,4.5,5
 VSEC,VSE Corporation,Industrials,Aerospace & Defense,12.6,3.9,6.0,9.9,0.6,6.6,5,False,0.0,14.9,7.4,2,False
 VST,Vistra Corp.,Utilities,Utilities - Independent Power Producers,1.4,20.0,15.4,8.8,11.4,11.4,5,False,11.4,1.6,6.5,2,False
 VSTS,Vestis Corporation,Industrials,Rental & Leasing Services,2.4,2.1,8.0,4.0,20.0,7.3,5,False,,19.8,19.8,1,True
-VSXY,Victorias Secret & Co.,Consumer Cyclical,Apparel Retail,1.8,17.3,8.7,6.8,1.6,7.2,5,False,0.0,19.9,10.0,2,False
+VSXY,Victorias Secret & Co.,Consumer Cyclical,Apparel Retail,1.8,17.3,8.7,6.8,1.7,7.3,5,False,0.0,19.9,10.0,2,False
 VTOL,Bristow Group Inc.,Energy,Oil & Gas Equipment & Services,10.4,7.6,4.3,5.6,1.3,5.8,5,False,20.0,7.4,13.7,2,False
 VVX,"V2X, Inc.",Industrials,Aerospace & Defense,8.6,6.8,9.4,4.1,1.8,6.1,5,False,15.7,16.3,16.0,2,False
 W,Wayfair Inc.,Consumer Cyclical,Internet Retail,6.0,,10.3,3.2,,6.5,3,False,,14.2,14.2,1,True
@@ -635,11 +635,6 @@ ADEA,Adeia Inc.,Technology,Software - Application,10.8,16.7,11.3,18.0,9.0,13.2,5
 DPC,DPC Holdings PLC,Industrials,Aerospace & Defense,9.4,,15.4,0.4,,8.4,3,False,,,,0,True
 CCZ,Comcast Holdings ZONES,,,,,,,,,0,True,,,,0,True
 LBRDK,Liberty Broadband Corporation,Communication Services,Telecom Services,6.6,0.5,,3.8,,3.6,3,False,,,,0,True
-0386.HK,China Petroleum & Chemical Corporation,Energy,Oil & Gas Integrated,5.4,4.7,,3.0,,4.4,3,False,1.9,5.7,3.8,2,False
-0883.HK,CNOOC Limited,Energy,Oil & Gas E&P,17.8,12.4,,17.6,,15.9,3,False,18.2,6.8,12.5,2,False
-COALINDIA.NS,Coal India Limited,Energy,Thermal Coal,15.2,17.3,18.8,10.9,15.3,15.5,5,False,20.0,4.3,12.2,2,False
-EICHERMOT.NS,Eicher Motors Limited,Consumer Cyclical,Auto Manufacturers,19.1,,15.6,18.2,1.7,13.7,4,False,0.0,12.1,6.0,2,False
-ASIANPAINT.BO,Asian Paints Limited,Basic Materials,Specialty Chemicals,14.1,,14.3,12.5,4.5,11.4,4,False,0.0,,0.0,1,True
 2628.HK,China Life Insurance Company Limited,Financial Services,Insurance - Life,14.4,9.1,,16.0,,13.2,3,False,19.3,3.5,11.4,2,False
 1997.HK,Wharf Real Estate Investment Company Limited,Real Estate,Real Estate Services,11.3,2.6,14.4,10.0,8.3,9.3,5,False,,18.6,18.6,1,True
 1024.HK,Kuaishou Technology,Communication Services,Internet Content & Information,10.4,15.2,,10.2,,11.9,3,False,20.0,0.6,10.3,2,False
@@ -768,7 +763,7 @@ AME,"AMETEK, Inc.",Industrials,Specialty Industrial Machinery,7.6,12.1,10.2,18.2
 AMTB,Amerant Bancorp Inc.,Financial Services,Banks - Regional,,3.6,,7.6,5.8,5.7,3,False,14.8,19.0,16.9,2,False
 ANIP,"ANI Pharmaceuticals, Inc.",Healthcare,Drug Manufacturers - Specialty & Generic,7.2,16.9,11.6,14.0,5.5,11.0,5,False,15.4,4.9,10.2,2,False
 ARES,Ares Management Corporation,Financial Services,Asset Management,4.1,,,2.6,8.4,5.0,3,False,0.0,2.5,1.2,2,False
-AUGO,Aura Minerals Inc.,Basic Materials,Gold,3.9,19.9,14.4,17.4,4.3,12.0,5,False,0.0,18.9,9.4,2,False
+AUGO,Aura Minerals Inc.,Basic Materials,Gold,3.9,19.9,14.4,17.4,4.4,12.0,5,False,0.0,18.9,9.4,2,False
 BRBR,"BellRing Brands, Inc.",Consumer Defensive,Packaged Foods,10.6,,10.5,12.2,20.0,13.3,4,False,20.0,0.1,10.0,2,False
 BXP,"BXP, Inc.",Real Estate,REIT - Office,6.6,13.1,4.6,10.6,13.6,9.7,5,False,12.4,6.2,9.3,2,False
 CBRE,"CBRE Group, Inc.",Real Estate,Real Estate Services,10.4,17.7,11.5,3.4,2.6,9.1,5,False,0.0,3.0,1.5,2,False
@@ -4005,7 +4000,7 @@ BOLSAA.MX,"Bolsa Mexicana de Valores, S.A.B. de C.V.",Financial Services,Financi
 ARE.TO,Aecon Group Inc.,Industrials,Engineering & Construction,8.6,1.4,17.2,2.8,5.0,7.0,5,False,,19.3,19.3,1,True
 EFN.TO,Element Fleet Management Corp.,Industrials,Rental & Leasing Services,10.2,8.9,,17.1,,12.1,3,False,8.3,0.8,4.6,2,False
 PXT.TO,Parex Resources Inc.,Energy,Oil & Gas E&P,10.3,17.1,,14.8,,14.1,3,False,20.0,13.5,16.8,2,False
-TOU.TO,Tourmaline Oil Corp.,Energy,Oil & Gas E&P,9.6,5.0,3.1,16.2,15.2,9.8,5,False,0.0,4.6,2.3,2,False
+TOU.TO,Tourmaline Oil Corp.,Energy,Oil & Gas E&P,9.6,5.0,3.1,16.2,15.3,9.8,5,False,0.0,4.6,2.3,2,False
 TA.TO,TransAlta Corporation,Utilities,Utilities - Independent Power Producers,7.4,4.3,15.3,10.0,10.6,9.5,5,False,0.0,3.6,1.8,2,False
 WPK.TO,Winpak Ltd.,Consumer Cyclical,Packaging & Containers,19.5,9.4,,15.4,,14.8,3,False,13.6,11.1,12.4,2,False
 ACMR,"ACM Research, Inc.",Technology,Semiconductor Equipment & Materials,14.2,7.9,10.3,12.2,1.5,9.2,5,False,12.8,12.4,12.6,2,False
@@ -4607,7 +4602,7 @@ AXISBANK.NS,Axis Bank Limited,Financial Services,Banks - Regional,,11.2,,14.3,0.
 0388.HK,Hong Kong Exchanges and Clearing Limited,Financial Services,Financial Data & Stock Exchanges,13.1,19.0,,18.3,5.8,14.0,4,False,10.3,3.4,6.8,2,False
 1810.HK,Xiaomi Corporation,Technology,Consumer Electronics,8.5,10.9,,8.2,,9.2,3,False,10.1,1.5,5.8,2,False
 2359.HK,"WuXi AppTec Co., Ltd.",Healthcare,Diagnostics & Research,13.8,18.4,,19.4,,17.2,3,False,18.2,18.4,18.3,2,False
-ASIANPAINT.NS,Asian Paints Limited,Basic Materials,Specialty Chemicals,11.4,16.8,11.0,11.7,4.4,11.1,5,False,0.0,3.3,1.6,2,False
+ASIANPAINT.NS,Asian Paints Limited,Basic Materials,Specialty Chemicals,11.4,16.8,11.0,11.7,4.5,11.1,5,False,0.0,3.3,1.6,2,False
 BHARTIARTL.NS,Bharti Airtel Limited,Communication Services,Telecom Services,3.8,15.4,8.8,16.8,1.9,9.3,5,False,0.0,8.9,4.4,2,False
 JSWSTEEL.NS,JSW Steel Limited,Basic Materials,Steel,4.2,18.5,10.7,12.6,1.9,9.6,5,False,15.8,10.3,13.0,2,False
 MARUTI.NS,Maruti Suzuki India Limited,Consumer Cyclical,Auto Manufacturers,11.0,11.3,11.4,9.1,2.1,9.0,5,False,0.0,3.4,1.7,2,False
@@ -5616,3 +5611,8 @@ SUNPHARMA.BO,Sun Pharmaceutical Industries Limited,Healthcare,Drug Manufacturers
 8462.TW,Power Wind Health Industry Incorporated,Consumer Cyclical,Leisure,3.8,18.0,12.0,16.6,3.6,10.8,5,False,14.2,12.5,13.4,2,False
 8478.TW,"Alexander Marine Co., Ltd.",Consumer Cyclical,Recreational Vehicles,14.0,13.1,5.4,18.6,15.5,13.3,5,False,20.0,3.2,11.6,2,False
 911622.TW,Tycoons Worldwide Group (Thailand) Public Company Limited,Basic Materials,Steel,4.6,3.3,,1.9,,3.3,3,False,0.0,7.8,3.9,2,False
+0386.HK,China Petroleum & Chemical Corporation,Energy,Oil & Gas Integrated,5.4,4.7,,3.0,,4.4,3,False,2.5,5.7,4.1,2,False
+0883.HK,CNOOC Limited,Energy,Oil & Gas E&P,17.8,12.4,,17.6,,15.9,3,False,18.6,6.8,12.7,2,False
+COALINDIA.NS,Coal India Limited,Energy,Thermal Coal,15.2,17.3,18.8,10.9,15.2,15.5,5,False,20.0,4.3,12.2,2,False
+EICHERMOT.NS,Eicher Motors Limited,Consumer Cyclical,Auto Manufacturers,19.1,,15.6,18.2,1.6,13.6,4,False,0.0,12.1,6.0,2,False
+ASIANPAINT.BO,Asian Paints Limited,Basic Materials,Specialty Chemicals,14.1,,14.3,12.5,4.3,11.3,4,False,0.0,,0.0,1,True
