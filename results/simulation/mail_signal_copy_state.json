@@ -1,35 +1,11 @@
 {
  "cash": {
-  "pool": 7184.320707052858
+  "pool": 7312.638496129367
  },
  "pending": [
   {
    "side": "sell",
    "ticker": "GLPI",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-10T04:08:23Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "NEE",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-10T04:08:23Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "SO",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-10T04:08:23Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "WYNN",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-10T04:08:23Z",
@@ -49,30 +25,6 @@
   },
   {
    "side": "buy",
-   "ticker": "XOM",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-11-10T20:49:37Z",
-   "amount_eur": 100.0,
-   "name": "ExxonMobil Holdings Corporation",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "SMCI",
-   "bucket": "pool",
-   "reason": "avis Zacks Rank (email.zacks.com)",
-   "decided_at": "2026-11-10T20:49:37Z",
-   "amount_eur": 100.0,
-   "name": "Super Micro Computer, Inc.",
-   "sector": "Zacks Rank (email.zacks.com)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
    "ticker": "SAF.PA",
    "bucket": "pool",
    "reason": "avis news.meilleurtaux.com (ton)",
@@ -82,6 +34,86 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "sell",
+   "ticker": "AMT",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-11T01:58:34Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "CDNL",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-11T01:58:34Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "ECO",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-11T01:58:34Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "EDA.F",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-11T01:58:34Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "ENB",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-11T01:58:34Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "FUL",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-11T01:58:34Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "NBIS",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-11T01:58:34Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "OI",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-11T01:58:34Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "PSA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-11T01:58:34Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "STRL",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-11T01:58:34Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -103,10 +135,7 @@
   "BAC": "2026-12-04",
   "ENB": "2026-11-11",
   "GOOGL": "2026-11-26",
-  "SO": "2026-11-10",
-  "NEE": "2026-11-10",
   "ECO": "2026-11-11",
-  "WYNN": "2026-11-10",
   "GLPI": "2026-11-10",
   "CDNL": "2026-11-11",
   "EDA.F": "2026-11-11",
