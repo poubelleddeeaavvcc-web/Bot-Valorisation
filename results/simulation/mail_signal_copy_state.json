@@ -1,6 +1,6 @@
 {
  "cash": {
-  "pool": 7828.528639814926
+  "pool": 7916.028639814926
  },
  "pending": [
   {
@@ -45,24 +45,64 @@
   },
   {
    "side": "sell",
-   "ticker": "VETO.PA",
+   "ticker": "WDS",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-12T00:42:10Z",
    "fraction": 1.0
   },
   {
-   "side": "sell",
-   "ticker": "WDS",
+   "side": "buy",
+   "ticker": "MCD",
    "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-12T00:42:10Z",
-   "fraction": 1.0
+   "reason": "avis Adam Tooze from Chartbook (substack.com) (ton)",
+   "decided_at": "2026-11-12T18:16:37Z",
+   "amount_eur": 100.0,
+   "name": "McDonald's Corporation",
+   "sector": "Adam Tooze from Chartbook (substack.com) (ton)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "MPLX",
+   "bucket": "pool",
+   "reason": "avis seekingalpha.com",
+   "decided_at": "2026-11-12T18:16:37Z",
+   "amount_eur": 100.0,
+   "name": "MPLX LP",
+   "sector": "seekingalpha.com",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "BRBY.L",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-12T18:16:37Z",
+   "amount_eur": 100.0,
+   "name": "Burberry Group plc",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "GBp",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "VIRI.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-12T18:16:37Z",
+   "amount_eur": 100.0,
+   "name": "Viridien Société anonyme",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
-  "MU": "2026-12-04",
+  "MU": "2026-12-10",
   "NVDA": "2026-12-08",
   "AVGO": "2026-11-19",
   "SNDK": "2026-12-04",
@@ -71,7 +111,7 @@
   "META": "2026-11-20",
   "IPAR": "2026-12-07",
   "MSFT": "2026-11-26",
-  "AMZN": "2026-11-16",
+  "AMZN": "2026-12-10",
   "GOOG": "2026-12-03",
   "ACN": "2026-11-20",
   "MRVL": "2026-12-01",
@@ -80,7 +120,6 @@
   "O": "2026-11-27",
   "BRK-B": "2026-11-12",
   "BSP": "2026-11-12",
-  "VETO.PA": "2026-11-12",
   "BLK": "2026-11-12",
   "QMLS": "2026-12-07",
   "WDS": "2026-11-12",
@@ -169,7 +208,11 @@
   "TTWO": "2026-12-09",
   "FWRD": "2026-12-09",
   "GHU.F": "2026-12-09",
-  "BILL": "2026-12-09"
+  "BILL": "2026-12-09",
+  "MCD": "2026-12-10",
+  "MPLX": "2026-12-10",
+  "BRBY.L": "2026-12-10",
+  "VIRI.PA": "2026-12-10"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -632,12 +675,18 @@
   "1a1ca9fc566c7b81:AMD",
   "1a1cab7c8e52c17a:BILL",
   "1a1cc71634c3859c:AMD",
-  "1a1cee6fabd2a730:RUI.PA"
+  "1a1cee6fabd2a730:RUI.PA",
+  "1a1cf89e37f2d8b8:MCD",
+  "1a1cfd0566312596:MU",
+  "1a1cfd3c66bf603d:MPLX",
+  "1a1cfdb897ece0a2:AMZN",
+  "1a1d0b3091c08c71:BRBY.L",
+  "1a1d0b3091c08c71:VIRI.PA"
  ],
  "counters": {
-  "avis": 461,
-  "achetes": 276,
-  "prolonges": 185,
+  "avis": 467,
+  "achetes": 280,
+  "prolonges": 187,
   "complet": 0
  },
  "dropped": [
