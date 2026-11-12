@@ -1,32 +1,8 @@
 {
  "cash": {
-  "pool": 7313.682474028365
+  "pool": 7846.830645476577
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "AMT",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-11T01:58:34Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "CDNL",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-11T01:58:34Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "ECO",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-11T01:58:34Z",
-   "fraction": 1.0
-  },
   {
    "side": "sell",
    "ticker": "EDA.F",
@@ -34,78 +10,6 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-11T01:58:34Z",
    "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "ENB",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-11T01:58:34Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "FUL",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-11T01:58:34Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "NBIS",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-11T01:58:34Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "OI",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-11T01:58:34Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "PSA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-11T01:58:34Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "STRL",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-11T01:58:34Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "TTWO",
-   "bucket": "pool",
-   "reason": "avis aktionnaire.com (ton)",
-   "decided_at": "2026-11-11T09:20:53Z",
-   "amount_eur": 100.0,
-   "name": "Take-Two Interactive Software, Inc.",
-   "sector": "aktionnaire.com (ton)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "FWRD",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-11-11T17:54:45Z",
-   "amount_eur": 100.0,
-   "name": "Forward Air Corporation",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
   },
   {
    "side": "buy",
@@ -120,16 +24,60 @@
    "fractional": false
   },
   {
-   "side": "buy",
-   "ticker": "BILL",
+   "side": "sell",
+   "ticker": "BLK",
    "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-11-11T17:54:45Z",
-   "amount_eur": 100.0,
-   "name": "BILL Holdings, Inc.",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-12T00:42:10Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "BRK-B",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-12T00:42:10Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "BSP",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-12T00:42:10Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "CNC",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-12T00:42:10Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "MS",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-12T00:42:10Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "VETO.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-12T00:42:10Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "WDS",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-12T00:42:10Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -140,7 +88,6 @@
   "SNDK": "2026-12-04",
   "RKLB": "2026-11-20",
   "ORCL": "2026-11-26",
-  "NBIS": "2026-11-11",
   "META": "2026-11-20",
   "IPAR": "2026-12-07",
   "MSFT": "2026-11-26",
@@ -149,17 +96,9 @@
   "ACN": "2026-11-20",
   "MRVL": "2026-12-01",
   "BAC": "2026-12-04",
-  "ENB": "2026-11-11",
   "GOOGL": "2026-11-26",
-  "ECO": "2026-11-11",
-  "CDNL": "2026-11-11",
   "EDA.F": "2026-11-11",
-  "FUL": "2026-11-11",
-  "OI": "2026-11-11",
-  "STRL": "2026-11-11",
   "O": "2026-11-27",
-  "AMT": "2026-11-11",
-  "PSA": "2026-11-11",
   "BRK-B": "2026-11-12",
   "BSP": "2026-11-12",
   "VETO.PA": "2026-11-12",
@@ -236,7 +175,7 @@
   "RUI.PA": "2026-12-01",
   "COIN": "2026-12-02",
   "GDYN": "2026-12-02",
-  "AMD": "2026-12-09",
+  "AMD": "2026-12-10",
   "CAP.PA": "2026-12-03",
   "INTC": "2026-12-03",
   "ACMR": "2026-12-04",
@@ -712,12 +651,13 @@
   "1a1caa4fdee6a1a7:FWRD",
   "1a1caad8aef8c57d:GHU.F",
   "1a1ca9fc566c7b81:AMD",
-  "1a1cab7c8e52c17a:BILL"
+  "1a1cab7c8e52c17a:BILL",
+  "1a1cc71634c3859c:AMD"
  ],
  "counters": {
-  "avis": 459,
+  "avis": 460,
   "achetes": 276,
-  "prolonges": 183,
+  "prolonges": 184,
   "complet": 0
  },
  "dropped": [
