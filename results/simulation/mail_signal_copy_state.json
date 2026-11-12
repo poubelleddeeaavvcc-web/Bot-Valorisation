@@ -1,28 +1,8 @@
 {
  "cash": {
-  "pool": 7846.830645476577
+  "pool": 7828.528639814926
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "EDA.F",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-11T01:58:34Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "GHU.F",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-11-11T17:54:45Z",
-   "amount_eur": 100.0,
-   "name": "ADX Energy Ltd",
-   "sector": "seekingalpha.com",
-   "currency": "EUR",
-   "fractional": false
-  },
   {
    "side": "sell",
    "ticker": "BLK",
@@ -97,7 +77,6 @@
   "MRVL": "2026-12-01",
   "BAC": "2026-12-04",
   "GOOGL": "2026-11-26",
-  "EDA.F": "2026-11-11",
   "O": "2026-11-27",
   "BRK-B": "2026-11-12",
   "BSP": "2026-11-12",
@@ -172,7 +151,7 @@
   "FII.PA": "2026-12-01",
   "LITE": "2026-12-01",
   "BIM.PA": "2026-12-01",
-  "RUI.PA": "2026-12-01",
+  "RUI.PA": "2026-12-10",
   "COIN": "2026-12-02",
   "GDYN": "2026-12-02",
   "AMD": "2026-12-10",
@@ -652,12 +631,13 @@
   "1a1caad8aef8c57d:GHU.F",
   "1a1ca9fc566c7b81:AMD",
   "1a1cab7c8e52c17a:BILL",
-  "1a1cc71634c3859c:AMD"
+  "1a1cc71634c3859c:AMD",
+  "1a1cee6fabd2a730:RUI.PA"
  ],
  "counters": {
-  "avis": 460,
+  "avis": 461,
   "achetes": 276,
-  "prolonges": 184,
+  "prolonges": 185,
   "complet": 0
  },
  "dropped": [
