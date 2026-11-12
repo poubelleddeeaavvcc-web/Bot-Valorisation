@@ -1,80 +1,8 @@
 {
  "cash": {
-  "pool": 7916.028639814926
+  "pool": 8306.069384351487
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "BLK",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-12T00:42:10Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "BRK-B",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-12T00:42:10Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "BSP",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-12T00:42:10Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "CNC",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-12T00:42:10Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "MS",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-12T00:42:10Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "WDS",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-12T00:42:10Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "MCD",
-   "bucket": "pool",
-   "reason": "avis Adam Tooze from Chartbook (substack.com) (ton)",
-   "decided_at": "2026-11-12T18:16:37Z",
-   "amount_eur": 100.0,
-   "name": "McDonald's Corporation",
-   "sector": "Adam Tooze from Chartbook (substack.com) (ton)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "MPLX",
-   "bucket": "pool",
-   "reason": "avis seekingalpha.com",
-   "decided_at": "2026-11-12T18:16:37Z",
-   "amount_eur": 100.0,
-   "name": "MPLX LP",
-   "sector": "seekingalpha.com",
-   "currency": "USD",
-   "fractional": true
-  },
   {
    "side": "buy",
    "ticker": "BRBY.L",
@@ -118,13 +46,7 @@
   "BAC": "2026-12-04",
   "GOOGL": "2026-11-26",
   "O": "2026-11-27",
-  "BRK-B": "2026-11-12",
-  "BSP": "2026-11-12",
-  "BLK": "2026-11-12",
   "QMLS": "2026-12-07",
-  "WDS": "2026-11-12",
-  "MS": "2026-11-12",
-  "CNC": "2026-11-12",
   "DBG.PA": "2026-11-13",
   "SMTC": "2026-11-13",
   "BIRK": "2026-11-13",
