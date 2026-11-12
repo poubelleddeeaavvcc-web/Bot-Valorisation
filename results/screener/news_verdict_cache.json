@@ -748,5 +748,11 @@
     "sentiment": "positive",
     "reason": "The general sentiment is positive as several articles highlight Brady Corporation's strong performance, potential growth, and positive outlook, such as the integration of PSS Business targeting $25 million in annual synergies and the stock's Superscore of 80 from The Motley Fool's Moneyball Database",
     "source": "ollama"
+  },
+  "ADEA_2026-11-12": {
+    "relevant": false,
+    "sentiment": "neutral",
+    "reason": "'cuts guidance' actif (3/3 votes) : The article mentions 'cuts guidance', which suggests potential risks or changes in the company's financial outlook. This might indicate an active risk for investors.; The title suggests that Adeia Inc. (ADEA) has reduced its guidance, which could ind (titre: Adeia (ADEA) Cuts Guidance, Is The Stock Now A Bargain?)",
+    "source": "keyword_veto"
   }
 }
