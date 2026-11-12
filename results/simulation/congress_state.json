@@ -394,6 +394,20 @@
    "currency": "USD",
    "fractional": true,
    "score": 1001.0
+  },
+  {
+   "side": "buy",
+   "ticker": "KO",
+   "bucket": "pool",
+   "reason": "achat declare par Lloyd Doggett (TX37), >= 1,001 $ le 10/01/2026",
+   "decided_at": "2026-11-12T20:52:58Z",
+   "amount_eur": 100.0,
+   "name": "KO",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1001.0
   }
  ],
  "launched_at": "2026-10-14T10:56:11Z",
@@ -436,6 +450,8 @@
   "20035780",
   "20035788",
   "20035806",
+  "20035821",
+  "20035826",
   "9116378",
   "9116389",
   "9116390",
@@ -490,7 +506,8 @@
   "STRC": "2027-04-28",
   "TXRH": "2027-04-28",
   "COO": "2027-04-28",
-  "WFC": "2027-04-28"
+  "WFC": "2027-04-28",
+  "KO": "2027-04-29"
  },
  "events_log": [
   {
@@ -942,13 +959,22 @@
    "trade_date": "10/20/2026",
    "amount_low": 1001,
    "decision": "achat"
+  },
+  {
+   "filing_date": "2026-11-11",
+   "member": "Lloyd Doggett",
+   "district": "TX37",
+   "ticker": "KO",
+   "trade_date": "10/01/2026",
+   "amount_low": 1001,
+   "decision": "achat"
   }
  ],
  "counters": {
-  "rapports": 44,
+  "rapports": 46,
   "illisibles": 0,
-  "achats_declares": 50,
-  "achetes": 47,
+  "achats_declares": 51,
+  "achetes": 48,
   "complet": 0,
   "prolonges": 3,
   "sans_cours": 0
