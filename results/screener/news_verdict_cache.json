@@ -1,16 +1,4 @@
 {
-  "PRG_2026-10-28": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "Articles mentionnent la croissance de PROG Holdings qui dépasse sa valeur, ainsi que la déclaration d'un dividende.",
-    "source": "ollama"
-  },
-  "AMN_2026-10-28": {
-    "relevant": true,
-    "sentiment": "positive",
-    "reason": "The news highlights AMN Healthcare Services' stock reaching a 52-week high, outperforming other business services stocks this year, and a recent 8.9% jump, suggesting a generally positive sentiment towards the stock.",
-    "source": "ollama"
-  },
   "PRG_2026-10-29": {
     "relevant": true,
     "sentiment": "negative",
@@ -741,6 +729,24 @@
     "relevant": true,
     "sentiment": "positive",
     "reason": "The articles generally highlight Brady Corporation's strong performance, potential growth, and positive outlook, such as the integration of PSS Business targeting $25 million in annual synergies, and the stock's high ROIC and low leverage.",
+    "source": "ollama"
+  },
+  "SNA_2026-11-12": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "Articles mentionnent des augmentations de dividendes, acquisitions, et un produit innovant qui pourrait générer des ventes supérieures.",
+    "source": "ollama"
+  },
+  "GEO_2026-11-12": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The GEO Group has delivered strong Q3 results, S&P has upgraded its rating, and the company has increased its revenue and earnings outlook, among other positive developments.",
+    "source": "ollama"
+  },
+  "BRC_2026-11-12": {
+    "relevant": true,
+    "sentiment": "positive",
+    "reason": "The general sentiment is positive as several articles highlight Brady Corporation's strong performance, potential growth, and positive outlook, such as the integration of PSS Business targeting $25 million in annual synergies and the stock's Superscore of 80 from The Motley Fool's Moneyball Database",
     "source": "ollama"
   }
 }
