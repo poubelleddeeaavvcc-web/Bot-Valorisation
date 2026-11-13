@@ -1,5 +1,9 @@
 {
   "processed_message_ids": [
+    "1a1d42006b903a31",
+    "1a1d4100592d72a7",
+    "1a1d3c34e2daef0b",
+    "1a1d3bb6c78c5315",
     "1a1d3996feec879c",
     "1a1d36be610a57af",
     "1a1d19768dd9d85c",
@@ -52,10 +56,7 @@
     "1a1ca97581c4ed95",
     "1a1ca7d9bc5c1418",
     "1a1ca61c95646f37",
-    "1a1ca358b97593d0",
-    "1a1c9c0947a53144",
-    "1a1c9a1907af73f7",
-    "1a1c96ff2fb1fc59"
+    "1a1ca358b97593d0"
   ],
   "last_run_date": "2026-11-13",
   "ollama_attempts": {
@@ -979,16 +980,20 @@
     "Adam Tooze from Chartbook (substack.com) (ton)": "observation",
     "Alpha Signals (beehiiv.com)": "observation",
     "American Market News (beehiiv.com)": "observation",
-    "Dividend Ideas (sailthru.com)": "observation",
-    "Energy Investing (sailthru.com)": "observation",
+    "Dividend Ideas (Seeking Alpha)": "bruit",
+    "ETF Ideas (Seeking Alpha)": "observation",
+    "Energy Investing (Seeking Alpha)": "bruit",
+    "Macro View Daily (Seeking Alpha)": "observation",
     "MoneyRadar (substack.com) (ton)": "observation",
-    "Morning Briefing (sailthru.com)": "observation",
-    "Must Reads (sailthru.com)": "observation",
-    "Stock Ideas (sailthru.com)": "observation",
+    "Morning Briefing (Seeking Alpha)": "observation",
+    "Must Reads (Seeking Alpha)": "bruit",
+    "SA Breaking News (Seeking Alpha)": "observation",
+    "Stock Ideas (Seeking Alpha)": "bruit",
     "StockNews.com (beehiiv.com)": "observation",
-    "Stocks & Sectors (sailthru.com)": "observation",
-    "Tech Daily (sailthru.com)": "observation",
+    "Stocks & Sectors (Seeking Alpha)": "bruit",
+    "Tech Daily (Seeking Alpha)": "bruit",
     "Ticker Talk Newsletter (beehiiv.com)": "observation",
+    "Wall Street Breakfast (Seeking Alpha)": "observation",
     "Zacks Rank (email.zacks.com)": "observation",
     "advisor.thedailyupside.com (ton)": "observation",
     "aktionnaire.com": "observation",
@@ -996,7 +1001,7 @@
     "analystratings.net": "observation",
     "etf.thedailyupside.com (ton)": "observation",
     "news.meilleurtaux.com (ton)": "observation",
-    "seekingalpha.com": "bruit",
+    "seekingalpha.com": "observation",
     "thedailyupside.com (ton)": "observation",
     "tipranks.com": "observation",
     "tradingsat.com": "bruit",
@@ -1167,5 +1172,6 @@
       "1a1816415ca6ac29",
       "1a183ba112235c39"
     ]
-  }
+  },
+  "sa_publications_migrated": "2026-11-13"
 }

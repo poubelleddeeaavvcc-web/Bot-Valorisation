@@ -4,30 +4,6 @@
  },
  "pending": [
   {
-   "side": "buy",
-   "ticker": "BRBY.L",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-12T18:16:37Z",
-   "amount_eur": 100.0,
-   "name": "Burberry Group plc",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "GBp",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "VIRI.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-12T18:16:37Z",
-   "amount_eur": 100.0,
-   "name": "Viridien Société anonyme",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
    "side": "sell",
    "ticker": "ASML",
    "bucket": "pool",
@@ -90,6 +66,42 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-13T06:41:03Z",
    "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "BRBY.L",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-12T18:16:37Z",
+   "amount_eur": 100.0,
+   "name": "Burberry Group plc",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "GBp",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "VIRI.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-12T18:16:37Z",
+   "amount_eur": 100.0,
+   "name": "Viridien Société anonyme",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "VETO.PA",
+   "bucket": "pool",
+   "reason": "avis tradingsat.com",
+   "decided_at": "2026-11-13T10:43:49Z",
+   "amount_eur": 100.0,
+   "name": "Vetoquinol SA",
+   "sector": "tradingsat.com",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -198,7 +210,8 @@
   "MCD": "2026-12-10",
   "MPLX": "2026-12-10",
   "BRBY.L": "2026-12-10",
-  "VIRI.PA": "2026-12-10"
+  "VIRI.PA": "2026-12-10",
+  "VETO.PA": "2026-12-11"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -667,11 +680,12 @@
   "1a1cfd3c66bf603d:MPLX",
   "1a1cfdb897ece0a2:AMZN",
   "1a1d0b3091c08c71:BRBY.L",
-  "1a1d0b3091c08c71:VIRI.PA"
+  "1a1d0b3091c08c71:VIRI.PA",
+  "1a1d4100592d72a7:VETO.PA"
  ],
  "counters": {
-  "avis": 467,
-  "achetes": 280,
+  "avis": 468,
+  "achetes": 281,
   "prolonges": 187,
   "complet": 0
  },
