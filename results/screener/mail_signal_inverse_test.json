@@ -1,0 +1,55 @@
+{
+ "regles": {
+  "start": "2026-11-13T11:00:00+00:00",
+  "lettres": [
+   "Tech Daily (Seeking Alpha)",
+   "Stock Ideas (Seeking Alpha)"
+  ],
+  "n_verdict": 30,
+  "t_verdict": 1.5,
+  "cout_estime": 0.005,
+  "horizon_seances": 20
+ },
+ "statut": "en cours",
+ "verdict": null,
+ "global": {
+  "n": 0,
+  "moyenne": null,
+  "t": null,
+  "taux_reussite": null
+ },
+ "global_5j": {
+  "n": 0,
+  "moyenne": null,
+  "t": null,
+  "taux_reussite": null
+ },
+ "par_lettre": {
+  "Stock Ideas (Seeking Alpha)": {
+   "20j": {
+    "n": 0,
+    "moyenne": null,
+    "t": null,
+    "taux_reussite": null
+   },
+   "5j": {
+    "n": 0,
+    "moyenne": null,
+    "t": null,
+    "taux_reussite": null
+   },
+   "avis_recus": 1
+  }
+ },
+ "avis_recus": 1,
+ "avis": [
+  {
+   "date": "2026-11-13",
+   "lettre": "Stock Ideas",
+   "ticker": "NVDA",
+   "sens_avis": "vente",
+   "inverse_5j": null,
+   "inverse_20j": null
+  }
+ ]
+}

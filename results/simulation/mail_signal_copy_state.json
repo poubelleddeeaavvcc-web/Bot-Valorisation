@@ -102,6 +102,42 @@
    "sector": "tradingsat.com",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "EQX",
+   "bucket": "pool",
+   "reason": "avis Stocks & Sectors (Seeking Alpha)",
+   "decided_at": "2026-11-13T14:08:55Z",
+   "amount_eur": 100.0,
+   "name": "Equinox Gold Corp.",
+   "sector": "Stocks & Sectors (Seeking Alpha)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "DAR",
+   "bucket": "pool",
+   "reason": "avis Adam Tooze from Chartbook (substack.com) (ton)",
+   "decided_at": "2026-11-13T14:08:55Z",
+   "amount_eur": 100.0,
+   "name": "Darling Ingredients Inc.",
+   "sector": "Adam Tooze from Chartbook (substack.com) (ton)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "PSX",
+   "bucket": "pool",
+   "reason": "avis Zacks Rank (email.zacks.com)",
+   "decided_at": "2026-11-13T14:08:55Z",
+   "amount_eur": 100.0,
+   "name": "Phillips 66",
+   "sector": "Zacks Rank (email.zacks.com)",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -121,7 +157,7 @@
   "MRVL": "2026-12-01",
   "BAC": "2026-12-04",
   "GOOGL": "2026-11-26",
-  "O": "2026-11-27",
+  "O": "2026-12-11",
   "QMLS": "2026-12-07",
   "DBG.PA": "2026-11-13",
   "SMTC": "2026-11-13",
@@ -211,7 +247,10 @@
   "MPLX": "2026-12-10",
   "BRBY.L": "2026-12-10",
   "VIRI.PA": "2026-12-10",
-  "VETO.PA": "2026-12-11"
+  "VETO.PA": "2026-12-11",
+  "EQX": "2026-12-11",
+  "DAR": "2026-12-11",
+  "PSX": "2026-12-11"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -681,12 +720,16 @@
   "1a1cfdb897ece0a2:AMZN",
   "1a1d0b3091c08c71:BRBY.L",
   "1a1d0b3091c08c71:VIRI.PA",
-  "1a1d4100592d72a7:VETO.PA"
+  "1a1d4100592d72a7:VETO.PA",
+  "1a1d4f247b941f05:EQX",
+  "1a1d4f22d36c8765:O",
+  "1a1d4a9d09dd317f:DAR",
+  "1a1d4f6603c35915:PSX"
  ],
  "counters": {
-  "avis": 468,
-  "achetes": 281,
-  "prolonges": 187,
+  "avis": 472,
+  "achetes": 284,
+  "prolonges": 188,
   "complet": 0
  },
  "dropped": [
