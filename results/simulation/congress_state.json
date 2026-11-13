@@ -1,37 +1,8 @@
 {
  "cash": {
-  "pool": 400.0
+  "pool": 200.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "MRAAF",
-   "bucket": "pool",
-   "reason": "achat declare par Gilbert Cisneros (CA31), >= 1,001 $ le 10/08/2026",
-   "decided_at": "2026-11-11T23:52:02Z",
-   "amount_eur": 100.0,
-   "name": "MRAAF",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 1001.0
-  },
-  {
-   "side": "buy",
-   "ticker": "SNEJF",
-   "bucket": "pool",
-   "reason": "achat declare par Gilbert Cisneros (CA31), >= 1,001 $ le 10/14/2026",
-   "decided_at": "2026-11-11T23:52:02Z",
-   "amount_eur": 100.0,
-   "name": "SNEJF",
-   "sector": "Achats d'elus",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 1001.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20024921",
