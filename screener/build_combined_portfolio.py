@@ -5,6 +5,9 @@ bots'). Goal stated by the user: raise profit/risk, lower risk is welcome.
 Components (each normalised to 1 at the mix's start or last rebalance):
   - Sous-evaluation: equal mix of the three base capital bots of the screener strategy, B1 #2
     (constrained_*), C1 #3 (large_*) and D1 #25 (delta_*) -- the family, not a hand-picked variant;
+    from 2026-11-13 09:00 UTC (UNDERVALUATION_SWITCH) C1 alone, chained to the mix's value at that time:
+    the user froze B1 and D1 that day (no CI step any more, their curves stop) and chose C1 alone over
+    keeping them running or swapping in V1 -- knowing C1 was the best of the three (hindsight).
   - R1 #44 retour a la moyenne (rsi2_*);
   - T1 #43 tendance (trend_*);
   - I1 #45 inities petites capitalisations (insider_*), added 2026-10-13 -- in the 2008-2026 backtest it
@@ -53,6 +56,8 @@ SIM = HERE / "results/simulation"
 START = pd.Timestamp("2026-10-12T07:00:00Z")      # launch of the trend bot, first component curve
 BASE_EUR = 1000.0
 UNDERVALUATION = ["constrained_equity_curve.csv", "large_equity_curve.csv", "delta_equity_curve.csv"]
+UNDERVALUATION_SWITCH = pd.Timestamp("2026-11-13T09:00:00Z")  # B1/D1 frozen: C1 alone afterwards
+UNDERVALUATION_AFTER = "large_equity_curve.csv"
 COMPONENTS = {"Sous-evaluation": UNDERVALUATION, "R1": ["rsi2_equity_curve.csv"], "T1": ["trend_equity_curve.csv"],
               "I1": ["insider_equity_curve.csv"], "G1": ["govcontracts_equity_curve.csv"],
               "W1": ["wikiattention_equity_curve.csv"], "Q1": ["quality_equity_curve.csv"],
@@ -105,6 +110,14 @@ def components(clock: pd.DatetimeIndex) -> tuple[pd.DataFrame, pd.DataFrame]:
             shares.append((1 - asof(curve(f, "cash_eur"), clock) / eq).clip(0, 1))
         comp[k] = pd.concat(parts, axis=1).div(pd.concat(parts, axis=1).iloc[0]).mean(axis=1)  # equal mix, normalised
         inv[k] = pd.concat(shares, axis=1).mean(axis=1)
+        if k == "Sous-evaluation" and (clock >= UNDERVALUATION_SWITCH).any():
+            after = clock >= UNDERVALUATION_SWITCH
+            c1 = parts[files.index(UNDERVALUATION_AFTER)]
+            before = clock[~after]
+            base_mix = comp[k][before[-1]] if len(before) else 1.0
+            base_c1 = c1[before[-1]] if len(before) else c1.iloc[0]
+            comp.loc[after, k] = base_mix * c1[after] / base_c1  # chained: no jump at the switch
+            inv.loc[after, k] = shares[files.index(UNDERVALUATION_AFTER)][after]
     return comp.dropna(), inv
 
 

@@ -200,10 +200,12 @@ const BT_MODIFIERS=[
 ];
 
 // figes le 2026-10-20 (plus d'etape CI, voir update-screener.yml) : historique affiche, plus de trades
+// 2026-11-13 : aussi A2-A8, B1, D1, D2, D4 -- restent actifs A1 (reference) et C1
 const BT_FROZEN_VARIANTS={
-  'constrained_':['_notes','_sector_outlook','_notes_sector_outlook','_newsgated','_newsgated_notes','_newsgated_sector_outlook','_newsgated_notes_sector_outlook'],
+  '':['_notes','_sector_outlook','_notes_sector_outlook','_newsgated','_newsgated_notes','_newsgated_sector_outlook','_newsgated_notes_sector_outlook'],
+  'constrained_':['','_notes','_sector_outlook','_notes_sector_outlook','_newsgated','_newsgated_notes','_newsgated_sector_outlook','_newsgated_notes_sector_outlook'],
   'large_':['_notes','_sector_outlook','_notes_sector_outlook','_newsgated','_newsgated_notes','_newsgated_sector_outlook','_newsgated_notes_sector_outlook'],
-  'delta_':['_sector_outlook','_newsgated','_newsgated_notes','_newsgated_sector_outlook','_newsgated_notes_sector_outlook'],
+  'delta_':['','_notes','_sector_outlook','_notes_sector_outlook','_newsgated','_newsgated_notes','_newsgated_sector_outlook','_newsgated_notes_sector_outlook'],
 };
 function btIsFrozen(bot){return (BT_FROZEN_VARIANTS[bot.family.key]||[]).includes(bot.modifier.suffix);}
 let btBots=[];

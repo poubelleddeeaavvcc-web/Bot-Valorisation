@@ -80,83 +80,9 @@ jobs:
           echo "Echec du push apres 5 tentatives."
           exit 1
 
-  bots-ollama:
-    needs: setup
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
-    steps:
-      # ref: master (pas le SHA qui a declenche le run) -- necessaire pour recuperer le commit
-      # que `setup` vient de pousser (cache fondamentaux, notes) plutot qu'une version perimee.
-      - uses: actions/checkout@v4
-        with:
-          ref: master
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Installer les dependances
-        run: pip install -r requirements.txt
-
-      - name: Cache du modele Ollama
-        uses: actions/cache@v4
-        with:
-          path: ~/.ollama/models
-          key: ollama-models-mistral-7b
-
-      - name: Installer et demarrer Ollama
-        env:
-          # Permet au serveur de traiter 2 requetes a la fois au lieu de toutes les mettre en
-          # file (defaut) -- sans ca, paralleliser les appels cote client (voir
-          # OLLAMA_MAX_WORKERS dans news_filter.py) n'accelere rien, le serveur les traite quand
-          # meme un par un.
-          OLLAMA_NUM_PARALLEL: "2"
-        run: |
-          curl -fsSL https://ollama.com/install.sh | sh
-          nohup ollama serve > /tmp/ollama.log 2>&1 &
-          for i in $(seq 1 30); do
-            curl -s http://localhost:11434/api/version > /dev/null && break
-            sleep 2
-          done
-          ollama pull mistral:7b  # etait llama3.2:3b jusqu'au 2026-10-20
-
-      - name: Simulation en aveugle + filtre actu Ollama (Bot #4)
-        run: python screener/simulate_portfolio_newsgated.py
-
-      # Bots #13-18/22-24 : combinaisons de mecaniques manquantes qui incluent le filtre actu
-      # Ollama (chaque strategie de capital n'avait que 4 des 8 combinaisons possibles de
-      # {filtre actu Ollama, notes Qualite/Perspective, veto sectoriel newsletters} -- voir
-      # chaque script pour le detail). Les 3 combinaisons SANS Ollama (#19/#20/#21) sont dans
-      # bots-aveugle/bots-contraint/bots-large a la place, pas ici.
-      - name: Simulation en aveugle + actu Ollama + notes (Bot #13)
-        run: python screener/simulate_portfolio_newsgated_notes.py
-
-      - name: Simulation en aveugle + actu Ollama + veto sectoriel (Bot #16)
-        run: python screener/simulate_portfolio_newsgated_sector_outlook.py
-
-      - name: Simulation en aveugle + actu Ollama + notes + veto sectoriel (Bot #22)
-        run: python screener/simulate_portfolio_newsgated_notes_sector_outlook.py
-
-      - name: Commit + push si des resultats ont change
-        run: |
-          git config user.name "screener-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add results/simulation/ results/screener/news_verdict_cache.json \
-                  results/screener/news_database.csv results/screener/customer_concentration_cache.json
-          if git diff --cached --quiet; then
-            echo "Rien de nouveau ce cycle."
-            exit 0
-          fi
-          git commit -m "Mise a jour automatique du screener -- bots Ollama ($(date -u +'%Y-%m-%d %H:%M UTC'))"
-          # peut courir avec bots-aveugle/bots-contraint/bots-large qui poussent en parallele --
-          # fichiers disjoints (voir commentaire de tete de fichier), le rebase absorbe la course.
-          for i in 1 2 3 4 5; do
-            git pull --rebase origin master && git push && exit 0
-            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
-            sleep 10
-          done
-          echo "Echec du push apres 5 tentatives."
-          exit 1
+  # 2026-11-13 : geles (plus d etape CI, scripts et historique gardes) : A2-A8 (variantes aveugles
+  # notes/secteur/Ollama, dont tout le job bots-ollama), B1 (bots-contraint), D1/D2/D4 (bots-delta).
+  # Restent actifs ici : A1 (reference) et C1. Bilan : aucun filtre n ameliore A1, B1/D1 nettement negatifs.
 
   bots-aveugle:
     needs: setup
@@ -177,24 +103,6 @@ jobs:
       - name: Simulation de portefeuille en aveugle (Bot #1)
         run: python screener/simulate_portfolio.py
 
-      # Bot #7 : meme mecanique que #1 (aveugle, sans capital ni classement), sauf qu'un
-      # candidat sans note calculable ou sous les seuils qualite/perspective est ignore --
-      # voir simulate_portfolio_notes.py.
-      - name: Simulation en aveugle + seuil notes Qualite/Perspective (Bot #7)
-        run: python screener/simulate_portfolio_notes.py
-
-      # Bot #10 : meme mecanique que #1 (aveugle), sauf qu'un candidat dont le secteur est
-      # "sous_pression" dans sector_outlook.csv du jour est ignore -- voir
-      # simulate_portfolio_sector_outlook.py.
-      - name: Simulation en aveugle + veto sectoriel newsletters (Bot #10)
-        run: python screener/simulate_portfolio_sector_outlook.py
-
-      # Bot #19 : combinaison notes Qualite/Perspective + veto sectoriel newsletters, sans
-      # filtre actu Ollama (d'ou sa presence ici plutot que dans bots-ollama) -- voir
-      # simulate_portfolio_notes_sector_outlook.py.
-      - name: Simulation en aveugle + notes + veto sectoriel (Bot #19)
-        run: python screener/simulate_portfolio_notes_sector_outlook.py
-
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
@@ -205,43 +113,6 @@ jobs:
             exit 0
           fi
           git commit -m "Mise a jour automatique du screener -- bots aveugle ($(date -u +'%Y-%m-%d %H:%M UTC'))"
-          for i in 1 2 3 4 5; do
-            git pull --rebase origin master && git push && exit 0
-            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
-            sleep 10
-          done
-          echo "Echec du push apres 5 tentatives."
-          exit 1
-
-  bots-contraint:
-    needs: setup
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: master
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Installer les dependances
-        run: pip install -r requirements.txt
-
-      - name: Simulation de portefeuille a capital contraint (restreint, diversifie, reinvesti) (Bot #2)
-        run: python screener/simulate_constrained_portfolio.py
-
-      - name: Commit + push si des resultats ont change
-        run: |
-          git config user.name "screener-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add results/simulation/
-          if git diff --cached --quiet; then
-            echo "Rien de nouveau ce cycle."
-            exit 0
-          fi
-          git commit -m "Mise a jour automatique du screener -- bots capital contraint ($(date -u +'%Y-%m-%d %H:%M UTC'))"
           for i in 1 2 3 4 5; do
             git pull --rebase origin master && git push && exit 0
             echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
@@ -287,63 +158,6 @@ jobs:
           echo "Echec du push apres 5 tentatives."
           exit 1
 
-  bots-delta:
-    needs: setup
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: master
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Installer les dependances
-        run: pip install -r requirements.txt
-
-      # Bot #25 ("Delta") : memes mecaniques que #2 (capital contraint), plus le renfort par
-      # conviction sur les positions en moins-value dont la these tient toujours -- voir
-      # simulate_delta_portfolio.py. Propre pool de 300 EUR, propre ledger, job dedie plutot que
-      # regroupe dans bots-contraint pour garder sa propre visibilite (nouvelle mecanique,
-      # encore aucun historique de trades).
-      - name: Simulation a capital contraint + renfort par conviction (Bot #25)
-        run: python screener/simulate_delta_portfolio.py
-
-      # Bots #26/#27/#28 : memes combinaisons notes/veto sectoriel/notes+veto que le reste de la
-      # grille (voir simulate_delta_portfolio_notes.py etc.) -- ajoutes le 2026-09-10 en meme
-      # temps que #25 mais oublies du CI jusqu'a cette verification (2026-09-11), voir #29-32
-      # dans bots-ollama pour les variantes avec le filtre actu Ollama.
-      - name: Simulation Delta + selection par notes (Bot #26)
-        run: python screener/simulate_delta_portfolio_notes.py
-
-      - name: Simulation Delta + notes + veto sectoriel (Bot #28)
-        run: python screener/simulate_delta_portfolio_notes_sector_outlook.py
-
-      - name: Commit + push si des resultats ont change
-        run: |
-          git config user.name "screener-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add results/simulation/
-          if git diff --cached --quiet; then
-            echo "Rien de nouveau ce cycle."
-            exit 0
-          fi
-          git commit -m "Mise a jour automatique du screener -- bot delta ($(date -u +'%Y-%m-%d %H:%M UTC'))"
-          for i in 1 2 3 4 5; do
-            git pull --rebase origin master && git push && exit 0
-            echo "Push refuse (tentative $i/5), nouvelle tentative dans 10s..."
-            sleep 10
-          done
-          echo "Echec du push apres 5 tentatives."
-          exit 1
-
-  # Bots #41-45 (2026-10-12/13) : une strategie chacun, sans rapport avec le screener valeur+momentum
-  # des bots #1-40 -- Qualite (notes seules), Valeur (decote seule), Tendance (8 ETF multi-actifs,
-  # regle des 10 mois), a combiner plus tard. Moteur commun screener/sleeve_book.py : ordres
-  # executes a la cloture de la seance qui suit la decision, valorisation dividendes compris.
-  # Fichiers de sortie propres (quality_*, value_*, trend_*), aucun cache partage.
   bots-strategies:
     needs: setup
     runs-on: ubuntu-latest
@@ -438,7 +252,7 @@ jobs:
   # courbes) ; always() pour qu'un job de bots en echec ne fige pas le resume des autres. Seul
   # job a ecrire ce fichier, aucun appel reseau, bibliotheque standard uniquement.
   resume-courbes:
-    needs: [bots-ollama, bots-aveugle, bots-contraint, bots-large, bots-delta, bots-strategies]
+    needs: [bots-aveugle, bots-large, bots-strategies]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -451,7 +265,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      # Portefeuille combine (2026-10-12) : melange virtuel a risque egal sous-evaluation (B1/C1/D1) +
+      # Portefeuille combine (2026-10-12) : melange virtuel a risque egal sous-evaluation (B1/C1/D1, C1 seul depuis le 2026-11-13) +
       # R1 + T1 + I1 (depuis le 2026-10-13), recalcule a chaque run depuis les courbes des bots -- voir build_combined_portfolio.py.
       # Avant le resume, qui reprend sa courbe comme celle des bots.
       - name: Construire le portefeuille combine
