@@ -26,6 +26,70 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "sell",
+   "ticker": "ASML",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-13T06:41:03Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "AYA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-13T06:41:03Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "BC.MI",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-13T06:41:03Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "BIRK",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-13T06:41:03Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "DBG.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-13T06:41:03Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "DMLP",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-13T06:41:03Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "DVN",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-13T06:41:03Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "SMTC",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-13T06:41:03Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
