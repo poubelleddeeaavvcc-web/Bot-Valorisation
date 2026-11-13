@@ -2,7 +2,36 @@
  "cash": {
   "pool": 200.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "GOOGL",
+   "bucket": "pool",
+   "reason": "achat declare par David J. Taylor (OH02), >= 1,001 $ le 11/03/2026",
+   "decided_at": "2026-11-13T19:53:18Z",
+   "amount_eur": 100.0,
+   "name": "GOOGL",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1001.0
+  },
+  {
+   "side": "buy",
+   "ticker": "AVGO",
+   "bucket": "pool",
+   "reason": "achat declare par David J. Taylor (OH02), >= 1,001 $ le 11/05/2026",
+   "decided_at": "2026-11-13T19:53:18Z",
+   "amount_eur": 100.0,
+   "name": "AVGO",
+   "sector": "Achats d'elus",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 1001.0
+  }
+ ],
  "launched_at": "2026-10-14T10:56:11Z",
  "docs_done": [
   "20024921",
@@ -45,6 +74,7 @@
   "20035806",
   "20035821",
   "20035826",
+  "20035831",
   "9116378",
   "9116389",
   "9116390",
@@ -54,7 +84,7 @@
  ],
  "hold_until": {
   "BRK-B": "2027-04-01",
-  "T": "2027-04-16",
+  "T": "2027-04-30",
   "FITB": "2027-04-02",
   "RPM": "2027-04-16",
   "NOKBF": "2027-04-05",
@@ -63,7 +93,7 @@
   "GH": "2027-04-06",
   "NVDA": "2027-04-23",
   "TSM": "2027-04-09",
-  "LRCX": "2027-04-16",
+  "LRCX": "2027-04-30",
   "PLD": "2027-04-16",
   "ESAB": "2027-04-19",
   "TXN": "2027-04-19",
@@ -100,7 +130,9 @@
   "TXRH": "2027-04-28",
   "COO": "2027-04-28",
   "WFC": "2027-04-28",
-  "KO": "2027-04-29"
+  "KO": "2027-04-29",
+  "GOOGL": "2027-04-30",
+  "AVGO": "2027-04-30"
  },
  "events_log": [
   {
@@ -561,15 +593,69 @@
    "trade_date": "10/01/2026",
    "amount_low": 1001,
    "decision": "achat"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "member": "David J. Taylor",
+   "district": "OH02",
+   "ticker": "GOOGL",
+   "trade_date": "11/03/2026",
+   "amount_low": 1001,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "member": "David J. Taylor",
+   "district": "OH02",
+   "ticker": "T",
+   "trade_date": "11/03/2026",
+   "amount_low": 1001,
+   "decision": "deja detenu : detention prolongee"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "member": "David J. Taylor",
+   "district": "OH02",
+   "ticker": "AVGO",
+   "trade_date": "11/05/2026",
+   "amount_low": 1001,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "member": "David J. Taylor",
+   "district": "OH02",
+   "ticker": "ETN",
+   "trade_date": "11/03/2026",
+   "amount_low": 1001,
+   "decision": "portefeuille complet : ignore"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "member": "David J. Taylor",
+   "district": "OH02",
+   "ticker": "IBP",
+   "trade_date": "11/03/2026",
+   "amount_low": 1001,
+   "decision": "portefeuille complet : ignore"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "member": "David J. Taylor",
+   "district": "OH02",
+   "ticker": "LRCX",
+   "trade_date": "11/05/2026",
+   "amount_low": 1001,
+   "decision": "deja detenu : detention prolongee"
   }
  ],
  "counters": {
-  "rapports": 46,
+  "rapports": 47,
   "illisibles": 0,
-  "achats_declares": 51,
-  "achetes": 48,
-  "complet": 0,
-  "prolonges": 3,
+  "achats_declares": 57,
+  "achetes": 50,
+  "complet": 2,
+  "prolonges": 5,
   "sans_cours": 0
  }
 }
