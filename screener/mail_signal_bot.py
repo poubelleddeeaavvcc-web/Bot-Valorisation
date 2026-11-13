@@ -81,6 +81,12 @@ The sending domain is kept (e.g. "seekingalpha.com"). For newsletter PLATFORMS (
 sailthru...) where the domain is shared by dozens of unrelated newsletters, the sender's display
 name is used instead (e.g. "Some Newsletter (beehiiv.com)"). Still never the address itself. An
 author name is kept only when the email literally contains it (journal column, informational).
+Seeking Alpha (2026-11-13): it sends a dozen different letters (Dividend Ideas, Energy Investing,
+Must Reads, Stock Ideas...) from TWO addresses, its own domain and sailthru, switching between them.
+Keyed by domain they were lumped into one "seekingalpha.com" source, or split by sending channel.
+Every Seeking Alpha letter is now keyed by its display name, "Dividend Ideas (Seeking Alpha)", whichever
+address sent it; a generic "Seeking Alpha" sender stays "seekingalpha.com". Past journal rows were
+relabelled once from each email's From header (migrate_sa_publications, state "sa_publications_migrated").
 """
 import base64
 import difflib
@@ -473,15 +479,74 @@ def _extract_source(sender: str) -> str:
     return m.group(1).lower() if m else "inconnu"
 
 
+SA_GENERIC_NAMES = {"seeking alpha", "seekingalpha", "seekingalpha.com"}
+
+
+def _display_name(sender: str) -> str:
+    """Display name of a From header -- the address itself is dropped (see ATTRIBUTION)."""
+    name = re.sub(r"<[^>]*>", "", sender or "")
+    name = re.sub(r"\S*@\S*", "", name).strip().strip('"\'').strip()
+    return re.sub(r"\s+", " ", name)[:60]
+
+
+def _is_seeking_alpha(sender: str, domain: str) -> bool:
+    return (domain == "seekingalpha.com" or domain.endswith(".seekingalpha.com")
+            or ("sailthru.com" in domain and "seekingalpha@" in (sender or "").lower()))
+
+
 def _publication(sender: str, domain: str) -> str:
     """Scoring key of a newsletter -- see ATTRIBUTION in the module docstring."""
+    if _is_seeking_alpha(sender, domain):
+        name = _display_name(sender)
+        return f"{name} (Seeking Alpha)" if name and name.lower() not in SA_GENERIC_NAMES else "seekingalpha.com"
     platform = next((p for p in PLATFORM_DOMAINS if domain == p or domain.endswith("." + p)), None)
     if not platform:
         return domain
-    name = re.sub(r"<[^>]*>", "", sender or "")
-    name = re.sub(r"\S*@\S*", "", name).strip().strip('"\'').strip()
-    name = re.sub(r"\s+", " ", name)[:60]
+    name = _display_name(sender)
     return f"{name} ({platform})" if name else domain
+
+
+def migrate_sa_publications(token: str, state: dict, journal: pd.DataFrame) -> pd.DataFrame:
+    """One-off relabelling of past Seeking Alpha rows -- see ATTRIBUTION. Reads only each email's
+    From header; rows whose email can't be read keep their label and are retried next run."""
+    if state.get("sa_publications_migrated") or journal.empty:
+        return journal
+    pub = journal["publication"].astype(str)
+    mask = pub.eq("seekingalpha.com") | pub.str.endswith("(sailthru.com)")
+    headers = {"Authorization": f"Bearer {token}"}
+    new, failed = {}, 0
+    for mid in journal.loc[mask, "message_id"].dropna().astype(str).unique():
+        try:
+            resp = requests.get(f"{GMAIL_API}/messages/{mid}", headers=headers, timeout=30,
+                                params={"format": "metadata", "metadataHeaders": "From"})
+            hdrs = resp.json().get("payload", {}).get("headers", []) if resp.status_code == 200 else None
+        except requests.RequestException:
+            hdrs = None
+        if hdrs is None:
+            failed += 1
+            continue
+        sender = next((h["value"] for h in hdrs if h["name"].lower() == "from"), "")
+        new[mid] = _publication(sender, _extract_source(sender))
+    before = journal.loc[mask, "publication"].copy()
+    journal.loc[mask, "publication"] = journal.loc[mask, "message_id"].astype(str).map(new).fillna(before)
+    changed = journal.loc[mask, "publication"] != before
+    moved = journal.loc[mask][changed]
+    # rejects (informational) carry no message id: relabel those sharing an email's exact date and old label
+    n_rj = 0
+    if REJECTS_PATH.exists() and len(moved):
+        rj = pd.read_csv(REJECTS_PATH)
+        key = dict(zip(zip(moved["mail_date_utc"].astype(str), before[changed].astype(str)), moved["publication"]))
+        old = rj["publication"].astype(str)
+        lab = [key.get((d, p), p) for d, p in zip(rj["date_utc"].astype(str), old)]
+        n_rj = int(sum(a != b for a, b in zip(lab, old)))
+        rj["publication"] = lab
+        rj.to_csv(REJECTS_PATH, index=False)
+    counts = moved["publication"].value_counts()
+    print(f"migration Seeking Alpha : {len(moved)} avis reclasse(s), {failed} mail(s) illisible(s), "
+          f"{n_rj} rejet(s) : " + ", ".join(f"{p} {n}" for p, n in counts.items()))
+    if failed == 0:
+        state["sa_publications_migrated"] = pd.Timestamp.now(tz="UTC").date().isoformat()
+    return journal
 
 
 def _extract_html_part(payload: dict) -> str:
@@ -1549,6 +1614,7 @@ def main():
     else:
         try:
             token = get_access_token()
+            journal = migrate_sa_publications(token, state, journal)
             listed = list_message_ids(token, GMAIL_QUERY)
             previously = set(state.get("processed_message_ids", [])) | set(state.get("backfill", {}).get("processed_ids", []))
             new_ids = [m for m in listed if m not in previously]
