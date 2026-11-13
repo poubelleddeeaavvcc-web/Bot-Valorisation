@@ -14,8 +14,8 @@ days -- as an excess return against a benchmark of the same market (see BENCHMAR
 the per-newsletter score is built from, independent of any exit rule, so the scorecard fills in on
 its own as days pass.
 
-NEWSLETTER STATUS ("fiable" / "bruit" / "observation")
-------------------------------------------------------
+NEWSLETTER STATUS ("fiable" / "a confirmer" / "bruit" / "observation")
+----------------------------------------------------------------------
 The user's own direction (2026-10-03): bad newsletters must not be engaged in the real strategy,
 but their noise must still be heard -- "si tout le monde dit d'acheter une action en particulier
 leur avis est positif et peut etre utile, idem si tout le monde rejette une action sauf 1
@@ -26,6 +26,19 @@ newsletter". So every newsletter gets a status from its J+20 track record:
   - "bruit": N_MIN+ evaluated tips, not reliable. Never triggers anything on its own.
 Hysteresis: a "fiable" newsletter only gets demoted once its t-stat falls below T_DEMOTE, so a
 single bad week doesn't flip it back and forth (each flip would mean real trading fees).
+
+TWO-STAGE PROMOTION (2026-11-13, user's request after the full bot review)
+With ~25 newsletters each tested at T_PROMOTE = 1.5 (~7% false positive each), at least one would
+almost surely turn "fiable" by pure luck and pull real capital. So passing the test is now only a
+PROMOTION: the newsletter becomes "a confirmer" and is judged again on its NEXT tips only -- tips
+emailed after the promotion point, which played no part in selecting it (out of sample). It turns
+"fiable" once N_CONFIRM of those are evaluated with a t-stat >= T_CONFIRM (combined false-positive
+rate ~1%), and stays so while that confirmation t-stat holds >= T_CONFIRM_DEMOTE. Confirmation
+failing or turning negative -> "bruit" (it keeps being measured, and its later tips still count, so
+a newsletter that genuinely improves can still get there). The promotion point is recomputed from
+the journal each run (first moment, in email order, its first N_MIN+ evaluated tips reach T_PROMOTE),
+so no new state is needed. The crowd's consensus goes through the same two stages.
+"a confirmer" newsletters are still part of the crowd and never trigger a position on their own.
 
 The t-stat uses a POOLED volatility (std of every evaluated tip, all newsletters together) rather
 than each newsletter's own: with 15 tips, a newsletter's own std is too noisy to divide by -- one
@@ -70,7 +83,10 @@ HORIZONS = (5, 20, 60)        # trading days
 PRIMARY_HORIZON = 20          # the horizon newsletters are scored and ranked on
 N_MIN = 15                    # evaluated tips before a newsletter can leave "observation"
 T_PROMOTE = 1.5               # t-stat to become "fiable" (~7% one-sided false-positive per source)
-T_DEMOTE = 1.0                # a "fiable" newsletter keeps its status down to this t-stat
+T_DEMOTE = 1.0                # (kept for reference: pre-2026-11-13 one-stage hysteresis)
+N_CONFIRM = 15                # evaluated tips AFTER the promotion point needed to confirm
+T_CONFIRM = 1.0               # t-stat on those out-of-sample tips to become "fiable"
+T_CONFIRM_DEMOTE = 0.5        # a "fiable" newsletter keeps its status down to this confirmation t-stat
 K_SHRINK = 10                 # virtual zero-excess tips added to each newsletter's mean
 DEFAULT_SIGMA = 0.065         # J+20 excess-return dispersion measured on the first 166 lab
 # positions (2026-10-03 analysis) -- used until the journal has 30+ evaluations of its own
@@ -299,12 +315,32 @@ def _pooled_sigma(scored: pd.DataFrame) -> float:
     return max(sigma, MIN_POOLED_SIGMA)
 
 
-def _status(n: int, t: float, previous: str | None) -> str:
-    if n < N_MIN or pd.isna(t):
-        return "observation"
-    if t >= T_PROMOTE or (previous == "fiable" and t >= T_DEMOTE):
-        return "fiable"
-    return "bruit"
+def _status(ts: pd.Series, ex: pd.Series, sigma: float, previous: str | None) -> dict:
+    """Two-stage status -- see module docstring. ts/ex: email time and J+20 excess of each EVALUATED
+    tip. Returns statut + promotion point + the out-of-sample confirmation sample's size and t-stat."""
+    out = {"statut": "observation", "date_promotion": None, "n_confirmation": 0, "t_confirmation": float("nan")}
+    d = pd.DataFrame({"ts": pd.to_datetime(ts, utc=True, errors="coerce"), "ex": pd.to_numeric(ex, errors="coerce")})
+    d = d.dropna().sort_values("ts", kind="stable").reset_index(drop=True)
+    if len(d) < N_MIN:
+        return out
+    t_run = d["ex"].cumsum() / sigma / np.sqrt(np.arange(1, len(d) + 1))   # t-stat of the first k tips
+    hit = np.flatnonzero((np.arange(1, len(d) + 1) >= N_MIN) & (t_run.to_numpy() >= T_PROMOTE))
+    if not len(hit):
+        out["statut"] = "bruit"
+        return out
+    cut = d["ts"].iloc[hit[0]]
+    conf = d.loc[d["ts"] > cut, "ex"]
+    n_c = len(conf)
+    t_c = float(conf.mean()) * math.sqrt(n_c) / sigma if n_c else float("nan")
+    out.update({"date_promotion": cut.isoformat(), "n_confirmation": n_c, "t_confirmation": t_c})
+    if n_c < N_CONFIRM:
+        out["statut"] = "a confirmer"
+        return out
+    if t_c >= T_CONFIRM or (previous == "fiable" and t_c >= T_CONFIRM_DEMOTE):
+        out["statut"] = "fiable"
+    else:
+        out["statut"] = "bruit"
+    return out
 
 
 # Per-site performance columns, one block per horizon (2026-10-04, user's request: "affiche-moi la
@@ -316,7 +352,7 @@ def _status(n: int, t: float, previous: str | None) -> str:
 #   taux_reussite_{h}j  share of tips that beat the market in the advised direction
 SCORE_COLUMNS = ["statut", "n_signaux", "n_achat", "n_vente"] + [
     f"{c}_{h}j" for h in HORIZONS for c in ("n_evalues", "excess_moy", "rendement_brut", "taux_reussite")
-] + ["edge_estime", "t_stat"]
+] + ["edge_estime", "t_stat", "date_promotion", "n_confirmation", "t_confirmation"]
 
 
 def score_sources(journal: pd.DataFrame, previous_status: dict) -> tuple:
@@ -344,8 +380,9 @@ def score_sources(journal: pd.DataFrame, previous_status: dict) -> tuple:
         mean = float(x.mean()) if n else float("nan")
         t = mean * math.sqrt(n) / sigma if n else float("nan")
         all_rows = journal[journal["publication"] == pub]
+        ev = g[pd.to_numeric(g[f"ex_{PRIMARY_HORIZON}"], errors="coerce").notna()]
+        row.update(_status(ev["mail_date_utc"], ev[f"ex_{PRIMARY_HORIZON}"], sigma, previous_status.get(pub)))
         row.update({
-            "statut": _status(n, t, previous_status.get(pub)),
             "n_signaux": int(len(all_rows)),
             "n_achat": int((all_rows["side"] == "long").sum()),
             "n_vente": int((all_rows["side"] == "short").sum()),
@@ -367,7 +404,7 @@ def _crowd_stats(scored: pd.DataFrame, status_map: dict, sigma: float, previous:
     nonrel = scored[scored["publication"].map(lambda p: status_map.get(p) != "fiable")].copy()
     nonrel["ts"] = pd.to_datetime(nonrel["mail_date_utc"], utc=True, errors="coerce")
     nonrel = nonrel.dropna(subset=["ts"]).sort_values("ts")
-    events = []
+    events, event_ts = [], []
     window = pd.Timedelta(days=CONSENSUS_WINDOW_DAYS)
     for (ticker, side), g in nonrel.groupby(["ticker", "side"]):
         last_event_ts = None
@@ -380,11 +417,15 @@ def _crowd_stats(scored: pd.DataFrame, status_map: dict, sigma: float, previous:
                 last_event_ts = r["ts"]
                 if pd.notna(r[f"ex_{PRIMARY_HORIZON}"]):
                     events.append(float(r[f"ex_{PRIMARY_HORIZON}"]))
+                    event_ts.append(r["ts"])
     n = len(events)
     mean = float(np.mean(events)) if n else float("nan")
     t = mean * math.sqrt(n) / sigma if n else float("nan")
     edge = (sum(events) + K_SHRINK * CROWD_PRIOR_EDGE) / (n + K_SHRINK)
-    return {"edge": edge, "n": n, "t": t, "status": _status(n, t, previous), "mean": mean}
+    st = _status(pd.Series(event_ts, dtype="datetime64[ns, UTC]"), pd.Series(events, dtype=float), sigma, previous)
+    return {"edge": edge, "n": n, "t": t, "status": st["statut"], "mean": mean,
+            "date_promotion": st["date_promotion"], "n_confirmation": st["n_confirmation"],
+            "t_confirmation": st["t_confirmation"]}
 
 
 def recent_votes(journal: pd.DataFrame, now: pd.Timestamp) -> pd.DataFrame:
@@ -467,14 +508,16 @@ def build_scorecard(scores: pd.DataFrame, crowd: dict) -> pd.DataFrame:
     t-stat."""
     out = scores.copy()
     pk = f"{PRIMARY_HORIZON}j"
-    out.loc[CROWD_PUBLICATION, ["statut", f"n_evalues_{pk}", f"excess_moy_{pk}", "edge_estime", "t_stat"]] = [
-        crowd["status"], crowd["n"], crowd["mean"], crowd["edge"], crowd["t"]]
+    out.loc[CROWD_PUBLICATION, ["statut", f"n_evalues_{pk}", f"excess_moy_{pk}", "edge_estime", "t_stat",
+                                "date_promotion", "n_confirmation", "t_confirmation"]] = [
+        crowd["status"], crowd["n"], crowd["mean"], crowd["edge"], crowd["t"],
+        crowd.get("date_promotion"), crowd.get("n_confirmation", 0), crowd.get("t_confirmation", float("nan"))]
     out.index.name = "source"
     out = out.reset_index()
     out["statut"] = out["statut"].fillna("observation")
-    for c in ["n_signaux", "n_achat", "n_vente"] + [f"n_evalues_{h}j" for h in HORIZONS]:
+    for c in ["n_signaux", "n_achat", "n_vente", "n_confirmation"] + [f"n_evalues_{h}j" for h in HORIZONS]:
         out[c] = pd.to_numeric(out[c], errors="coerce").fillna(0).astype(int)
-    order = {"fiable": 0, "observation": 1, "bruit": 2}
+    order = {"fiable": 0, "a confirmer": 1, "observation": 2, "bruit": 3}
     out["_o"] = out["statut"].map(order).fillna(3)
     out = out.sort_values(["_o", "t_stat", "n_signaux"], ascending=[True, False, False],
                           na_position="last").drop(columns="_o")

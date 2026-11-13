@@ -249,7 +249,7 @@ tr:hover td{background:var(--bg3)}
 
       <div class="section-title">Stratégie réelle — capital limité, newsletters fiables uniquement</div>
       <div class="muted-note" style="margin-bottom:8px">
-        Seules les newsletters au statut <b>fiable</b> (au moins 15 avis évalués à 20 jours et un t-stat ≥ 1,5)
+        Seules les newsletters au statut <b>fiable</b> (15 avis évalués à 20 jours avec un t-stat ≥ 1,5, puis confirmation sur les 15 avis suivants, t-stat ≥ 1)
         peuvent déclencher un achat. Les autres sont écoutées : quand plusieurs d'entre elles sont d'accord (ou en
         désaccord) avec une newsletter fiable, le rendement espéré de l'idée monte (ou baisse), selon ce que ce
         consensus a réellement rapporté jusqu'ici. Les idées sont classées par rendement espéré, la taille grandit
@@ -317,7 +317,7 @@ tr:hover td{background:var(--bg3)}
       </div>
       <div class="card tbl-wrap" style="margin-bottom:14px">
         <table>
-          <thead><tr><th>Site</th><th title="fiable : au moins 15 avis mesurés à 20 jours et un résultat solide (t-stat ≥ 1,5) — seuls ces sites peuvent déclencher un achat dans la stratégie réelle. observation : pas encore assez d'avis mesurés. bruit : assez d'avis, mais pas de résultat solide.">Statut ℹ️</th><th>Avis reçus</th><th>5 jours</th><th>20 jours</th><th>60 jours</th></tr></thead>
+          <thead><tr><th>Site</th><th title="fiable : bon résultat sur 15 avis mesurés à 20 jours (t-stat ≥ 1,5), CONFIRMÉ sur les 15 avis suivants (t-stat ≥ 1) — seuls ces sites peuvent déclencher un achat dans la stratégie réelle. à confirmer : a passé le premier test, on attend 15 nouveaux avis (évite les sites chanceux). observation : pas encore assez d'avis mesurés. bruit : assez d'avis, mais pas de résultat solide, ou confirmation ratée.">Statut ℹ️</th><th>Avis reçus</th><th>5 jours</th><th>20 jours</th><th>60 jours</th></tr></thead>
           <tbody id="echoPerfTbody"></tbody>
         </table>
       </div>

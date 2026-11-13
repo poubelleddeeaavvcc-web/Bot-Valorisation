@@ -15,7 +15,8 @@ scorecard:
 
 WHO CAN TRIGGER A POSITION
 --------------------------
-Only a newsletter with "fiable" status (see mail_signal_scoring.py) -- or the crowd's consensus,
+Only a newsletter with "fiable" status (see mail_signal_scoring.py; since 2026-11-13 that needs an
+out-of-sample confirmation after the first test, status "a confirmer" in between) -- or the crowd's consensus,
 if that consensus has itself earned "fiable" status. "Bruit"/"observation" newsletters are heard,
 never followed: their votes move a candidate's expected return up or down through the crowd term
 of consensus_for(), nothing more. As long as no newsletter has proven itself, this strategy simply
@@ -351,7 +352,8 @@ def run_real_layer(journal, scores, crowd, now: pd.Timestamp, fx_rates: dict, fe
                 .apply(lambda s: float(pd.to_numeric(s, errors="coerce").fillna(0).sum())).to_dict())
     if n_fiables == 0 and crowd["status"] != "fiable":
         statut = ("en attente : aucune newsletter n'est encore fiable (il faut au moins 15 avis evalues a "
-                  "20 jours et un t-stat >= 1.5) -- le capital reste en cash")
+                  "20 jours et un t-stat >= 1.5, puis une confirmation sur les 15 avis suivants, t-stat >= 1) -- le "
+                  "capital reste en cash")
     elif open_pos.empty:
         statut = "pret : newsletters fiables identifiees, en attente d'un avis assez fort pour acheter"
     else:
