@@ -158,10 +158,29 @@ def summary_extra(book: Book) -> dict:
             "investi_eur": round(book.position_value(), 2)}
 
 
+def sync_newsletter_labels(book: Book, tips: pd.DataFrame) -> int:
+    """Each line's newsletter ("sector") follows the journal's CURRENT label of the tip that opened it
+    (same ticker, same decision time). Needed since 2026-11-13: Seeking Alpha letters were relabelled
+    in the journal ("Dividend Ideas (Seeking Alpha)" instead of "seekingalpha.com", see ATTRIBUTION in
+    mail_signal_bot.py). Idempotent -- a no-op once labels agree."""
+    if not len(tips) or not len(book.ledger):
+        return 0
+    key = tips["ticker"].astype(str) + "|" + tips["decided_at"].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+    label = dict(zip(key, tips["publication"]))
+    led = book.ledger
+    new = (led["ticker"].astype(str) + "|" + led["entry_decided_at"].astype(str)).map(label)
+    change = new.notna() & (new != led["sector"])
+    led.loc[change, "sector"] = new[change]
+    if change.any():
+        print(f"  {int(change.sum())} ligne(s) rattachee(s) au nom actuel de leur newsletter")
+    return int(change.sum())
+
+
 def main():
     tips = load_tips()
     fresh = not (HERE / f"results/simulation/{STEM}_state.json").exists()
     book = Book(STEM, LABEL, STARTING_CAPITAL, {"pool": STARTING_CAPITAL})
+    sync_newsletter_labels(book, tips)
     book.buy_fee_eur = TRADE_FEE_EUR
     st = book.state
     for k, v in (("hold_until", {}), ("signals_done", []),
