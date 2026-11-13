@@ -1,37 +1,8 @@
 {
  "cash": {
-  "pool": 4300.0
+  "pool": 4100.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "BRT",
-   "bucket": "pool",
-   "reason": "1 initie(s), 39 k$ le 2026-11-09",
-   "decided_at": "2026-11-13T11:51:54Z",
-   "amount_eur": 100.0,
-   "name": "BRT Apartments Corp.",
-   "sector": "Inities (petites cap.)",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 39420.0
-  },
-  {
-   "side": "buy",
-   "ticker": "LEE",
-   "bucket": "pool",
-   "reason": "1 initie(s), 99 k$ le 2026-11-10",
-   "decided_at": "2026-11-13T11:51:54Z",
-   "amount_eur": 100.0,
-   "name": "LEE ENTERPRISES, Inc",
-   "sector": "Inities (petites cap.)",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 99306.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",
