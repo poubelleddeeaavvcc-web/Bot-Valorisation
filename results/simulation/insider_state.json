@@ -2,7 +2,36 @@
  "cash": {
   "pool": 4300.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "BRT",
+   "bucket": "pool",
+   "reason": "1 initie(s), 39 k$ le 2026-11-09",
+   "decided_at": "2026-11-13T11:51:54Z",
+   "amount_eur": 100.0,
+   "name": "BRT Apartments Corp.",
+   "sector": "Inities (petites cap.)",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 39420.0
+  },
+  {
+   "side": "buy",
+   "ticker": "LEE",
+   "bucket": "pool",
+   "reason": "1 initie(s), 99 k$ le 2026-11-10",
+   "decided_at": "2026-11-13T11:51:54Z",
+   "amount_eur": 100.0,
+   "name": "LEE ENTERPRISES, Inc",
+   "sector": "Inities (petites cap.)",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 99306.0
+  }
+ ],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",
@@ -26,7 +55,8 @@
   "2026-11-05",
   "2026-11-06",
   "2026-11-09",
-  "2026-11-10"
+  "2026-11-10",
+  "2026-11-12"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -35,7 +65,9 @@
   "FINW": "2027-04-29",
   "AOMR": "2027-05-03",
   "FGBI": "2027-05-05",
-  "OESX": "2027-05-06"
+  "OESX": "2027-05-06",
+  "BRT": "2027-05-10",
+  "LEE": "2027-05-10"
  },
  "events_log": [
   {
@@ -2217,13 +2249,363 @@
    "title": "Director",
    "adv_usd": 2727293,
    "decision": "liquidite hors bande (2.73 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "ALNY",
+   "issuer": "ALNYLAM PHARMACEUTICALS, INC.",
+   "value_usd": 543126,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 561671387,
+   "decision": "liquidite hors bande (561.67 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "AUDC",
+   "issuer": "AUDIOCODES LTD",
+   "value_usd": 143409,
+   "insiders": 1,
+   "title": "President and CEO",
+   "adv_usd": 1223408,
+   "decision": "liquidite hors bande (1.22 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "BKD",
+   "issuer": "Brookdale Senior Living Inc.",
+   "value_usd": 358068,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 75484991,
+   "decision": "liquidite hors bande (75.48 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "BLMN",
+   "issuer": "Bloomin' Brands, Inc.",
+   "value_usd": 502000,
+   "insiders": 1,
+   "title": "CEO",
+   "adv_usd": 27283055,
+   "decision": "liquidite hors bande (27.28 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "BOOT",
+   "issuer": "Boot Barn Holdings, Inc.",
+   "value_usd": 270740,
+   "insiders": 1,
+   "title": "CFO & SECRETARY",
+   "adv_usd": 122600950,
+   "decision": "liquidite hors bande (122.60 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "BRT",
+   "issuer": "BRT Apartments Corp.",
+   "value_usd": 39420,
+   "insiders": 1,
+   "title": "CHAIRMAN OF THE BOARD",
+   "adv_usd": 693878,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "BX",
+   "issuer": "Blackstone Inc.",
+   "value_usd": 54721,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 672768725,
+   "decision": "liquidite hors bande (672.77 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "COHR",
+   "issuer": "COHERENT CORP.",
+   "value_usd": 1220285,
+   "insiders": 2,
+   "title": "CEO",
+   "adv_usd": 2045759572,
+   "decision": "liquidite hors bande (2045.76 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "CSQR",
+   "issuer": "Csquare, Inc.",
+   "value_usd": 419429,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 38087585,
+   "decision": "liquidite hors bande (38.09 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "DAR",
+   "issuer": "DARLING INGREDIENTS INC.",
+   "value_usd": 25595,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 141740633,
+   "decision": "liquidite hors bande (141.74 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "DKNG",
+   "issuer": "DraftKings Inc.",
+   "value_usd": 98800,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 359233239,
+   "decision": "liquidite hors bande (359.23 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "DOX",
+   "issuer": "AMDOCS LTD",
+   "value_usd": 297695,
+   "insiders": 4,
+   "title": "Director",
+   "adv_usd": 105116407,
+   "decision": "liquidite hors bande (105.12 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "ECL",
+   "issuer": "ECOLAB INC.",
+   "value_usd": 184875,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 511134287,
+   "decision": "liquidite hors bande (511.13 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "EGBN",
+   "issuer": "EAGLE BANCORP INC",
+   "value_usd": 149582,
+   "insiders": 1,
+   "title": "President/CEO",
+   "adv_usd": 16685927,
+   "decision": "liquidite hors bande (16.69 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "ENOV",
+   "issuer": "Enovis CORP",
+   "value_usd": 100024,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 44787453,
+   "decision": "liquidite hors bande (44.79 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "EQPT",
+   "issuer": "EquipmentShare.com Inc",
+   "value_usd": 804105,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 53784702,
+   "decision": "liquidite hors bande (53.78 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "FRPH",
+   "issuer": "FRP HOLDINGS, INC.",
+   "value_usd": 99141,
+   "insiders": 1,
+   "title": "CEO",
+   "adv_usd": 2404800,
+   "decision": "liquidite hors bande (2.40 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "HOS",
+   "issuer": "HORNBECK OFFSHORE SERVICES, INC.",
+   "value_usd": 1500009,
+   "insiders": 1,
+   "title": "PRESIDENT & CEO",
+   "adv_usd": 20596970,
+   "decision": "liquidite hors bande (20.60 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "HPP",
+   "issuer": "Hudson Pacific Properties, Inc.",
+   "value_usd": 862112,
+   "insiders": 2,
+   "title": "Chief Executive Officer",
+   "adv_usd": 9700790,
+   "decision": "liquidite hors bande (9.70 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "HXL",
+   "issuer": "HEXCEL CORP /DE/",
+   "value_usd": 80830,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 129214110,
+   "decision": "liquidite hors bande (129.21 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "IOSP",
+   "issuer": "INNOSPEC INC.",
+   "value_usd": 27493,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 25656326,
+   "decision": "liquidite hors bande (25.66 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "ITIC",
+   "issuer": "INVESTORS TITLE CO",
+   "value_usd": 133000,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 14824718,
+   "decision": "liquidite hors bande (14.82 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "KGS",
+   "issuer": "Kodiak Gas Services, Inc.",
+   "value_usd": 44260,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 99730922,
+   "decision": "liquidite hors bande (99.73 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "LEE",
+   "issuer": "LEE ENTERPRISES, Inc",
+   "value_usd": 99306,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 193211,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "MNR",
+   "issuer": "MACH NATURAL RESOURCES LP",
+   "value_usd": 1008700,
+   "insiders": 1,
+   "title": "See Remarks",
+   "adv_usd": 5760705,
+   "decision": "liquidite hors bande (5.76 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "MP",
+   "issuer": "MP Materials Corp. / DE",
+   "value_usd": 3353606,
+   "insiders": 3,
+   "title": "Director",
+   "adv_usd": 225150954,
+   "decision": "liquidite hors bande (225.15 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "MTDR",
+   "issuer": "Matador Resources Co",
+   "value_usd": 123225,
+   "insiders": 1,
+   "title": "Chairman and CEO",
+   "adv_usd": 94368155,
+   "decision": "liquidite hors bande (94.37 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "NOMD",
+   "issuer": "Nomad Foods Ltd",
+   "value_usd": 100161,
+   "insiders": 1,
+   "title": "Chief Financial Officer",
+   "adv_usd": 12192306,
+   "decision": "liquidite hors bande (12.19 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "NSLR",
+   "issuer": "Neostellar Capital Corp.",
+   "value_usd": 30500,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 1752793,
+   "decision": "liquidite hors bande (1.75 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "RM",
+   "issuer": "Regional Management Corp.",
+   "value_usd": 359108,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 3475609,
+   "decision": "liquidite hors bande (3.48 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "RWAY",
+   "issuer": "Runway Growth Finance Corp.",
+   "value_usd": 49725,
+   "insiders": 1,
+   "title": "Co-CEO",
+   "adv_usd": 2050354,
+   "decision": "liquidite hors bande (2.05 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "SEI",
+   "issuer": "Solaris Energy Infrastructure, Inc.",
+   "value_usd": 40717,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 198799920,
+   "decision": "liquidite hors bande (198.80 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "STVN",
+   "issuer": "Stevanato Group S.p.A.",
+   "value_usd": 274400,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 17764982,
+   "decision": "liquidite hors bande (17.76 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "TEAM",
+   "issuer": "Atlassian Corp",
+   "value_usd": 2013990,
+   "insiders": 1,
+   "title": "CEO, Co-Founder",
+   "adv_usd": 619733977,
+   "decision": "liquidite hors bande (619.73 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-12",
+   "ticker": "TH",
+   "issuer": "Target Hospitality Corp.",
+   "value_usd": 312675,
+   "insiders": 1,
+   "title": "Director and CEO and President",
+   "adv_usd": 35169132,
+   "decision": "liquidite hors bande (35.17 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 21,
-  "evenements": 218,
-  "retenus": 7,
-  "achetes": 7,
+  "jours": 22,
+  "evenements": 253,
+  "retenus": 9,
+  "achetes": 9,
   "complet": 0,
   "prolonges": 0
  }
