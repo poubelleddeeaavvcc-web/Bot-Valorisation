@@ -1,35 +1,11 @@
 {
  "cash": {
-  "pool": 8306.069384351487
+  "pool": 8464.548814431248
  },
  "pending": [
   {
    "side": "sell",
-   "ticker": "ASML",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-13T06:41:03Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "AYA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-13T06:41:03Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
    "ticker": "BC.MI",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-13T06:41:03Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "BIRK",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-13T06:41:03Z",
@@ -42,42 +18,6 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-13T06:41:03Z",
    "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "DMLP",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-13T06:41:03Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "DVN",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-13T06:41:03Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "SMTC",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-13T06:41:03Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "BRBY.L",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-12T18:16:37Z",
-   "amount_eur": 100.0,
-   "name": "Burberry Group plc",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "GBp",
-   "fractional": false
   },
   {
    "side": "buy",
@@ -105,39 +45,15 @@
   },
   {
    "side": "buy",
-   "ticker": "EQX",
+   "ticker": "FGR.PA",
    "bucket": "pool",
-   "reason": "avis Stocks & Sectors (Seeking Alpha)",
-   "decided_at": "2026-11-13T14:08:55Z",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-13T23:32:58Z",
    "amount_eur": 100.0,
-   "name": "Equinox Gold Corp.",
-   "sector": "Stocks & Sectors (Seeking Alpha)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "DAR",
-   "bucket": "pool",
-   "reason": "avis Adam Tooze from Chartbook (substack.com) (ton)",
-   "decided_at": "2026-11-13T14:08:55Z",
-   "amount_eur": 100.0,
-   "name": "Darling Ingredients Inc.",
-   "sector": "Adam Tooze from Chartbook (substack.com) (ton)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "PSX",
-   "bucket": "pool",
-   "reason": "avis Zacks Rank (email.zacks.com)",
-   "decided_at": "2026-11-13T14:08:55Z",
-   "amount_eur": 100.0,
-   "name": "Phillips 66",
-   "sector": "Zacks Rank (email.zacks.com)",
-   "currency": "USD",
-   "fractional": true
+   "name": "Eiffage SA",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -160,13 +76,7 @@
   "O": "2026-12-11",
   "QMLS": "2026-12-07",
   "DBG.PA": "2026-11-13",
-  "SMTC": "2026-11-13",
-  "BIRK": "2026-11-13",
   "BC.MI": "2026-11-13",
-  "DVN": "2026-11-13",
-  "ASML": "2026-11-13",
-  "AYA": "2026-11-13",
-  "DMLP": "2026-11-13",
   "TSLA": "2026-11-24",
   "ICAD.PA": "2026-11-16",
   "CRWV": "2026-11-16",
@@ -212,7 +122,7 @@
   "RNO.PA": "2026-12-08",
   "DSY.PA": "2026-11-26",
   "SPXC": "2026-11-26",
-  "TTE": "2026-11-26",
+  "TTE": "2026-12-11",
   "CSWC": "2026-11-27",
   "AR": "2026-11-27",
   "SNY": "2026-11-27",
@@ -250,7 +160,8 @@
   "VETO.PA": "2026-12-11",
   "EQX": "2026-12-11",
   "DAR": "2026-12-11",
-  "PSX": "2026-12-11"
+  "PSX": "2026-12-11",
+  "FGR.PA": "2026-12-11"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -724,12 +635,14 @@
   "1a1d4f247b941f05:EQX",
   "1a1d4f22d36c8765:O",
   "1a1d4a9d09dd317f:DAR",
-  "1a1d4f6603c35915:PSX"
+  "1a1d4f6603c35915:PSX",
+  "1a1d5dc400b67477:TTE",
+  "1a1d5dc400b67477:FGR.PA"
  ],
  "counters": {
-  "avis": 472,
-  "achetes": 284,
-  "prolonges": 188,
+  "avis": 474,
+  "achetes": 285,
+  "prolonges": 189,
   "complet": 0
  },
  "dropped": [
