@@ -76,6 +76,11 @@ jobs:
       - name: "Copie de tous les avis (Bot #52 Courrier)"
         run: python screener/mail_signal_copy.py
 
+      # Test inverse pre-enregistre (2026-11-13) : faire l'inverse des avis de Tech Daily et Stock Ideas,
+      # mesure seulement sur leurs avis envoyes apres le 13/11 11:00 UTC. Regles fixees dans le script.
+      - name: Test inverse Tech Daily + Stock Ideas
+        run: python screener/mail_signal_inverse.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
