@@ -6,26 +6,6 @@
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
-   "ticker": "TDG",
-   "date": "2025-11-12",
-   "tone": 0.007104,
-   "ret12": 0.036217,
-   "size": 25.119617,
-   "stdret": 0.053113,
-   "react": 0.011941,
-   "age": 3.026985
-  },
-  {
-   "ticker": "CSCO",
-   "date": "2025-11-12",
-   "tone": 0.00468,
-   "ret12": 0.266952,
-   "size": 26.388255,
-   "stdret": 0.050701,
-   "react": 0.095115,
-   "age": 3.040546
-  },
-  {
    "ticker": "DIS",
    "date": "2025-11-13",
    "tone": 0.001614,
@@ -18944,6 +18924,26 @@
    "react": 0.003937,
    "age": 3.075333,
    "tone": 0.006828
+  },
+  {
+   "ticker": "CTVA",
+   "date": "2026-11-12",
+   "ret12": 0.248859,
+   "size": 22.53671,
+   "stdret": 0.071471,
+   "react": -0.254466,
+   "age": 2.136719,
+   "tone": -0.007705
+  },
+  {
+   "ticker": "EXPD",
+   "date": "2026-11-12",
+   "ret12": 0.3612,
+   "size": 23.95261,
+   "stdret": 0.057901,
+   "react": 0.02465,
+   "age": 3.088644,
+   "tone": -0.001938
   }
  ],
  "edgar_days_done": [
@@ -18966,7 +18966,8 @@
   "2026-11-05",
   "2026-11-06",
   "2026-11-09",
-  "2026-11-10"
+  "2026-11-10",
+  "2026-11-12"
  ],
  "awaiting": [
   {
@@ -18975,6 +18976,20 @@
    "accepted": "2026-11-09T16:04:26-05:00",
    "tone": 0.005873187102960566,
    "company": "Skydance Corp"
+  },
+  {
+   "ticker": "AMAT",
+   "acc": "0001628280-26-073360",
+   "accepted": "2026-11-12T16:02:46-05:00",
+   "tone": 0.0036231884057971015,
+   "company": "APPLIED MATERIALS INC /DE"
+  },
+  {
+   "ticker": "CSCO",
+   "acc": "0000858877-26-000170",
+   "accepted": "2026-11-12T16:06:24-05:00",
+   "tone": 0.0036755053819900237,
+   "company": "CISCO SYSTEMS, INC."
   }
  ],
  "shadow": [
@@ -19405,24 +19420,6 @@
   }
  ],
  "events_log": [
-  {
-   "ticker": "HAL",
-   "company": "HALLIBURTON CO",
-   "day0": "2026-10-20",
-   "tone": -0.00249,
-   "abtone": -0.00465,
-   "rang": 0.246,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "HAS",
-   "company": "HASBRO, INC.",
-   "day0": "2026-10-20",
-   "tone": -0.00693,
-   "abtone": -0.00954,
-   "rang": 0.073,
-   "decision": "achat"
-  },
   {
    "ticker": "KEY",
    "company": "KEYCORP /NEW/",
@@ -23004,6 +23001,24 @@
    "abtone": 0.00228,
    "rang": 0.658,
    "decision": "neutre"
+  },
+  {
+   "ticker": "CTVA",
+   "company": "Corteva, Inc.",
+   "day0": "2026-11-12",
+   "tone": -0.00771,
+   "abtone": -0.00827,
+   "rang": 0.103,
+   "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "EXPD",
+   "company": "EXPEDITORS INTERNATIONAL OF WASHINGTON INC",
+   "day0": "2026-11-12",
+   "tone": -0.00194,
+   "abtone": -0.00529,
+   "rang": 0.204,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -23059,11 +23074,11 @@
   "AIG": "2027-01-28"
  },
  "counters": {
-  "jours": 20,
-  "communiques": 431,
-  "evalues": 428,
+  "jours": 21,
+  "communiques": 435,
+  "evalues": 430,
   "achetes": 50,
   "ombre": 85,
-  "complet": 23
+  "complet": 24
  }
 }
