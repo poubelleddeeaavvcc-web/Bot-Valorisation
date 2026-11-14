@@ -1,4 +1,4 @@
-# Bilan annexe — portefeuilles combinés (14/11/2026 04:51 UTC)
+# Bilan annexe — portefeuilles combinés (14/11/2026 05:51 UTC)
 
 **Pas de classement pour l'instant :** 11 jour(s) de suivi officiel sur les 365 prévus. À si court terme, les écarts relèvent surtout du hasard.
 
@@ -12,7 +12,7 @@ Portefeuilles virtuels, base 1 000 €. Le S&P 500 est hors dividendes, les bots
 | M2 Tous les bots | 02/11/2026 | 1008,67 € | +0,87 % | +2,67 % | -0,24 % | -2,76 % |
 | M3 Sans cash | 02/11/2026 | 1004,34 € | +0,43 % | +3,75 % | -0,24 % | -4,73 % |
 | M4 Preuves seules | 02/11/2026 | 1006,51 € | +0,65 % | +1,64 % | -0,24 % | -1,91 % |
-| M5 Facteurs | 02/11/2026 | 1011,25 € | +1,12 % | +1,29 % | -0,24 % | -1,16 % |
+| M5 Facteurs | 02/11/2026 | 1011,22 € | +1,12 % | +1,29 % | -0,24 % | -1,16 % |
 
 ## Reconstitution depuis le 14/10/2026
 
@@ -36,9 +36,9 @@ Calculée après coup avec les poids d'aujourd'hui : indicative, elle ne prouve 
 | I1 | +0,19 % | 18 % | 10 % | 8 % | 10 % | 12 % | – |
 | G1 | +5,80 % | 100 % | 8 % | 8 % | 8 % | 9 % | – |
 | W1 | +0,73 % | 100 % | 16 % | 8 % | 16 % | 18 % | – |
-| Q1 | +2,06 % | 99 % | – | 8 % | – | – | 15 % |
+| Q1 | +2,04 % | 99 % | – | 8 % | – | – | 15 % |
 | V1 | +2,98 % | 99 % | – | 8 % | – | – | 15 % |
-| H1 | -0,19 % | 100 % | – | 8 % | – | – | – |
+| H1 | -0,18 % | 100 % | – | 8 % | – | – | – |
 | E1 | +2,78 % | 100 % | – | 8 % | – | – | – |
 | L1 | -0,69 % | 33 % | – | 8 % | – | – | – |
 | F1 | +2,95 % | 100 % | – | 8 % | – | – | – |
