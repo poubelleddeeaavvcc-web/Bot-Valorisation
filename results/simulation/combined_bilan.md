@@ -1,4 +1,4 @@
-# Bilan annexe — portefeuilles combinés (14/11/2026 08:51 UTC)
+# Bilan annexe — portefeuilles combinés (14/11/2026 09:51 UTC)
 
 **Pas de classement pour l'instant :** 11 jour(s) de suivi officiel sur les 365 prévus. À si court terme, les écarts relèvent surtout du hasard.
 
@@ -9,10 +9,10 @@ Portefeuilles virtuels, base 1 000 €. Le S&P 500 est hors dividendes, les bots
 | Portefeuille | Départ | Valeur | Depuis le départ | 7 jours | S&P 500 même période | Pire baisse |
 |---|---|---:|---:|---:|---:|---:|
 | M1 Risque égal | 12/10/2026 | 992,19 € | -0,78 % | +1,80 % | -3,20 % | -3,02 % |
-| M2 Tous les bots | 02/11/2026 | 1008,54 € | +0,85 % | +2,65 % | -0,24 % | -2,76 % |
+| M2 Tous les bots | 02/11/2026 | 1008,54 € | +0,85 % | +2,64 % | -0,24 % | -2,76 % |
 | M3 Sans cash | 02/11/2026 | 1004,34 € | +0,43 % | +3,74 % | -0,24 % | -4,73 % |
 | M4 Preuves seules | 02/11/2026 | 1006,51 € | +0,65 % | +1,64 % | -0,24 % | -1,91 % |
-| M5 Facteurs | 02/11/2026 | 1011,00 € | +1,10 % | +1,25 % | -0,24 % | -1,16 % |
+| M5 Facteurs | 02/11/2026 | 1011,00 € | +1,10 % | +1,24 % | -0,24 % | -1,16 % |
 
 ## Reconstitution depuis le 14/10/2026
 
