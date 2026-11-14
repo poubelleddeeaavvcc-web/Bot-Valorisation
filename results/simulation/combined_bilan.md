@@ -1,6 +1,6 @@
-# Bilan annexe — portefeuilles combinés (14/11/2026 12:51 UTC)
+# Bilan annexe — portefeuilles combinés (14/11/2026 13:51 UTC)
 
-**Pas de classement pour l'instant :** 11 jour(s) de suivi officiel sur les 365 prévus. À si court terme, les écarts relèvent surtout du hasard.
+**Pas de classement pour l'instant :** 12 jour(s) de suivi officiel sur les 365 prévus. À si court terme, les écarts relèvent surtout du hasard.
 
 Portefeuilles virtuels, base 1 000 €. Le S&P 500 est hors dividendes, les bots dividendes compris.
 
