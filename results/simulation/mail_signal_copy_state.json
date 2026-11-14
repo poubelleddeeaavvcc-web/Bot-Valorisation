@@ -1,48 +1,8 @@
 {
  "cash": {
-  "pool": 8464.548814431248
+  "pool": 8472.043819085178
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "BC.MI",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-13T06:41:03Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "DBG.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-13T06:41:03Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "VIRI.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-12T18:16:37Z",
-   "amount_eur": 100.0,
-   "name": "Viridien Société anonyme",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "VETO.PA",
-   "bucket": "pool",
-   "reason": "avis tradingsat.com",
-   "decided_at": "2026-11-13T10:43:49Z",
-   "amount_eur": 100.0,
-   "name": "Vetoquinol SA",
-   "sector": "tradingsat.com",
-   "currency": "EUR",
-   "fractional": false
-  },
   {
    "side": "buy",
    "ticker": "FGR.PA",
@@ -54,12 +14,48 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "KRP",
+   "bucket": "pool",
+   "reason": "avis Energy Investing (Seeking Alpha)",
+   "decided_at": "2026-11-14T13:35:32Z",
+   "amount_eur": 100.0,
+   "name": "Kimbell Royalty Partners, LP",
+   "sector": "Energy Investing (Seeking Alpha)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "AVAT",
+   "bucket": "pool",
+   "reason": "avis advisor.thedailyupside.com (ton)",
+   "decided_at": "2026-11-14T13:35:32Z",
+   "amount_eur": 100.0,
+   "name": "Avalanche Treasury Corporation",
+   "sector": "advisor.thedailyupside.com (ton)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "SHOP",
+   "bucket": "pool",
+   "reason": "avis The Markets Daily (beehiiv.com)",
+   "decided_at": "2026-11-14T13:35:32Z",
+   "amount_eur": 100.0,
+   "name": "Shopify Inc.",
+   "sector": "The Markets Daily (beehiiv.com)",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-12-10",
-  "NVDA": "2026-12-08",
+  "NVDA": "2026-12-11",
   "AVGO": "2026-11-19",
   "SNDK": "2026-12-04",
   "RKLB": "2026-11-20",
@@ -75,8 +71,6 @@
   "GOOGL": "2026-11-26",
   "O": "2026-12-11",
   "QMLS": "2026-12-07",
-  "DBG.PA": "2026-11-13",
-  "BC.MI": "2026-11-13",
   "TSLA": "2026-11-24",
   "ICAD.PA": "2026-11-16",
   "CRWV": "2026-11-16",
@@ -161,7 +155,10 @@
   "EQX": "2026-12-11",
   "DAR": "2026-12-11",
   "PSX": "2026-12-11",
-  "FGR.PA": "2026-12-11"
+  "FGR.PA": "2026-12-11",
+  "KRP": "2026-12-11",
+  "AVAT": "2026-12-11",
+  "SHOP": "2026-12-11"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -637,12 +634,16 @@
   "1a1d4a9d09dd317f:DAR",
   "1a1d4f6603c35915:PSX",
   "1a1d5dc400b67477:TTE",
-  "1a1d5dc400b67477:FGR.PA"
+  "1a1d5dc400b67477:FGR.PA",
+  "1a1da20705a4af15:KRP",
+  "1a1da09a600ae811:AVAT",
+  "1a1da1cff2482335:NVDA",
+  "1a1da2c346ce7ec5:SHOP"
  ],
  "counters": {
-  "avis": 474,
-  "achetes": 285,
-  "prolonges": 189,
+  "avis": 478,
+  "achetes": 288,
+  "prolonges": 190,
   "complet": 0
  },
  "dropped": [
