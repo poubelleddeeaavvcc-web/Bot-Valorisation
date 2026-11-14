@@ -1,4 +1,4 @@
-# Bilan annexe — portefeuilles combinés (14/11/2026 23:18 UTC)
+# Bilan annexe — portefeuilles combinés (14/11/2026 23:51 UTC)
 
 **Pas de classement pour l'instant :** 12 jour(s) de suivi officiel sur les 365 prévus. À si court terme, les écarts relèvent surtout du hasard.
 
