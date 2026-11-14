@@ -2,7 +2,22 @@
  "cash": {
   "pool": 4100.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "buy",
+   "ticker": "NTHI",
+   "bucket": "pool",
+   "reason": "1 initie(s), 151 k$ le 2026-11-13",
+   "decided_at": "2026-11-14T11:51:34Z",
+   "amount_eur": 100.0,
+   "name": "NEONC TECHNOLOGIES HOLDINGS, INC.",
+   "sector": "Inities (petites cap.)",
+   "country": "United States",
+   "currency": "USD",
+   "fractional": true,
+   "score": 150501.0
+  }
+ ],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",
@@ -27,7 +42,8 @@
   "2026-11-06",
   "2026-11-09",
   "2026-11-10",
-  "2026-11-12"
+  "2026-11-12",
+  "2026-11-13"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
@@ -38,7 +54,8 @@
   "FGBI": "2027-05-05",
   "OESX": "2027-05-06",
   "BRT": "2027-05-10",
-  "LEE": "2027-05-10"
+  "LEE": "2027-05-10",
+  "NTHI": "2027-05-11"
  },
  "events_log": [
   {
@@ -2570,13 +2587,283 @@
    "title": "Director and CEO and President",
    "adv_usd": 35169132,
    "decision": "liquidite hors bande (35.17 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "ABCL",
+   "issuer": "AbCellera Biologics Inc.",
+   "value_usd": 97438,
+   "insiders": 1,
+   "title": "Chief Financial Officer",
+   "adv_usd": 38626676,
+   "decision": "liquidite hors bande (38.63 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "AKAM",
+   "issuer": "AKAMAI TECHNOLOGIES INC",
+   "value_usd": 2552400,
+   "insiders": 1,
+   "title": "Chief Executive Officer",
+   "adv_usd": 586900980,
+   "decision": "liquidite hors bande (586.90 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "BH",
+   "issuer": "Biglari Holdings Inc.",
+   "value_usd": 5537125,
+   "insiders": 1,
+   "title": "Chairman and CEO",
+   "adv_usd": 29664317,
+   "decision": "liquidite hors bande (29.66 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "BW",
+   "issuer": "Babcock & Wilcox Enterprises, Inc.",
+   "value_usd": 52692,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 23324431,
+   "decision": "liquidite hors bande (23.32 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "CAT",
+   "issuer": "CATERPILLAR INC",
+   "value_usd": 208635,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 2420518683,
+   "decision": "liquidite hors bande (2420.52 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "CCNE",
+   "issuer": "CNB FINANCIAL CORP/PA",
+   "value_usd": 37787,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 4942015,
+   "decision": "liquidite hors bande (4.94 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "CRVS",
+   "issuer": "Corvus Pharmaceuticals, Inc.",
+   "value_usd": 50475,
+   "insiders": 1,
+   "title": "Chief Business Officer",
+   "adv_usd": 10438187,
+   "decision": "liquidite hors bande (10.44 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "CSQR",
+   "issuer": "Csquare, Inc.",
+   "value_usd": 35000,
+   "insiders": 1,
+   "title": "Chief Financial Officer",
+   "adv_usd": 37974213,
+   "decision": "liquidite hors bande (37.97 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "CTEV",
+   "issuer": "Claritev Corp",
+   "value_usd": 149927,
+   "insiders": 1,
+   "title": "Pres., CEO & Executive Chair",
+   "adv_usd": 7581417,
+   "decision": "liquidite hors bande (7.58 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "CTRI",
+   "issuer": "Centuri Holdings, Inc.",
+   "value_usd": 349910,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 42892460,
+   "decision": "liquidite hors bande (42.89 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "FCPT",
+   "issuer": "Four Corners Property Trust, Inc.",
+   "value_usd": 149992,
+   "insiders": 1,
+   "title": "President and CEO",
+   "adv_usd": 25739741,
+   "decision": "liquidite hors bande (25.74 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "FUN",
+   "issuer": "Six Flags Entertainment Corporation/NEW",
+   "value_usd": 9246000,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 54314230,
+   "decision": "liquidite hors bande (54.31 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "HPP",
+   "issuer": "Hudson Pacific Properties, Inc.",
+   "value_usd": 43650,
+   "insiders": 1,
+   "title": "President",
+   "adv_usd": 9417758,
+   "decision": "liquidite hors bande (9.42 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "IOND",
+   "issuer": "Ionic Digital Inc.",
+   "value_usd": 1291579,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 25422320,
+   "decision": "liquidite hors bande (25.42 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "IONS",
+   "issuer": "IONIS PHARMACEUTICALS INC",
+   "value_usd": 148200,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 163225175,
+   "decision": "liquidite hors bande (163.23 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "KGS",
+   "issuer": "Kodiak Gas Services, Inc.",
+   "value_usd": 499855,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 100701037,
+   "decision": "liquidite hors bande (100.70 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "NGS",
+   "issuer": "NATURAL GAS SERVICES GROUP INC",
+   "value_usd": 57790,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 3253744,
+   "decision": "liquidite hors bande (3.25 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "NTHI",
+   "issuer": "NEONC TECHNOLOGIES HOLDINGS, INC.",
+   "value_usd": 150501,
+   "insiders": 1,
+   "title": "CEO, President",
+   "adv_usd": 650790,
+   "decision": "achat"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "NXGL",
+   "issuer": "NEXGEL, INC.",
+   "value_usd": 757691,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 167495,
+   "decision": "prix incoherent (x0.65)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "NXRT",
+   "issuer": "NexPoint Residential Trust, Inc.",
+   "value_usd": 99930,
+   "insiders": 1,
+   "title": "See Remarks",
+   "adv_usd": 8509152,
+   "decision": "liquidite hors bande (8.51 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "STWD",
+   "issuer": "STARWOOD PROPERTY TRUST, INC.",
+   "value_usd": 16711132,
+   "insiders": 2,
+   "title": "CEO, Chairman of the Board",
+   "adv_usd": 81937400,
+   "decision": "liquidite hors bande (81.94 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "TEAM",
+   "issuer": "Atlassian Corp",
+   "value_usd": 2004422,
+   "insiders": 1,
+   "title": "CEO, Co-Founder",
+   "adv_usd": 611274114,
+   "decision": "liquidite hors bande (611.27 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "TRIN",
+   "issuer": "Trinity Capital Inc.",
+   "value_usd": 58000,
+   "insiders": 1,
+   "title": "CEO, President and CIO",
+   "adv_usd": 15996931,
+   "decision": "liquidite hors bande (16.00 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "TRTX",
+   "issuer": "TPG RE Finance Trust, Inc.",
+   "value_usd": 80850,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 11483498,
+   "decision": "liquidite hors bande (11.48 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "TXO",
+   "issuer": "TXO Partners, L.P.",
+   "value_usd": 945220,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 2213066,
+   "decision": "liquidite hors bande (2.21 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "UPST",
+   "issuer": "Upstart Holdings, Inc.",
+   "value_usd": 1028400,
+   "insiders": 1,
+   "title": "Chief Executive Officer",
+   "adv_usd": 114300342,
+   "decision": "liquidite hors bande (114.30 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "ticker": "WY",
+   "issuer": "WEYERHAEUSER CO",
+   "value_usd": 306600,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 158657426,
+   "decision": "liquidite hors bande (158.66 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 22,
-  "evenements": 253,
-  "retenus": 9,
-  "achetes": 9,
+  "jours": 23,
+  "evenements": 280,
+  "retenus": 10,
+  "achetes": 10,
   "complet": 0,
   "prolonges": 0
  }
