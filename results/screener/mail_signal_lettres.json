@@ -1,5 +1,521 @@
 [
  {
+  "semaine_fin": "2026-11-13",
+  "semaine_debut": "2026-11-07",
+  "genere_le": "2026-11-14T13:00:22+00:00",
+  "modele": "mistral:7b",
+  "stats": {
+   "n_avis": 51,
+   "n_achat": 41,
+   "n_vente": 10,
+   "n_newsletters": 0,
+   "n_publications": 15
+  },
+  "themes": [
+   {
+    "titre": "Marchés boursiers en difficulté",
+    "texte": "Plusieurs extraits font état de baisse des cours des actions, notamment pour Nvidia, ConocoPhillips et Indonesian stocks. Certains auteurs recommandent l'achat de certains titres en raison de leur prix bas.",
+    "sources": [
+     {
+      "id": 1,
+      "publication": "Adam Tooze from Chartbook (substack.com) (ton)",
+      "texte": "[avis achat UCG.MI] On October 15th UniCredit, Italy’s second-biggest lender by assets and revenue, said it got the nod from the European Central Bank (ECB) to seal a €45bn ($51bn)"
+     },
+     {
+      "id": 2,
+      "publication": "Adam Tooze from Chartbook (substack.com) (ton)",
+      "texte": "[avis vente CBK.DE] On October 15th UniCredit, Italy’s second-biggest lender by assets and revenue, said it got the nod from the European Central Bank (ECB) to seal a €45bn ($51bn)"
+     },
+     {
+      "id": 8,
+      "publication": "Adam Tooze from Chartbook (substack.com) (ton)",
+      "texte": "[avis vente INDO] In dollar terms Indonesian stocks have lost half their value in 2026, rendering it the world’s worst-performing market"
+     },
+     {
+      "id": 13,
+      "publication": "news.meilleurtaux.com (ton)",
+      "texte": "[avis vente NVDA] La valorisation de Nvidia, qui a depasse largement les 5 000 milliards de dollars, a chute de plus de 25% en quelques semaines, et de pres de 6% ce week-end apr"
+     },
+     {
+      "id": 15,
+      "publication": "Energy Investing (Seeking Alpha)",
+      "texte": "[avis vente COP] ConocoPhillips: A Crude Awakening Is Coming (Rating Downgrade)"
+     }
+    ]
+   },
+   {
+    "titre": "Achats de titres en raison de leur rendement",
+    "texte": "Certains auteurs recommandent l'achat de certains titres en raison de leur rendement élevé, notamment Bank of America, Western Midstream, Rubis, SPIE, Rubis et Vetquino.",
+    "sources": [
+     {
+      "id": 9,
+      "publication": "tipranks.com",
+      "texte": "[avis achat BAC] Bank of America recommends two names yielding up to 12%,"
+     },
+     {
+      "id": 10,
+      "publication": "Energy Investing (Seeking Alpha)",
+      "texte": "[avis achat WES] Western Midstream: 9% Yield, And The Best Is Yet To Come In 2027 (Rating Upgrade)"
+     },
+     {
+      "id": 30,
+      "publication": "Stocks & Sectors (Seeking Alpha)",
+      "texte": "[avis achat FWRD] Forward Air: Omni Acquisition Disappoints, But I Maintain My Buy Rating"
+     },
+     {
+      "id": 20,
+      "publication": "tradingsat.com",
+      "texte": "[avis achat AIR.PA] Le conseil BFM Bourse AIRBUS GROUP Positif 209.450 € Objectif : 260.000 € Potentiel : +24.13 % Stop : 189.900 €"
+     },
+     {
+      "id": 28,
+      "publication": "tradingsat.com",
+      "texte": "[avis achat SPIE.PA] Notre avis est haussier sur l'action SPIE à court terme. Les investisseurs actifs prendront position à l'achat sur le titre SPIE au cours de 46.280 € avec un ob"
+     },
+     {
+      "id": 44,
+      "publication": "Stocks & Sectors (Seeking Alpha)",
+      "texte": "[avis achat EQX] Equinox Gold: The Post-Merger Cash Machine Has Arrived"
+     }
+    ]
+   },
+   {
+    "titre": "Secteur technologique",
+    "texte": "Plusieurs extraits font état de titres de la technologie, notamment Nvidia, QumulusAI, AMD et Forward Air. Certains auteurs recommandent l'achat de certains titres en raison de leur potentiel.",
+    "sources": [
+     {
+      "id": 19,
+      "publication": "Must Reads (Seeking Alpha)",
+      "texte": "[avis achat NVDA] Nvidia Corporation remains a Strong Buy"
+     },
+     {
+      "id": 26,
+      "publication": "news.meilleurtaux.com (ton)",
+      "texte": "[avis achat SAF.PA] Safran gagne 2,26% ce mardi, a 312,70€, signant l'une des meilleures performances du CAC 40."
+     },
+     {
+      "id": 33,
+      "publication": "Must Reads (Seeking Alpha)",
+      "texte": "[avis achat AMD] Advanced Micro Devices, Inc. is poised for a sustained, fundamental-led recovery"
+     },
+     {
+      "id": 31,
+      "publication": "ETF Ideas (Seeking Alpha)",
+      "texte": "[avis achat GHU.F] ADX: Buy The Dip Because The Distributions Are Already Paid For"
+     },
+     {
+      "id": 32,
+      "publication": "Tech Daily (Seeking Alpha)",
+      "texte": "[avis achat BILL] Profits Are Ramping Up As Payments Volume Sustains Double-Digit Growth"
+     }
+    ]
+   }
+  ],
+  "note_themes": "",
+  "tickers": [
+   {
+    "ticker": "NVDA",
+    "nom": "NVIDIA Corporation",
+    "n_avis": 7,
+    "n_achat": 2,
+    "n_vente": 5,
+    "publications": [
+     "Must Reads (Seeking Alpha)",
+     "Stock Ideas (Seeking Alpha)",
+     "aktionnaire.com (ton)",
+     "news.meilleurtaux.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "Must Reads (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 18,
+      "excess_moy_20j": -0.0266894624286155
+     },
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 24,
+      "excess_moy_20j": -0.0639948500380496
+     },
+     {
+      "publication": "aktionnaire.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 4,
+      "excess_moy_20j": 0.0622806984915628
+     },
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 11,
+      "excess_moy_20j": -0.0215484987239013
+     }
+    ]
+   },
+   {
+    "ticker": "AMD",
+    "nom": "Advanced Micro Devices, Inc.",
+    "n_avis": 2,
+    "n_achat": 2,
+    "n_vente": 0,
+    "publications": [
+     "Morning Briefing (Seeking Alpha)",
+     "Must Reads (Seeking Alpha)"
+    ],
+    "sources": [
+     {
+      "publication": "Morning Briefing (Seeking Alpha)",
+      "statut": "observation",
+      "n_evalues_20j": 8,
+      "excess_moy_20j": -0.0834677218631149
+     },
+     {
+      "publication": "Must Reads (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 18,
+      "excess_moy_20j": -0.0266894624286155
+     }
+    ]
+   },
+   {
+    "ticker": "SNDK",
+    "nom": "Sandisk Corporation",
+    "n_avis": 2,
+    "n_achat": 2,
+    "n_vente": 0,
+    "publications": [
+     "Stock Ideas (Seeking Alpha)",
+     "Tech Daily (Seeking Alpha)"
+    ],
+    "sources": [
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 24,
+      "excess_moy_20j": -0.0639948500380496
+     },
+     {
+      "publication": "Tech Daily (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 20,
+      "excess_moy_20j": -0.1051980092744997
+     }
+    ]
+   },
+   {
+    "ticker": "MU",
+    "nom": "Micron Technology, Inc.",
+    "n_avis": 3,
+    "n_achat": 2,
+    "n_vente": 1,
+    "publications": [
+     "Stock Ideas (Seeking Alpha)"
+    ],
+    "sources": [
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 24,
+      "excess_moy_20j": -0.0639948500380496
+     }
+    ]
+   },
+   {
+    "ticker": "AIR.PA",
+    "nom": "Airbus SE",
+    "n_avis": 1,
+    "n_achat": 1,
+    "n_vente": 0,
+    "publications": [
+     "tradingsat.com"
+    ],
+    "sources": [
+     {
+      "publication": "tradingsat.com",
+      "statut": "bruit",
+      "n_evalues_20j": 21,
+      "excess_moy_20j": -0.0298586640200643
+     }
+    ]
+   },
+   {
+    "ticker": "AMBQ",
+    "nom": "Ambiq Micro, Inc.",
+    "n_avis": 1,
+    "n_achat": 1,
+    "n_vente": 0,
+    "publications": [
+     "Tech Daily (Seeking Alpha)"
+    ],
+    "sources": [
+     {
+      "publication": "Tech Daily (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 20,
+      "excess_moy_20j": -0.1051980092744997
+     }
+    ]
+   },
+   {
+    "ticker": "AMZN",
+    "nom": "Amazon.com, Inc.",
+    "n_avis": 1,
+    "n_achat": 1,
+    "n_vente": 0,
+    "publications": [
+     "thedailyupside.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "thedailyupside.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 2,
+      "excess_moy_20j": 0.1068151300235173
+     }
+    ]
+   },
+   {
+    "ticker": "BAC",
+    "nom": "Bank of America Corporation",
+    "n_avis": 1,
+    "n_achat": 1,
+    "n_vente": 0,
+    "publications": [
+     "tipranks.com"
+    ],
+    "sources": [
+     {
+      "publication": "tipranks.com",
+      "statut": "observation",
+      "n_evalues_20j": 10,
+      "excess_moy_20j": -0.0614736821702309
+     }
+    ]
+   }
+  ],
+  "desaccords": [
+   {
+    "ticker": "MU",
+    "nom": "Micron Technology, Inc.",
+    "n_avis": 3,
+    "n_achat": 2,
+    "n_vente": 1,
+    "publications": [
+     "Stock Ideas (Seeking Alpha)"
+    ],
+    "sources": [
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 24,
+      "excess_moy_20j": -0.0639948500380496
+     }
+    ],
+    "citations": [
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "sens": "long",
+      "citation": "Long Ideas Micron: The Story Is Far From Being Over (Rating Upgrade) By Prakhar Agarwal, CFA"
+     },
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "sens": "short",
+      "citation": "Micron: Why I Added $5,000 Worth Of Shares During The Selloff"
+     },
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "sens": "long",
+      "citation": "Micron: HBM Repricing Strengthens The Buy Case After The Selloff"
+     }
+    ]
+   },
+   {
+    "ticker": "NVDA",
+    "nom": "NVIDIA Corporation",
+    "n_avis": 7,
+    "n_achat": 2,
+    "n_vente": 5,
+    "publications": [
+     "Must Reads (Seeking Alpha)",
+     "Stock Ideas (Seeking Alpha)",
+     "aktionnaire.com (ton)",
+     "news.meilleurtaux.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "Must Reads (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 18,
+      "excess_moy_20j": -0.0266894624286155
+     },
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 24,
+      "excess_moy_20j": -0.0639948500380496
+     },
+     {
+      "publication": "aktionnaire.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 4,
+      "excess_moy_20j": 0.0622806984915628
+     },
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 11,
+      "excess_moy_20j": -0.0215484987239013
+     }
+    ],
+    "citations": [
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "sens": "long",
+      "citation": "Here's Why I Bought Nvidia While The Market Cried In Fear (Rating Upgrade) By Oliver Rodzianko"
+     },
+     {
+      "publication": "aktionnaire.com (ton)",
+      "sens": "short",
+      "citation": "Et Nvidia ? L’entreprise a perdu près de 400 milliards de capitalisation la semaine dernière,"
+     },
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "sens": "short",
+      "citation": "La valorisation de Nvidia, qui a depasse largement les 5 000 milliards de dollars, a chute de plus de 25% en quelques semaines, et de pres de 6% ce week-end apr"
+     },
+     {
+      "publication": "Must Reads (Seeking Alpha)",
+      "sens": "long",
+      "citation": "Nvidia Corporation remains a Strong Buy"
+     },
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "sens": "short",
+      "citation": "Le cours est en chute libre apres seance. De 7,5%, soit l'equivalent de plus de 300 milliards de dollars encore."
+     },
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "sens": "short",
+      "citation": "Nvidia: Worth Less Without Jensen (Rating Downgrade) By Stone Fox Capital"
+     },
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "sens": "short",
+      "citation": "Nvidia n'en finit plus de chuter !"
+     }
+    ]
+   }
+  ],
+  "publications": [
+   {
+    "publication": "news.meilleurtaux.com (ton)",
+    "n_avis": 12,
+    "statut": "observation",
+    "n_evalues_20j": 11,
+    "excess_moy_20j": -0.0215484987239013
+   },
+   {
+    "publication": "Stock Ideas (Seeking Alpha)",
+    "n_avis": 6,
+    "statut": "bruit",
+    "n_evalues_20j": 24,
+    "excess_moy_20j": -0.0639948500380496
+   },
+   {
+    "publication": "Adam Tooze from Chartbook (substack.com) (ton)",
+    "n_avis": 5,
+    "statut": "observation",
+    "n_evalues_20j": 0,
+    "excess_moy_20j": null
+   },
+   {
+    "publication": "tradingsat.com",
+    "n_avis": 5,
+    "statut": "bruit",
+    "n_evalues_20j": 21,
+    "excess_moy_20j": -0.0298586640200643
+   },
+   {
+    "publication": "Tech Daily (Seeking Alpha)",
+    "n_avis": 4,
+    "statut": "bruit",
+    "n_evalues_20j": 20,
+    "excess_moy_20j": -0.1051980092744997
+   },
+   {
+    "publication": "Energy Investing (Seeking Alpha)",
+    "n_avis": 4,
+    "statut": "bruit",
+    "n_evalues_20j": 24,
+    "excess_moy_20j": -0.0140192906194673
+   },
+   {
+    "publication": "Stocks & Sectors (Seeking Alpha)",
+    "n_avis": 3,
+    "statut": "bruit",
+    "n_evalues_20j": 29,
+    "excess_moy_20j": -0.0411743776599197
+   },
+   {
+    "publication": "Zacks Rank (email.zacks.com)",
+    "n_avis": 3,
+    "statut": "observation",
+    "n_evalues_20j": 5,
+    "excess_moy_20j": -0.0218514297820534
+   },
+   {
+    "publication": "aktionnaire.com (ton)",
+    "n_avis": 2,
+    "statut": "observation",
+    "n_evalues_20j": 4,
+    "excess_moy_20j": 0.0622806984915628
+   },
+   {
+    "publication": "Must Reads (Seeking Alpha)",
+    "n_avis": 2,
+    "statut": "bruit",
+    "n_evalues_20j": 18,
+    "excess_moy_20j": -0.0266894624286155
+   },
+   {
+    "publication": "tipranks.com",
+    "n_avis": 1,
+    "statut": "observation",
+    "n_evalues_20j": 10,
+    "excess_moy_20j": -0.0614736821702309
+   },
+   {
+    "publication": "Morning Briefing (Seeking Alpha)",
+    "n_avis": 1,
+    "statut": "observation",
+    "n_evalues_20j": 8,
+    "excess_moy_20j": -0.0834677218631149
+   },
+   {
+    "publication": "ETF Ideas (Seeking Alpha)",
+    "n_avis": 1,
+    "statut": "observation",
+    "n_evalues_20j": 5,
+    "excess_moy_20j": 0.0655091336913884
+   },
+   {
+    "publication": "thedailyupside.com (ton)",
+    "n_avis": 1,
+    "statut": "observation",
+    "n_evalues_20j": 2,
+    "excess_moy_20j": 0.1068151300235173
+   },
+   {
+    "publication": "Dividend Ideas (Seeking Alpha)",
+    "n_avis": 1,
+    "statut": "bruit",
+    "n_evalues_20j": 30,
+    "excess_moy_20j": 0.0138183209470791
+   }
+  ],
+  "actions_bot": []
+ },
+ {
   "semaine_fin": "2026-11-06",
   "semaine_debut": "2026-10-31",
   "genere_le": "2026-11-07T12:24:31+00:00",
