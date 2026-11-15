@@ -1,4 +1,4 @@
-# Bilan annexe — portefeuilles combinés (15/11/2026 20:51 UTC)
+# Bilan annexe — portefeuilles combinés (15/11/2026 21:51 UTC)
 
 **Pas de classement pour l'instant :** 13 jour(s) de suivi officiel sur les 365 prévus. À si court terme, les écarts relèvent surtout du hasard.
 
@@ -9,10 +9,10 @@ Portefeuilles virtuels, base 1 000 €. Le S&P 500 est hors dividendes, les bots
 | Portefeuille | Départ | Valeur | Depuis le départ | 7 jours | S&P 500 même période | Pire baisse |
 |---|---|---:|---:|---:|---:|---:|
 | M1 Risque égal | 12/10/2026 | 993,09 € | -0,69 % | +1,57 % | -3,20 % | -3,02 % |
-| M2 Tous les bots | 02/11/2026 | 1009,86 € | +0,99 % | +2,33 % | -0,24 % | -2,76 % |
-| M3 Sans cash | 02/11/2026 | 1006,18 € | +0,62 % | +3,25 % | -0,24 % | -4,73 % |
+| M2 Tous les bots | 02/11/2026 | 1009,85 € | +0,98 % | +2,33 % | -0,24 % | -2,76 % |
+| M3 Sans cash | 02/11/2026 | 1006,17 € | +0,62 % | +3,26 % | -0,24 % | -4,73 % |
 | M4 Preuves seules | 02/11/2026 | 1007,25 € | +0,73 % | +1,38 % | -0,24 % | -1,91 % |
-| M5 Facteurs | 02/11/2026 | 1011,74 € | +1,17 % | +1,06 % | -0,24 % | -1,16 % |
+| M5 Facteurs | 02/11/2026 | 1011,73 € | +1,17 % | +1,06 % | -0,24 % | -1,16 % |
 
 ## Reconstitution depuis le 14/10/2026
 
@@ -30,14 +30,14 @@ Calculée après coup avec les poids d'aujourd'hui : indicative, elle ne prouve 
 
 | Composante | Performance | Part investie | M1 | M2 | M3 | M4 | M5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Sous-evaluation | -8,67 % | 98 % | 11 % | 8 % | 11 % | – | – |
+| Sous-evaluation | -8,68 % | 98 % | 11 % | 8 % | 11 % | – | – |
 | R1 | -0,16 % | 0 % | 29 % | 8 % | 29 % | 33 % | 38 % |
 | T1 | -1,58 % | 50 % | 25 % | 8 % | 25 % | 28 % | 33 % |
 | I1 | +0,22 % | 18 % | 10 % | 8 % | 10 % | 12 % | – |
 | G1 | +5,98 % | 100 % | 8 % | 8 % | 8 % | 9 % | – |
 | W1 | +0,90 % | 100 % | 16 % | 8 % | 16 % | 18 % | – |
-| Q1 | +2,15 % | 99 % | – | 8 % | – | – | 15 % |
-| V1 | +3,03 % | 99 % | – | 8 % | – | – | 15 % |
+| Q1 | +2,13 % | 99 % | – | 8 % | – | – | 15 % |
+| V1 | +3,04 % | 99 % | – | 8 % | – | – | 15 % |
 | H1 | -0,01 % | 100 % | – | 8 % | – | – | – |
 | E1 | +2,96 % | 100 % | – | 8 % | – | – | – |
 | L1 | -0,63 % | 33 % | – | 8 % | – | – | – |
