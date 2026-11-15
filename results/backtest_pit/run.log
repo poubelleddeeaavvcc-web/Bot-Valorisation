@@ -43227,7 +43227,7 @@ Telechargement FX historique (3 mois, 14 devises)...
   s = fx_daily[key].loc[:when.normalize() + pd.Timedelta(days=1)].dropna()
 Fenetre : 2026-08-21 02:19:35 -> 2026-11-13 20:51:40 (1349 points, univers 3441->3734 tickers)
 
-FX obtenu pour : ['GBP', 'TWD', 'CAD', 'JPY', 'BRL', 'CHF', 'USD', 'MXN', 'HKD', 'SEK', 'AUD', 'INR']
+FX obtenu pour : ['AUD', 'CHF', 'TWD', 'CAD', 'SEK', 'MXN', 'INR', 'GBP', 'USD', 'BRL', 'HKD', 'JPY']
 
 --- Bot #1 (blind, PIT reel) ---
   Clotures : n=78  win_rate=+30.8%  retour_moyen=-7.4%
@@ -43283,7 +43283,7 @@ FX obtenu pour : ['GBP', 'TWD', 'CAD', 'JPY', 'BRL', 'CHF', 'USD', 'MXN', 'HKD',
   Clotures : n=7  win_rate=+28.6%  retour_moyen=-14.0%
   Motifs de sortie : {'stop_loss': 5, 'trailing_stop': 1, 'valorisation_atteinte': 1}
   Positions ouvertes en fin de periode : n=14
-  Equity EUR (depart 2000) : 1967.15 EUR (-1.6%)  cash_final=20.71 EUR
+  Equity EUR (depart 2000) : 1967.46 EUR (-1.6%)  cash_final=20.71 EUR
   Frais payes : 28.00 EUR | perte max depuis un sommet (drawdown) : -6.3%
   Renforts de conviction reels declenches : 0 position(s)
 
