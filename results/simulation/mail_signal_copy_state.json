@@ -50,13 +50,25 @@
    "sector": "The Markets Daily (beehiiv.com)",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "IREN",
+   "bucket": "pool",
+   "reason": "avis Stocks & Sectors (Seeking Alpha)",
+   "decided_at": "2026-11-15T15:40:07Z",
+   "amount_eur": 100.0,
+   "name": "IREN Limited",
+   "sector": "Stocks & Sectors (Seeking Alpha)",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-12-10",
   "NVDA": "2026-12-11",
-  "AVGO": "2026-11-19",
+  "AVGO": "2026-12-11",
   "SNDK": "2026-12-04",
   "RKLB": "2026-11-20",
   "ORCL": "2026-11-26",
@@ -158,7 +170,8 @@
   "FGR.PA": "2026-12-11",
   "KRP": "2026-12-11",
   "AVAT": "2026-12-11",
-  "SHOP": "2026-12-11"
+  "SHOP": "2026-12-11",
+  "IREN": "2026-12-11"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -638,12 +651,14 @@
   "1a1da20705a4af15:KRP",
   "1a1da09a600ae811:AVAT",
   "1a1da1cff2482335:NVDA",
-  "1a1da2c346ce7ec5:SHOP"
+  "1a1da2c346ce7ec5:SHOP",
+  "1a1df3dc865ed235:IREN",
+  "1a1df434f3061f66:AVGO"
  ],
  "counters": {
-  "avis": 478,
-  "achetes": 288,
-  "prolonges": 190,
+  "avis": 480,
+  "achetes": 289,
+  "prolonges": 191,
   "complet": 0
  },
  "dropped": [

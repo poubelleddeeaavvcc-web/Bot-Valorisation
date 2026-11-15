@@ -38,16 +38,24 @@
     "t": null,
     "taux_reussite": null
    },
-   "avis_recus": 1
+   "avis_recus": 2
   }
  },
- "avis_recus": 1,
+ "avis_recus": 2,
  "avis": [
   {
    "date": "2026-11-13",
    "lettre": "Stock Ideas",
    "ticker": "NVDA",
    "sens_avis": "vente",
+   "inverse_5j": null,
+   "inverse_20j": null
+  },
+  {
+   "date": "2026-11-15",
+   "lettre": "Stock Ideas",
+   "ticker": "AVGO",
+   "sens_avis": "achat",
    "inverse_5j": null,
    "inverse_20j": null
   }
