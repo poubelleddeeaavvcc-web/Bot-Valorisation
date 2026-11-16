@@ -1,23 +1,8 @@
 {
  "cash": {
-  "pool": 4100.0
+  "pool": 4000.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "NTHI",
-   "bucket": "pool",
-   "reason": "1 initie(s), 151 k$ le 2026-11-13",
-   "decided_at": "2026-11-14T11:51:34Z",
-   "amount_eur": 100.0,
-   "name": "NEONC TECHNOLOGIES HOLDINGS, INC.",
-   "sector": "Inities (petites cap.)",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 150501.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",
