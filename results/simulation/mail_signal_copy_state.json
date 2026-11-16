@@ -1,16 +1,8 @@
 {
  "cash": {
-  "pool": 8472.043819085178
+  "pool": 8565.87582148653
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "BOL.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-16T02:02:14Z",
-   "fraction": 1.0
-  },
   {
    "side": "sell",
    "ticker": "CRWV",
@@ -18,26 +10,6 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-16T02:02:14Z",
    "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "ICAD.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-16T02:02:14Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "FGR.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-13T23:32:58Z",
-   "amount_eur": 100.0,
-   "name": "Eiffage SA",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
   },
   {
    "side": "buy",
@@ -86,6 +58,54 @@
    "sector": "Stocks & Sectors (Seeking Alpha)",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "KMI",
+   "bucket": "pool",
+   "reason": "avis The Markets Daily (beehiiv.com)",
+   "decided_at": "2026-11-16T20:26:57Z",
+   "amount_eur": 100.0,
+   "name": "Kinder Morgan, Inc.",
+   "sector": "The Markets Daily (beehiiv.com)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "ENB",
+   "bucket": "pool",
+   "reason": "avis Energy Investing (Seeking Alpha)",
+   "decided_at": "2026-11-16T20:26:57Z",
+   "amount_eur": 100.0,
+   "name": "Enbridge Inc.",
+   "sector": "Energy Investing (Seeking Alpha)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "DELL",
+   "bucket": "pool",
+   "reason": "avis Tech Daily (Seeking Alpha)",
+   "decided_at": "2026-11-16T20:26:57Z",
+   "amount_eur": 100.0,
+   "name": "Dell Technologies Inc.",
+   "sector": "Tech Daily (Seeking Alpha)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "CARM.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-16T20:26:57Z",
+   "amount_eur": 100.0,
+   "name": "Carmila S.A.",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -108,9 +128,7 @@
   "O": "2026-12-11",
   "QMLS": "2026-12-07",
   "TSLA": "2026-11-24",
-  "ICAD.PA": "2026-11-16",
   "CRWV": "2026-11-16",
-  "BOL.PA": "2026-11-16",
   "CBOE": "2026-11-17",
   "JPM": "2026-11-17",
   "HAS": "2026-11-18",
@@ -195,7 +213,11 @@
   "KRP": "2026-12-11",
   "AVAT": "2026-12-11",
   "SHOP": "2026-12-11",
-  "IREN": "2026-12-11"
+  "IREN": "2026-12-11",
+  "KMI": "2026-12-14",
+  "ENB": "2026-12-14",
+  "DELL": "2026-12-14",
+  "CARM.PA": "2026-12-14"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -678,11 +700,15 @@
   "1a1da2c346ce7ec5:SHOP",
   "1a1df3dc865ed235:IREN",
   "1a1df434f3061f66:AVGO",
-  "1a1dff13c9a55dbc:TTWO"
+  "1a1dff13c9a55dbc:TTWO",
+  "1a1e47786116019a:KMI",
+  "1a1e46d1d5ed08d5:ENB",
+  "1a1e4768ea852a60:DELL",
+  "1a1e554ae50910d7:CARM.PA"
  ],
  "counters": {
-  "avis": 481,
-  "achetes": 289,
+  "avis": 485,
+  "achetes": 293,
   "prolonges": 192,
   "complet": 0
  },

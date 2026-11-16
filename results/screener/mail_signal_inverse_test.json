@@ -39,9 +39,24 @@
     "taux_reussite": null
    },
    "avis_recus": 2
+  },
+  "Tech Daily (Seeking Alpha)": {
+   "20j": {
+    "n": 0,
+    "moyenne": null,
+    "t": null,
+    "taux_reussite": null
+   },
+   "5j": {
+    "n": 0,
+    "moyenne": null,
+    "t": null,
+    "taux_reussite": null
+   },
+   "avis_recus": 1
   }
  },
- "avis_recus": 2,
+ "avis_recus": 3,
  "avis": [
   {
    "date": "2026-11-13",
@@ -55,6 +70,14 @@
    "date": "2026-11-15",
    "lettre": "Stock Ideas",
    "ticker": "AVGO",
+   "sens_avis": "achat",
+   "inverse_5j": null,
+   "inverse_20j": null
+  },
+  {
+   "date": "2026-11-16",
+   "lettre": "Tech Daily",
+   "ticker": "DELL",
    "sens_avis": "achat",
    "inverse_5j": null,
    "inverse_20j": null
