@@ -227,6 +227,12 @@ jobs:
       - name: Strategie Meilleures idees des gerants (Bot #51)
         run: python screener/simulate_bestideas_portfolio.py
 
+      # Bot #53 (2026-11-16) : petites capitalisations US dont le nombre d'actions a le plus baisse sur 12 mois
+      # (rachats nets, frames XBRL de la SEC), revision trimestrielle ; bot papier de verification hors
+      # echantillon -- voir simulate_buyback_portfolio.py.
+      - name: Strategie Rachats nets petites capitalisations (Bot #53)
+        run: python screener/simulate_buyback_portfolio.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
