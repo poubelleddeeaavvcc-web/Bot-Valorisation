@@ -35,14 +35,18 @@
   "20035734",
   "20035743",
   "20035751",
+  "20035757",
   "20035763",
   "20035765",
   "20035770",
   "20035775",
   "20035778",
+  "20035779",
   "20035780",
+  "20035786",
   "20035788",
   "20035806",
+  "20035807",
   "20035821",
   "20035826",
   "20035831",
@@ -59,8 +63,8 @@
   "FITB": "2027-04-02",
   "RPM": "2027-04-16",
   "NOKBF": "2027-04-05",
-  "DDOG": "2027-04-06",
-  "EL": "2027-04-06",
+  "DDOG": "2027-05-03",
+  "EL": "2027-05-03",
   "GH": "2027-04-06",
   "NVDA": "2027-04-23",
   "TSM": "2027-04-09",
@@ -618,15 +622,33 @@
    "trade_date": "11/05/2026",
    "amount_low": 1001,
    "decision": "deja detenu : detention prolongee"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "member": "Jonathan Jackson",
+   "district": "IL01",
+   "ticker": "DDOG",
+   "trade_date": "10/22/2026",
+   "amount_low": 1001,
+   "decision": "deja detenu : detention prolongee"
+  },
+  {
+   "filing_date": "2026-11-13",
+   "member": "Jonathan Jackson",
+   "district": "IL01",
+   "ticker": "EL",
+   "trade_date": "10/12/2026",
+   "amount_low": 1001,
+   "decision": "deja detenu : detention prolongee"
   }
  ],
  "counters": {
-  "rapports": 47,
+  "rapports": 51,
   "illisibles": 0,
-  "achats_declares": 57,
+  "achats_declares": 59,
   "achetes": 50,
   "complet": 2,
-  "prolonges": 5,
+  "prolonges": 7,
   "sans_cours": 0
  }
 }
