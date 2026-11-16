@@ -151,9 +151,11 @@ def select(today: pd.Timestamp):
     cand = {t: c for t, c in cand.items() if c in iss.index}
     print(f"  {len(cand)} candidats (cotes US, hors financieres, nombre d'actions connu sur 12 mois)")
     px = dollar_volume(cand)
+    # one line per company: its most traded share class, chosen BEFORE the volume band (else a thin class B can
+    # stand in for a class A too liquid for the band -- KELYB on 2026-11-16)
+    px["cik"] = [cand[t] for t in px.index]
+    px = px.sort_values("dv", ascending=False).drop_duplicates("cik")
     uni = px[(px["close"] >= MIN_PRICE) & px["dv"].between(DV_MIN, DV_MAX)].copy()
-    uni["cik"] = [cand[t] for t in uni.index]
-    uni = uni.sort_values("dv", ascending=False).drop_duplicates("cik")  # one line per company (share classes)
     uni["iss"] = [iss[c] for c in uni["cik"]]
     # SIC missing from the map (BDCs, recent listings...): ask EDGAR, then drop financials
     for t in uni.index:

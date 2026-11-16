@@ -233,6 +233,12 @@ jobs:
       - name: Strategie Rachats nets petites capitalisations (Bot #53)
         run: python screener/simulate_buyback_portfolio.py
 
+      # Bot #54 (2026-11-16) : petites capitalisations US dont le dernier BPA trimestriel bat le plus celui
+      # d'il y a un an (surprise standardisee, frames XBRL de la SEC), revision mensuelle ; bot papier --
+      # voir simulate_surprise_portfolio.py.
+      - name: Strategie Surprise de benefices petites capitalisations (Bot #54)
+        run: python screener/simulate_surprise_portfolio.py
+
       - name: Commit + push si des resultats ont change
         run: |
           git config user.name "screener-bot"
