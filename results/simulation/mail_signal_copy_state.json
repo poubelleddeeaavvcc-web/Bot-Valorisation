@@ -62,6 +62,30 @@
    "sector": "Stocks & Sectors (Seeking Alpha)",
    "currency": "USD",
    "fractional": true
+  },
+  {
+   "side": "sell",
+   "ticker": "BOL.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-16T02:02:14Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "CRWV",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-16T02:02:14Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "ICAD.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-16T02:02:14Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
