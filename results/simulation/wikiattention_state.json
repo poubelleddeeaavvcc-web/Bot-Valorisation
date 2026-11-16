@@ -2,7 +2,16 @@
  "cash": {
   "pool": 0.0
  },
- "pending": [],
+ "pending": [
+  {
+   "side": "sell",
+   "ticker": "SPY",
+   "bucket": "pool",
+   "reason": "vues des pages du Dow +287.6% vs 3 semaines : cash",
+   "decided_at": "2026-11-16T05:52:42Z",
+   "fraction": 1.0
+  }
+ ],
  "launched_at": "2026-10-14T10:56:01Z",
  "signals": [
   {
@@ -39,7 +48,14 @@
    "mean_prev3": 405224,
    "change": -0.1163,
    "position": "investi"
+  },
+  {
+   "week": "2026-S47",
+   "views": 1521203,
+   "mean_prev3": 392475,
+   "change": 2.8759,
+   "position": "cash"
   }
  ],
- "week_key": "2026-S46"
+ "week_key": "2026-S47"
 }
