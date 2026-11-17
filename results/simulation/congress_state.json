@@ -47,6 +47,7 @@
   "20035788",
   "20035806",
   "20035807",
+  "20035811",
   "20035821",
   "20035826",
   "20035831",
@@ -640,14 +641,23 @@
    "trade_date": "10/12/2026",
    "amount_low": 1001,
    "decision": "deja detenu : detention prolongee"
+  },
+  {
+   "filing_date": "2026-11-16",
+   "member": "Byron Donalds",
+   "district": "FL19",
+   "ticker": "IBKR",
+   "trade_date": "10/02/2026",
+   "amount_low": 1001,
+   "decision": "portefeuille complet : ignore"
   }
  ],
  "counters": {
-  "rapports": 51,
+  "rapports": 52,
   "illisibles": 0,
-  "achats_declares": 59,
+  "achats_declares": 60,
   "achetes": 50,
-  "complet": 2,
+  "complet": 3,
   "prolonges": 7,
   "sans_cours": 0
  }
