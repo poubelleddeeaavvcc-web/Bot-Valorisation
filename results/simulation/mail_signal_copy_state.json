@@ -1,100 +1,8 @@
 {
  "cash": {
-  "pool": 8565.87582148653
+  "pool": 7941.042338621226
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "CRWV",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-16T02:02:14Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "KRP",
-   "bucket": "pool",
-   "reason": "avis Energy Investing (Seeking Alpha)",
-   "decided_at": "2026-11-14T13:35:32Z",
-   "amount_eur": 100.0,
-   "name": "Kimbell Royalty Partners, LP",
-   "sector": "Energy Investing (Seeking Alpha)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "AVAT",
-   "bucket": "pool",
-   "reason": "avis advisor.thedailyupside.com (ton)",
-   "decided_at": "2026-11-14T13:35:32Z",
-   "amount_eur": 100.0,
-   "name": "Avalanche Treasury Corporation",
-   "sector": "advisor.thedailyupside.com (ton)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "SHOP",
-   "bucket": "pool",
-   "reason": "avis The Markets Daily (beehiiv.com)",
-   "decided_at": "2026-11-14T13:35:32Z",
-   "amount_eur": 100.0,
-   "name": "Shopify Inc.",
-   "sector": "The Markets Daily (beehiiv.com)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "IREN",
-   "bucket": "pool",
-   "reason": "avis Stocks & Sectors (Seeking Alpha)",
-   "decided_at": "2026-11-15T15:40:07Z",
-   "amount_eur": 100.0,
-   "name": "IREN Limited",
-   "sector": "Stocks & Sectors (Seeking Alpha)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "KMI",
-   "bucket": "pool",
-   "reason": "avis The Markets Daily (beehiiv.com)",
-   "decided_at": "2026-11-16T20:26:57Z",
-   "amount_eur": 100.0,
-   "name": "Kinder Morgan, Inc.",
-   "sector": "The Markets Daily (beehiiv.com)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "ENB",
-   "bucket": "pool",
-   "reason": "avis Energy Investing (Seeking Alpha)",
-   "decided_at": "2026-11-16T20:26:57Z",
-   "amount_eur": 100.0,
-   "name": "Enbridge Inc.",
-   "sector": "Energy Investing (Seeking Alpha)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "DELL",
-   "bucket": "pool",
-   "reason": "avis Tech Daily (Seeking Alpha)",
-   "decided_at": "2026-11-16T20:26:57Z",
-   "amount_eur": 100.0,
-   "name": "Dell Technologies Inc.",
-   "sector": "Tech Daily (Seeking Alpha)",
-   "currency": "USD",
-   "fractional": true
-  },
   {
    "side": "buy",
    "ticker": "CARM.PA",
@@ -106,6 +14,22 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "sell",
+   "ticker": "CBOE",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-17T04:29:48Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "JPM",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-17T04:29:48Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -128,7 +52,6 @@
   "O": "2026-12-11",
   "QMLS": "2026-12-07",
   "TSLA": "2026-11-24",
-  "CRWV": "2026-11-16",
   "CBOE": "2026-11-17",
   "JPM": "2026-11-17",
   "HAS": "2026-11-18",
