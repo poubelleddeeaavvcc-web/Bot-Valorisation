@@ -38,7 +38,7 @@
     "t": null,
     "taux_reussite": null
    },
-   "avis_recus": 2
+   "avis_recus": 3
   },
   "Tech Daily (Seeking Alpha)": {
    "20j": {
@@ -56,7 +56,7 @@
    "avis_recus": 1
   }
  },
- "avis_recus": 3,
+ "avis_recus": 4,
  "avis": [
   {
    "date": "2026-11-13",
@@ -78,6 +78,14 @@
    "date": "2026-11-16",
    "lettre": "Tech Daily",
    "ticker": "DELL",
+   "sens_avis": "achat",
+   "inverse_5j": null,
+   "inverse_20j": null
+  },
+  {
+   "date": "2026-11-17",
+   "lettre": "Stock Ideas",
+   "ticker": "SNDK",
    "sens_avis": "achat",
    "inverse_5j": null,
    "inverse_20j": null
