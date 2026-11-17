@@ -1,24 +1,8 @@
 {
  "cash": {
-  "pool": 7941.042338621226
+  "pool": 7856.749383446262
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "CBOE",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-17T04:29:48Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "JPM",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-17T04:29:48Z",
-   "fraction": 1.0
-  },
   {
    "side": "buy",
    "ticker": "CARM.PA",
@@ -33,30 +17,6 @@
   },
   {
    "side": "buy",
-   "ticker": "PWR",
-   "bucket": "pool",
-   "reason": "avis The Markets Daily (beehiiv.com)",
-   "decided_at": "2026-11-17T15:57:34Z",
-   "amount_eur": 100.0,
-   "name": "Quanta Services, Inc.",
-   "sector": "The Markets Daily (beehiiv.com)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "ETN",
-   "bucket": "pool",
-   "reason": "avis The Markets Daily (beehiiv.com)",
-   "decided_at": "2026-11-17T15:57:34Z",
-   "amount_eur": 100.0,
-   "name": "Eaton Corporation plc",
-   "sector": "The Markets Daily (beehiiv.com)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
    "ticker": "BN.PA",
    "bucket": "pool",
    "reason": "avis tradingsat.com",
@@ -66,18 +26,6 @@
    "sector": "tradingsat.com",
    "currency": "EUR",
    "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "HUBB",
-   "bucket": "pool",
-   "reason": "avis The Markets Daily (beehiiv.com)",
-   "decided_at": "2026-11-17T15:57:34Z",
-   "amount_eur": 100.0,
-   "name": "Hubbell Incorporated",
-   "sector": "The Markets Daily (beehiiv.com)",
-   "currency": "USD",
-   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -100,8 +48,6 @@
   "O": "2026-12-11",
   "QMLS": "2026-12-07",
   "TSLA": "2026-11-24",
-  "CBOE": "2026-11-17",
-  "JPM": "2026-11-17",
   "HAS": "2026-11-18",
   "GET.PA": "2026-11-18",
   "STX": "2026-12-15",
@@ -139,7 +85,7 @@
   "CVX": "2026-11-26",
   "PBI": "2026-11-26",
   "RNO.PA": "2026-12-08",
-  "DSY.PA": "2026-11-26",
+  "DSY.PA": "2026-12-15",
   "SPXC": "2026-11-26",
   "TTE": "2026-12-11",
   "CSWC": "2026-11-27",
@@ -688,12 +634,13 @@
   "1a1e8a5c8bb47d6d:BN.PA",
   "1a1e85e9a7ad4d01:NVDA",
   "1a1e984b7bf20bee:STX",
-  "1a1e99d8610c7582:HUBB"
+  "1a1e99d8610c7582:HUBB",
+  "1a1ea7ca64fb6ece:DSY.PA"
  ],
  "counters": {
-  "avis": 494,
+  "avis": 495,
   "achetes": 297,
-  "prolonges": 197,
+  "prolonges": 198,
   "complet": 0
  },
  "dropped": [
