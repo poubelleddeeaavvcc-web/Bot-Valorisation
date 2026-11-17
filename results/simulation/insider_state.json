@@ -1,37 +1,8 @@
 {
  "cash": {
-  "pool": 4000.0
+  "pool": 3800.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "SPCB",
-   "bucket": "pool",
-   "reason": "1 initie(s), 127 k$ le 2026-11-13",
-   "decided_at": "2026-11-17T11:51:49Z",
-   "amount_eur": 100.0,
-   "name": "SuperCom Ltd",
-   "sector": "Inities (petites cap.)",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 126940.0
-  },
-  {
-   "side": "buy",
-   "ticker": "SUNS",
-   "bucket": "pool",
-   "reason": "1 initie(s), 34 k$ le 2026-11-12",
-   "decided_at": "2026-11-17T11:51:49Z",
-   "amount_eur": 100.0,
-   "name": "Sunrise Realty Trust, Inc.",
-   "sector": "Inities (petites cap.)",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 34250.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",
