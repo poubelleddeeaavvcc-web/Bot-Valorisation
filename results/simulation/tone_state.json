@@ -18944,6 +18944,16 @@
    "react": -0.043654,
    "age": 3.088769,
    "tone": 0.003676
+  },
+  {
+   "ticker": "TSN",
+   "date": "2026-11-16",
+   "ret12": 0.134735,
+   "size": 23.836679,
+   "stdret": 0.068152,
+   "react": 0.101821,
+   "age": 3.089143,
+   "tone": -0.013607
   }
  ],
  "edgar_days_done": [
@@ -18969,7 +18979,8 @@
   "2026-11-10",
   "2026-11-11",
   "2026-11-12",
-  "2026-11-13"
+  "2026-11-13",
+  "2026-11-16"
  ],
  "awaiting": [
   {
@@ -19408,15 +19419,6 @@
   }
  ],
  "events_log": [
-  {
-   "ticker": "NOC",
-   "company": "NORTHROP GRUMMAN CORP /DE/",
-   "day0": "2026-10-20",
-   "tone": 0.00473,
-   "abtone": 0.00091,
-   "rang": 0.586,
-   "decision": "neutre"
-  },
   {
    "ticker": "RTX",
    "company": "RTX Corp",
@@ -23007,6 +23009,15 @@
    "abtone": -0.0012,
    "rang": 0.445,
    "decision": "neutre"
+  },
+  {
+   "ticker": "TSN",
+   "company": "TYSON FOODS, INC.",
+   "day0": "2026-11-16",
+   "tone": -0.01361,
+   "abtone": -0.01707,
+   "rang": 0.008,
+   "decision": "portefeuille complet"
   }
  ],
  "hold_until": {
@@ -23062,11 +23073,11 @@
   "AIG": "2027-01-28"
  },
  "counters": {
-  "jours": 22,
-  "communiques": 435,
-  "evalues": 432,
+  "jours": 23,
+  "communiques": 436,
+  "evalues": 433,
   "achetes": 50,
   "ombre": 85,
-  "complet": 24
+  "complet": 25
  }
 }
