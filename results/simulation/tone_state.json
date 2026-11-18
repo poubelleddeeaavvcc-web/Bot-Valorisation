@@ -18974,6 +18974,16 @@
    "react": 0.012007,
    "age": 3.089267,
    "tone": 0.019998
+  },
+  {
+   "ticker": "NVDA",
+   "date": "2026-11-18",
+   "ret12": -0.176978,
+   "size": 28.924441,
+   "stdret": 0.06201,
+   "react": -0.019999,
+   "age": 3.089392,
+   "tone": 0.006894
   }
  ],
  "edgar_days_done": [
@@ -19010,13 +19020,6 @@
    "accepted": "2026-11-09T16:04:26-05:00",
    "tone": 0.005873187102960566,
    "company": "Skydance Corp"
-  },
-  {
-   "ticker": "NVDA",
-   "acc": "0001045810-26-000088",
-   "accepted": "2026-11-17T16:20:51-05:00",
-   "tone": 0.006894390473205891,
-   "company": "NVIDIA CORP"
   }
  ],
  "shadow": [
@@ -19452,15 +19455,6 @@
   }
  ],
  "events_log": [
-  {
-   "ticker": "SYF",
-   "company": "Synchrony Financial",
-   "day0": "2026-10-20",
-   "tone": 0.01111,
-   "abtone": 0.0089,
-   "rang": 0.908,
-   "decision": "ombre (ton trop optimiste)"
-  },
   {
    "ticker": "COF",
    "company": "CAPITAL ONE FINANCIAL CORP",
@@ -23051,6 +23045,15 @@
    "abtone": 0.01448,
    "rang": 0.966,
    "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "NVDA",
+   "company": "NVIDIA CORP",
+   "day0": "2026-11-18",
+   "tone": 0.00689,
+   "abtone": -0.0014,
+   "rang": 0.432,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -23108,7 +23111,7 @@
  "counters": {
   "jours": 24,
   "communiques": 439,
-  "evalues": 435,
+  "evalues": 436,
   "achetes": 50,
   "ombre": 86,
   "complet": 25
