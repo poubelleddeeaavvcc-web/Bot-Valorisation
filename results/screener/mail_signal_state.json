@@ -1,5 +1,9 @@
 {
   "processed_message_ids": [
+    "1a1ed854aa0c0b85",
+    "1a1ed7af1aba31c0",
+    "1a1ed24a04b98128",
+    "1a1ebf90bf2f4674",
     "1a1eb57b4980a9e7",
     "1a1eb466944f4fba",
     "1a1ea9d2d1f36c11",
@@ -59,14 +63,9 @@
     "1a1e43dd58e0558e",
     "1a1e4181db215682",
     "1a1e396e8e2365b1",
-    "1a1e380672067b2f",
-    "1a1e33564e76a044",
-    "1a1e30c8bcd181d4",
-    "1a1e2defac0a350f",
-    "1a1e1f232d750af5",
-    "1a1e1aa8b6e95853"
+    "1a1e380672067b2f"
   ],
-  "last_run_date": "2026-11-17",
+  "last_run_date": "2026-11-18",
   "ollama_attempts": {
     "1a06c3dc17d92321": 1,
     "1a080d744fee4403": 2,
@@ -998,7 +997,7 @@
     "Must Reads (Seeking Alpha)": "bruit",
     "SA Breaking News (Seeking Alpha)": "observation",
     "Stock Ideas (Seeking Alpha)": "bruit",
-    "StockNews.com (beehiiv.com)": "observation",
+    "StockNews.com (beehiiv.com)": "bruit",
     "Stocks & Sectors (Seeking Alpha)": "bruit",
     "Tech Daily (Seeking Alpha)": "bruit",
     "The Markets Daily (beehiiv.com)": "observation",

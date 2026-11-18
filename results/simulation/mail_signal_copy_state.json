@@ -26,6 +26,54 @@
    "sector": "tradingsat.com",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "sell",
+   "ticker": "AA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-18T07:26:50Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "GET.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-18T07:26:50Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "GT",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-18T07:26:50Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "HAS",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-18T07:26:50Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "SKHY",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-18T07:26:50Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "VU.PA",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-18T07:26:50Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
