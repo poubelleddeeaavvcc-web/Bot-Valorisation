@@ -30,14 +30,15 @@
   "2026-11-11",
   "2026-11-12",
   "2026-11-13",
-  "2026-11-16"
+  "2026-11-16",
+  "2026-11-17"
  ],
  "hold_until": {
   "ONMD": "2027-04-08",
   "PED": "2027-05-12",
   "SWZ": "2027-04-08",
   "FINW": "2027-04-29",
-  "AOMR": "2027-05-12",
+  "AOMR": "2027-05-13",
   "FGBI": "2027-05-05",
   "OESX": "2027-05-06",
   "BRT": "2027-05-10",
@@ -47,256 +48,6 @@
   "SUNS": "2027-05-12"
  },
  "events_log": [
-  {
-   "filing_date": "2026-10-20",
-   "ticker": "GRF",
-   "issuer": "EAGLE CAPITAL GROWTH FUND, INC.",
-   "value_usd": 108633,
-   "insiders": 1,
-   "title": "CFO, CCO, Secretary, Treasurer",
-   "adv_usd": 25028,
-   "decision": "liquidite hors bande (0.03 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-21",
-   "ticker": "BPRE",
-   "issuer": "Bluerock Private Real Estate Fund",
-   "value_usd": 3345006,
-   "insiders": 1,
-   "title": "Director",
-   "adv_usd": 11558436,
-   "decision": "liquidite hors bande (11.56 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-21",
-   "ticker": "CLM",
-   "issuer": "Cornerstone Strategic Investment Fund, Inc.",
-   "value_usd": 97280,
-   "insiders": 1,
-   "title": "Vice Chairman and President",
-   "adv_usd": 12001225,
-   "decision": "liquidite hors bande (12.00 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-21",
-   "ticker": "CRF",
-   "issuer": "CORNERSTONE TOTAL RETURN FUND INC",
-   "value_usd": 117600,
-   "insiders": 1,
-   "title": "Vice Chairman and President",
-   "adv_usd": 7765574,
-   "decision": "liquidite hors bande (7.77 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-21",
-   "ticker": "DX",
-   "issuer": "DYNEX CAPITAL INC",
-   "value_usd": 99970,
-   "insiders": 1,
-   "title": "Co-CEO & Chairman of the Board",
-   "adv_usd": 91630521,
-   "decision": "liquidite hors bande (91.63 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-21",
-   "ticker": "FBK",
-   "issuer": "FB Financial Corp",
-   "value_usd": 1537788,
-   "insiders": 1,
-   "title": "Director",
-   "adv_usd": 28377671,
-   "decision": "liquidite hors bande (28.38 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-21",
-   "ticker": "NONE",
-   "issuer": "WILSON BANK HOLDING CO",
-   "value_usd": 312607,
-   "insiders": 2,
-   "title": "PRESIDENT AND CEO",
-   "adv_usd": null,
-   "decision": "historique trop court"
-  },
-  {
-   "filing_date": "2026-10-21",
-   "ticker": "RAPP",
-   "issuer": "Rapport Therapeutics, Inc.",
-   "value_usd": 143550,
-   "insiders": 1,
-   "title": "Chief Financial Officer",
-   "adv_usd": 25773161,
-   "decision": "liquidite hors bande (25.77 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-21",
-   "ticker": "YORW",
-   "issuer": "YORK WATER CO",
-   "value_usd": 41000,
-   "insiders": 2,
-   "title": "Director",
-   "adv_usd": 5964090,
-   "decision": "liquidite hors bande (5.96 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-22",
-   "ticker": "AGMB",
-   "issuer": "AgomAb Therapeutics NV",
-   "value_usd": 88800,
-   "insiders": 1,
-   "title": "Director",
-   "adv_usd": 1276934,
-   "decision": "liquidite hors bande (1.28 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-22",
-   "ticker": "RAPP",
-   "issuer": "Rapport Therapeutics, Inc.",
-   "value_usd": 1422797,
-   "insiders": 4,
-   "title": "Director",
-   "adv_usd": 26272226,
-   "decision": "liquidite hors bande (26.27 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-23",
-   "ticker": "CHCO",
-   "issuer": "CITY HOLDING CO",
-   "value_usd": 68222,
-   "insiders": 4,
-   "title": "Director",
-   "adv_usd": 15450716,
-   "decision": "liquidite hors bande (15.45 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-23",
-   "ticker": "CLF",
-   "issuer": "CLEVELAND-CLIFFS INC.",
-   "value_usd": 99826,
-   "insiders": 1,
-   "title": "Director",
-   "adv_usd": 321500292,
-   "decision": "liquidite hors bande (321.50 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-23",
-   "ticker": "MSM",
-   "issuer": "MSC INDUSTRIAL DIRECT CO INC",
-   "value_usd": 50129,
-   "insiders": 1,
-   "title": "Director",
-   "adv_usd": 122216117,
-   "decision": "liquidite hors bande (122.22 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-23",
-   "ticker": "NXG",
-   "issuer": "NXG NextGen Infrastructure Income Fund",
-   "value_usd": 479075,
-   "insiders": 2,
-   "title": "See Remarks",
-   "adv_usd": 4713985,
-   "decision": "liquidite hors bande (4.71 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-23",
-   "ticker": "RAPP",
-   "issuer": "Rapport Therapeutics, Inc.",
-   "value_usd": 98478,
-   "insiders": 1,
-   "title": "Director",
-   "adv_usd": 26601721,
-   "decision": "liquidite hors bande (26.60 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-26",
-   "ticker": "BBT",
-   "issuer": "Beacon Financial Corp",
-   "value_usd": 104984,
-   "insiders": 1,
-   "title": "Director",
-   "adv_usd": 31001846,
-   "decision": "liquidite hors bande (31.00 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-26",
-   "ticker": "BPRE",
-   "issuer": "Bluerock Private Real Estate Fund",
-   "value_usd": 2126091,
-   "insiders": 1,
-   "title": "Director",
-   "adv_usd": 11419862,
-   "decision": "liquidite hors bande (11.42 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-26",
-   "ticker": "BY",
-   "issuer": "BYLINE BANCORP, INC.",
-   "value_usd": 44785,
-   "insiders": 1,
-   "title": "Director",
-   "adv_usd": 9012044,
-   "decision": "liquidite hors bande (9.01 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-26",
-   "ticker": "RVII",
-   "issuer": "Robinhood Ventures Fund II",
-   "value_usd": 26625,
-   "insiders": 1,
-   "title": "Director",
-   "adv_usd": 2683051,
-   "decision": "liquidite hors bande (2.68 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-26",
-   "ticker": "STC",
-   "issuer": "STEWART INFORMATION SERVICES CORP",
-   "value_usd": 283710,
-   "insiders": 3,
-   "title": "Director",
-   "adv_usd": 21536293,
-   "decision": "liquidite hors bande (21.54 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-26",
-   "ticker": "TCBX",
-   "issuer": "Third Coast Bancshares, Inc.",
-   "value_usd": 40340,
-   "insiders": 1,
-   "title": "See Remarks",
-   "adv_usd": 4650159,
-   "decision": "liquidite hors bande (4.65 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-26",
-   "ticker": "THRM",
-   "issuer": "Gentherm Inc",
-   "value_usd": 662600,
-   "insiders": 2,
-   "title": "Director",
-   "adv_usd": 83200303,
-   "decision": "liquidite hors bande (83.20 M$/jour)"
-  },
-  {
-   "filing_date": "2026-10-27",
-   "ticker": "AIOK",
-   "issuer": "AI OKTO Corp.",
-   "value_usd": 1059604,
-   "insiders": 1,
-   "title": "Chief Executive Officer",
-   "adv_usd": null,
-   "decision": "historique trop court"
-  },
-  {
-   "filing_date": "2026-10-27",
-   "ticker": "KIO",
-   "issuer": "KKR Income Opportunities Fund",
-   "value_usd": 78398,
-   "insiders": 1,
-   "title": "Treasurer, CAO & CFO",
-   "adv_usd": 3298033,
-   "decision": "liquidite hors bande (3.30 M$/jour)"
-  },
   {
    "filing_date": "2026-10-27",
    "ticker": "LRN",
@@ -3046,14 +2797,264 @@
    "title": "Director",
    "adv_usd": 93870324,
    "decision": "liquidite hors bande (93.87 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "AOMR",
+   "issuer": "Angel Oak Mortgage REIT, Inc.",
+   "value_usd": 29705,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 957361,
+   "decision": "deja detenu : detention prolongee"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "ATEC",
+   "issuer": "Alphatec Holdings, Inc.",
+   "value_usd": 99146,
+   "insiders": 1,
+   "title": "CHIEF FINANCIAL OFFICER",
+   "adv_usd": 48531987,
+   "decision": "liquidite hors bande (48.53 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "BLX",
+   "issuer": "BLADEX, INC.",
+   "value_usd": 124988,
+   "insiders": 1,
+   "title": "Chief Legal Officer",
+   "adv_usd": 10920591,
+   "decision": "liquidite hors bande (10.92 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "DKNG",
+   "issuer": "DraftKings Inc.",
+   "value_usd": 1002100,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 344076636,
+   "decision": "liquidite hors bande (344.08 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "ETN",
+   "issuer": "Eaton Corp plc",
+   "value_usd": 170894,
+   "insiders": 2,
+   "title": "See Remarks below.",
+   "adv_usd": 1163047897,
+   "decision": "liquidite hors bande (1163.05 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "FRPH",
+   "issuer": "FRP HOLDINGS, INC.",
+   "value_usd": 103431,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 2411565,
+   "decision": "liquidite hors bande (2.41 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "GLXY",
+   "issuer": "Galaxy Digital Inc.",
+   "value_usd": 66950,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 145035916,
+   "decision": "liquidite hors bande (145.04 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "HRNG",
+   "issuer": "HALLADOR ENERGY CO",
+   "value_usd": 1069710,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": null,
+   "decision": "historique trop court"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "ITG",
+   "issuer": "ITG, Inc./DE/",
+   "value_usd": 1181660,
+   "insiders": 5,
+   "title": "Director",
+   "adv_usd": 4302726,
+   "decision": "liquidite hors bande (4.30 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "LPG",
+   "issuer": "DORIAN LPG LTD.",
+   "value_usd": 961460,
+   "insiders": 1,
+   "title": "President and CEO",
+   "adv_usd": 28551252,
+   "decision": "liquidite hors bande (28.55 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "LPTH",
+   "issuer": "LIGHTPATH TECHNOLOGIES INC",
+   "value_usd": 25636,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 22755851,
+   "decision": "liquidite hors bande (22.76 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "MP",
+   "issuer": "MP Materials Corp. / DE",
+   "value_usd": 91577,
+   "insiders": 1,
+   "title": "Chief Financial Officer",
+   "adv_usd": 235877422,
+   "decision": "liquidite hors bande (235.88 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "NGS",
+   "issuer": "NATURAL GAS SERVICES GROUP INC",
+   "value_usd": 135172,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 3629067,
+   "decision": "liquidite hors bande (3.63 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "NPCE",
+   "issuer": "NeuroPace Inc",
+   "value_usd": 198442,
+   "insiders": 2,
+   "title": "CHIEF EXECUTIVE OFFICER",
+   "adv_usd": 4668365,
+   "decision": "liquidite hors bande (4.67 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "PEPG",
+   "issuer": "PepGen Inc.",
+   "value_usd": 43125000,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 36552292,
+   "decision": "liquidite hors bande (36.55 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "PRAA",
+   "issuer": "PRA GROUP INC",
+   "value_usd": 295000,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 10262247,
+   "decision": "liquidite hors bande (10.26 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "RDW",
+   "issuer": "Redwire Corp",
+   "value_usd": 99997,
+   "insiders": 1,
+   "title": "Chairman and CEO",
+   "adv_usd": 100545952,
+   "decision": "liquidite hors bande (100.55 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "RMIX",
+   "issuer": "Suncrete, Inc.",
+   "value_usd": 238995,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 6886936,
+   "decision": "liquidite hors bande (6.89 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "SANM",
+   "issuer": "SANMINA CORP",
+   "value_usd": 53110,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 177098339,
+   "decision": "liquidite hors bande (177.10 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "STEW",
+   "issuer": "SRH Total Return Fund, Inc.",
+   "value_usd": 99787,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 1496363,
+   "decision": "liquidite hors bande (1.50 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "STUB",
+   "issuer": "StubHub Holdings, Inc.",
+   "value_usd": 2555391,
+   "insiders": 2,
+   "title": "Director",
+   "adv_usd": 38122057,
+   "decision": "liquidite hors bande (38.12 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "TEAM",
+   "issuer": "Atlassian Corp",
+   "value_usd": 1998767,
+   "insiders": 1,
+   "title": "CEO, Co-Founder",
+   "adv_usd": 628742010,
+   "decision": "liquidite hors bande (628.74 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "TH",
+   "issuer": "Target Hospitality Corp.",
+   "value_usd": 45560,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 33598786,
+   "decision": "liquidite hors bande (33.60 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "UPBD",
+   "issuer": "UPBOUND GROUP, INC.",
+   "value_usd": 49200,
+   "insiders": 1,
+   "title": "Director",
+   "adv_usd": 34631110,
+   "decision": "liquidite hors bande (34.63 M$/jour)"
+  },
+  {
+   "filing_date": "2026-11-17",
+   "ticker": "UPST",
+   "issuer": "Upstart Holdings, Inc.",
+   "value_usd": 950000,
+   "insiders": 1,
+   "title": "Chief Executive Officer",
+   "adv_usd": 113962893,
+   "decision": "liquidite hors bande (113.96 M$/jour)"
   }
  ],
  "counters": {
-  "jours": 24,
-  "evenements": 319,
-  "retenus": 15,
+  "jours": 25,
+  "evenements": 344,
+  "retenus": 16,
   "achetes": 12,
   "complet": 0,
-  "prolonges": 3
+  "prolonges": 4
  }
 }
