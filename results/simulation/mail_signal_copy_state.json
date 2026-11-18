@@ -1,43 +1,11 @@
 {
  "cash": {
-  "pool": 7856.749383446262
+  "pool": 7921.12938069968
  },
  "pending": [
   {
-   "side": "buy",
-   "ticker": "CARM.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-16T20:26:57Z",
-   "amount_eur": 100.0,
-   "name": "Carmila S.A.",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
-   "side": "buy",
-   "ticker": "BN.PA",
-   "bucket": "pool",
-   "reason": "avis tradingsat.com",
-   "decided_at": "2026-11-17T15:57:34Z",
-   "amount_eur": 100.0,
-   "name": "Danone S.A.",
-   "sector": "tradingsat.com",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
    "side": "sell",
    "ticker": "AA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-18T07:26:50Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "GET.PA",
    "bucket": "pool",
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-18T07:26:50Z",
@@ -68,18 +36,82 @@
    "fraction": 1.0
   },
   {
-   "side": "sell",
-   "ticker": "VU.PA",
+   "side": "buy",
+   "ticker": "AAPL",
    "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-18T07:26:50Z",
-   "fraction": 1.0
+   "reason": "avis The Markets Daily (beehiiv.com)",
+   "decided_at": "2026-11-18T17:16:28Z",
+   "amount_eur": 100.0,
+   "name": "Apple Inc.",
+   "sector": "The Markets Daily (beehiiv.com)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "COST",
+   "bucket": "pool",
+   "reason": "avis The Markets Daily (beehiiv.com)",
+   "decided_at": "2026-11-18T17:16:28Z",
+   "amount_eur": 100.0,
+   "name": "Costco Wholesale Corporation",
+   "sector": "The Markets Daily (beehiiv.com)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "V",
+   "bucket": "pool",
+   "reason": "avis The Markets Daily (beehiiv.com)",
+   "decided_at": "2026-11-18T17:16:28Z",
+   "amount_eur": 100.0,
+   "name": "Visa Inc.",
+   "sector": "The Markets Daily (beehiiv.com)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "WLTH",
+   "bucket": "pool",
+   "reason": "avis etf.thedailyupside.com (ton)",
+   "decided_at": "2026-11-18T17:16:28Z",
+   "amount_eur": 100.0,
+   "name": "Wealthfront Corporation",
+   "sector": "etf.thedailyupside.com (ton)",
+   "currency": "USD",
+   "fractional": true
+  },
+  {
+   "side": "buy",
+   "ticker": "BVI.PA",
+   "bucket": "pool",
+   "reason": "avis tradingsat.com",
+   "decided_at": "2026-11-18T17:16:28Z",
+   "amount_eur": 100.0,
+   "name": "Bureau Veritas SA",
+   "sector": "tradingsat.com",
+   "currency": "EUR",
+   "fractional": false
+  },
+  {
+   "side": "buy",
+   "ticker": "NBIS",
+   "bucket": "pool",
+   "reason": "avis Stock Ideas (Seeking Alpha)",
+   "decided_at": "2026-11-18T17:16:28Z",
+   "amount_eur": 100.0,
+   "name": "Nebius Group N.V.",
+   "sector": "Stock Ideas (Seeking Alpha)",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-12-10",
-  "NVDA": "2026-12-15",
+  "NVDA": "2026-12-16",
   "AVGO": "2026-12-11",
   "SNDK": "2026-12-15",
   "RKLB": "2026-11-20",
@@ -97,11 +129,9 @@
   "QMLS": "2026-12-07",
   "TSLA": "2026-11-24",
   "HAS": "2026-11-18",
-  "GET.PA": "2026-11-18",
   "STX": "2026-12-15",
   "EL.PA": "2026-11-27",
   "AA": "2026-11-18",
-  "VU.PA": "2026-11-18",
   "SKHY": "2026-11-18",
   "ALNTG.PA": "2026-11-19",
   "HAL": "2026-11-19",
@@ -143,14 +173,14 @@
   "AM": "2026-11-27",
   "BEN": "2026-11-30",
   "SIRI": "2026-11-30",
-  "EPD": "2026-12-02",
+  "EPD": "2026-12-16",
   "FII.PA": "2026-12-01",
   "LITE": "2026-12-01",
   "BIM.PA": "2026-12-01",
   "RUI.PA": "2026-12-10",
   "COIN": "2026-12-02",
   "GDYN": "2026-12-02",
-  "AMD": "2026-12-10",
+  "AMD": "2026-12-16",
   "CAP.PA": "2026-12-03",
   "INTC": "2026-12-03",
   "ACMR": "2026-12-04",
@@ -186,7 +216,13 @@
   "PWR": "2026-12-15",
   "ETN": "2026-12-15",
   "BN.PA": "2026-12-15",
-  "HUBB": "2026-12-15"
+  "HUBB": "2026-12-15",
+  "AAPL": "2026-12-16",
+  "COST": "2026-12-16",
+  "V": "2026-12-16",
+  "WLTH": "2026-12-16",
+  "BVI.PA": "2026-12-16",
+  "NBIS": "2026-12-16"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -683,12 +719,22 @@
   "1a1e85e9a7ad4d01:NVDA",
   "1a1e984b7bf20bee:STX",
   "1a1e99d8610c7582:HUBB",
-  "1a1ea7ca64fb6ece:DSY.PA"
+  "1a1ea7ca64fb6ece:DSY.PA",
+  "1a1eeb9df9344248:EPD",
+  "1a1eec44f0569c6a:AAPL",
+  "1a1eec44f0569c6a:COST",
+  "1a1eeb68e8158e7c:AMD",
+  "1a1eec44f0569c6a:V",
+  "1a1eea347d231a8d:WLTH",
+  "1a1ee551f45cd003:NVDA",
+  "1a1edcb4bae8e855:BVI.PA",
+  "1a1eeb68e8158e7c:NBIS",
+  "1a1ef3592b41c29f:NVDA"
  ],
  "counters": {
-  "avis": 495,
-  "achetes": 297,
-  "prolonges": 198,
+  "avis": 505,
+  "achetes": 303,
+  "prolonges": 202,
   "complet": 0
  },
  "dropped": [
