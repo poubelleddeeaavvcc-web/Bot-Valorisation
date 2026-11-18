@@ -18954,6 +18954,26 @@
    "react": 0.101821,
    "age": 3.089143,
    "tone": -0.013607
+  },
+  {
+   "ticker": "HD",
+   "date": "2026-11-17",
+   "ret12": -0.025825,
+   "size": 26.546982,
+   "stdret": 0.080113,
+   "react": 0.00131,
+   "age": 3.089267,
+   "tone": 0.003625
+  },
+  {
+   "ticker": "DIS",
+   "date": "2026-11-17",
+   "ret12": 0.121575,
+   "size": 26.031131,
+   "stdret": 0.051014,
+   "react": 0.012007,
+   "age": 3.089267,
+   "tone": 0.019998
   }
  ],
  "edgar_days_done": [
@@ -18980,7 +19000,8 @@
   "2026-11-11",
   "2026-11-12",
   "2026-11-13",
-  "2026-11-16"
+  "2026-11-16",
+  "2026-11-17"
  ],
  "awaiting": [
   {
@@ -18989,6 +19010,13 @@
    "accepted": "2026-11-09T16:04:26-05:00",
    "tone": 0.005873187102960566,
    "company": "Skydance Corp"
+  },
+  {
+   "ticker": "NVDA",
+   "acc": "0001045810-26-000088",
+   "accepted": "2026-11-17T16:20:51-05:00",
+   "tone": 0.006894390473205891,
+   "company": "NVIDIA CORP"
   }
  ],
  "shadow": [
@@ -19416,27 +19444,14 @@
    "ticker": "KKR",
    "day0": "2026-11-09",
    "rang": 0.804
+  },
+  {
+   "ticker": "DIS",
+   "day0": "2026-11-17",
+   "rang": 0.966
   }
  ],
  "events_log": [
-  {
-   "ticker": "RTX",
-   "company": "RTX Corp",
-   "day0": "2026-10-20",
-   "tone": -0.00148,
-   "abtone": -0.00656,
-   "rang": 0.158,
-   "decision": "achat"
-  },
-  {
-   "ticker": "STLD",
-   "company": "STEEL DYNAMICS INC",
-   "day0": "2026-10-20",
-   "tone": 0.01429,
-   "abtone": 0.01157,
-   "rang": 0.947,
-   "decision": "ombre (ton trop optimiste)"
-  },
   {
    "ticker": "SYF",
    "company": "Synchrony Financial",
@@ -23018,6 +23033,24 @@
    "abtone": -0.01707,
    "rang": 0.008,
    "decision": "portefeuille complet"
+  },
+  {
+   "ticker": "HD",
+   "company": "HOME DEPOT, INC.",
+   "day0": "2026-11-17",
+   "tone": 0.00362,
+   "abtone": -0.00205,
+   "rang": 0.387,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "DIS",
+   "company": "Walt Disney Co",
+   "day0": "2026-11-17",
+   "tone": 0.02,
+   "abtone": 0.01448,
+   "rang": 0.966,
+   "decision": "ombre (ton trop optimiste)"
   }
  ],
  "hold_until": {
@@ -23073,11 +23106,11 @@
   "AIG": "2027-01-28"
  },
  "counters": {
-  "jours": 23,
-  "communiques": 436,
-  "evalues": 433,
+  "jours": 24,
+  "communiques": 439,
+  "evalues": 435,
   "achetes": 50,
-  "ombre": 85,
+  "ombre": 86,
   "complet": 25
  }
 }
