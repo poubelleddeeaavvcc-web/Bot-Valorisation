@@ -6,16 +6,6 @@
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
-   "ticker": "MDT",
-   "date": "2025-11-18",
-   "tone": 0.013033,
-   "ret12": 0.125628,
-   "size": 25.503794,
-   "stdret": 0.052161,
-   "react": 0.069059,
-   "age": 3.041115
-  },
-  {
    "ticker": "TGT",
    "date": "2025-11-19",
    "tone": 0.0,
@@ -18984,6 +18974,46 @@
    "react": -0.019999,
    "age": 3.089392,
    "tone": 0.006894
+  },
+  {
+   "ticker": "EXPD",
+   "date": "2026-11-18",
+   "ret12": 0.425959,
+   "size": 23.917292,
+   "stdret": 0.052047,
+   "react": -0.019894,
+   "age": 3.089392,
+   "tone": 0.027359
+  },
+  {
+   "ticker": "LOW",
+   "date": "2026-11-18",
+   "ret12": 0.008888,
+   "size": 25.550894,
+   "stdret": 0.107933,
+   "react": 0.003618,
+   "age": 3.089392,
+   "tone": 0.001823
+  },
+  {
+   "ticker": "TGT",
+   "date": "2026-11-18",
+   "ret12": 0.845333,
+   "size": 25.045827,
+   "stdret": 0.067823,
+   "react": 0.048169,
+   "age": 3.089392,
+   "tone": 0.011986
+  },
+  {
+   "ticker": "TJX",
+   "date": "2026-11-18",
+   "ret12": -0.091084,
+   "size": 25.762335,
+   "stdret": 0.078697,
+   "react": 0.083434,
+   "age": 3.089392,
+   "tone": 0.010541
   }
  ],
  "edgar_days_done": [
@@ -19011,7 +19041,8 @@
   "2026-11-12",
   "2026-11-13",
   "2026-11-16",
-  "2026-11-17"
+  "2026-11-17",
+  "2026-11-18"
  ],
  "awaiting": [
   {
@@ -19020,6 +19051,13 @@
    "accepted": "2026-11-09T16:04:26-05:00",
    "tone": 0.005873187102960566,
    "company": "Skydance Corp"
+  },
+  {
+   "ticker": "PANW",
+   "acc": "0001327567-26-000030",
+   "accepted": "2026-11-18T16:37:04-05:00",
+   "tone": -0.0002664535038635758,
+   "company": "Palo Alto Networks Inc"
   }
  ],
  "shadow": [
@@ -19452,45 +19490,19 @@
    "ticker": "DIS",
    "day0": "2026-11-17",
    "rang": 0.966
+  },
+  {
+   "ticker": "EXPD",
+   "day0": "2026-11-18",
+   "rang": 0.996
+  },
+  {
+   "ticker": "TGT",
+   "day0": "2026-11-18",
+   "rang": 0.877
   }
  ],
  "events_log": [
-  {
-   "ticker": "COF",
-   "company": "CAPITAL ONE FINANCIAL CORP",
-   "day0": "2026-10-21",
-   "tone": 0.00746,
-   "abtone": 0.00302,
-   "rang": 0.694,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "CB",
-   "company": "Chubb Ltd",
-   "day0": "2026-10-21",
-   "tone": 0.0059,
-   "abtone": 0.00096,
-   "rang": 0.59,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "ISRG",
-   "company": "INTUITIVE SURGICAL INC",
-   "day0": "2026-10-21",
-   "tone": 0.00375,
-   "abtone": -0.00055,
-   "rang": 0.484,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "NFLX",
-   "company": "NETFLIX INC",
-   "day0": "2026-10-21",
-   "tone": 0.01465,
-   "abtone": 0.01007,
-   "rang": 0.927,
-   "decision": "ombre (ton trop optimiste)"
-  },
   {
    "ticker": "SMCI",
    "company": "Super Micro Computer, Inc.",
@@ -23054,6 +23066,42 @@
    "abtone": -0.0014,
    "rang": 0.432,
    "decision": "neutre"
+  },
+  {
+   "ticker": "EXPD",
+   "company": "EXPEDITORS INTERNATIONAL OF WASHINGTON INC",
+   "day0": "2026-11-18",
+   "tone": 0.02736,
+   "abtone": 0.02417,
+   "rang": 0.996,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "LOW",
+   "company": "LOWES COMPANIES INC",
+   "day0": "2026-11-18",
+   "tone": 0.00182,
+   "abtone": -0.00252,
+   "rang": 0.352,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "TGT",
+   "company": "TARGET CORP",
+   "day0": "2026-11-18",
+   "tone": 0.01199,
+   "abtone": 0.00771,
+   "rang": 0.877,
+   "decision": "ombre (ton trop optimiste)"
+  },
+  {
+   "ticker": "TJX",
+   "company": "TJX COMPANIES INC /DE/",
+   "day0": "2026-11-18",
+   "tone": 0.01054,
+   "abtone": 0.00529,
+   "rang": 0.799,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -23109,11 +23157,11 @@
   "AIG": "2027-01-28"
  },
  "counters": {
-  "jours": 24,
-  "communiques": 439,
-  "evalues": 436,
+  "jours": 25,
+  "communiques": 444,
+  "evalues": 440,
   "achetes": 50,
-  "ombre": 86,
+  "ombre": 88,
   "complet": 25
  }
 }
