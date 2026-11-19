@@ -53,10 +53,10 @@
     "t": null,
     "taux_reussite": null
    },
-   "avis_recus": 1
+   "avis_recus": 2
   }
  },
- "avis_recus": 6,
+ "avis_recus": 7,
  "avis": [
   {
    "date": "2026-11-13",
@@ -102,6 +102,14 @@
    "date": "2026-11-18",
    "lettre": "Stock Ideas",
    "ticker": "AMD",
+   "sens_avis": "achat",
+   "inverse_5j": null,
+   "inverse_20j": null
+  },
+  {
+   "date": "2026-11-19",
+   "lettre": "Tech Daily",
+   "ticker": "INTC",
    "sens_avis": "achat",
    "inverse_5j": null,
    "inverse_20j": null

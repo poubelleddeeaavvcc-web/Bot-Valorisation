@@ -1,16 +1,8 @@
 {
  "cash": {
-  "pool": 7792.611610492677
+  "pool": 7881.84361060521
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "ALNTG.PA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-19T00:24:48Z",
-   "fraction": 1.0
-  },
   {
    "side": "sell",
    "ticker": "HAL",
@@ -20,22 +12,26 @@
    "fraction": 1.0
   },
   {
-   "side": "sell",
-   "ticker": "RAND.AS",
+   "side": "buy",
+   "ticker": "ANT",
    "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-19T00:24:48Z",
-   "fraction": 1.0
+   "reason": "avis Macro View Daily (Seeking Alpha)",
+   "decided_at": "2026-11-19T20:31:45Z",
+   "amount_eur": 100.0,
+   "name": "Anthropic, PBC",
+   "sector": "Macro View Daily (Seeking Alpha)",
+   "currency": "USD",
+   "fractional": true
   },
   {
    "side": "buy",
-   "ticker": "BVI.PA",
+   "ticker": "SOI.PA",
    "bucket": "pool",
-   "reason": "avis tradingsat.com",
-   "decided_at": "2026-11-18T17:16:28Z",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-19T20:31:45Z",
    "amount_eur": 100.0,
-   "name": "Bureau Veritas SA",
-   "sector": "tradingsat.com",
+   "name": "Soitec SA",
+   "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
   }
@@ -62,7 +58,6 @@
   "TSLA": "2026-11-24",
   "STX": "2026-12-15",
   "EL.PA": "2026-11-27",
-  "ALNTG.PA": "2026-11-19",
   "HAL": "2026-11-19",
   "NLY": "2026-11-20",
   "SOP.PA": "2026-11-30",
@@ -81,7 +76,6 @@
   "PLNT": "2026-11-24",
   "EXENS.PA": "2026-11-24",
   "CRDO": "2026-11-27",
-  "RAND.AS": "2026-11-19",
   "REGN": "2026-11-25",
   "BXMT": "2026-11-25",
   "APH": "2026-11-25",
@@ -110,7 +104,7 @@
   "GDYN": "2026-12-02",
   "AMD": "2026-12-16",
   "CAP.PA": "2026-12-03",
-  "INTC": "2026-12-03",
+  "INTC": "2026-12-17",
   "ACMR": "2026-12-04",
   "UCG.MI": "2026-12-04",
   "BAM": "2026-12-04",
@@ -150,7 +144,9 @@
   "V": "2026-12-16",
   "WLTH": "2026-12-16",
   "BVI.PA": "2026-12-16",
-  "NBIS": "2026-12-16"
+  "NBIS": "2026-12-16",
+  "ANT": "2026-12-17",
+  "SOI.PA": "2026-12-17"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -659,12 +655,16 @@
   "1a1eeb68e8158e7c:NBIS",
   "1a1ef3592b41c29f:NVDA",
   "1a1f24e6a0e6f4f2:AMZN",
-  "1a1f2f887c657b69:LR.PA"
+  "1a1f2f887c657b69:LR.PA",
+  "1a1f45be30088ea6:ANT",
+  "1a1f4c3f522251e9:ANT",
+  "1a1f3eb335e6acb8:INTC",
+  "1a1f4c3f522251e9:SOI.PA"
  ],
  "counters": {
-  "avis": 507,
-  "achetes": 303,
-  "prolonges": 204,
+  "avis": 511,
+  "achetes": 305,
+  "prolonges": 206,
   "complet": 0
  },
  "dropped": [
