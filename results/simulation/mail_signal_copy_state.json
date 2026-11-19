@@ -1,88 +1,8 @@
 {
  "cash": {
-  "pool": 7921.12938069968
+  "pool": 7792.611610492677
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "AA",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-18T07:26:50Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "GT",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-18T07:26:50Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "HAS",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-18T07:26:50Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "SKHY",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-18T07:26:50Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "AAPL",
-   "bucket": "pool",
-   "reason": "avis The Markets Daily (beehiiv.com)",
-   "decided_at": "2026-11-18T17:16:28Z",
-   "amount_eur": 100.0,
-   "name": "Apple Inc.",
-   "sector": "The Markets Daily (beehiiv.com)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "COST",
-   "bucket": "pool",
-   "reason": "avis The Markets Daily (beehiiv.com)",
-   "decided_at": "2026-11-18T17:16:28Z",
-   "amount_eur": 100.0,
-   "name": "Costco Wholesale Corporation",
-   "sector": "The Markets Daily (beehiiv.com)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "V",
-   "bucket": "pool",
-   "reason": "avis The Markets Daily (beehiiv.com)",
-   "decided_at": "2026-11-18T17:16:28Z",
-   "amount_eur": 100.0,
-   "name": "Visa Inc.",
-   "sector": "The Markets Daily (beehiiv.com)",
-   "currency": "USD",
-   "fractional": true
-  },
-  {
-   "side": "buy",
-   "ticker": "WLTH",
-   "bucket": "pool",
-   "reason": "avis etf.thedailyupside.com (ton)",
-   "decided_at": "2026-11-18T17:16:28Z",
-   "amount_eur": 100.0,
-   "name": "Wealthfront Corporation",
-   "sector": "etf.thedailyupside.com (ton)",
-   "currency": "USD",
-   "fractional": true
-  },
   {
    "side": "buy",
    "ticker": "BVI.PA",
@@ -96,16 +16,28 @@
    "fractional": false
   },
   {
-   "side": "buy",
-   "ticker": "NBIS",
+   "side": "sell",
+   "ticker": "ALNTG.PA",
    "bucket": "pool",
-   "reason": "avis Stock Ideas (Seeking Alpha)",
-   "decided_at": "2026-11-18T17:16:28Z",
-   "amount_eur": 100.0,
-   "name": "Nebius Group N.V.",
-   "sector": "Stock Ideas (Seeking Alpha)",
-   "currency": "USD",
-   "fractional": true
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-19T00:24:48Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "HAL",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-19T00:24:48Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "RAND.AS",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-19T00:24:48Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -128,11 +60,8 @@
   "O": "2026-12-11",
   "QMLS": "2026-12-07",
   "TSLA": "2026-11-24",
-  "HAS": "2026-11-18",
   "STX": "2026-12-15",
   "EL.PA": "2026-11-27",
-  "AA": "2026-11-18",
-  "SKHY": "2026-11-18",
   "ALNTG.PA": "2026-11-19",
   "HAL": "2026-11-19",
   "NLY": "2026-11-20",
@@ -152,7 +81,6 @@
   "PLNT": "2026-11-24",
   "EXENS.PA": "2026-11-24",
   "CRDO": "2026-11-27",
-  "GT": "2026-11-18",
   "RAND.AS": "2026-11-19",
   "REGN": "2026-11-25",
   "BXMT": "2026-11-25",
