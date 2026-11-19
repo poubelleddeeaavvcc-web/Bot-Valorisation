@@ -51,6 +51,10 @@
   "20035821",
   "20035826",
   "20035831",
+  "20036844",
+  "20036849",
+  "20036855",
+  "20036864",
   "9116378",
   "9116389",
   "9116390",
@@ -650,14 +654,23 @@
    "trade_date": "10/02/2026",
    "amount_low": 1001,
    "decision": "portefeuille complet : ignore"
+  },
+  {
+   "filing_date": "2026-11-18",
+   "member": "Michael Rulli",
+   "district": "OH06",
+   "ticker": "MSFT",
+   "trade_date": "11/04/2026",
+   "amount_low": 1001,
+   "decision": "portefeuille complet : ignore"
   }
  ],
  "counters": {
-  "rapports": 52,
+  "rapports": 56,
   "illisibles": 0,
-  "achats_declares": 60,
+  "achats_declares": 61,
   "achetes": 50,
-  "complet": 3,
+  "complet": 4,
   "prolonges": 7,
   "sans_cours": 0
  }
