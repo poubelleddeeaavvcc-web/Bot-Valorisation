@@ -19014,6 +19014,16 @@
    "react": 0.083434,
    "age": 3.089392,
    "tone": 0.010541
+  },
+  {
+   "ticker": "PANW",
+   "date": "2026-11-19",
+   "ret12": 0.524347,
+   "size": 26.414214,
+   "stdret": 0.15861,
+   "react": 0.192173,
+   "age": 2.729984,
+   "tone": -0.000266
   }
  ],
  "edgar_days_done": [
@@ -19044,15 +19054,7 @@
   "2026-11-17",
   "2026-11-18"
  ],
- "awaiting": [
-  {
-   "ticker": "PANW",
-   "acc": "0001327567-26-000030",
-   "accepted": "2026-11-18T16:37:04-05:00",
-   "tone": -0.0002664535038635758,
-   "company": "Palo Alto Networks Inc"
-  }
- ],
+ "awaiting": [],
  "shadow": [
   {
    "ticker": "FAST",
@@ -19496,15 +19498,6 @@
   }
  ],
  "events_log": [
-  {
-   "ticker": "SMCI",
-   "company": "Super Micro Computer, Inc.",
-   "day0": "2026-10-21",
-   "tone": 0.0,
-   "abtone": -0.00121,
-   "rang": 0.437,
-   "decision": "neutre"
-  },
   {
    "ticker": "UAL",
    "company": "United Airlines Holdings, Inc.",
@@ -23095,6 +23088,15 @@
    "abtone": 0.00529,
    "rang": 0.799,
    "decision": "neutre"
+  },
+  {
+   "ticker": "PANW",
+   "company": "Palo Alto Networks Inc",
+   "day0": "2026-11-19",
+   "tone": -0.00027,
+   "abtone": -0.00526,
+   "rang": 0.206,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -23152,7 +23154,7 @@
  "counters": {
   "jours": 25,
   "communiques": 444,
-  "evalues": 440,
+  "evalues": 441,
   "achetes": 50,
   "ombre": 88,
   "complet": 25

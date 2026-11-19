@@ -1,37 +1,8 @@
 {
  "cash": {
-  "pool": 3800.0
+  "pool": 3600.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "GWRS",
-   "bucket": "pool",
-   "reason": "1 initie(s), 65 k$ le 2026-11-11",
-   "decided_at": "2026-11-19T11:51:44Z",
-   "amount_eur": 100.0,
-   "name": "Global Water Resources, Inc.",
-   "sector": "Inities (petites cap.)",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 65360.0
-  },
-  {
-   "side": "buy",
-   "ticker": "TISI",
-   "bucket": "pool",
-   "reason": "2 initie(s), 108 k$ le 2026-11-16",
-   "decided_at": "2026-11-19T11:51:44Z",
-   "amount_eur": 100.0,
-   "name": "TEAM INC",
-   "sector": "Inities (petites cap.)",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 107791.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",
