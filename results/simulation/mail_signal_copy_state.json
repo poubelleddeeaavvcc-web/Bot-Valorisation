@@ -4,18 +4,6 @@
  },
  "pending": [
   {
-   "side": "buy",
-   "ticker": "BVI.PA",
-   "bucket": "pool",
-   "reason": "avis tradingsat.com",
-   "decided_at": "2026-11-18T17:16:28Z",
-   "amount_eur": 100.0,
-   "name": "Bureau Veritas SA",
-   "sector": "tradingsat.com",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
    "side": "sell",
    "ticker": "ALNTG.PA",
    "bucket": "pool",
@@ -38,6 +26,18 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-19T00:24:48Z",
    "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "BVI.PA",
+   "bucket": "pool",
+   "reason": "avis tradingsat.com",
+   "decided_at": "2026-11-18T17:16:28Z",
+   "amount_eur": 100.0,
+   "name": "Bureau Veritas SA",
+   "sector": "tradingsat.com",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -51,7 +51,7 @@
   "META": "2026-11-20",
   "IPAR": "2026-12-07",
   "MSFT": "2026-11-26",
-  "AMZN": "2026-12-10",
+  "AMZN": "2026-12-17",
   "GOOG": "2026-12-03",
   "ACN": "2026-11-20",
   "MRVL": "2026-12-01",
@@ -115,7 +115,7 @@
   "UCG.MI": "2026-12-04",
   "BAM": "2026-12-04",
   "BAMI.MI": "2026-12-07",
-  "LR.PA": "2026-12-07",
+  "LR.PA": "2026-12-17",
   "AIR.PA": "2026-12-08",
   "AMBQ": "2026-12-08",
   "XOM": "2026-12-08",
@@ -657,12 +657,14 @@
   "1a1ee551f45cd003:NVDA",
   "1a1edcb4bae8e855:BVI.PA",
   "1a1eeb68e8158e7c:NBIS",
-  "1a1ef3592b41c29f:NVDA"
+  "1a1ef3592b41c29f:NVDA",
+  "1a1f24e6a0e6f4f2:AMZN",
+  "1a1f2f887c657b69:LR.PA"
  ],
  "counters": {
-  "avis": 505,
+  "avis": 507,
   "achetes": 303,
-  "prolonges": 202,
+  "prolonges": 204,
   "complet": 0
  },
  "dropped": [
