@@ -1,28 +1,8 @@
 {
  "cash": {
-  "pool": 7881.84361060521
+  "pool": 7877.579174594431
  },
  "pending": [
-  {
-   "side": "sell",
-   "ticker": "HAL",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-19T00:24:48Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "buy",
-   "ticker": "ANT",
-   "bucket": "pool",
-   "reason": "avis Macro View Daily (Seeking Alpha)",
-   "decided_at": "2026-11-19T20:31:45Z",
-   "amount_eur": 100.0,
-   "name": "Anthropic, PBC",
-   "sector": "Macro View Daily (Seeking Alpha)",
-   "currency": "USD",
-   "fractional": true
-  },
   {
    "side": "buy",
    "ticker": "SOI.PA",
@@ -34,12 +14,60 @@
    "sector": "news.meilleurtaux.com (ton)",
    "currency": "EUR",
    "fractional": false
+  },
+  {
+   "side": "sell",
+   "ticker": "ACN",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-20T03:11:18Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "CRM",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-20T03:11:18Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "META",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-20T03:11:18Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "NLY",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-20T03:11:18Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "RKLB",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-20T03:11:18Z",
+   "fraction": 1.0
+  },
+  {
+   "side": "sell",
+   "ticker": "RTO",
+   "bucket": "pool",
+   "reason": "detention de 20 seances terminee",
+   "decided_at": "2026-11-20T03:11:18Z",
+   "fraction": 1.0
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
  "hold_until": {
   "MU": "2026-12-10",
-  "NVDA": "2026-12-16",
+  "NVDA": "2026-12-18",
   "AVGO": "2026-12-11",
   "SNDK": "2026-12-15",
   "RKLB": "2026-11-20",
@@ -58,7 +86,6 @@
   "TSLA": "2026-11-24",
   "STX": "2026-12-15",
   "EL.PA": "2026-11-27",
-  "HAL": "2026-11-19",
   "NLY": "2026-11-20",
   "SOP.PA": "2026-11-30",
   "CRM": "2026-11-20",
@@ -659,12 +686,13 @@
   "1a1f45be30088ea6:ANT",
   "1a1f4c3f522251e9:ANT",
   "1a1f3eb335e6acb8:INTC",
-  "1a1f4c3f522251e9:SOI.PA"
+  "1a1f4c3f522251e9:SOI.PA",
+  "1a1f5a41d9a88894:NVDA"
  ],
  "counters": {
-  "avis": 511,
+  "avis": 512,
   "achetes": 305,
-  "prolonges": 206,
+  "prolonges": 207,
   "complet": 0
  },
  "dropped": [
