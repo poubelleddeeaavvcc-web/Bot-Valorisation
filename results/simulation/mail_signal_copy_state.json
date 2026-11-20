@@ -1,67 +1,31 @@
 {
  "cash": {
-  "pool": 7877.579174594431
+  "pool": 8308.315825702577
  },
  "pending": [
   {
-   "side": "sell",
-   "ticker": "ACN",
+   "side": "buy",
+   "ticker": "CRWV",
    "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-20T03:11:18Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "CRM",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-20T03:11:18Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "META",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-20T03:11:18Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "NLY",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-20T03:11:18Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "RKLB",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-20T03:11:18Z",
-   "fraction": 1.0
-  },
-  {
-   "side": "sell",
-   "ticker": "RTO",
-   "bucket": "pool",
-   "reason": "detention de 20 seances terminee",
-   "decided_at": "2026-11-20T03:11:18Z",
-   "fraction": 1.0
+   "reason": "avis Tech Daily (Seeking Alpha)",
+   "decided_at": "2026-11-20T21:48:49Z",
+   "amount_eur": 100.0,
+   "name": "CoreWeave, Inc.",
+   "sector": "Tech Daily (Seeking Alpha)",
+   "currency": "USD",
+   "fractional": true
   },
   {
    "side": "buy",
-   "ticker": "SOI.PA",
+   "ticker": "WMT",
    "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-19T20:31:45Z",
+   "reason": "avis thedailyupside.com (ton)",
+   "decided_at": "2026-11-20T21:48:49Z",
    "amount_eur": 100.0,
-   "name": "Soitec SA",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
+   "name": "Walmart Inc.",
+   "sector": "thedailyupside.com (ton)",
+   "currency": "USD",
+   "fractional": true
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -70,14 +34,11 @@
   "NVDA": "2026-12-18",
   "AVGO": "2026-12-11",
   "SNDK": "2026-12-15",
-  "RKLB": "2026-11-20",
   "ORCL": "2026-11-26",
-  "META": "2026-12-18",
   "IPAR": "2026-12-07",
   "MSFT": "2026-11-26",
   "AMZN": "2026-12-18",
   "GOOG": "2026-12-03",
-  "ACN": "2026-11-20",
   "MRVL": "2026-12-01",
   "BAC": "2026-12-04",
   "GOOGL": "2026-11-26",
@@ -86,10 +47,7 @@
   "TSLA": "2026-11-24",
   "STX": "2026-12-15",
   "EL.PA": "2026-11-27",
-  "NLY": "2026-11-20",
   "SOP.PA": "2026-11-30",
-  "CRM": "2026-11-20",
-  "RTO": "2026-11-20",
   "WES": "2026-12-04",
   "AMAT": "2026-11-23",
   "BTU": "2026-11-23",
@@ -129,7 +87,7 @@
   "RUI.PA": "2026-12-10",
   "COIN": "2026-12-02",
   "GDYN": "2026-12-02",
-  "AMD": "2026-12-16",
+  "AMD": "2026-12-18",
   "CAP.PA": "2026-12-03",
   "INTC": "2026-12-17",
   "ACMR": "2026-12-04",
@@ -167,13 +125,15 @@
   "BN.PA": "2026-12-15",
   "HUBB": "2026-12-15",
   "AAPL": "2026-12-16",
-  "COST": "2026-12-16",
+  "COST": "2026-12-18",
   "V": "2026-12-16",
   "WLTH": "2026-12-16",
   "BVI.PA": "2026-12-16",
   "NBIS": "2026-12-16",
   "ANT": "2026-12-18",
-  "SOI.PA": "2026-12-17"
+  "SOI.PA": "2026-12-17",
+  "CRWV": "2026-12-18",
+  "WMT": "2026-12-18"
  },
  "signals_done": [
   "1a06be26126c9941:MU",
@@ -691,12 +651,17 @@
   "1a1f7d3d5683974e:ANT",
   "1a1f902104891aaa:META",
   "1a1f7747d01d655d:ANT",
-  "1a1f902104891aaa:AMZN"
+  "1a1f902104891aaa:AMZN",
+  "1a1f90c774200d29:ANT",
+  "1a1f911874570b6f:CRWV",
+  "1a1f90c774200d29:WMT",
+  "1a1f90c774200d29:COST",
+  "1a1f9131e72e3acc:AMD"
  ],
  "counters": {
-  "avis": 516,
-  "achetes": 305,
-  "prolonges": 211,
+  "avis": 521,
+  "achetes": 307,
+  "prolonges": 214,
   "complet": 0
  },
  "dropped": [

@@ -53,10 +53,10 @@
     "t": null,
     "taux_reussite": null
    },
-   "avis_recus": 2
+   "avis_recus": 3
   }
  },
- "avis_recus": 7,
+ "avis_recus": 8,
  "avis": [
   {
    "date": "2026-11-13",
@@ -110,6 +110,14 @@
    "date": "2026-11-19",
    "lettre": "Tech Daily",
    "ticker": "INTC",
+   "sens_avis": "achat",
+   "inverse_5j": null,
+   "inverse_20j": null
+  },
+  {
+   "date": "2026-11-20",
+   "lettre": "Tech Daily",
+   "ticker": "CRWV",
    "sens_avis": "achat",
    "inverse_5j": null,
    "inverse_20j": null
