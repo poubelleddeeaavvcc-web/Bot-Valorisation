@@ -18984,6 +18984,36 @@
    "react": 0.011017,
    "age": 3.089517,
    "tone": 0.008557
+  },
+  {
+   "ticker": "INTU",
+   "date": "2026-11-20",
+   "ret12": -0.511095,
+   "size": 25.003693,
+   "stdret": 0.202651,
+   "react": -0.081323,
+   "age": 3.089641,
+   "tone": -0.00138
+  },
+  {
+   "ticker": "KEYS",
+   "date": "2026-11-20",
+   "ret12": 0.638528,
+   "size": 24.51922,
+   "stdret": 0.088514,
+   "react": -0.031274,
+   "age": 2.571457,
+   "tone": -0.00031
+  },
+  {
+   "ticker": "ROST",
+   "date": "2026-11-20",
+   "ret12": 0.435488,
+   "size": 24.945571,
+   "stdret": 0.049815,
+   "react": -0.006978,
+   "age": 3.089641,
+   "tone": 0.020526
   }
  ],
  "edgar_days_done": [
@@ -19015,29 +19045,7 @@
   "2026-11-18",
   "2026-11-19"
  ],
- "awaiting": [
-  {
-   "ticker": "INTU",
-   "acc": "0000896878-26-000043",
-   "accepted": "2026-11-19T16:08:04-05:00",
-   "tone": -0.0013801261829652998,
-   "company": "INTUIT INC."
-  },
-  {
-   "ticker": "KEYS",
-   "acc": "0001601046-26-000040",
-   "accepted": "2026-11-19T16:09:24-05:00",
-   "tone": -0.00031026993484331366,
-   "company": "Keysight Technologies, Inc."
-  },
-  {
-   "ticker": "ROST",
-   "acc": "0000745732-26-000047",
-   "accepted": "2026-11-19T16:02:50-05:00",
-   "tone": 0.020526315789473684,
-   "company": "ROSS STORES, INC."
-  }
- ],
+ "awaiting": [],
  "shadow": [
   {
    "ticker": "FAST",
@@ -19478,36 +19486,14 @@
    "ticker": "TGT",
    "day0": "2026-11-18",
    "rang": 0.877
+  },
+  {
+   "ticker": "ROST",
+   "day0": "2026-11-20",
+   "rang": 0.976
   }
  ],
  "events_log": [
-  {
-   "ticker": "T",
-   "company": "AT&T INC.",
-   "day0": "2026-10-21",
-   "tone": 0.01013,
-   "abtone": 0.00571,
-   "rang": 0.817,
-   "decision": "ombre (ton trop optimiste)"
-  },
-  {
-   "ticker": "CME",
-   "company": "CME GROUP INC.",
-   "day0": "2026-10-21",
-   "tone": 0.0054,
-   "abtone": 0.0009,
-   "rang": 0.586,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "COR",
-   "company": "Cencora, Inc.",
-   "day0": "2026-10-21",
-   "tone": 0.00718,
-   "abtone": 0.0034,
-   "rang": 0.713,
-   "decision": "neutre"
-  },
   {
    "ticker": "DHR",
    "company": "DANAHER CORP /DE/",
@@ -23080,6 +23066,33 @@
    "abtone": 0.00177,
    "rang": 0.636,
    "decision": "neutre"
+  },
+  {
+   "ticker": "INTU",
+   "company": "INTUIT INC.",
+   "day0": "2026-11-20",
+   "tone": -0.00138,
+   "abtone": -0.0038,
+   "rang": 0.274,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "KEYS",
+   "company": "Keysight Technologies, Inc.",
+   "day0": "2026-11-20",
+   "tone": -0.00031,
+   "abtone": -0.00341,
+   "rang": 0.296,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "ROST",
+   "company": "ROSS STORES, INC.",
+   "day0": "2026-11-20",
+   "tone": 0.02053,
+   "abtone": 0.0162,
+   "rang": 0.976,
+   "decision": "ombre (ton trop optimiste)"
   }
  ],
  "hold_until": {
@@ -23137,9 +23150,9 @@
  "counters": {
   "jours": 26,
   "communiques": 449,
-  "evalues": 443,
+  "evalues": 446,
   "achetes": 50,
-  "ombre": 88,
+  "ombre": 89,
   "complet": 25
  }
 }

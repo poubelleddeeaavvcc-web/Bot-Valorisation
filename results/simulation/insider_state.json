@@ -1,23 +1,8 @@
 {
  "cash": {
-  "pool": 3600.0
+  "pool": 3500.0
  },
- "pending": [
-  {
-   "side": "buy",
-   "ticker": "FUNC",
-   "bucket": "pool",
-   "reason": "1 initie(s), 100 k$ le 2026-11-16",
-   "decided_at": "2026-11-20T11:51:51Z",
-   "amount_eur": 100.0,
-   "name": "FIRST UNITED CORP/MD/",
-   "sector": "Inities (petites cap.)",
-   "country": "United States",
-   "currency": "USD",
-   "fractional": true,
-   "score": 100000.0
-  }
- ],
+ "pending": [],
  "launched_at": "2026-10-13T10:17:04Z",
  "edgar_days_done": [
   "2026-10-12",
