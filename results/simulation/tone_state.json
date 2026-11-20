@@ -6,66 +6,6 @@
  "launched_at": "2026-10-14T10:56:13Z",
  "pool": [
   {
-   "ticker": "TGT",
-   "date": "2025-11-19",
-   "tone": 0.0,
-   "ret12": -0.393682,
-   "size": 24.37317,
-   "stdret": 0.092825,
-   "react": -0.022558,
-   "age": 3.041305
-  },
-  {
-   "ticker": "LOW",
-   "date": "2025-11-19",
-   "tone": 0.000965,
-   "ret12": -0.151075,
-   "size": 25.721391,
-   "stdret": 0.058313,
-   "react": 0.019722,
-   "age": 3.041305
-  },
-  {
-   "ticker": "TJX",
-   "date": "2025-11-19",
-   "tone": 0.009387,
-   "ret12": 0.225749,
-   "size": 25.956039,
-   "stdret": 0.043717,
-   "react": 0.008906,
-   "age": 3.041305
-  },
-  {
-   "ticker": "WSM",
-   "date": "2025-11-19",
-   "tone": 0.004221,
-   "ret12": 0.407094,
-   "size": 23.805224,
-   "stdret": 0.185269,
-   "react": -0.032385,
-   "age": 3.041305
-  },
-  {
-   "ticker": "PANW",
-   "date": "2025-11-19",
-   "tone": 0.004257,
-   "ret12": 0.03876,
-   "size": 25.669344,
-   "stdret": 0.062851,
-   "react": -0.067816,
-   "age": 2.660925
-  },
-  {
-   "ticker": "NVDA",
-   "date": "2025-11-19",
-   "tone": 0.00781,
-   "ret12": 0.27773,
-   "size": 29.064185,
-   "stdret": 0.130097,
-   "react": 0.007468,
-   "age": 3.041494
-  },
-  {
    "ticker": "J",
    "date": "2025-11-20",
    "tone": -0.004222,
@@ -19024,6 +18964,26 @@
    "react": 0.192173,
    "age": 2.729984,
    "tone": -0.000266
+  },
+  {
+   "ticker": "WSM",
+   "date": "2026-11-19",
+   "ret12": 0.397766,
+   "size": 23.980945,
+   "stdret": 0.116871,
+   "react": -0.094913,
+   "age": 3.089517,
+   "tone": 0.005566
+  },
+  {
+   "ticker": "WMT",
+   "date": "2026-11-19",
+   "ret12": 0.249088,
+   "size": 27.63099,
+   "stdret": 0.074334,
+   "react": 0.011017,
+   "age": 3.089517,
+   "tone": 0.008557
   }
  ],
  "edgar_days_done": [
@@ -19052,9 +19012,32 @@
   "2026-11-13",
   "2026-11-16",
   "2026-11-17",
-  "2026-11-18"
+  "2026-11-18",
+  "2026-11-19"
  ],
- "awaiting": [],
+ "awaiting": [
+  {
+   "ticker": "INTU",
+   "acc": "0000896878-26-000043",
+   "accepted": "2026-11-19T16:08:04-05:00",
+   "tone": -0.0013801261829652998,
+   "company": "INTUIT INC."
+  },
+  {
+   "ticker": "KEYS",
+   "acc": "0001601046-26-000040",
+   "accepted": "2026-11-19T16:09:24-05:00",
+   "tone": -0.00031026993484331366,
+   "company": "Keysight Technologies, Inc."
+  },
+  {
+   "ticker": "ROST",
+   "acc": "0000745732-26-000047",
+   "accepted": "2026-11-19T16:02:50-05:00",
+   "tone": 0.020526315789473684,
+   "company": "ROSS STORES, INC."
+  }
+ ],
  "shadow": [
   {
    "ticker": "FAST",
@@ -19498,24 +19481,6 @@
   }
  ],
  "events_log": [
-  {
-   "ticker": "UAL",
-   "company": "United Airlines Holdings, Inc.",
-   "day0": "2026-10-21",
-   "tone": 0.00642,
-   "abtone": 0.00359,
-   "rang": 0.721,
-   "decision": "neutre"
-  },
-  {
-   "ticker": "ABT",
-   "company": "ABBOTT LABORATORIES",
-   "day0": "2026-10-21",
-   "tone": 0.00603,
-   "abtone": 0.00137,
-   "rang": 0.615,
-   "decision": "neutre"
-  },
   {
    "ticker": "T",
    "company": "AT&T INC.",
@@ -23097,6 +23062,24 @@
    "abtone": -0.00526,
    "rang": 0.206,
    "decision": "neutre"
+  },
+  {
+   "ticker": "WSM",
+   "company": "WILLIAMS SONOMA INC",
+   "day0": "2026-11-19",
+   "tone": 0.00557,
+   "abtone": 0.00337,
+   "rang": 0.715,
+   "decision": "neutre"
+  },
+  {
+   "ticker": "WMT",
+   "company": "Walmart Inc.",
+   "day0": "2026-11-19",
+   "tone": 0.00856,
+   "abtone": 0.00177,
+   "rang": 0.636,
+   "decision": "neutre"
   }
  ],
  "hold_until": {
@@ -23152,9 +23135,9 @@
   "AIG": "2027-01-28"
  },
  "counters": {
-  "jours": 25,
-  "communiques": 444,
-  "evalues": 441,
+  "jours": 26,
+  "communiques": 449,
+  "evalues": 443,
   "achetes": 50,
   "ombre": 88,
   "complet": 25
