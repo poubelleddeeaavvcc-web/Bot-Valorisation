@@ -4,18 +4,6 @@
  },
  "pending": [
   {
-   "side": "buy",
-   "ticker": "SOI.PA",
-   "bucket": "pool",
-   "reason": "avis news.meilleurtaux.com (ton)",
-   "decided_at": "2026-11-19T20:31:45Z",
-   "amount_eur": 100.0,
-   "name": "Soitec SA",
-   "sector": "news.meilleurtaux.com (ton)",
-   "currency": "EUR",
-   "fractional": false
-  },
-  {
    "side": "sell",
    "ticker": "ACN",
    "bucket": "pool",
@@ -62,6 +50,18 @@
    "reason": "detention de 20 seances terminee",
    "decided_at": "2026-11-20T03:11:18Z",
    "fraction": 1.0
+  },
+  {
+   "side": "buy",
+   "ticker": "SOI.PA",
+   "bucket": "pool",
+   "reason": "avis news.meilleurtaux.com (ton)",
+   "decided_at": "2026-11-19T20:31:45Z",
+   "amount_eur": 100.0,
+   "name": "Soitec SA",
+   "sector": "news.meilleurtaux.com (ton)",
+   "currency": "EUR",
+   "fractional": false
   }
  ],
  "launched_at": "2026-09-04T00:00:00Z",
@@ -72,10 +72,10 @@
   "SNDK": "2026-12-15",
   "RKLB": "2026-11-20",
   "ORCL": "2026-11-26",
-  "META": "2026-11-20",
+  "META": "2026-12-18",
   "IPAR": "2026-12-07",
   "MSFT": "2026-11-26",
-  "AMZN": "2026-12-17",
+  "AMZN": "2026-12-18",
   "GOOG": "2026-12-03",
   "ACN": "2026-11-20",
   "MRVL": "2026-12-01",
@@ -172,7 +172,7 @@
   "WLTH": "2026-12-16",
   "BVI.PA": "2026-12-16",
   "NBIS": "2026-12-16",
-  "ANT": "2026-12-17",
+  "ANT": "2026-12-18",
   "SOI.PA": "2026-12-17"
  },
  "signals_done": [
@@ -687,12 +687,16 @@
   "1a1f4c3f522251e9:ANT",
   "1a1f3eb335e6acb8:INTC",
   "1a1f4c3f522251e9:SOI.PA",
-  "1a1f5a41d9a88894:NVDA"
+  "1a1f5a41d9a88894:NVDA",
+  "1a1f7d3d5683974e:ANT",
+  "1a1f902104891aaa:META",
+  "1a1f7747d01d655d:ANT",
+  "1a1f902104891aaa:AMZN"
  ],
  "counters": {
-  "avis": 512,
+  "avis": 516,
   "achetes": 305,
-  "prolonges": 207,
+  "prolonges": 211,
   "complet": 0
  },
  "dropped": [
