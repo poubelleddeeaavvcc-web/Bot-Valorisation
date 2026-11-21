@@ -1,5 +1,582 @@
 [
  {
+  "semaine_fin": "2026-11-20",
+  "semaine_debut": "2026-11-14",
+  "genere_le": "2026-11-21T14:19:32+00:00",
+  "modele": "mistral:7b",
+  "stats": {
+   "n_avis": 62,
+   "n_achat": 47,
+   "n_vente": 15,
+   "n_newsletters": 0,
+   "n_publications": 18
+  },
+  "themes": [],
+  "note_themes": "redaction Ollama indisponible",
+  "tickers": [
+   {
+    "ticker": "NVDA",
+    "nom": "NVIDIA Corporation",
+    "n_avis": 12,
+    "n_achat": 7,
+    "n_vente": 5,
+    "publications": [
+     "Macro View Daily (Seeking Alpha)",
+     "MoneyRadar (substack.com) (ton)",
+     "Morning Briefing (Seeking Alpha)",
+     "Must Reads (Seeking Alpha)",
+     "Stock Ideas (Seeking Alpha)",
+     "aktionnaire.com (ton)",
+     "news.meilleurtaux.com (ton)",
+     "thedailyupside.com (ton)",
+     "zonebourse.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "Macro View Daily (Seeking Alpha)",
+      "statut": "observation",
+      "n_evalues_20j": 9,
+      "excess_moy_20j": -0.0611885068947884
+     },
+     {
+      "publication": "MoneyRadar (substack.com) (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 3,
+      "excess_moy_20j": 0.1530362600793837
+     },
+     {
+      "publication": "Morning Briefing (Seeking Alpha)",
+      "statut": "observation",
+      "n_evalues_20j": 9,
+      "excess_moy_20j": -0.1153993658662821
+     },
+     {
+      "publication": "Must Reads (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 22,
+      "excess_moy_20j": -0.0191357370125394
+     },
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 29,
+      "excess_moy_20j": -0.0455105386477036
+     },
+     {
+      "publication": "aktionnaire.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 11,
+      "excess_moy_20j": 0.0545951773724191
+     },
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "statut": "bruit",
+      "n_evalues_20j": 29,
+      "excess_moy_20j": 0.0004531237442129
+     },
+     {
+      "publication": "thedailyupside.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 4,
+      "excess_moy_20j": 0.1032546371545142
+     },
+     {
+      "publication": "zonebourse.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 5,
+      "excess_moy_20j": 0.0193328139037012
+     }
+    ]
+   },
+   {
+    "ticker": "ANT",
+    "nom": "Anthropic, PBC",
+    "n_avis": 5,
+    "n_achat": 5,
+    "n_vente": 0,
+    "publications": [
+     "Macro View Daily (Seeking Alpha)",
+     "aktionnaire.com (ton)",
+     "news.meilleurtaux.com (ton)",
+     "thedailyupside.com (ton)",
+     "zonebourse.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "Macro View Daily (Seeking Alpha)",
+      "statut": "observation",
+      "n_evalues_20j": 9,
+      "excess_moy_20j": -0.0611885068947884
+     },
+     {
+      "publication": "aktionnaire.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 11,
+      "excess_moy_20j": 0.0545951773724191
+     },
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "statut": "bruit",
+      "n_evalues_20j": 29,
+      "excess_moy_20j": 0.0004531237442129
+     },
+     {
+      "publication": "thedailyupside.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 4,
+      "excess_moy_20j": 0.1032546371545142
+     },
+     {
+      "publication": "zonebourse.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 5,
+      "excess_moy_20j": 0.0193328139037012
+     }
+    ]
+   },
+   {
+    "ticker": "AMD",
+    "nom": "Advanced Micro Devices, Inc.",
+    "n_avis": 2,
+    "n_achat": 2,
+    "n_vente": 0,
+    "publications": [
+     "Stock Ideas (Seeking Alpha)",
+     "The Markets Daily (beehiiv.com)"
+    ],
+    "sources": [
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 29,
+      "excess_moy_20j": -0.0455105386477036
+     },
+     {
+      "publication": "The Markets Daily (beehiiv.com)",
+      "statut": "observation",
+      "n_evalues_20j": 0,
+      "excess_moy_20j": null
+     }
+    ]
+   },
+   {
+    "ticker": "AMZN",
+    "nom": "Amazon.com, Inc.",
+    "n_avis": 2,
+    "n_achat": 2,
+    "n_vente": 0,
+    "publications": [
+     "aktionnaire.com (ton)",
+     "tipranks.com"
+    ],
+    "sources": [
+     {
+      "publication": "aktionnaire.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 11,
+      "excess_moy_20j": 0.0545951773724191
+     },
+     {
+      "publication": "tipranks.com",
+      "statut": "observation",
+      "n_evalues_20j": 11,
+      "excess_moy_20j": -0.0529946666642345
+     }
+    ]
+   },
+   {
+    "ticker": "COST",
+    "nom": "Costco Wholesale Corporation",
+    "n_avis": 2,
+    "n_achat": 2,
+    "n_vente": 0,
+    "publications": [
+     "The Markets Daily (beehiiv.com)",
+     "thedailyupside.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "The Markets Daily (beehiiv.com)",
+      "statut": "observation",
+      "n_evalues_20j": 0,
+      "excess_moy_20j": null
+     },
+     {
+      "publication": "thedailyupside.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 4,
+      "excess_moy_20j": 0.1032546371545142
+     }
+    ]
+   },
+   {
+    "ticker": "CRWV",
+    "nom": "CoreWeave, Inc.",
+    "n_avis": 2,
+    "n_achat": 1,
+    "n_vente": 1,
+    "publications": [
+     "Tech Daily (Seeking Alpha)",
+     "thedailyupside.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "Tech Daily (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 23,
+      "excess_moy_20j": -0.1044300201566368
+     },
+     {
+      "publication": "thedailyupside.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 4,
+      "excess_moy_20j": 0.1032546371545142
+     }
+    ]
+   },
+   {
+    "ticker": "AAPL",
+    "nom": "Apple Inc.",
+    "n_avis": 1,
+    "n_achat": 1,
+    "n_vente": 0,
+    "publications": [
+     "The Markets Daily (beehiiv.com)"
+    ],
+    "sources": [
+     {
+      "publication": "The Markets Daily (beehiiv.com)",
+      "statut": "observation",
+      "n_evalues_20j": 0,
+      "excess_moy_20j": null
+     }
+    ]
+   },
+   {
+    "ticker": "AC.PA",
+    "nom": "Accor SA",
+    "n_avis": 1,
+    "n_achat": 0,
+    "n_vente": 1,
+    "publications": [
+     "news.meilleurtaux.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "statut": "bruit",
+      "n_evalues_20j": 29,
+      "excess_moy_20j": 0.0004531237442129
+     }
+    ]
+   }
+  ],
+  "desaccords": [
+   {
+    "ticker": "CRWV",
+    "nom": "CoreWeave, Inc.",
+    "n_avis": 2,
+    "n_achat": 1,
+    "n_vente": 1,
+    "publications": [
+     "Tech Daily (Seeking Alpha)",
+     "thedailyupside.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "Tech Daily (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 23,
+      "excess_moy_20j": -0.1044300201566368
+     },
+     {
+      "publication": "thedailyupside.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 4,
+      "excess_moy_20j": 0.1032546371545142
+     }
+    ],
+    "citations": [
+     {
+      "publication": "thedailyupside.com (ton)",
+      "sens": "short",
+      "citation": "CoreWeave fell 6%"
+     },
+     {
+      "publication": "Tech Daily (Seeking Alpha)",
+      "sens": "long",
+      "citation": "CoreWeave: The Correction's End Is Near (Rating Upgrade)"
+     }
+    ]
+   },
+   {
+    "ticker": "NVDA",
+    "nom": "NVIDIA Corporation",
+    "n_avis": 12,
+    "n_achat": 7,
+    "n_vente": 5,
+    "publications": [
+     "Macro View Daily (Seeking Alpha)",
+     "MoneyRadar (substack.com) (ton)",
+     "Morning Briefing (Seeking Alpha)",
+     "Must Reads (Seeking Alpha)",
+     "Stock Ideas (Seeking Alpha)",
+     "aktionnaire.com (ton)",
+     "news.meilleurtaux.com (ton)",
+     "thedailyupside.com (ton)",
+     "zonebourse.com (ton)"
+    ],
+    "sources": [
+     {
+      "publication": "Macro View Daily (Seeking Alpha)",
+      "statut": "observation",
+      "n_evalues_20j": 9,
+      "excess_moy_20j": -0.0611885068947884
+     },
+     {
+      "publication": "MoneyRadar (substack.com) (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 3,
+      "excess_moy_20j": 0.1530362600793837
+     },
+     {
+      "publication": "Morning Briefing (Seeking Alpha)",
+      "statut": "observation",
+      "n_evalues_20j": 9,
+      "excess_moy_20j": -0.1153993658662821
+     },
+     {
+      "publication": "Must Reads (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 22,
+      "excess_moy_20j": -0.0191357370125394
+     },
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "statut": "bruit",
+      "n_evalues_20j": 29,
+      "excess_moy_20j": -0.0455105386477036
+     },
+     {
+      "publication": "aktionnaire.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 11,
+      "excess_moy_20j": 0.0545951773724191
+     },
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "statut": "bruit",
+      "n_evalues_20j": 29,
+      "excess_moy_20j": 0.0004531237442129
+     },
+     {
+      "publication": "thedailyupside.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 4,
+      "excess_moy_20j": 0.1032546371545142
+     },
+     {
+      "publication": "zonebourse.com (ton)",
+      "statut": "observation",
+      "n_evalues_20j": 5,
+      "excess_moy_20j": 0.0193328139037012
+     }
+    ],
+    "citations": [
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "sens": "long",
+      "citation": "Nvidia: One Of The Best Opportunities In The Market After Jensen's Resignation"
+     },
+     {
+      "publication": "aktionnaire.com (ton)",
+      "sens": "short",
+      "citation": "Nvidia a connu une sixième semaine consécutive de baisse, sa pire série depuis 2012."
+     },
+     {
+      "publication": "Stock Ideas (Seeking Alpha)",
+      "sens": "short",
+      "citation": "Thanks To Jensen's Resignation, Nvidia Is Now Cheaper Than A Troubled Italian Bank"
+     },
+     {
+      "publication": "news.meilleurtaux.com (ton)",
+      "sens": "short",
+      "citation": "Nvidia perd 2,2% avant ses premiers resultats depuis le depart de son cofondateur Jensen Huang."
+     },
+     {
+      "publication": "zonebourse.com (ton)",
+      "sens": "long",
+      "citation": "La tension va monter au cours de la journée, jusqu'à la publication ce soir après la clôture de Wall Street des résultats de la société sans patron la plus célè"
+     },
+     {
+      "publication": "MoneyRadar (substack.com) (ton)",
+      "sens": "long",
+      "citation": "Nvidia s’attend 109 milliards de dollars de ventes."
+     },
+     {
+      "publication": "Morning Briefing (Seeking Alpha)",
+      "sens": "long",
+      "citation": "Nvidia: Buying Before The Dust Settles And Selling After (Rating Upgrade)"
+     },
+     {
+      "publication": "thedailyupside.com (ton)",
+      "sens": "short",
+      "citation": "Shares in Nvidia, the world’s second third most valuable company, have fallen more than 10% in the last five trading days."
+     },
+     {
+      "publication": "MoneyRadar (substack.com) (ton)",
+      "sens": "long",
+      "citation": "Les ventes progressent de 103 % sur un an et de 20 % en un trimestre. Le bénéfice ajusté par action atteint 2,68 dollars , contre 2,47 attendus, soit 8,5 % de m"
+     },
+     {
+      "publication": "Macro View Daily (Seeking Alpha)",
+      "sens": "long",
+      "citation": "Nvidia Earnings Should Bring An End To The Market Correction"
+     },
+     {
+      "publication": "Must Reads (Seeking Alpha)",
+      "sens": "long",
+      "citation": "Nvidia Corporation remains a 'Strong Buy' after its nearly one-third decline,"
+     },
+     {
+      "publication": "aktionnaire.com (ton)",
+      "sens": "short",
+      "citation": "En parallèle, Nvidia poursuit sa chute (-3,30% hier)"
+     }
+    ]
+   }
+  ],
+  "publications": [
+   {
+    "publication": "news.meilleurtaux.com (ton)",
+    "n_avis": 11,
+    "statut": "bruit",
+    "n_evalues_20j": 29,
+    "excess_moy_20j": 0.0004531237442129
+   },
+   {
+    "publication": "The Markets Daily (beehiiv.com)",
+    "n_avis": 9,
+    "statut": "observation",
+    "n_evalues_20j": 0,
+    "excess_moy_20j": null
+   },
+   {
+    "publication": "thedailyupside.com (ton)",
+    "n_avis": 7,
+    "statut": "observation",
+    "n_evalues_20j": 4,
+    "excess_moy_20j": 0.1032546371545142
+   },
+   {
+    "publication": "Stock Ideas (Seeking Alpha)",
+    "n_avis": 6,
+    "statut": "bruit",
+    "n_evalues_20j": 29,
+    "excess_moy_20j": -0.0455105386477036
+   },
+   {
+    "publication": "aktionnaire.com (ton)",
+    "n_avis": 5,
+    "statut": "observation",
+    "n_evalues_20j": 11,
+    "excess_moy_20j": 0.0545951773724191
+   },
+   {
+    "publication": "Tech Daily (Seeking Alpha)",
+    "n_avis": 3,
+    "statut": "bruit",
+    "n_evalues_20j": 23,
+    "excess_moy_20j": -0.1044300201566368
+   },
+   {
+    "publication": "tradingsat.com",
+    "n_avis": 3,
+    "statut": "bruit",
+    "n_evalues_20j": 26,
+    "excess_moy_20j": -0.0191851232557633
+   },
+   {
+    "publication": "Energy Investing (Seeking Alpha)",
+    "n_avis": 3,
+    "statut": "bruit",
+    "n_evalues_20j": 28,
+    "excess_moy_20j": -0.0198458386909457
+   },
+   {
+    "publication": "zonebourse.com (ton)",
+    "n_avis": 2,
+    "statut": "observation",
+    "n_evalues_20j": 5,
+    "excess_moy_20j": 0.0193328139037012
+   },
+   {
+    "publication": "Stocks & Sectors (Seeking Alpha)",
+    "n_avis": 2,
+    "statut": "bruit",
+    "n_evalues_20j": 32,
+    "excess_moy_20j": -0.0382531406060292
+   },
+   {
+    "publication": "tipranks.com",
+    "n_avis": 2,
+    "statut": "observation",
+    "n_evalues_20j": 11,
+    "excess_moy_20j": -0.0529946666642345
+   },
+   {
+    "publication": "MoneyRadar (substack.com) (ton)",
+    "n_avis": 2,
+    "statut": "observation",
+    "n_evalues_20j": 3,
+    "excess_moy_20j": 0.1530362600793837
+   },
+   {
+    "publication": "Macro View Daily (Seeking Alpha)",
+    "n_avis": 2,
+    "statut": "observation",
+    "n_evalues_20j": 9,
+    "excess_moy_20j": -0.0611885068947884
+   },
+   {
+    "publication": "advisor.thedailyupside.com (ton)",
+    "n_avis": 1,
+    "statut": "observation",
+    "n_evalues_20j": 3,
+    "excess_moy_20j": 0.0189216305383832
+   },
+   {
+    "publication": "Morning Briefing (Seeking Alpha)",
+    "n_avis": 1,
+    "statut": "observation",
+    "n_evalues_20j": 9,
+    "excess_moy_20j": -0.1153993658662821
+   },
+   {
+    "publication": "Zacks Rank (email.zacks.com)",
+    "n_avis": 1,
+    "statut": "observation",
+    "n_evalues_20j": 7,
+    "excess_moy_20j": -0.1324359885342316
+   },
+   {
+    "publication": "etf.thedailyupside.com (ton)",
+    "n_avis": 1,
+    "statut": "observation",
+    "n_evalues_20j": 0,
+    "excess_moy_20j": null
+   },
+   {
+    "publication": "Must Reads (Seeking Alpha)",
+    "n_avis": 1,
+    "statut": "bruit",
+    "n_evalues_20j": 22,
+    "excess_moy_20j": -0.0191357370125394
+   }
+  ],
+  "actions_bot": []
+ },
+ {
   "semaine_fin": "2026-11-13",
   "semaine_debut": "2026-11-07",
   "genere_le": "2026-11-14T13:00:22+00:00",
