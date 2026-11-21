@@ -15,7 +15,7 @@
     "statut": "bruit",
     "edge_estime": -0.05026068909636192,
     "n_evenements": 24,
-    "t_stat": -2.606251314515325
+    "t_stat": -2.620156751277271
   },
   "statut": "en attente : aucune newsletter n'est encore fiable (il faut au moins 15 avis evalues a 20 jours et un t-stat >= 1.5, puis une confirmation sur les 15 avis suivants, t-stat >= 1) -- le capital reste en cash",
   "config": {
@@ -30,5 +30,5 @@
     "detention_min_jours": 3,
     "detention_max_jours": 30
   },
-  "derniere_maj_utc": "2026-11-20T21:48:49Z"
+  "derniere_maj_utc": "2026-11-21T03:13:45Z"
 }
